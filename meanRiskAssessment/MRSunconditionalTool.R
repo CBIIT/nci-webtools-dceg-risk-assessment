@@ -8,7 +8,12 @@ PPVNPVprobM_abcd <- function(PPV,NPV,probM,total) {
   c <- probnotDM*total
   d <- probnotDnotM*total
   abcd <- c(a,b,c,d)
-  abcd
+  if(a > 0 && b > 0 && c > 0 && d > 0) {
+    return(abcd)
+  }
+  else {
+    return("Error")
+  }
 }
 
 PPVNPVprobD_abcd <- function(PPV,NPV,probD,total) {
@@ -26,7 +31,12 @@ sensspecprobD_abcd <- function(sens,spec,probD,total) {
   c <- probnotDM*total
   d <- probnotDnotM*total
   abcd <- c(a,b,c,d)
-  abcd
+  if(a > 0 && b > 0 && c > 0 && d > 0) {
+    return(abcd)
+  }
+  else {
+    return("Error")
+  }
 }
 
 sensspecprobM_abcd <- function(sens,spec,probM,total) {
@@ -60,11 +70,12 @@ Va <- (a+c)*(a/(a+c))*(c/(a+c))*wpos^2 ; Vd <- (b+d)*(d/(b+d))*(b/(b+d))*wneg^2
 Vc <- Va; Vb <- Vd #by binomial, same variances for x or n-x
 
 # output
-columnnames <- c("Odds Ratio","Positive Predictive Value","complement of the Negative Predictive Value","Sensitivity",
-                 "Specificity", "Youden","Area Under the Curve","Marker Positivity","Prevalence","Danger",
-                 "Reassurance","Mean Risk Stratification","Risk Difference","Population Burden Stratification")
-output <- matrix(NA,nrow=1,ncol=length(columnnames))
-colnames(output) <- columnnames 
+rownames <- c("Odds Ratio","Standard Error (log scale)","Positive Predictive Value","Standard Error","complement of the Negative Predictive Value","Standard Error","Sensitivity",
+                 "Standard Error","Specificity","Standard Error", "Youden","Standard Error","Area Under the Curve","Standard Error","Marker Positivity","Standard Error",
+                 "Prevalence","Standard Error","Danger","Standard Error","Reassurance","Standard Error","Mean Risk Stratification","Standard Error",
+                 "Risk Difference","Standard Error","Population Burden Stratification","Standard Error")
+output <- matrix(NA,nrow=length(rownames),ncol=1)
+rownames(output) <- rownames 
 
 ##
 # Meat of the unconditional quadrinomial-based delta-method variance
@@ -77,13 +88,13 @@ V <- (1/n)*matrix(c(pa*(1-pa),-pa*pb,-pa*pc,-pa*pd,
 
 
 # Compute the log(OR) and its variance
-logOR <- log((b*wneg)/(c*wpos))
-VlogOR <- (b*wneg)^-2 * Vb + (c*wpos)^-2 * Vc
+OR <- a*d/b/c
+selogOR <- sqrt(1/a+1/b+1/c+1/d)
 # Add 0.5 to all cells if zero cells are a problem
 # logOR <- log(((b+0.5)*wneg)/((c+0.5)*wpos))
 # VlogOR <- ((b+0.5)*wneg)^-2 * Vb + ((c+0.5)*wpos)^-2 * Vc
 
-output[1,1] <- logOR
+output[1:2,1] <- c(OR,selogOR)
 
 
 # Compute PPV and NPV and sensitivity and specificity
@@ -121,7 +132,8 @@ VYouden <- t(delYouden) %*% V %*% delYouden
 AUC <- (Youden+1)/2
 VAUC <- VYouden/4
 
-output[1,2:7] <- c(PPV,1-NPV,sens,spec,Youden,AUC)
+output[3:14,1] <- c(PPV,sqrt(VPPV),1-NPV,sqrt(VNPV),sens,sqrt(Vsens),spec,sqrt(Vspec),
+                   Youden,sqrt(VYouden),AUC,sqrt(VAUC))
 
 
 ##
@@ -136,7 +148,8 @@ Vp <- t(delp) %*% V %*% delp
 
 delq <- c(1,1,0,0)
 Vq <- t(delq) %*% V %*% delq
-output[1,8:9] <- c(p,q)
+
+output[15:18,1] <- c(p,sqrt(Vp),q,sqrt(Vq))
 
 # Danger and reassurance
 danger <- PPV - q
@@ -153,7 +166,7 @@ delreassurance <- c(1 + pb*(1-1/(pb+pd)),
                     pb*(pb+pd)^-2)
 Vreassurance <- t(delreassurance) %*% V %*% delreassurance
 
-output[1,10:11] <- c(danger,reassurance)
+output[19:22,1] <- c(danger,sqrt(Vdanger),reassurance,sqrt(Vreassurance))
 
 # MRS and risk difference t
 MRS <- 2*(danger+reassurance)*p*(1-p)
@@ -162,13 +175,13 @@ VMRS <- 4*p^2*Vdanger
 t <- danger+reassurance
 Vt <- Va/Mpos^2 + Vb/Mneg^2
 
-output[1,12:13] <- c(MRS,t)
+output[23:26,1] <- c(MRS,sqrt(VMRS),t,sqrt(Vt))
 
 # Population burden stratification D
 D <- a/(a+b+c+d) - b/(a+b+c+d)
 VD <- Va/n^2 + Vb/n^2
 
-output[1,14] <- D
+output[27:28,1] <- c(D,sqrt(VD))
 
 # End
 return(output)
