@@ -1,0 +1,83 @@
+#results.panel.panel-default
+    var params = params
+    var calc = calc
+    table.table.table-bordered.table-condensed
+        thead
+            tr
+                th.text-center(colspan='2') Parameters
+            tr
+                th.active Name
+                th.active Value
+        tbody
+            tr
+                td.termToDefine paper P(M+)
+                td.output#paper_m_plus
+            tr
+                td.termToDefine Consistent q=P(D)
+                td.output#consistent
+            tr
+                td.termToDefine paper PPV
+                td.output#paper_ppv
+            tr
+                td.termToDefine paper cNPV
+                td.output#paper_cnpv
+            tr
+                td.termToDefine consistent Sensitivity
+                td.output#consistent_sensitivity
+            tr
+                td.termToDefine consistent Specificity
+                td.output#consistent_specificity
+            tr
+                td.termToDefine consistent cSpec
+                td.output#consistent_cspec
+            tr
+                td.termToDefine RR=PPV/cNPV
+                td.output#ppv_cnpv
+            tr
+                td.termToDefine t=Risk Diff
+                td.output#t
+            tr
+                td.termToDefine j=Youden
+                td.output#j
+            tr
+                td.termToDefine AUC = (Youden+1)/2
+                td.output#auc
+    table.table.table-bordered.table-condensed
+        tr
+            th.text-center(colspan='3') Calculations
+        tr
+            th.active  
+            th.active HPV
+            th.active HPV Standard Error
+        tr
+            td#danger.termToDefine Danger
+            td.output#danger_result
+            td.output#danger_se
+        tr
+            td#reassurance.termToDefine Reassurance
+            td.output#reassurance_result
+            td.output#reassurance_se
+        tr
+            td#qSens.termToDefine Quality of the sensitivity
+            td.output#qsens_result
+            td.output#qsense_se
+        tr
+            td#qSpec.termToDefine Quality of the specificity
+            td.output#qspec_result
+            td.output#qspec_se
+        tr
+            td#mrs.termToDefine Mean Risk Stratification (MRS)
+            td.output#mrs_result
+            td.output#mrs_se
+        tr
+            td#maxMRS.termToDefine Maximum possible MRS for a disease with this prevalence
+            td.output#max_mrs_result
+            td.output#max_mrs_se
+        tr
+            td#pbs.termToDefine Population Burden Stratification (PBS)
+            td.output#mrs_result
+            td.output#mrs_se
+        tr
+            td#nnr.termToDefine Number Needed to Recruit (NNR)
+            td.output#nnr_result
+            td.output#nnr_se

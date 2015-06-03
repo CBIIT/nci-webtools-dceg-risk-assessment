@@ -1,0 +1,29 @@
+{
+  "parameters": {
+    "paper_m_plus": "7.643510e-03",
+    "consistent": "7.643510e-03",
+    "paper_ppv": "9.092309e-02",
+    "paper_cnpv": "7.643510e-03",
+    "consistent_sensitivity": "1.133773e-03",
+    "consistent_specificity": "9.092309e-02",
+    "consistent_cspec": "1.133773e-03",
+    "ppv_cnpv": "1.133773e-03",
+    "t": "8.165507e-01",
+    "j": "1.508018e-02",
+    "auc": "8.165507e-01"
+  },
+  "calculations": {
+    "danger": "8.165507e-01",
+    "danger_se": "1.508018e-02",
+    "reassurance": "8.165507e-01",
+    "reassurance_se": "8.165507e-01",
+    "qsense": "8.165507e-01",
+    "qsense_se": "1.508018e-02",
+    "qspec": "1.508018e-02",
+    "qspec_se": "1.508018e-02",
+    "mrs": "9.092309e-02",
+    "mrs_se": "4.018564e-03",
+    "nnr": "1.508018e-02",
+    "nnr_se": "6.913909e-04"
+  }
+}

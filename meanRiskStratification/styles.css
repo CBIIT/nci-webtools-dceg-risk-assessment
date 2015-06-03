@@ -1,31 +1,15 @@
-table input[type="text"] {
-  width: 50px;
-}
 .red {
   background-color: #a90101;
-}
-.title {
-  background: #d3d3d3;
-}
-.top-header {
-  text-align: center;
-  color: #fff;
-}
-.header {
-  background-color: #aaa;
-  color: #444;
-}
-.well,
-#results {
-  min-height: 645px;
-}
-.panel-toggle a,
-.panel-title a {
-  color: #000;
 }
 #main {
   width: 1100px;
   margin: 0 auto;
+}
+.title {
+  background: #d3d3d3;
+}
+table input[type="text"] {
+  width: 50px;
 }
 #portal-footer {
   clear: both;
@@ -37,6 +21,22 @@ table input[type="text"] {
   background-color: #fff;
   color: #333;
   font-size: 79%;
+}
+.top-header {
+  text-align: center;
+  color: #fff;
+}
+.header {
+  background-color: #aaa;
+  color: #444;
+}
+.panel-toggle a,
+.panel-title a {
+  color: #000;
+}
+.well,
+#results {
+  min-height: 645px;
 }
 #markers th.header {
   font-size: small;
