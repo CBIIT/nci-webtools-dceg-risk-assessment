@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mean Risk Stratification (MRS)</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="scripts.js"></script>
+    <!-- <script src="../compTools/bc/bc.js"></script>-->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/common/css/font-awesome.css" type="text/css">
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" type="text/css">
+    <link rel="stylesheet" href="/common/css/style.css" type="text/css">
+    <link rel="stylesheet" href="styles.css" type="text/css">
+  </head>
+  <body>
+    <div class="center-block"><a href="#markers" class="sr-only">Skip to Content</a>
+      <div id="wrapper">
+        <div id="logos">
+          <div id="left"><a href="http://www.cancer.gov" target="_blank"><img src="/common/images/nci.jpg" width="286" height="40" border="0" alt="National Cancer Institute" title="National Cancer Institute"></a></div>
+          <div id="right"><a href="http://www.cancer.gov" target="_blank"><img src="/common/images/nih.jpg" width="322" height="40" border="0" alt="at the National Institutes of Health" title="at the National Institutes of Health"></a></div>
+        </div>
+      </div><br>
+      <div id="main">
+        <div id="banners">
+          <div id="left"><img src="/common/images/DCEG-BB-HREB.png" alt="NCI Division of Cancer Epidemiology, Genetics Biostatistics Branch, Hormonal and Reproductive Epidemiology Branch" height="43"></div><br>
+        </div>
+        <h2 title="Mean Risk Stratification" class="title text-center">Mean Risk Stratification (MRS)</h2>
+        <div class="col-md-4">
+          <div id="markers" class="col-md-12 well">
+            <div class="marker panel-group">
+              <div class="row bg-primary">
+                <div class="text-center marker-title">Biomarker #1</div>
+              </div>
+              <div class="row">
+                <div class="panel panel-default">
+                  <div class="panel-title top-header"><a data-toggle="collapse" data-parent="#accordion" href="#marker-1-panel-1" class="panel-toggle">Option 1<span class="caret"></span></a></div>
+                  <div id="marker-1-panel-1" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                      <table class="option-1 table table-bordered table-condensed table-responsive">
+                        <tr class="active">
+                          <th class="col-md-2 header"></th>
+                          <th id="mPlus" class="termToDefine header">M+</th>
+                          <th id="mMinus" class="termToDefine header">M-</th>
+                        </tr>
+                        <tr>
+                          <th id="dPlus" class="termToDefine header active">D+</th>
+                          <td>
+                            <label for="a" class="sr-only">A</label>
+                            <input id="a" name="a" type="text">
+                          </td>
+                          <td>
+                            <label for="b" class="sr-only">B</label>
+                            <input id="b" name="b" type="text">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th id="dMinus" class="termToDefine header active">D-</th>
+                          <td>
+                            <label for="c" class="sr-only">C</label>
+                            <input id="c" name="c" type="text">
+                          </td>
+                          <td>
+                            <label for="d" class="sr-only">D</label>
+                            <input id="d" name="d" type="text">
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="top-header">
+                    <div class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#marker-1-panel-2" class="panel-toggle">Option 2<span class="caret"></span></a></div>
+                  </div>
+                  <div id="marker-1-panel-2" class="panel-collapse collapse">
+                    <div class="panel-body">
+                      <table class="option-2 table table-condensed table-bordered table-responsive">
+                        <thead>
+                          <tr class="active">
+                            <th class="header">
+                              <div id="paramType" data-term="param_type">Parameter</div>
+                            </th>
+                            <th class="header">
+                              <div id="paramValue" data-term="param_value">Value</div>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr row="0" class="param_row">
+                            <td class="input">
+                              <select>
+                                <option value="ppv">PPV</option>
+                                <option value="sens">Sensitivity</option>
+                              </select><span class="dd termToDefine glyphicon glyphicon-info-sign"></span>
+                            </td>
+                            <td name="a" row="0" class="input specificity">
+                              <input type="text">
+                            </td>
+                          </tr>
+                          <tr row="1">
+                            <td class="input">
+                              <select>
+                                <option value="npv">NPV</option>
+                                <option value="spec">Specificity</option>
+                                <option value="(dMinus">Negative Probability of Disease</option>
+                              </select><span class="dd termToDefine glyphicon glyphicon-info-sign"></span>
+                            </td>
+                            <td class="input">
+                              <input name="param_value_2" type="text">
+                            </td>
+                          </tr>
+                          <tr row="2">
+                            <td row="2" col="param_type" class="input">
+                              <select>
+                                <option value="mPlus">Marker Positivity</option>
+                                <option value="dPlus">Positive Probability of Disease</option>
+                              </select><span class="dd termToDefine glyphicon glyphicon-info-sign"></span>
+                            </td>
+                            <td row="1" col="param_value" class="input specificity">
+                              <input name="d" type="text">
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="control-group" class="col-md-12">
+            <div class="row pull-right">
+              <button id="add-marker"><span class="glyphicon glyphicon-plus-sign"></span></button>
+              <button id="delete-marker"><span class="glyphicon glyphicon-minus-sign"></span></button>
+              <button id="reset" type="reset">Reset</button>
+              <button id="calculate" type="button">Calculate</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div id="results" class="panel panel-default">
+            <var>params = params</var>
+            <var>calc = calc</var>
+            <table class="table table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th colspan="2" class="text-center">Parameters</th>
+                </tr>
+                <tr>
+                  <th class="active">Name</th>
+                  <th class="active">Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="termToDefine">paper P(M+)</td>
+                  <td>{{params.paper_m_plus}}</td>
+                </tr>
+                <tr>
+                  <td class="termToDefine">Consistent q=P(D)</td>
+                  <td>{{params.consistent}}</td>
+                </tr>
+                <tr>
+                  <td class="termToDefine">paper PPV</td>
+                  <td>{{params.paper_ppv}}</td>
+                </tr>
+                <tr>
+                  <td class="termToDefine">paper cNPV</td>
+                  <td>{{params.paper_cnpv}}</td>
+                </tr>
+                <tr>
+                  <td class="termToDefine">consistent Sensitivity</td>
+                  <td>{{params.consistent_sensitivity}}</td>
+                </tr>
+                <tr>
+                  <td class="termToDefine">consistent Specificity</td>
+                  <td>{{params.consistent_specificity}}</td>
+                </tr>
+                <tr>
+                  <td class="termToDefine">consistent cSpec</td>
+                  <td>{{params.consistent_cspec}}</td>
+                </tr>
+                <tr>
+                  <td class="termToDefine">RR=PPV/cNPV</td>
+                  <td>{{params.ppv_cnpv}}</td>
+                </tr>
+                <tr>
+                  <td class="termToDefine">t=Risk Diff</td>
+                  <td>{{params.t}}</td>
+                </tr>
+                <tr>
+                  <td class="termToDefine">j=Youden</td>
+                  <td>{{params.j}}</td>
+                </tr>
+                <tr>
+                  <td class="termToDefine">AUC = (Youden+1)/2</td>
+                  <td>{{params.auc}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table table-bordered table-condensed">
+              <tr>
+                <th colspan="3" class="text-center">Calculations</th>
+              </tr>
+              <tr>
+                <th class="active">&nbsp;</th>
+                <th class="active">HPV</th>
+                <th class="active">HPV Standard Error</th>
+              </tr>
+              <tr>
+                <td id="danger" class="termToDefine">Danger</td>
+                <td>{{calc.danger}}</td>
+                <td>{{calc.danger_se}}</td>
+              </tr>
+              <tr>
+                <td id="reassurance" class="termToDefine">Reassurance</td>
+                <td>{{calc.reassurance}}</td>
+                <td>{{calc.reassurance_se}}</td>
+              </tr>
+              <tr>
+                <td id="qSens" class="termToDefine">Quality of the sensitivity</td>
+                <td>{{calc.qsens}}</td>
+                <td>{{calc.qsense_se}}</td>
+              </tr>
+              <tr>
+                <td id="qSpec" class="termToDefine">Quality of the specificity</td>
+                <td>{{calc.qspec}}</td>
+                <td>{{calc.qspec_se}}</td>
+              </tr>
+              <tr>
+                <td id="mrs" class="termToDefine">Mean Risk Stratification (MRS)</td>
+                <td>{{calc.mrs}}</td>
+                <td>{{calc.mrs_se}}</td>
+              </tr>
+              <tr>
+                <td id="maxMRS" class="termToDefine">Maximum possible MRS for a disease with this prevalence</td>
+                <td>{{calc.max_mrs}}</td>
+                <td>{{calc.max_mrs_se}}</td>
+              </tr>
+              <tr>
+                <td id="pbs" class="termToDefine">Population Burden Stratification (PBS)</td>
+                <td>{{calc.mrs}}</td>
+                <td>{{calc.mrs_se}}</td>
+              </tr>
+              <tr>
+                <td id="nnr" class="termToDefine">Number Needed to Recruit (NNR)</td>
+                <td>{{calc.nnr}}</td>
+                <td>{{calc.nnr_se}}</td>
+              </tr>
+            </table>
+            <!--display 2 tables for result set parameters, calculations-->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="portal-footer">
+      <div class="footerLinks"><a href="http://www.cancer.gov/" title="Home" data-toggle="tooltip" data-placement="left" target="_blank">APC</a>&#124;&nbsp;<a href="mailto:jpsurv-admin@mail.nih.gov?subject=JP%20Surv" target="_top" title="Support">Support</a>&#124;&nbsp;<a href="http://www.cancer.gov/global/web/policies" title="Policies" target="_blank">Policies</a>&#124;&nbsp;<a href="http://www.cancer.gov/global/web/policies/accessibility" title="Accessibility" target="_blank">Accessibility</a>&#124;<a href="http://cancer.gov/global/viewing-files" target="_blank" title="Viewing Files">Viewing Files</a>&#124;&nbsp;<a href="http://www.cancer.gov/global/web/policies/foia" title="FOIA" target="_blank">FOIA</a><br><br><a href="http://www.dhhs.gov/" target="_blank">&#124; Department of Health and Human Services</a>&nbsp;<a href="http://www.nih.gov/" target="_blank">&#124; National Institutes of Health</a>&nbsp;<a href="http://www.cancer.gov/" target="_blank">&#124; National Cancer Institute</a>&#124;&nbsp;<a href="http://www.usa.gov/" target="_blank">USA.gov</a></div><br><br>&#124;       NIH...Turning Discovery Into Health<sup>&#174;</sup>
+    </div>
+  </body>
+</html>
