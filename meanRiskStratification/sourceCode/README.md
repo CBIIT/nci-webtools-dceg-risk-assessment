@@ -19,4 +19,4 @@ Install required packages:
 3.    `$ npm install` -- to download node packages required for this project (Only need to run when first pulling down code or when new node_packages are added in package.json)
 4.    `$ npm run build` -- to compile code which is placed in the xampp folder
 
-* Once compiled the code will be generated one folder level above the gulpfile.js in a folder called 'risk-assessment'
+* Once compiled the code will be generated one folder level above the gulpfile.js in the project root directory
