@@ -1,40 +1,48 @@
 #results.panel.panel-default
-    var params = params
-    var calc = calc
     table.table.table-bordered.table-condensed
         thead
             tr
-                th.text-center(colspan='2') Parameters
-            tr
-                th.active Name
-                th.active Value
+                th.active Parameters
+                th.active HPV
         tbody
             tr
-                td.termToDefine paper P(M+)
-                td.output#paper_m_plus
+                td P(D,M+)=PPV*p
+                td.output#d_plus_m_plus
             tr
-                td.termToDefine Consistent q=P(D)
-                td.output#consistent
+                td P(D,M-)=cNPV*(1-p)
+                td.output#d_plus_m_minus
             tr
-                td.termToDefine paper PPV
-                td.output#paper_ppv
+                td P(D-,M+)=cPPV*p
+                td.output#d_minus_m_plus
             tr
-                td.termToDefine paper cNPV
-                td.output#paper_cnpv
+                td P(D-,M-)=NPV*(1-p)
+                td.output#d_minus_m_minus
             tr
-                td.termToDefine consistent Sensitivity
-                td.output#consistent_sensitivity
+                td.termToDefine P(M+)
+                td.output#m_plus
             tr
-                td.termToDefine consistent Specificity
-                td.output#consistent_specificity
+                td.termToDefine P(D+)
+                td.output#d_plus
             tr
-                td.termToDefine consistent cSpec
-                td.output#consistent_cspec
+                td.termToDefine Positive Predictive Value
+                td.output#ppv
+            tr
+                td.termToDefine Complement of Negative Predictive Value
+                td.output#comp_npv
+            tr
+                td.termToDefine Sensitivity
+                td.output#sense
+            tr
+                td.termToDefine Specificity
+                td.output#spec
+            tr
+                td.termToDefine Complement of Specificity
+                td.output#comp_spec
             tr
                 td.termToDefine RR=PPV/cNPV
-                td.output#ppv_cnpv
+                td.output#rr_ppv
             tr
-                td.termToDefine t=Risk Diff
+                td.termToDefine t=Risk Difference
                 td.output#t
             tr
                 td.termToDefine j=Youden
@@ -44,40 +52,29 @@
                 td.output#auc
     table.table.table-bordered.table-condensed
         tr
-            th.text-center(colspan='3') Calculations
-        tr
-            th.active  
-            th.active HPV
-            th.active HPV Standard Error
+            th.active Output
+            th.active HPV (CI Low, CI High)
         tr
             td#danger.termToDefine Danger
-            td.output#danger_result
-            td.output#danger_se
+            td.output#danger
         tr
             td#reassurance.termToDefine Reassurance
-            td.output#reassurance_result
-            td.output#reassurance_se
+            td.output#reassurance
         tr
             td#qSens.termToDefine Quality of the sensitivity
-            td.output#qsens_result
-            td.output#qsense_se
+            td.output#qsense
         tr
             td#qSpec.termToDefine Quality of the specificity
-            td.output#qspec_result
-            td.output#qspec_se
+            td.output#qspec
         tr
             td#mrs.termToDefine Mean Risk Stratification (MRS)
-            td.output#mrs_result
-            td.output#mrs_se
+            td.output#mrs
         tr
             td#maxMRS.termToDefine Maximum possible MRS for a disease with this prevalence
-            td.output#max_mrs_result
-            td.output#max_mrs_se
+            td.output#max_poss
         tr
             td#pbs.termToDefine Population Burden Stratification (PBS)
-            td.output#mrs_result
-            td.output#mrs_se
+            td.output#pbs
         tr
             td#nnr.termToDefine Number Needed to Recruit (NNR)
-            td.output#nnr_result
-            td.output#nnr_se
+            td.output#nnr
