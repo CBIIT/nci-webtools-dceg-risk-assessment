@@ -1,0 +1,80 @@
+#results.panel.panel-default
+    table.table.table-bordered.table-condensed
+        thead
+            tr
+                th.active Parameters
+                th.active HPV
+        tbody
+            tr
+                td P(D,M+)=PPV*p
+                td.output#d_plus_m_plus
+            tr
+                td P(D,M-)=cNPV*(1-p)
+                td.output#d_plus_m_minus
+            tr
+                td P(D-,M+)=cPPV*p
+                td.output#d_minus_m_plus
+            tr
+                td P(D-,M-)=NPV*(1-p)
+                td.output#d_minus_m_minus
+            tr
+                td.termToDefine P(M+)
+                td.output#m_plus
+            tr
+                td.termToDefine P(D+)
+                td.output#d_plus
+            tr
+                td.termToDefine Positive Predictive Value
+                td.output#ppv
+            tr
+                td.termToDefine Complement of Negative Predictive Value
+                td.output#comp_npv
+            tr
+                td.termToDefine Sensitivity
+                td.output#sense
+            tr
+                td.termToDefine Specificity
+                td.output#spec
+            tr
+                td.termToDefine Complement of Specificity
+                td.output#comp_spec
+            tr
+                td.termToDefine RR=PPV/cNPV
+                td.output#rr_ppv
+            tr
+                td.termToDefine t=Risk Difference
+                td.output#t
+            tr
+                td.termToDefine j=Youden
+                td.output#j
+            tr
+                td.termToDefine AUC = (Youden+1)/2
+                td.output#auc
+    table.table.table-bordered.table-condensed
+        tr
+            th.active Output
+            th.active HPV (CI Low, CI High)
+        tr
+            td#danger.termToDefine Danger
+            td.output#danger
+        tr
+            td#reassurance.termToDefine Reassurance
+            td.output#reassurance
+        tr
+            td#qSens.termToDefine Quality of the sensitivity
+            td.output#qsense
+        tr
+            td#qSpec.termToDefine Quality of the specificity
+            td.output#qspec
+        tr
+            td#mrs.termToDefine Mean Risk Stratification (MRS)
+            td.output#mrs
+        tr
+            td#maxMRS.termToDefine Maximum possible MRS for a disease with this prevalence
+            td.output#max_poss
+        tr
+            td#pbs.termToDefine Population Burden Stratification (PBS)
+            td.output#pbs
+        tr
+            td#nnr.termToDefine Number Needed to Recruit (NNR)
+            td.output#nnr
