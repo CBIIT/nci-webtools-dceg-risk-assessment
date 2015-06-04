@@ -2,19 +2,19 @@
 var definitionObj = {
     mPlus: {
         term: "Marker Positivity (M+)",
-        definition: "Definition for M plus"
+        definition: "Positive test result for biomarker"
     },
     mMinus: {
         term: "Marker Negativity (M-)",
-        definition: "Definition for M minus"
+        definition: "Negative test result for biomarker test"
     },
     dPlus: {
         term: "Positive Probability of Disease (Disease Positive)",
-        definition: "Definition for Disease Positive"
+        definition: "Has disease"
     },
     dMinus: {
         term: "Negative Probability of Disease (Disease Negative)",
-        definition: "Definition for Disease Negative"
+        definition: "Does not have disease"
     },
     danger: {
         term: "Danger",
@@ -54,13 +54,13 @@ var definitionObj = {
         definition: "Sensitivity is the proportion whose biomarker test is positive (above the threshold) among " +
         "those who are positive for disease."
     },
-    ppv : {
-        term : "Positive Predictive Value (PPV)",
-        definition : "Probability of disease, given a positive test result from biomarker.  Unlike sensitivity " +
+    ppv: {
+        term: "Positive Predictive Value (PPV)",
+        definition: "Probability of disease, given a positive test result from biomarker.  Unlike sensitivity " +
         "and specificity, PPV's reflect disease prevalence and is useful for risk stratification."
     },
-    npv : {
-        term : "Negative Predictive Value (NPV)",
-        definition : "Definition for NPV"
+    npv: {
+        term: "Negative Predictive Value (NPV)",
+        definition: "Definition for NPV"
     }
 };
