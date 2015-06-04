@@ -1,82 +1,86 @@
-#markers.col-md-12.well
-   .marker.panel-group
-      .row.bg-primary
-         .text-center.marker-title Biomarker #1
-      .row
-         .panel.panel-default
-            .panel-title.top-header
-               a.panel-toggle(data-toggle='collapse', data-parent='#accordion', href='#marker-1-panel-1')
-                  | Option 1
-                  span.caret
-            #marker-1-panel-1.panel-collapse.collapse.in
-               .panel-body
-                  table.option-1.table.table-bordered.table-condensed.table-responsive
-                     tr.active
-                        th.col-md-2.header
-                        th#mPlus.termToDefine.header Marker Positive (M+)
-                        th#mMinus.termToDefine.header Marker Negative (M-)
-                     tr
-                        th#dPlus.termToDefine.header.active Disease Positive (D+)
-                        td
-                           label.sr-only(for='a') A
-                           input#a(name='a', type='text')
-                        td
-                           label.sr-only(for='b') B
-                           input#b(name='b', type='text')
-                     tr
-                        th#dMinus.termToDefine.header.active disease Negative (D-)
-                        td
-                           label.sr-only(for='c') C
-                           input#c(name='c', type='text')
-                        td
-                           label.sr-only(for='d') D
-                           input#d(name='d', type='text')
-         .panel.panel-default
-            .top-header
+.col-md-12.well
+   #markers.panel-group
+      .marker
+         .row.bg-primary
+            .text-center.marker-title Biomarker #1
+         .row
+            .panel.panel-default
                .panel-title
-                  a.panel-toggle(data-toggle='collapse', data-parent='#accordion', href='#marker-1-panel-2')
+                  a.panel-toggle(data-toggle='collapse', data-parent='#markers', href='#marker-1-panel-1')
+                     | Option 1
+                     span.caret
+               #marker-1-panel-1.panel-collapse.collapse.in
+                  .panel-body
+                     table.option-1.table.table-striped.table-condensed.table-responsive
+                        tr.active
+                           th.col-md-2.header
+                            .sr-only Empty cell
+                                a(href="#mPlus") Skip to Content
+                           th#mPlus.termToDefine.header Marker Positive (M+)
+                           th#mMinus.termToDefine.header Marker Negative (M-)
+                        tr
+                           th#dPlus.termToDefine.header.active Disease Positive (D+)
+                           td
+                              label.sr-only(for='a') A
+                              input#a.input(name='a', type='text')
+                           td
+                              label.sr-only(for='b') B
+                              input#b.input(name='b', type='text')
+                        tr
+                           th#dMinus.termToDefine.header.active Disease Negative (D-)
+                           td
+                              label.sr-only(for='c') C
+                              input#c.input(name='c', type='text')
+                           td
+                              label.sr-only(for='d') D
+                              input#d.input(name='d', type='text')
+            .panel.panel-default
+               .panel-title
+                  a.panel-toggle(data-toggle='collapse', data-parent='#markers', href='#marker-1-panel-2')
                      | Option 2
                      span.caret
-            #marker-1-panel-2.panel-collapse.collapse
-               .panel-body
-                  table.option-2.table.table-condensed.table-bordered.table-responsive
-                     thead
-                        tr.active
-                           th.header
-                              #paramType(data-term='param_type') Parameter
-                           th.header
-                              #paramValue(data-term='param_value') Value
-                     tbody
-                        tr.param_row(row='0')
-                           td.input
-                              select
-                                 option(value='ppv') PPV
-                                 option(value='sens') Sensitivity
-                              span.dd.termToDefine.glyphicon.glyphicon-info-sign
-                           td.input.specificity(name='a', row='0')
-                              input(type='text')
-                        tr(row='1')
-                           td.input
-                              select
-                                 option(value='npv') NPV
-                                 option(value='spec') Specificity
-                                 option(value='(dMinus') Negative Probability of Disease
-                              span.dd.termToDefine.glyphicon.glyphicon-info-sign
-                           td.input
-                              input(name='param_value_2', type='text')
-                        tr(row='2')
-                           td.input(row='2', col='param_type')
-                              select
-                                 option(value='mPlus') Marker Positivity
-                                 option(value='dPlus') Positive Probability of Disease
-                              span.dd.termToDefine.glyphicon.glyphicon-info-sign
-                           td.input.specificity(row='1', col='param_value')
-                              input(name='d', type='text')
+               #marker-1-panel-2.panel-collapse.collapse
+                  .panel-body
+                     table.option-2.table.table-condensed.table-striped.table-responsive
+                        thead
+                           tr.active
+                              th.header
+                                 #paramType(data-term='param_type') Parameter
+                              th.header
+                                 #paramValue(data-term='param_value') Value
+                        tbody
+                           tr.param_row(row='0')
+                              td
+                                 select.input
+                                    option(value='ppv') PPV
+                                    option(value='sens') Sensitivity
+                                 span.dd.termToDefine.glyphicon.glyphicon-info-sign
+                              td.input.specificity(name='a', row='0')
+                                 input.input(type='text')
+                           tr(row='1')
+                              td
+                                 select.input
+                                    option(value='npv') NPV
+                                    option(value='spec') Specificity
+                                    option(value='(dMinus') Negative Probability of Disease
+                                 span.dd.termToDefine.glyphicon.glyphicon-info-sign
+                              td
+                                  input.input(name='param_value_2', type='text')
+                           tr(row='2')
+                              td(row='2', col='param_type')
+                                 select.input
+                                    option(value='mPlus') Marker Positivity
+                                    option(value='dPlus') Positive Probability of Disease
+                                 span.dd.termToDefine.glyphicon.glyphicon-info-sign
+                              td.specificity(row='1', col='param_value')
+                                 input.input(name='d', type='text')
 #control-group.col-md-12
    .row.pull-right
       button#add-marker
-         span.glyphicon.glyphicon-plus-sign
-      button#delete-marker
-         span.glyphicon.glyphicon-minus-sign
+         span.glyphicon.glyphicon-plus-sign(alt="Add(+)")
+         span.sr-only Add Biomarker
+      button#delete-marker(value="delete biomarker")
+         span.glyphicon.glyphicon-minus-sign(alt="Delete(-)")
+         span.sr-only Delete Biomarker
       button#reset(type='reset') Reset
       button#calculate(type='button') Calculate
