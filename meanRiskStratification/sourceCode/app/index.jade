@@ -1,7 +1,7 @@
 doctype html
-html
+html(lang="en")
     head
-        title UI Demo
+        title Mean Risk Stratification (MRS)
         meta(http-equiv='content-type', content='text/html; charset=utf-8')
         meta(http-equiv='X-UA-Compatible', content='IE=edge')
         script(src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
@@ -9,9 +9,9 @@ html
         script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js')
         script(src='scripts.js')
         // <script src="../compTools/bc/bc.js"></script>
-        link(rel='stylesheet', href='common/css/font-awesome.css', type='text/css')
+        link(rel='stylesheet', href='/common/css/font-awesome.css', type='text/css')
         link(rel='stylesheet', href='//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css')
-        link(rel='stylesheet', href='common/css/style.css')
+        link(rel='stylesheet', href='/common/css/style.css')
         link(rel='stylesheet', href='styles.css')
         link(rel='stylesheet', href='http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css', type='text/css')
 
@@ -27,7 +27,7 @@ html
                         alt='Banner for NCI Division of Cancer Epidemiology, Genetics Biostatistics Branch, Hormonal and Reproductive Epidemiology Branch ',
                         height='43')
                     br
-                h2.title.text-center(title='Tool Title') Tool Title
+                h1.h2.title.text-center(title='Mean Risk Stratification') Mean Risk Stratification (MRS)
                 .col-md-4
                     include partials/biomarker.jade
                 .col-md-6
