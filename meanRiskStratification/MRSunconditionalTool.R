@@ -207,12 +207,15 @@ MRSunconditional <- function(abcd) {
   probnotDnotM <- d/n
   
   # output
-  rownames <- c("a","b","c","d","P(D+,M+)", "P(D+,M-)","P(D-,M+)","P(D-,M-)","Marker Positivity","Disease Prevalence","Positive Predictive Value","complement of the Negative Predictive Value","Sensitivity",
-                "Specificity","complement of the Specificity","RR","Risk Difference", "Youden","Area Under the Curve","Danger","Reassurance","Quality of the sensitvity","Quality of the specificity",
-                "Mean Risk Stratification","Maximum possible MRS", "Population Burden Stratification","Number Needed to Recruit","Number Needed to Screen")
-  output <- matrix(c(a,b,c,d,probDM,probDnotM,probnotDM,probnotDnotM,p,q,PPV,(1-NPV),sens,spec,(1-spec),rr,t,Youden,AUC,danger,reassurance,dangerstar,reassurancestar,MRS,maxMRS,D,nnr,nns,rep(NA,8),pCI[1],qCI[1],PPVCI[1],cNPVCI[1],sensCI[1],specCI[1],rep(NA,2),tCI[1],YoudenCI[1],AUCCI[1],dangerCI[1],reassuranceCI[1],NA,NA,MRSCI[1],NA,DCI[1],NA,NA,rep(NA,8),pCI[2],qCI[2],PPVCI[2],cNPVCI[2],sensCI[2],specCI[2],rep(NA,2),tCI[2],YoudenCI[2],AUCCI[2],dangerCI[2],reassuranceCI[2],NA,NA,MRSCI[2],NA,DCI[2],NA,NA),nrow=length(rownames),ncol=3,byrow=F)
-  rownames(output) <- rownames
-  colnames(output) <- c("Value","Confidence Interval (lower bound)", "Confidence Interval (upper bound)")
+  paramrows <- c("a","b","c","d","P(D+,M+)", "P(D+,M-)","P(D-,M+)","P(D-,M-)","Marker Positivity","Disease Prevalence","Positive Predictive Value","complement of the Negative Predictive Value","Sensitivity","Specificity","complement of the Specificity","RR","Risk Difference", "Youden","Area Under the Curve")
+  parameters <- matrix(c(a,b,c,d,probDM,probDnotM,probnotDM,probnotDnotM,p,q,PPV,(1-NPV),sens,spec,(1-spec),rr,t,Youden,AUC,rep(NA,8),pCI[1],qCI[1],PPVCI[1],cNPVCI[1],sensCI[1],specCI[1],rep(NA,2),tCI[1],YoudenCI[1],AUCCI[1],rep(NA,8),pCI[2],qCI[2],PPVCI[2],cNPVCI[2],sensCI[2],specCI[2],rep(NA,2),tCI[2],YoudenCI[2],AUCCI[2]),nrow=length(paramrows),ncol=3,byrow=F)         
+  rownames(parameters) <- paramrows
+  colnames(parameters) <- c("Value","Confidence Interval (lower bound)", "Confidence Interval (upper bound)")
+  calcrows <- c("Danger","Reassurance","Quality of the sensitvity","Quality of the specificity","Mean Risk Stratification","Maximum possible MRS", "Population Burden Stratification","Number Needed to Recruit","Number Needed to Screen")
+  calculations <- matrix(c(danger,reassurance,dangerstar,reassurancestar,MRS,maxMRS,D,nnr,nns,dangerCI[1],reassuranceCI[1],NA,NA,MRSCI[1],NA,DCI[1],NA,NA,dangerCI[2],reassuranceCI[2],NA,NA,MRSCI[2],NA,DCI[2],NA,NA),nrow=length(calcrows),ncol=3,byrow=F)
+  rownames(calculations) <- calcrows
+  colnames(calculations) <- c("Value","Confidence Interval (lower bound)", "Confidence Interval (upper bound)")
+  output <- list(parameters,calculations)
   
   # End
   return(output)
