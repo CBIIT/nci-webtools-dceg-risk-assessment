@@ -145,13 +145,19 @@ function display_definition() {
 function calculate() {
     var params, calc;
     var input = extract_values();
+    var host = window.location.hostname;
+
+    if (host == 'localhost') service = 'ncias-d1207-v.nci.nih.gov:8080/meanstoriskRest/';
+    else {
+        var service = "http://" + host + "/mrsRest";
+    }
 
     // ajax call, change to actual service name
     var promise = $.ajax({
         method: 'POST',
-        url: "test_json.json",
-        data: input,
-        contentType: 'text/json'
+        contentType: 'text/json',
+        url: service,
+        data: input
     });
 
     promise.then(function (data) {
@@ -193,7 +199,7 @@ function extract_values() {
                 values["bm_" + i][element.name] = element.value;
 
                 // set option value if there is none
-                if(!values["bm_" + i].option){
+                if (!values["bm_" + i].option) {
                     values["bm_" + i].option = 1;
                 }
             }
@@ -203,10 +209,12 @@ function extract_values() {
         if (!values["bm_" + i].option) {
             values["bm_" + i].option = 2;
 
-            option_2_controls.forEach(function (element, index, array) {
-                // create key value pair in bm_# object
-                values["bm_" + i][element.name] = element.value;
-            });
+            // manually mapping each value pair
+            values["bm_" + i][option_2_controls[0].value] =option_2_controls[1].value;
+            values["bm_" + i][option_2_controls[2].value] =option_2_controls[3].value;
+            values["bm_" + i][option_2_controls[4].value] =option_2_controls[5].value;
+            values["bm_" + i]["sample_size"] =option_2_controls[6].value;
+
         }
 
     } while (i != currentMarkers);
