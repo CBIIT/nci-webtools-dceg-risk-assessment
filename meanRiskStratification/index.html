@@ -93,39 +93,44 @@
                           <tbody>
                             <tr row="0" class="param_row">
                               <td>
-                                <select name="param_1" class="input">
-                                  <option value="ppv">PPV</option>
-                                  <option value="sens">Sensitivity</option>
+                                <select name="param_type_1" class="input">
+                                  <option value="PPVNPVprobM_abcd">PPV</option>
+                                  <option value="sensspecprobD_abcd">Sensitivity</option>
                                 </select><span class="dd termToDefine glyphicon glyphicon-info-sign"></span>
                               </td>
                               <td>
-                                <input type="text" name="param_1" class="input">
+                                <input type="text" name="param_value_1" class="input">
                               </td>
                             </tr>
                             <tr row="1">
                               <td>
-                                <select name="param_2" class="input">
-                                  <option value="npv">NPV</option>
-                                  <option value="spec">Specificity</option>
-                                  <option value="d_minus">Negative Probability of Disease</option>
+                                <select name="param_type_2" class="input">
+                                  <option value="NPV">NPV</option>
+                                  <option value="Specificity">Specificity</option>
                                 </select><span class="dd termToDefine glyphicon glyphicon-info-sign"></span>
                               </td>
                               <td>
-                                <input type="text" name="param_2" class="input">
+                                <input type="text" name="param_value_2" class="input">
                               </td>
                             </tr>
                             <tr row="2">
                               <td>
-                                <select name="param_3" class="input">
-                                  <option value="m_plus">Marker Positivity</option>
-                                  <option value="d_plus">Positive Probability of Disease</option>
+                                <select name="param_type_3" class="input">
+                                  <option value="sensspecprobM_abcd">Marker Positivity (P(M+))</option>
+                                  <option value="PPVNPVprobD_abcd">Disease Prevalence (P(D+))</option>
                                 </select><span class="dd termToDefine glyphicon glyphicon-info-sign"></span>
                               </td>
                               <td>
-                                <input type="text" name="param_3" class="input">
+                                <input type="text" name="param_value_3" class="input">
                               </td>
                             </tr>
                           </tbody>
+                          <tr row="3">
+                            <td>Sample Size</td>
+                            <td>
+                              <input name="sample_size" type="text" class="input">
+                            </td>
+                          </tr>
                         </table>
                       </div>
                     </div>
