@@ -1,6 +1,6 @@
 .col-md-12.well
    #markers.panel-group
-      .marker
+      .marker.marker-1
          .row.bg-primary
             .text-center.marker-title Biomarker #1
          .row
@@ -51,29 +51,29 @@
                         tbody
                            tr.param_row(row='0')
                               td
-                                 select.input
+                                 select.input(name="param_1")
                                     option(value='ppv') PPV
                                     option(value='sens') Sensitivity
                                  span.dd.termToDefine.glyphicon.glyphicon-info-sign
-                              td.input.specificity(name='a', row='0')
-                                 input.input(type='text')
+                              td
+                                 input.input(type='text',name="param_1")
                            tr(row='1')
                               td
-                                 select.input
+                                 select.input(name="param_2")
                                     option(value='npv') NPV
                                     option(value='spec') Specificity
-                                    option(value='(dMinus') Negative Probability of Disease
+                                    option(value='d_minus') Negative Probability of Disease
                                  span.dd.termToDefine.glyphicon.glyphicon-info-sign
                               td
-                                  input.input(name='param_value_2', type='text')
+                                  input.input(type='text',name="param_2")
                            tr(row='2')
-                              td(row='2', col='param_type')
-                                 select.input
-                                    option(value='mPlus') Marker Positivity
-                                    option(value='dPlus') Positive Probability of Disease
+                              td
+                                 select.input(name="param_3")
+                                    option(value='m_plus') Marker Positivity
+                                    option(value='d_plus') Positive Probability of Disease
                                  span.dd.termToDefine.glyphicon.glyphicon-info-sign
-                              td.specificity(row='1', col='param_value')
-                                 input.input(name='d', type='text')
+                              td
+                                 input.input(type='text', name="param_3")
 #control-group.col-md-12
    .row.pull-right
       button#add-marker
