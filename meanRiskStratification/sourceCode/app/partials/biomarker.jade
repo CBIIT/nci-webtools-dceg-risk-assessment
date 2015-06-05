@@ -51,28 +51,28 @@
                                 tbody
                                     tr.param_row(row='0')
                                         td
-                                            select.input(name="param_type_1")
-                                                option(value='PPVNPVprobM_abcd') PPV
-                                                option(value='sensspecprobD_abcd') Sensitivity
+                                            select.input(name="param_1")
+                                                option(value='ppv') PPV
+                                                option(value='sens') Sensitivity
                                             span.dd.termToDefine.glyphicon.glyphicon-info-sign
                                         td
-                                            input.input(type='text',name="param_value_1")
+                                            input.input(type='text',name="param_1")
                                     tr(row='1')
                                         td
-                                            select.input(name="param_type_2")
-                                                option(value='NPV') NPV
-                                                option(value='Specificity') Specificity
+                                            select.input(name="param_2")
+                                                option(value='npv') NPV
+                                                option(value='spec') Specificity
                                             span.dd.termToDefine.glyphicon.glyphicon-info-sign
                                         td
-                                            input.input(type='text',name="param_value_2")
+                                            input.input(type='text',name="param_2")
                                     tr(row='2')
                                         td
-                                            select.input(name="param_type_3")
-                                                option(value='sensspecprobM_abcd') Marker Positivity (P(M+))
-                                                option(value='PPVNPVprobD_abcd') Disease Prevalence (P(D+))
+                                            select.input(name="param_3")
+                                                option(value='m') Marker Positivity (P(M+))
+                                                option(value='d') Disease Prevalence (P(D+))
                                             span.dd.termToDefine.glyphicon.glyphicon-info-sign
                                         td
-                                            input.input(type='text', name="param_value_3")
+                                            input.input(type='text', name="param_3")
                                 tr(row='3')
                                     td Sample Size
                                     td
