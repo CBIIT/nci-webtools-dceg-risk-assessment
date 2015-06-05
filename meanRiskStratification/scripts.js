@@ -15,6 +15,10 @@ $(document).ready(function () {
 });
 
 function bind_control_events() {
+    // testing
+    $('<button class="btn btn-sm btn-sucess" id="test">TEST</button>').appendTo('#control-group');
+    $('button#test').on('click', test);
+
     $('#reset').on('click', reset);
     $('#add-marker').on('click', new_marker);
     $('#delete-marker').on('click', delete_marker);
@@ -22,11 +26,20 @@ function bind_control_events() {
 }
 
 function create_popover() {
+    panel_actions();
+
     $('.termToDefine').attr('data-toggle', 'popover');
     $('.termToDefine').attr('role', 'button');
     $('.termToDefine').attr('tabindex', '');
 }
-
+function panel_actions() {
+    // make sure only one panel can open at a time in a group
+    $('.panel-collapse').on('show.bs.collapse', function () {
+        $('.panel-collapse').not(document.getElementById($(this).attr('id')))
+            .removeClass('in')
+            .addClass('collapse');
+    });
+}
 function controls_visibility(numElements) {
     if (numElements == 2) {
         $('#delete-marker').show();
@@ -47,11 +60,21 @@ function new_marker() {
     if (currentMarkers < 3) {
         var markerTemplate = $('#markers .marker').first();
 
-        // increment included class
-        markerTemplate.last().removeClass('marker-1').addClass("marker-" + counter);
-
         // clone controls
         var newElement = markerTemplate.clone();
+
+        // increment included class
+        newElement.removeClass('marker-1').addClass("marker-" + counter);
+
+        // make sure previous values don't get copied also
+        newElement.find('.input').each(function () {
+            if ($(this).is("input")) {
+                $(this).val("");
+            }
+            if ($(this).is("select")) {
+                $(this)[0].selectedIndex = 0;
+            }
+        });
 
         // dynamically generate the id for the new panel elements
         newElement.find(".panel-title a").each(function (index) {
@@ -74,6 +97,8 @@ function new_marker() {
         // add new marker to #markers element
         $("#markers").append(newElement.fadeIn());
         currentMarkers++;
+
+        panel_actions();
         controls_visibility(currentMarkers);
     }
 }
@@ -105,7 +130,7 @@ function display_definition() {
 
     if (definition || term) {
         $self.popover(
-            {container: 'body', trigger: 'focus click', placement: 'top', title: term, content: definition}
+            {container: 'body', trigger: 'click', placement: 'top', title: term, content: definition}
         );
     }
     $self.popover();
@@ -119,20 +144,19 @@ function display_definition() {
 
 function calculate() {
     var params, calc;
+    var input = extract_values();
 
-    // find biomarkers with values first
-    $('.marker div[id*="marker-"]').each(function () {
-        extract_values(this);
-    });
-
-    // ajax call
+    // ajax call, change to actual service name
     var promise = $.ajax({
+        method: 'POST',
         url: "test_json.json",
-        //data: input,
+        data: input,
         contentType: 'text/json'
     });
 
     promise.then(function (data) {
+        // clean before return
+
         return data;
     }, function (error) {
         console.log('Error: ' + error);
@@ -140,21 +164,61 @@ function calculate() {
 
     promise.done(function (data) {
         params = data.parameters;
+        $.each(data, function (name, obj) {
+            $.each(obj, function (id, val) {
+                $('#' + id + '.output').html(val);
+            });
+        });
+
         calc = data.calculations;
         $("#results").show();
     });
 }
 
-function extract_values(inputGroup) {
-    var thisGroupId = $(inputGroup).attr('id');
-    $("#" + thisGroupId + 'input, select').each(
-        function () {
-            var inputValue = $(this).val();
-            var associatedName = $(this).attr('id');
+function extract_values() {
+    var values = {};
+    // find biomarkers with values first, use currentMarkers for iteration
+    i = 0;
+    do {
+        i++;
+        values["bm_" + i] = {};
+        var thisMarker = $('.marker-' + i);
 
-            console.log("inputValue: " + inputValue);
-            console.log("associatedName: " + associatedName);
+        // inside this marker find inputs by group
+        var option_1_controls = thisMarker.find('#marker-' + i + '-panel-1 .input').serializeArray(); // option 1
+        var option_2_controls = thisMarker.find('#marker-' + i + '-panel-2 .input');//.serializeArray(); // option 2
+
+        option_1_controls.forEach(function (element, index, array) {
+            if (element.value.length > 0) {
+                values["bm_" + i][element.name] = element.value;
+
+                // set option value if there is none
+                if(!values["bm_" + i].option){
+                    values["bm_" + i].option = 1;
+                }
+            }
         });
+
+        // check option variable
+        if (!values["bm_" + i].option) {
+            values["bm_" + i].option = 2;
+
+            // need to combine values for option 2
+            var params = [thisMarker.find('.input[name="param_1"]').serializeArray(),
+                thisMarker.find('.input[name="param_2"]').serializeArray(),
+                thisMarker.find('.input[name="param_3"]').serializeArray()];
+
+            params.forEach(function (element, index, array) {
+                console.log(element + index + array);
+                // create key value pair in bm_# object
+                values["bm_" + i][element[0].value] = element[1].value;
+            });
+        }
+
+    } while (i != currentMarkers);
+
+    console.log(JSON.stringify(values));
+    return values;
 }
 
 function reset() {
@@ -168,23 +232,38 @@ function reset() {
     $('select').find('option:first').attr('selected', 'selected');
     $('input').val('');
 }
+
+function test() {
+    var tbs = $('input.input');
+    var dds = $('select.input');
+    for (var i = 0; i != tbs.length; i++) {
+        // random value between 0 and 300
+        var randomValue = Math.random() * (300 - 1) + 1;
+        tbs[i].value = randomValue;
+    }
+
+    for (var j = 0; j != dds.length; j++) {
+        var randomIndex = Math.floor(Math.random() * dds[j].length);
+        dds[j].selectedIndex = randomIndex;
+    }
+}
 // definitions used for display
 var definitionObj = {
     mPlus: {
         term: "Marker Positivity (M+)",
-        definition: "Definition for M plus"
+        definition: "Positive test result for biomarker"
     },
     mMinus: {
         term: "Marker Negativity (M-)",
-        definition: "Definition for M minus"
+        definition: "Negative test result for biomarker test"
     },
     dPlus: {
         term: "Positive Probability of Disease (Disease Positive)",
-        definition: "Definition for Disease Positive"
+        definition: "Has disease"
     },
     dMinus: {
         term: "Negative Probability of Disease (Disease Negative)",
-        definition: "Definition for Disease Negative"
+        definition: "Does not have disease"
     },
     danger: {
         term: "Danger",
@@ -224,13 +303,13 @@ var definitionObj = {
         definition: "Sensitivity is the proportion whose biomarker test is positive (above the threshold) among " +
         "those who are positive for disease."
     },
-    ppv : {
-        term : "Positive Predictive Value (PPV)",
-        definition : "Probability of disease, given a positive test result from biomarker.  Unlike sensitivity " +
+    ppv: {
+        term: "Positive Predictive Value (PPV)",
+        definition: "Probability of disease, given a positive test result from biomarker.  Unlike sensitivity " +
         "and specificity, PPV's reflect disease prevalence and is useful for risk stratification."
     },
-    npv : {
-        term : "Negative Predictive Value (NPV)",
-        definition : "Definition for NPV"
+    npv: {
+        term: "Negative Predictive Value (NPV)",
+        definition: "Definition for NPV"
     }
 };
