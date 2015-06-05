@@ -186,7 +186,7 @@ function extract_values() {
 
         // inside this marker find inputs by group
         var option_1_controls = thisMarker.find('#marker-' + i + '-panel-1 .input').serializeArray(); // option 1
-        var option_2_controls = thisMarker.find('#marker-' + i + '-panel-2 .input');//.serializeArray(); // option 2
+        var option_2_controls = thisMarker.find('#marker-' + i + '-panel-2 .input').serializeArray(); // option 2
 
         option_1_controls.forEach(function (element, index, array) {
             if (element.value.length > 0) {
@@ -203,15 +203,9 @@ function extract_values() {
         if (!values["bm_" + i].option) {
             values["bm_" + i].option = 2;
 
-            // need to combine values for option 2
-            var params = [thisMarker.find('.input[name="param_1"]').serializeArray(),
-                thisMarker.find('.input[name="param_2"]').serializeArray(),
-                thisMarker.find('.input[name="param_3"]').serializeArray()];
-
-            params.forEach(function (element, index, array) {
-                console.log(element + index + array);
+            option_2_controls.forEach(function (element, index, array) {
                 // create key value pair in bm_# object
-                values["bm_" + i][element[0].value] = element[1].value;
+                values["bm_" + i][element.name] = element.value;
             });
         }
 
