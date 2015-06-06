@@ -1,6 +1,8 @@
 library('RJSONIO')
 source('./MRSunconditionalTool.R')
 
+options(scipen=-100)
+
 imageDirectory = "./tmp"
 
 getJSON_abcd <- function(abcd) {
@@ -14,9 +16,10 @@ getJSON_abcd <- function(abcd) {
 
 getJSON_PPVNPVprobM <- function(PPV,NPV,probM,total) {
 
-	jsonString = ""
     	data <- PPVNPVprobM_abcd(PPV,NPV,probM,total)
 
+	jsonString = ""
+	jsonString = toJSON(data)
 }
 
 getJSON_PPVNPVprobD <- function(PPV,NPV,probD,total) {
