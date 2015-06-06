@@ -134,7 +134,7 @@ gulp.task 'js:mergeScripts' <[bower]> ->
 
   s = streamqueue { +objectMode }
     .done gulp.src 'app/assets/js/*.js'
-    .pipe gulp-concat 'mrs.js'
+    .pipe gulp-concat 'scripts.js'
     .pipe gulp.dest parentDir
     .pipe gulp-if dev, livereload!
 
