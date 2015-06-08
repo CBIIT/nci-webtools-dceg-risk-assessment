@@ -207,19 +207,36 @@ function extract_values() {
 
         // check option variable
         if (!values["bm_" + i].option) {
+            // apply option flag
             values["bm_" + i].option = 2;
 
+            var param_1 = [];
+            var param_2 = [];
+            var param_3 = [];
+            var param_4 = [];
+            option_2_controls.filter(function (obj) {
+                if (obj.name == "param_1") {
+                    param_1.push(obj);
+                }
+                if (obj.name == "param_2") {
+                    param_2.push(obj);
+                }
+                if (obj.name == "param_3") {
+                    param_3.push(obj);
+                }
+                if (obj.name == "sample_size") {
+                    param_4.push(obj);
+                }
+            });
+
             // manually mapping each value pair
-            values["bm_" + i][option_2_controls[0].value] =option_2_controls[1].value;
-            values["bm_" + i][option_2_controls[2].value] =option_2_controls[3].value;
-            values["bm_" + i][option_2_controls[4].value] =option_2_controls[5].value;
-            values["bm_" + i]["sample_size"] =option_2_controls[6].value;
-
+            values["bm_" + i][param_1[0].value] = param_1[1].value;
+            values["bm_" + i][param_2[0].value] = param_2[1].value;
+            values["bm_" + i][param_3[0].value] = param_3[1].value;
+            values["bm_" + i][param_4[0].name] = param_4[0].value;
         }
-
     } while (i != currentMarkers);
 
-    console.log(JSON.stringify(values));
     return values;
 }
 

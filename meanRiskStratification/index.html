@@ -7,8 +7,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script src="scripts.js"></script>
-    <!-- <script src="../compTools/bc/bc.js"></script>-->
+    <script src="mrs.js"></script>
     <link rel="stylesheet" href="/common/css/font-awesome.css" type="text/css">
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="/common/css/style.css">
@@ -93,35 +92,35 @@
                           <tbody>
                             <tr row="0" class="param_row">
                               <td>
-                                <select name="param_type_1" class="input">
-                                  <option value="PPVNPVprobM_abcd">PPV</option>
-                                  <option value="sensspecprobD_abcd">Sensitivity</option>
+                                <select name="param_1" class="input">
+                                  <option value="ppv">PPV</option>
+                                  <option value="sens">Sensitivity</option>
                                 </select><span class="dd termToDefine glyphicon glyphicon-info-sign"></span>
                               </td>
                               <td>
-                                <input type="text" name="param_value_1" class="input">
+                                <input type="text" name="param_1" class="input">
                               </td>
                             </tr>
                             <tr row="1">
                               <td>
-                                <select name="param_type_2" class="input">
-                                  <option value="NPV">NPV</option>
-                                  <option value="Specificity">Specificity</option>
+                                <select name="param_2" class="input">
+                                  <option value="npv">NPV</option>
+                                  <option value="spec">Specificity</option>
                                 </select><span class="dd termToDefine glyphicon glyphicon-info-sign"></span>
                               </td>
                               <td>
-                                <input type="text" name="param_value_2" class="input">
+                                <input type="text" name="param_2" class="input">
                               </td>
                             </tr>
                             <tr row="2">
                               <td>
-                                <select name="param_type_3" class="input">
-                                  <option value="sensspecprobM_abcd">Marker Positivity (P(M+))</option>
-                                  <option value="PPVNPVprobD_abcd">Disease Prevalence (P(D+))</option>
+                                <select name="param_3" class="input">
+                                  <option value="m">Marker Positivity (P(M+))</option>
+                                  <option value="d">Disease Prevalence (P(D+))</option>
                                 </select><span class="dd termToDefine glyphicon glyphicon-info-sign"></span>
                               </td>
                               <td>
-                                <input type="text" name="param_value_3" class="input">
+                                <input type="text" name="param_3" class="input">
                               </td>
                             </tr>
                           </tbody>
