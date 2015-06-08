@@ -149,7 +149,7 @@ function calculate() {
 
     if (host == 'localhost') service = 'ncias-d1207-v.nci.nih.gov:8080/meanstoriskRest/';
     else {
-        var service = "http://" + host + "/mrsRest";
+        var service = "http://" + host + "/mrsRest/";
     }
 
     // ajax call, change to actual service name
