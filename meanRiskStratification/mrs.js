@@ -155,9 +155,10 @@ function calculate() {
     // ajax call, change to actual service name
     var promise = $.ajax({
         method: 'POST',
-        contentType: 'text/json',
+        dataType: 'json',
+        contentType: 'application/json',
         url: service,
-        data: input
+        data: JSON.stringify(input)
     });
 
     promise.then(function (data) {
