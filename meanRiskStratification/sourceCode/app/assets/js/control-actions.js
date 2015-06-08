@@ -147,7 +147,7 @@ function calculate() {
     var input = extract_values();
     var host = window.location.hostname;
 
-    if (host == 'localhost') service = 'ncias-d1207-v.nci.nih.gov:8080/meanstoriskRest/';
+    if (host == 'localhost') service = 'http://ncias-d1207-v.nci.nih.gov:8080/meanstoriskRest/';
     else {
         var service = "http://" + host + "/mrsRest/";
     }
