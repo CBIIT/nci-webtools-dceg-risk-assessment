@@ -8,6 +8,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="mrs.js"></script>
+    <!-- <script src="../compTools/bc/bc.js"></script>-->
     <link rel="stylesheet" href="/common/css/font-awesome.css" type="text/css">
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="/common/css/style.css">
@@ -115,8 +116,8 @@
                             <tr row="2">
                               <td>
                                 <select name="param_3" class="input">
-                                  <option value="m">Marker Positivity (P(M+))</option>
-                                  <option value="d">Disease Prevalence (P(D+))</option>
+                                  <option value="probM">Marker Positivity (P(M+))</option>
+                                  <option value="probD">Disease Prevalence (P(D+))</option>
                                 </select><span class="dd termToDefine glyphicon glyphicon-info-sign"></span>
                               </td>
                               <td>
@@ -127,7 +128,7 @@
                           <tr row="3">
                             <td>Sample Size</td>
                             <td>
-                              <input name="sample_size" type="text" class="input">
+                              <input name="sampsize" type="text" class="input">
                             </td>
                           </tr>
                         </table>

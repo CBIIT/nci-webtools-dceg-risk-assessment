@@ -207,6 +207,7 @@ function extract_values() {
 
         // check option variable
         if (!values["bm_" + i].option) {
+
             // apply option flag
             values["bm_" + i].option = 2;
 
@@ -214,7 +215,9 @@ function extract_values() {
             var param_2 = [];
             var param_3 = [];
             var param_4 = [];
+
             option_2_controls.filter(function (obj) {
+                // filter each pair into separate arrays
                 if (obj.name == "param_1") {
                     param_1.push(obj);
                 }
@@ -224,7 +227,7 @@ function extract_values() {
                 if (obj.name == "param_3") {
                     param_3.push(obj);
                 }
-                if (obj.name == "sample_size") {
+                if (obj.name == "sampsize") {
                     param_4.push(obj);
                 }
             });
@@ -233,6 +236,8 @@ function extract_values() {
             values["bm_" + i][param_1[0].value] = param_1[1].value;
             values["bm_" + i][param_2[0].value] = param_2[1].value;
             values["bm_" + i][param_3[0].value] = param_3[1].value;
+
+            // sample size
             values["bm_" + i][param_4[0].name] = param_4[0].value;
         }
     } while (i != currentMarkers);
