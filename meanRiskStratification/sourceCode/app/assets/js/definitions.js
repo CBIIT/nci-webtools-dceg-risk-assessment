@@ -9,11 +9,11 @@ var definitionObj = {
         definition: "Negative test result for biomarker test"
     },
     probD: {
-        term: "Positive Probability of Disease (Disease Positive)",
+        term: "Disease Positive",
         definition: "Has disease"
     },
     dMinus: {
-        term: "Negative Probability of Disease (Disease Negative)",
+        term: "Disease Negative",
         definition: "Does not have disease"
     },
     danger: {
@@ -27,6 +27,10 @@ var definitionObj = {
     pbs: {
         term: "Population Burden Stratification",
         definition: "Extra disease detection in positive group than negative group"
+    },
+    nns: {
+        term: "Number Needed to Screen",
+        definition: "Definition for number needed to screen"
     },
     nnr: {
         term: "Number Needed to Recruit",
@@ -62,6 +66,10 @@ var definitionObj = {
     npv: {
         term: "Negative Predictive Value (NPV)",
         definition: "Definition for NPV"
+    },
+    mrs:{
+        term: "Mean Risk Stratification (MRS)",
+        definition: "Average change in pretest-posttest disease risk"
     },
     sampsize:{term:"Sample Size",definition:""}
 };

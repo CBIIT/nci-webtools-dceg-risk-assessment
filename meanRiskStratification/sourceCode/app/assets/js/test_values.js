@@ -1,1 +1,0 @@
-var values_option_1 = {a: 471, b: 13, c: 4680, d: 25207};
