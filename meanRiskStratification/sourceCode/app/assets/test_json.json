@@ -1,30 +1,176 @@
 {
   "parameters": {
-    "d_plus_m_plus":"1.55%",
-    "d_plus_m_minus":"0.04%",
-    "d_minus_m_plus":"15.41%",
-    "d_minus_m_minus":"83.00%",
-    "m_plus": "16.96% (16.54%,17.38%)",
-    "d_plus":"1.59% (1.45%,1.73%)",
-    "ppv": "9.14% (8.36%,9.93%)",
-    "comp_npv": "0.05% (0.0235%,0.0796%)",
-    "sense":"97.39% (95.87%,98.75%)",
-    "spec":"84.34% (83.93%,84.75%)",
-    "comp_spec":"15.66%",
-    "rr_ppv": "182.80",
-    "t": "9.09% (8.30%,9.88%)",
-    "j": "81.73% (80.16%,83.15%)",
-    "auc": "90.87% (90.08%,91.58%)"
+    "a": {
+      "ub_ci": null,
+      "lb_ci": null,
+      "value": 1
+    },
+    "b": {
+      "ub_ci": null,
+      "lb_ci": null,
+      "value": 2
+    },
+    "c": {
+      "ub_ci": null,
+      "lb_ci": null,
+      "value": 3
+    },
+    "d": {
+      "ub_ci": null,
+      "lb_ci": null,
+      "value": 4
+    },
+    "P(D+,M+)": {
+      "ub_ci": null,
+      "lb_ci": null,
+      "value": 0.1
+    },
+    "P(D+,M-)": {
+      "ub_ci": null,
+      "lb_ci": null,
+      "value": 0.2
+    },
+    "P(D-,M+)": {
+      "lb_ci": null,
+      "ub_ci": null,
+      "value": 0.3
+    },
+    "P(D-,M-)": {
+      "lb_ci": null,
+      "ub_ci": null,
+      "value": 0.4
+    },
+    "Marker Positivity": {
+      "value": 0.4,
+      "lb_ci": 0.09635811,
+      "ub_ci": 0.7036419
+    },
+    "Disease Prevalence": {
+      "value": 0.3,
+      "lb_ci": 0.01596902,
+      "ub_ci": 0.584031
+    },
+    "Positive Predictive Value": {
+      "value": 0.25,
+      "lb_ci": -0.17435245,
+      "ub_ci": 0.6743524
+    },
+    "complement of the Negative Predictive Value": {
+      "value": 0.33333333,
+      "lb_ci": -0.04386884,
+      "ub_ci": 0.7105355
+    },
+    "Sensitivity": {
+      "value": 0.33333333,
+      "lb_ci": -0.2001111,
+      "ub_ci": 0.8667778
+    },
+    "Specificity": {
+      "value": 0.57142857,
+      "lb_ci": 0.20482252,
+      "ub_ci": 0.9380346
+    },
+    "complement of the Specificity": {
+      "value": 0.42857143,
+      "lb_ci": null,
+      "ub_ci": null
+    },
+    "RR": {
+      "value": 0.75,
+      "lb_ci": null,
+      "ub_ci": null
+    },
+    "Risk Difference": {
+      "value": -0.08333333,
+      "lb_ci": -0.65109779,
+      "ub_ci": 0.4844311
+    },
+    "Youden": {
+      "value": -0.0952381,
+      "lb_ci": -0.74251158,
+      "ub_ci": 0.5520354
+    },
+    "Area Under the Curve": {
+      "value": 0.45238095,
+      "lb_ci": 0.12874421,
+      "ub_ci": 0.7760177
+    }
   },
   "calculations": {
-    "danger": "7.55% (6.90%, 8.21%)",
-    "max_poss":"3.13%",
-    "mrs": "2.56% (2.34%, 2.78%)",
-    "nnr": "66.28",
-    "nns": "11.00",
-    "qsense": "80.43%",
-    "qspec": "1.30%",
-    "reassurance": "1.54% (1.40%, 1.68%)",
-    "pbs": "1.51% (1.37%,1.64%)"
-}
+    "a": {
+      "up_ci": "val",
+      "low_ci": "val",
+      "value": "val"
+    },
+    "b": {
+      "up_ci": "val",
+      "low_ci": "val",
+      "value": "val"
+    },
+    "c": {
+      "up_ci": "val",
+      "low_ci": "val",
+      "value": "val"
+    },
+    "d": {
+      "up_ci": "val",
+      "low_ci": "val",
+      "value": "val"
+    },
+    "e": {
+      "up_ci": "val",
+      "low_ci": "val",
+      "value": "val"
+    },
+    "f": {
+      "up_ci": "val",
+      "low_ci": "val",
+      "value": "val"
+    },
+    "Danger": {
+      "value": -0.05,
+      "lb_ci": -0.3692755,
+      "ub_ci": 0.2692755
+    },
+    "Reassurance": {
+      "value": -0.03333333,
+      "lb_ci": -0.2470176,
+      "ub_ci": 0.180351
+    },
+    "Quality of the sensitvity": {
+      "value": -0.06666667,
+      "lb_ci": null,
+      "ub_ci": null
+    },
+    "Quality of the specificity": {
+      "value": -0.02857143,
+      "lb_ci": null,
+      "ub_ci": null
+    },
+    "Mean Risk Stratification": {
+      "value": -0.04,
+      "lb_ci": -0.2954204,
+      "ub_ci": 0.2154204
+    },
+    "Maximum possible MRS": {
+      "value": 0.42,
+      "lb_ci": null,
+      "ub_ci": null
+    },
+    "Population Burden Stratification": {
+      "value": -0.1,
+      "lb_ci": -0.3829016,
+      "ub_ci": 0.1829016
+    },
+    "Number Needed to Recruit": {
+      "value": -10,
+      "lb_ci": null,
+      "ub_ci": null
+    },
+    "Number Needed to Screen": {
+      "value": -12,
+      "lb_ci": null,
+      "ub_ci": null
+    }
+  }
 }
