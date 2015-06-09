@@ -1,6 +1,6 @@
 // definitions used for display
 var definitionObj = {
-    mPlus: {
+    probM: {
         term: "Marker Positivity (M+)",
         definition: "Positive test result for biomarker"
     },
@@ -8,7 +8,7 @@ var definitionObj = {
         term: "Marker Negativity (M-)",
         definition: "Negative test result for biomarker test"
     },
-    dPlus: {
+    probD: {
         term: "Positive Probability of Disease (Disease Positive)",
         definition: "Has disease"
     },
@@ -62,5 +62,6 @@ var definitionObj = {
     npv: {
         term: "Negative Predictive Value (NPV)",
         definition: "Definition for NPV"
-    }
+    },
+    sampsize:{term:"Sample Size",definition:""}
 };

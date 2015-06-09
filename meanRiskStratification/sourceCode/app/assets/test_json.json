@@ -97,36 +97,6 @@
     }
   },
   "calculations": {
-    "a": {
-      "up_ci": "val",
-      "low_ci": "val",
-      "value": "val"
-    },
-    "b": {
-      "up_ci": "val",
-      "low_ci": "val",
-      "value": "val"
-    },
-    "c": {
-      "up_ci": "val",
-      "low_ci": "val",
-      "value": "val"
-    },
-    "d": {
-      "up_ci": "val",
-      "low_ci": "val",
-      "value": "val"
-    },
-    "e": {
-      "up_ci": "val",
-      "low_ci": "val",
-      "value": "val"
-    },
-    "f": {
-      "up_ci": "val",
-      "low_ci": "val",
-      "value": "val"
-    },
     "Danger": {
       "value": -0.05,
       "lb_ci": -0.3692755,
