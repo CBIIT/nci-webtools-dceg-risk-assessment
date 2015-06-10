@@ -6,11 +6,12 @@ options(scipen=-100)
 imageDirectory = "./tmp"
 
 
-function convertToJSON(data) {
-  //convert to named lists
+convertToJSON <- function (data) {
+  # convert to named lists 
   parameters=apply(data$parameters, 1, as.list)
-  results=apply(data$results, 1. as.list)
-  cat(toJSON(parameters, .withNames=TRUE), toJSON(results, .withNames=TRUE))
+  calculations=apply(data$calculations, 1, as.list)
+  namedData=list(parameters=parameters, calculations=calculations)
+  return(toJSON(namedData, .withNames=TRUE, .escapeEscapes=TRUE))
 }
 
 getJSON_abcd <- function(abcd) {
@@ -18,6 +19,7 @@ getJSON_abcd <- function(abcd) {
 	data <- MRSunconditional(abcd)
 	
 	jsonString =convertToJSON(data)
+  return(jsonString)
 	
 }
 
