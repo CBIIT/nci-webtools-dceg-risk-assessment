@@ -149,6 +149,9 @@ function calculate() {
         var input = JSON.stringify(valuesObj[0]);
 
         var host = window.location.hostname;
+        if (host == 'localhost') {
+            host = 'http://ncias-d1207-v.nci.nih.gov:9140';
+        }
         service = "http://" + host + "/mrsRest/";
 
         // call json file instead of service
@@ -169,7 +172,6 @@ function calculate() {
 
         promise.done(return_data);
 
-        $("#results").show();
     }
     else {
         // show error message somewhere
