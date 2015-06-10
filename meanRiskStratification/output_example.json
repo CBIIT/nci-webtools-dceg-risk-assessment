@@ -1,0 +1,146 @@
+{
+ "parameters": {
+ "a": {
+ "Value":    471,
+"Confidence Interval (lower bound)": null,
+"Confidence Interval (upper bound)": null 
+},
+"b": {
+ "Value":     13,
+"Confidence Interval (lower bound)": null,
+"Confidence Interval (upper bound)": null 
+},
+"c": {
+ "Value":   4680,
+"Confidence Interval (lower bound)": null,
+"Confidence Interval (upper bound)": null 
+},
+"d": {
+ "Value":  25207,
+"Confidence Interval (lower bound)": null,
+"Confidence Interval (upper bound)": null 
+},
+"P(D+,M+)": {
+ "Value": 0.015508,
+"Confidence Interval (lower bound)": null,
+"Confidence Interval (upper bound)": null 
+},
+"P(D+,M-)": {
+ "Value": 0.00042804,
+"Confidence Interval (lower bound)": null,
+"Confidence Interval (upper bound)": null 
+},
+"P(D-,M+)": {
+ "Value": 0.15409,
+"Confidence Interval (lower bound)": null,
+"Confidence Interval (upper bound)": null 
+},
+"P(D-,M-)": {
+ "Value": 0.82997,
+"Confidence Interval (lower bound)": null,
+"Confidence Interval (upper bound)": null 
+},
+"Marker Positivity": {
+ "Value": 0.1696,
+"Confidence Interval (lower bound)": 0.16538,
+"Confidence Interval (upper bound)": 0.17382 
+},
+"Disease Prevalence": {
+ "Value": 0.015936,
+"Confidence Interval (lower bound)": 0.014528,
+"Confidence Interval (upper bound)": 0.017345 
+},
+"Positive Predictive Value": {
+ "Value": 0.091439,
+"Confidence Interval (lower bound)": 0.083567,
+"Confidence Interval (upper bound)": 0.09931 
+},
+"complement of the Negative Predictive Value": {
+ "Value": 0.00051546,
+"Confidence Interval (lower bound)": 0.00023533,
+"Confidence Interval (upper bound)": 0.0007956 
+},
+"Sensitivity": {
+ "Value": 0.97314,
+"Confidence Interval (lower bound)": 0.95874,
+"Confidence Interval (upper bound)": 0.98754 
+},
+"Specificity": {
+ "Value": 0.84341,
+"Confidence Interval (lower bound)": 0.83929,
+"Confidence Interval (upper bound)": 0.84753 
+},
+"complement of the Specificity": {
+ "Value": 0.15659,
+"Confidence Interval (lower bound)": null,
+"Confidence Interval (upper bound)": null 
+},
+"RR": {
+ "Value": 177.39,
+"Confidence Interval (lower bound)": null,
+"Confidence Interval (upper bound)": null 
+},
+"Risk Difference": {
+ "Value": 0.090923,
+"Confidence Interval (lower bound)": 0.083047,
+"Confidence Interval (upper bound)": 0.098799 
+},
+"Youden": {
+ "Value": 0.81655,
+"Confidence Interval (lower bound)": 0.80157,
+"Confidence Interval (upper bound)": 0.83153 
+},
+"Area Under the Curve": {
+ "Value": 0.90828,
+"Confidence Interval (lower bound)": 0.90078,
+"Confidence Interval (upper bound)": 0.91577 
+} 
+},
+"calculations": {
+ "Danger": {
+ "Value": 0.075502,
+"Confidence Interval (lower bound)": 0.068951,
+"Confidence Interval (upper bound)": 0.082053 
+},
+"Reassurance": {
+ "Value": 0.015421,
+"Confidence Interval (lower bound)": 0.014031,
+"Confidence Interval (upper bound)": 0.016811 
+},
+"Quality of the sensitvity": {
+ "Value": 0.80354,
+"Confidence Interval (lower bound)": null,
+"Confidence Interval (upper bound)": null 
+},
+"Quality of the specificity": {
+ "Value": 0.013013,
+"Confidence Interval (lower bound)": null,
+"Confidence Interval (upper bound)": null 
+},
+"Mean Risk Stratification": {
+ "Value": 0.025611,
+"Confidence Interval (lower bound)": 0.023389,
+"Confidence Interval (upper bound)": 0.027833 
+},
+"Maximum possible MRS": {
+ "Value": 0.031365,
+"Confidence Interval (lower bound)": null,
+"Confidence Interval (upper bound)": null 
+},
+"Population Burden Stratification": {
+ "Value": 0.01508,
+"Confidence Interval (lower bound)": 0.013725,
+"Confidence Interval (upper bound)": 0.016435 
+},
+"Number Needed to Recruit": {
+ "Value": 66.312,
+"Confidence Interval (lower bound)": null,
+"Confidence Interval (upper bound)": null 
+},
+"Number Needed to Screen": {
+ "Value": 10.998,
+"Confidence Interval (lower bound)": null,
+"Confidence Interval (upper bound)": null 
+} 
+} 
+}
