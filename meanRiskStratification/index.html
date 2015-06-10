@@ -47,13 +47,13 @@
                         <table class="option-1 table table-striped table-condensed table-responsive">
                           <tr class="active">
                             <th class="col-md-2 header">
-                              <div class="sr-only">Empty cell<a href="#probM">Skip to Content</a></div>
+                              <div class="sr-only">Empty cell<a href="#prob_m">Skip to Content</a></div>
                             </th>
-                            <th id="probM" class="termToDefine header">Marker Positive (M+)</th>
-                            <th id="mMinus" class="termToDefine header">Marker Negative (M-)</th>
+                            <th id="prob_m" class="termToDefine header">Marker Positive (M+)</th>
+                            <th id="m_neg" class="termToDefine header">Marker Negative (M-)</th>
                           </tr>
                           <tr>
-                            <th id="probD" class="termToDefine header active">Disease Positive (D+)</th>
+                            <th id="prob_d" class="termToDefine header active">Disease Positive (D+)</th>
                             <td>
                               <label for="a" class="sr-only">A</label>
                               <input id="a" name="a" type="text" class="input">
@@ -64,7 +64,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <th id="dMinus" class="termToDefine header active">Disease Negative (D-)</th>
+                            <th id="d_neg" class="termToDefine header active">Disease Negative (D-)</th>
                             <td>
                               <label for="c" class="sr-only">C</label>
                               <input id="c" name="c" type="text" class="input">
@@ -115,8 +115,8 @@
                             <tr row="2">
                               <td>
                                 <select name="param_3" class="input">
-                                  <option value="probM">Marker Positivity (P(M+))</option>
-                                  <option value="probD">Disease Prevalence (P(D+))</option>
+                                  <option value="prob_m">Marker Positivity (P(M+))</option>
+                                  <option value="prob_d">Disease Prevalence (P(D+))</option>
                                 </select><span class="dd termToDefine glyphicon glyphicon-info-sign"></span>
                               </td>
                               <td>
@@ -169,7 +169,7 @@
               <tbody>
                 <tr>
                   <td>P(D,M+)=PPV*p</td>
-                  <td id="pos_d_pos_m_result" class="output"></td>
+                  <td id="d_pos_result" class="output"></td>
                 </tr>
                 <tr>
                   <td>P(D,M-)=cNPV*(1-p)</td>
@@ -181,15 +181,15 @@
                 </tr>
                 <tr>
                   <td>P(D-,M-)=NPV*(1-p)</td>
-                  <td id="neg_d_neg_m_result" class="output"></td>
+                  <td id="m_neg_result" class="output"></td>
                 </tr>
                 <tr>
-                  <td id="probM" class="termToDefine">P(M+)</td>
-                  <td id="neg_d_neg_m_result" class="output"></td>
+                  <td id="prob_m" class="termToDefine">P(M+)</td>
+                  <td id="prob_m_result" class="output"></td>
                 </tr>
                 <tr>
-                  <td id="probD" class="termToDefine">P(D+)</td>
-                  <td id="dprev_result" class="output"></td>
+                  <td id="prob_d" class="termToDefine">P(D+)</td>
+                  <td id="prob_d_result" class="output"></td>
                 </tr>
                 <tr>
                   <td id="ppv" class="termToDefine">Positive Predictive Value</td>
@@ -197,7 +197,7 @@
                 </tr>
                 <tr>
                   <td>Complement of Negative Predictive Value</td>
-                  <td id="cnpv_result" class="output"></td>
+                  <td id="c_npv_result" class="output"></td>
                 </tr>
                 <tr>
                   <td id="sens" class="termToDefine">Sensitivity</td>
@@ -209,7 +209,7 @@
                 </tr>
                 <tr>
                   <td>Complement of Specificity</td>
-                  <td id="cspec_result" class="output"></td>
+                  <td id="c_spec_result" class="output"></td>
                 </tr>
                 <tr>
                   <td>RR=PPV/cNPV</td>
@@ -217,7 +217,7 @@
                 </tr>
                 <tr>
                   <td>t=Risk Difference</td>
-                  <td id="rdiff_result" class="output"></td>
+                  <td id="r_diff_result" class="output"></td>
                 </tr>
                 <tr>
                   <td>j=Youden</td>
@@ -243,19 +243,19 @@
                 <td id="reassurance_result" class="output"></td>
               </tr>
               <tr>
-                <td id="qSens" class="termToDefine">Quality of the sensitivity</td>
-                <td id="qsens_result" class="output"></td>
+                <td id="q_sens" class="termToDefine">Quality of the sensitivity</td>
+                <td id="q_sens_result" class="output"></td>
               </tr>
               <tr>
-                <td id="qSpec" class="termToDefine">Quality of the specificity</td>
-                <td id="qspec_result" class="output"></td>
+                <td id="q_spec" class="termToDefine">Quality of the specificity</td>
+                <td id="q_spec_result" class="output"></td>
               </tr>
               <tr>
                 <td id="mrs" class="termToDefine">Mean Risk Stratification (MRS)</td>
                 <td id="mrs_result" class="output"></td>
               </tr>
               <tr>
-                <td id="maxMRS" class="termToDefine">Maximum possible MRS for a disease with this prevalence</td>
+                <td id="max_mrs" class="termToDefine">Maximum possible MRS for a disease with this prevalence</td>
                 <td id="max_mrs_result" class="output"></td>
               </tr>
               <tr>
