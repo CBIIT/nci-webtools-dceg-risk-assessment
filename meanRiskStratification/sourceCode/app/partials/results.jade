@@ -2,85 +2,79 @@
     table.table.table-bordered.table-condensed
         thead
             tr
-                th.active &nbsp;
-                th.active Biomarker #1
-            tr
                 th.active Parameters
                 th.active HPV
         tbody
             tr
                 td P(D,M+)=PPV*p
-                td.output#pos_d_pos_m_result
+                td.output#d_plus_m_plus
             tr
                 td P(D,M-)=cNPV*(1-p)
-                td.output#pos_d_neg_m_result
+                td.output#d_plus_m_minus
             tr
                 td P(D-,M+)=cPPV*p
-                td.output#neg_d_pos_m_result
+                td.output#d_minus_m_plus
             tr
                 td P(D-,M-)=NPV*(1-p)
-                td.output#neg_d_neg_m_result
+                td.output#d_minus_m_minus
             tr
-                td.termToDefine#probM P(M+)
-                td.output#neg_d_neg_m_result
+                td.termToDefine P(M+)
+                td.output#m_plus
             tr
-                td.termToDefine#probD P(D+)
-                td.output#dprev_result
+                td.termToDefine P(D+)
+                td.output#d_plus
             tr
-                td.termToDefine#ppv Positive Predictive Value
-                td.output#ppv_result
+                td.termToDefine Positive Predictive Value
+                td.output#ppv
             tr
-                td Complement of Negative Predictive Value
-                td.output#cnpv_result
+                td.termToDefine Complement of Negative Predictive Value
+                td.output#comp_npv
             tr
-                td.termToDefine#sens Sensitivity
-                td.output#sens_result
+                td.termToDefine Sensitivity
+                td.output#sense
             tr
-                td.termToDefine#spec Specificity
-                td.output#spec_result
+                td.termToDefine Specificity
+                td.output#spec
             tr
-                td Complement of Specificity
-                td.output#cspec_result
+                td.termToDefine Complement of Specificity
+                td.output#comp_spec
             tr
-                td RR=PPV/cNPV
-                td.output#rr_result
+                td.termToDefine RR=PPV/cNPV
+                td.output#rr_ppv
             tr
-                td t=Risk Difference
-                td.output#rdiff_result
+                td.termToDefine t=Risk Difference
+                td.output#t
             tr
-                td j=Youden
-                td.output#youden_result
+                td.termToDefine j=Youden
+                td.output#j
             tr
-                td AUC = (Youden+1)/2
-                td.output#auc_result
+                td.termToDefine AUC = (Youden+1)/2
+                td.output#auc
     table.table.table-bordered.table-condensed
         tr
             th.active Output
             th.active HPV (CI Low, CI High)
         tr
             td#danger.termToDefine Danger
-            td.output#danger_result
+            td.output#danger
         tr
             td#reassurance.termToDefine Reassurance
-            td.output#reassurance_result
+            td.output#reassurance
         tr
             td#qSens.termToDefine Quality of the sensitivity
-            td.output#qsens_result
+            td.output#qsense
         tr
             td#qSpec.termToDefine Quality of the specificity
-            td.output#qspec_result
+            td.output#qspec
         tr
             td#mrs.termToDefine Mean Risk Stratification (MRS)
-            td.output#mrs_result
+            td.output#mrs
         tr
             td#maxMRS.termToDefine Maximum possible MRS for a disease with this prevalence
-            td.output#max_mrs_result
+            td.output#max_poss
         tr
             td#pbs.termToDefine Population Burden Stratification (PBS)
-            td.output#pbs_result
+            td.output#pbs
         tr
             td#nnr.termToDefine Number Needed to Recruit (NNR)
-            td.output#nnr_result
-        tr
-            td#nns.termToDefine Number Needed to Screen (NNS)
-            td.output#nns_result
+            td.output#nnr

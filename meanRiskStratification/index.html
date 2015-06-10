@@ -31,15 +31,12 @@
         <h1 title="Mean Risk Stratification" class="h2 title text-center">Mean Risk Stratification (MRS)</h1>
         <div class="col-md-4">
           <div class="col-md-12 well">
-            <div id="markers">
+            <div id="markers" class="panel-group">
               <div class="marker marker-1">
                 <div class="row bg-primary">
                   <div class="text-center marker-title">Biomarker #1</div>
                 </div>
                 <div class="row">
-                  <!--.col-md-12-->
-                  <!--    label(for='name-input') Biomarker Name-->
-                  <!--    input#name-input(name="#name-input",type="text")-->
                   <div class="panel panel-default">
                     <div class="panel-title"><a data-toggle="collapse" data-parent="#markers" href="#marker-1-panel-1" class="panel-toggle">Option 1<span class="caret"></span></a></div>
                     <div id="marker-1-panel-1" class="panel-collapse collapse in">
@@ -47,13 +44,13 @@
                         <table class="option-1 table table-striped table-condensed table-responsive">
                           <tr class="active">
                             <th class="col-md-2 header">
-                              <div class="sr-only">Empty cell<a href="#probM">Skip to Content</a></div>
+                              <div class="sr-only">Empty cell<a href="#mPlus">Skip to Content</a></div>
                             </th>
-                            <th id="probM" class="termToDefine header">Marker Positive (M+)</th>
+                            <th id="mPlus" class="termToDefine header">Marker Positive (M+)</th>
                             <th id="mMinus" class="termToDefine header">Marker Negative (M-)</th>
                           </tr>
                           <tr>
-                            <th id="probD" class="termToDefine header active">Disease Positive (D+)</th>
+                            <th id="dPlus" class="termToDefine header active">Disease Positive (D+)</th>
                             <td>
                               <label for="a" class="sr-only">A</label>
                               <input id="a" name="a" type="text" class="input">
@@ -85,12 +82,16 @@
                         <table class="option-2 table table-condensed table-striped table-responsive">
                           <thead>
                             <tr class="active">
-                              <th title="Parameter Type Column" class="header">Parameter</th>
-                              <th title="Parameter Value Column" class="header"> Value</th>
+                              <th class="header">
+                                <div id="paramType" data-term="param_type">Parameter</div>
+                              </th>
+                              <th class="header">
+                                <div id="paramValue" data-term="param_value">Value</div>
+                              </th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr row="0">
+                            <tr row="0" class="param_row">
                               <td>
                                 <select name="param_1" class="input">
                                   <option value="ppv">PPV</option>
@@ -123,13 +124,13 @@
                                 <input type="text" name="param_3" class="input">
                               </td>
                             </tr>
-                            <tr row="3">
-                              <td>Sample Size</td>
-                              <td>
-                                <input name="sampsize" type="text" class="input">
-                              </td>
-                            </tr>
                           </tbody>
+                          <tr row="3">
+                            <td>Sample Size</td>
+                            <td>
+                              <input name="sampsize" type="text" class="input">
+                            </td>
+                          </tr>
                         </table>
                       </div>
                     </div>
@@ -139,17 +140,11 @@
             </div>
           </div>
           <div id="control-group" class="col-md-12">
-            <div class="row">
-              <div class="pull-left">
-                <button id="add-marker"><span alt="Add(+)" title="Add biomarker" class="glyphicon glyphicon-plus-sign"></span><span class="sr-only">Add Biomarker</span></button>
-                <button id="delete-marker" title="Delete biomarker"><span alt="Delete(-)" class="glyphicon glyphicon-minus-sign"></span><span class="sr-only">Delete Biomarker</span>
-                  <button id="reset" type="reset" title="Reset">Reset</button>
-                  <button id="calculate" type="button" title="Calculate">Calculate</button>
-                </button>
-              </div>
-              <div class="pull-right">
-                <button id="test" title="Populate 1 biomarker using option 1 with test data" class="btn btn-sm btn-success">Example</button>
-              </div>
+            <div class="row pull-right">
+              <button id="add-marker"><span alt="Add(+)" class="glyphicon glyphicon-plus-sign"></span><span class="sr-only">Add Biomarker</span></button>
+              <button id="delete-marker" value="delete biomarker"><span alt="Delete(-)" class="glyphicon glyphicon-minus-sign"></span><span class="sr-only">Delete Biomarker</span></button>
+              <button id="reset" type="reset">Reset</button>
+              <button id="calculate" type="button">Calculate</button>
             </div>
           </div>
         </div>
@@ -158,10 +153,6 @@
             <table class="table table-bordered table-condensed">
               <thead>
                 <tr>
-                  <th class="active">&nbsp;</th>
-                  <th class="active">Biomarker #1</th>
-                </tr>
-                <tr>
                   <th class="active">Parameters</th>
                   <th class="active">HPV</th>
                 </tr>
@@ -169,63 +160,63 @@
               <tbody>
                 <tr>
                   <td>P(D,M+)=PPV*p</td>
-                  <td id="pos_d_pos_m_result" class="output"></td>
+                  <td id="d_plus_m_plus" class="output"></td>
                 </tr>
                 <tr>
                   <td>P(D,M-)=cNPV*(1-p)</td>
-                  <td id="pos_d_neg_m_result" class="output"></td>
+                  <td id="d_plus_m_minus" class="output"></td>
                 </tr>
                 <tr>
                   <td>P(D-,M+)=cPPV*p</td>
-                  <td id="neg_d_pos_m_result" class="output"></td>
+                  <td id="d_minus_m_plus" class="output"></td>
                 </tr>
                 <tr>
                   <td>P(D-,M-)=NPV*(1-p)</td>
-                  <td id="neg_d_neg_m_result" class="output"></td>
+                  <td id="d_minus_m_minus" class="output"></td>
                 </tr>
                 <tr>
-                  <td id="probM" class="termToDefine">P(M+)</td>
-                  <td id="neg_d_neg_m_result" class="output"></td>
+                  <td class="termToDefine">P(M+)</td>
+                  <td id="m_plus" class="output"></td>
                 </tr>
                 <tr>
-                  <td id="probD" class="termToDefine">P(D+)</td>
-                  <td id="dprev_result" class="output"></td>
+                  <td class="termToDefine">P(D+)</td>
+                  <td id="d_plus" class="output"></td>
                 </tr>
                 <tr>
-                  <td id="ppv" class="termToDefine">Positive Predictive Value</td>
-                  <td id="ppv_result" class="output"></td>
+                  <td class="termToDefine">Positive Predictive Value</td>
+                  <td id="ppv" class="output"></td>
                 </tr>
                 <tr>
-                  <td>Complement of Negative Predictive Value</td>
-                  <td id="cnpv_result" class="output"></td>
+                  <td class="termToDefine">Complement of Negative Predictive Value</td>
+                  <td id="comp_npv" class="output"></td>
                 </tr>
                 <tr>
-                  <td id="sens" class="termToDefine">Sensitivity</td>
-                  <td id="sens_result" class="output"></td>
+                  <td class="termToDefine">Sensitivity</td>
+                  <td id="sense" class="output"></td>
                 </tr>
                 <tr>
-                  <td id="spec" class="termToDefine">Specificity</td>
-                  <td id="spec_result" class="output"></td>
+                  <td class="termToDefine">Specificity</td>
+                  <td id="spec" class="output"></td>
                 </tr>
                 <tr>
-                  <td>Complement of Specificity</td>
-                  <td id="cspec_result" class="output"></td>
+                  <td class="termToDefine">Complement of Specificity</td>
+                  <td id="comp_spec" class="output"></td>
                 </tr>
                 <tr>
-                  <td>RR=PPV/cNPV</td>
-                  <td id="rr_result" class="output"></td>
+                  <td class="termToDefine">RR=PPV/cNPV</td>
+                  <td id="rr_ppv" class="output"></td>
                 </tr>
                 <tr>
-                  <td>t=Risk Difference</td>
-                  <td id="rdiff_result" class="output"></td>
+                  <td class="termToDefine">t=Risk Difference</td>
+                  <td id="t" class="output"></td>
                 </tr>
                 <tr>
-                  <td>j=Youden</td>
-                  <td id="youden_result" class="output"></td>
+                  <td class="termToDefine">j=Youden</td>
+                  <td id="j" class="output"></td>
                 </tr>
                 <tr>
-                  <td>AUC = (Youden+1)/2</td>
-                  <td id="auc_result" class="output"></td>
+                  <td class="termToDefine">AUC = (Youden+1)/2</td>
+                  <td id="auc" class="output"></td>
                 </tr>
               </tbody>
             </table>
@@ -236,39 +227,35 @@
               </tr>
               <tr>
                 <td id="danger" class="termToDefine">Danger</td>
-                <td id="danger_result" class="output"></td>
+                <td id="danger" class="output"></td>
               </tr>
               <tr>
                 <td id="reassurance" class="termToDefine">Reassurance</td>
-                <td id="reassurance_result" class="output"></td>
+                <td id="reassurance" class="output"></td>
               </tr>
               <tr>
                 <td id="qSens" class="termToDefine">Quality of the sensitivity</td>
-                <td id="qsens_result" class="output"></td>
+                <td id="qsense" class="output"></td>
               </tr>
               <tr>
                 <td id="qSpec" class="termToDefine">Quality of the specificity</td>
-                <td id="qspec_result" class="output"></td>
+                <td id="qspec" class="output"></td>
               </tr>
               <tr>
                 <td id="mrs" class="termToDefine">Mean Risk Stratification (MRS)</td>
-                <td id="mrs_result" class="output"></td>
+                <td id="mrs" class="output"></td>
               </tr>
               <tr>
                 <td id="maxMRS" class="termToDefine">Maximum possible MRS for a disease with this prevalence</td>
-                <td id="max_mrs_result" class="output"></td>
+                <td id="max_poss" class="output"></td>
               </tr>
               <tr>
                 <td id="pbs" class="termToDefine">Population Burden Stratification (PBS)</td>
-                <td id="pbs_result" class="output"></td>
+                <td id="pbs" class="output"></td>
               </tr>
               <tr>
                 <td id="nnr" class="termToDefine">Number Needed to Recruit (NNR)</td>
-                <td id="nnr_result" class="output"></td>
-              </tr>
-              <tr>
-                <td id="nns" class="termToDefine">Number Needed to Screen (NNS)</td>
-                <td id="nns_result" class="output"></td>
+                <td id="nnr" class="output"></td>
               </tr>
             </table>
           </div>
@@ -276,7 +263,7 @@
       </div>
     </div>
     <div id="portal-footer">
-      <div class="footerLinks"><a href="http://www.cancer.gov/" title="Home" data-toggle="tooltip" data-placement="left">APC</a>&#124;&nbsp;<a href="mailto:jpsurv-admin@mail.nih.gov?subject=JP%20Surv" target="_top" title="Support">Support</a>&#124;&nbsp;<a href="http://www.cancer.gov/global/web/policies" title="Policies">Policies</a>&#124;&nbsp;<a href="http://www.cancer.gov/global/web/policies/accessibility" title="Accessibility">Accessibility</a>&#124;&nbsp;<a href="http://cancer.gov/global/viewing-files" target="_blank" title="Viewing Files">&#124; Viewing Files</a>&#124;&nbsp;<a href="http://www.cancer.gov/global/web/policies/foia" title="FOIA">FOIA</a><br><br>&#124;<a href="http://www.dhhs.gov/">Department of Health and Human Services</a>&#124;&nbsp;<a href="http://www.nih.gov/">National Institutes of Health &#124;&nbsp;</a><a href="http://www.cancer.gov/"> National Cancer Institute &#124;&nbsp;</a><a href="http://www.usa.gov/">USA.gov</a></div><br><br>&#124;       NIH...Turning Discovery Into Health<sup>&#174;</sup>
+      <div class="footerLinks"><a href="http://www.cancer.gov/" title="Home" data-toggle="tooltip" data-placement="left">APC</a>&#124;&nbsp;<a href="mailto:jpsurv-admin@mail.nih.gov?subject=JP%20Surv" target="_top" title="Support">Support</a>&#124;&nbsp;<a href="http://www.cancer.gov/global/web/policies" title="Policies">Policies</a>&#124;&nbsp;<a href="http://www.cancer.gov/global/web/policies/accessibility" title="Accessibility">Accessibility</a>&#124;&nbsp;<a href="http://cancer.gov/global/viewing-files" target="_blank" title="Viewing Files">&#124; Viewing Files</a>&#124;&nbsp;<a href="http://www.cancer.gov/global/web/policies/foia" title="FOIA">FOIA</a><br><br><a href="http://www.dhhs.gov/">&#124; Department of Health and Human Services</a>&#124;&nbsp;<a href="http://www.nih.gov/">&#124; National Institutes of Health</a>&#124;&nbsp;<a href="http://www.cancer.gov/">&#124; National Cancer Institute</a>&#124;&nbsp;<a href="http://www.usa.gov/">USA.gov</a></div><br><br>&#124;       NIH...Turning Discovery Into Health<sup>&#174;</sup>
     </div>
   </body>
 </html>

@@ -158,7 +158,8 @@ function calculate() {
 
     promise.then(function (data) {
         // clean before return
-        return data;
+	   
+	    return data;
     }, function (error) {
         console.log('Error: ' + JSON.stringify(error));
     });

@@ -1,12 +1,9 @@
 .col-md-12.well
-    #markers
+    #markers.panel-group
         .marker.marker-1
             .row.bg-primary
                 .text-center.marker-title Biomarker #1
             .row
-                //.col-md-12
-                //    label(for='name-input') Biomarker Name
-                //    input#name-input(name="#name-input",type="text")
                 .panel.panel-default
                     .panel-title
                         a.panel-toggle(data-toggle='collapse', data-parent='#markers', href='#marker-1-panel-1')
@@ -18,11 +15,11 @@
                                 tr.active
                                     th.col-md-2.header
                                         .sr-only Empty cell
-                                            a(href="#probM") Skip to Content
-                                    th#probM.termToDefine.header Marker Positive (M+)
+                                            a(href="#mPlus") Skip to Content
+                                    th#mPlus.termToDefine.header Marker Positive (M+)
                                     th#mMinus.termToDefine.header Marker Negative (M-)
                                 tr
-                                    th#probD.termToDefine.header.active Disease Positive (D+)
+                                    th#dPlus.termToDefine.header.active Disease Positive (D+)
                                     td
                                         label.sr-only(for='a') A
                                         input#a.input(name='a', type='text')
@@ -47,10 +44,12 @@
                             table.option-2.table.table-condensed.table-striped.table-responsive
                                 thead
                                     tr.active
-                                        th.header(title='Parameter Type Column') Parameter
-                                        th.header(title="Parameter Value Column")  Value
+                                        th.header
+                                            #paramType(data-term='param_type') Parameter
+                                        th.header
+                                            #paramValue(data-term='param_value') Value
                                 tbody
-                                    tr(row='0')
+                                    tr.param_row(row='0')
                                         td
                                             select.input(name="param_1")
                                                 option(value='ppv') PPV
@@ -74,21 +73,17 @@
                                             span.dd.termToDefine.glyphicon.glyphicon-info-sign
                                         td
                                             input.input(type='text', name="param_3")
-                                    tr(row='3')
-                                        td Sample Size
-                                        td
-                                            input.input(name="sampsize",type='text' )
+                                tr(row='3')
+                                    td Sample Size
+                                    td
+                                        input.input(name="sampsize",type='text' )
 #control-group.col-md-12
-    .row
-        .pull-left
-            button#add-marker
-                span.glyphicon.glyphicon-plus-sign(alt="Add(+)",title="Add biomarker")
-                span.sr-only Add Biomarker
-            button#delete-marker(title="Delete biomarker")
-                span.glyphicon.glyphicon-minus-sign(alt="Delete(-)")
-                span.sr-only Delete Biomarker
-
-                button#reset(type='reset', title="Reset") Reset
-                button#calculate(type='button', title="Calculate") Calculate
-        .pull-right
-            button.btn.btn-sm.btn-success#test(title="Populate 1 biomarker using option 1 with test data") Example
+    .row.pull-right
+        button#add-marker
+            span.glyphicon.glyphicon-plus-sign(alt="Add(+)")
+            span.sr-only Add Biomarker
+        button#delete-marker(value="delete biomarker")
+            span.glyphicon.glyphicon-minus-sign(alt="Delete(-)")
+            span.sr-only Delete Biomarker
+        button#reset(type='reset') Reset
+        button#calculate(type='button') Calculate

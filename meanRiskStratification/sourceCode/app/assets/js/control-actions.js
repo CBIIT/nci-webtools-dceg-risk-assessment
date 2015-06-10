@@ -1,5 +1,9 @@
+// control actions functions
+var optionsText = ["option1", "option2", "option3"];
+
 // keep track of the number of marker elements, to use the number as the id
 var currentMarkers = $('#markers').children().length + 1;
+
 
 $(document).ready(function () {
     $("#results").hide();
@@ -12,6 +16,7 @@ $(document).ready(function () {
 
 function bind_control_events() {
     // testing
+    $('<button class="btn btn-sm btn-sucess" id="test">TEST</button>').appendTo('#control-group');
     $('button#test').on('click', test);
 
     $('#reset').on('click', reset);
@@ -35,7 +40,6 @@ function panel_actions() {
             .addClass('collapse');
     });
 }
-
 function controls_visibility(numElements) {
     if (numElements == 2) {
         $('#delete-marker').show();
@@ -126,88 +130,63 @@ function display_definition() {
 
     if (definition || term) {
         $self.popover(
-            {container: 'body', trigger: 'manual', placement: 'top', title: term, content: definition}
-        ).on('mouseout', function () {
-                $self.popover('hide');
-                $self.popover('destroy');
-            });
-
-        $self.popover();
-        $self.popover('show');
+            {container: 'body', trigger: 'click', placement: 'top', title: term, content: definition}
+        );
     }
+    $self.popover();
+    $self.popover('show');
+
+    setTimeout(function () {
+        $self.popover('hide');
+        $self.popover('destroy');
+    }, 5000);
 }
 
 function calculate() {
     var params, calc;
-    var input = JSON.stringify(extract_values());
+    var input = extract_values();
     var host = window.location.hostname;
 
-    var service = "http://" + host + "/mrsRest/";
-
-    // call json file instead of service
-    service = 'test_json.json'
+    if (host == 'localhost') service = 'ncias-d1207-v.nci.nih.gov:8080/meanstoriskRest/';
+    else {
+        var service = "http://" + host + "/mrsRest";
+    }
 
     // ajax call, change to actual service name
     var promise = $.ajax({
-        dataType: 'json',
         method: 'POST',
-        contentType: 'application/json',
+        contentType: 'text/json',
         url: service,
         data: input
     });
 
     promise.then(function (data) {
         // clean before return
+
         return data;
     }, function (error) {
-        console.log('Error: ' + JSON.stringify(error));
+        console.log('Error: ' + error);
     });
 
-    promise.done(return_data);
-
-    $("#results").show();
-}
-
-function return_data(data) {
-    //append_name();
-    params = data.parameters;
-    // loop through appending data to table
-    $.each(data, function (name, obj) {
-        $.each(obj, function (id, val) {
-            var formattedText = val.value + "%";
-
-            if (val.lb_ci != null && val.ub_ci != null) formattedText += " (" + val.lb_ci + "%, " + val.ub_ci + "%)";
-
-            var text = $('<b />');
-            text.attr('title', id.toLowerCase() + " " + formattedText);
-            text.text(formattedText);
-            $('#' + id + '_result.output').html(text);
+    promise.done(function (data) {
+        params = data.parameters;
+        $.each(data, function (name, obj) {
+            $.each(obj, function (id, val) {
+                $('#' + id + '.output').html(val);
+            });
         });
+
+        calc = data.calculations;
+        $("#results").show();
     });
-
-    $("#results").show();
 }
-function append_name() {
-    i = 1;
-    do {
-        // append biomarker Name to results table header
-        if ($('.marker-' + i + ' #name-input').val().length > 0)
-            var name = $('.marker-' + i + ' #name-input').val();
-        else
-            name = "Biomarker " + i;
 
-        $('#results table thead tr:first-child').append('<th title="' + name + '" class="markerName active">' + name + '</th>');
-    } while (i != currentMarkers);
-}
 function extract_values() {
     var values = {};
-
-    //append_name();
     // find biomarkers with values first, use currentMarkers for iteration
     i = 0;
     do {
         i++;
-
         values["bm_" + i] = {};
         var thisMarker = $('.marker-' + i);
 
@@ -276,18 +255,19 @@ function reset() {
     // reset drop downs then, text boxes
     $('select').find('option:first').attr('selected', 'selected');
     $('input').val('');
-    $('#results').hide();
-    $('.output').text('');
 }
 
 function test() {
-    var values_option_1 = {a: 471, b: 13, c: 4680, d: 25207};
-    var tbs = $('.marker-1');
+    var tbs = $('input.input');
+    var dds = $('select.input');
+    for (var i = 0; i != tbs.length; i++) {
+        // random value between 0 and 300
+        var randomValue = Math.random() * (300 - 1) + 1;
+        tbs[i].value = randomValue;
+    }
 
-    // pull data from test_values
-    tbs.find('#a').val(values_option_1['a']);
-    tbs.find('#b').val(values_option_1['b']);
-    tbs.find('#c').val(values_option_1['c']);
-    tbs.find('#d').val(values_option_1['d']);
-
+    for (var j = 0; j != dds.length; j++) {
+        var randomIndex = Math.floor(Math.random() * dds[j].length);
+        dds[j].selectedIndex = randomIndex;
+    }
 }
