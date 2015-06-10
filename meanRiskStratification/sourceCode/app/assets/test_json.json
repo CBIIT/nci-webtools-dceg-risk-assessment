@@ -1,116 +1,146 @@
 {
   "parameters": {
     "a": {
-      "value": 1.0000000
+      "Value": 471,
+      "Confidence Interval (lower bound)": null,
+      "Confidence Interval (upper bound)": null
     },
     "b": {
-      "value": 2.0000000
+      "Value": 13,
+      "Confidence Interval (lower bound)": null,
+      "Confidence Interval (upper bound)": null
     },
     "c": {
-      "value": 3.0000000
+      "Value": 4680,
+      "Confidence Interval (lower bound)": null,
+      "Confidence Interval (upper bound)": null
     },
     "d": {
-      "value": 4.0000000
+      "Value": 25207,
+      "Confidence Interval (lower bound)": null,
+      "Confidence Interval (upper bound)": null
     },
-    "pos_d_pos_m": {
-      "value": 1.55
+    "P(D+,M+)": {
+      "Value": 0.015508,
+      "Confidence Interval (lower bound)": null,
+      "Confidence Interval (upper bound)": null
     },
-    "pos_d_neg_m": {
-      "value": 0.04
+    "P(D+,M-)": {
+      "Value": 0.00042804,
+      "Confidence Interval (lower bound)": null,
+      "Confidence Interval (upper bound)": null
     },
-    "neg_d_pos_m": {
-      "value": 15.41
+    "P(D-,M+)": {
+      "Value": 0.15409,
+      "Confidence Interval (lower bound)": null,
+      "Confidence Interval (upper bound)": null
     },
-    "neg_d_neg_m": {
-      "value": 83.00
+    "P(D-,M-)": {
+      "Value": 0.82997,
+      "Confidence Interval (lower bound)": null,
+      "Confidence Interval (upper bound)": null
     },
-    "mPlus": {
-      "value": 16.96,
-      "lb_ci": 16.54,
-      "ub_ci": 17.38
+    "Marker Positivity": {
+      "Value": 0.1696,
+      "Confidence Interval (lower bound)": 0.16538,
+      "Confidence Interval (upper bound)": 0.17382
     },
-    "dprev": {
-      "value": 1.59,
-      "lb_ci": 1.45,
-      "ub_ci": 1.73
+    "Disease Prevalence": {
+      "Value": 0.015936,
+      "Confidence Interval (lower bound)": 0.014528,
+      "Confidence Interval (upper bound)": 0.017345
     },
-    "ppv": {
-      "value": 9.14,
-      "lb_ci": 8.36,
-      "ub_ci": 9.93
+    "Positive Predictive Value": {
+      "Value": 0.091439,
+      "Confidence Interval (lower bound)": 0.083567,
+      "Confidence Interval (upper bound)": 0.09931
     },
-    "cnpv": {
-      "value": 0.05,
-      "lb_ci": 0.0235,
-      "ub_ci": 0.0796
+    "complement of the Negative Predictive Value": {
+      "Value": 0.00051546,
+      "Confidence Interval (lower bound)": 0.00023533,
+      "Confidence Interval (upper bound)": 0.0007956
     },
-    "sens": {
-      "value": 97.39,
-      "lb_ci": 95.87,
-      "ub_ci": 98.75
+    "Sensitivity": {
+      "Value": 0.97314,
+      "Confidence Interval (lower bound)": 0.95874,
+      "Confidence Interval (upper bound)": 0.98754
     },
-    "spec": {
-      "value": 84.34,
-      "lb_ci": 83.93,
-      "ub_ci": 84.75
+    "Specificity": {
+      "Value": 0.84341,
+      "Confidence Interval (lower bound)": 0.83929,
+      "Confidence Interval (upper bound)": 0.84753
     },
-    "cspec": {
-      "value": 15.66
+    "complement of the Specificity": {
+      "Value": 0.15659,
+      "Confidence Interval (lower bound)": null,
+      "Confidence Interval (upper bound)": null
     },
-    "rr": {
-      "value": 182.80
+    "RR": {
+      "Value": 177.39,
+      "Confidence Interval (lower bound)": null,
+      "Confidence Interval (upper bound)": null
     },
-    "rdiff": {
-      "value": 9.09,
-      "lb_ci": 8.30,
-      "ub_ci": 9.88
+    "Risk Difference": {
+      "Value": 0.090923,
+      "Confidence Interval (lower bound)": 0.083047,
+      "Confidence Interval (upper bound)": 0.098799
     },
-    "auc": {
-      "value": 90.87,
-      "lb_ci": 90.08,
-      "ub_ci": 91.58
+    "Youden": {
+      "Value": 0.81655,
+      "Confidence Interval (lower bound)": 0.80157,
+      "Confidence Interval (upper bound)": 0.83153
     },
-    "youden": {
-      "value": 81.73,
-      "lb_ci": 80.16,
-      "ub_ci": 83.15
+    "Area Under the Curve": {
+      "Value": 0.90828,
+      "Confidence Interval (lower bound)": 0.90078,
+      "Confidence Interval (upper bound)": 0.91577
     }
   },
   "calculations": {
-    "danger": {
-      "value": 7.55,
-      "lb_ci": 6.90,
-      "ub_ci": 8.21
+    "Danger": {
+      "Value": 0.075502,
+      "Confidence Interval (lower bound)": 0.068951,
+      "Confidence Interval (upper bound)": 0.082053
     },
-    "reassurance": {
-      "value": 1.54,
-      "lb_ci": 1.40,
-      "ub_ci": 1.68
+    "Reassurance": {
+      "Value": 0.015421,
+      "Confidence Interval (lower bound)": 0.014031,
+      "Confidence Interval (upper bound)": 0.016811
     },
-    "qsens": {
-      "value": 80.43
+    "Quality of the sensitvity": {
+      "Value": 0.80354,
+      "Confidence Interval (lower bound)": null,
+      "Confidence Interval (upper bound)": null
     },
-    "qspec": {
-      "value": 1.30
+    "Quality of the specificity": {
+      "Value": 0.013013,
+      "Confidence Interval (lower bound)": null,
+      "Confidence Interval (upper bound)": null
     },
-    "mrs": {
-      "value": 2.56,
-      "lb_ci": 2.34,
-      "ub_ci": 2.78
+    "Mean Risk Stratification": {
+      "Value": 0.025611,
+      "Confidence Interval (lower bound)": 0.023389,
+      "Confidence Interval (upper bound)": 0.027833
     },
-    "max_mrs": {
-      "value": 3.13
+    "Maximum possible MRS": {
+      "Value": 0.031365,
+      "Confidence Interval (lower bound)": null,
+      "Confidence Interval (upper bound)": null
     },
-    "pbs": {
-      "value": 1.51,
-      "lb_ci": 1.37,
-      "ub_ci": 1.64
+    "Population Burden Stratification": {
+      "Value": 0.01508,
+      "Confidence Interval (lower bound)": 0.013725,
+      "Confidence Interval (upper bound)": 0.016435
     },
-    "nnr": {
-      "value": 66.28
+    "Number Needed to Recruit": {
+      "Value": 66.312,
+      "Confidence Interval (lower bound)": null,
+      "Confidence Interval (upper bound)": null
     },
-    "nns": {
-      "value": 11.00000000
+    "Number Needed to Screen": {
+      "Value": 10.998,
+      "Confidence Interval (lower bound)": null,
+      "Confidence Interval (upper bound)": null
     }
   }
 }
