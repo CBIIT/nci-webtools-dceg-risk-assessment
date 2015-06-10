@@ -27,72 +27,67 @@ def index():
 def mrsRest():
     # Get the parsed contents of the form data
 
-    data = request.json
-
     biomar = []
-    
-    for currData in data:
 
+    for d in data:
 
-	    if data[currData]['option'] == 1:
+	    if d['option'] == "1":
 
-		    a = data[currData]['a']
-		    b = data[currData]['b']
-		    c = data[currData]['c']
-		    d = data[currData]['d']
+		    a = d['a']
+		    b = d['b']
+		    c = d['c']
+		    d = d['d']
 
 		    abcd = []
 		    abcd.append(a)
 		    abcd.append(b)
 		    abcd.append(c)
 		    abcd.append(d)
-		    
-		    fromR = wrapper.getJSON_abcd(abcd)
 
-		    return json.dumps(str(fromR)) 
+		    biomar.append(wrapper.getJSON_abcd(abcd))
 
-	    elif data[currData]['option'] == 2:
+	    elif d['option'] == "2":
 
-		    ppv = data[currData]['ppv']
-		    npv = data[currData]['npv']
-		    sens = data[currData]['sens']
-		    spec = data[currData]['spec']
-		    probM = data[currData]['probM']
-		    probD = data[currData]['probD']
-		    total = data[currData]['sampsize']
+		    ppv = d['ppv']
+		    npv = d['npv']
+		    sens = d['sens']
+		    spec = d['spec']
+		    probM = d['probM']
+		    probD = d['probD']
+		    total = d['sampsize']
 
 		    if ppv is not None:
 
-			    if probM is not None:
-				    fromR = wrapper.getJSON_PPVNPVprobM(ppv,npv,probM,total)
-				    return json.dumps(str(fromR))
-#				    biomar.append(wrapper.getJSON_PPVNPVprobM(ppv,npv,probM,total))
+			    if mval is not None:
+				    biomar.append(wrapper.getJSON_PPVNPVprobM(ppv,npv,probM,total))
 
-			    elif probD is not None:
-				    fromR = wrapper.getJSON_PPVNPVprobD(ppv,npv,probD,total)
-				    return json.dumps(str(fromR))
-#				    biomar.append(wrapper.getJSON_PPVNPVprobD(ppv,npv,probD,total))
+			    elif dval is not None:
+				    biomar.append(wrapper.getJSON_PPVNPVprobD(ppv,npv,probD,total))
 
 		    elif sens is not None:
 
 			    if probM is not None:
-				    fromR = wrapper.getJSON_sensspecprobM(sens,spec,probM,total)
-				    return json.dumps(str(fromR))
-#				    biomar.append(wrapper.getJSON_sensspecprobM(sens,spec,probM,total))
+				    biomar.append(wrapper.getJSON_sensspecprobM(sens,spec,probM,total))
 
 			    elif probD is not None:
-				    fromR = wrapper.getJSON_sensspecprobD(sens,spec,probD,total)
-				    return json.dumps(str(fromR))
-#				    biomar.append(wrapper.getJSON_sensspecprobD(sens,spec,probD,total))
+				    biomar.append(wrapper.getJSON_sensspecprobD(sens,spec,probD,total))
 
   
+    if fixed_flag == "Specificity":
+    	jsonrtn = (wrapper.saveAllSensGraphs(IntVector(k), FloatVector(sens), FloatVector(spec), float(prev), IntVector(N), unique_id))
+    else:
+        jsonrtn = (wrapper.saveAllSpecGraphs(IntVector(k), FloatVector(sens), FloatVector(spec), float(prev), IntVector(N), unique_id))
 
-    #jsonlist=list(jsonrtn)
+    #end=time.time()
+    #print "Seconds"
+    #print end - start
+
+    jsonlist=list(jsonrtn)
 
     #2
-    #jsonstring=''.join(jsonlist)
-    #print jsonstring
-    return biomar[0] 
+    jsonstring=''.join(jsonlist)
+    print jsonstring
+    return jsonstring 
     
 
     #1print "--------------------------------------------------"

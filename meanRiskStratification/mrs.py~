@@ -51,39 +51,31 @@ def mrsRest():
 
 		    return json.dumps(str(fromR)) 
 
-	    elif data[currData]['option'] == 2:
+	    elif d['option'] == "2":
 
-		    ppv = data[currData]['ppv']
-		    npv = data[currData]['npv']
-		    sens = data[currData]['sens']
-		    spec = data[currData]['spec']
-		    probM = data[currData]['probM']
-		    probD = data[currData]['probD']
-		    total = data[currData]['sampsize']
+		    ppv = d['ppv']
+		    npv = d['npv']
+		    sens = d['sens']
+		    spec = d['spec']
+		    probM = d['probM']
+		    probD = d['probD']
+		    total = d['sampsize']
 
 		    if ppv is not None:
 
-			    if probM is not None:
-				    fromR = wrapper.getJSON_PPVNPVprobM(ppv,npv,probM,total)
-				    return json.dumps(str(fromR))
-#				    biomar.append(wrapper.getJSON_PPVNPVprobM(ppv,npv,probM,total))
+			    if mval is not None:
+				    biomar.append(wrapper.getJSON_PPVNPVprobM(ppv,npv,probM,total))
 
-			    elif probD is not None:
-				    fromR = wrapper.getJSON_PPVNPVprobD(ppv,npv,probD,total)
-				    return json.dumps(str(fromR))
-#				    biomar.append(wrapper.getJSON_PPVNPVprobD(ppv,npv,probD,total))
+			    elif dval is not None:
+				    biomar.append(wrapper.getJSON_PPVNPVprobD(ppv,npv,probD,total))
 
 		    elif sens is not None:
 
 			    if probM is not None:
-				    fromR = wrapper.getJSON_sensspecprobM(sens,spec,probM,total)
-				    return json.dumps(str(fromR))
-#				    biomar.append(wrapper.getJSON_sensspecprobM(sens,spec,probM,total))
+				    biomar.append(wrapper.getJSON_sensspecprobM(sens,spec,probM,total))
 
 			    elif probD is not None:
-				    fromR = wrapper.getJSON_sensspecprobD(sens,spec,probD,total)
-				    return json.dumps(str(fromR))
-#				    biomar.append(wrapper.getJSON_sensspecprobD(sens,spec,probD,total))
+				    biomar.append(wrapper.getJSON_sensspecprobD(sens,spec,probD,total))
 
   
 

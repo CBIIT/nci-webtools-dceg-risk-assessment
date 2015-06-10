@@ -1,7 +1,5 @@
-var marker_base = $('#markers');
-
 // keep track of the number of marker elements, to use the number as the id
-var currentMarkers = marker_base.children().length + 1;
+var currentMarkers = $('#markers').children().length + 1;
 
 $(document).ready(function () {
     $("#results").hide();
@@ -24,12 +22,11 @@ function bind_control_events() {
 
 function create_popover() {
     panel_actions();
-    var term_element = $('.termToDefine');
-    term_element.attr('data-toggle', 'popover');
-    term_element.attr('role', 'button');
-    term_element.attr('tabindex', '');
-}
 
+    $('.termToDefine').attr('data-toggle', 'popover');
+    $('.termToDefine').attr('role', 'button');
+    $('.termToDefine').attr('tabindex', '');
+}
 function panel_actions() {
     // make sure only one panel can open at a time in a group
     $('.panel-collapse').on('show.bs.collapse', function () {
@@ -57,7 +54,7 @@ function controls_visibility(numElements) {
 function new_marker() {
     var counter = currentMarkers + 1;
     if (currentMarkers < 3) {
-        var markerTemplate = marker_base.find('.marker').first();
+        var markerTemplate = $('#markers .marker').first();
 
         // clone controls
         var newElement = markerTemplate.clone();
@@ -94,7 +91,7 @@ function new_marker() {
         newElement.find('.termToDefine, .dd.termToDefine').on('click', display_definition);
 
         // add new marker to #markers element
-        marker_base.append(newElement.fadeIn());
+        $("#markers").append(newElement.fadeIn());
         currentMarkers++;
 
         panel_actions();
@@ -114,14 +111,14 @@ function delete_marker() {
 function display_definition() {
     // used to identify a specific element, since there will be multiple popover elements on the page
     var $self = $(this);
-    var id;
-    // treat drop down elements different than link/text elements
+
+    // treat dropdown elements different than link/text elements
     if (!$self.hasClass('dd')) {
-        id = $self.attr('id');
+        var id = $self.attr('id');
     }
     else {
-        // value selected in the drop down
-        id = $self.prev().val();
+        // value selected in the dropdown
+        var id = $($self.prev()).val();
     }
 
     var definition = definitionObj[id].definition;
@@ -141,107 +138,68 @@ function display_definition() {
 }
 
 function calculate() {
-    var service;
+    var params, calc;
+    var input = JSON.stringify(extract_values());
+    var host = window.location.hostname;
 
-    var valuesObj = extract_values(false);
-    var invalid = valuesObj[1];
-    if (!invalid) {
-        var input = JSON.stringify(valuesObj[0]);
+    var service = "http://" + host + "/mrsRest/";
 
-        var host = window.location.hostname;
-        service = "http://" + host + "/mrsRest/";
+    // call json file instead of service
+    service = 'test_json.json'
 
-        // call json file instead of service
-        //service = 'test_json.json';
-
-        // ajax call, change to actual service name
-        var promise = $.ajax({
-            dataType: 'json',
-            method: 'POST',
-            contentType: 'application/json',
-            url: service,
-            data: input
-        });
-
-        promise.then(clean_data, function (error) {
-            console.log('Error: ' + JSON.stringify(error));
-        });
-
-        promise.done(return_data);
-
-        $("#results").show();
-    }
-    else {
-        // show error message somewhere
-        if (!$("#errors")[0]) {
-            $('h1.title').after($("<div><b class='text-danger'>Must enter values for either option 1 or 2 for the biomarkers</b></div>")
-                .attr('id', 'errors')
-                .addClass('well-sm'));
-            setTimeout(function () {
-                $('#errors').fadeOut().remove();
-            }, 4000);
-        }
-    }
-}
-
-function clean_data(data) {
-    return data;
-}
-
-function return_data(data) {
-    params = data.parameters;
-    calc = data.calculations;
-    var prop_array = Object.getOwnPropertyNames(params);
-    // loop through appending data to table
-    $.each(params, function (name, obj) {
-        var lookup_id = lookup[name];
-        var data_item = params[name];
-
-        var formattedText = data_item["Value"] + "%";
-        if (data_item["Confidence Interval (lower bound)"] != null && data_item["Confidence Interval (upper bound)"] != null) {
-            formattedText += " (" + data_item["Confidence Interval (lower bound)"] + "%, "
-                + data_item["Confidence Interval (upper bound)"] + "%)";
-        }
-
-        var text = $('<b></b>');
-        text.attr('title', lookup_id + " " + formattedText);
-        text.text(formattedText);
-        $('#' + lookup_id + '_result.output').html(text);
+    // ajax call, change to actual service name
+    var promise = $.ajax({
+        dataType: 'json',
+        method: 'POST',
+        contentType: 'application/json',
+        url: service,
+        data: input
     });
-    $.each(calc, function (name, obj) {
-        var lookup_id = lookup[name];
-        var data_item = calc[name];
 
-        var formattedText = data_item["Value"] + "%";
-        if (data_item["Confidence Interval (lower bound)"] != null && data_item["Confidence Interval (upper bound)"] != null) {
-            formattedText += " (" + data_item["Confidence Interval (lower bound)"] + "%, "
-                + data_item["Confidence Interval (upper bound)"] + "%)";
-        }
-
-        var text = $('<b></b>');
-        text.attr('title', lookup_id + " " + formattedText);
-        text.text(formattedText);
-        $('#' + lookup_id + '_result.output').html(text);
+    promise.then(function (data) {
+        // clean before return
+        return data;
+    }, function (error) {
+        console.log('Error: ' + JSON.stringify(error));
     });
+
+    promise.done(return_data);
+
     $("#results").show();
 }
 
+function return_data(data) {
+    //append_name();
+    params = data.parameters;
+    // loop through appending data to table
+    $.each(data, function (name, obj) {
+        $.each(obj, function (id, val) {
+            var formattedText = val.value + "%";
+
+            if (val.lb_ci != null && val.ub_ci != null) formattedText += " (" + val.lb_ci + "%, " + val.ub_ci + "%)";
+
+            var text = $('<b />');
+            text.attr('title', id.toLowerCase() + " " + formattedText);
+            text.text(formattedText);
+            $('#' + id + '_result.output').html(text);
+        });
+    });
+
+    $("#results").show();
+}
 function append_name() {
     i = 1;
     do {
-        var thisNameInputElement = $('.marker-' + i + ' #name-input');
         // append biomarker Name to results table header
-        if (thisNameInputElement.val().length > 0)
-            var name = thisNameInputElement.val();
+        if ($('.marker-' + i + ' #name-input').val().length > 0)
+            var name = $('.marker-' + i + ' #name-input').val();
         else
             name = "Biomarker " + i;
 
-        $('#results').find('table thead tr:first-child')
-            .append('<th title="' + name + '" class="active markerName">' + name + '</th>');
+        $('#results table thead tr:first-child').append('<th title="' + name + '" class="markerName active">' + name + '</th>');
     } while (i != currentMarkers);
 }
-
-function extract_values(invalid) {
+function extract_values() {
     var values = {};
 
     //append_name();
@@ -257,7 +215,7 @@ function extract_values(invalid) {
         var option_1_controls = thisMarker.find('#marker-' + i + '-panel-1 .input').serializeArray(); // option 1
         var option_2_controls = thisMarker.find('#marker-' + i + '-panel-2 .input').serializeArray(); // option 2
 
-        option_1_controls.forEach(function (element) {
+        option_1_controls.forEach(function (element, index, array) {
             if (element.value.length > 0) {
                 values["bm_" + i][element.name] = element.value;
 
@@ -281,7 +239,6 @@ function extract_values(invalid) {
 
             option_2_controls.filter(function (obj) {
                 // filter each pair into separate arrays
-
                 if (obj.name == "param_1") {
                     param_1.push(obj);
                 }
@@ -294,35 +251,27 @@ function extract_values(invalid) {
                 if (obj.name == "sampsize") {
                     param_4.push(obj);
                 }
+            });
 
-            });
-            var value_length = [param_1[1].value.length, param_2[1].value.length, param_3[1].value.length];
-            value_length.forEach(function (el, ind, arr) {
-                if (el > 0) {
-                    invalid = false;
-                    // manually mapping each value pair
-                    values["bm_" + i][param_1[0].value] = param_1[1].value;
-                    values["bm_" + i][param_2[0].value] = param_2[1].value;
-                    values["bm_" + i][param_3[0].value] = param_3[1].value;
-                }
-                else {
-                    invalid = true;
-                }
-            });
+            // manually mapping each value pair
+            values["bm_" + i][param_1[0].value] = param_1[1].value;
+            values["bm_" + i][param_2[0].value] = param_2[1].value;
+            values["bm_" + i][param_3[0].value] = param_3[1].value;
+
             // sample size
             values["bm_" + i][param_4[0].name] = param_4[0].value;
         }
     } while (i != currentMarkers);
 
-    return [values, invalid];
+    return values;
 }
 
 function reset() {
-    var currentMarkers = marker_base.children().length;
+    var currentMarkers = $('#markers').children().length;
     controls_visibility(currentMarkers);
 
     // remove generated markers
-    marker_base.children(':gt(0)').remove();
+    $('#markers').children(':gt(0)').remove();
 
     // reset drop downs then, text boxes
     $('select').find('option:first').attr('selected', 'selected');
@@ -344,20 +293,20 @@ function test() {
 }
 // definitions used for display
 var definitionObj = {
-    prob_m: {
+    probM: {
         term: "Marker Positivity (M+)",
         definition: "Positive test result for biomarker"
     },
-    m_neg: {
+    mMinus: {
         term: "Marker Negativity (M-)",
         definition: "Negative test result for biomarker test"
     },
-    prob_d: {
-        term: "Disease Positive (D+)",
+    probD: {
+        term: "Disease Positive",
         definition: "Has disease"
     },
-    d_neg: {
-        term: "Disease Negative (D-)",
+    dMinus: {
+        term: "Disease Negative",
         definition: "Does not have disease"
     },
     danger: {
@@ -380,15 +329,15 @@ var definitionObj = {
         term: "Number Needed to Recruit",
         definition: "To detect 1 more disease case in positive group than negative group"
     },
-    max_mrs: {
+    maxMRS: {
         term: "Maximum possible MRS for a disease with this prevalence",
         definition: "Maximum possible MRS for a disease with this prevalence"
     },
-    q_spec: {
+    qSpec: {
         term: "Quality of the specificity",
         definition: "Increase in specificity versus a random test, fixing test positivity"
     },
-    q_sens: {
+    qSens: {
         term: "Quality of the sensitivity",
         definition: "Increase in sensitivity versus a random test, fixing test positivity"
     },
@@ -416,37 +365,4 @@ var definitionObj = {
         definition: "Average change in pretest-posttest disease risk"
     },
     sampsize:{term:"Sample Size",definition:""}
-};
-var lookup = {
-    "Danger": "danger",
-    "Reassurance": "reassurance",
-    "Quality of the sensitvity": "q_sens",
-    "Quality of the specificity": "q_spec",
-    "Mean Risk Stratification": "mrs",
-    "Maximum possible MRS": "max_mrs",
-    "Population Burden Stratification": "pbs",
-    "Number Needed to Recruit": "nnr",
-    "Number Needed to Screen": "nns",
-    "a": "a",
-    "b": "b",
-    "c": "c",
-    "d": "d",
-    "P(D+,M+)": "d_pos",
-    "P(D+,M-)": "pos_d_neg_m",
-    "P(D-,M+)": "neg_d_pos_m",
-    "P(D-,M-)": "m_neg",
-    "Marker Positivity": "prob_m",
-    "Disease Prevalence": "prob_d",
-    "Positive Predictive Value": "ppv",
-    "complement of the Negative Predictive Value": "c_npv",
-    "Sensitivity": "sens",
-    "Specificity": "spec",
-    "complement of the Specificity": "c_spec",
-    "RR": "rr",
-    "Risk Difference": "r_diff",
-    "Youden": "youden",
-    "Area Under the Curve": "auc",
-    "Confidence Interval (lower bound)": "ci_lb",
-    "Confidence Interval (upper bound)": "ci_ub",
-    "Value":"value"
 };

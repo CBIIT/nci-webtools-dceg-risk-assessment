@@ -1,50 +1,58 @@
 library('RJSONIO')
 source('./MRSunconditionalTool.R')
 
-options(scipen=-100)
-
 imageDirectory = "./tmp"
+
+
+convertToJSON <- function (data) {
+  # convert to named lists 
+  parameters=apply(data$parameters, 1, as.list)
+  calculations=apply(data$calculations, 1, as.list)
+  namedData=list(parameters=parameters, calculations=calculations)
+  return(toJSON(namedData, .withNames=TRUE, .escapeEscapes=TRUE))
+}
 
 getJSON_abcd <- function(abcd) {
 
 	data <- MRSunconditional(abcd)
-	
-	jsonString = ""
-	jsonString = toJSON(data)
+	data = convertToJSON(data)
 
+  	return (data)
+	
 }
 
 getJSON_PPVNPVprobM <- function(PPV,NPV,probM,total) {
 
-    	data <- PPVNPVprobM_abcd(PPV,NPV,probM,total)
+    	abcd <- PPVNPVprobM_abcd(PPV,NPV,probM,total)
+	data = getJSON_abcd(abcd)
 
-	jsonString = ""
-	jsonString = toJSON(data)
+	return (data)
 }
 
 getJSON_PPVNPVprobD <- function(PPV,NPV,probD,total) {
 
-	data <- PPVNPVprobD_abcd(PPV,NPV,probD,total)
-        
-	jsonString = ""
-	jsonString = toJSON(data)
+	abcd <- PPVNPVprobD_abcd(PPV,NPV,probD,total)
+	data = getJSON_abcd(abcd)
+	
+	return (data)
+	
 }
 
 getJSON_sensspecprobM <- function(sens,spec,probM,total) {
 
-	data <- sensspecprobM(sens,spec,probM,total)
+	abcd <- sensspecprobM_abcd(sens,spec,probM,total)
+	data = getJSON_abcd(abcd)
 
-	jsonString = ""
-        jsonString = toJSON(data)
+	return (data)
 
 }
 
 getJSON_sensspecprobD <- function(sens,spec,probD,total) {
 
-	data <- sensspecprobD(sens,spec,probD,total)
+	abcd <- sensspecprobD_abcd(sens,spec,probD,total)
+	data = getJSON_abcd(abcd)
 
-       	jsonString = ""
-       	jsonString = toJSON(data)
+	return (data)
 
 }
 		          
