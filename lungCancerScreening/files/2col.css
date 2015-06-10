@@ -26,8 +26,8 @@ FORM {PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; P
 SELECT {WIDTH: 100px; COLOR: #333333}
 INPUT {PADDING-RIGHT: 5px; PADDING-LEFT: 5px; PADDING-BOTTOM: 1px; PADDING-TOP: 1px}
 
-#warning {margin: 15px; padding: 5px; color:red; font-family: Arial; font-size: 12px; font-weight: bold; border: 1px dashed #ca0202; background: #fff;}
-#warning a:visited {color:red;}
+.warning {margin: 0 15px; padding: 5px; color:red; font-family: Arial; font-size: 12px; font-weight: bold; border: 1px dashed #ca0202; background: #fff;}
+.warning a:visited {color:red;}
 
 a.fill-div {display: block; height: 100%; width: 100%; text-decoration: none;}
 
@@ -55,12 +55,12 @@ a.fill-div {display: block; height: 100%; width: 100%; text-decoration: none;}
 nav {width: 1000px; margin-bottom: 10px; text-align: center;}
 nav ul ul {display: none;}
 	nav ul li:hover > ul {display: block;}
-nav ul {width: 960px; background: #efefef; background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);  
-	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%); 
-	background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%); 
+nav ul {width: 960px; background: #efefef; background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);
+	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%);
+	background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%);
 	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
 	padding: 0 20px;
-	border-radius: 10px;  
+	border-radius: 10px;
 	list-style: none;
 	position: relative;
 	display: inline-table;}
@@ -74,7 +74,7 @@ nav ul {width: 960px; background: #efefef; background: linear-gradient(top, #efe
 				nav ul li a {display: block; padding: 15px 40px; color: #757575; text-decoration: none; font-weight: bold;}
 	nav ul ul {background: #5f6975; border-radius: 0px; padding: 0; position: absolute; top: 100%; width: 200px; text-align: left;}
 		nav ul ul li {float: none; border-top: 1px solid #6b727c; border-bottom: 1px solid #575f6a; position: relative; }
-			nav ul ul li a {padding: 15px 40px; color: #fff;}	
+			nav ul ul li a {padding: 15px 40px; color: #fff;}
 				nav ul ul li a:hover {background: #4b545f;}
 		nav ul ul ul {position: absolute; left: 100%; top:0;}
 
@@ -89,15 +89,15 @@ nav ul {width: 960px; background: #efefef; background: linear-gradient(top, #efe
 	background: -ms-linear-gradient(top, #ffffff 1%,#eaeaea 100%);
 	background: linear-gradient(top, #ffffff 1%,#eaeaea 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eaeaea',GradientType=0 );
-	box-shadow: 
-		0px 0px 0px 1px rgba(155,155,155,0.3), 
-		1px 0px 0px 0px rgba(255,255,255,0.9) inset, 
+	box-shadow:
+		0px 0px 0px 1px rgba(155,155,155,0.3),
+		1px 0px 0px 0px rgba(255,255,255,0.9) inset,
 		0px 2px 2px rgba(0,0,0,0.1);}
 .ac-container label:hover{background: #fff;}
 .ac-container input:checked + label,
-.ac-container input:checked + label:hover{background: #c6e1ec; color: #3d7489; text-shadow: 0px 1px 1px rgba(255,255,255, 0.6);	
-		box-shadow: 
-		0px 0px 0px 1px rgba(155,155,155,0.3), 
+.ac-container input:checked + label:hover{background: #c6e1ec; color: #3d7489; text-shadow: 0px 1px 1px rgba(255,255,255, 0.6);
+		box-shadow:
+		0px 0px 0px 1px rgba(155,155,155,0.3),
 		0px 2px 2px rgba(0,0,0,0.1);}
 .ac-container label:hover:after,
 .ac-container input:checked + label:hover:after{content: ''; position: absolute; width: 24px; height: 24px; right: 13px; top: 7px; background: transparent url(arrow_down.png) no-repeat center center;}
@@ -122,6 +122,43 @@ nav ul {width: 960px; background: #efefef; background: linear-gradient(top, #efe
 .ac-container input:checked ~ article.ac-medium{height: 180px;}
 .ac-container input:checked ~ article.ac-large{height: 230px;}
 
+.formTable {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.formTable tr > td:first-child {
+	padding-bottom: 15px;
+	width:68%;
+}
+
+.formTable tr > td > div {
+	display: inline-block;
+}
+
+.formTable select {
+	width: 150px;
+}
+
+select.small {
+	width: 50px;
+}
+
+.formTable input {
+	display: inline-block;
+	width: 135px;
+}
+
+input.small {
+	width: 58px;
+}
+
+input + span {
+	display:block;
+	margin-bottom:15px;
+}
+
 
 #mainBoxContainer {width: 480px; background: #C6E1EC; margin-top: 15px; -moz-border-radius: 10px; border-radius: 10px; border: 1px solid #cbced2;}
 #mainBoxTitle {padding: 5px 0 5px 20px; font-size: 15px; font-weight: bold; color: #777777; font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif; border-bottom: 1px solid #cbced2;}
@@ -134,4 +171,3 @@ nav ul {width: 960px; background: #efefef; background: linear-gradient(top, #efe
 #footer A:visited {COLOR: #4d4d4d; font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif; font-size: 12px;}
 #footer A:active {COLOR: #4d4d4d; font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif; font-size: 12px;}
 #footer A:hover {COLOR: #980000}
-
