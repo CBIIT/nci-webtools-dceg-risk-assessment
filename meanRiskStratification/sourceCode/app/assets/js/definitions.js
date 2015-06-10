@@ -1,10 +1,6 @@
 // definitions used for display
 var definitionObj = {
-<<<<<<< HEAD
     prob_m: {
-=======
-    mPlus: {
->>>>>>> 0a4aadb7a519de702431db92b6ad267cd86a90c4
         term: "Marker Positivity (M+)",
         definition: "Positive test result for biomarker"
     },
@@ -12,21 +8,12 @@ var definitionObj = {
         term: "Marker Negativity (M-)",
         definition: "Negative test result for biomarker test"
     },
-<<<<<<< HEAD
     prob_d: {
         term: "Disease Positive (D+)",
         definition: "Has disease"
     },
     d_neg: {
         term: "Disease Negative (D-)",
-=======
-    dPlus: {
-        term: "Positive Probability of Disease (Disease Positive)",
-        definition: "Has disease"
-    },
-    dMinus: {
-        term: "Negative Probability of Disease (Disease Negative)",
->>>>>>> 0a4aadb7a519de702431db92b6ad267cd86a90c4
         definition: "Does not have disease"
     },
     danger: {
@@ -40,6 +27,10 @@ var definitionObj = {
     pbs: {
         term: "Population Burden Stratification",
         definition: "Extra disease detection in positive group than negative group"
+    },
+    nns: {
+        term: "Number Needed to Screen",
+        definition: "Definition for number needed to screen"
     },
     nnr: {
         term: "Number Needed to Recruit",
@@ -75,5 +66,10 @@ var definitionObj = {
     npv: {
         term: "Negative Predictive Value (NPV)",
         definition: "Definition for NPV"
-    }
+    },
+    mrs:{
+        term: "Mean Risk Stratification (MRS)",
+        definition: "Average change in pretest-posttest disease risk"
+    },
+    sampsize:{term:"Sample Size",definition:""}
 };
