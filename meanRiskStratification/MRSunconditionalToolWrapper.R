@@ -5,13 +5,20 @@ options(scipen=-100)
 
 imageDirectory = "./tmp"
 
+
+function convertToJSON(data) {
+  //convert to named lists
+  parameters=apply(data$parameters, 1, as.list)
+  results=apply(data$results, 1. as.list)
+  cat(toJSON(parameters, .withNames=TRUE), toJSON(results, .withNames=TRUE))
+}
+
 getJSON_abcd <- function(abcd) {
 
 	data <- MRSunconditional(abcd)
 	
-	jsonString = ""
-	jsonString = toJSON(data)
-
+	jsonString =convertToJSON(data)
+	
 }
 
 getJSON_PPVNPVprobM <- function(PPV,NPV,probM,total) {

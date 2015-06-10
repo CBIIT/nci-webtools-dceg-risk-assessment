@@ -215,7 +215,7 @@ MRSunconditional <- function(abcd) {
   calculations <- matrix(c(danger,reassurance,dangerstar,reassurancestar,MRS,maxMRS,D,nnr,nns,dangerCI[1],reassuranceCI[1],NA,NA,MRSCI[1],NA,DCI[1],NA,NA,dangerCI[2],reassuranceCI[2],NA,NA,MRSCI[2],NA,DCI[2],NA,NA),nrow=length(calcrows),ncol=3,byrow=F)
   rownames(calculations) <- calcrows
   colnames(calculations) <- c("Value","Confidence Interval (lower bound)", "Confidence Interval (upper bound)")
-  output <- list(parameters=parameters,results=calculations)
+  output <- list(parameters=parameters,calculations=calculations)
   
   # End
   return(output)
