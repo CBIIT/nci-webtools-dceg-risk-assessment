@@ -10,7 +10,7 @@
         tbody
             tr
                 td P(D,M+)=PPV*p
-                td.output#pos_d_pos_m_result
+                td.output#d_pos_result
             tr
                 td P(D,M-)=cNPV*(1-p)
                 td.output#pos_d_neg_m_result
@@ -19,19 +19,19 @@
                 td.output#neg_d_pos_m_result
             tr
                 td P(D-,M-)=NPV*(1-p)
-                td.output#neg_d_neg_m_result
+                td.output#m_neg_result
             tr
-                td.termToDefine#probM P(M+)
-                td.output#neg_d_neg_m_result
+                td.termToDefine#prob_m P(M+)
+                td.output#prob_m_result
             tr
-                td.termToDefine#probD P(D+)
-                td.output#dprev_result
+                td.termToDefine#prob_d P(D+)
+                td.output#prob_d_result
             tr
                 td.termToDefine#ppv Positive Predictive Value
                 td.output#ppv_result
             tr
                 td Complement of Negative Predictive Value
-                td.output#cnpv_result
+                td.output#c_npv_result
             tr
                 td.termToDefine#sens Sensitivity
                 td.output#sens_result
@@ -40,13 +40,13 @@
                 td.output#spec_result
             tr
                 td Complement of Specificity
-                td.output#cspec_result
+                td.output#c_spec_result
             tr
                 td RR=PPV/cNPV
                 td.output#rr_result
             tr
                 td t=Risk Difference
-                td.output#rdiff_result
+                td.output#r_diff_result
             tr
                 td j=Youden
                 td.output#youden_result
@@ -64,16 +64,16 @@
             td#reassurance.termToDefine Reassurance
             td.output#reassurance_result
         tr
-            td#qSens.termToDefine Quality of the sensitivity
-            td.output#qsens_result
+            td#q_sens.termToDefine Quality of the sensitivity
+            td.output#q_sens_result
         tr
-            td#qSpec.termToDefine Quality of the specificity
-            td.output#qspec_result
+            td#q_spec.termToDefine Quality of the specificity
+            td.output#q_spec_result
         tr
             td#mrs.termToDefine Mean Risk Stratification (MRS)
             td.output#mrs_result
         tr
-            td#maxMRS.termToDefine Maximum possible MRS for a disease with this prevalence
+            td#max_mrs.termToDefine Maximum possible MRS for a disease with this prevalence
             td.output#max_mrs_result
         tr
             td#pbs.termToDefine Population Burden Stratification (PBS)
