@@ -1,19 +1,19 @@
 // definitions used for display
 var definitionObj = {
-    probM: {
+    prob_m: {
         term: "Marker Positivity (M+)",
         definition: "Positive test result for biomarker"
     },
-    mMinus: {
+    m_neg: {
         term: "Marker Negativity (M-)",
         definition: "Negative test result for biomarker test"
     },
-    probD: {
-        term: "Disease Positive",
+    prob_d: {
+        term: "Disease Positive (D+)",
         definition: "Has disease"
     },
-    dMinus: {
-        term: "Disease Negative",
+    d_neg: {
+        term: "Disease Negative (D-)",
         definition: "Does not have disease"
     },
     danger: {
@@ -36,15 +36,15 @@ var definitionObj = {
         term: "Number Needed to Recruit",
         definition: "To detect 1 more disease case in positive group than negative group"
     },
-    maxMRS: {
+    max_mrs: {
         term: "Maximum possible MRS for a disease with this prevalence",
         definition: "Maximum possible MRS for a disease with this prevalence"
     },
-    qSpec: {
+    q_spec: {
         term: "Quality of the specificity",
         definition: "Increase in specificity versus a random test, fixing test positivity"
     },
-    qSens: {
+    q_sens: {
         term: "Quality of the sensitivity",
         definition: "Increase in sensitivity versus a random test, fixing test positivity"
     },
