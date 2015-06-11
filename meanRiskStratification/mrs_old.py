@@ -26,7 +26,7 @@ def index():
 @app.route('/mrsRest/', methods=['POST'])
 def mrsRest():
     # Get the parsed contents of the form data
-	
+
     data = request.json
 
     biomar = []
@@ -47,9 +47,9 @@ def mrsRest():
 		    abcd.append(c)
 		    abcd.append(d)
 		    
-		    fromR = wrapper.getJSON_abcd(IntVector(abcd))
+		    fromR = wrapper.getJSON_abcd(abcd)
 
-		    return json.dumps(fromR) 
+		    return json.dumps(str(fromR)) 
 
 	    elif data[currData]['option'] == 2:
 
@@ -57,8 +57,8 @@ def mrsRest():
 		    npv = data[currData]['npv']
 		    sens = data[currData]['sens']
 		    spec = data[currData]['spec']
-		    probM = data[currData]['probM']
-		    probD = data[currData]['probD']
+		    probM = data[currData]['prob_m']
+		    probD = data[currData]['prob_d']
 		    total = data[currData]['sampsize']
 
 		    if ppv is not None:

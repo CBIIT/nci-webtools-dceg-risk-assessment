@@ -14,7 +14,8 @@ $(document).ready(function () {
 
 function bind_control_events() {
     // testing
-    $('button#test').on('click', test);
+    $('button#test1').on('click', test);
+    $('button#test2').on('click', test);
 
     $('#reset').on('click', reset);
     $('#add-marker').on('click', new_marker);
@@ -57,7 +58,7 @@ function controls_visibility(numElements) {
 function new_marker() {
     var counter = currentMarkers + 1;
     if (currentMarkers < 3) {
-        var markerTemplate = marker_base.find('.marker').first();
+        var markerTemplate = $('#markers').find('.marker').first();
 
         // clone controls
         var newElement = markerTemplate.clone();
@@ -94,7 +95,7 @@ function new_marker() {
         newElement.find('.termToDefine, .dd.termToDefine').on('click', display_definition);
 
         // add new marker to #markers element
-        marker_base.append(newElement.fadeIn());
+        $('#markers').append(newElement.fadeIn());
         currentMarkers++;
 
         panel_actions();
@@ -149,6 +150,9 @@ function calculate() {
         var input = JSON.stringify(valuesObj[0]);
 
         var host = window.location.hostname;
+        if (host == 'localhost') {
+            host = 'analysistools-sandbox.nci.nih.gov';
+        }
         service = "http://" + host + "/mrsRest/";
 
         // call json file instead of service
@@ -169,7 +173,6 @@ function calculate() {
 
         promise.done(return_data);
 
-        $("#results").show();
     }
     else {
         // show error message somewhere
@@ -185,13 +188,13 @@ function calculate() {
 }
 
 function clean_data(data) {
-    return data;
+    return JSON.parse(JSON.stringify(data));
 }
 
 function return_data(data) {
     params = data.parameters;
     calc = data.calculations;
-    var prop_array = Object.getOwnPropertyNames(params);
+
     // loop through appending data to table
     $.each(params, function (name, obj) {
         var lookup_id = lookup[name];
@@ -332,15 +335,39 @@ function reset() {
 }
 
 function test() {
-    var values_option_1 = {a: 471, b: 13, c: 4680, d: 25207};
     var tbs = $('.marker-1');
+    var values_option_1 = {a: 471, b: 13, c: 4680, d: 25207};
+    var values_option_2 = {ppv: 0.0914, "npv": (1 - 0.0005), "P(M+)": 0.1696, "total": 30371};
 
-    // pull data from test_values
-    tbs.find('#a').val(values_option_1['a']);
-    tbs.find('#b').val(values_option_1['b']);
-    tbs.find('#c').val(values_option_1['c']);
-    tbs.find('#d').val(values_option_1['d']);
+    if (this.id == "test1") {
+        var tbs = $('.marker-1');
 
+        // pull data from values_option_1
+        tbs.find('#a').val(values_option_1['a']);
+        tbs.find('#b').val(values_option_1['b']);
+        tbs.find('#c').val(values_option_1['c']);
+        tbs.find('#d').val(values_option_1['d']);
+    }
+    if (this.id == "test2") {
+
+        // clear values for option 1
+        tbs.find('#a').val("");
+        tbs.find('#b').val("");
+        tbs.find('#c').val("");
+        tbs.find('#d').val("");
+
+        // pull data from value_option_2
+        tbs.find('.input[name="param_1"]')[0].selectedIndex = 0;//ppv
+        tbs.find('.input[name="param_1"]')[1].value = values_option_2["ppv"];
+
+        tbs.find('.input[name="param_2"]')[0].selectedIndex = 0;//npv
+        tbs.find('.input[name="param_2"]')[1].value = values_option_2["npv"];
+
+        tbs.find('.input[name="param_3"]')[0].selectedIndex = 0;//P(M+)
+        tbs.find('.input[name="param_3"]')[1].value = values_option_2["P(M+)"];
+
+        tbs.find('.input[name="sampsize"]')[0].value = values_option_2["total"];
+    }
 }
 // definitions used for display
 var definitionObj = {

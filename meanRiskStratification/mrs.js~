@@ -14,8 +14,7 @@ $(document).ready(function () {
 
 function bind_control_events() {
     // testing
-    $('button#test1').on('click', test);
-    $('button#test2').on('click', test);
+    $('button#test').on('click', test);
 
     $('#reset').on('click', reset);
     $('#add-marker').on('click', new_marker);
@@ -58,7 +57,7 @@ function controls_visibility(numElements) {
 function new_marker() {
     var counter = currentMarkers + 1;
     if (currentMarkers < 3) {
-        var markerTemplate = $('#markers').find('.marker').first();
+        var markerTemplate = marker_base.find('.marker').first();
 
         // clone controls
         var newElement = markerTemplate.clone();
@@ -95,7 +94,7 @@ function new_marker() {
         newElement.find('.termToDefine, .dd.termToDefine').on('click', display_definition);
 
         // add new marker to #markers element
-        $('#markers').append(newElement.fadeIn());
+        marker_base.append(newElement.fadeIn());
         currentMarkers++;
 
         panel_actions();
@@ -118,7 +117,7 @@ function display_definition() {
     var id;
     // treat drop down elements different than link/text elements
     if (!$self.hasClass('dd')) {
-        id = ($self.attr('class')).replace('termToDefine ','');
+        id = $self.attr('id');
     }
     else {
         // value selected in the drop down
@@ -151,7 +150,7 @@ function calculate() {
 
         var host = window.location.hostname;
         if (host == 'localhost') {
-            host = 'analysistools-sandbox.nci.nih.gov';
+            host = 'http://ncias-d1207-v.nci.nih.gov:9140';
         }
         service = "http://" + host + "/mrsRest/";
 
@@ -172,13 +171,11 @@ function calculate() {
         });
 
         promise.done(return_data);
-
     }
     else {
         // show error message somewhere
         if (!$("#errors")[0]) {
-            $('h1.title')
-                .after($("<div><b class='text-danger'>Must enter values for either option 1 or 2 for the biomarkers</b></div>")
+            $('h1.title').after($("<div><b class='text-danger'>Must enter values for either option 1 or 2 for the biomarkers</b></div>")
                 .attr('id', 'errors')
                 .addClass('well-sm'));
             setTimeout(function () {
@@ -189,13 +186,30 @@ function calculate() {
 }
 
 function clean_data(data) {
-    return JSON.parse(JSON.stringify(data));
+    return data;
+}
+function escape (key, val) {
+    if (typeof(val)!="string") { 
+	return val;
+    }
+    return val
+	.replace(/[\"]/g, '')
+	.replace(/[\\]/g, '')
+	.replace(/[\/]/g, '')
+	.replace(/[\b]/g, '')
+	.replace(/[\f]/g, '')
+	.replace(/[\n]/g, '')
+	.replace(/[\r]/g, '')
+	.replace(/[\t]/g, '')
+	; 
 }
 
 function return_data(data) {
+    data = JSON.stringify(data,escape);
+    console.log(data);
     params = data.parameters;
     calc = data.calculations;
-
+    var prop_array = Object.getOwnPropertyNames(params);
     // loop through appending data to table
     $.each(params, function (name, obj) {
         var lookup_id = lookup[name];
@@ -210,7 +224,7 @@ function return_data(data) {
         var text = $('<b></b>');
         text.attr('title', lookup_id + " " + formattedText);
         text.text(formattedText);
-        $('.' + lookup_id + '_result.output').html(text);
+        $('#' + lookup_id + '_result.output').html(text);
     });
     $.each(calc, function (name, obj) {
         var lookup_id = lookup[name];
@@ -225,7 +239,7 @@ function return_data(data) {
         var text = $('<b></b>');
         text.attr('title', lookup_id + " " + formattedText);
         text.text(formattedText);
-        $('.' + lookup_id + '_result.output').html(text);
+        $('#' + lookup_id + '_result.output').html(text);
     });
     $("#results").show();
 }
@@ -233,7 +247,7 @@ function return_data(data) {
 function append_name() {
     i = 1;
     do {
-        var thisNameInputElement = $('.marker-' + i + ' .name-input');
+        var thisNameInputElement = $('.marker-' + i + ' #name-input');
         // append biomarker Name to results table header
         if (thisNameInputElement.val().length > 0)
             var name = thisNameInputElement.val();
@@ -336,39 +350,15 @@ function reset() {
 }
 
 function test() {
-    var tbs = $('.marker-1');
     var values_option_1 = {a: 471, b: 13, c: 4680, d: 25207};
-    var values_option_2 = {ppv: 0.0914, "npv": (1 - 0.0005), "P(M+)": 0.1696, "total": 30371};
+    var tbs = $('.marker-1');
 
-    if (this.id == "test1") {
-        var tbs = $('.marker-1');
+    // pull data from test_values
+    tbs.find('#a').val(values_option_1['a']);
+    tbs.find('#b').val(values_option_1['b']);
+    tbs.find('#c').val(values_option_1['c']);
+    tbs.find('#d').val(values_option_1['d']);
 
-        // pull data from values_option_1
-        tbs.find('#a').val(values_option_1['a']);
-        tbs.find('#b').val(values_option_1['b']);
-        tbs.find('#c').val(values_option_1['c']);
-        tbs.find('#d').val(values_option_1['d']);
-    }
-    if (this.id == "test2") {
-
-        // clear values for option 1
-        tbs.find('#a').val("");
-        tbs.find('#b').val("");
-        tbs.find('#c').val("");
-        tbs.find('#d').val("");
-
-        // pull data from value_option_2
-        tbs.find('.input[name="param_1"]')[0].selectedIndex = 0;//ppv
-        tbs.find('.input[name="param_1"]')[1].value = values_option_2["ppv"];
-
-        tbs.find('.input[name="param_2"]')[0].selectedIndex = 0;//npv
-        tbs.find('.input[name="param_2"]')[1].value = values_option_2["npv"];
-
-        tbs.find('.input[name="param_3"]')[0].selectedIndex = 0;//P(M+)
-        tbs.find('.input[name="param_3"]')[1].value = values_option_2["P(M+)"];
-
-        tbs.find('.input[name="sampsize"]')[0].value = values_option_2["total"];
-    }
 }
 // definitions used for display
 var definitionObj = {
