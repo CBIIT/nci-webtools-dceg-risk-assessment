@@ -188,7 +188,7 @@ function calculate() {
 }
 
 function clean_data(data) {
-    return JSON.parse(JSON.stringify(data);
+    return JSON.parse(JSON.stringify(data));
 }
 
 function return_data(data) {
