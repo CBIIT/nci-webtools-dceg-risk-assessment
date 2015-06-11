@@ -171,6 +171,7 @@ function calculate() {
         });
 
         promise.done(return_data);
+
     }
     else {
         // show error message somewhere
@@ -188,24 +189,8 @@ function calculate() {
 function clean_data(data) {
     return data;
 }
-function escape (key, val) {
-    if (typeof(val)!="string") { 
-	return val;
-    }
-    return val
-	.replace(/[\\]/g, '')
-	.replace(/[\/]/g, '')
-	.replace(/[\b]/g, '')
-	.replace(/[\f]/g, '')
-	.replace(/[\n]/g, '')
-	.replace(/[\r]/g, '')
-	.replace(/[\t]/g, '')
-	; 
-}
 
 function return_data(data) {
-    data = JSON.stringify(data,escape);
-    console.log(data);
     params = data.parameters;
     calc = data.calculations;
     var prop_array = Object.getOwnPropertyNames(params);
