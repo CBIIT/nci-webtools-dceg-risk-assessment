@@ -335,29 +335,37 @@ function reset() {
 }
 
 function test() {
+    var tbs = $('.marker-1');
     var values_option_1 = {a: 471, b: 13, c: 4680, d: 25207};
-    var values_option_2 ={};
+    var values_option_2 = {ppv: 0.0914, "npv": (1 - 0.0005), "P(M+)": 0.1696, "total": 30371};
+
     if (this.id == "test1") {
         var tbs = $('.marker-1');
 
-        // pull data from test_values
+        // pull data from values_option_1
         tbs.find('#a').val(values_option_1['a']);
         tbs.find('#b').val(values_option_1['b']);
         tbs.find('#c').val(values_option_1['c']);
         tbs.find('#d').val(values_option_1['d']);
     }
     if (this.id == "test2") {
-        var tbs = $('.marker-1');
 
-        // pull data from test_values
+        // clear values for option 1
+        tbs.find('#a').val("");
+        tbs.find('#b').val("");
+        tbs.find('#c').val("");
+        tbs.find('#d').val("");
 
-        tbs.find('[name="param_1"]')[0].selectedIndex = 1;
-        tbs.find('[name="param_1"]')[1].val();
+        // pull data from value_option_2
+        tbs.find('.input[name="param_1"]')[0].selectedIndex = 0;//ppv
+        tbs.find('.input[name="param_1"]')[1].value = values_option_2["ppv"];
 
-        tbs.find('[name="param_2"]')[0].selectedIndex = 1;
-        tbs.find('[name="param_2"]')[1].val();
+        tbs.find('.input[name="param_2"]')[0].selectedIndex = 0;//npv
+        tbs.find('.input[name="param_2"]')[1].value = values_option_2["npv"];
 
-        tbs.find('[name="param_3"]')[0].selectedIndex = 1;
-        tbs.find('[name="param_3"]')[1].val();
+        tbs.find('.input[name="param_3"]')[0].selectedIndex = 0;//P(M+)
+        tbs.find('.input[name="param_3"]')[1].value = values_option_2["P(M+)"];
+
+        tbs.find('.input[name="sampsize"]')[0].value = values_option_2["total"];
     }
 }
