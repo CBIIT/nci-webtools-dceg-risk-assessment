@@ -14,8 +14,8 @@ $(document).ready(function () {
 
 function bind_control_events() {
     // testing
-    $('button#test1').on('click', test(1));
-    $('button#test2').on('click', test(2));
+    $('button#test1').on('click', test);
+    $('button#test2').on('click', test);
 
     $('#reset').on('click', reset);
     $('#add-marker').on('click', new_marker);
@@ -334,9 +334,10 @@ function reset() {
     $('.output').text('');
 }
 
-function test(option) {
+function test() {
     var values_option_1 = {a: 471, b: 13, c: 4680, d: 25207};
-    if (option == 1) {
+    var values_option_2 ={};
+    if (this.id == "test1") {
         var tbs = $('.marker-1');
 
         // pull data from test_values
@@ -344,5 +345,19 @@ function test(option) {
         tbs.find('#b').val(values_option_1['b']);
         tbs.find('#c').val(values_option_1['c']);
         tbs.find('#d').val(values_option_1['d']);
+    }
+    if (this.id == "test2") {
+        var tbs = $('.marker-1');
+
+        // pull data from test_values
+
+        tbs.find('[name="param_1"]')[0].selectedIndex = 1;
+        tbs.find('[name="param_1"]')[1].val();
+
+        tbs.find('[name="param_2"]')[0].selectedIndex = 1;
+        tbs.find('[name="param_2"]')[1].val();
+
+        tbs.find('[name="param_3"]')[0].selectedIndex = 1;
+        tbs.find('[name="param_3"]')[1].val();
     }
 }
