@@ -26,7 +26,7 @@ def index():
 @app.route('/mrsRest/', methods=['POST'])
 def mrsRest():
     # Get the parsed contents of the form data
-
+	
     data = request.json
 
     biomar = []
@@ -47,7 +47,7 @@ def mrsRest():
 		    abcd.append(c)
 		    abcd.append(d)
 		    
-		    fromR = wrapper.getJSON_abcd(abcd)
+		    fromR = wrapper.getJSON_abcd(IntVector(abcd))
 
 		    return json.dumps(str(fromR)) 
 

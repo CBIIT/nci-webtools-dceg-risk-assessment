@@ -193,6 +193,7 @@ function escape (key, val) {
 	return val;
     }
     return val
+	.replace(/[\"]/g, '')
 	.replace(/[\\]/g, '')
 	.replace(/[\/]/g, '')
 	.replace(/[\b]/g, '')
