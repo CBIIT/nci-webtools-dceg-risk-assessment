@@ -132,6 +132,27 @@
                         <input type="text" name="quit" ng-change="myForm.changeQuit()" ng-model="myForm.quit">
                       </td>
                     </tr>
+                    <tr ng-show="myForm.startAgeCriteria">
+                      <td colspan="2">
+                        <div class="warning">
+                          Starting age must be greater than zero.
+                        </div>
+                      </td>
+                    </tr>
+                    <tr ng-show="myForm.quitAgeCriteria">
+                      <td colspan="2">
+                        <div class="warning">
+                          Quitting age value must be less than age.
+                        </div>
+                      </td>
+                    </tr>
+                    <tr ng-show="myForm.quitCriteria">
+                      <td colspan="2">
+                        <div class="warning">
+                          The <a href="http://www.uspreventiveservicestaskforce.org/uspstf/uspslung.htm" target="_blank" title="U.S. Preventive Services Task Force">U.S. Preventive Services Task Force</a> does NOT recommend that you get screened if you quitted smoking for more than 15 years.
+                        </div>
+                      </td>
+                    </tr>
                     <tr ng-show="myForm.smokeShow">
                       <td valign="top" ng-switch="myForm.type">
                         <div style="margin-left: 30px">
@@ -151,13 +172,6 @@
                       <td colspan="2">
                         <div class="warning">
                           The <a href="http://www.uspreventiveservicestaskforce.org/uspstf/uspslung.htm" target="_blank" title="U.S. Preventive Services Task Force">U.S. Preventive Services Task Force</a> does NOT recommend that you get screened unless you have a minimum 30 pack-years of smoking.</div>
-                      </td>
-                    </tr>
-                    <tr ng-show="myForm.quitCriteria">
-                      <td colspan="2">
-                        <div class="warning">
-                          The <a href="http://www.uspreventiveservicestaskforce.org/uspstf/uspslung.htm" target="_blank" title="U.S. Preventive Services Task Force">U.S. Preventive Services Task Force</a> does NOT recommend that you get screened if you quitted smoking for more than 15 years.
-                        </div>
                       </td>
                     </tr>
                     <tr>
@@ -236,7 +250,7 @@
                           <option value="2">High school graduate</option>
                           <option value="3">Vocation/technical school, but no college</option>
                           <option value="4">Associate Degree/Some College</option>
-                          <option value="5">Bachelor's degree</option>
+                          <option value="5">Bachelors degree</option>
                           <option value="6">Graduate degree</option>
                         </select>
                       </td>
@@ -333,7 +347,6 @@
     </div>
 
     <div id="footer">
-
       <p><a href="https://ncicbsupport.nci.nih.gov/" title="Home">Home</a>&nbsp;&nbsp;|&nbsp;&nbsp;
         <a href="http://ncicb.nci.nih.gov/NCICB/support" title="Support">Support</a>&nbsp;&nbsp;|&nbsp;&nbsp;
         <a href="http://www.cancer.gov/global/web/policies" title="Policies">Policies</a>&nbsp;&nbsp;|&nbsp;&nbsp;

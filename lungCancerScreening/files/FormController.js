@@ -1,14 +1,14 @@
 var app = angular.module("myapp",[]);
 
-app.controller("MyController", function($scope, $http){
+app.controller("MyController", function($scope, $http) {
 
         $scope.myForm = {};
         function init(){
             $scope.myForm.ageCriteria = false;
             $scope.myForm.typeCriteria = false;
-            $scope.myForm.startShow = false;
-            $scope.myForm.quitShow = false;
+            $scope.myForm.startAgeCriteria = false;
             $scope.myForm.quitCriteria = false;
+            $scope.myForm.quitAgeCriteria = false;
             $scope.myForm.packsCriteria = false;
             $scope.myForm.heightPrimary;
             $scope.myForm.heightSecondary;
@@ -19,26 +19,40 @@ app.controller("MyController", function($scope, $http){
 
         $scope.myForm.changeAge = function() {
             if($scope.myForm.age !== '' && $scope.myForm.age !== undefined){
-                $scope.myForm.ageCriteria = !($scope.myForm.age > 54 && $scope.myForm.age < 80);
+              var age = parseFloat($scope.myForm.age);
+              $scope.myForm.ageCriteria = !(age >= 55 && age <= 79);
+              $scope.myForm.changeQuit();
             }
             else{
-                 $scope.myForm.ageCriteria = false;
+              $scope.myForm.ageCriteria = false;
             }
         };
 
         $scope.myForm.changeType = function(){
             $scope.myForm.smokeShow = $scope.myForm.type === 'current' || $scope.myForm.type === 'former';
-            //$scope.myForm.startShow = $scope.myForm.type === 'current';
-            //$scope.myForm.quitShow = $scope.myForm.type === 'former';
             $scope.myForm.typeCriteria = $scope.myForm.type === 'non';
+        };
+
+        $scope.myForm.changeStart = function(){
+            if ($scope.myForm.start === '') {
+                $scope.myForm.startAgeCriteria = false;
+            }
+            else {
+              var start = parseFloat($scope.myForm.start);
+              $scope.myForm.startAgeCriteria = (start <= 0);
+            }
         };
 
         $scope.myForm.changeQuit = function(){
             if ($scope.myForm.quit === '') {
                 $scope.myForm.quitCriteria = false;
+                $scope.myForm.quitAgeCriteria = false;
             }
             else {
-                $scope.myForm.quitCriteria = ($scope.myForm.age - $scope.myForm.quit > 15);
+              var age = parseFloat($scope.myForm.age);
+              var quit = parseFloat($scope.myForm.quit);
+              $scope.myForm.quitCriteria = (age - quit > 15);
+              $scope.myForm.quitAgeCriteria = (quit > age);
             }
         };
 
@@ -47,6 +61,7 @@ app.controller("MyController", function($scope, $http){
                 $scope.myForm.packsCriteria = false;
             }
             else {
+                // What is this formula supposed to be?
                 $scope.myForm.packsCriteria = (($scope.myForm.age - $scope.myForm.start) * $scope.myForm.packs < 30);
             }
         };
@@ -56,7 +71,8 @@ app.controller("MyController", function($scope, $http){
             $scope.myForm.heightPrimary = 'Feet';
             $scope.myForm.heightSecondary = 'Inch(es)';
             $scope.myForm.weightUnits = 'Pound(s)';
-          } else {
+          }
+          else {
             $scope.myForm.heightPrimary = 'Meter(s)';
             $scope.myForm.heightSecondary = 'Centimer(s)';
             $scope.myForm.weightUnits = 'Kilogram(s)';
