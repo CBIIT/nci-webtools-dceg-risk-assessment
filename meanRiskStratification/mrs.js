@@ -14,7 +14,8 @@ $(document).ready(function () {
 
 function bind_control_events() {
     // testing
-    $('button#test').on('click', test);
+    $('button#test1').on('click', test(1));
+    $('button#test2').on('click', test(2));
 
     $('#reset').on('click', reset);
     $('#add-marker').on('click', new_marker);
@@ -57,7 +58,7 @@ function controls_visibility(numElements) {
 function new_marker() {
     var counter = currentMarkers + 1;
     if (currentMarkers < 3) {
-        var markerTemplate = marker_base.find('.marker').first();
+        var markerTemplate = $('#markers').find('.marker').first();
 
         // clone controls
         var newElement = markerTemplate.clone();
@@ -94,7 +95,7 @@ function new_marker() {
         newElement.find('.termToDefine, .dd.termToDefine').on('click', display_definition);
 
         // add new marker to #markers element
-        marker_base.append(newElement.fadeIn());
+        $('#markers').append(newElement.fadeIn());
         currentMarkers++;
 
         panel_actions();
@@ -150,7 +151,7 @@ function calculate() {
 
         var host = window.location.hostname;
         if (host == 'localhost') {
-            host = 'http://ncias-d1207-v.nci.nih.gov:9140';
+            host = 'analysistools-sandbox.nci.nih.gov';
         }
         service = "http://" + host + "/mrsRest/";
 
@@ -187,13 +188,13 @@ function calculate() {
 }
 
 function clean_data(data) {
-    return data;
+    return JSON.parse(JSON.stringify(data);
 }
 
 function return_data(data) {
     params = data.parameters;
     calc = data.calculations;
-    var prop_array = Object.getOwnPropertyNames(params);
+
     // loop through appending data to table
     $.each(params, function (name, obj) {
         var lookup_id = lookup[name];
@@ -333,16 +334,17 @@ function reset() {
     $('.output').text('');
 }
 
-function test() {
+function test(option) {
     var values_option_1 = {a: 471, b: 13, c: 4680, d: 25207};
-    var tbs = $('.marker-1');
+    if (option == 1) {
+        var tbs = $('.marker-1');
 
-    // pull data from test_values
-    tbs.find('#a').val(values_option_1['a']);
-    tbs.find('#b').val(values_option_1['b']);
-    tbs.find('#c').val(values_option_1['c']);
-    tbs.find('#d').val(values_option_1['d']);
-
+        // pull data from test_values
+        tbs.find('#a').val(values_option_1['a']);
+        tbs.find('#b').val(values_option_1['b']);
+        tbs.find('#c').val(values_option_1['c']);
+        tbs.find('#d').val(values_option_1['d']);
+    }
 }
 // definitions used for display
 var definitionObj = {
