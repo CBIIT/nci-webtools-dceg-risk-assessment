@@ -44,6 +44,19 @@ sensspecprobM_abcd <- function(sens,spec,probM,total) {
   sensspecprobD_abcd(sens,spec,probD,total)
 }
 
+sigfigures <- function(numbers) {
+  data <- rep(NA,length(numbers))
+  for(i in 1:length(numbers)) {
+    if(is.na(numbers[i])==F) {
+      data[i] <- as.numeric(formatC(signif(numbers[i],digits=2), digits=2,format="fg", flag="#"))
+    }
+    else {
+      data[i] <- numbers[i]
+    }
+  }
+  data
+}
+
 MRSunconditional <- function(abcd) {
   ## Purpose: Estimate MRS statistics and their unconditional quadrinomial variance estimates: 
   ## ----------------------------------------------------------------------
@@ -208,11 +221,13 @@ MRSunconditional <- function(abcd) {
   
   # output
   paramrows <- c("a","b","c","d","P(D+,M+)", "P(D+,M-)","P(D-,M+)","P(D-,M-)","Marker Positivity","Disease Prevalence","Positive Predictive Value","complement of the Negative Predictive Value","Sensitivity","Specificity","complement of the Specificity","RR","Risk Difference", "Youden","Area Under the Curve")
-  parameters <- matrix(c(a,b,c,d,probDM,probDnotM,probnotDM,probnotDnotM,p,q,PPV,(1-NPV),sens,spec,(1-spec),rr,t,Youden,AUC,rep(NA,8),pCI[1],qCI[1],PPVCI[1],cNPVCI[1],sensCI[1],specCI[1],rep(NA,2),tCI[1],YoudenCI[1],AUCCI[1],rep(NA,8),pCI[2],qCI[2],PPVCI[2],cNPVCI[2],sensCI[2],specCI[2],rep(NA,2),tCI[2],YoudenCI[2],AUCCI[2]),nrow=length(paramrows),ncol=3,byrow=F)         
+  params <- c(a,b,c,d,sigfigures(c(100*probDM,100*probDnotM,100*probnotDM,100*probnotDnotM,100*p,100*q,100*PPV,100*(1-NPV),100*sens,100*spec,100*(1-spec),rr,100*t,100*Youden,100*AUC,rep(NA,8),100*pCI[1],100*qCI[1],100*PPVCI[1],100*cNPVCI[1],100*sensCI[1],100*specCI[1],rep(NA,2),100*tCI[1],100*YoudenCI[1],100*AUCCI[1],rep(NA,8),100*pCI[2],100*qCI[2],100*PPVCI[2],100*cNPVCI[2],100*sensCI[2],100*specCI[2],rep(NA,2),100*tCI[2],100*YoudenCI[2],100*AUCCI[2])))
+  parameters <- matrix(params,nrow=length(paramrows),ncol=3,byrow=F)         
   rownames(parameters) <- paramrows
   colnames(parameters) <- c("Value","Confidence Interval (lower bound)", "Confidence Interval (upper bound)")
   calcrows <- c("Danger","Reassurance","Quality of the sensitvity","Quality of the specificity","Mean Risk Stratification","Maximum possible MRS", "Population Burden Stratification","Number Needed to Recruit","Number Needed to Screen")
-  calculations <- matrix(c(danger,reassurance,dangerstar,reassurancestar,MRS,maxMRS,D,nnr,nns,dangerCI[1],reassuranceCI[1],NA,NA,MRSCI[1],NA,DCI[1],NA,NA,dangerCI[2],reassuranceCI[2],NA,NA,MRSCI[2],NA,DCI[2],NA,NA),nrow=length(calcrows),ncol=3,byrow=F)
+  calcs <- sigfigures(c(100*danger,100*reassurance,100*dangerstar,100*reassurancestar,100*MRS,100*maxMRS,100*D,nnr,nns,100*dangerCI[1],100*reassuranceCI[1],NA,NA,100*MRSCI[1],NA,100*DCI[1],NA,NA,100*dangerCI[2],100*reassuranceCI[2],NA,NA,100*MRSCI[2],NA,100*DCI[2],NA,NA))
+  calculations <- matrix(calcs,nrow=length(calcrows),ncol=3,byrow=F)
   rownames(calculations) <- calcrows
   colnames(calculations) <- c("Value","Confidence Interval (lower bound)", "Confidence Interval (upper bound)")
   output <- list(parameters=parameters,calculations=calculations)

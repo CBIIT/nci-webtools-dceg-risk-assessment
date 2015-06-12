@@ -1,86 +1,156 @@
-#results.panel.panel-default
-    table.table.table-bordered.table-condensed
-        thead
+#results
+    div
+        table.table.table-bordered.table-condensed
+            thead
+                tr
+                    th.active &nbsp;
+                    th.bm_1.marker_name.active
+                    th.bm_2.marker_name.active
+                    th.bm_3.marker_name.active
+
+                tr
+                    th.active Parameters
+                    th.active.text-center(colspan="3") HPV (CI Low, CI High)
+            tbody
+                tr
+                    td
+                        b P(D,M+)=PPV*p
+                    td.output.bm_1#d_pos_result
+                    td.output.bm_2#d_pos_result
+                    td.output.bm_3#d_pos_result
+                tr
+                    td
+                        b P(D,M-)=cNPV*(1-p)
+                    td.output.bm_1#pos_d_neg_m_result
+                    td.output.bm_2#pos_d_neg_m_result
+                    td.output.bm_3#pos_d_neg_m_result
+                tr
+                    td
+                        b P(D-,M+)=cPPV*p
+                    td.output.bm_1#neg_d_pos_m_result
+                    td.output.bm_2#neg_d_pos_m_result
+                    td.output.bm_3#neg_d_pos_m_result
+                tr
+                    td
+                        b P(D-,M-)=NPV*(1-p)
+                    td.output.bm_1#m_neg_result
+                    td.output.bm_2#m_neg_result
+                    td.output.bm_3#m_neg_result
+                tr
+                    td.termToDefine.prob_m P(M+)
+                    td.output.bm_1#prob_m_result
+                    td.output.bm_2#prob_m_result
+                    td.output.bm_3#prob_m_result
+                tr
+                    td.prob_d.termToDefine P(D+)
+                    td.output.bm_1#prob_d_result
+                    td.output.bm_2#prob_d_result
+                    td.output.bm_3#prob_d_result
+                tr
+                    td.termToDefine.ppv Positive Predictive Value
+                    td.output.bm_1#ppv_result
+                    td.output.bm_2#ppv_result
+                    td.output.bm_3#ppv_result
+                tr
+                    td
+                        b Complement of Negative Predictive Value
+                    td.output.bm_1#c_npv_result
+                    td.output.bm_2#c_npv_result
+                    td.output.bm_3#c_npv_result
+                tr
+                    td.termToDefine.sens Sensitivity
+                    td.output.bm_1#sens_result
+                    td.output.bm_2#sens_result
+                    td.output.bm_3#sens_result
+                tr
+                    td.termToDefine.spec Specificity
+                    td.output.bm_1#spec_result
+                    td.output.bm_2#spec_result
+                    td.output.bm_3#spec_result
+                tr
+                    td
+                        b Complement of Specificity
+                    td.output.bm_1#c_spec_result
+                    td.output.bm_2#c_spec_result
+                    td.output.bm_3#c_spec_result
+                tr
+                    td
+                        b RR=PPV/cNPV
+                    td.output.bm_1#rr_result
+                    td.output.bm_2#rr_result
+                    td.output.bm_3#rr_result
+                tr
+                    td
+                        b t=Risk Difference
+                    td.output.bm_1#r_diff_result
+                    td.output.bm_2#r_diff_result
+                    td.output.bm_3#r_diff_result
+                tr
+                    td
+                        b j=Youden
+                    td.output.bm_1#youden_result
+                    td.output.bm_2#youden_result
+                    td.output.bm_3#youden_result
+                tr
+                    td
+                        b AUC = (Youden+1)/2
+                    td.output.bm_1#auc_result
+                    td.output.bm_2#auc_result
+                    td.output.bm_3#auc_result
+    br
+    div
+        table.table.table-bordered.table-condensed
+            thead
+                tr
+                    th.active Calculations
+                    th.bm_1.marker_name.active
+                    th.bm_2.marker_name.active
+                    th.bm_3.marker_name.active
             tr
                 th.active &nbsp;
-                th.active Biomarker #1
+                th.active.text-center(colspan="3") HPV (CI Low, CI High)
             tr
-                th.active Parameters
-                th.active HPV
-        tbody
+                td.danger.termToDefine Danger
+                td.output.bm_1#danger_result
+                td.output.bm_2#danger_result
+                td.output.bm_3#danger_result
             tr
-                td P(D,M+)=PPV*p
-                td.output#d_pos_result
+                td.reassurance.termToDefine Reassurance
+                td.output.bm_1#reassurance_result
+                td.output.bm_2#reassurance_result
+                td.output.bm_3#reassurance_result
             tr
-                td P(D,M-)=cNPV*(1-p)
-                td.output#pos_d_neg_m_result
+                td.q_sens.termToDefine Quality of the sensitivity
+                td.output.bm_1#q_sens_result
+                td.output.bm_2#q_sens_result
+                td.output.bm_3#q_sens_result
             tr
-                td P(D-,M+)=cPPV*p
-                td.output#neg_d_pos_m_result
+                td.q_spec.termToDefine Quality of the specificity
+                td.output.bm_1#q_spec_result
+                td.output.bm_2#q_spec_result
+                td.output.bm_3#q_spec_result
             tr
-                td P(D-,M-)=NPV*(1-p)
-                td.output#m_neg_result
+                td.mrs.termToDefine Mean Risk Stratification (MRS)
+                td.output.bm_1#mrs_result
+                td.output.bm_2#mrs_result
+                td.output.bm_3#mrs_result
             tr
-                td.termToDefine#prob_m P(M+)
-                td.output#prob_m_result
+                td.max_mrs.termToDefine Maximum possible MRS for a disease with this prevalence
+                td.output.bm_1#max_mrs_result
+                td.output.bm_2#max_mrs_result
+                td.output.bm_3#max_mrs_result
             tr
-                td.termToDefine#prob_d P(D+)
-                td.output#prob_d_result
+                td.pbs.termToDefine Population Burden Stratification (PBS)
+                td.output.bm_1#pbs_result
+                td.output.bm_2#pbs_result
+                td.output.bm_3#pbs_result
             tr
-                td.termToDefine#ppv Positive Predictive Value
-                td.output#ppv_result
+                td.nnr.termToDefine Number Needed to Recruit (NNR)
+                td.output.bm_1#nnr_result
+                td.output.bm_2#nnr_result
+                td.output.bm_3#nnr_result
             tr
-                td Complement of Negative Predictive Value
-                td.output#c_npv_result
-            tr
-                td.termToDefine#sens Sensitivity
-                td.output#sens_result
-            tr
-                td.termToDefine#spec Specificity
-                td.output#spec_result
-            tr
-                td Complement of Specificity
-                td.output#c_spec_result
-            tr
-                td RR=PPV/cNPV
-                td.output#rr_result
-            tr
-                td t=Risk Difference
-                td.output#r_diff_result
-            tr
-                td j=Youden
-                td.output#youden_result
-            tr
-                td AUC = (Youden+1)/2
-                td.output#auc_result
-    table.table.table-bordered.table-condensed
-        tr
-            th.active Output
-            th.active HPV (CI Low, CI High)
-        tr
-            td#danger.termToDefine Danger
-            td.output#danger_result
-        tr
-            td#reassurance.termToDefine Reassurance
-            td.output#reassurance_result
-        tr
-            td#q_sens.termToDefine Quality of the sensitivity
-            td.output#q_sens_result
-        tr
-            td#q_spec.termToDefine Quality of the specificity
-            td.output#q_spec_result
-        tr
-            td#mrs.termToDefine Mean Risk Stratification (MRS)
-            td.output#mrs_result
-        tr
-            td#max_mrs.termToDefine Maximum possible MRS for a disease with this prevalence
-            td.output#max_mrs_result
-        tr
-            td#pbs.termToDefine Population Burden Stratification (PBS)
-            td.output#pbs_result
-        tr
-            td#nnr.termToDefine Number Needed to Recruit (NNR)
-            td.output#nnr_result
-        tr
-            td#nns.termToDefine Number Needed to Screen (NNS)
-            td.output#nns_result
+                td.nns.termToDefine Number Needed to Screen (NNS)
+                td.output.bm_1#nns_result
+                td.output.bm_2#nns_result
+                td.output.bm_3#nns_result
