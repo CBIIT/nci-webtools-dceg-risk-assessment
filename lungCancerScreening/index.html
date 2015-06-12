@@ -77,7 +77,7 @@
                     <tr>
                       <td valign="top">Age</td>
                       <td valign="top">
-                        <input type="text" name="age" ng-change="myForm.changeAge()" ng-model="myForm.age">
+                        <input type="text" name="age" ng-model="myForm.age">
                       </td>
                     </tr>
                     <tr>
@@ -126,16 +126,16 @@
                       </td>
 
                       <td valign="top" ng-switch-when="current">
-                        <input type="text" name="start" ng-change="myForm.changeStart()" ng-model="myForm.start">
+                        <input type="text" name="start" ng-model="myForm.start">
                       </td>
                       <td valign="top" ng-switch-when="former">
-                        <input type="text" name="quit" ng-change="myForm.changeQuit()" ng-model="myForm.quit">
+                        <input type="text" name="quit" ng-model="myForm.quit">
                       </td>
                     </tr>
                     <tr ng-show="myForm.startAgeCriteria">
                       <td colspan="2">
                         <div class="warning">
-                          Starting age must be greater than zero.
+                          Starting age must be greater than 0 and less than or equal to age.
                         </div>
                       </td>
                     </tr>
@@ -179,8 +179,8 @@
                       <td valign="top">
                         <select ng-model="myForm.group">
                           <option value="">Select...</option>
-                          <option value="white">Non-Hispanic White</option>
-                          <option value="black">Non-Hispanic Black</option>
+                          <option value="white">White</option>
+                          <option value="black">Black</option>
                           <option value="hispanic">Hispanic</option>
                           <option value="other">Other</option>
                         </select>
@@ -197,8 +197,8 @@
                       <td valign="top">
                         <select ng-model="myForm.disease">
                           <option value="">Select...</option>
-                          <option value="none">None</option>
                           <option value="emphysema">Emphysema</option>
+                          <option value="none">None</option>
                         </select>
                       </td>
                     </tr>
@@ -207,29 +207,10 @@
                       <td valign="top">
                         <select ng-model="myForm.history">
                           <option value="">Select...</option>
-                          <option value="none">None</option>
-                          <option value="parents">Parents</option>
+                          <option value="0">No parent</option>
+                          <option value="1">One parent had lung cancer</option>
+                          <option value="2">Both parents had lung cancer</option>
                         </select>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td valign="top">Height?</td>
-                      <td valign="top">
-                        <div>
-                          <input class="small" type="text" name="heightfeet">
-                          <span>{{myForm.heightPrimary}}</span>
-                        </div>
-                        <div>
-                          <input class="small" type="text" name="heightinches">
-                          <span>{{myForm.heightSecondary}}</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td valign="top">Weight?</td>
-                      <td valign="top">
-                            <input type="text" name="weight">
-                            <span>{{myForm.weightUnits}}</span>
                       </td>
                     </tr>
                     <tr>
@@ -239,6 +220,40 @@
                             <option value="metric">Metric</option>
                             <option value="us" selected>US</option>
                           </select>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td valign="top">Height?</td>
+                      <td valign="top">
+                        <div>
+                          <input class="small" type="text" name="heightfeet" ng-change="myForm.changeHeight()" ng-model="myForm.pHeight">
+                          <span>{{myForm.heightPrimary}}</span>
+                        </div>
+                        <div>
+                          <input class="small" type="text" name="heightinches" ng-change="myForm.changeHeight()" ng-model="myForm.subHeight">
+                          <span>{{myForm.heightSecondary}}</span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr ng-show="myForm.heightCriteria">
+                      <td colspan="2">
+                        <div class="warning">
+                          {{myForm.heightWarning}}
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td valign="top">Weight?</td>
+                      <td valign="top">
+                            <input type="text" name="weight" ng-change="myForm.changeWeight()" ng-model="myForm.weight">
+                            <span>{{myForm.weightUnits}}</span>
+                      </td>
+                    </tr>
+                    <tr ng-show="myForm.weightCriteria">
+                      <td colspan="2">
+                        <div class="warning">
+                          Weight must be greater than 0.
+                        </div>
                       </td>
                     </tr>
                     <tr>
@@ -279,12 +294,17 @@
             <div id="mainBoxTitle">Your Results</div>
             <div id="mainBoxContent">
 
-              <p>White male of 60 years of age with BMI = 30</p>
+              <p>
+                <!--
+                  Show natural language version of form params here
+                  Example: White male of 60 years of age with BMI = 30
+                -->
+              </p>
 
               <section class="ac-container">
                 <div>
                   <input id="ac-1" name="accordion-1" type="checkbox" />
-                  <label for="ac-1">Risk of dying from lung cancer x%</label>
+                  <label for="ac-1">Risk of dying from lung cancer within 5 years in the absence of screening ( % )</label>
                   <article class="ac-small">
                     <p>Risk: x%, top x% of risk group in trial.</p>
                     <p>Explanation: text</p>
@@ -293,8 +313,8 @@
                   </article>
                 </div>
                 <div>
-                  <input id="ac-2" name="accordion-1" type="checkbox" />
-                  <label for="ac-2">Risk reduction due to lung cancer screening x%</label>
+                  <input id="ac-2" name="accordion-2" type="checkbox" />
+                  <label for="ac-2">Risk reduction due to lung cancer screening ( % )</label>
                   <article class="ac-small">
                     <p>Result: x%</p>
                     <p>Explanation: text</p>
@@ -302,8 +322,26 @@
                   </article>
                 </div>
                 <div>
-                  <input id="ac-3" name="accordion-1" type="checkbox" />
-                  <label for="ac-3">Chance of having a false positive result x%</label>
+                  <input id="ac-3" name="accordion-3" type="checkbox" />
+                  <label for="ac-3">The chance of lung cancer diagnosis within 5 years in the absence of screening ( % )</label>
+                  <article class="ac-small">
+                    <p>Result: x%</p>
+                    <p>Explanation: text</p>
+                    <p><a href="#" title="Learn more">Click here</a> to learn more about your results.</p>
+                  </article>
+                </div>
+                <div>
+                  <input id="ac-4" name="accordion-4" type="checkbox" />
+                  <label for="ac-4">The chance of lung cancer diagnosis within 5 years with screening ( % )</label>
+                  <article class="ac-small">
+                    <p>Result: x%</p>
+                    <p>Explanation: text</p>
+                    <p><a href="#" title="Learn more">Click here</a> to learn more about your results.</p>
+                  </article>
+                </div>
+                <div>
+                  <input id="ac-5" name="accordion-5" type="checkbox" />
+                  <label for="ac-5">The chance of having a false positive result after 3 screens ( % )</label>
                   <article class="ac-small">
                     <p>Result: x%</p>
                     <p>Explanation: text</p>
