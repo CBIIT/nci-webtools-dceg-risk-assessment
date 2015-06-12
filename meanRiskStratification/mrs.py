@@ -52,7 +52,7 @@ def mrsRest():
 		    fromRlist = list(fromR)
 		    fromRstr = ''.join(fromRlist)
 
-		    biomar[currData] = fromRstr
+		    biomar[currData] = json.loads(fromRstr)
 		    
 	    elif data[currData]['option'] == 2:
 
@@ -76,7 +76,7 @@ def mrsRest():
 					    fromRlist = list(fromR)
 					    fromRstr = ''.join(fromRlist)
 
-					    biomar[currData] = fromRstr
+					    biomar[currData] = json.loads(fromRstr)
 
 				    elif probD is not None:
 
