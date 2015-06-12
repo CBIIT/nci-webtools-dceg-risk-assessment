@@ -1,5 +1,3 @@
-
-
 // keep track of the number of marker elements, to use the number as the id
 var currentMarkers = $('#markers').children().length + 1;
 
@@ -215,8 +213,15 @@ function return_data(data) {
             var lookup_id = lookup[name];
             var data_item = params[name];
 
+
             // multiply all values by 100 to get percentage value
-            var formattedText = (data_item["Value"] * 100) + "%";
+            if (lookup_id != 'rr') {
+                var formattedText = (data_item["Value"] * 100) + "%";
+            }
+            else{
+                var formattedText = data_item["Value"];
+            }
+
             if (data_item["Confidence Interval (lower bound)"] != null &&
                 data_item["Confidence Interval (upper bound)"] != null) {
                 ci_lb = (data_item["Confidence Interval (lower bound)"] * 100);
@@ -224,6 +229,9 @@ function return_data(data) {
                 formattedText += " (" + ci_lb + "%, " + ci_ub + "%)";
             }
 
+            else {
+
+            }
             // append text to table cell
             cell = $('#' + lookup_id + '_result.' + marker_id + '.output');
             cell.attr('title', lookup_id + " " + formattedText);
@@ -459,11 +467,11 @@ var definitionObj = {
         term: "Negative Predictive Value (NPV)",
         definition: "Definition for NPV"
     },
-    mrs:{
+    mrs: {
         term: "Mean Risk Stratification (MRS)",
         definition: "Average change in pretest-posttest disease risk"
     },
-    sampsize:{term:"Sample Size",definition:""}
+    sampsize: {term: "Sample Size", definition: ""}
 };
 var lookup = {
     "Danger": "danger",
@@ -496,5 +504,5 @@ var lookup = {
     "Area Under the Curve": "auc",
     "Confidence Interval (lower bound)": "ci_lb",
     "Confidence Interval (upper bound)": "ci_ub",
-    "Value":"value"
+    "Value": "value"
 };
