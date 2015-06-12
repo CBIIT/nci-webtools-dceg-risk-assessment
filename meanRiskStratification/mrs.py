@@ -26,14 +26,15 @@ def index():
 @app.route('/mrsRest/', methods=['POST'])
 def mrsRest():
     # Get the parsed contents of the form data
-	
+
     data = request.json
 
-    biomar = []
+    biomar = {}
+
+    i = 1
     
     for currData in data:
-
-
+	    
 	    if data[currData]['option'] == 1:
 
 		    a = data[currData]['a']
@@ -47,67 +48,69 @@ def mrsRest():
 		    abcd.append(c)
 		    abcd.append(d)
 		    
-		    fromR = wrapper.getJSON_abcd(IntVector(abcd))
+		    fromR = (wrapper.getJSON_abcd(IntVector(abcd)))
+		    fromRlist = list(fromR)
+		    fromRstr = ''.join(fromRlist)
 
-		    return json.dumps(str(fromR)) 
-
+		    biomar[currData] = fromRstr
+		    
 	    elif data[currData]['option'] == 2:
 
 		    ppv = data[currData]['ppv']
 		    npv = data[currData]['npv']
-		    sens = data[currData]['sens']
-		    spec = data[currData]['spec']
-		    probM = data[currData]['probM']
-		    probD = data[currData]['probD']
+		    probM = data[currData]['prob_m']
 		    total = data[currData]['sampsize']
+		    
+		    #sens = data[currData]['sens']
+		    #spec = data[currData]['spec']
+		    #probD = data[currData]['prob_d']
 
 		    if ppv is not None:
 
-			    if probM is not None:
-				    fromR = wrapper.getJSON_PPVNPVprobM(ppv,npv,probM,total)
-				    return json.dumps(str(fromR))
-#				    biomar.append(wrapper.getJSON_PPVNPVprobM(ppv,npv,probM,total))
+			    if npv is not None:
+				    
 
-			    elif probD is not None:
-				    fromR = wrapper.getJSON_PPVNPVprobD(ppv,npv,probD,total)
-				    return json.dumps(str(fromR))
-#				    biomar.append(wrapper.getJSON_PPVNPVprobD(ppv,npv,probD,total))
+				    if probM is not None:
+
+					    fromR = (wrapper.getJSON_PPVNPVprobM(float(ppv),float(npv),float(probM),int(total)))
+					    fromRlist = list(fromR)
+					    fromRstr = ''.join(fromRlist)
+
+					    biomar[currData] = fromRstr
+
+				    elif probD is not None:
+
+					    fromR = (wrapper.getJSON_PPVNPVprobD(float(ppv),float(npv),float(probD),int(total)))
+                                            fromRlist = list(fromR)
+                                            fromRstr = ''.join(fromRlist)
+
+					    biomar[currData] = fromRstr
 
 		    elif sens is not None:
+			
+			    if spec is not None:
+				    
+				    if probM is not None:
 
-			    if probM is not None:
-				    fromR = wrapper.getJSON_sensspecprobM(sens,spec,probM,total)
-				    return json.dumps(str(fromR))
-#				    biomar.append(wrapper.getJSON_sensspecprobM(sens,spec,probM,total))
+					    fromR = (wrapper.getJSON_PPVNPVprobM(float(ppv),float(npv),float(probM),int(total)))                                    
+                                            fromRlist = list(fromR)
+                                            fromRstr = ''.join(fromRlist)
 
-			    elif probD is not None:
-				    fromR = wrapper.getJSON_sensspecprobD(sens,spec,probD,total)
-				    return json.dumps(str(fromR))
-#				    biomar.append(wrapper.getJSON_sensspecprobD(sens,spec,probD,total))
+					    biomar[currData] = fromRstr
 
-  
+                                    elif probD is not None:
 
-    #jsonlist=list(jsonrtn)
+					    fromR = (wrapper.getJSON_PPVNPVprobD(float(ppv),float(npv),float(probD),int(total)))
+                                            fromRlist = list(fromR)
+                                            fromRstr = ''.join(fromRlist)
 
-    #2
-    #jsonstring=''.join(jsonlist)
-    #print jsonstring
-    return biomar[0] 
+					    biomar[currData] = fromRstr
+
+
+				    
     
-
-    #1print "--------------------------------------------------"
-    #1print json.dumps(jsonlist)
-    #1print "--------------------------------------------------"
-
-    #1renderjson = json.dumps(jsonlist)
-    #1return renderjson
- 
-#TEST DATA
-    #with open ("testjson3.txt", "r") as myfile:
-    #	testjson=myfile.read().replace('\n', '')
-
-    #return testjson
-
+    return json.dumps(biomar)
+    
 
 import argparse
 if __name__ == '__main__':
