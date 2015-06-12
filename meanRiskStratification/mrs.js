@@ -221,7 +221,6 @@ function return_data(data) {
             else{
                 var formattedText = data_item["Value"];
             }
-
             if (data_item["Confidence Interval (lower bound)"] != null &&
                 data_item["Confidence Interval (upper bound)"] != null) {
                 ci_lb = (data_item["Confidence Interval (lower bound)"] * 100);
@@ -229,9 +228,6 @@ function return_data(data) {
                 formattedText += " (" + ci_lb + "%, " + ci_ub + "%)";
             }
 
-            else {
-
-            }
             // append text to table cell
             cell = $('#' + lookup_id + '_result.' + marker_id + '.output');
             cell.attr('title', lookup_id + " " + formattedText);
