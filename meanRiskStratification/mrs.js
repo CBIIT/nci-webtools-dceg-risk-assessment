@@ -4,7 +4,7 @@ var marker_base = $('#markers');
 var currentMarkers = marker_base.children().length + 1;
 
 $(document).ready(function () {
-    $("#results").hide();
+    $("#results, .bm_1, .bm_2, .bm_3").hide();
     controls_visibility(currentMarkers);
     bind_control_events();
     create_popover();
@@ -14,8 +14,8 @@ $(document).ready(function () {
 
 function bind_control_events() {
     // testing
-    $('button#test1').on('click', test);
-    $('button#test2').on('click', test);
+    $('a#test1').on('click', test);
+    $('a#test2').on('click', test);
 
     $('#reset').on('click', reset);
     $('#add-marker').on('click', new_marker);
@@ -67,7 +67,7 @@ function new_marker() {
         newElement.removeClass('marker-1').addClass("marker-" + counter);
 
         // make sure previous values don't get copied also
-        newElement.find('.input').each(function () {
+        newElement.find('.input,input').each(function () {
             if ($(this).is("input")) {
                 $(this).val("");
             }
@@ -118,7 +118,12 @@ function display_definition() {
     var id;
     // treat drop down elements different than link/text elements
     if (!$self.hasClass('dd')) {
-        id = $self.attr('id');
+        if (!$self.hasClass('header') && $self.prop('tagName') != 'TD')
+            id = ($self.attr('class')).replace('termToDefine', '').trim();
+        if ($self.prop('tagName') == 'TD')
+            id = ($self.attr('class')).replace('termToDefine', '').trim();
+        else
+            id = $self.attr('id');
     }
     else {
         // value selected in the drop down
@@ -151,12 +156,11 @@ function calculate() {
 
         var host = window.location.hostname;
         if (host == 'localhost') {
-            host = 'analysistools-sandbox.nci.nih.gov';
+            // call json file instead of service
+            service = 'output_example.json';
+        } else {
+            service = "http://" + host + "/mrsRest/";
         }
-        service = "http://" + host + "/mrsRest/";
-
-        // call json file instead of service
-        //service = 'test_json.json';
 
         // ajax call, change to actual service name
         var promise = $.ajax({
@@ -172,14 +176,14 @@ function calculate() {
         });
 
         promise.done(return_data);
-
     }
     else {
         // show error message somewhere
         if (!$("#errors")[0]) {
-            $('h1.title').after($("<div><b class='text-danger'>Must enter values for either option 1 or 2 for the biomarkers</b></div>")
-                .attr('id', 'errors')
-                .addClass('well-sm'));
+            $('.title.text-center')
+                .after($("<div><b class='text-danger'>Must enter values for either option 1 or 2 for the biomarkers</b></div>")
+                    .attr('id', 'errors')
+                    .addClass('well-sm'));
             setTimeout(function () {
                 $('#errors').fadeOut().remove();
             }, 4000);
@@ -192,56 +196,73 @@ function clean_data(data) {
 }
 
 function return_data(data) {
-    params = data.parameters;
-    calc = data.calculations;
+    i = 0;
+    do {
+        i++;
+        // propName should be bm_#
+        $('.bm_' + i).show();
+    } while (i != currentMarkers);
 
-    // loop through appending data to table
-    $.each(params, function (name, obj) {
-        var lookup_id = lookup[name];
-        var data_item = params[name];
+    $.each(data, function (propName, paramGroup) {
+        append_name();
 
-        var formattedText = data_item["Value"] + "%";
-        if (data_item["Confidence Interval (lower bound)"] != null && data_item["Confidence Interval (upper bound)"] != null) {
-            formattedText += " (" + data_item["Confidence Interval (lower bound)"] + "%, "
-                + data_item["Confidence Interval (upper bound)"] + "%)";
-        }
+        params = paramGroup.parameters;
+        calc = paramGroup.calculations;
+        marker_id = propName;
 
-        var text = $('<b></b>');
-        text.attr('title', lookup_id + " " + formattedText);
-        text.text(formattedText);
-        $('#' + lookup_id + '_result.output').html(text);
-    });
-    $.each(calc, function (name, obj) {
-        var lookup_id = lookup[name];
-        var data_item = calc[name];
+        // loop through appending data to table
+        $.each(params, function (name, obj) {
+            var lookup_id = lookup[name];
+            var data_item = params[name];
 
-        var formattedText = data_item["Value"] + "%";
-        if (data_item["Confidence Interval (lower bound)"] != null && data_item["Confidence Interval (upper bound)"] != null) {
-            formattedText += " (" + data_item["Confidence Interval (lower bound)"] + "%, "
-                + data_item["Confidence Interval (upper bound)"] + "%)";
-        }
+            // multiply all values by 100 to get percentage value
+            var formattedText = (data_item["Value"] * 100) + "%";
+            if (data_item["Confidence Interval (lower bound)"] != null &&
+                data_item["Confidence Interval (upper bound)"] != null) {
+                ci_lb = (data_item["Confidence Interval (lower bound)"] * 100);
+                ci_ub = (data_item["Confidence Interval (upper bound)"] * 100);
+                formattedText += " (" + ci_lb + "%, " + ci_ub + "%)";
+            }
 
-        var text = $('<b></b>');
-        text.attr('title', lookup_id + " " + formattedText);
-        text.text(formattedText);
-        $('#' + lookup_id + '_result.output').html(text);
+            // append text to table cell
+            cell = $('#' + lookup_id + '_result.' + marker_id + '.output');
+            cell.attr('title', lookup_id + " " + formattedText);
+            cell.text(formattedText);
+        });
+        // same loop but through calculations
+        $.each(calc, function (name, obj) {
+            var lookup_id = lookup[name];
+            var data_item = calc[name];
+
+            var formattedText = data_item["Value"] + "%";
+            if (data_item["Confidence Interval (lower bound)"] != null &&
+                data_item["Confidence Interval (upper bound)"] != null) {
+                formattedText += " (" + data_item["Confidence Interval (lower bound)"] + "%, "
+                    + data_item["Confidence Interval (upper bound)"] + "%)";
+            }
+
+            cell = $('#' + lookup_id + '_result.' + marker_id + '.output');
+            cell.attr('title', lookup_id + " " + formattedText);
+            cell.text(formattedText);
+        });
     });
     $("#results").show();
 }
 
 function append_name() {
-    i = 1;
+    var i = 0;
     do {
-        var thisNameInputElement = $('.marker-' + i + ' #name-input');
+        i++;
+        var thisNameInputElement = $('.marker-' + i + ' .name-input');
         // append biomarker Name to results table header
-        if (thisNameInputElement.val().length > 0)
+        if ((thisNameInputElement.val()).length > 0)
             var name = thisNameInputElement.val();
         else
             name = "Biomarker " + i;
 
-        $('#results').find('table thead tr:first-child')
-            .append('<th title="' + name + '" class="active markerName">' + name + '</th>');
-    } while (i != currentMarkers);
+        // find the element to append the text to
+        $('#results').find('table thead tr .bm_' + i).attr('title', name).text(name);
+    } while (i != currentMarkers)
 }
 
 function extract_values(invalid) {
@@ -330,14 +351,14 @@ function reset() {
     // reset drop downs then, text boxes
     $('select').find('option:first').attr('selected', 'selected');
     $('input').val('');
-    $('#results').hide();
+    $("#results, .bm_1, .bm_2, .bm_3").hide();
     $('.output').text('');
 }
 
 function test() {
     var tbs = $('.marker-1');
-    var values_option_1 = {a: 471, b: 13, c: 4680, d: 25207};
-    var values_option_2 = {ppv: 0.0914, "npv": (1 - 0.0005), "P(M+)": 0.1696, "total": 30371};
+    var values_option_1 = {"a": 471, "b": 13, "c": 4680, "d": 25207};
+    var values_option_2 = {"ppv": 0.0914, "npv": (1 - 0.0005), "P(M+)": 0.1696, "total": 30371};
 
     if (this.id == "test1") {
         var tbs = $('.marker-1');
