@@ -1,7 +1,7 @@
-var marker_base = $('#markers');
+
 
 // keep track of the number of marker elements, to use the number as the id
-var currentMarkers = marker_base.children().length + 1;
+var currentMarkers = $('#markers').children().length + 1;
 
 $(document).ready(function () {
     $("#results, .bm_1, .bm_2, .bm_3").hide();
@@ -342,11 +342,11 @@ function extract_values(invalid) {
 }
 
 function reset() {
-    var currentMarkers = marker_base.children().length;
+    var currentMarkers = $('#markers').children().length;
     controls_visibility(currentMarkers);
 
     // remove generated markers
-    marker_base.children(':gt(0)').remove();
+    $('#markers').children(':gt(0)').remove();
 
     // reset drop downs then, text boxes
     $('select').find('option:first').attr('selected', 'selected');
