@@ -1,5 +1,5 @@
 var lookup = {
-    "Danger": "danger",
+    "Danger": "concern",
     "Reassurance": "reassurance",
     "Quality of the sensitvity": "q_sens",
     "Quality of the specificity": "q_spec",

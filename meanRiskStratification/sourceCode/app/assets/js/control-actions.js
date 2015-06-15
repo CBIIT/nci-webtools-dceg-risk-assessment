@@ -1,5 +1,3 @@
-
-
 // keep track of the number of marker elements, to use the number as the id
 var currentMarkers = $('#markers').children().length + 1;
 
@@ -215,15 +213,25 @@ function return_data(data) {
             var lookup_id = lookup[name];
             var data_item = params[name];
 
-            // multiply all values by 100 to get percentage value
-            var formattedText = (data_item["Value"] * 100) + "%";
-            if (data_item["Confidence Interval (lower bound)"] != null &&
-                data_item["Confidence Interval (upper bound)"] != null) {
-                ci_lb = (data_item["Confidence Interval (lower bound)"] * 100);
-                ci_ub = (data_item["Confidence Interval (upper bound)"] * 100);
-                formattedText += " (" + ci_lb + "%, " + ci_ub + "%)";
+            // multiply values by 100 to get percentage value, if it is not one of these values
+            if (lookup_id != 'rr' && lookup_id != 'nnr' && lookup_id != 'nns') {
+                var formattedText = (data_item["Value"] * 100) + "%";
+                if (data_item["Confidence Interval (lower bound)"] != null &&
+                    data_item["Confidence Interval (upper bound)"] != null) {
+                    ci_lb = (data_item["Confidence Interval (lower bound)"] * 100);
+                    ci_ub = (data_item["Confidence Interval (upper bound)"] * 100);
+                    formattedText += " (" + ci_lb + "%, " + ci_ub + "%)";
+                }
             }
-
+            else {
+                var formattedText = data_item["Value"];
+                if (data_item["Confidence Interval (lower bound)"] != null &&
+                    data_item["Confidence Interval (upper bound)"] != null) {
+                    ci_lb = data_item["Confidence Interval (lower bound)"];
+                    ci_ub = data_item["Confidence Interval (upper bound)"];
+                    formattedText += " (" + ci_lb + ", " + ci_ub + ")";
+                }
+            }
             // append text to table cell
             cell = $('#' + lookup_id + '_result.' + marker_id + '.output');
             cell.attr('title', lookup_id + " " + formattedText);
@@ -234,11 +242,24 @@ function return_data(data) {
             var lookup_id = lookup[name];
             var data_item = calc[name];
 
-            var formattedText = data_item["Value"] + "%";
-            if (data_item["Confidence Interval (lower bound)"] != null &&
-                data_item["Confidence Interval (upper bound)"] != null) {
-                formattedText += " (" + data_item["Confidence Interval (lower bound)"] + "%, "
-                    + data_item["Confidence Interval (upper bound)"] + "%)";
+            // multiply values by 100 to get percentage value, if it is not one of these values
+            if (lookup_id != 'rr' && lookup_id != 'nnr' && lookup_id != 'nns') {
+                var formattedText = (data_item["Value"] * 100) + "%";
+                if (data_item["Confidence Interval (lower bound)"] != null &&
+                    data_item["Confidence Interval (upper bound)"] != null) {
+                    ci_lb = (data_item["Confidence Interval (lower bound)"] * 100);
+                    ci_ub = (data_item["Confidence Interval (upper bound)"] * 100);
+                    formattedText += " (" + ci_lb + "%, " + ci_ub + "%)";
+                }
+            }
+            else {
+                var formattedText = data_item["Value"];
+                if (data_item["Confidence Interval (lower bound)"] != null &&
+                    data_item["Confidence Interval (upper bound)"] != null) {
+                    ci_lb = data_item["Confidence Interval (lower bound)"];
+                    ci_ub = data_item["Confidence Interval (upper bound)"];
+                    formattedText += " (" + ci_lb + ", " + ci_ub + ")";
+                }
             }
 
             cell = $('#' + lookup_id + '_result.' + marker_id + '.output');
@@ -256,9 +277,13 @@ function append_name() {
         var thisNameInputElement = $('.marker-' + i + ' .name-input');
         // append biomarker Name to results table header
         if ((thisNameInputElement.val()).length > 0)
-            var name = thisNameInputElement.val();
+            var name = thisNameInputElement.val() + " (CI Low, CI High)";
         else
-            name = "Biomarker " + i;
+            name = "Biomarker " + i + " (CI Low, CI High)";
+
+        var samp_size = $('.marker-' + i + ' input[name="sampsize"]').val();
+
+        if (samp_size !== "") name += " (" + samp_size + ")";
 
         // find the element to append the text to
         $('#results').find('table thead tr .bm_' + i).attr('title', name).text(name);

@@ -39,7 +39,6 @@
                 <div class="row">
                   <label for="name-input">Biomarker Name</label>
                   <input name="#name-input" type="text" class="name-input">
-                  <!--.col-md-12-->
                   <div class="panel panel-default">
                     <div class="panel-title"><a data-toggle="collapse" data-parent="#markers" href="#marker-1-panel-1" class="panel-toggle">Option 1<span class="caret"></span></a></div>
                     <div id="marker-1-panel-1" class="panel-collapse collapse in">
@@ -84,7 +83,7 @@
                           <thead>
                             <tr class="active">
                               <th title="Parameter Type Column" class="header">Parameter</th>
-                              <th title="Parameter Value Column" class="header"> Value</th>
+                              <th title="Parameter Proportion Column" class="header">Proportion</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -122,7 +121,12 @@
                               </td>
                             </tr>
                             <tr row="3">
-                              <td>Sample Size</td>
+                              <td colspan="2"></td>
+                            </tr>
+                            <tr row="4">
+                              <td>
+                                <label>Sample Size</label>
+                              </td>
                               <td>
                                 <input name="sampsize" type="text" class="input">
                               </td>
@@ -140,10 +144,9 @@
             <div class="row">
               <div class="pull-left">
                 <button id="add-marker"><span alt="Add(+)" title="Add biomarker" class="glyphicon glyphicon-plus-sign"></span><span class="sr-only">Add Biomarker</span></button>
-                <button id="delete-marker" title="Delete biomarker"><span alt="Delete(-)" class="glyphicon glyphicon-minus-sign"></span><span class="sr-only">Delete Biomarker</span>
-                  <button id="reset" type="reset" title="Reset">Reset</button>
-                  <button id="calculate" type="button" title="Calculate">Calculate</button>
-                </button>
+                <button id="delete-marker" title="Delete biomarker"><span alt="Delete(-)" class="glyphicon glyphicon-minus-sign"></span><span class="sr-only">Delete Biomarker</span></button>
+                <button id="reset" type="reset" title="Reset">Reset</button>
+                <button id="calculate" type="button" title="Calculate">Calculate</button>
               </div>
               <div class="pull-right">
                 <div class="row"><a id="test1" href="javascript:void(0);" title="Populate 1 biomarker using option 1 with test data">Example 1</a></div>
@@ -154,190 +157,178 @@
         </div>
         <div class="col-md-7">
           <div id="results">
-            <div>
-              <table class="table table-bordered table-condensed">
-                <thead>
-                  <tr>
-                    <th class="active">&nbsp;</th>
-                    <th class="bm_1 marker_name active"></th>
-                    <th class="bm_2 marker_name active"></th>
-                    <th class="bm_3 marker_name active"></th>
-                  </tr>
-                  <tr>
-                    <th class="active">Parameters</th>
-                    <th colspan="3" class="active text-center">HPV (CI Low, CI High)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><b>P(D,M+)=PPV*p</b></td>
-                    <td id="d_pos_result" class="output bm_1"></td>
-                    <td id="d_pos_result" class="output bm_2"></td>
-                    <td id="d_pos_result" class="output bm_3"></td>
-                  </tr>
-                  <tr>
-                    <td><b>P(D,M-)=cNPV*(1-p)</b></td>
-                    <td id="pos_d_neg_m_result" class="output bm_1"></td>
-                    <td id="pos_d_neg_m_result" class="output bm_2"></td>
-                    <td id="pos_d_neg_m_result" class="output bm_3"></td>
-                  </tr>
-                  <tr>
-                    <td><b>P(D-,M+)=cPPV*p</b></td>
-                    <td id="neg_d_pos_m_result" class="output bm_1"></td>
-                    <td id="neg_d_pos_m_result" class="output bm_2"></td>
-                    <td id="neg_d_pos_m_result" class="output bm_3"></td>
-                  </tr>
-                  <tr>
-                    <td><b>P(D-,M-)=NPV*(1-p)</b></td>
-                    <td id="m_neg_result" class="output bm_1"></td>
-                    <td id="m_neg_result" class="output bm_2"></td>
-                    <td id="m_neg_result" class="output bm_3"></td>
-                  </tr>
-                  <tr>
-                    <td class="termToDefine prob_m">P(M+)</td>
-                    <td id="prob_m_result" class="output bm_1"></td>
-                    <td id="prob_m_result" class="output bm_2"></td>
-                    <td id="prob_m_result" class="output bm_3"></td>
-                  </tr>
-                  <tr>
-                    <td class="prob_d termToDefine">P(D+)</td>
-                    <td id="prob_d_result" class="output bm_1"></td>
-                    <td id="prob_d_result" class="output bm_2"></td>
-                    <td id="prob_d_result" class="output bm_3"></td>
-                  </tr>
-                  <tr>
-                    <td class="termToDefine ppv">Positive Predictive Value</td>
-                    <td id="ppv_result" class="output bm_1"></td>
-                    <td id="ppv_result" class="output bm_2"></td>
-                    <td id="ppv_result" class="output bm_3"></td>
-                  </tr>
-                  <tr>
-                    <td><b>Complement of Negative Predictive Value</b></td>
-                    <td id="c_npv_result" class="output bm_1"></td>
-                    <td id="c_npv_result" class="output bm_2"></td>
-                    <td id="c_npv_result" class="output bm_3"></td>
-                  </tr>
-                  <tr>
-                    <td class="termToDefine sens">Sensitivity</td>
-                    <td id="sens_result" class="output bm_1"></td>
-                    <td id="sens_result" class="output bm_2"></td>
-                    <td id="sens_result" class="output bm_3"></td>
-                  </tr>
-                  <tr>
-                    <td class="termToDefine spec">Specificity</td>
-                    <td id="spec_result" class="output bm_1"></td>
-                    <td id="spec_result" class="output bm_2"></td>
-                    <td id="spec_result" class="output bm_3"></td>
-                  </tr>
-                  <tr>
-                    <td><b>Complement of Specificity</b></td>
-                    <td id="c_spec_result" class="output bm_1"></td>
-                    <td id="c_spec_result" class="output bm_2"></td>
-                    <td id="c_spec_result" class="output bm_3"></td>
-                  </tr>
-                  <tr>
-                    <td><b>RR=PPV/cNPV</b></td>
-                    <td id="rr_result" class="output bm_1"></td>
-                    <td id="rr_result" class="output bm_2"></td>
-                    <td id="rr_result" class="output bm_3"></td>
-                  </tr>
-                  <tr>
-                    <td><b>t=Risk Difference</b></td>
-                    <td id="r_diff_result" class="output bm_1"></td>
-                    <td id="r_diff_result" class="output bm_2"></td>
-                    <td id="r_diff_result" class="output bm_3"></td>
-                  </tr>
-                  <tr>
-                    <td><b>j=Youden</b></td>
-                    <td id="youden_result" class="output bm_1"></td>
-                    <td id="youden_result" class="output bm_2"></td>
-                    <td id="youden_result" class="output bm_3"></td>
-                  </tr>
-                  <tr>
-                    <td><b>AUC = (Youden+1)/2</b></td>
-                    <td id="auc_result" class="output bm_1"></td>
-                    <td id="auc_result" class="output bm_2"></td>
-                    <td id="auc_result" class="output bm_3"></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div><br>
-            <div>
-              <table class="table table-bordered table-condensed">
-                <thead>
-                  <tr>
-                    <th class="active">Calculations</th>
-                    <th class="bm_1 marker_name active"></th>
-                    <th class="bm_2 marker_name active"></th>
-                    <th class="bm_3 marker_name active"></th>
-                  </tr>
-                </thead>
+            <table class="table table-bordered table-condensed">
+              <thead>
                 <tr>
-                  <th class="active">&nbsp;</th>
-                  <th colspan="3" class="active text-center">HPV (CI Low, CI High)</th>
+                  <th class="active">Calculations</th>
+                  <th class="bm_1 marker_name active"></th>
+                  <th class="bm_2 marker_name active"></th>
+                  <th class="bm_3 marker_name active"></th>
+                </tr>
+              </thead>
+              <tr>
+                <td class="concern termToDefine">Concern = PPV-P(D+)</td>
+                <td id="concern_result" class="output bm_1"></td>
+                <td id="concern_result" class="output bm_2"></td>
+                <td id="concern_result" class="output bm_3"></td>
+              </tr>
+              <tr>
+                <td class="reassurance termToDefine">Reassurance = P(D+)-cNPV</td>
+                <td id="reassurance_result" class="output bm_1"></td>
+                <td id="reassurance_result" class="output bm_2"></td>
+                <td id="reassurance_result" class="output bm_3"></td>
+              </tr>
+              <tr>
+                <td class="q_sens termToDefine">Concentration = Sensitivity - P(M+)</td>
+                <td id="q_sens_result" class="output bm_1"></td>
+                <td id="q_sens_result" class="output bm_2"></td>
+                <td id="q_sens_result" class="output bm_3"></td>
+              </tr>
+              <tr>
+                <td class="q_spec termToDefine">Reduction = P(M+) - cSpec</td>
+                <td id="q_spec_result" class="output bm_1"></td>
+                <td id="q_spec_result" class="output bm_2"></td>
+                <td id="q_spec_result" class="output bm_3"></td>
+              </tr>
+              <tr>
+                <td class="mrs termToDefine">Mean Risk Stratification = 2(ad-bc)</td>
+                <td id="mrs_result" class="output bm_1"></td>
+                <td id="mrs_result" class="output bm_2"></td>
+                <td id="mrs_result" class="output bm_3"></td>
+              </tr>
+              <tr>
+                <td class="max_mrs termToDefine">Maximum possible MRS for a disease with this prevalence</td>
+                <td id="max_mrs_result" class="output bm_1"></td>
+                <td id="max_mrs_result" class="output bm_2"></td>
+                <td id="max_mrs_result" class="output bm_3"></td>
+              </tr>
+              <tr>
+                <td class="pbs termToDefine">Population Burden Stratification (PBS) = a-b</td>
+                <td id="pbs_result" class="output bm_1"></td>
+                <td id="pbs_result" class="output bm_2"></td>
+                <td id="pbs_result" class="output bm_3"></td>
+              </tr>
+              <tr>
+                <td class="nnr termToDefine">Number Needed to Recruit (NNR) = 1/PBS</td>
+                <td id="nnr_result" class="output bm_1"></td>
+                <td id="nnr_result" class="output bm_2"></td>
+                <td id="nnr_result" class="output bm_3"></td>
+              </tr>
+              <tr>
+                <td class="nns termToDefine">Number Needed to Screen (NNS) =1/RD</td>
+                <td id="nns_result" class="output bm_1"></td>
+                <td id="nns_result" class="output bm_2"></td>
+                <td id="nns_result" class="output bm_3"></td>
+              </tr>
+            </table><br>
+            <table class="table table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th class="active">Parameters</th>
+                  <th class="bm_1 marker_name active"></th>
+                  <th class="bm_2 marker_name active"></th>
+                  <th class="bm_3 marker_name active"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>True Positive Fraction = a</b></td>
+                  <td id="d_pos_result" class="output bm_1"></td>
+                  <td id="d_pos_result" class="output bm_2"></td>
+                  <td id="d_pos_result" class="output bm_3"></td>
                 </tr>
                 <tr>
-                  <td class="danger termToDefine">Danger</td>
-                  <td id="danger_result" class="output bm_1"></td>
-                  <td id="danger_result" class="output bm_2"></td>
-                  <td id="danger_result" class="output bm_3"></td>
+                  <td><b>False Negative Fraction = b</b></td>
+                  <td id="pos_d_neg_m_result" class="output bm_1"></td>
+                  <td id="pos_d_neg_m_result" class="output bm_2"></td>
+                  <td id="pos_d_neg_m_result" class="output bm_3"></td>
                 </tr>
                 <tr>
-                  <td class="reassurance termToDefine">Reassurance</td>
-                  <td id="reassurance_result" class="output bm_1"></td>
-                  <td id="reassurance_result" class="output bm_2"></td>
-                  <td id="reassurance_result" class="output bm_3"></td>
+                  <td><b>False Positive Fraction = c</b></td>
+                  <td id="neg_d_pos_m_result" class="output bm_1"></td>
+                  <td id="neg_d_pos_m_result" class="output bm_2"></td>
+                  <td id="neg_d_pos_m_result" class="output bm_3"></td>
                 </tr>
                 <tr>
-                  <td class="q_sens termToDefine">Quality of the sensitivity</td>
-                  <td id="q_sens_result" class="output bm_1"></td>
-                  <td id="q_sens_result" class="output bm_2"></td>
-                  <td id="q_sens_result" class="output bm_3"></td>
+                  <td><b>True Negative Fraction = d</b></td>
+                  <td id="m_neg_result" class="output bm_1"></td>
+                  <td id="m_neg_result" class="output bm_2"></td>
+                  <td id="m_neg_result" class="output bm_3"></td>
                 </tr>
                 <tr>
-                  <td class="q_spec termToDefine">Quality of the specificity</td>
-                  <td id="q_spec_result" class="output bm_1"></td>
-                  <td id="q_spec_result" class="output bm_2"></td>
-                  <td id="q_spec_result" class="output bm_3"></td>
+                  <td class="termToDefine prob_m">Marker Positivity</td>
+                  <td id="prob_m_result" class="output bm_1"></td>
+                  <td id="prob_m_result" class="output bm_2"></td>
+                  <td id="prob_m_result" class="output bm_3"></td>
                 </tr>
                 <tr>
-                  <td class="mrs termToDefine">Mean Risk Stratification (MRS)</td>
-                  <td id="mrs_result" class="output bm_1"></td>
-                  <td id="mrs_result" class="output bm_2"></td>
-                  <td id="mrs_result" class="output bm_3"></td>
+                  <td class="prob_d termToDefine">Disease Prevalence</td>
+                  <td id="prob_d_result" class="output bm_1"></td>
+                  <td id="prob_d_result" class="output bm_2"></td>
+                  <td id="prob_d_result" class="output bm_3"></td>
                 </tr>
                 <tr>
-                  <td class="max_mrs termToDefine">Maximum possible MRS for a disease with this prevalence</td>
-                  <td id="max_mrs_result" class="output bm_1"></td>
-                  <td id="max_mrs_result" class="output bm_2"></td>
-                  <td id="max_mrs_result" class="output bm_3"></td>
+                  <td class="termToDefine ppv">Positive Predictive Value (PPV)</td>
+                  <td id="ppv_result" class="output bm_1"></td>
+                  <td id="ppv_result" class="output bm_2"></td>
+                  <td id="ppv_result" class="output bm_3"></td>
                 </tr>
                 <tr>
-                  <td class="pbs termToDefine">Population Burden Stratification (PBS)</td>
-                  <td id="pbs_result" class="output bm_1"></td>
-                  <td id="pbs_result" class="output bm_2"></td>
-                  <td id="pbs_result" class="output bm_3"></td>
+                  <td><b>Complement of Negative Predictive Value (cNPV)</b></td>
+                  <td id="c_npv_result" class="output bm_1"></td>
+                  <td id="c_npv_result" class="output bm_2"></td>
+                  <td id="c_npv_result" class="output bm_3"></td>
                 </tr>
                 <tr>
-                  <td class="nnr termToDefine">Number Needed to Recruit (NNR)</td>
-                  <td id="nnr_result" class="output bm_1"></td>
-                  <td id="nnr_result" class="output bm_2"></td>
-                  <td id="nnr_result" class="output bm_3"></td>
+                  <td class="termToDefine sens">Sensitivity</td>
+                  <td id="sens_result" class="output bm_1"></td>
+                  <td id="sens_result" class="output bm_2"></td>
+                  <td id="sens_result" class="output bm_3"></td>
                 </tr>
                 <tr>
-                  <td class="nns termToDefine">Number Needed to Screen (NNS)</td>
-                  <td id="nns_result" class="output bm_1"></td>
-                  <td id="nns_result" class="output bm_2"></td>
-                  <td id="nns_result" class="output bm_3"></td>
+                  <td class="termToDefine spec">Specificity</td>
+                  <td id="spec_result" class="output bm_1"></td>
+                  <td id="spec_result" class="output bm_2"></td>
+                  <td id="spec_result" class="output bm_3"></td>
                 </tr>
-              </table>
-            </div>
+                <tr>
+                  <td><b>Complement of Specificity (cSpec)</b></td>
+                  <td id="c_spec_result" class="output bm_1"></td>
+                  <td id="c_spec_result" class="output bm_2"></td>
+                  <td id="c_spec_result" class="output bm_3"></td>
+                </tr>
+                <tr>
+                  <td><b>Relative Risk</b></td>
+                  <td id="rr_result" class="output bm_1"></td>
+                  <td id="rr_result" class="output bm_2"></td>
+                  <td id="rr_result" class="output bm_3"></td>
+                </tr>
+                <tr>
+                  <td><b>Risk Difference (RD)</b></td>
+                  <td id="r_diff_result" class="output bm_1"></td>
+                  <td id="r_diff_result" class="output bm_2"></td>
+                  <td id="r_diff_result" class="output bm_3"></td>
+                </tr>
+                <tr>
+                  <td><b>Youden's Index (YI)</b></td>
+                  <td id="youden_result" class="output bm_1"></td>
+                  <td id="youden_result" class="output bm_2"></td>
+                  <td id="youden_result" class="output bm_3"></td>
+                </tr>
+                <tr>
+                  <td><b>AUC = (1+YI)/2</b></td>
+                  <td id="auc_result" class="output bm_1"></td>
+                  <td id="auc_result" class="output bm_2"></td>
+                  <td id="auc_result" class="output bm_3"></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
     <div id="portal-footer">
-      <div class="footerLinks"><a href="http://www.cancer.gov/" title="Home" data-toggle="tooltip" data-placement="left">APC</a>&#124;&nbsp;<a href="mailto:jpsurv-admin@mail.nih.gov?subject=JP%20Surv" target="_top" title="Support">Support</a>&#124;&nbsp;<a href="http://www.cancer.gov/global/web/policies" title="Policies">Policies</a>&#124;&nbsp;<a href="http://www.cancer.gov/global/web/policies/accessibility" title="Accessibility">Accessibility</a>&#124;&nbsp;<a href="http://cancer.gov/global/viewing-files" target="_blank" title="Viewing Files">&#124; Viewing Files</a>&#124;&nbsp;<a href="http://www.cancer.gov/global/web/policies/foia" title="FOIA">FOIA</a><br><br><a href="http://www.dhhs.gov/">&#124; Department of Health and Human Services</a>&#124;&nbsp;<a href="http://www.nih.gov/">&#124; National Institutes of Health</a>&#124;&nbsp;<a href="http://www.cancer.gov/">&#124; National Cancer Institute</a>&#124;&nbsp;<a href="http://www.usa.gov/">USA.gov</a></div><br><br>&#124;       NIH...Turning Discovery Into Health<sup>&#174;</sup>
+      <div class="footerLinks"><a href="http://www.cancer.gov/" title="Home" data-toggle="tooltip" data-placement="left">APC</a>&#124;&nbsp;<a href="mailto:jpsurv-admin@mail.nih.gov?subject=MRS" target="_top" title="Support">Support</a>&#124;&nbsp;<a href="http://www.cancer.gov/global/web/policies" title="Policies">Policies</a>&#124;&nbsp;<a href="http://www.cancer.gov/global/web/policies/accessibility" title="Accessibility">Accessibility</a>&#124;&nbsp;<a href="http://cancer.gov/global/viewing-files" target="_blank" title="Viewing Files">Viewing Files</a>&#124;<a href="http://www.cancer.gov/global/web/policies/foia" title="FOIA">FOIA</a><br><br><a href="http://www.dhhs.gov/">Department of Health and Human Services</a>&#124;&nbsp;<a href="http://www.nih.gov/">National Institutes of Health</a>&#124;&nbsp;<a href="http://www.cancer.gov/">National Cancer Institute</a>&#124;<a href="http://www.usa.gov/">USA.gov</a></div><br><br>&#124;       NIH...Turning Discovery Into Health<sup>&#174;</sup>
     </div>
   </body>
 </html>

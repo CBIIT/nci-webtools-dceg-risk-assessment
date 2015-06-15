@@ -33,6 +33,10 @@ table input[type="text"] {
 .panel-toggle a,
 .panel-title a {
   color: #000;
+  font-weight: bold;
+}
+label {
+  font-weight: bold;
 }
 .well,
 #results {

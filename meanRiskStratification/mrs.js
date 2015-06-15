@@ -213,21 +213,25 @@ function return_data(data) {
             var lookup_id = lookup[name];
             var data_item = params[name];
 
-
-            // multiply all values by 100 to get percentage value
-            if (lookup_id != 'rr') {
+            // multiply values by 100 to get percentage value, if it is not one of these values
+            if (lookup_id != 'rr' && lookup_id != 'nnr' && lookup_id != 'nns') {
                 var formattedText = (data_item["Value"] * 100) + "%";
+                if (data_item["Confidence Interval (lower bound)"] != null &&
+                    data_item["Confidence Interval (upper bound)"] != null) {
+                    ci_lb = (data_item["Confidence Interval (lower bound)"] * 100);
+                    ci_ub = (data_item["Confidence Interval (upper bound)"] * 100);
+                    formattedText += " (" + ci_lb + "%, " + ci_ub + "%)";
+                }
             }
-            else{
+            else {
                 var formattedText = data_item["Value"];
+                if (data_item["Confidence Interval (lower bound)"] != null &&
+                    data_item["Confidence Interval (upper bound)"] != null) {
+                    ci_lb = data_item["Confidence Interval (lower bound)"];
+                    ci_ub = data_item["Confidence Interval (upper bound)"];
+                    formattedText += " (" + ci_lb + ", " + ci_ub + ")";
+                }
             }
-            if (data_item["Confidence Interval (lower bound)"] != null &&
-                data_item["Confidence Interval (upper bound)"] != null) {
-                ci_lb = (data_item["Confidence Interval (lower bound)"] * 100);
-                ci_ub = (data_item["Confidence Interval (upper bound)"] * 100);
-                formattedText += " (" + ci_lb + "%, " + ci_ub + "%)";
-            }
-
             // append text to table cell
             cell = $('#' + lookup_id + '_result.' + marker_id + '.output');
             cell.attr('title', lookup_id + " " + formattedText);
@@ -238,11 +242,24 @@ function return_data(data) {
             var lookup_id = lookup[name];
             var data_item = calc[name];
 
-            var formattedText = data_item["Value"] + "%";
-            if (data_item["Confidence Interval (lower bound)"] != null &&
-                data_item["Confidence Interval (upper bound)"] != null) {
-                formattedText += " (" + data_item["Confidence Interval (lower bound)"] + "%, "
-                    + data_item["Confidence Interval (upper bound)"] + "%)";
+            // multiply values by 100 to get percentage value, if it is not one of these values
+            if (lookup_id != 'rr' && lookup_id != 'nnr' && lookup_id != 'nns') {
+                var formattedText = (data_item["Value"] * 100) + "%";
+                if (data_item["Confidence Interval (lower bound)"] != null &&
+                    data_item["Confidence Interval (upper bound)"] != null) {
+                    ci_lb = (data_item["Confidence Interval (lower bound)"] * 100);
+                    ci_ub = (data_item["Confidence Interval (upper bound)"] * 100);
+                    formattedText += " (" + ci_lb + "%, " + ci_ub + "%)";
+                }
+            }
+            else {
+                var formattedText = data_item["Value"];
+                if (data_item["Confidence Interval (lower bound)"] != null &&
+                    data_item["Confidence Interval (upper bound)"] != null) {
+                    ci_lb = data_item["Confidence Interval (lower bound)"];
+                    ci_ub = data_item["Confidence Interval (upper bound)"];
+                    formattedText += " (" + ci_lb + ", " + ci_ub + ")";
+                }
             }
 
             cell = $('#' + lookup_id + '_result.' + marker_id + '.output');
@@ -260,9 +277,13 @@ function append_name() {
         var thisNameInputElement = $('.marker-' + i + ' .name-input');
         // append biomarker Name to results table header
         if ((thisNameInputElement.val()).length > 0)
-            var name = thisNameInputElement.val();
+            var name = thisNameInputElement.val() + " (CI Low, CI High)";
         else
-            name = "Biomarker " + i;
+            name = "Biomarker " + i + " (CI Low, CI High)";
+
+        var samp_size = $('.marker-' + i + ' input[name="sampsize"]').val();
+
+        if (samp_size !== "") name += " (" + samp_size + ")";
 
         // find the element to append the text to
         $('#results').find('table thead tr .bm_' + i).attr('title', name).text(name);
@@ -412,29 +433,30 @@ var definitionObj = {
         term: "Disease Negative (D-)",
         definition: "Does not have disease"
     },
-    danger: {
+    concern: {
         term: "Danger",
-        definition: "Increase in disease risk from testing positive"
+        definition: "Increase in disease risk from testing positive. Formula: Danger d=PPV-q"
     },
     reassurance: {
         term: "Reassurance",
-        definition: "Reduction in disease risk from testing negative"
+        definition: "Reduction in disease risk from testing negative. Formula: Reassurance r=q-cNPV"
     },
     pbs: {
         term: "Population Burden Stratification",
-        definition: "Extra disease detection in positive group than negative group"
+        definition: "Extra disease detection in positive group than negative group. " +
+        "Formula: Population Burden Stratification =P(D,M+)-P(D,M-)"
     },
     nns: {
         term: "Number Needed to Screen",
-        definition: "Definition for number needed to screen"
+        definition: "Definition for number needed to screen. Formula: Usual NNS = 1/t"
     },
     nnr: {
         term: "Number Needed to Recruit",
-        definition: "To detect 1 more disease case in positive group than negative group"
+        definition: "To detect 1 more disease case in positive group than negative group. Formula: NNR=1/T+"
     },
     max_mrs: {
         term: "Maximum possible MRS for a disease with this prevalence",
-        definition: "Maximum possible MRS for a disease with this prevalence"
+        definition: "Maximum possible MRS for a disease with this prevalence. Formula: max risk strat=2q(1-q)"
     },
     q_spec: {
         term: "Quality of the specificity",
@@ -442,12 +464,12 @@ var definitionObj = {
     },
     q_sens: {
         term: "Quality of the sensitivity",
-        definition: "Increase in sensitivity versus a random test, fixing test positivity"
+        definition: "Increase in sensitivity versus a random test, fixing test positivity. Formula: Danger*=ybar=sens-p"
     },
     spec: {
         term: "Specificity",
         definition: "Specificity is the proportion whose biomarker test is negative (below the threshold) among" +
-        " those without disease."
+        " those without disease. Formula: Reassurance*=xbar=spec-(1-p)"
     },
     sens: {
         term: "Sensitivity",
@@ -463,14 +485,14 @@ var definitionObj = {
         term: "Negative Predictive Value (NPV)",
         definition: "Definition for NPV"
     },
-    mrs: {
+    mrs:{
         term: "Mean Risk Stratification (MRS)",
-        definition: "Average change in pretest-posttest disease risk"
+        definition: "Average change in pretest-posttest disease risk. Formula: MRS=2tp(1-p)"
     },
-    sampsize: {term: "Sample Size", definition: ""}
+    sampsize:{term:"Sample Size",definition:""}
 };
 var lookup = {
-    "Danger": "danger",
+    "Danger": "concern",
     "Reassurance": "reassurance",
     "Quality of the sensitvity": "q_sens",
     "Quality of the specificity": "q_spec",
@@ -500,5 +522,5 @@ var lookup = {
     "Area Under the Curve": "auc",
     "Confidence Interval (lower bound)": "ci_lb",
     "Confidence Interval (upper bound)": "ci_ub",
-    "Value": "value"
+    "Value":"value"
 };
