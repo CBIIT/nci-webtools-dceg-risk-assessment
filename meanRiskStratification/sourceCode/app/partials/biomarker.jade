@@ -6,7 +6,6 @@
             .row
                 label(for='name-input') Biomarker Name
                 input.name-input(name="#name-input",type="text")
-                //.col-md-12
                 .panel.panel-default
                     .panel-title
                         a.panel-toggle(data-toggle='collapse', data-parent='#markers', href='#marker-1-panel-1')
@@ -47,7 +46,7 @@
                                 thead
                                     tr.active
                                         th.header(title='Parameter Type Column') Parameter
-                                        th.header(title="Parameter Value Column")  Value
+                                        th.header(title="Parameter Proportion Column") Proportion
                                 tbody
                                     tr(row='0')
                                         td
@@ -74,9 +73,12 @@
                                         td
                                             input.input(type='text', name="param_3")
                                     tr(row='3')
-                                        td Sample Size
+                                        td(colspan="2")
+                                    tr(row='4')
                                         td
-                                            input.input(name="sampsize",type='text' )
+                                            label Sample Size
+                                        td
+                                            input.input(name="sampsize",type='text')
 #control-group.col-md-12
     .row
         .pull-left
@@ -86,9 +88,8 @@
             button#delete-marker(title="Delete biomarker")
                 span.glyphicon.glyphicon-minus-sign(alt="Delete(-)")
                 span.sr-only Delete Biomarker
-
-                button#reset(type='reset', title="Reset") Reset
-                button#calculate(type='button', title="Calculate") Calculate
+            button#reset(type='reset', title="Reset") Reset
+            button#calculate(type='button', title="Calculate") Calculate
         .pull-right
             .row
                 a#test1(href="javascript:void(0);",title="Populate 1 biomarker using option 1 with test data") Example 1
