@@ -5,11 +5,12 @@
                 .text-center.marker-title Biomarker #1
             .row
                 label(for='name-input') Biomarker Name
-                input.name-input(name="#name-input",type="text")
+                input.name-input(name="name-input",type="text")
                 .panel.panel-default
                     .panel-title
-                        a.panel-toggle(data-toggle='collapse', data-parent='#markers', href='#marker-1-panel-1')
-                            | Option 1
+                        a.panel-toggle(data-toggle='collapse', data-parent='#markers',
+                        title="Input: 2x2 Table",href='#marker-1-panel-1')
+                            | Input: 2x2 Table
                             span.caret
                     #marker-1-panel-1.panel-collapse.collapse.in
                         .panel-body
@@ -37,11 +38,15 @@
                                         label.sr-only(for='d') D
                                         input#d.input(name='d', type='text')
                     .panel-title
-                        a.panel-toggle(data-toggle='collapse', data-parent='#markers', href='#marker-1-panel-2')
-                            | Option 2
+                        a.panel-toggle(data-toggle='collapse', data-parent='#markers'
+                        title="Input: PPV, NPV, Sensitivity,Specificity, etc.", href='#marker-1-panel-2')
+                            | Input: PPV, NPV, Sensitivity,Specificity, etc.
                             span.caret
                     #marker-1-panel-2.panel-collapse.collapse
                         .panel-body
+                            .row
+                                label Sample Size
+                                input.input(name="sampsize",type='text')
                             table.option-2.table.table-condensed.table-striped.table-responsive
                                 thead
                                     tr.active
@@ -72,13 +77,6 @@
                                             span.dd.termToDefine.glyphicon.glyphicon-info-sign
                                         td
                                             input.input(type='text', name="param_3")
-                                    tr(row='3')
-                                        td(colspan="2")
-                                    tr(row='4')
-                                        td
-                                            label Sample Size
-                                        td
-                                            input.input(name="sampsize",type='text')
 #control-group.col-md-12
     .row
         .pull-left
@@ -92,6 +90,4 @@
             button#calculate(type='button', title="Calculate") Calculate
         .pull-right
             .row
-                a#test1(href="javascript:void(0);",title="Populate 1 biomarker using option 1 with test data") Example 1
-            .row
-                a#test2(href="javascript:void(0);",title="Populate 2 biomarker using option 1 with test data") Example 2
+                a#test(href="javascript:void(0);",title="Populate 1 biomarker using test data") Example
