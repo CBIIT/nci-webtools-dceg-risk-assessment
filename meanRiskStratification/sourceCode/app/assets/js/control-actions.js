@@ -12,8 +12,7 @@ $(document).ready(function () {
 
 function bind_control_events() {
     // testing
-    $('a#test1').on('click', test);
-    $('a#test2').on('click', test);
+    $('a#test').on('click', test);
 
     $('#reset').on('click', reset);
     $('#add-marker').on('click', new_marker);
@@ -106,7 +105,7 @@ function delete_marker() {
         // remove last child
         $('#markers').children().last().remove();
     }
-    currentMarkers--;
+    if (currentMarkers != 1) currentMarkers--;
     controls_visibility(currentMarkers);
 }
 
@@ -213,13 +212,12 @@ function return_data(data) {
             var lookup_id = lookup[name];
             var data_item = params[name];
 
-            // multiply values by 100 to get percentage value, if it is not one of these values
             if (lookup_id != 'rr' && lookup_id != 'nnr' && lookup_id != 'nns') {
-                var formattedText = (data_item["Value"] * 100) + "%";
+                var formattedText = data_item["Value"];
                 if (data_item["Confidence Interval (lower bound)"] != null &&
                     data_item["Confidence Interval (upper bound)"] != null) {
-                    ci_lb = (data_item["Confidence Interval (lower bound)"] * 100);
-                    ci_ub = (data_item["Confidence Interval (upper bound)"] * 100);
+                    ci_lb = data_item["Confidence Interval (lower bound)"];
+                    ci_ub = data_item["Confidence Interval (upper bound)"];
                     formattedText += " (" + ci_lb + "%, " + ci_ub + "%)";
                 }
             }
@@ -244,11 +242,11 @@ function return_data(data) {
 
             // multiply values by 100 to get percentage value, if it is not one of these values
             if (lookup_id != 'rr' && lookup_id != 'nnr' && lookup_id != 'nns') {
-                var formattedText = (data_item["Value"] * 100) + "%";
+                var formattedText = data_item["Value"];
                 if (data_item["Confidence Interval (lower bound)"] != null &&
                     data_item["Confidence Interval (upper bound)"] != null) {
-                    ci_lb = (data_item["Confidence Interval (lower bound)"] * 100);
-                    ci_ub = (data_item["Confidence Interval (upper bound)"] * 100);
+                    ci_lb = data_item["Confidence Interval (lower bound)"];
+                    ci_ub = data_item["Confidence Interval (upper bound)"];
                     formattedText += " (" + ci_lb + "%, " + ci_ub + "%)";
                 }
             }
@@ -280,10 +278,6 @@ function append_name() {
             var name = thisNameInputElement.val() + " (CI Low, CI High)";
         else
             name = "Biomarker " + i + " (CI Low, CI High)";
-
-        var samp_size = $('.marker-' + i + ' input[name="sampsize"]').val();
-
-        if (samp_size !== "") name += " (" + samp_size + ")";
 
         // find the element to append the text to
         $('#results').find('table thead tr .bm_' + i).attr('title', name).text(name);
@@ -381,37 +375,70 @@ function reset() {
 }
 
 function test() {
-    var tbs = $('.marker-1');
-    var values_option_1 = {"a": 471, "b": 13, "c": 4680, "d": 25207};
+    var tbs = $('.collapse.in');
+    var values_option_1_bm = [{"markerName": "HPV", "a": 471, "b": 13, "c": 4680, "d": 25207},
+        {"markerName": "Pap", "a": 466, "b": 25, "c": 4484, "d": 25396},
+        {"markerName": "VIA", "a": 270, "b": 225, "c": 2967, "d": 26909}];
+
     var values_option_2 = {"ppv": 0.0914, "npv": (1 - 0.0005), "P(M+)": 0.1696, "total": 30371};
 
-    if (this.id == "test1") {
-        var tbs = $('.marker-1');
+    $('#markers').children().each(function (key, value) {
 
-        // pull data from values_option_1
-        tbs.find('#a').val(values_option_1['a']);
-        tbs.find('#b').val(values_option_1['b']);
-        tbs.find('#c').val(values_option_1['c']);
-        tbs.find('#d').val(values_option_1['d']);
-    }
-    if (this.id == "test2") {
+        if ($(this).find('.collapse.in')) {
+            id = $(this).find('.collapse.in').prop('id');
+            if (id == "marker-1-panel-1") {
+                $(value).find('[name="name-input"]').val(values_option_1_bm[0]['markerName']);
+                $('#' + id).find('#a').val(values_option_1_bm[0]['a']);
+                $('#' + id).find('#b').val(values_option_1_bm[0]['b']);
+                $('#' + id).find('#c').val(values_option_1_bm[0]['c']);
+                $('#' + id).find('#d').val(values_option_1_bm[0]['d']);
+            }
+            if (id == "marker-2-panel-1") {
+                $(value).find('[name="name-input"]').val(values_option_1_bm[1]['markerName']);
+                $('#' + id).find('#a').val(values_option_1_bm[1]['a']);
+                $('#' + id).find('#b').val(values_option_1_bm[1]['b']);
+                $('#' + id).find('#c').val(values_option_1_bm[1]['c']);
+                $('#' + id).find('#d').val(values_option_1_bm[1]['d']);
+            }
+            if (id == "marker-3-panel-1") {
+                $(value).find('[name="name-input"]').val(values_option_1_bm[2]['markerName']);
+                $('#' + id).find('#a').val(values_option_1_bm[2]['a']);
+                $('#' + id).find('#b').val(values_option_1_bm[2]['b']);
+                $('#' + id).find('#c').val(values_option_1_bm[2]['c']);
+                $('#' + id).find('#d').val(values_option_1_bm[2]['d']);
+            }
 
-        // clear values for option 1
-        tbs.find('#a').val("");
-        tbs.find('#b').val("");
-        tbs.find('#c').val("");
-        tbs.find('#d').val("");
+        }
 
-        // pull data from value_option_2
-        tbs.find('.input[name="param_1"]')[0].selectedIndex = 0;//ppv
-        tbs.find('.input[name="param_1"]')[1].value = values_option_2["ppv"];
+    });
 
-        tbs.find('.input[name="param_2"]')[0].selectedIndex = 0;//npv
-        tbs.find('.input[name="param_2"]')[1].value = values_option_2["npv"];
-
-        tbs.find('.input[name="param_3"]')[0].selectedIndex = 0;//P(M+)
-        tbs.find('.input[name="param_3"]')[1].value = values_option_2["P(M+)"];
-
-        tbs.find('.input[name="sampsize"]')[0].value = values_option_2["total"];
-    }
+    //if (tbs.parents().first().prop('class')== marker) {
+    //    var tbs = $('.marker-1');
+    //
+    //    // pull data from values_option_1
+    //    tbs.find('#a').val(values_option_1_bm_1['a']);
+    //    tbs.find('#b').val(values_option_1_bm_1['b']);
+    //    tbs.find('#c').val(values_option_1_bm_1['c']);
+    //    tbs.find('#d').val(values_option_1_bm_1['d']);
+    //}
+    //if (this.id == "test2") {
+    //
+    //    // clear values for option 1
+    //    tbs.find('#a').val("");
+    //    tbs.find('#b').val("");
+    //    tbs.find('#c').val("");
+    //    tbs.find('#d').val("");
+    //
+    //    // pull data from value_option_2
+    //    tbs.find('.input[name="param_1"]')[0].selectedIndex = 0;//ppv
+    //    tbs.find('.input[name="param_1"]')[1].value = values_option_2["ppv"];
+    //
+    //    tbs.find('.input[name="param_2"]')[0].selectedIndex = 0;//npv
+    //    tbs.find('.input[name="param_2"]')[1].value = values_option_2["npv"];
+    //
+    //    tbs.find('.input[name="param_3"]')[0].selectedIndex = 0;//P(M+)
+    //    tbs.find('.input[name="param_3"]')[1].value = values_option_2["P(M+)"];
+    //
+    //    tbs.find('.input[name="sampsize"]')[0].value = values_option_2["total"];
+    //}
 }
