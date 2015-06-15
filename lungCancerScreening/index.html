@@ -64,6 +64,11 @@
         <div id="mainBoxContainer">
           <div id="mainBoxTitle">Risk Tool</div>
           <div id="mainBoxContent">
+
+            <div class="warning" ng-show="myForm.isInvalid">
+              Please ensure that all fields below have valid values before submitting the form.
+            </div>
+
             <p>
               <strong>
                 The task force does not recommend that you get screened if you are not between the ages of 55 and 79, or if you are a non smoker, or if you are a current smoker with less than 30 pack-year of smoking or if you are a former smoker who quitted for more than 15 years.
@@ -78,6 +83,13 @@
                       <td valign="top">Age</td>
                       <td valign="top">
                         <input type="text" name="age" ng-model="myForm.age">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td ng-show="myForm.ageNumericCriteria" colspan="2">
+                        <div class="warning">
+                          {{myForm.numericValidationMessage}}
+                        </div>
                       </td>
                     </tr>
                     <tr>
@@ -132,17 +144,31 @@
                         <input type="text" name="quit" ng-model="myForm.quit">
                       </td>
                     </tr>
+                    <tr>
+                      <td ng-show="myForm.startNumericCriteria" colspan="2">
+                        <div class="warning">
+                          {{myForm.numericValidationMessage}}
+                        </div>
+                      </td>
+                    </tr>
                     <tr ng-show="myForm.startAgeCriteria">
                       <td colspan="2">
                         <div class="warning">
-                          Starting age must be greater than 0 and less than or equal to age.
+                          Please ensure that the starting age is greater than 0 and less than or equal to age.
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td ng-show="myForm.quitNumericCriteria" colspan="2">
+                        <div class="warning">
+                          {{myForm.numericValidationMessage}}
                         </div>
                       </td>
                     </tr>
                     <tr ng-show="myForm.quitAgeCriteria">
                       <td colspan="2">
                         <div class="warning">
-                          Quitting age value must be less than age.
+                          Please ensure that the quitting age value is less than age.
                         </div>
                       </td>
                     </tr>
@@ -157,18 +183,18 @@
                       <td valign="top" ng-switch="myForm.type">
                         <div style="margin-left: 30px">
                           <span ng-switch-when="current">
-                            How many packs per day do you smoke on average?
+                            How many cigarettes per day do you smoke on average?
                           </span>
                           <span ng-switch-when="former">
-                            How many packs per day did you smoke on average?
+                            How many cigarettes per day did you smoke on average?
                           </span>
                         </div>
                       </td>
                       <td valign="top">
-                        <input type="text" name="packs" ng-change="myForm.changePacks()" ng-model="myForm.packs">
+                        <input type="text" name="cigs" ng-change="myForm.changeCigs()" ng-model="myForm.cigs">
                       </td>
                     </tr>
-                    <tr ng-show="myForm.packsCriteria">
+                    <tr ng-show="myForm.cigsCriteria">
                       <td colspan="2">
                         <div class="warning">
                           The <a href="http://www.uspreventiveservicestaskforce.org/uspstf/uspslung.htm" target="_blank" title="U.S. Preventive Services Task Force">U.S. Preventive Services Task Force</a> does NOT recommend that you get screened unless you have a minimum 30 pack-years of smoking.</div>
@@ -226,16 +252,16 @@
                       <td valign="top">Height?</td>
                       <td valign="top">
                         <div>
-                          <input class="small" type="text" name="heightfeet" ng-change="myForm.changeHeight()" ng-model="myForm.pHeight">
+                          <input class="small" type="text" name="heightfeet" ng-model="myForm.pHeight">
                           <span>{{myForm.heightPrimary}}</span>
                         </div>
                         <div>
-                          <input class="small" type="text" name="heightinches" ng-change="myForm.changeHeight()" ng-model="myForm.subHeight">
+                          <input class="small" type="text" name="heightinches" ng-model="myForm.subHeight">
                           <span>{{myForm.heightSecondary}}</span>
                         </div>
                       </td>
                     </tr>
-                    <tr ng-show="myForm.heightCriteria">
+                    <tr ng-show="myForm.pHeightCriteria || myForm.subHeightCriteria">
                       <td colspan="2">
                         <div class="warning">
                           {{myForm.heightWarning}}
@@ -245,14 +271,14 @@
                     <tr>
                       <td valign="top">Weight?</td>
                       <td valign="top">
-                            <input type="text" name="weight" ng-change="myForm.changeWeight()" ng-model="myForm.weight">
+                            <input type="text" name="weight" ng-model="myForm.weight">
                             <span>{{myForm.weightUnits}}</span>
                       </td>
                     </tr>
                     <tr ng-show="myForm.weightCriteria">
                       <td colspan="2">
                         <div class="warning">
-                          Weight must be greater than 0.
+                          Please ensure that the weight value above is greater than 0 and does not include any non-numeric characters.
                         </div>
                       </td>
                     </tr>
@@ -272,7 +298,7 @@
                     </tr>
                     <tr>
                       <td colspan="2" align="right" valign="top">
-                        <input type="submit" name="submit" value="Calculate" id="submit" />
+                        <input type="submit" name="submit" value="Calculate" id="submit" ng-click="myForm.submit()" />
                         <input type="reset" name="reset" value="Reset" id="reset" ng-click="myForm.resetForm()" />
                       </td>
                     </tr>
