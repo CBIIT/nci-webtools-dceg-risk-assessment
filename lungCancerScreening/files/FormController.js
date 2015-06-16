@@ -11,15 +11,17 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.ageNumericCriteria = false;
     $scope.myForm.typeCriteria = false;
     $scope.myForm.startAgeCriteria = false;
+    $scope.myForm.startNumericCriteria = false;
     $scope.myForm.quitCriteria = false;
+    $scope.myForm.quitNumericCriteria = false;
     $scope.myForm.quitAgeCriteria = false;
     $scope.myForm.cigsCriteria = false;
+    $scope.myForm.cigsNumericCriteria = false;
     $scope.myForm.pHeightCriteria = false;
     $scope.myForm.subHeightCriteria = false;
     $scope.myForm.weightCriteria = false;
     $scope.myForm.units = 'us';
     $scope.myForm.numericValidationMessage = 'Please ensure the age entered above does not have any non-numeric characters.';
-    $scope.myForm.isInvalid = false;
   }
   init();
 
@@ -46,25 +48,36 @@ app.controller("MyController", function($scope, $http) {
   });
 
   $scope.myForm.changeCigs = function() {
+    $scope.myForm.cigsNumericCriteria = !numRegExp.test($scope.myForm.cigs ? $scope.myForm.cigs : '0');
+
     var age,
       start,
-      quit;
+      quit,
+      cigs;
 
-    if ($scope.myForm.cigs === '') {
-      $scope.myForm.cigsCriteria = false;
-    } else {
+    if (!$scope.myForm.cigsNumericCriteria) {
       age = parseFloat($scope.myForm.age);
+      cigs = parseFloat($scope.myForm.cigs);
 
-      if ($scope.myForm.type === 'current') {
+      if ($scope.myForm.type === 'current' || $scope.myForm.type === 'former') {
         start = parseFloat($scope.myForm.start);
-        $scope.myForm.packYears = ((age - start) * ($scope.myForm.cigs / 20));
+
+        if ($scope.myForm.type === 'current') {
+          $scope.myForm.packYears = ((age - start) * (cigs / 20));
+        }
+
+        if ($scope.myForm.type === 'former') {
+          quit = parseFloat($scope.myForm.quit);
+          $scope.myForm.packYears = ((quit - start) * (cigs / 20));
+        }
+
         $scope.myForm.cigsCriteria = $scope.myForm.packYears < 30;
 
-        console.log('pack years = ', (age - start) * ($scope.myForm.cigs / 20));
-        console.log('pack years criteria = ', $scope.myForm.cigsCriteria);
+        console.log('pack years = ', $scope.myForm.packYears);
+        console.log('pack years criteria = ', $scope.myForm.packYears);
       }
-
-      /* Not possible to calculate pack years for former smokers unless we know how long they smoked */
+    } else {
+      $scope.myForm.cigsCriteria = false;
     }
   };
 
@@ -148,13 +161,16 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.pkyr_cat = 0;
   };
 
-  $scope.myForm.submit = function() {
-    var isInvalid = $scope.myForm.isInvalid;
+  $scope.myForm.submit = function(isValid) {
+    //var isValid = isValid;
     var bmi = 0,
-        height,
-        weight;
+      height,
+      weight;
 
-    if (!isInvalid) {
+    console.log('form validation is: ', isValid);
+    return;
+
+    if (isValid) {
       if ($scope.myForm.units === 'us') {
         height = (parseFloat($scope.myForm.pHeight) * 12) + parseFloat($scope.myForm.subHeight);
         weight = parseFloat($scope.myForm.weight);
@@ -173,42 +189,67 @@ app.controller("MyController", function($scope, $http) {
     }
   };
 
+
   // Validation functions
   function validateAges() {
     var age,
       start,
       quit;
 
-    if ($scope.myForm.age !== '' && $scope.myForm.age !== undefined) {
+    $scope.myForm.ageNumericCriteria = !numRegExp.test($scope.myForm.age ? $scope.myForm.age : '0');
+    $scope.myForm.startNumericCriteria = !numRegExp.test($scope.myForm.start ? $scope.myForm.start : '0');
+    $scope.myForm.quitNumericCriteria = !numRegExp.test($scope.myForm.quit ? $scope.myForm.quit : '0');
+
+    //if ($scope.myForm.age !== '' && $scope.myForm.age !== undefined) {
+    if (!$scope.myForm.ageNumericCriteria) {
       age = parseFloat($scope.myForm.age);
-      $scope.myForm.ageNumericCriteria = !numRegExp.test($scope.myForm.age);
-      $scope.myForm.ageCriteria = (age < 55 || age > 79) && !$scope.myForm.ageNumericCriteria;
+      $scope.myForm.ageCriteria = (age < 55 || age > 79); //&& !$scope.myForm.ageNumericCriteria;
     } else {
       $scope.myForm.ageCriteria = false;
     }
 
-    if ($scope.myForm.type === 'current') {
-      if ($scope.myForm.start === '') {
-        $scope.myForm.startAgeCriteria = false;
-      } else {
+    if ($scope.myForm.type === 'current' || $scope.myForm.type === 'former') {
+      if (!$scope.myForm.startNumericCriteria) {
         start = parseFloat($scope.myForm.start);
-        $scope.myForm.startNumericCriteria = !numRegExp.test($scope.myForm.start);
-        $scope.myForm.startAgeCriteria = (start <= 0 || start > age) && !$scope.myForm.startNumericCriteria;
-      }
-    }
+        $scope.myForm.startAgeCriteria = (start <= 0 || start > age); //&& !$scope.myForm.startNumericCriteria;
 
-    if ($scope.myForm.type === 'former') {
-      if ($scope.myForm.quit === '') {
-        $scope.myForm.quitCriteria = false;
-        $scope.myForm.quitAgeCriteria = false;
+        if ($scope.myForm.type === 'former') {
+          if (!$scope.myForm.quitNumericCriteria) {
+            quit = parseFloat($scope.myForm.quit);
+            $scope.myForm.quitCriteria = (age - quit > 15);
+            $scope.myForm.quitAgeCriteria = (quit > age || quit <= start); // && !$scope.myForm.quitNumericCriteria;
+          } else {
+            $scope.myForm.quitAgeCriteria = false;
+          }
+        }
       } else {
-        quit = parseFloat($scope.myForm.quit);
-        $scope.myForm.quitCriteria = (age - quit > 15);
-        $scope.myForm.quitNumericCriteria = !numRegExp.test($scope.myForm.quit);
-        $scope.myForm.quitAgeCriteria = (quit > age) && !$scope.myForm.quitNumericCriteria;
+        $scope.myForm.startAgeCriteria = false;
       }
     }
   }
+  /*
+      if ($scope.myForm.type === 'current' || $scope.myForm.type === 'former') {
+        if ($scope.myForm.start === '') {
+          $scope.myForm.startAgeCriteria = false;
+        } else {
+          start = parseFloat($scope.myForm.start);
+          $scope.myForm.startNumericCriteria = !numRegExp.test($scope.myForm.start);
+          $scope.myForm.startAgeCriteria = (start <= 0 || start > age) && !$scope.myForm.startNumericCriteria;
+        }
+      }
+
+      if ($scope.myForm.type === 'former') {
+        if ($scope.myForm.quit === '') {
+          $scope.myForm.quitCriteria = false;
+          $scope.myForm.quitAgeCriteria = false;
+        } else {
+          quit = parseFloat($scope.myForm.quit);
+          $scope.myForm.quitCriteria = (age - quit > 15);
+          $scope.myForm.quitNumericCriteria = !numRegExp.test($scope.myForm.quit);
+          $scope.myForm.quitAgeCriteria = (quit > age || quit < ) && !$scope.myForm.quitNumericCriteria;
+        }
+      }
+  */
 
   function convertHeightWeight() {
     var primary = parseFloat($scope.myForm.pHeight);

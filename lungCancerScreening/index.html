@@ -76,13 +76,13 @@
             </p>
 
             <div ng-controller="MyController">
-              <form name="" id="" action="" method="get">
+              <form name="lcsForm" id="" action="" method="get" ng-submit="myForm.submit(lcsForm.$valid)">
                 <table border="0" cellpadding="0" cellspacing="0" class="formTable">
                   <tbody>
                     <tr>
                       <td valign="top">Age</td>
                       <td valign="top">
-                        <input type="text" name="age" ng-model="myForm.age">
+                        <input type="text" name="age" ng-model="myForm.age" ng-required="true">
                       </td>
                     </tr>
                     <tr>
@@ -102,7 +102,7 @@
                     <tr>
                       <td valign="top">Gender</td>
                       <td valign="top">
-                        <select ng-model="myForm.gender">
+                        <select ng-model="myForm.gender" required>
                           <option value="">Select...</option>
                           <option value="male">Male</option>
                           <option value="female">Female</option>
@@ -112,7 +112,7 @@
                     <tr>
                       <td valign="top">Type of Smoker?</td>
                       <td valign="top">
-                        <select ng-change="myForm.changeType()" ng-model="myForm.type">
+                        <select ng-change="myForm.changeType()" ng-model="myForm.type" ng-required="true">
                           <option value="">Select...</option>
                           <option value="current">Current Smoker</option>
                           <option value="former">Former Smoker</option>
@@ -134,14 +134,16 @@
                         <span style="margin-left: 30px;">What age did you start smoking?</span>
                       </td>
                       <td valign="top" ng-switch-when="former">
+                        <span style="margin-left: 30px;">What age did you start smoking?</span><br/><br/>
                         <span style="margin-left: 30px;">How old were you when you quit?</span>
                       </td>
 
                       <td valign="top" ng-switch-when="current">
-                        <input type="text" name="start" ng-model="myForm.start">
+                        <input type="text" name="start" ng-model="myForm.start" ng-required="myForm.type == 'current'">
                       </td>
                       <td valign="top" ng-switch-when="former">
-                        <input type="text" name="quit" ng-model="myForm.quit">
+                        <input type="text" name="start" ng-model="myForm.start" ng-required="myForm.type == 'former'"><br/><br/>
+                        <input type="text" name="quit" ng-model="myForm.quit" ng-required="myForm.type == 'former'">
                       </td>
                     </tr>
                     <tr>
@@ -168,7 +170,7 @@
                     <tr ng-show="myForm.quitAgeCriteria">
                       <td colspan="2">
                         <div class="warning">
-                          Please ensure that the quitting age value is less than age.
+                          Please ensure that the quitting age value is less than age and greater than or equal to starting age.
                         </div>
                       </td>
                     </tr>
@@ -191,7 +193,14 @@
                         </div>
                       </td>
                       <td valign="top">
-                        <input type="text" name="cigs" ng-change="myForm.changeCigs()" ng-model="myForm.cigs">
+                        <input type="text" name="cigs" ng-change="myForm.changeCigs()" ng-model="myForm.cigs" ng-required="myForm.smokeShow">
+                      </td>
+                    </tr>
+                    <tr ng-show="myForm.cigsNumericCriteria">
+                      <td colspan="2">
+                        <div class="warning">
+                          Please ensure that the number of cigarettes per day entered above does not contain any non-numeric characters.
+                        </div>
                       </td>
                     </tr>
                     <tr ng-show="myForm.cigsCriteria">
@@ -203,7 +212,7 @@
                     <tr>
                       <td valign="top">Race or Ethnic Group:</td>
                       <td valign="top">
-                        <select ng-model="myForm.group">
+                        <select ng-model="myForm.group" ng-required="true">
                           <option value="">Select...</option>
                           <option value="white">White</option>
                           <option value="black">Black</option>
@@ -221,7 +230,7 @@
                     <tr>
                       <td valign="top">Lung disease?</td>
                       <td valign="top">
-                        <select ng-model="myForm.disease">
+                        <select ng-model="myForm.disease" ng-required="true">
                           <option value="">Select...</option>
                           <option value="emphysema">Emphysema</option>
                           <option value="none">None</option>
@@ -231,7 +240,7 @@
                     <tr>
                       <td valign="top">Family history of lung cancer?</td>
                       <td valign="top">
-                        <select ng-model="myForm.history">
+                        <select ng-model="myForm.history" ng-required="true">
                           <option value="">Select...</option>
                           <option value="0">No parent</option>
                           <option value="1">One parent had lung cancer</option>
@@ -252,7 +261,7 @@
                       <td valign="top">Height?</td>
                       <td valign="top">
                         <div>
-                          <input class="small" type="text" name="heightfeet" ng-model="myForm.pHeight">
+                          <input class="small" type="text" name="heightfeet" ng-model="myForm.pHeight" ng-required="true">
                           <span>{{myForm.heightPrimary}}</span>
                         </div>
                         <div>
@@ -271,7 +280,7 @@
                     <tr>
                       <td valign="top">Weight?</td>
                       <td valign="top">
-                            <input type="text" name="weight" ng-model="myForm.weight">
+                            <input type="text" name="weight" ng-model="myForm.weight" ng-required="true">
                             <span>{{myForm.weightUnits}}</span>
                       </td>
                     </tr>
@@ -285,7 +294,7 @@
                     <tr>
                       <td valign="top">Education?</td>
                       <td valign="top">
-                        <select ng-model="myForm.education">
+                        <select ng-model="myForm.education" ng-required="true">
                           <option value="">Select...</option>
                           <option value="1">High school, but did not graduate</option>
                           <option value="2">High school graduate</option>
@@ -298,7 +307,7 @@
                     </tr>
                     <tr>
                       <td colspan="2" align="right" valign="top">
-                        <input type="submit" name="submit" value="Calculate" id="submit" ng-click="myForm.submit()" />
+                        <input type="submit" name="submit" value="Calculate" id="submit" />
                         <input type="reset" name="reset" value="Reset" id="reset" ng-click="myForm.resetForm()" />
                       </td>
                     </tr>
