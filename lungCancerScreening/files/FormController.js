@@ -200,10 +200,9 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.startNumericCriteria = !numRegExp.test($scope.myForm.start ? $scope.myForm.start : '0');
     $scope.myForm.quitNumericCriteria = !numRegExp.test($scope.myForm.quit ? $scope.myForm.quit : '0');
 
-    //if ($scope.myForm.age !== '' && $scope.myForm.age !== undefined) {
     if (!$scope.myForm.ageNumericCriteria) {
       age = parseFloat($scope.myForm.age);
-      $scope.myForm.ageCriteria = (age < 55 || age > 79); //&& !$scope.myForm.ageNumericCriteria;
+      $scope.myForm.ageCriteria = (age < 55 || age > 79);
     } else {
       $scope.myForm.ageCriteria = false;
     }
@@ -211,13 +210,13 @@ app.controller("MyController", function($scope, $http) {
     if ($scope.myForm.type === 'current' || $scope.myForm.type === 'former') {
       if (!$scope.myForm.startNumericCriteria) {
         start = parseFloat($scope.myForm.start);
-        $scope.myForm.startAgeCriteria = (start <= 0 || start > age); //&& !$scope.myForm.startNumericCriteria;
+        $scope.myForm.startAgeCriteria = (start <= 0 || start > age);
 
         if ($scope.myForm.type === 'former') {
           if (!$scope.myForm.quitNumericCriteria) {
             quit = parseFloat($scope.myForm.quit);
             $scope.myForm.quitCriteria = (age - quit > 15);
-            $scope.myForm.quitAgeCriteria = (quit > age || quit <= start); // && !$scope.myForm.quitNumericCriteria;
+            $scope.myForm.quitAgeCriteria = (quit > age || quit <= start);
           } else {
             $scope.myForm.quitAgeCriteria = false;
           }
@@ -227,29 +226,6 @@ app.controller("MyController", function($scope, $http) {
       }
     }
   }
-  /*
-      if ($scope.myForm.type === 'current' || $scope.myForm.type === 'former') {
-        if ($scope.myForm.start === '') {
-          $scope.myForm.startAgeCriteria = false;
-        } else {
-          start = parseFloat($scope.myForm.start);
-          $scope.myForm.startNumericCriteria = !numRegExp.test($scope.myForm.start);
-          $scope.myForm.startAgeCriteria = (start <= 0 || start > age) && !$scope.myForm.startNumericCriteria;
-        }
-      }
-
-      if ($scope.myForm.type === 'former') {
-        if ($scope.myForm.quit === '') {
-          $scope.myForm.quitCriteria = false;
-          $scope.myForm.quitAgeCriteria = false;
-        } else {
-          quit = parseFloat($scope.myForm.quit);
-          $scope.myForm.quitCriteria = (age - quit > 15);
-          $scope.myForm.quitNumericCriteria = !numRegExp.test($scope.myForm.quit);
-          $scope.myForm.quitAgeCriteria = (quit > age || quit < ) && !$scope.myForm.quitNumericCriteria;
-        }
-      }
-  */
 
   function convertHeightWeight() {
     var primary = parseFloat($scope.myForm.pHeight);
