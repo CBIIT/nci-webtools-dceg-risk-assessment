@@ -29,5 +29,6 @@ var lookup = {
     "Area Under the Curve": "auc",
     "Confidence Interval (lower bound)": "ci_lb",
     "Confidence Interval (upper bound)": "ci_ub",
-    "Value":"value"
+    "Value":"value",
+    "Test":"test"
 };

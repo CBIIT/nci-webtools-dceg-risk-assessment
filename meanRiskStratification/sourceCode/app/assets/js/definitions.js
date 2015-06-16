@@ -72,5 +72,6 @@ var definitionObj = {
         term: "Mean Risk Stratification (MRS)",
         definition: "Average change in pretest-posttest disease risk. Formula: MRS=2tp(1-p)"
     },
-    sampsize:{term:"Sample Size",definition:""}
+    sampsize:{term:"Sample Size",definition:""},
+    test:{term:"Test",definition:"empty"}
 };

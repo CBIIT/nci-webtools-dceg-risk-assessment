@@ -38,9 +38,9 @@
                 </div>
                 <div class="row">
                   <label for="name-input">Biomarker Name</label>
-                  <input name="#name-input" type="text" class="name-input">
+                  <input name="name-input" type="text" class="name-input">
                   <div class="panel panel-default">
-                    <div class="panel-title"><a data-toggle="collapse" data-parent="#markers" href="#marker-1-panel-1" class="panel-toggle">Option 1<span class="caret"></span></a></div>
+                    <div class="panel-title"><a data-toggle="collapse" data-parent="#markers" title="Input: 2x2 Table" href="#marker-1-panel-1" class="panel-toggle">Input: 2x2 Table<span class="caret"></span></a></div>
                     <div id="marker-1-panel-1" class="panel-collapse collapse in">
                       <div class="panel-body">
                         <table class="option-1 table table-striped table-condensed table-responsive">
@@ -76,9 +76,13 @@
                         </table>
                       </div>
                     </div>
-                    <div class="panel-title"><a data-toggle="collapse" data-parent="#markers" href="#marker-1-panel-2" class="panel-toggle">Option 2<span class="caret"></span></a></div>
+                    <div class="panel-title"><a data-toggle="collapse" data-parent="#markers" title="Input: PPV, NPV, Sensitivity,Specificity, etc." href="#marker-1-panel-2" class="panel-toggle">Input: PPV, NPV, Sensitivity,Specificity, etc.<span class="caret"></span></a></div>
                     <div id="marker-1-panel-2" class="panel-collapse collapse">
                       <div class="panel-body">
+                        <div class="row">
+                          <label>Sample Size</label>
+                          <input name="sampsize" type="text" class="input">
+                        </div>
                         <table class="option-2 table table-condensed table-striped table-responsive">
                           <thead>
                             <tr class="active">
@@ -120,17 +124,6 @@
                                 <input type="text" name="param_3" class="input">
                               </td>
                             </tr>
-                            <tr row="3">
-                              <td colspan="2"></td>
-                            </tr>
-                            <tr row="4">
-                              <td>
-                                <label>Sample Size</label>
-                              </td>
-                              <td>
-                                <input name="sampsize" type="text" class="input">
-                              </td>
-                            </tr>
                           </tbody>
                         </table>
                       </div>
@@ -149,8 +142,7 @@
                 <button id="calculate" type="button" title="Calculate">Calculate</button>
               </div>
               <div class="pull-right">
-                <div class="row"><a id="test1" href="javascript:void(0);" title="Populate 1 biomarker using option 1 with test data">Example 1</a></div>
-                <div class="row"><a id="test2" href="javascript:void(0);" title="Populate 2 biomarker using option 1 with test data">Example 2</a></div>
+                <div class="row"><a id="test" href="javascript:void(0);" title="Populate 1 biomarker using test data">Example</a></div>
               </div>
             </div>
           </div>
@@ -232,25 +224,25 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><b>True Positive Fraction = a</b></td>
+                  <td class="test termToDefine">True Positive Fraction = a</td>
                   <td id="d_pos_result" class="output bm_1"></td>
                   <td id="d_pos_result" class="output bm_2"></td>
                   <td id="d_pos_result" class="output bm_3"></td>
                 </tr>
                 <tr>
-                  <td><b>False Negative Fraction = b</b></td>
+                  <td class="test termToDefine">False Negative Fraction = b</td>
                   <td id="pos_d_neg_m_result" class="output bm_1"></td>
                   <td id="pos_d_neg_m_result" class="output bm_2"></td>
                   <td id="pos_d_neg_m_result" class="output bm_3"></td>
                 </tr>
                 <tr>
-                  <td><b>False Positive Fraction = c</b></td>
+                  <td class="test termToDefine">False Positive Fraction = c</td>
                   <td id="neg_d_pos_m_result" class="output bm_1"></td>
                   <td id="neg_d_pos_m_result" class="output bm_2"></td>
                   <td id="neg_d_pos_m_result" class="output bm_3"></td>
                 </tr>
                 <tr>
-                  <td><b>True Negative Fraction = d</b></td>
+                  <td class="test termToDefine">True Negative Fraction = d</td>
                   <td id="m_neg_result" class="output bm_1"></td>
                   <td id="m_neg_result" class="output bm_2"></td>
                   <td id="m_neg_result" class="output bm_3"></td>
@@ -274,7 +266,7 @@
                   <td id="ppv_result" class="output bm_3"></td>
                 </tr>
                 <tr>
-                  <td><b>Complement of Negative Predictive Value (cNPV)</b></td>
+                  <td class="test termToDefine">Complement of Negative Predictive Value (cNPV)</td>
                   <td id="c_npv_result" class="output bm_1"></td>
                   <td id="c_npv_result" class="output bm_2"></td>
                   <td id="c_npv_result" class="output bm_3"></td>
@@ -292,31 +284,31 @@
                   <td id="spec_result" class="output bm_3"></td>
                 </tr>
                 <tr>
-                  <td><b>Complement of Specificity (cSpec)</b></td>
+                  <td class="test termToDefine">Complement of Specificity (cSpec)</td>
                   <td id="c_spec_result" class="output bm_1"></td>
                   <td id="c_spec_result" class="output bm_2"></td>
                   <td id="c_spec_result" class="output bm_3"></td>
                 </tr>
                 <tr>
-                  <td><b>Relative Risk</b></td>
+                  <td class="test termToDefine">Relative Risk</td>
                   <td id="rr_result" class="output bm_1"></td>
                   <td id="rr_result" class="output bm_2"></td>
                   <td id="rr_result" class="output bm_3"></td>
                 </tr>
                 <tr>
-                  <td><b>Risk Difference (RD)</b></td>
+                  <td class="test termToDefine">Risk Difference (RD)</td>
                   <td id="r_diff_result" class="output bm_1"></td>
                   <td id="r_diff_result" class="output bm_2"></td>
                   <td id="r_diff_result" class="output bm_3"></td>
                 </tr>
                 <tr>
-                  <td><b>Youden's Index (YI)</b></td>
+                  <td class="test termToDefine">Youden's Index (YI)</td>
                   <td id="youden_result" class="output bm_1"></td>
                   <td id="youden_result" class="output bm_2"></td>
                   <td id="youden_result" class="output bm_3"></td>
                 </tr>
                 <tr>
-                  <td><b>AUC = (1+YI)/2</b></td>
+                  <td class="test termToDefine">AUC = (1+YI)/2</td>
                   <td id="auc_result" class="output bm_1"></td>
                   <td id="auc_result" class="output bm_2"></td>
                   <td id="auc_result" class="output bm_3"></td>
