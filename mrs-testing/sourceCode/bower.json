@@ -1,0 +1,14 @@
+{
+  "name": "demo-ui",
+  "repo": "git-repository-name-here",
+  "version": "0.0.1",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "commonjs-require-definition": "~0.1.2",
+    "jquery": "~2.0.3"
+  }
+}
