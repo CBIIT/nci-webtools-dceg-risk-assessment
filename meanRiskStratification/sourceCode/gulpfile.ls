@@ -3,6 +3,7 @@ require 'matchdep'
   .forEach (module) !->
     global[ module.replace /^gulp-/, '' ] = require module
 
+strip-comments = require \gulp-strip-comments
 notifier = require \node-notifier
 parent-dir = \..
 
@@ -60,7 +61,7 @@ production = true if gutil.env.env is \production
 #  httpServer.close!
 
 # to compile, run command 'npm run build'
-gulp.task 'build' <[ template bower js:jshint js:mergeScripts js:app css ]> !->
+gulp.task 'build' <[ template bower js:mergeScripts js:app css ]> !->
 
   notifier.notify(
     title: 'Compilation Complete',
@@ -127,15 +128,13 @@ gulp.task 'js:app' ->
     .pipe gulp-if dev, plumber!
     .pipe gulp-livescript({+bare}).on 'error', gutil.log
 
-gulp.task 'js:jshint', !->
-  gulp.src 'app/assets/js/*.js'
-    .pipe jshint!
-    .pipe jshint.reporter \default
-
 gulp.task 'js:mergeScripts' <[bower]> ->
-
+# run js file through jshint, report errors, strip the comments, then join the files
   s = streamqueue { +objectMode }
     .done gulp.src 'app/assets/js/*.js'
+    .pipe jshint!
+    .pipe jshint.reporter \default
+    .pipe strip-comments!
     .pipe gulp-concat 'mrs.js'
     .pipe gulp.dest parentDir
     .pipe gulp-if dev, livereload!
