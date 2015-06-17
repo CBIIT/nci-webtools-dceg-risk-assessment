@@ -34,9 +34,14 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.typeCriteria = $scope.myForm.type === 'non';
     $scope.myForm.start = '';
     $scope.myForm.quit = '';
+    $scope.myForm.cigs = '';
     $scope.myForm.startAgeCriteria = false;
+    $scope.myForm.startNumericCriteria = false;
     $scope.myForm.quitCriteria = false;
     $scope.myForm.quitAgeCriteria = false;
+    $scope.myForm.quitNumericCriteria = false;
+    $scope.myForm.cigsCriteria = false;
+    $scope.myForm.cigsNumericCriteria = false;
   };
 
   $scope.$watch('myForm.start', function() {
@@ -168,20 +173,6 @@ app.controller("MyController", function($scope, $http) {
         weight,
         hasWarnings;
 
-        $scope.myForm.ageCriteria = false;
-        $scope.myForm.ageNumericCriteria = false;
-        $scope.myForm.typeCriteria = false;
-        $scope.myForm.startAgeCriteria = false;
-        $scope.myForm.startNumericCriteria = false;
-        $scope.myForm.quitCriteria = false;
-        $scope.myForm.quitNumericCriteria = false;
-        $scope.myForm.quitAgeCriteria = false;
-        $scope.myForm.cigsCriteria = false;
-        $scope.myForm.cigsNumericCriteria = false;
-        $scope.myForm.pHeightCriteria = false;
-        $scope.myForm.subHeightCriteria = false;
-        $scope.myForm.weightCriteria = false;
-
     hasWarnings = $scope.myForm.ageCriteria ||
                   $scope.myForm.ageNumericCriteria ||
                   $scope.myForm.startAgeCriteria ||
@@ -195,9 +186,9 @@ app.controller("MyController", function($scope, $http) {
                   $scope.myForm.subHeightCriteria ||
                   $scope.myForm.weightCriteria;
 
-    if (isValid) {
+    if (isValid && !hasWarnings) {
       if ($scope.myForm.units === 'us') {
-        height = (parseFloat($scope.myForm.pHeight) * 12) + parseFloat($scope.myForm.subHeight);
+        height = (parseFloat($scope.myForm.pHeight) * 12) + parseFloat($scope.myForm.subHeight ? $scope.myForm.subHeight : '0');
         weight = parseFloat($scope.myForm.weight);
         bmi = (weight * 703) / Math.pow(height, 2);
       } else {
