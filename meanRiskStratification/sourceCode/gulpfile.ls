@@ -6,7 +6,9 @@ require 'matchdep'
 notifier = require \node-notifier
 parent-dir = \..
 
-require! <[ gulp gulp-util gulp-stylus gulp-livereload gulp-livescript streamqueue gulp-if gulp-plumber nib ]>
+require! <[ gulp gulp-util gulp-jshint gulp-stylus gulp-livereload gulp-livescript streamqueue gulp-if gulp-plumber nib ]>
+
+jshint = require \gulp-jshint
 gutil = gulp-util
 
 dev = gutil.env._.0 is \dev
@@ -58,7 +60,7 @@ production = true if gutil.env.env is \production
 #  httpServer.close!
 
 # to compile, run command 'npm run build'
-gulp.task 'build' <[ template bower js:mergeScripts js:app css ]> !->
+gulp.task 'build' <[ template bower js:jshint js:mergeScripts js:app css ]> !->
 
   notifier.notify(
     title: 'Compilation Complete',
@@ -108,9 +110,6 @@ gulp.task 'bower' ->
   gulp-bower!
 
 gulp.task 'js:app' ->
-  #copy common to root
-  gulp.src 'app/assets/common/**/*.*'
-    .pipe gulp.dest "#{parentDir}/common"
 
   #copy json files
   gulp.src 'app/assets/*.json'
@@ -128,9 +127,12 @@ gulp.task 'js:app' ->
     .pipe gulp-if dev, plumber!
     .pipe gulp-livescript({+bare}).on 'error', gutil.log
 
+gulp.task 'js:jshint', !->
+  gulp.src 'app/assets/js/*.js'
+    .pipe jshint!
+    .pipe jshint.reporter \default
+
 gulp.task 'js:mergeScripts' <[bower]> ->
-#  bower = gulp.src main-bower-files!
-#    .pipe gulp-filter -> it.path is /\.js$/
 
   s = streamqueue { +objectMode }
     .done gulp.src 'app/assets/js/*.js'
