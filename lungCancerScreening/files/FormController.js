@@ -164,11 +164,36 @@ app.controller("MyController", function($scope, $http) {
   $scope.myForm.submit = function(isValid) {
     //var isValid = isValid;
     var bmi = 0,
-      height,
-      weight;
+        height,
+        weight,
+        hasWarnings;
 
-    console.log('form validation is: ', isValid);
-    return;
+        $scope.myForm.ageCriteria = false;
+        $scope.myForm.ageNumericCriteria = false;
+        $scope.myForm.typeCriteria = false;
+        $scope.myForm.startAgeCriteria = false;
+        $scope.myForm.startNumericCriteria = false;
+        $scope.myForm.quitCriteria = false;
+        $scope.myForm.quitNumericCriteria = false;
+        $scope.myForm.quitAgeCriteria = false;
+        $scope.myForm.cigsCriteria = false;
+        $scope.myForm.cigsNumericCriteria = false;
+        $scope.myForm.pHeightCriteria = false;
+        $scope.myForm.subHeightCriteria = false;
+        $scope.myForm.weightCriteria = false;
+
+    hasWarnings = $scope.myForm.ageCriteria ||
+                  $scope.myForm.ageNumericCriteria ||
+                  $scope.myForm.startAgeCriteria ||
+                  $scope.myForm.startNumericCriteria ||
+                  $scope.myForm.quitCriteria ||
+                  $scope.myForm.quitAgeCriteria ||
+                  $scope.myForm.quitNumericCriteria ||
+                  $scope.myForm.cigsCriteria ||
+                  $scope.myForm.cigsNumericCriteria ||
+                  $scope.myForm.pHeightCriteria ||
+                  $scope.myForm.subHeightCriteria ||
+                  $scope.myForm.weightCriteria;
 
     if (isValid) {
       if ($scope.myForm.units === 'us') {
@@ -182,8 +207,7 @@ app.controller("MyController", function($scope, $http) {
       }
 
       $scope.myForm.bmi = Math.round(bmi * 100) / 100;
-      //console.log('bmi is: ', $scope.myForm.bmi);
-
+      console.log('bmi is: ', $scope.myForm.bmi);
 
       console.log('pkyr_cat is: ', $scope.myForm.packYears);
     }
