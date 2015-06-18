@@ -31,19 +31,7 @@ function panel_actions() {
    
     var i = 1;
     do {
-        $('.marker-' + i + ' .panel-heading a').on('click', function (e) {
-            var dt = $(this).data('target');
-            var panels = $(this).parents('.panel').children('.panel-collapse.in').not(dt);
-            panels.collapse('hide');
-            $(dt).collapse('show');
-           
-           
-           
-           
-           
-           
-           
-        });
+        $('.marker-' + i + ' .panel-collapse').on('show.bs.collapse', bind_accordion_action(i));
         i++;
     } while (i <= currentMarkers);
 }
@@ -63,7 +51,7 @@ function controls_visibility(numElements) {
         $('#delete-marker').show();
         $('#add-marker').hide();
     }
-    if (numElements < 2) {
+    if (numElements < 2){
         $('#delete-marker').hide();
         $('#add-marker').show();
     }
@@ -92,10 +80,8 @@ function new_marker() {
 
        
         newElement.find(".panel-title a").each(function (index) {
-            var panel_id = '#marker-' + counter + '-panel-' + (index + 1);
-            $(this).attr('data-parent', panel_id);
-            $(this).attr('data-target', panel_id);
-
+            $(this).attr('data-parent', '.marker-' + counter);
+            $(this).attr('href', '#marker-' + counter + '-panel-' + (index + 1));
         });
 
        
@@ -106,8 +92,8 @@ function new_marker() {
 
         newElement.find('.marker-title').text("Biomarker #" + counter);
         newElement.find(".panel-toggle").each(function (index) {
-            var panel_id = '#marker-' + counter + '-panel-' + (index + 1);
-            $(this).attr("data-parent", panel_id);
+            $(this).attr("href", "#marker-" + counter + "-panel-" + (index + 1));
+            $(this).attr("data-parent", ".marker.marker-" + counter);
         });
 
         newElement.find('.termToDefine, .dd.termToDefine').on('click', display_definition);
@@ -119,6 +105,7 @@ function new_marker() {
 
        
        
+
         controls_visibility(currentMarkers);
     }
 }
@@ -191,37 +178,29 @@ function calculate() {
         });
 
         promise.then(clean_data, function (error) {
-            display_errors(error.statusText);
-            console.log('Error: ' + error.statusText);
+            console.log('Error: ' + JSON.stringify(error));
         });
 
         promise.done(return_data);
-        scrollTop();
     }
     else {
-        display_errors("Must enter values for either option 1 or 2 for the biomarkers");
+       
+        if (!$("#errors")[0]) {
+            var message = $("<div><b class='text-danger'>Must enter values for either option 1 or 2 for the biomarkers</b></div>");
+            $('.title.text-center')
+                .after(
+                message.attr('id', 'errors').addClass('well-sm')
+            );
+            $('html, body').animate({
+                scrollTop: 0
+            });
+            setTimeout(function () {
+                $('#errors').fadeOut().remove();
+            }, 4000);
+        }
+    }
+}
 
-    }
-}
-function display_errors(message) {
-   
-    if (!$("#errors")[0]) {
-        var element = $("<div class='bg-warning well well-sm'><b class='text-danger'>" + message + "</b></div>");
-        $('.title.text-center')
-            .after(
-            element.attr('id', 'errors').addClass('well-sm')
-        );
-        scrollTop();
-        setTimeout(function () {
-            $('#errors').fadeOut().remove();
-        }, 4000);
-    }
-}
-function scrollTop() {
-    $('html, body').animate({
-        scrollTop: 0
-    });
-}
 function clean_data(data) {
    
     return JSON.parse(JSON.stringify(data));
@@ -229,10 +208,6 @@ function clean_data(data) {
 
 function return_data(data) {
     i = 0;
-
-   
-    $("#results, .bm_1, .bm_2, .bm_3").hide();
-
     do {
         i++;
        
@@ -424,7 +399,7 @@ function reset() {
 var definitionObj = {
     prob_m: {
         term: "Marker Positivity (M+)",
-        definition: "Marker positivity, or probability of positive test result for biomarker"
+        definition: "Positive test result for biomarker"
     },
     m_neg: {
         term: "Marker Negativity (M-)",
@@ -432,7 +407,7 @@ var definitionObj = {
     },
     prob_d: {
         term: "Disease Positive (D+)",
-        definition: "Disease prevalence, or probability of disease"
+        definition: "Has disease"
     },
     d_neg: {
         term: "Disease Negative (D-)",
@@ -490,23 +465,12 @@ var definitionObj = {
         term: "Negative Predictive Value (NPV)",
         definition: "Definition for NPV"
     },
-    mrs: {
+    mrs:{
         term: "Mean Risk Stratification (MRS)",
         definition: "Average change in pretest-posttest disease risk. Formula: MRS=2tp(1-p)"
     },
-    sampsize: {term: "Sample Size", definition: ""},
-    test: {term: "Test", definition: "empty"},
-    auc: {
-        term: "Area under the receiver operator characteristic curve",
-        definition: " for a biomarker is the average sensitivity (or, equivalently, the integral of the sensitivity) in " +
-        "the interval of cSpecificity from 0 to 1 (specificity from 1 to 0), itself equal to the area between the ROC " +
-        "curve and the x-axis."
-    },
-    cnpv: {
-        term: "Complement of Negative Predictive Value (cNPV)",
-        definition: "Probability of disease, given a negative test result from biomarker. Unlike sensitivity and " +
-        "specificity, cNPV's reflect disease prevalence and is useful for risk stratification."
-    },
+    sampsize:{term:"Sample Size",definition:""},
+    test:{term:"Test",definition:"empty"}
 };
 var lookup = {
     "Danger": "concern",
@@ -553,7 +517,7 @@ function test() {
     $('#markers').children().each(function (key, value) {
 
         if ($(this).find('.collapse.in')) {
-            var id = $(this).find('.collapse.in').prop('id');
+            id = $(this).find('.collapse.in').prop('id');
             if (id == "marker-1-panel-1") {
                 $(value).find('[name="name-input"]').val(values_option_1_bm[0].markerName);
                 $('#' + id).find('#a').val(values_option_1_bm[0].a);

@@ -1,82 +1,87 @@
 .col-md-12.well
-    #markers
+    #markers.panel-group
         .marker.marker-1
             .row.bg-primary
                 .text-center.marker-title Biomarker #1
             .row
-                label(for='name-input') Biomarker Name
-                input.name-input(name="name-input",type="text")
-                .panel.panel-default
-                    .panel-title
-                        a.panel-toggle(data-toggle='collapse', data-parent='#markers',
-                        title="Input: 2x2 Table",href='#marker-1-panel-1')
-                            | Input: 2x2 Table
-                            span.caret
-                    #marker-1-panel-1.panel-collapse.collapse.in
-                        .panel-body
-                            table.option-1.table.table-striped.table-condensed.table-responsive
-                                tr.active
-                                    th.col-md-2.header
-                                        .sr-only Empty cell
-                                            a(href="#prob_m") Skip to Content
-                                    th#prob_m.termToDefine.header Marker Positive (M+)
-                                    th#m_neg.termToDefine.header Marker Negative (M-)
-                                tr
-                                    th#prob_d.termToDefine.header.active Disease Positive (D+)
-                                    td
-                                        label.sr-only(for='a') A
-                                        input#a.input(name='a', type='text')
-                                    td
-                                        label.sr-only(for='b') B
-                                        input#b.input(name='b', type='text')
-                                tr
-                                    th#d_neg.termToDefine.header.active Disease Negative (D-)
-                                    td
-                                        label.sr-only(for='c') C
-                                        input#c.input(name='c', type='text')
-                                    td
-                                        label.sr-only(for='d') D
-                                        input#d.input(name='d', type='text')
-                    .panel-title
-                        a.panel-toggle(data-toggle='collapse', data-parent='#markers'
-                        title="Input: PPV, NPV, Sensitivity,Specificity, etc.", href='#marker-1-panel-2')
-                            | Input: PPV, NPV, Sensitivity,Specificity, etc.
-                            span.caret
-                    #marker-1-panel-2.panel-collapse.collapse
-                        .panel-body
-                            .row
-                                label Sample Size
-                                input.input(name="sampsize",type='text')
-                            table.option-2.table.table-condensed.table-striped.table-responsive
-                                thead
+                .extra-top-spacing
+                    label(for='name-input') Biomarker Name
+                    input.name-input(name="name-input",type="text")
+                .panel-group
+                    .panel.panel-default
+                        .bg-info.panel-heading
+                            .panel-title
+                                a.panel-toggle(data-toggle='collapse', data-parent='#marker-1-panel-1',
+                                title="Input: 2x2 Table",data-target='#marker-1-panel-1')
+                                    | Input: 2x2 Table
+                                    span.caret
+                        #marker-1-panel-1.panel-collapse.collapse.in
+                            #o-1.panel-body
+                                table.option-1.table.table-striped.table-condensed.table-responsive
                                     tr.active
-                                        th.header(title='Parameter Type Column') Parameter
-                                        th.header(title="Parameter Proportion Column") Proportion
-                                tbody
-                                    tr(row='0')
+                                        th.col-md-2.header
+                                            .sr-only Empty cell
+                                                a(href="#prob_m") Skip to Content
+                                        th#prob_m.termToDefine.header Marker Positive (M+)
+                                        th#m_neg.termToDefine.header Marker Negative (M-)
+                                    tr
+                                        th#prob_d.termToDefine.header.active Disease Positive (D+)
                                         td
-                                            select.input(name="param_1")
-                                                option(value='ppv') PPV
-                                                option(value='sens') Sensitivity
-                                            span.dd.termToDefine.glyphicon.glyphicon-info-sign
+                                            label.sr-only(for='a') A
+                                            input#a.input(name='a', type='text')
                                         td
-                                            input.input(type='text',name="param_1")
-                                    tr(row='1')
+                                            label.sr-only(for='b') B
+                                            input#b.input(name='b', type='text')
+                                    tr
+                                        th#d_neg.termToDefine.header.active Disease Negative (D-)
                                         td
-                                            select.input(name="param_2")
-                                                option(value='npv') NPV
-                                                option(value='spec') Specificity
-                                            span.dd.termToDefine.glyphicon.glyphicon-info-sign
+                                            label.sr-only(for='c') C
+                                            input#c.input(name='c', type='text')
                                         td
-                                            input.input(type='text',name="param_2")
-                                    tr(row='2')
-                                        td
-                                            select.input(name="param_3")
-                                                option(value='prob_m') Marker Positivity (P(M+))
-                                                option(value='prob_d') Disease Prevalence (P(D+))
-                                            span.dd.termToDefine.glyphicon.glyphicon-info-sign
-                                        td
-                                            input.input(type='text', name="param_3")
+                                            label.sr-only(for='d') D
+                                            input#d.input(name='d', type='text')
+                    .panel.panel-default
+                        .bg-info.panel-heading
+                            .panel-title
+                                a.panel-toggle(data-toggle='collapse', data-parent='#marker-1-panel-2'
+                                title="Input: PPV, NPV, Sensitivity,Specificity, etc.", data-target='#marker-1-panel-2')
+                                    | Input: PPV, NPV, Sensitivity,Specificity, etc.
+                                    span.caret
+                        #marker-1-panel-2.panel-collapse.collapse
+                            #o-2.panel-body
+                                .row
+                                    label Sample Size
+                                    input.input(name="sampsize",type='text')
+                                table.option-2.table.table-condensed.table-striped.table-responsive
+                                    thead
+                                        tr.active
+                                            th.header(title='Parameter Type Column') Parameter
+                                            th.header(title="Parameter Proportion Column") Proportion
+                                    tbody
+                                        tr(row='0')
+                                            td
+                                                select.input(name="param_1")
+                                                    option(value='ppv') PPV
+                                                    option(value='sens') Sensitivity
+                                                span.dd.termToDefine.glyphicon.glyphicon-info-sign
+                                            td
+                                                input.input(type='text',name="param_1")
+                                        tr(row='1')
+                                            td
+                                                select.input(name="param_2")
+                                                    option(value='npv') NPV
+                                                    option(value='spec') Specificity
+                                                span.dd.termToDefine.glyphicon.glyphicon-info-sign
+                                            td
+                                                input.input(type='text',name="param_2")
+                                        tr(row='2')
+                                            td
+                                                select.input(name="param_3")
+                                                    option(value='prob_m') Marker Positivity (P(M+))
+                                                    option(value='prob_d') Disease Prevalence (P(D+))
+                                                span.dd.termToDefine.glyphicon.glyphicon-info-sign
+                                            td
+                                                input.input(type='text', name="param_3")
 #control-group.col-md-12
     .row
         .pull-left
