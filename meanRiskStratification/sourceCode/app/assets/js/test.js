@@ -9,7 +9,7 @@ function test() {
     $('#markers').children().each(function (key, value) {
 
         if ($(this).find('.collapse.in')) {
-            id = $(this).find('.collapse.in').prop('id');
+            var id = $(this).find('.collapse.in').prop('id');
             if (id == "marker-1-panel-1") {
                 $(value).find('[name="name-input"]').val(values_option_1_bm[0].markerName);
                 $('#' + id).find('#a').val(values_option_1_bm[0].a);
