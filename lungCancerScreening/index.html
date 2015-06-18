@@ -104,8 +104,8 @@
                       <td valign="top">
                         <select ng-model="myForm.gender" required>
                           <option value="">Select...</option>
-                          <option value="male">Male</option>
-                          <option value="female">Female</option>
+                          <option value="0">Male</option>
+                          <option value="1">Female</option>
                         </select>
                       </td>
                     </tr>
@@ -214,10 +214,10 @@
                       <td valign="top">
                         <select ng-model="myForm.group" ng-required="true">
                           <option value="">Select...</option>
-                          <option value="white">White</option>
-                          <option value="black">Black</option>
-                          <option value="hispanic">Hispanic</option>
-                          <option value="other">Other</option>
+                          <option value="0">White</option>
+                          <option value="1">Black</option>
+                          <option value="2">Hispanic</option>
+                          <option value="3">Other</option>
                         </select>
                       </td>
                     </tr>
@@ -232,8 +232,8 @@
                       <td valign="top">
                         <select ng-model="myForm.disease" ng-required="true">
                           <option value="">Select...</option>
-                          <option value="emphysema">Emphysema</option>
-                          <option value="none">None</option>
+                          <option value="1">Emphysema</option>
+                          <option value="0">None</option>
                         </select>
                       </td>
                     </tr>
@@ -307,7 +307,7 @@
                     </tr>
                     <tr>
                       <td colspan="2" align="right" valign="top">
-                        <input type="submit" name="submit" value="Calculate" id="submit" />
+                        <input type="submit" name="submit" value="Calculate" id="submit" ng-disabled="myForm.hasWarnings" />
                         <input type="reset" name="reset" value="Reset" id="reset" ng-click="myForm.resetForm()" />
                       </td>
                     </tr>

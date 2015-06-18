@@ -22,8 +22,20 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.weightCriteria = false;
     $scope.myForm.units = 'us';
     $scope.myForm.numericValidationMessage = 'Please ensure the age entered above does not have any non-numeric characters.';
+    $scope.myForm.hasWarnings = false;
   }
   init();
+
+  $scope.$watchCollection('[myForm.ageCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria]', function(newValues) {
+    var flag = false;
+
+    for (var i = 0; i <= newValues.length; i++) {
+      if (newValues[i])
+         flag = true;
+    }
+
+    $scope.myForm.hasWarnings = flag;
+  });
 
   $scope.$watch('myForm.age', function() {
     validateAges();
@@ -164,43 +176,49 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.smokeShow = false;
     $scope.myForm.bmi = 0;
     $scope.myForm.pkyr_cat = 0;
+    $scope.myForm.hasWarnings = false;
   };
 
   $scope.myForm.submit = function(isValid) {
     //var isValid = isValid;
     var bmi = 0,
-        height,
-        weight,
-        hasWarnings;
+        h,
+        w,
+        //hasWarnings,
+        url = 'http://' + window.location.hostname + '/lungCancerRest/';
 
-    hasWarnings = $scope.myForm.ageCriteria ||
-                  $scope.myForm.ageNumericCriteria ||
-                  $scope.myForm.startAgeCriteria ||
-                  $scope.myForm.startNumericCriteria ||
-                  $scope.myForm.quitCriteria ||
-                  $scope.myForm.quitAgeCriteria ||
-                  $scope.myForm.quitNumericCriteria ||
-                  $scope.myForm.cigsCriteria ||
-                  $scope.myForm.cigsNumericCriteria ||
-                  $scope.myForm.pHeightCriteria ||
-                  $scope.myForm.subHeightCriteria ||
-                  $scope.myForm.weightCriteria;
-
-    if (isValid && !hasWarnings) {
+    if (isValid) {
       if ($scope.myForm.units === 'us') {
-        height = (parseFloat($scope.myForm.pHeight) * 12) + parseFloat($scope.myForm.subHeight ? $scope.myForm.subHeight : '0');
-        weight = parseFloat($scope.myForm.weight);
-        bmi = (weight * 703) / Math.pow(height, 2);
+        h = (parseFloat($scope.myForm.pHeight) * 12) + parseFloat($scope.myForm.subHeight ? $scope.myForm.subHeight : '0');
+        w = parseFloat($scope.myForm.weight);
+        bmi = (w * 703) / Math.pow(h, 2);
       } else {
-        height = (parseFloat($scope.myForm.subHeight) / 100) + parseFloat($scope.myForm.pHeight);
-        weight = parseFloat($scope.myForm.weight);
-        bmi = weight / Math.pow(height, 2);
+        h = (parseFloat($scope.myForm.subHeight) / 100) + parseFloat($scope.myForm.pHeight);
+        w = parseFloat($scope.myForm.weight);
+        bmi = w / Math.pow(h, 2);
       }
 
-      $scope.myForm.bmi = Math.round(bmi * 100) / 100;
-      console.log('bmi is: ', $scope.myForm.bmi);
+      var params = {
+          'age': Math.round($scope.myForm.age),
+          'bmi': Math.round(bmi * 100) / 100,  //Measure to two decimal places
+          'cpd': parseFloat($scope.myForm.cigs),
+          'emp': parseInt($scope.myForm.disease, 10),
+          'fam.lung.trend': $scope.myForm.history,
+          'gender': parseInt($scope.myForm.gender, 10),
+          'qtyears': parseFloat($scope.myForm.quit ? $scope.myForm.quit : 0),
+          'smkyears': 0,
+          'race': parseInt($scope.myForm.group, 10),
+          'edu6': parseInt($scope.myForm.education),
+          'pkyr.cat': $scope.myForm.packYears
+      };
 
-      console.log('pkyr_cat is: ', $scope.myForm.packYears);
+      if ($scope.myForm.type === 'current')
+        params.smkyears = parseFloat($scope.myForm.age) - params.start;
+
+      if ($scope.myForm.type === 'former')
+        params.smkyears = parseFloat($scope.myForm.quit) - parseFloat($scope.myForm.start);
+
+      console.log('params are: ', params);
     }
   };
 
@@ -208,8 +226,8 @@ app.controller("MyController", function($scope, $http) {
   // Validation functions
   function validateAges() {
     var age,
-      start,
-      quit;
+        start,
+        quit;
 
     $scope.myForm.ageNumericCriteria = !numRegExp.test($scope.myForm.age ? $scope.myForm.age : '0');
     $scope.myForm.startNumericCriteria = !numRegExp.test($scope.myForm.start ? $scope.myForm.start : '0');
