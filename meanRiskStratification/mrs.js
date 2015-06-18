@@ -92,8 +92,10 @@ function new_marker() {
 
        
         newElement.find(".panel-title a").each(function (index) {
-            $(this).attr('data-parent', '.marker-' + counter);
-            $(this).attr('href', '#marker-' + counter + '-panel-' + (index + 1));
+            var panel_id = '#marker-' + counter + '-panel-' + (index + 1);
+            $(this).attr('data-parent', panel_id);
+            $(this).attr('data-target', panel_id);
+
         });
 
        
@@ -104,8 +106,8 @@ function new_marker() {
 
         newElement.find('.marker-title').text("Biomarker #" + counter);
         newElement.find(".panel-toggle").each(function (index) {
-            $(this).attr("href", "#marker-" + counter + "-panel-" + (index + 1));
-            $(this).attr("data-parent", ".marker.marker-" + counter);
+            var panel_id = '#marker-' + counter + '-panel-' + (index + 1);
+            $(this).attr("data-parent", panel_id);
         });
 
         newElement.find('.termToDefine, .dd.termToDefine').on('click', display_definition);
@@ -117,7 +119,6 @@ function new_marker() {
 
        
        
-
         controls_visibility(currentMarkers);
     }
 }
@@ -190,25 +191,30 @@ function calculate() {
         });
 
         promise.then(clean_data, function (error) {
-            console.log('Error: ' + JSON.stringify(error));
+            display_errors(error.statusText);
+            console.log('Error: ' + error.statusText);
         });
 
         promise.done(return_data);
         scrollTop();
     }
     else {
-       
-        if (!$("#errors")[0]) {
-            var message = $("<div class='bg-warning well well-sm'><b class='text-danger'>Must enter values for either option 1 or 2 for the biomarkers</b></div>");
-            $('.title.text-center')
-                .after(
-                message.attr('id', 'errors').addClass('well-sm')
-            );
-            scrollTop();
-            setTimeout(function () {
-                $('#errors').fadeOut().remove();
-            }, 4000);
-        }
+        display_errors("Must enter values for either option 1 or 2 for the biomarkers");
+
+    }
+}
+function display_errors(message) {
+   
+    if (!$("#errors")[0]) {
+        var element = $("<div class='bg-warning well well-sm'><b class='text-danger'>" + message + "</b></div>");
+        $('.title.text-center')
+            .after(
+            element.attr('id', 'errors').addClass('well-sm')
+        );
+        scrollTop();
+        setTimeout(function () {
+            $('#errors').fadeOut().remove();
+        }, 4000);
     }
 }
 function scrollTop() {
