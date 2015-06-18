@@ -1,4 +1,4 @@
-// keep track of the number of marker elements, to use the number as the id
+
 var currentMarkers = $('#markers').children().length + 1;
 
 $(document).ready(function () {
@@ -11,9 +11,8 @@ $(document).ready(function () {
 });
 
 function bind_control_events() {
-    // testing
+   
     $('a#test').on('click', test);
-
     $('#reset').on('click', reset);
     $('#add-marker').on('click', new_marker);
     $('#delete-marker').on('click', delete_marker);
@@ -21,7 +20,7 @@ function bind_control_events() {
 }
 
 function create_popover() {
-    panel_actions();
+   
     var term_element = $('.termToDefine');
     term_element.attr('data-toggle', 'popover');
     term_element.attr('role', 'button');
@@ -29,24 +28,42 @@ function create_popover() {
 }
 
 function panel_actions() {
-    // make sure only one panel can open at a time in a group
-    $('.panel-collapse').on('show.bs.collapse', function () {
-        $('.panel-collapse').not(document.getElementById($(this).attr('id')))
-            .removeClass('in')
-            .addClass('collapse');
-    });
+   
+    var i = 1;
+    do {
+        $('.marker-' + i + ' .panel-heading a').on('click', function (e) {
+            var dt = $(this).data('target');
+            var panels = $(this).parents('.panel').children('.panel-collapse.in').not(dt);
+            panels.collapse('hide');
+            $(dt).collapse('show');
+           
+           
+           
+           
+           
+           
+           
+        });
+        i++;
+    } while (i <= currentMarkers);
 }
 
+function bind_accordion_action(ind) {
+    $('.marker.marker-' + ind + ' .panel-collapse').not($('.marker.marker-' + ind + ' [id$=panel-' + ind + ']')[0])
+        .removeClass('in').addClass('collapse');
+
+}
 function controls_visibility(numElements) {
+   
     if (numElements == 2) {
         $('#delete-marker').show();
         $('#add-marker').show();
     }
-    else if (numElements > 2) {
+    if (numElements > 2) {
         $('#delete-marker').show();
         $('#add-marker').hide();
     }
-    else {
+    if (numElements < 2) {
         $('#delete-marker').hide();
         $('#add-marker').show();
     }
@@ -57,13 +74,13 @@ function new_marker() {
     if (currentMarkers < 3) {
         var markerTemplate = $('#markers').find('.marker').first();
 
-        // clone controls
+       
         var newElement = markerTemplate.clone();
 
-        // increment included class
+       
         newElement.removeClass('marker-1').addClass("marker-" + counter);
 
-        // make sure previous values don't get copied also
+       
         newElement.find('.input,input').each(function () {
             if ($(this).is("input")) {
                 $(this).val("");
@@ -73,12 +90,13 @@ function new_marker() {
             }
         });
 
-        // dynamically generate the id for the new panel elements
+       
         newElement.find(".panel-title a").each(function (index) {
+            $(this).attr('data-parent', '.marker-' + counter);
             $(this).attr('href', '#marker-' + counter + '-panel-' + (index + 1));
         });
 
-        // generate new Ids for each on of the sub panels within the new generated marker
+       
         newElement.find(".panel-collapse").each(function (index) {
             var newPanelContentId = 'marker-' + counter + '-panel-' + (index + 1);
             $(this).attr("id", newPanelContentId).addClass("collapse");
@@ -87,22 +105,26 @@ function new_marker() {
         newElement.find('.marker-title').text("Biomarker #" + counter);
         newElement.find(".panel-toggle").each(function (index) {
             $(this).attr("href", "#marker-" + counter + "-panel-" + (index + 1));
+            $(this).attr("data-parent", ".marker.marker-" + counter);
         });
 
         newElement.find('.termToDefine, .dd.termToDefine').on('click', display_definition);
 
-        // add new marker to #markers element
+       
         $('#markers').append(newElement.fadeIn());
+
         currentMarkers++;
 
-        panel_actions();
+       
+       
+
         controls_visibility(currentMarkers);
     }
 }
 
 function delete_marker() {
     if (currentMarkers > 1) {
-        // remove last child
+       
         $('#markers').children().last().remove();
     }
     if (currentMarkers != 1) currentMarkers--;
@@ -110,10 +132,10 @@ function delete_marker() {
 }
 
 function display_definition() {
-    // used to identify a specific element, since there will be multiple popover elements on the page
+   
     var $self = $(this);
     var id;
-    // treat drop down elements different than link/text elements
+   
     if (!$self.hasClass('dd')) {
         if (!$self.hasClass('header') && $self.prop('tagName') != 'TD')
             id = ($self.attr('class')).replace('termToDefine', '').trim();
@@ -123,7 +145,7 @@ function display_definition() {
             id = $self.attr('id');
     }
     else {
-        // value selected in the drop down
+       
         id = $self.prev().val();
     }
 
@@ -145,7 +167,6 @@ function display_definition() {
 
 function calculate() {
     var service;
-
     var valuesObj = extract_values(false);
     var invalid = valuesObj[1];
     if (!invalid) {
@@ -153,13 +174,13 @@ function calculate() {
 
         var host = window.location.hostname;
         if (host == 'localhost') {
-            // call json file instead of service
+           
             service = 'output_example.json';
         } else {
             service = "http://" + host + "/mrsRest/";
         }
 
-        // ajax call, change to actual service name
+       
         var promise = $.ajax({
             dataType: 'json',
             method: 'POST',
@@ -173,87 +194,98 @@ function calculate() {
         });
 
         promise.done(return_data);
+        scrollTop();
     }
     else {
-        // show error message somewhere
+       
         if (!$("#errors")[0]) {
+            var message = $("<div class='bg-warning well well-sm'><b class='text-danger'>Must enter values for either option 1 or 2 for the biomarkers</b></div>");
             $('.title.text-center')
-                .after($("<div><b class='text-danger'>Must enter values for either option 1 or 2 for the biomarkers</b></div>")
-                    .attr('id', 'errors')
-                    .addClass('well-sm'));
+                .after(
+                message.attr('id', 'errors').addClass('well-sm')
+            );
+            scrollTop();
             setTimeout(function () {
                 $('#errors').fadeOut().remove();
             }, 4000);
         }
     }
 }
-
+function scrollTop() {
+    $('html, body').animate({
+        scrollTop: 0
+    });
+}
 function clean_data(data) {
+   
     return JSON.parse(JSON.stringify(data));
 }
 
 function return_data(data) {
     i = 0;
+
+   
+    $("#results, .bm_1, .bm_2, .bm_3").hide();
+
     do {
         i++;
-        // propName should be bm_#
+       
         $('.bm_' + i).show();
     } while (i != currentMarkers);
 
     $.each(data, function (propName, paramGroup) {
+        var ci_lb, ci_ub, params, calc, marker_id;
         append_name();
 
         params = paramGroup.parameters;
         calc = paramGroup.calculations;
         marker_id = propName;
 
-        // loop through appending data to table
-        $.each(params, function (name, obj) {
+       
+        $.each(params, function (name) {
+
             var lookup_id = lookup[name];
             var data_item = params[name];
-
+            var formattedText = data_item.Value;
             if (lookup_id != 'rr' && lookup_id != 'nnr' && lookup_id != 'nns') {
-                var formattedText = data_item["Value"];
-                if (data_item["Confidence Interval (lower bound)"] != null &&
-                    data_item["Confidence Interval (upper bound)"] != null) {
+
+                if (data_item["Confidence Interval (lower bound)"] !== null &&
+                    data_item["Confidence Interval (upper bound)"] !== null) {
                     ci_lb = data_item["Confidence Interval (lower bound)"];
                     ci_ub = data_item["Confidence Interval (upper bound)"];
                     formattedText += " (" + ci_lb + "%, " + ci_ub + "%)";
                 }
             }
             else {
-                var formattedText = data_item["Value"];
-                if (data_item["Confidence Interval (lower bound)"] != null &&
-                    data_item["Confidence Interval (upper bound)"] != null) {
+                if (data_item["Confidence Interval (lower bound)"] !== null &&
+                    data_item["Confidence Interval (upper bound)"] !== null) {
                     ci_lb = data_item["Confidence Interval (lower bound)"];
                     ci_ub = data_item["Confidence Interval (upper bound)"];
                     formattedText += " (" + ci_lb + ", " + ci_ub + ")";
                 }
             }
-            // append text to table cell
+           
             cell = $('#' + lookup_id + '_result.' + marker_id + '.output');
             cell.attr('title', lookup_id + " " + formattedText);
             cell.text(formattedText);
         });
-        // same loop but through calculations
-        $.each(calc, function (name, obj) {
+       
+        $.each(calc, function (name) {
             var lookup_id = lookup[name];
             var data_item = calc[name];
+            var formattedText = data_item.Value;
 
-            // multiply values by 100 to get percentage value, if it is not one of these values
             if (lookup_id != 'rr' && lookup_id != 'nnr' && lookup_id != 'nns') {
-                var formattedText = data_item["Value"];
-                if (data_item["Confidence Interval (lower bound)"] != null &&
-                    data_item["Confidence Interval (upper bound)"] != null) {
+                if (data_item["Confidence Interval (lower bound)"] !== null &&
+                    data_item["Confidence Interval (upper bound)"] !== null) {
                     ci_lb = data_item["Confidence Interval (lower bound)"];
                     ci_ub = data_item["Confidence Interval (upper bound)"];
                     formattedText += " (" + ci_lb + "%, " + ci_ub + "%)";
                 }
             }
             else {
-                var formattedText = data_item["Value"];
-                if (data_item["Confidence Interval (lower bound)"] != null &&
-                    data_item["Confidence Interval (upper bound)"] != null) {
+                if (data_item["Confidence Interval (lower bound)"] !== null &&
+                    data_item["Confidence Interval (upper bound)"] !== null) {
                     ci_lb = data_item["Confidence Interval (lower bound)"];
                     ci_ub = data_item["Confidence Interval (upper bound)"];
                     formattedText += " (" + ci_lb + ", " + ci_ub + ")";
@@ -270,25 +302,25 @@ function return_data(data) {
 
 function append_name() {
     var i = 0;
+    var name;
     do {
         i++;
         var thisNameInputElement = $('.marker-' + i + ' .name-input');
-        // append biomarker Name to results table header
+       
         if ((thisNameInputElement.val()).length > 0)
-            var name = thisNameInputElement.val() + " (CI Low, CI High)";
+            name = thisNameInputElement.val() + " (CI Low, CI High)";
         else
             name = "Biomarker " + i + " (CI Low, CI High)";
 
-        // find the element to append the text to
+       
         $('#results').find('table thead tr .bm_' + i).attr('title', name).text(name);
-    } while (i != currentMarkers)
+    } while (i != currentMarkers);
 }
 
 function extract_values(invalid) {
     var values = {};
 
-    //append_name();
-    // find biomarkers with values first, use currentMarkers for iteration
+   
     i = 0;
     do {
         i++;
@@ -296,25 +328,21 @@ function extract_values(invalid) {
         values["bm_" + i] = {};
         var thisMarker = $('.marker-' + i);
 
-        // inside this marker find inputs by group
-        var option_1_controls = thisMarker.find('#marker-' + i + '-panel-1 .input').serializeArray(); // option 1
-        var option_2_controls = thisMarker.find('#marker-' + i + '-panel-2 .input').serializeArray(); // option 2
+       
+        var option_1_controls = thisMarker.find('#marker-' + i + '-panel-1 .input').serializeArray();
+        var option_2_controls = thisMarker.find('#marker-' + i + '-panel-2 .input').serializeArray();
 
         option_1_controls.forEach(function (element) {
             if (element.value.length > 0) {
+                values["bm_" + i].option = 1;
                 values["bm_" + i][element.name] = element.value;
-
-                // set option value if there is none
-                if (!values["bm_" + i].option) {
-                    values["bm_" + i].option = 1;
-                }
             }
         });
 
-        // check option variable
+       
         if (!values["bm_" + i].option) {
 
-            // apply option flag
+           
             values["bm_" + i].option = 2;
 
             var param_1 = [];
@@ -323,130 +351,74 @@ function extract_values(invalid) {
             var param_4 = [];
 
             option_2_controls.filter(function (obj) {
-                // filter each pair into separate arrays
+               
 
-                if (obj.name == "param_1") {
+                if (obj.name == "param_1" && obj.value.length > 0) {
                     param_1.push(obj);
                 }
-                if (obj.name == "param_2") {
+                if (obj.name == "param_2" && obj.value.length > 0) {
                     param_2.push(obj);
                 }
-                if (obj.name == "param_3") {
+                if (obj.name == "param_3" && obj.value.length > 0) {
                     param_3.push(obj);
                 }
-                if (obj.name == "sampsize") {
+                if (obj.name == "sampsize" && obj.value.length > 0) {
                     param_4.push(obj);
                 }
 
             });
-            var value_length = [param_1[1].value.length, param_2[1].value.length, param_3[1].value.length];
-            value_length.forEach(function (el, ind, arr) {
-                if (el > 0) {
-                    invalid = false;
-                    // manually mapping each value pair
-                    values["bm_" + i][param_1[0].value] = param_1[1].value;
-                    values["bm_" + i][param_2[0].value] = param_2[1].value;
-                    values["bm_" + i][param_3[0].value] = param_3[1].value;
-                }
-                else {
-                    invalid = true;
-                }
-            });
-            // sample size
-            values["bm_" + i][param_4[0].name] = param_4[0].value;
+            if (param_1.length > 1 && param_2.length > 1 && param_3.length > 1 && param_4.length > 0) {
+                var value_length = [param_1[1].value.length, param_2[1].value.length, param_3[1].value.length];
+                value_length.forEach(function (el) {
+                    if (el > 0) {
+                        invalid = false;
+                       
+                        joinObjects(values["bm_" + i], param_1[0], param_1[1]);
+                        joinObjects(values["bm_" + i], param_2[0], param_2[1]);
+                        joinObjects(values["bm_" + i], param_3[0], param_3[1]);
+                    }
+
+                });
+
+               
+                values["bm_" + i][param_4[0].name] = param_4[0].value;
+            } else {
+                invalid = true;
+            }
         }
     } while (i != currentMarkers);
 
     return [values, invalid];
 }
 
+function joinObjects(parentObj, obj1, obj2) {
+   
+   
+    parentObj[obj1.value] = obj2.value;
+    return parentObj;
+}
+
 function reset() {
-    var currentMarkers = $('#markers').children().length;
-    controls_visibility(currentMarkers);
+    var markerChildren = $('#markers').children();
+   
+    var currentMarkers = markerChildren.length;
+   
+    markerChildren.not(':first').remove();
 
-    // remove generated markers
-    $('#markers').children(':gt(0)').remove();
-
-    // reset drop downs then, text boxes
+   
     $('select').find('option:first').attr('selected', 'selected');
     $('input').val('');
-    $("#results, .bm_1, .bm_2, .bm_3").hide();
     $('.output').text('');
+    $("#results, .bm_1, .bm_2, .bm_3").hide();
+
+
+    controls_visibility(currentMarkers);
 }
 
-function test() {
-    var tbs = $('.collapse.in');
-    var values_option_1_bm = [{"markerName": "HPV", "a": 471, "b": 13, "c": 4680, "d": 25207},
-        {"markerName": "Pap", "a": 466, "b": 25, "c": 4484, "d": 25396},
-        {"markerName": "VIA", "a": 270, "b": 225, "c": 2967, "d": 26909}];
-
-    var values_option_2 = {"ppv": 0.0914, "npv": (1 - 0.0005), "P(M+)": 0.1696, "total": 30371};
-
-    $('#markers').children().each(function (key, value) {
-
-        if ($(this).find('.collapse.in')) {
-            id = $(this).find('.collapse.in').prop('id');
-            if (id == "marker-1-panel-1") {
-                $(value).find('[name="name-input"]').val(values_option_1_bm[0]['markerName']);
-                $('#' + id).find('#a').val(values_option_1_bm[0]['a']);
-                $('#' + id).find('#b').val(values_option_1_bm[0]['b']);
-                $('#' + id).find('#c').val(values_option_1_bm[0]['c']);
-                $('#' + id).find('#d').val(values_option_1_bm[0]['d']);
-            }
-            if (id == "marker-2-panel-1") {
-                $(value).find('[name="name-input"]').val(values_option_1_bm[1]['markerName']);
-                $('#' + id).find('#a').val(values_option_1_bm[1]['a']);
-                $('#' + id).find('#b').val(values_option_1_bm[1]['b']);
-                $('#' + id).find('#c').val(values_option_1_bm[1]['c']);
-                $('#' + id).find('#d').val(values_option_1_bm[1]['d']);
-            }
-            if (id == "marker-3-panel-1") {
-                $(value).find('[name="name-input"]').val(values_option_1_bm[2]['markerName']);
-                $('#' + id).find('#a').val(values_option_1_bm[2]['a']);
-                $('#' + id).find('#b').val(values_option_1_bm[2]['b']);
-                $('#' + id).find('#c').val(values_option_1_bm[2]['c']);
-                $('#' + id).find('#d').val(values_option_1_bm[2]['d']);
-            }
-
-        }
-
-    });
-
-    //if (tbs.parents().first().prop('class')== marker) {
-    //    var tbs = $('.marker-1');
-    //
-    //    // pull data from values_option_1
-    //    tbs.find('#a').val(values_option_1_bm_1['a']);
-    //    tbs.find('#b').val(values_option_1_bm_1['b']);
-    //    tbs.find('#c').val(values_option_1_bm_1['c']);
-    //    tbs.find('#d').val(values_option_1_bm_1['d']);
-    //}
-    //if (this.id == "test2") {
-    //
-    //    // clear values for option 1
-    //    tbs.find('#a').val("");
-    //    tbs.find('#b').val("");
-    //    tbs.find('#c').val("");
-    //    tbs.find('#d').val("");
-    //
-    //    // pull data from value_option_2
-    //    tbs.find('.input[name="param_1"]')[0].selectedIndex = 0;//ppv
-    //    tbs.find('.input[name="param_1"]')[1].value = values_option_2["ppv"];
-    //
-    //    tbs.find('.input[name="param_2"]')[0].selectedIndex = 0;//npv
-    //    tbs.find('.input[name="param_2"]')[1].value = values_option_2["npv"];
-    //
-    //    tbs.find('.input[name="param_3"]')[0].selectedIndex = 0;//P(M+)
-    //    tbs.find('.input[name="param_3"]')[1].value = values_option_2["P(M+)"];
-    //
-    //    tbs.find('.input[name="sampsize"]')[0].value = values_option_2["total"];
-    //}
-}
-// definitions used for display
 var definitionObj = {
     prob_m: {
         term: "Marker Positivity (M+)",
-        definition: "Positive test result for biomarker"
+        definition: "Marker positivity, or probability of positive test result for biomarker"
     },
     m_neg: {
         term: "Marker Negativity (M-)",
@@ -454,7 +426,7 @@ var definitionObj = {
     },
     prob_d: {
         term: "Disease Positive (D+)",
-        definition: "Has disease"
+        definition: "Disease prevalence, or probability of disease"
     },
     d_neg: {
         term: "Disease Negative (D-)",
@@ -512,12 +484,23 @@ var definitionObj = {
         term: "Negative Predictive Value (NPV)",
         definition: "Definition for NPV"
     },
-    mrs:{
+    mrs: {
         term: "Mean Risk Stratification (MRS)",
         definition: "Average change in pretest-posttest disease risk. Formula: MRS=2tp(1-p)"
     },
-    sampsize:{term:"Sample Size",definition:""},
-    test:{term:"Test",definition:"empty"}
+    sampsize: {term: "Sample Size", definition: ""},
+    test: {term: "Test", definition: "empty"},
+    auc: {
+        term: "Area under the receiver operator characteristic curve",
+        definition: " for a biomarker is the average sensitivity (or, equivalently, the integral of the sensitivity) in " +
+        "the interval of cSpecificity from 0 to 1 (specificity from 1 to 0), itself equal to the area between the ROC " +
+        "curve and the x-axis."
+    },
+    cnpv: {
+        term: "Complement of Negative Predictive Value (cNPV)",
+        definition: "Probability of disease, given a negative test result from biomarker. Unlike sensitivity and " +
+        "specificity, cNPV's reflect disease prevalence and is useful for risk stratification."
+    },
 };
 var lookup = {
     "Danger": "concern",
@@ -553,3 +536,41 @@ var lookup = {
     "Value":"value",
     "Test":"test"
 };
+function test() {
+    var tbs = $('.collapse.in');
+    var values_option_1_bm = [{"markerName": "HPV", "a": 471, "b": 13, "c": 4680, "d": 25207},
+        {"markerName": "Pap", "a": 466, "b": 25, "c": 4484, "d": 25396},
+        {"markerName": "VIA", "a": 270, "b": 225, "c": 2967, "d": 26909}];
+
+    var values_option_2 = {"ppv": 0.0914, "npv": (1 - 0.0005), "P(M+)": 0.1696, "total": 30371};
+
+    $('#markers').children().each(function (key, value) {
+
+        if ($(this).find('.collapse.in')) {
+            var id = $(this).find('.collapse.in').prop('id');
+            if (id == "marker-1-panel-1") {
+                $(value).find('[name="name-input"]').val(values_option_1_bm[0].markerName);
+                $('#' + id).find('#a').val(values_option_1_bm[0].a);
+                $('#' + id).find('#b').val(values_option_1_bm[0].b);
+                $('#' + id).find('#c').val(values_option_1_bm[0].c);
+                $('#' + id).find('#d').val(values_option_1_bm[0].d);
+            }
+            if (id == "marker-2-panel-1") {
+                $(value).find('[name="name-input"]').val(values_option_1_bm[1].markerName);
+                $('#' + id).find('#a').val(values_option_1_bm[1].a);
+                $('#' + id).find('#b').val(values_option_1_bm[1].b);
+                $('#' + id).find('#c').val(values_option_1_bm[1].c);
+                $('#' + id).find('#d').val(values_option_1_bm[1].d);
+            }
+            if (id == "marker-3-panel-1") {
+                $(value).find('[name="name-input"]').val(values_option_1_bm[2].markerName);
+                $('#' + id).find('#a').val(values_option_1_bm[2].a);
+                $('#' + id).find('#b').val(values_option_1_bm[2].b);
+                $('#' + id).find('#c').val(values_option_1_bm[2].c);
+                $('#' + id).find('#d').val(values_option_1_bm[2].d);
+            }
+
+        }
+
+    });
+}
