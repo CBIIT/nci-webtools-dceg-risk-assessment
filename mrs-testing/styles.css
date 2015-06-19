@@ -26,6 +26,9 @@ table input[type="text"] {
   text-align: center;
   color: #fff;
 }
+.extra-vertical-margin {
+  margin: 10px 0;
+}
 .header {
   background-color: #aaa;
   color: #444;

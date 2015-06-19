@@ -2,7 +2,7 @@
 var definitionObj = {
     prob_m: {
         term: "Marker Positivity (M+)",
-        definition: "Positive test result for biomarker"
+        definition: "Marker positivity, or probability of positive test result for biomarker"
     },
     m_neg: {
         term: "Marker Negativity (M-)",
@@ -10,7 +10,7 @@ var definitionObj = {
     },
     prob_d: {
         term: "Disease Positive (D+)",
-        definition: "Has disease"
+        definition: "Disease prevalence, or probability of disease"
     },
     d_neg: {
         term: "Disease Negative (D-)",
@@ -68,10 +68,21 @@ var definitionObj = {
         term: "Negative Predictive Value (NPV)",
         definition: "Definition for NPV"
     },
-    mrs:{
+    mrs: {
         term: "Mean Risk Stratification (MRS)",
         definition: "Average change in pretest-posttest disease risk. Formula: MRS=2tp(1-p)"
     },
-    sampsize:{term:"Sample Size",definition:""},
-    test:{term:"Test",definition:"empty"}
+    sampsize: {term: "Sample Size", definition: ""},
+    test: {term: "Test", definition: "empty"},
+    auc: {
+        term: "Area under the receiver operator characteristic curve",
+        definition: " for a biomarker is the average sensitivity (or, equivalently, the integral of the sensitivity) in " +
+        "the interval of cSpecificity from 0 to 1 (specificity from 1 to 0), itself equal to the area between the ROC " +
+        "curve and the x-axis."
+    },
+    cnpv: {
+        term: "Complement of Negative Predictive Value (cNPV)",
+        definition: "Probability of disease, given a negative test result from biomarker. Unlike sensitivity and " +
+        "specificity, cNPV's reflect disease prevalence and is useful for risk stratification."
+    },
 };

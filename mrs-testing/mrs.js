@@ -1,5 +1,6 @@
 
-var currentMarkers = $('#markers').children().length + 1;
+
+var currentMarkers = 1;
 
 $(document).ready(function () {
     $("#results, .bm_1, .bm_2, .bm_3").hide();
@@ -12,7 +13,7 @@ $(document).ready(function () {
 
 function bind_control_events() {
    
-    $('a#test').on('click', test);
+    $('a#test1,a#test2').on('click', test);
     $('#reset').on('click', reset);
     $('#add-marker').on('click', new_marker);
     $('#delete-marker').on('click', delete_marker);
@@ -27,17 +28,18 @@ function create_popover() {
     term_element.attr('tabindex', '');
 }
 
-function panel_actions() {
-   
-    var i = 1;
-    do {
-        $('.marker-' + i + ' .panel-collapse').on('show.bs.collapse', bind_accordion_action(i));
-        i++;
-    } while (i <= currentMarkers);
-}
+
+
+
+
+
+
+
+
 
 function bind_accordion_action(ind) {
-    $('.marker.marker-' + ind + ' .panel-collapse').not($('.marker.marker-' + ind + ' [id$=panel-' + ind + ']')[0])
+    $('.marker.marker-' + ind + ' .panel-collapse')
+        .not($('.marker.marker-' + ind + ' [id$=panel-' + ind + ']')[0])
         .removeClass('in').addClass('collapse');
 
 }
@@ -51,7 +53,7 @@ function controls_visibility(numElements) {
         $('#delete-marker').show();
         $('#add-marker').hide();
     }
-    if (numElements < 2){
+    if (numElements < 2) {
         $('#delete-marker').hide();
         $('#add-marker').show();
     }
@@ -59,7 +61,7 @@ function controls_visibility(numElements) {
 
 function new_marker() {
     var counter = currentMarkers + 1;
-    if (currentMarkers < 3) {
+    if (currentMarkers <= 3) {
         var markerTemplate = $('#markers').find('.marker').first();
 
        
@@ -74,49 +76,48 @@ function new_marker() {
                 $(this).val("");
             }
             if ($(this).is("select")) {
+               
                 $(this)[0].selectedIndex = 0;
             }
         });
 
        
-        newElement.find(".panel-title a").each(function (index) {
-            $(this).attr('data-parent', '.marker-' + counter);
-            $(this).attr('href', '#marker-' + counter + '-panel-' + (index + 1));
+        newElement.find(".panel-heading").each(function (index) {
+            var panel_id = '#marker-' + counter + '-panel-' + (index + 1);
+            $(this).attr('data-target', panel_id);
         });
 
        
         newElement.find(".panel-collapse").each(function (index) {
             var newPanelContentId = 'marker-' + counter + '-panel-' + (index + 1);
-            $(this).attr("id", newPanelContentId).addClass("collapse");
+            $(this).attr("id", newPanelContentId);
         });
 
+       
         newElement.find('.marker-title').text("Biomarker #" + counter);
-        newElement.find(".panel-toggle").each(function (index) {
-            $(this).attr("href", "#marker-" + counter + "-panel-" + (index + 1));
-            $(this).attr("data-parent", ".marker.marker-" + counter);
-        });
 
         newElement.find('.termToDefine, .dd.termToDefine').on('click', display_definition);
 
-       
-        $('#markers').append(newElement.fadeIn());
-
         currentMarkers++;
-
        
        
-
+       
         controls_visibility(currentMarkers);
+
+       
+        $('#markers').append(newElement);
     }
 }
 
 function delete_marker() {
     if (currentMarkers > 1) {
        
+        $('#markers').children().last().empty();
         $('#markers').children().last().remove();
+        currentMarkers--;
     }
-    if (currentMarkers != 1) currentMarkers--;
     controls_visibility(currentMarkers);
+    scrollTop();
 }
 
 function display_definition() {
@@ -178,29 +179,36 @@ function calculate() {
         });
 
         promise.then(clean_data, function (error) {
-            console.log('Error: ' + JSON.stringify(error));
+            display_errors(error.statusText);
+            console.log('Error: ' + error.statusText);
         });
 
         promise.done(return_data);
+        scrollTop();
     }
     else {
-       
-        if (!$("#errors")[0]) {
-            var message = $("<div><b class='text-danger'>Must enter values for either option 1 or 2 for the biomarkers</b></div>");
-            $('.title.text-center')
-                .after(
-                message.attr('id', 'errors').addClass('well-sm')
-            );
-            $('html, body').animate({
-                scrollTop: 0
-            });
-            setTimeout(function () {
-                $('#errors').fadeOut().remove();
-            }, 4000);
-        }
+        display_errors("Must enter values for either option 1 or 2 for the biomarkers");
     }
 }
-
+function display_errors(message) {
+   
+    if (!$("#errors")[0]) {
+        var element = $("<div class='bg-warning well well-sm'><b class='text-danger'>" + message + "</b></div>");
+        $('.title.text-center')
+            .after(
+            element.attr('id', 'errors').addClass('well-sm')
+        );
+        scrollTop();
+        setTimeout(function () {
+            $('#errors').fadeOut().remove();
+        }, 4000);
+    }
+}
+function scrollTop() {
+    $('html, body').animate({
+        scrollTop: 0
+    });
+}
 function clean_data(data) {
    
     return JSON.parse(JSON.stringify(data));
@@ -208,6 +216,10 @@ function clean_data(data) {
 
 function return_data(data) {
     i = 0;
+
+   
+    $("#results, .bm_1, .bm_2, .bm_3").hide();
+
     do {
         i++;
        
@@ -229,7 +241,7 @@ function return_data(data) {
             var data_item = params[name];
             var formattedText = data_item.Value;
             if (lookup_id != 'rr' && lookup_id != 'nnr' && lookup_id != 'nns') {
-
+                formattedText += "%  ";
                 if (data_item["Confidence Interval (lower bound)"] !== null &&
                     data_item["Confidence Interval (upper bound)"] !== null) {
                     ci_lb = data_item["Confidence Interval (lower bound)"];
@@ -380,26 +392,30 @@ function joinObjects(parentObj, obj1, obj2) {
 }
 
 function reset() {
+   
     var markerChildren = $('#markers').children();
-   
-    var currentMarkers = markerChildren.length;
-   
-    markerChildren.not(':first').remove();
 
    
     $('select').find('option:first').attr('selected', 'selected');
     $('input').val('');
+
+   
+    markerChildren.not(':first').each(function () {
+        $(this).empty();
+        $(this).remove();
+    })
+    currentMarkers = 1;
+    controls_visibility(currentMarkers);
+
+   
     $('.output').text('');
     $("#results, .bm_1, .bm_2, .bm_3").hide();
-
-
-    controls_visibility(currentMarkers);
 }
 
 var definitionObj = {
     prob_m: {
         term: "Marker Positivity (M+)",
-        definition: "Positive test result for biomarker"
+        definition: "Marker positivity, or probability of positive test result for biomarker"
     },
     m_neg: {
         term: "Marker Negativity (M-)",
@@ -407,7 +423,7 @@ var definitionObj = {
     },
     prob_d: {
         term: "Disease Positive (D+)",
-        definition: "Has disease"
+        definition: "Disease prevalence, or probability of disease"
     },
     d_neg: {
         term: "Disease Negative (D-)",
@@ -465,12 +481,23 @@ var definitionObj = {
         term: "Negative Predictive Value (NPV)",
         definition: "Definition for NPV"
     },
-    mrs:{
+    mrs: {
         term: "Mean Risk Stratification (MRS)",
         definition: "Average change in pretest-posttest disease risk. Formula: MRS=2tp(1-p)"
     },
-    sampsize:{term:"Sample Size",definition:""},
-    test:{term:"Test",definition:"empty"}
+    sampsize: {term: "Sample Size", definition: ""},
+    test: {term: "Test", definition: "empty"},
+    auc: {
+        term: "Area under the receiver operator characteristic curve",
+        definition: " for a biomarker is the average sensitivity (or, equivalently, the integral of the sensitivity) in " +
+        "the interval of cSpecificity from 0 to 1 (specificity from 1 to 0), itself equal to the area between the ROC " +
+        "curve and the x-axis."
+    },
+    cnpv: {
+        term: "Complement of Negative Predictive Value (cNPV)",
+        definition: "Probability of disease, given a negative test result from biomarker. Unlike sensitivity and " +
+        "specificity, cNPV's reflect disease prevalence and is useful for risk stratification."
+    },
 };
 var lookup = {
     "Danger": "concern",
@@ -506,41 +533,69 @@ var lookup = {
     "Value":"value",
     "Test":"test"
 };
-function test() {
+function test(option) {
     var tbs = $('.collapse.in');
     var values_option_1_bm = [{"markerName": "HPV", "a": 471, "b": 13, "c": 4680, "d": 25207},
         {"markerName": "Pap", "a": 466, "b": 25, "c": 4484, "d": 25396},
         {"markerName": "VIA", "a": 270, "b": 225, "c": 2967, "d": 26909}];
 
-    var values_option_2 = {"ppv": 0.0914, "npv": (1 - 0.0005), "P(M+)": 0.1696, "total": 30371};
+    var values_option_2_bm = [{
+        "markerName": "HPV",
+        "ppv": 0.0914,
+        "npv": (1 - 0.0005),
+        "P(M+)": 0.1696,
+        "total": 30371
+    },
+        {
+            "markerName": "Pap",
+            "ppv": 0.0842,
+            "npv": 0.9,
+            "P(M+)": 0.163,
+            "total": 30371
+        }, {
+            "markerName": "VIA",
+            "ppv": 0.0834,
+            "npv": 0.17,
+            "P(M+)": 0.1066,
+            "total": 30371
+        }
+    ];
+
+    var choice = $(this).prop('id');
+    if (currentMarkers == 1) {
+       
+        new_marker();
+        new_marker();
+    }
+   
+    if (currentMarkers == 2) new_marker();
 
     $('#markers').children().each(function (key, value) {
+       
+        $(this).find('.collapse:first').addClass('in')
+        var id = $(this).find('.collapse.in').prop('id');
 
-        if ($(this).find('.collapse.in')) {
-            id = $(this).find('.collapse.in').prop('id');
-            if (id == "marker-1-panel-1") {
-                $(value).find('[name="name-input"]').val(values_option_1_bm[0].markerName);
-                $('#' + id).find('#a').val(values_option_1_bm[0].a);
-                $('#' + id).find('#b').val(values_option_1_bm[0].b);
-                $('#' + id).find('#c').val(values_option_1_bm[0].c);
-                $('#' + id).find('#d').val(values_option_1_bm[0].d);
-            }
-            if (id == "marker-2-panel-1") {
-                $(value).find('[name="name-input"]').val(values_option_1_bm[1].markerName);
-                $('#' + id).find('#a').val(values_option_1_bm[1].a);
-                $('#' + id).find('#b').val(values_option_1_bm[1].b);
-                $('#' + id).find('#c').val(values_option_1_bm[1].c);
-                $('#' + id).find('#d').val(values_option_1_bm[1].d);
-            }
-            if (id == "marker-3-panel-1") {
-                $(value).find('[name="name-input"]').val(values_option_1_bm[2].markerName);
-                $('#' + id).find('#a').val(values_option_1_bm[2].a);
-                $('#' + id).find('#b').val(values_option_1_bm[2].b);
-                $('#' + id).find('#c').val(values_option_1_bm[2].c);
-                $('#' + id).find('#d').val(values_option_1_bm[2].d);
-            }
-
+       
+        if (id == "marker-1-panel-1") {
+            $(value).find('[name="name-input"]').val(values_option_1_bm[0].markerName);
+            $('#' + id).find('#a').val(values_option_1_bm[0].a);
+            $('#' + id).find('#b').val(values_option_1_bm[0].b);
+            $('#' + id).find('#c').val(values_option_1_bm[0].c);
+            $('#' + id).find('#d').val(values_option_1_bm[0].d);
         }
-
+        if (id == "marker-2-panel-1") {
+            $(value).find('[name="name-input"]').val(values_option_1_bm[1].markerName);
+            $('#' + id).find('#a').val(values_option_1_bm[1].a);
+            $('#' + id).find('#b').val(values_option_1_bm[1].b);
+            $('#' + id).find('#c').val(values_option_1_bm[1].c);
+            $('#' + id).find('#d').val(values_option_1_bm[1].d);
+        }
+        if (id == "marker-3-panel-1") {
+            $(value).find('[name="name-input"]').val(values_option_1_bm[2].markerName);
+            $('#' + id).find('#a').val(values_option_1_bm[2].a);
+            $('#' + id).find('#b').val(values_option_1_bm[2].b);
+            $('#' + id).find('#c').val(values_option_1_bm[2].c);
+            $('#' + id).find('#d').val(values_option_1_bm[2].d);
+        }
     });
 }
