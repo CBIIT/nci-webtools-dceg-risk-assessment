@@ -21,22 +21,12 @@ function bind_control_events() {
 }
 
 function create_popover() {
-    //panel_actions(currentMarkers);
+    bind_accordion_action(currentMarkers);
     var term_element = $('.termToDefine');
     term_element.attr('data-toggle', 'popover');
     term_element.attr('role', 'button');
     term_element.attr('tabindex', '');
 }
-
-//function panel_actions(ind) {
-//    $('.marker-' + ind).find(".panel-collapse.collapse");
-//
-//    //    .each(function () {
-//    //    if ($(this).hasClass('in')) {
-//    //        $(this).collapse('show');
-//    //    }
-//    //});
-//}
 
 function bind_accordion_action(ind) {
     $('.marker.marker-' + ind + ' .panel-collapse')
@@ -102,7 +92,7 @@ function new_marker() {
         currentMarkers++;
         // after currentMarkers has been updated make sure panel events
         // gets to the newly created marker
-        //panel_actions(currentMarkers);
+        bind_accordion_action(currentMarkers);
         controls_visibility(currentMarkers);
 
         // add new marker to #markers element
