@@ -14,17 +14,29 @@ $(document).ready(function () {
 function bind_control_events() {
     // testing
     $('a#test1,a#test2').on('click', test);
-    
+
     $('#reset').on('click', reset);
     $('#add-marker').on('click', new_marker);
     $('#delete-marker').on('click', delete_marker);
     $('#calculate').on('click', calculate);
+
+    //bind_accordion_action(currentMarkers);
 }
 
 function bind_accordion_action(ind) {
-    $('.marker.marker-' + ind + ' .panel-collapse')
-        .not($('.marker.marker-' + ind + ' [id$=panel-' + ind + ']')[0])
-        .removeClass('in').addClass('collapse');
+    $('.marker-' + ind + ' .panel-collapse')
+        .on('show.bs.collapse', function () {
+            var $this = $(this);
+            var id = $this.attr('id');
+            if ((id).indexOf('panel-1') >= 0)
+                $('#marker-' + ind + '-option-2').collapse('hide');
+            else
+                $('#marker-' + ind + '-option-1').collapse('hide');
+        });
+
+    //$('.marker.marker-' + ind + ' .panel-collapse')
+    //    .not($('.marker.marker-' + ind + ' [id$=panel-' + ind + ']')[0])
+    //    .removeClass('in').addClass('collapse');
 }
 
 function controls_visibility(numElements) {
@@ -67,13 +79,14 @@ function new_marker() {
 
         // dynamically generate the id for the new panel elements
         newElement.find(".panel-heading").each(function (index) {
-            var panel_id = '#marker-' + counter + '-panel-' + (index + 1);
+            var panel_id = '#marker-' + counter + '-option-' + (index + 1);
             $(this).attr('data-target', panel_id);
+            $(this).attr('data-parent', panel_id);
         });
 
         // generate new Ids for each on of the sub panels within the new generated marker
         newElement.find(".panel-collapse").each(function (index) {
-            var newPanelContentId = 'marker-' + counter + '-panel-' + (index + 1);
+            var newPanelContentId = 'marker-' + counter + '-option-' + (index + 1);
             $(this).attr("id", newPanelContentId);
         });
 
@@ -85,7 +98,7 @@ function new_marker() {
         currentMarkers++;
         // after currentMarkers has been updated make sure panel events
         // gets to the newly created marker
-        bind_accordion_action(currentMarkers);
+        //bind_accordion_action(currentMarkers);
         controls_visibility(currentMarkers);
 
         // add new marker to #markers element
@@ -272,8 +285,8 @@ function extract_values(invalid) {
         var thisMarker = $('.marker-' + i);
 
         // inside this marker find inputs by group
-        var option_1_controls = thisMarker.find('#marker-' + i + '-panel-1 .input').serializeArray(); // option 1
-        var option_2_controls = thisMarker.find('#marker-' + i + '-panel-2 .input').serializeArray(); // option 2
+        var option_1_controls = thisMarker.find('#marker-' + i + '-option-1 .input').serializeArray(); // option 1
+        var option_2_controls = thisMarker.find('#marker-' + i + '-option-2 .input').serializeArray(); // option 2
 
         option_1_controls.forEach(function (element) {
             if (element.value.length > 0) {
