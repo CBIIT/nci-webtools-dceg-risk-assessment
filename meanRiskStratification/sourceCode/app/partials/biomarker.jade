@@ -5,11 +5,11 @@
         .extra-vertical-margin
             label(for='name-input') Biomarker Name
             input.name-input(name='name-input', type='text')
-        .panel-heading(data-toggle='collapse', data-parent='#marker-1-panel-2.option-1', data-target='#marker-1-panel-1')
+        .panel-heading(data-toggle='collapse', data-parent='#marker-1-option-1', data-target='#marker-1-option-1')
             h4.panel-title
                 a.accordion-toggle(title="Input: 2x2 Table")  Input: 2x2 Table
-                    span.caret
-        #marker-1-panel-1.panel-collapse.collapse.in
+                    span.glyphicon.glyphicon-chevron-down
+        #marker-1-option-1.panel-collapse.collapse.in
             .option-1.panel-body
                 table.table.table-striped.table-condensed.table-responsive
                     tr.active
@@ -34,11 +34,11 @@
                         td
                             label.sr-only(for='d') D
                             input#d.input(name='d', type='text')
-        .panel-heading(data-toggle='collapse', data-parent='#marker-1-panel-1.option-2', data-target='#marker-1-panel-2')
+        .panel-heading(data-toggle='collapse', data-parent='#marker-1-option-2', data-target='#marker-1-option-2')
             h4.panel-title
                 a.accordion-toggle(title="Input: PPV, NPV, Sensitivity,Specificity, etc.") Input: PPV, NPV, Sensitivity,Specificity, etc.
-                    span.caret
-        #marker-1-panel-2.panel-collapse.collapse
+                    span.glyphicon.glyphicon-chevron-down
+        #marker-1-option-2.panel-collapse.collapse
             .option-2.panel-body
                 .row
                     label Sample Size
