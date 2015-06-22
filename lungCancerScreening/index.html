@@ -307,9 +307,9 @@
                     </tr>
                     <tr>
                       <td colspan="2" align="right" valign="top">
-                        <input type="submit" name="submit" value="Calculate" id="submit" ng-disabled="myForm.hasWarnings" />
-                        <input type="reset" name="reset" value="Reset" id="reset" ng-click="myForm.resetForm()" />
-                      </td>
+                        <button class="button button-disabled" ng-class="{'button-enabled': !myForm.isInvalid}" ng-disabled="myForm.isInvalid">Calculate</button>
+                        <button class="button" type="reset" ng-click="myForm.resetForm()">Reset</button>
+                    </td>
                     </tr>
                   </tbody>
                 </table>
