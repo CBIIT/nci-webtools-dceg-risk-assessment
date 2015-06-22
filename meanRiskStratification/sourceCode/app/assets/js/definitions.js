@@ -1,3 +1,45 @@
+function create_popover() {
+    bind_accordion_action(currentMarkers);
+    var term_element = $('.termToDefine');
+    term_element.attr('data-toggle', 'popover');
+    term_element.attr('role', 'button');
+    term_element.attr('tabindex', '');
+}
+
+function display_definition() {
+    // used to identify a specific element, since there will be multiple popover elements on the page
+    var $self = $(this);
+    var id;
+    // treat drop down elements different than link/text elements
+    if (!$self.hasClass('dd')) {
+        if (!$self.hasClass('header') && $self.prop('tagName') != 'TD')
+            id = ($self.attr('class')).replace('termToDefine', '').trim();
+        if ($self.prop('tagName') == 'TD')
+            id = ($self.attr('class')).replace('termToDefine', '').trim();
+        else
+            id = $self.attr('id');
+    }
+    else {
+        // value selected in the drop down
+        id = $self.prev().val();
+    }
+
+    var definition = definitionObj[id].definition;
+    var term = definitionObj[id].term;
+
+    if (definition || term) {
+        $self.popover(
+            {container: 'body', trigger: 'manual', placement: 'top', title: term, content: definition}
+        ).on('mouseout', function () {
+                $self.popover('hide');
+                $self.popover('destroy');
+            });
+
+        $self.popover();
+        $self.popover('show');
+    }
+}
+
 // definitions used for display
 var definitionObj = {
     prob_m: {
