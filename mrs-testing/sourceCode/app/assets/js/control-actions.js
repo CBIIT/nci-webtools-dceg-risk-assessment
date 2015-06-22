@@ -14,26 +14,19 @@ $(document).ready(function () {
 function bind_control_events() {
     // testing
     $('a#test1,a#test2').on('click', test);
+    
     $('#reset').on('click', reset);
     $('#add-marker').on('click', new_marker);
     $('#delete-marker').on('click', delete_marker);
     $('#calculate').on('click', calculate);
 }
 
-function create_popover() {
-    bind_accordion_action(currentMarkers);
-    var term_element = $('.termToDefine');
-    term_element.attr('data-toggle', 'popover');
-    term_element.attr('role', 'button');
-    term_element.attr('tabindex', '');
-}
-
 function bind_accordion_action(ind) {
     $('.marker.marker-' + ind + ' .panel-collapse')
         .not($('.marker.marker-' + ind + ' [id$=panel-' + ind + ']')[0])
         .removeClass('in').addClass('collapse');
-
 }
+
 function controls_visibility(numElements) {
     // controls the visibility of the add/remove marker buttons
     if (numElements == 2) {
@@ -109,40 +102,6 @@ function delete_marker() {
     }
     controls_visibility(currentMarkers);
     scrollTop();
-}
-
-function display_definition() {
-    // used to identify a specific element, since there will be multiple popover elements on the page
-    var $self = $(this);
-    var id;
-    // treat drop down elements different than link/text elements
-    if (!$self.hasClass('dd')) {
-        if (!$self.hasClass('header') && $self.prop('tagName') != 'TD')
-            id = ($self.attr('class')).replace('termToDefine', '').trim();
-        if ($self.prop('tagName') == 'TD')
-            id = ($self.attr('class')).replace('termToDefine', '').trim();
-        else
-            id = $self.attr('id');
-    }
-    else {
-        // value selected in the drop down
-        id = $self.prev().val();
-    }
-
-    var definition = definitionObj[id].definition;
-    var term = definitionObj[id].term;
-
-    if (definition || term) {
-        $self.popover(
-            {container: 'body', trigger: 'manual', placement: 'top', title: term, content: definition}
-        ).on('mouseout', function () {
-                $self.popover('hide');
-                $self.popover('destroy');
-            });
-
-        $self.popover();
-        $self.popover('show');
-    }
 }
 
 function calculate() {
@@ -390,6 +349,10 @@ function reset() {
     $('select').find('option:first').attr('selected', 'selected');
     $('input').val('');
 
+    // clear all output cells
+    $('.output').text('');
+    $("#results, .bm_1, .bm_2, .bm_3").hide();
+
     // remove generated markers first, .remove() doesn't remove element from DOM
     markerChildren.not(':first').each(function () {
         $(this).empty();
@@ -397,8 +360,4 @@ function reset() {
     })
     currentMarkers = 1;
     controls_visibility(currentMarkers);
-
-    // clear all output cells
-    $('.output').text('');
-    $("#results, .bm_1, .bm_2, .bm_3").hide();
 }
