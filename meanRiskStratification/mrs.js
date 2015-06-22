@@ -14,17 +14,29 @@ $(document).ready(function () {
 function bind_control_events() {
    
     $('a#test1,a#test2').on('click', test);
-    
+
     $('#reset').on('click', reset);
     $('#add-marker').on('click', new_marker);
     $('#delete-marker').on('click', delete_marker);
     $('#calculate').on('click', calculate);
+
+   
 }
 
 function bind_accordion_action(ind) {
-    $('.marker.marker-' + ind + ' .panel-collapse')
-        .not($('.marker.marker-' + ind + ' [id$=panel-' + ind + ']')[0])
-        .removeClass('in').addClass('collapse');
+    $('.marker-' + ind + ' .panel-collapse')
+        .on('show.bs.collapse', function () {
+            var $this = $(this);
+            var id = $this.attr('id');
+            if ((id).indexOf('panel-1') >= 0)
+                $('#marker-' + ind + '-option-2').collapse('hide');
+            else
+                $('#marker-' + ind + '-option-1').collapse('hide');
+        });
+
+   
+   
+   
 }
 
 function controls_visibility(numElements) {
@@ -67,13 +79,14 @@ function new_marker() {
 
        
         newElement.find(".panel-heading").each(function (index) {
-            var panel_id = '#marker-' + counter + '-panel-' + (index + 1);
+            var panel_id = '#marker-' + counter + '-option-' + (index + 1);
             $(this).attr('data-target', panel_id);
+            $(this).attr('data-parent', panel_id);
         });
 
        
         newElement.find(".panel-collapse").each(function (index) {
-            var newPanelContentId = 'marker-' + counter + '-panel-' + (index + 1);
+            var newPanelContentId = 'marker-' + counter + '-option-' + (index + 1);
             $(this).attr("id", newPanelContentId);
         });
 
@@ -85,7 +98,7 @@ function new_marker() {
         currentMarkers++;
        
        
-        bind_accordion_action(currentMarkers);
+       
         controls_visibility(currentMarkers);
 
        
@@ -272,8 +285,8 @@ function extract_values(invalid) {
         var thisMarker = $('.marker-' + i);
 
        
-        var option_1_controls = thisMarker.find('#marker-' + i + '-panel-1 .input').serializeArray();
-        var option_2_controls = thisMarker.find('#marker-' + i + '-panel-2 .input').serializeArray();
+        var option_1_controls = thisMarker.find('#marker-' + i + '-option-1 .input').serializeArray();
+        var option_2_controls = thisMarker.find('#marker-' + i + '-option-2 .input').serializeArray();
 
         option_1_controls.forEach(function (element) {
             if (element.value.length > 0) {
@@ -371,6 +384,7 @@ function create_popover() {
 
 function display_definition() {
    
+   
     var $self = $(this);
     var id;
    
@@ -392,7 +406,11 @@ function display_definition() {
 
     if (definition || term) {
         $self.popover(
-            {container: 'body', trigger: 'manual', placement: 'top', title: term, content: definition}
+            {container: 'body',
+                trigger: 'manual',
+                placement: 'top',
+                title: term,
+                content: definition}
         ).on('mouseout', function () {
                 $self.popover('hide');
                 $self.popover('destroy');
@@ -422,25 +440,25 @@ var definitionObj = {
         definition: "Does not have disease"
     },
     concern: {
-        term: "Danger",
-        definition: "Increase in disease risk from testing positive. Formula: Danger d=PPV-q"
+        term: "Concern",
+        definition: "Increase in disease risk from testing positive. Formula: Concern = PPV-P(D+)"
     },
     reassurance: {
         term: "Reassurance",
-        definition: "Reduction in disease risk from testing negative. Formula: Reassurance r=q-cNPV"
+        definition: "Reduction in disease risk from testing negative. Formula: Reassurance = P(D+)-cNPV"
     },
     pbs: {
-        term: "Population Burden Stratification",
+        term: "Population Burden Stratification (PBS)",
         definition: "Extra disease detection in positive group than negative group. " +
-        "Formula: Population Burden Stratification =P(D,M+)-P(D,M-)"
+        "Formula: PBS = a-b"
     },
     nns: {
         term: "Number Needed to Screen",
-        definition: "Definition for number needed to screen. Formula: Usual NNS = 1/t"
+        definition: "Definition for number needed to screen. Formula: Usual NNS = 1/RD"
     },
     nnr: {
         term: "Number Needed to Recruit",
-        definition: "To detect 1 more disease case in positive group than negative group. Formula: NNR=1/T+"
+        definition: "To detect 1 more disease case in positive group than negative group. Formula: NNR = 1/PBS"
     },
     max_mrs: {
         term: "Maximum possible MRS for a disease with this prevalence",
