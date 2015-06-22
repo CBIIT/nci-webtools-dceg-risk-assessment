@@ -1,5 +1,6 @@
-// keep track of the number of marker elements, to use the number as the id
-var currentMarkers = $('#markers').children().length + 1;
+// keep track of the number of marker elements, to use the number as the id,
+// track by value not by page element, tracking by element can be unreliable
+var currentMarkers = 1;
 
 $(document).ready(function () {
     $("#results, .bm_1, .bm_2, .bm_3").hide();
@@ -12,35 +13,20 @@ $(document).ready(function () {
 
 function bind_control_events() {
     // testing
-    $('a#test').on('click', test);
+    $('a#test1,a#test2').on('click', test);
+    
     $('#reset').on('click', reset);
     $('#add-marker').on('click', new_marker);
     $('#delete-marker').on('click', delete_marker);
     $('#calculate').on('click', calculate);
 }
 
-function create_popover() {
-    //panel_actions();
-    var term_element = $('.termToDefine');
-    term_element.attr('data-toggle', 'popover');
-    term_element.attr('role', 'button');
-    term_element.attr('tabindex', '');
-}
-
-function panel_actions() {
-    // make sure only one panel can open at a time in a group
-    var i = 1;
-    do {
-        $('.marker-' + i + ' .panel-collapse').on('show.bs.collapse', bind_accordion_action(i));
-        i++;
-    } while (i <= currentMarkers);
-}
-
 function bind_accordion_action(ind) {
-    $('.marker.marker-' + ind + ' .panel-collapse').not($('.marker.marker-' + ind + ' [id$=panel-' + ind + ']')[0])
+    $('.marker.marker-' + ind + ' .panel-collapse')
+        .not($('.marker.marker-' + ind + ' [id$=panel-' + ind + ']')[0])
         .removeClass('in').addClass('collapse');
-
 }
+
 function controls_visibility(numElements) {
     // controls the visibility of the add/remove marker buttons
     if (numElements == 2) {
@@ -51,7 +37,7 @@ function controls_visibility(numElements) {
         $('#delete-marker').show();
         $('#add-marker').hide();
     }
-    if (numElements < 2){
+    if (numElements < 2) {
         $('#delete-marker').hide();
         $('#add-marker').show();
     }
@@ -59,7 +45,7 @@ function controls_visibility(numElements) {
 
 function new_marker() {
     var counter = currentMarkers + 1;
-    if (currentMarkers < 3) {
+    if (currentMarkers <= 3) {
         var markerTemplate = $('#markers').find('.marker').first();
 
         // clone controls
@@ -74,83 +60,48 @@ function new_marker() {
                 $(this).val("");
             }
             if ($(this).is("select")) {
+                // set to first selection in dropdown
                 $(this)[0].selectedIndex = 0;
             }
         });
 
         // dynamically generate the id for the new panel elements
-        newElement.find(".panel-title a").each(function (index) {
-            $(this).attr('data-parent', '.marker-' + counter);
-            $(this).attr('href', '#marker-' + counter + '-panel-' + (index + 1));
+        newElement.find(".panel-heading").each(function (index) {
+            var panel_id = '#marker-' + counter + '-panel-' + (index + 1);
+            $(this).attr('data-target', panel_id);
         });
 
         // generate new Ids for each on of the sub panels within the new generated marker
         newElement.find(".panel-collapse").each(function (index) {
             var newPanelContentId = 'marker-' + counter + '-panel-' + (index + 1);
-            $(this).attr("id", newPanelContentId).addClass("collapse");
+            $(this).attr("id", newPanelContentId);
         });
 
+        // change title for new marker
         newElement.find('.marker-title').text("Biomarker #" + counter);
-        newElement.find(".panel-toggle").each(function (index) {
-            $(this).attr("href", "#marker-" + counter + "-panel-" + (index + 1));
-            $(this).attr("data-parent", ".marker.marker-" + counter);
-        });
 
         newElement.find('.termToDefine, .dd.termToDefine').on('click', display_definition);
 
-        // add new marker to #markers element
-        $('#markers').append(newElement.fadeIn());
-
         currentMarkers++;
-
-        // after currentMarkers has been updated make sure panel events gets to the newly created marker
-        //panel_actions();
-
+        // after currentMarkers has been updated make sure panel events
+        // gets to the newly created marker
+        bind_accordion_action(currentMarkers);
         controls_visibility(currentMarkers);
+
+        // add new marker to #markers element
+        $('#markers').append(newElement);
     }
 }
 
 function delete_marker() {
     if (currentMarkers > 1) {
         // remove last child
+        $('#markers').children().last().empty();
         $('#markers').children().last().remove();
+        currentMarkers--;
     }
-    if (currentMarkers != 1) currentMarkers--;
     controls_visibility(currentMarkers);
-}
-
-function display_definition() {
-    // used to identify a specific element, since there will be multiple popover elements on the page
-    var $self = $(this);
-    var id;
-    // treat drop down elements different than link/text elements
-    if (!$self.hasClass('dd')) {
-        if (!$self.hasClass('header') && $self.prop('tagName') != 'TD')
-            id = ($self.attr('class')).replace('termToDefine', '').trim();
-        if ($self.prop('tagName') == 'TD')
-            id = ($self.attr('class')).replace('termToDefine', '').trim();
-        else
-            id = $self.attr('id');
-    }
-    else {
-        // value selected in the drop down
-        id = $self.prev().val();
-    }
-
-    var definition = definitionObj[id].definition;
-    var term = definitionObj[id].term;
-
-    if (definition || term) {
-        $self.popover(
-            {container: 'body', trigger: 'manual', placement: 'top', title: term, content: definition}
-        ).on('mouseout', function () {
-                $self.popover('hide');
-                $self.popover('destroy');
-            });
-
-        $self.popover();
-        $self.popover('show');
-    }
+    scrollTop();
 }
 
 function calculate() {
@@ -178,29 +129,36 @@ function calculate() {
         });
 
         promise.then(clean_data, function (error) {
-            console.log('Error: ' + JSON.stringify(error));
+            display_errors(error.statusText);
+            console.log('Error: ' + error.statusText);
         });
 
         promise.done(return_data);
+        scrollTop();
     }
     else {
-        // show error message somewhere
-        if (!$("#errors")[0]) {
-            var message = $("<div><b class='text-danger'>Must enter values for either option 1 or 2 for the biomarkers</b></div>");
-            $('.title.text-center')
-                .after(
-                message.attr('id', 'errors').addClass('well-sm')
-            );
-            $('html, body').animate({
-                scrollTop: 0
-            });
-            setTimeout(function () {
-                $('#errors').fadeOut().remove();
-            }, 4000);
-        }
+        display_errors("Must enter values for either option 1 or 2 for the biomarkers");
     }
 }
-
+function display_errors(message) {
+    // prevent duplicate elements
+    if (!$("#errors")[0]) {
+        var element = $("<div class='bg-warning well well-sm'><b class='text-danger'>" + message + "</b></div>");
+        $('.title.text-center')
+            .after(
+            element.attr('id', 'errors').addClass('well-sm')
+        );
+        scrollTop();
+        setTimeout(function () {
+            $('#errors').fadeOut().remove();
+        }, 4000);
+    }
+}
+function scrollTop() {
+    $('html, body').animate({
+        scrollTop: 0
+    });
+}
 function clean_data(data) {
     // check to make sure json is in the right format
     return JSON.parse(JSON.stringify(data));
@@ -208,6 +166,10 @@ function clean_data(data) {
 
 function return_data(data) {
     i = 0;
+
+    // hide all again before showing
+    $("#results, .bm_1, .bm_2, .bm_3").hide();
+
     do {
         i++;
         // propName should be bm_#
@@ -229,7 +191,7 @@ function return_data(data) {
             var data_item = params[name];
             var formattedText = data_item.Value;
             if (lookup_id != 'rr' && lookup_id != 'nnr' && lookup_id != 'nns') {
-
+                formattedText += "%  ";
                 if (data_item["Confidence Interval (lower bound)"] !== null &&
                     data_item["Confidence Interval (upper bound)"] !== null) {
                     ci_lb = data_item["Confidence Interval (lower bound)"];
@@ -380,18 +342,22 @@ function joinObjects(parentObj, obj1, obj2) {
 }
 
 function reset() {
-    var markerChildren = $('#markers').children();
     // resets form to initial state
-    var currentMarkers = markerChildren.length;
-    // remove generated markers
-    markerChildren.not(':first').remove();
+    var markerChildren = $('#markers').children();
 
     // reset drop downs then, text boxes, hide results, then clear the cells
     $('select').find('option:first').attr('selected', 'selected');
     $('input').val('');
+
+    // clear all output cells
     $('.output').text('');
     $("#results, .bm_1, .bm_2, .bm_3").hide();
 
-
+    // remove generated markers first, .remove() doesn't remove element from DOM
+    markerChildren.not(':first').each(function () {
+        $(this).empty();
+        $(this).remove();
+    })
+    currentMarkers = 1;
     controls_visibility(currentMarkers);
 }
