@@ -357,7 +357,7 @@ function reset() {
     markerChildren.not(':first').each(function () {
         $(this).empty();
         $(this).remove();
-    })
+    });
     currentMarkers = 1;
     controls_visibility(currentMarkers);
 }
