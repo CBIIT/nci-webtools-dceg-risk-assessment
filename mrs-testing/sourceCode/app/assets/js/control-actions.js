@@ -3,7 +3,7 @@
 var currentMarkers = 1;
 
 $(document).ready(function () {
-    $("#results, .bm_1, .bm_2, .bm_3").hide();
+    $(".loader,#results, .bm_1, .bm_2, .bm_3").hide();
     controls_visibility(currentMarkers);
     bind_control_events();
     create_popover();
@@ -14,17 +14,22 @@ $(document).ready(function () {
 function bind_control_events() {
     // testing
     $('a#test1,a#test2').on('click', test);
-    
+
     $('#reset').on('click', reset);
     $('#add-marker').on('click', new_marker);
     $('#delete-marker').on('click', delete_marker);
     $('#calculate').on('click', calculate);
+
+    bind_accordion_action($('#markers').children().first());
 }
 
-function bind_accordion_action(ind) {
-    $('.marker.marker-' + ind + ' .panel-collapse')
-        .not($('.marker.marker-' + ind + ' [id$=panel-' + ind + ']')[0])
-        .removeClass('in').addClass('collapse');
+function bind_accordion_action(el) {
+    // bind action to specific element
+    //$(el).on('show.bs.collapse', function (e) {
+    //    alert('Event fired on #' + e.currentTarget.id);
+    //
+    //     e.target.id
+    //});
 }
 
 function controls_visibility(numElements) {
@@ -67,29 +72,32 @@ function new_marker() {
 
         // dynamically generate the id for the new panel elements
         newElement.find(".panel-heading").each(function (index) {
-            var panel_id = '#marker-' + counter + '-panel-' + (index + 1);
+            var panel_id = '#marker-' + counter + '-option-' + (index + 1);
+
             $(this).attr('data-target', panel_id);
+            $(this).attr('data-parent', '.marker-' + counter);
         });
 
         // generate new Ids for each on of the sub panels within the new generated marker
         newElement.find(".panel-collapse").each(function (index) {
-            var newPanelContentId = 'marker-' + counter + '-panel-' + (index + 1);
+            var newPanelContentId = 'marker-' + counter + '-option-' + (index + 1);
             $(this).attr("id", newPanelContentId);
+            bind_accordion_action(this);
         });
 
         // change title for new marker
         newElement.find('.marker-title').text("Biomarker #" + counter);
-
-        newElement.find('.termToDefine, .dd.termToDefine').on('click', display_definition);
+        newElement.find('.termToDefine, .dd.termToDefine')
+            .on('click', display_definition);
 
         currentMarkers++;
         // after currentMarkers has been updated make sure panel events
         // gets to the newly created marker
-        bind_accordion_action(currentMarkers);
         controls_visibility(currentMarkers);
 
         // add new marker to #markers element
-        $('#markers').append(newElement);
+        //$('#markers').append(newElement);
+        $(newElement).insertAfter($('#markers').children().last());
     }
 }
 
@@ -119,16 +127,22 @@ function calculate() {
             service = "http://" + host + "/mrsRest/";
         }
 
+        var to_value = 10 * 1000; //ten seconds
+
+        $('#loader').show();
+
         // ajax call, change to actual service name
         var promise = $.ajax({
             dataType: 'json',
             method: 'POST',
             contentType: 'application/json',
             url: service,
-            data: input
+            data: input,
+            timeout: to_value
         });
 
         promise.then(clean_data, function (error) {
+            $("#results, .bm_1, .bm_2, .bm_3").hide();
             display_errors(error.statusText);
             console.log('Error: ' + error.statusText);
         });
@@ -143,15 +157,10 @@ function calculate() {
 function display_errors(message) {
     // prevent duplicate elements
     if (!$("#errors")[0]) {
-        var element = $("<div class='bg-warning well well-sm'><b class='text-danger'>" + message + "</b></div>");
+        var element = $("<div id='errors', class='alert alert-danger fade in'><a href=''#' class='close' data-dismiss='alert'>&times;</a>" + message + "</div>");
         $('.title.text-center')
-            .after(
-            element.attr('id', 'errors').addClass('well-sm')
-        );
+            .after(element);
         scrollTop();
-        setTimeout(function () {
-            $('#errors').fadeOut().remove();
-        }, 4000);
     }
 }
 function scrollTop() {
@@ -241,6 +250,7 @@ function return_data(data) {
         });
     });
     $("#results").show();
+    $("#loader").hide();
 }
 
 function append_name() {
@@ -272,8 +282,8 @@ function extract_values(invalid) {
         var thisMarker = $('.marker-' + i);
 
         // inside this marker find inputs by group
-        var option_1_controls = thisMarker.find('#marker-' + i + '-panel-1 .input').serializeArray(); // option 1
-        var option_2_controls = thisMarker.find('#marker-' + i + '-panel-2 .input').serializeArray(); // option 2
+        var option_1_controls = thisMarker.find('#marker-' + i + '-option-1 .input').serializeArray(); // option 1
+        var option_2_controls = thisMarker.find('#marker-' + i + '-option-2 .input').serializeArray(); // option 2
 
         option_1_controls.forEach(function (element) {
             if (element.value.length > 0) {
@@ -330,6 +340,7 @@ function extract_values(invalid) {
             }
         }
     } while (i != currentMarkers);
+
 
     return [values, invalid];
 }
