@@ -10,10 +10,11 @@ from rpy2.robjects.packages import SignatureTranslatedAnonymousPackage
 from rpy2.robjects.vectors import IntVector, FloatVector
 from socket import gethostname
 
+'''
 with open ('LCWrapper.R') as fh:
         rcode = os.linesep.join(fh.readlines())
         wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
-
+'''
 # Initialize the Flask application
 app = Flask(__name__)
 
@@ -27,10 +28,12 @@ def index():
 def lungCancerRest():
     # Get the parsed contents of the form data
 
-    fromR = (wrapper.getDataJSON(request.query_string)))
+	data = request.json
+	return json.dumps(data)
+    #fromR = (wrapper.getDataJSON(request.query_string))
     #fromRlist = list(fromR)
     #fromRstr = ''.join(fromRlist)
-    return json.dumps(fromRstr)
+    #return json.dumps(fromRstr)
 
 import argparse
 if __name__ == '__main__':
