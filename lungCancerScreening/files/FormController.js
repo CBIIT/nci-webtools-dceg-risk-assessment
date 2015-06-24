@@ -222,25 +222,17 @@ app.controller("MyController", function($scope, $http) {
 
     console.log('params are: ', params);
 
-    for (var param in params) {
-      paramsArray.push(encodeURIComponent(param) + "=" + encodeURIComponent(params[param]));
-    }
-
-    data = paramsArray.join('&');
-    console.log(data);
-
-    return;
+    data = JSON.stringify(params);
 
     // Ajax call to process results
     $http.post(url, data)
          .success(function(data, status, headers, config) {
-
+           console.log(data);
          })
          .error(function(data, status, headers, config) {
 
          });
   };
-
 
   // Validation functions
   function validateAges() {

@@ -10,6 +10,7 @@ from rpy2.robjects.packages import SignatureTranslatedAnonymousPackage
 from rpy2.robjects.vectors import IntVector, FloatVector
 from socket import gethostname
 
+
 with open ('LCWrapper.R') as fh:
         rcode = os.linesep.join(fh.readlines())
         wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
@@ -27,10 +28,24 @@ def index():
 def lungCancerRest():
     # Get the parsed contents of the form data
 
-    fromR = (wrapper.getDataJSON(request.query_string)))
-    #fromRlist = list(fromR)
-    #fromRstr = ''.join(fromRlist)
-    #return json.dumps(fromRstr)
+	data = request.json
+#        return json.dumps(data)
+        age = data["age"];
+        bmi = data["bmi"];
+        cpd = data["cpd"];
+        emp = data["emp"];
+        famlungtrend = data["fam.lung.trend"];
+        gender = data["gender"];
+        qtyears = data["qtyears"];
+        smkyears = data["smkyears"];
+        race = data["race"];
+        edu6 = data["edu6"];
+        pkyrcat = data["pkyr.cat"];
+
+        fromR = (wrapper.getJSONData(age,bmi,cpd,emp,famlungtrend,gender,qtyears,smkyears,race,edu6,pkyrcat))
+	fromRstr = ''.join(fromR)
+        string = json.loads(fromRstr)
+	return json.dumps(string)
 
 import argparse
 if __name__ == '__main__':
