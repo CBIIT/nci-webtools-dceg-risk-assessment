@@ -33,7 +33,7 @@ load("cbiit_models.RData")
 #        	    pkyr.cat=15.59492375)
 
 
-runLungCancerScreening <- function(age,bmi,cpd,fam.lung.trend,female,qtyears,smkyears,race,edu6,pkyr.cat)
+runLungCancerScreening <- function(age,bmi,cpd,emp,fam.lung.trend,female,qtyears,smkyears,race,edu6,pkyr.cat)
 {
   
   race <- factor(race)
