@@ -30,7 +30,7 @@ def lungCancerRest():
     fromR = (wrapper.getDataJSON(request.query_string)))
     #fromRlist = list(fromR)
     #fromRstr = ''.join(fromRlist)
-    #return json.dumps(fromRstr)
+    return json.dumps(fromRstr)
 
 import argparse
 if __name__ == '__main__':
