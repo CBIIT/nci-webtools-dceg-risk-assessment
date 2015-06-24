@@ -3,7 +3,7 @@
 var currentMarkers = 1;
 
 $(document).ready(function () {
-    $("#results, .bm_1, .bm_2, .bm_3").hide();
+    $(".loader,#results,#errors, .bm_1, .bm_2, .bm_3").hide();
     controls_visibility(currentMarkers);
     bind_control_events();
     create_popover();
@@ -12,6 +12,7 @@ $(document).ready(function () {
 });
 
 function bind_control_events() {
+    $("#errors").alert();
    
     $('a#test1,a#test2').on('click', test);
 
@@ -20,20 +21,12 @@ function bind_control_events() {
     $('#delete-marker').on('click', delete_marker);
     $('#calculate').on('click', calculate);
 
-   
+    bind_accordion_action($('#markers').children().first());
 }
 
-function bind_accordion_action(ind) {
-    $('.marker-' + ind + ' .panel-collapse')
-        .on('show.bs.collapse', function () {
-            var $this = $(this);
-            var id = $this.attr('id');
-            if ((id).indexOf('panel-1') >= 0)
-                $('#marker-' + ind + '-option-2').collapse('hide');
-            else
-                $('#marker-' + ind + '-option-1').collapse('hide');
-        });
-
+function bind_accordion_action(el) {
+   
+   
    
    
    
@@ -80,29 +73,31 @@ function new_marker() {
        
         newElement.find(".panel-heading").each(function (index) {
             var panel_id = '#marker-' + counter + '-option-' + (index + 1);
+
             $(this).attr('data-target', panel_id);
-            $(this).attr('data-parent', panel_id);
+            $(this).attr('data-parent', '.marker-' + counter);
         });
 
        
         newElement.find(".panel-collapse").each(function (index) {
             var newPanelContentId = 'marker-' + counter + '-option-' + (index + 1);
             $(this).attr("id", newPanelContentId);
+            bind_accordion_action(this);
         });
 
        
         newElement.find('.marker-title').text("Biomarker #" + counter);
-
-        newElement.find('.termToDefine, .dd.termToDefine').on('click', display_definition);
+        newElement.find('.termToDefine, .dd.termToDefine')
+            .on('click', display_definition);
 
         currentMarkers++;
-       
        
        
         controls_visibility(currentMarkers);
 
        
-        $('#markers').append(newElement);
+       
+        $(newElement).insertAfter($('#markers').children().last());
     }
 }
 
@@ -111,6 +106,7 @@ function delete_marker() {
        
         $('#markers').children().last().empty();
         $('#markers').children().last().remove();
+        $('.bm_'+currentMarkers).hide();
         currentMarkers--;
     }
     controls_visibility(currentMarkers);
@@ -120,8 +116,8 @@ function delete_marker() {
 function calculate() {
     var service;
     var valuesObj = extract_values(false);
-    var invalid = valuesObj[1];
-    if (!invalid) {
+    var valid = valuesObj[1];
+    if (valid) {
         var input = JSON.stringify(valuesObj[0]);
 
         var host = window.location.hostname;
@@ -132,46 +128,36 @@ function calculate() {
             service = "http://" + host + "/mrsRest/";
         }
 
+        var to_value = 10 * 1000;
+
+        $('#loader').show();
+
        
         var promise = $.ajax({
             dataType: 'json',
             method: 'POST',
             contentType: 'application/json',
             url: service,
-            data: input
+            data: input,
+            timeout: to_value
         });
 
         promise.then(clean_data, function (error) {
-            display_errors(error.statusText);
-            console.log('Error: ' + error.statusText);
+            $("#results, .bm_1, .bm_2, .bm_3").hide();
+            display_errors("The service call has failed with the following status: " + error.statusText);
         });
 
         promise.done(return_data);
         scrollTop();
     }
-    else {
-        display_errors("Must enter values for either option 1 or 2 for the biomarkers");
-    }
 }
-function display_errors(message) {
-   
-    if (!$("#errors")[0]) {
-        var element = $("<div class='bg-warning well well-sm'><b class='text-danger'>" + message + "</b></div>");
-        $('.title.text-center')
-            .after(
-            element.attr('id', 'errors').addClass('well-sm')
-        );
-        scrollTop();
-        setTimeout(function () {
-            $('#errors').fadeOut().remove();
-        }, 4000);
-    }
-}
+
 function scrollTop() {
     $('html, body').animate({
         scrollTop: 0
     });
 }
+
 function clean_data(data) {
    
     return JSON.parse(JSON.stringify(data));
@@ -253,7 +239,9 @@ function return_data(data) {
             cell.text(formattedText);
         });
     });
+
     $("#results").show();
+    $("#loader").hide();
 }
 
 function append_name() {
@@ -273,7 +261,7 @@ function append_name() {
     } while (i != currentMarkers);
 }
 
-function extract_values(invalid) {
+function extract_values(valid) {
     var values = {};
 
    
@@ -289,6 +277,7 @@ function extract_values(invalid) {
         var option_2_controls = thisMarker.find('#marker-' + i + '-option-2 .input').serializeArray();
 
         option_1_controls.forEach(function (element) {
+           
             if (element.value.length > 0) {
                 values["bm_" + i].option = 1;
                 values["bm_" + i][element.name] = element.value;
@@ -308,7 +297,6 @@ function extract_values(invalid) {
 
             option_2_controls.filter(function (obj) {
                
-
                 if (obj.name == "param_1" && obj.value.length > 0) {
                     param_1.push(obj);
                 }
@@ -324,27 +312,29 @@ function extract_values(invalid) {
 
             });
             if (param_1.length > 1 && param_2.length > 1 && param_3.length > 1 && param_4.length > 0) {
+               
+                values["bm_" + i][param_4[0].name] = param_4[0].value;
+
                 var value_length = [param_1[1].value.length, param_2[1].value.length, param_3[1].value.length];
+
                 value_length.forEach(function (el) {
                     if (el > 0) {
-                        invalid = false;
+                        valid = false;
                        
                         joinObjects(values["bm_" + i], param_1[0], param_1[1]);
                         joinObjects(values["bm_" + i], param_2[0], param_2[1]);
                         joinObjects(values["bm_" + i], param_3[0], param_3[1]);
                     }
-
                 });
-
-               
-                values["bm_" + i][param_4[0].name] = param_4[0].value;
-            } else {
-                invalid = true;
             }
+           
+           
+           
         }
     } while (i != currentMarkers);
 
-    return [values, invalid];
+    valid = validate(values);
+    return [values, valid];
 }
 
 function joinObjects(parentObj, obj1, obj2) {
@@ -367,6 +357,9 @@ function reset() {
     $("#results, .bm_1, .bm_2, .bm_3").hide();
 
    
+    $("#errors").fadeOut();
+
+   
     markerChildren.not(':first').each(function () {
         $(this).empty();
         $(this).remove();
@@ -375,7 +368,6 @@ function reset() {
     controls_visibility(currentMarkers);
 }
 function create_popover() {
-    bind_accordion_action(currentMarkers);
     var term_element = $('.termToDefine');
     term_element.attr('data-toggle', 'popover');
     term_element.attr('role', 'button');
@@ -634,4 +626,78 @@ function test() {
             $(markerElement).find('input[name="param_3"]').val(dataItem.prob_m);
         }
     });
+}
+function validate(values) {
+    var valid = true;
+    var messages = [];
+
+    $("#errors").empty();
+
+    var $this = document.getElementsByTagName('form').markers;
+    var invalidElements = $($this).find(':invalid');
+
+    for (var item in values) {
+        var marker_value_keys = Object.keys(values[item]);
+       
+        if (marker_value_keys.length < 2) {
+            valid = false;
+            messages.push('You must enter values for either option 1 or 2 in each biomarker.');
+        }
+    }
+
+    for (var i = 0; i != invalidElements.length; i++) {
+        var text;
+        valid = invalidElements[i].valid;
+        var validityObj = invalidElements[i].validity;
+        if (validityObj.badInput) {
+            text = "The value you entered contains an invalid character. "
+                + invalidElements[i].validationMessage;
+        }
+        if (validityObj.patternMismatch) {
+            text = "The value you entered '" + invalidElements[i].value + "' contains an invalid character. "
+                + invalidElements[i].validationMessage;
+        }
+        if (validityObj.rangeOverflow || validityObj.rangeUnderflow) {
+            if (invalidElements[i].min && invalidElements[i].max) {
+                text = "The value you entered '" + invalidElements[i].value + "' must be decimal value between " +
+                    invalidElements[i].min + " and " + invalidElements[i].max;
+            }
+            else if (invalidElements[i].min && !invalidElements[i].max) {
+                text = "The value you entered '" + invalidElements[i].value + "' must be decimal value greater than " +
+                    invalidElements[i].min;
+            }
+            else {
+                text = "The value you entered '" + invalidElements[i].value + "' must be decimal value less than " +
+                    invalidElements[i].max;
+            }
+        }
+       
+        if ($.inArray(text, messages) == -1) messages.push(text);
+    }
+
+    if (messages.length > 0) {
+        valid = false;
+        display_errors(messages);
+    }
+    else $("#errors").fadeOut();
+
+    return valid;
+}
+
+function display_errors(message) {
+    var text = "";
+
+    if ($.isArray(message) && message.length > 0) {
+        $(message).each(function (i, v) {
+            text += "<li>" + v + "</li>";
+        });
+    }
+    if (typeof message == "string") {
+        text = message;
+    }
+
+    $(".title.text-center").after("<div id='errors' class='alert alert-danger fade in'><a href='#' data-dismiss='alert' class='close'>&times;</a>" +
+        "<ul class='list-unstyled'>" + text + "</ul></div>");
+    $('#errors').fadeIn();
+    scrollTop();
 }
