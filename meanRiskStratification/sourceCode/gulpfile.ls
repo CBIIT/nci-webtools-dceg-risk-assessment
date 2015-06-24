@@ -121,8 +121,6 @@ gulp.task 'js:app' ->
       for key of json when process.env[key]?
         json[key] = that
       json
-#    .pipe gulp-insert.prepend 'module.exports = '
-#    .pipe gulp-commonjs!
 
   app = gulp.src 'app/**/*.ls'
     .pipe gulp-if dev, plumber!
