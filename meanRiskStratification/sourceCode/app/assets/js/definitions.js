@@ -1,3 +1,50 @@
+function create_popover() {
+    bind_accordion_action(currentMarkers);
+    var term_element = $('.termToDefine');
+    term_element.attr('data-toggle', 'popover');
+    term_element.attr('role', 'button');
+    term_element.attr('tabindex', '');
+}
+
+function display_definition() {
+    // used to identify a specific element, since there will be
+    // multiple popover elements on the page
+    var $self = $(this);
+    var id;
+    // treat drop down elements different than link/text elements
+    if (!$self.hasClass('dd')) {
+        if (!$self.hasClass('header') && $self.prop('tagName') != 'TD')
+            id = ($self.attr('class')).replace('termToDefine', '').trim();
+        if ($self.prop('tagName') == 'TD')
+            id = ($self.attr('class')).replace('termToDefine', '').trim();
+        else
+            id = $self.attr('id');
+    }
+    else {
+        // value selected in the drop down
+        id = $self.prev().val();
+    }
+
+    var definition = definitionObj[id].definition;
+    var term = definitionObj[id].term;
+
+    if (definition || term) {
+        $self.popover(
+            {container: 'body',
+                trigger: 'manual',
+                placement: 'top',
+                title: term,
+                content: definition}
+        ).on('mouseout', function () {
+                $self.popover('hide');
+                $self.popover('destroy');
+            });
+
+        $self.popover();
+        $self.popover('show');
+    }
+}
+
 // definitions used for display
 var definitionObj = {
     prob_m: {
@@ -17,25 +64,25 @@ var definitionObj = {
         definition: "Does not have disease"
     },
     concern: {
-        term: "Danger",
-        definition: "Increase in disease risk from testing positive. Formula: Danger d=PPV-q"
+        term: "Concern",
+        definition: "Increase in disease risk from testing positive. Formula: Concern = PPV-P(D+)"
     },
     reassurance: {
         term: "Reassurance",
-        definition: "Reduction in disease risk from testing negative. Formula: Reassurance r=q-cNPV"
+        definition: "Reduction in disease risk from testing negative. Formula: Reassurance = P(D+)-cNPV"
     },
     pbs: {
-        term: "Population Burden Stratification",
+        term: "Population Burden Stratification (PBS)",
         definition: "Extra disease detection in positive group than negative group. " +
-        "Formula: Population Burden Stratification =P(D,M+)-P(D,M-)"
+        "Formula: PBS = a-b"
     },
     nns: {
         term: "Number Needed to Screen",
-        definition: "Definition for number needed to screen. Formula: Usual NNS = 1/t"
+        definition: "Definition for number needed to screen. Formula: Usual NNS = 1/RD"
     },
     nnr: {
         term: "Number Needed to Recruit",
-        definition: "To detect 1 more disease case in positive group than negative group. Formula: NNR=1/T+"
+        definition: "To detect 1 more disease case in positive group than negative group. Formula: NNR = 1/PBS"
     },
     max_mrs: {
         term: "Maximum possible MRS for a disease with this prevalence",

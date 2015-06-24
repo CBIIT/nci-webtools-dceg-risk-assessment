@@ -1,5 +1,6 @@
-// keep track of the number of marker elements, to use the number as the id
-var currentMarkers = $('#markers').children().length + 1;
+// keep track of the number of marker elements, to use the number as the id,
+// track by value not by page element, tracking by element can be unreliable
+var currentMarkers = 1;
 
 $(document).ready(function () {
     $("#results, .bm_1, .bm_2, .bm_3").hide();
@@ -12,47 +13,32 @@ $(document).ready(function () {
 
 function bind_control_events() {
     // testing
-    $('a#test').on('click', test);
+    $('a#test1,a#test2').on('click', test);
+
     $('#reset').on('click', reset);
     $('#add-marker').on('click', new_marker);
     $('#delete-marker').on('click', delete_marker);
     $('#calculate').on('click', calculate);
-}
 
-function create_popover() {
-    //panel_actions();
-    var term_element = $('.termToDefine');
-    term_element.attr('data-toggle', 'popover');
-    term_element.attr('role', 'button');
-    term_element.attr('tabindex', '');
-}
-
-function panel_actions() {
-    // make sure only one panel can open at a time in a group
-    var i = 1;
-    do {
-        $('.marker-' + i + ' .panel-heading a').on('click', function (e) {
-            var dt = $(this).data('target');
-            var panels = $(this).parents('.panel').children('.panel-collapse.in').not(dt);
-            panels.collapse('hide');
-            $(dt).collapse('show');
-            //if($(this).parents('.panel').children('.panel-collapse')){
-            //    if($(this).parents('.panel').children('.panel-collapse').hasClass('in'))
-            //        $(this).parents('.panel').children('.panel-collapse').removeClass('in');
-            //    else
-            //        $(this).parents('.panel').children('.panel-collapse').addClass('in')
-            //    //e.stopPropagation();
-            //}
-        });
-        i++;
-    } while (i <= currentMarkers);
+    //bind_accordion_action(currentMarkers);
 }
 
 function bind_accordion_action(ind) {
-    $('.marker.marker-' + ind + ' .panel-collapse').not($('.marker.marker-' + ind + ' [id$=panel-' + ind + ']')[0])
-        .removeClass('in').addClass('collapse');
+    $('.marker-' + ind + ' .panel-collapse')
+        .on('show.bs.collapse', function () {
+            var $this = $(this);
+            var id = $this.attr('id');
+            if ((id).indexOf('panel-1') >= 0)
+                $('#marker-' + ind + '-option-2').collapse('hide');
+            else
+                $('#marker-' + ind + '-option-1').collapse('hide');
+        });
 
+    //$('.marker.marker-' + ind + ' .panel-collapse')
+    //    .not($('.marker.marker-' + ind + ' [id$=panel-' + ind + ']')[0])
+    //    .removeClass('in').addClass('collapse');
 }
+
 function controls_visibility(numElements) {
     // controls the visibility of the add/remove marker buttons
     if (numElements == 2) {
@@ -71,7 +57,7 @@ function controls_visibility(numElements) {
 
 function new_marker() {
     var counter = currentMarkers + 1;
-    if (currentMarkers < 3) {
+    if (currentMarkers <= 3) {
         var markerTemplate = $('#markers').find('.marker').first();
 
         // clone controls
@@ -86,84 +72,49 @@ function new_marker() {
                 $(this).val("");
             }
             if ($(this).is("select")) {
+                // set to first selection in dropdown
                 $(this)[0].selectedIndex = 0;
             }
         });
 
         // dynamically generate the id for the new panel elements
-        newElement.find(".panel-title a").each(function (index) {
-            var panel_id = '#marker-' + counter + '-panel-' + (index + 1);
-            $(this).attr('data-parent', panel_id);
+        newElement.find(".panel-heading").each(function (index) {
+            var panel_id = '#marker-' + counter + '-option-' + (index + 1);
             $(this).attr('data-target', panel_id);
-
+            $(this).attr('data-parent', panel_id);
         });
 
         // generate new Ids for each on of the sub panels within the new generated marker
         newElement.find(".panel-collapse").each(function (index) {
-            var newPanelContentId = 'marker-' + counter + '-panel-' + (index + 1);
-            $(this).attr("id", newPanelContentId).addClass("collapse");
+            var newPanelContentId = 'marker-' + counter + '-option-' + (index + 1);
+            $(this).attr("id", newPanelContentId);
         });
 
+        // change title for new marker
         newElement.find('.marker-title').text("Biomarker #" + counter);
-        newElement.find(".panel-toggle").each(function (index) {
-            var panel_id = '#marker-' + counter + '-panel-' + (index + 1);
-            $(this).attr("data-parent", panel_id);
-        });
 
         newElement.find('.termToDefine, .dd.termToDefine').on('click', display_definition);
 
-        // add new marker to #markers element
-        $('#markers').append(newElement.fadeIn());
-
         currentMarkers++;
-
-        // after currentMarkers has been updated make sure panel events gets to the newly created marker
-        //panel_actions();
+        // after currentMarkers has been updated make sure panel events
+        // gets to the newly created marker
+        //bind_accordion_action(currentMarkers);
         controls_visibility(currentMarkers);
+
+        // add new marker to #markers element
+        $('#markers').append(newElement);
     }
 }
 
 function delete_marker() {
     if (currentMarkers > 1) {
         // remove last child
+        $('#markers').children().last().empty();
         $('#markers').children().last().remove();
+        currentMarkers--;
     }
-    if (currentMarkers != 1) currentMarkers--;
     controls_visibility(currentMarkers);
-}
-
-function display_definition() {
-    // used to identify a specific element, since there will be multiple popover elements on the page
-    var $self = $(this);
-    var id;
-    // treat drop down elements different than link/text elements
-    if (!$self.hasClass('dd')) {
-        if (!$self.hasClass('header') && $self.prop('tagName') != 'TD')
-            id = ($self.attr('class')).replace('termToDefine', '').trim();
-        if ($self.prop('tagName') == 'TD')
-            id = ($self.attr('class')).replace('termToDefine', '').trim();
-        else
-            id = $self.attr('id');
-    }
-    else {
-        // value selected in the drop down
-        id = $self.prev().val();
-    }
-
-    var definition = definitionObj[id].definition;
-    var term = definitionObj[id].term;
-
-    if (definition || term) {
-        $self.popover(
-            {container: 'body', trigger: 'manual', placement: 'top', title: term, content: definition}
-        ).on('mouseout', function () {
-                $self.popover('hide');
-                $self.popover('destroy');
-            });
-
-        $self.popover();
-        $self.popover('show');
-    }
+    scrollTop();
 }
 
 function calculate() {
@@ -200,7 +151,6 @@ function calculate() {
     }
     else {
         display_errors("Must enter values for either option 1 or 2 for the biomarkers");
-
     }
 }
 function display_errors(message) {
@@ -254,7 +204,7 @@ function return_data(data) {
             var data_item = params[name];
             var formattedText = data_item.Value;
             if (lookup_id != 'rr' && lookup_id != 'nnr' && lookup_id != 'nns') {
-
+                formattedText += "%  ";
                 if (data_item["Confidence Interval (lower bound)"] !== null &&
                     data_item["Confidence Interval (upper bound)"] !== null) {
                     ci_lb = data_item["Confidence Interval (lower bound)"];
@@ -335,8 +285,8 @@ function extract_values(invalid) {
         var thisMarker = $('.marker-' + i);
 
         // inside this marker find inputs by group
-        var option_1_controls = thisMarker.find('#marker-' + i + '-panel-1 .input').serializeArray(); // option 1
-        var option_2_controls = thisMarker.find('#marker-' + i + '-panel-2 .input').serializeArray(); // option 2
+        var option_1_controls = thisMarker.find('#marker-' + i + '-option-1 .input').serializeArray(); // option 1
+        var option_2_controls = thisMarker.find('#marker-' + i + '-option-2 .input').serializeArray(); // option 2
 
         option_1_controls.forEach(function (element) {
             if (element.value.length > 0) {
@@ -405,18 +355,22 @@ function joinObjects(parentObj, obj1, obj2) {
 }
 
 function reset() {
-    var markerChildren = $('#markers').children();
     // resets form to initial state
-    var currentMarkers = markerChildren.length;
-    // remove generated markers
-    markerChildren.not(':first').remove();
+    var markerChildren = $('#markers').children();
 
     // reset drop downs then, text boxes, hide results, then clear the cells
     $('select').find('option:first').attr('selected', 'selected');
     $('input').val('');
+
+    // clear all output cells
     $('.output').text('');
     $("#results, .bm_1, .bm_2, .bm_3").hide();
 
-
+    // remove generated markers first, .remove() doesn't remove element from DOM
+    markerChildren.not(':first').each(function () {
+        $(this).empty();
+        $(this).remove();
+    });
+    currentMarkers = 1;
     controls_visibility(currentMarkers);
 }
