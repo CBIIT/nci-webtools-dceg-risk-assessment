@@ -31,17 +31,17 @@
         <div id="content">
           <div class="col-md-5">
             <div class="col-md-12 well">
-              <div id="markers" class="panel-group">
+              <form id="markers" class="panel-group">
                 <div class="marker panel panel-default marker-1">
                   <div class="bg-primary">
                     <div class="text-center marker-title">Biomarker #1</div>
                   </div>
                   <div class="extra-vertical-margin">
-                    <label for="name-input">Biomarker Name</label>
-                    <input name="name-input" type="text" class="name-input">
+                    <label for="name-input" class="sr-only">Biomarker Name</label>
+                    <input type="text" name="name-input" placeholder="Biomarker Name" maxlength="30" pattern="^[a-zA-Z0-9]*$" class="name-input input form-control input-sm">
                   </div>
-                  <div data-toggle="collapse" data-parent="#marker-1-option-1" data-target="#marker-1-option-1" class="panel-heading">
-                    <h4 class="panel-title"><a title="Input: 2x2 Table" class="accordion-toggle"> Input: 2x2 Table<span class="glyphicon glyphicon-chevron-down"></span></a></h4>
+                  <div data-toggle="collapse" data-parent=".marker-1" data-target="#marker-1-option-1" class="panel-heading">
+                    <h6 class="panel-title"><a title="Input: 2x2 Table" class="accordion-toggle"> Input: 2x2 Table<span class="glyphicon glyphicon-chevron-down"></span></a></h6>
                   </div>
                   <div id="marker-1-option-1" class="panel-collapse collapse in">
                     <div class="option-1 panel-body">
@@ -57,36 +57,34 @@
                           <th id="prob_d" class="termToDefine header active">Disease Positive (D+)</th>
                           <td>
                             <label for="a" class="sr-only">A</label>
-                            <input id="a" name="a" type="text" class="input">
+                            <input id="a" name="a" type="number" maxlength="30" class="form-control input input-sm">
                           </td>
                           <td>
                             <label for="b" class="sr-only">B</label>
-                            <input id="b" name="b" type="text" class="input">
+                            <input id="b" name="b" type="number" maxlength="30" class="form-control input input-sm">
                           </td>
                         </tr>
                         <tr>
                           <th id="d_neg" class="termToDefine header active">Disease Negative (D-)</th>
                           <td>
                             <label for="c" class="sr-only">C</label>
-                            <input id="c" name="c" type="text" class="input">
+                            <input id="c" name="c" type="number" maxlength="30" class="form-control input input-sm">
                           </td>
                           <td>
                             <label for="d" class="sr-only">D</label>
-                            <input id="d" name="d" type="text" class="input">
+                            <input id="d" name="d" type="number" maxlength="30" class="form-control input input-sm">
                           </td>
                         </tr>
                       </table>
                     </div>
                   </div>
-                  <div data-toggle="collapse" data-parent="#marker-1-option-2" data-target="#marker-1-option-2" class="panel-heading">
-                    <h4 class="panel-title"><a title="Input: PPV, NPV, Sensitivity,Specificity, etc." class="accordion-toggle">Input: PPV, NPV, Sensitivity,Specificity, etc.<span class="glyphicon glyphicon-chevron-down"></span></a></h4>
+                  <div data-toggle="collapse" data-parent=".marker-1" data-target="#marker-1-option-2" class="panel-heading">
+                    <h6 class="panel-title"><a title="Input: PPV, NPV, Sensitivity,Specificity, etc." class="accordion-toggle">Input: PPV, NPV, Sensitivity,Specificity, etc.<span class="glyphicon glyphicon-chevron-down"></span></a></h6>
                   </div>
                   <div id="marker-1-option-2" class="panel-collapse collapse">
                     <div class="option-2 panel-body">
-                      <div class="row">
-                        <label>Sample Size</label>
-                        <input name="sampsize" type="text" class="input">
-                      </div>
+                      <label class="sr-only">Sample Size</label>
+                      <input placeholder="Sample Size" name="sampsize" type="number" maxlength="30" min="1" class="input form-control input-sm">
                       <table class="option-2 table table-condensed table-striped table-responsive">
                         <thead>
                           <tr class="active">
@@ -97,35 +95,35 @@
                         <tbody>
                           <tr row="0">
                             <td>
-                              <select name="param_1" class="input">
+                              <select name="param_1" class="input input-sm">
                                 <option value="ppv">PPV</option>
                                 <option value="sens">Sensitivity</option>
                               </select><span class="dd termToDefine glyphicon glyphicon-info-sign"></span>
                             </td>
                             <td>
-                              <input type="text" name="param_1" class="input">
+                              <input type="number" name="param_1" min="0" max="1" maxlength="30" step="0.0001" class="form-control input">
                             </td>
                           </tr>
                           <tr row="1">
                             <td>
-                              <select name="param_2" class="input">
+                              <select name="param_2" class="input input-sm">
                                 <option value="npv">NPV</option>
                                 <option value="spec">Specificity</option>
                               </select><span class="dd termToDefine glyphicon glyphicon-info-sign"></span>
                             </td>
                             <td>
-                              <input type="text" name="param_2" class="input">
+                              <input type="number" name="param_2" min="0" max="1" maxlength="30" step="0.0001" class="form-control input">
                             </td>
                           </tr>
                           <tr row="2">
                             <td>
-                              <select name="param_3" class="input">
+                              <select name="param_3" class="form-control input input-sm">
                                 <option value="prob_m">Marker Positivity (P(M+))</option>
                                 <option value="prob_d">Disease Prevalence (P(D+))</option>
                               </select><span class="dd termToDefine glyphicon glyphicon-info-sign"></span>
                             </td>
                             <td>
-                              <input type="text" name="param_3" class="input">
+                              <input type="number" name="param_3" min="0" max="1" maxlength="30" step="0.0001" class="form-control input">
                             </td>
                           </tr>
                         </tbody>
@@ -133,12 +131,12 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </form>
               <div id="control-group" class="col-md-12">
                 <div class="row">
                   <div class="pull-left">
-                    <button id="add-marker"><span alt="Add(+)" title="Add biomarker" class="glyphicon glyphicon-plus-sign"></span><span class="sr-only">Add Biomarker</span></button>
-                    <button id="delete-marker" title="Delete biomarker"><span alt="Delete(-)" class="glyphicon glyphicon-minus-sign"></span><span class="sr-only">Delete Biomarker</span></button>
+                    <button id="add-marker"><span alt="Add(+)" title="Add biomarker" class="glyphicon glyphicon-plus-sign">&nbsp;</span><span>Add</span></button>
+                    <button id="delete-marker" title="Delete biomarker"><span alt="Delete(-)" class="glyphicon glyphicon-minus-sign">&nbsp;</span><span>Delete</span></button>
                     <button id="reset" type="reset" title="Reset">Reset</button>
                     <button id="calculate" type="button" title="Calculate">Calculate</button>
                   </div>
@@ -151,6 +149,7 @@
             </div>
           </div>
           <div class="col-md-7">
+            <div id="loader" class="loader"></div>
             <div id="results">
               <table class="table table-bordered table-condensed">
                 <thead>
