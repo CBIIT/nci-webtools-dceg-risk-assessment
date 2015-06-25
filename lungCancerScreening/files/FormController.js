@@ -23,6 +23,7 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.units = 'us';
     $scope.myForm.numericValidationMessage = 'Please ensure the age entered above does not have any non-numeric characters.';
     $scope.myForm.isInvalid = false;
+    $scope.myForm.summary = '';
   }
   init();
 
@@ -178,9 +179,27 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.bmi = 0;
     $scope.myForm.pkyr_cat = 0;
     $scope.myForm.isInvalid = true;
+    $scope.myForm.summary = '';
   };
 
-  $scope.myForm.submit = function(isValid) {
+  $scope.myForm.createSummary = function(bmi) {
+    var keyMap = {
+      gender: {
+        '0': 'male',
+        '1': 'female'
+      },
+      race: {
+        '0': 'White',
+        '1': 'Black',
+        '2': 'Hispanic',
+        '3': 'Other'
+      }
+    };
+
+    return keyMap.race[$scope.myForm.group] + ' ' + keyMap.gender[$scope.myForm.gender] + ' of ' + $scope.myForm.age + ' years of age with BMI = ' + bmi;
+  };
+
+  $scope.myForm.submit = function() {
     var bmi = 0,
         h,
         w,
@@ -221,6 +240,8 @@ app.controller("MyController", function($scope, $http) {
 
     console.log('params are: ', params);
 
+    $scope.myForm.summary = $scope.myForm.createSummary(params.bmi);
+
     data = JSON.stringify(params);
 
     // Ajax call to process results
@@ -233,7 +254,7 @@ app.controller("MyController", function($scope, $http) {
          });
   };
 
-  // Validation functions
+  // Utility functions
   function validateAges() {
     var age,
         start,
