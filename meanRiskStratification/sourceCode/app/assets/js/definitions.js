@@ -1,5 +1,4 @@
 function create_popover() {
-    bind_accordion_action(currentMarkers);
     var term_element = $('.termToDefine');
     term_element.attr('data-toggle', 'popover');
     term_element.attr('role', 'button');

@@ -4,6 +4,11 @@
 #main {
   width: 1100px;
   margin: 0 auto;
+  font-size: small;
+}
+.panel-title,
+.panel-title a {
+  font-size: small;
 }
 .title {
   background: #d3d3d3;
@@ -26,12 +31,11 @@ table input[type="text"] {
   text-align: center;
   color: #fff;
 }
+.extra-padding {
+  padding: 25px;
+}
 .extra-vertical-margin {
   margin: 10px 0;
-}
-.header {
-  background-color: #aaa;
-  color: #444;
 }
 .panel-toggle a,
 .panel-title a {
@@ -45,16 +49,19 @@ label {
 #results {
   min-height: 645px;
 }
-#markers th.header {
-  font-size: small;
-}
-#markers .panel-body {
-  background: linear-gradient(to bottom, #feffff 0%, #feffff 50%, #e7f3fa 100%) repeat scroll 0 0 rgba(0,0,0,0);
-}
 .termToDefine,
 th {
   font-weight: bold;
 }
 .termToDefine.glyphicon {
   text-decoration: none;
+}
+.loader {
+  background-image: url("/common/images/loading.gif") no-repeat;
+  margin: 0 auto;
+  height: 300px;
+  width: 100%;
+}
+.input:invalid {
+  background-color: #ff0;
 }
