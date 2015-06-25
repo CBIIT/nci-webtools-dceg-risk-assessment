@@ -97,7 +97,7 @@ function new_marker() {
 
        
        
-        $(newElement).insertAfter($('#markers').children().last());
+        $(newElement[0]).insertAfter($('#markers').children().last());
     }
 }
 
