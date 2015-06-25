@@ -3,8 +3,8 @@ form#markers.panel-group
         .bg-primary
             .text-center.marker-title Biomarker #1
         .extra-vertical-margin
-            label.input-group-addon(for='name-input') Biomarker Name
-            input.name-input.input.form-control.input-sm(type='text', name='name-input', maxlength="30", pattern="^[a-zA-Z0-9]*$")
+            label(for='name-input') Biomarker Name
+            input.name-input.input.input-sm(type='text', name='name-input', maxlength="30", pattern="^[a-zA-Z0-9]*$")
         .panel-heading(data-toggle='collapse', data-parent='.marker-1', data-target='#marker-1-option-1')
             h6.panel-title
                 a.accordion-toggle(title="Input: 2x2 Table")  Input: 2x2 Table
@@ -40,8 +40,8 @@ form#markers.panel-group
                     span.glyphicon.glyphicon-chevron-down
         #marker-1-option-2.panel-collapse.collapse
             .option-2.panel-body.extra-padding
-                label.input-group-addon(for="sampsize") Sample Size
-                input.input.form-control.input-sm(placeholder="Sample Size",name="sampsize",type="number", maxlength="30", min="1")
+                label(for="sampsize") Sample Size
+                input.input.input-sm(name="sampsize",type="number", maxlength="30", min="1")
                 table.option-2.table.table-condensed.table-responsive
                     thead
                         tr.active
