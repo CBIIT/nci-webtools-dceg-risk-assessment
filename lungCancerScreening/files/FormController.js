@@ -177,7 +177,7 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.smokeShow = false;
     $scope.myForm.bmi = 0;
     $scope.myForm.pkyr_cat = 0;
-    $scope.myForm.isInvalid = false;
+    $scope.myForm.isInvalid = true;
   };
 
   $scope.myForm.submit = function(isValid) {
