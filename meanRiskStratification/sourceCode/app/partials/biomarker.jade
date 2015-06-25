@@ -2,7 +2,7 @@ form#markers.panel-group
     .marker.panel.panel-default.marker-1
         .bg-primary
             .text-center.marker-title Biomarker #1
-        .extra-vertical-margin
+        .extra-padding
             label(for='name-input') Biomarker Name
             input.name-input.input.input-sm(type='text', name='name-input', maxlength="30", pattern="^[a-zA-Z0-9]*$")
         .panel-heading(data-toggle='collapse', data-parent='.marker-1', data-target='#marker-1-option-1')
@@ -10,38 +10,41 @@ form#markers.panel-group
                 a.accordion-toggle(title="Input: 2x2 Table")  Input: 2x2 Table
                     span.glyphicon.glyphicon-chevron-down
         #marker-1-option-1.panel-collapse.collapse.in
-            .option-1.panel-body.extra-padding
-                table.table.table-condensed.table-responsive
-                    tr.active
-                        th.col-md-2.header
-                            .sr-only Empty cell
-                                a(href="#prob_m") Skip to Content
-                        th#prob_m.termToDefine.header Marker Positive (M+)
-                        th#m_neg.termToDefine.header Marker Negative (M-)
-                    tr
-                        th#prob_d.termToDefine.header.active Disease Positive (D+)
-                        td
-                            label.sr-only(for='a') A
-                            input#a.form-control.input.input-sm(name='a', type='number', maxlength="30")
-                        td
-                            label.sr-only(for='b') B
-                            input#b.form-control.input.input-sm(name='b', type='number', maxlength="30")
-                    tr
-                        th#d_neg.termToDefine.header.active Disease Negative (D-)
-                        td
-                            label.sr-only(for='c') C
-                            input#c.form-control.input.input-sm(name='c', type='number', maxlength="30")
-                        td
-                            label.sr-only(for='d') D
-                            input#d.form-control.input.input-sm(name='d', type='number', maxlength="30")
+            .option-1.panel-body
+                table.table.table-condensed
+                    thead
+                        tr.active
+                            th.col-md-2.header
+                                .sr-only Empty cell
+                                    a(href="#prob_m") Skip to Content
+                            th#prob_m.termToDefine.header Marker Positive (M+)
+                            th#m_neg.termToDefine.header Marker Negative (M-)
+                    tbody
+                        tr
+                            th#prob_d.termToDefine.header.active Disease Positive (D+)
+                            td
+                                label.sr-only(for='a') A
+                                input#a.input.input-sm(name='a', type='number', maxlength="30")
+                            td
+                                label.sr-only(for='b') B
+                                input#b.input.input-sm(name='b', type='number', maxlength="30")
+                        tr
+                            th#d_neg.termToDefine.header.active Disease Negative (D-)
+                            td
+                                label.sr-only(for='c') C
+                                input#c.input.input-sm(name='c', type='number', maxlength="30")
+                            td
+                                label.sr-only(for='d') D
+                                input#d.input.input-sm(name='d', type='number', maxlength="30")
         .panel-heading(data-toggle='collapse', data-parent='.marker-1', data-target='#marker-1-option-2')
             h6.panel-title
                 a.accordion-toggle(title="Input: PPV, NPV, Sensitivity,Specificity, etc.") Input: PPV, NPV, Sensitivity,Specificity, etc.
                     span.glyphicon.glyphicon-chevron-down
         #marker-1-option-2.panel-collapse.collapse
-            .option-2.panel-body.extra-padding
-                label(for="sampsize") Sample Size
-                input.input.input-sm(name="sampsize",type="number", maxlength="30", min="1")
+            .option-2.panel-body.extra-padding.table-responsive
+                .extra-padding
+                    label(for="sampsize") Sample Size
+                    input.input.input-sm(name="sampsize",type="number", maxlength="30", min="1")
                 table.option-2.table.table-condensed.table-responsive
                     thead
                         tr.active
@@ -55,7 +58,7 @@ form#markers.panel-group
                                     option(value='sens') Sensitivity
                                 span.dd.termToDefine.glyphicon.glyphicon-info-sign
                             td
-                                input.form-control.input(type='number',name="param_1",min="0",max="1", maxlength="30", step="0.0001")
+                                input.input.input-sm(type='number',name="param_1",min="0",max="1", maxlength="30", step="0.0001")
                         tr(row='1')
                             td
                                 select.input.input-sm(name="param_2")
@@ -63,15 +66,15 @@ form#markers.panel-group
                                     option(value='spec') Specificity
                                 span.dd.termToDefine.glyphicon.glyphicon-info-sign
                             td
-                                input.form-control.input(type='number',name="param_2", min="0",max="1", maxlength="30", step="0.0001")
+                                input.input.input-sm(type='number',name="param_2", min="0",max="1", maxlength="30", step="0.0001")
                         tr(row='2')
                             td
-                                select.form-control.input.input-sm(name="param_3")
+                                select.input.input-sm(name="param_3")
                                     option(value='prob_m') Marker Positivity (P(M+))
                                     option(value='prob_d') Disease Prevalence (P(D+))
                                 span.dd.termToDefine.glyphicon.glyphicon-info-sign
                             td
-                                input.form-control.input(type='number', name="param_3", min="0",max="1", maxlength="30", step="0.0001")
+                                input.input.input-sm(type='number', name="param_3", min="0",max="1", maxlength="30", step="0.0001")
 #control-group.col-md-12
     .row
         .pull-left
