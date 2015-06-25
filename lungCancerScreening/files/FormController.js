@@ -24,6 +24,11 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.numericValidationMessage = 'Please ensure the age entered above does not have any non-numeric characters.';
     $scope.myForm.isInvalid = false;
     $scope.myForm.summary = '';
+    $scope.myForm.result0 = 0;
+    $scope.myForm.result1 = 0;
+    $scope.myForm.result2 = 0;
+    $scope.myForm.result3 = 0;
+    $scope.myForm.result4 = 0;
   }
   init();
 
@@ -180,6 +185,11 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.pkyr_cat = 0;
     $scope.myForm.isInvalid = true;
     $scope.myForm.summary = '';
+    $scope.myForm.result0 = 0;
+    $scope.myForm.result1 = 0;
+    $scope.myForm.result2 = 0;
+    $scope.myForm.result3 = 0;
+    $scope.myForm.result4 = 0;
   };
 
   $scope.myForm.createSummary = function(bmi) {
@@ -197,6 +207,12 @@ app.controller("MyController", function($scope, $http) {
     };
 
     return keyMap.race[$scope.myForm.group] + ' ' + keyMap.gender[$scope.myForm.gender] + ' of ' + $scope.myForm.age + ' years of age with BMI = ' + bmi;
+  };
+
+  $scope.myForm.setResultValues = function(data) {
+    for (var i = 0; i < data.length; i++) {
+      $scope.myForm['result' + i] = data[i] * 0.001;
+    }
   };
 
   $scope.myForm.submit = function() {
@@ -240,17 +256,18 @@ app.controller("MyController", function($scope, $http) {
 
     console.log('params are: ', params);
 
-    $scope.myForm.summary = $scope.myForm.createSummary(params.bmi);
-
     data = JSON.stringify(params);
 
     // Ajax call to process results
     $http.post(url, data)
          .success(function(data, status, headers, config) {
-           console.log(data);
+           if (data.length) {
+              $scope.myForm.setResultValues(data);
+              $scope.myForm.summary = $scope.myForm.createSummary(params.bmi);
+           }
          })
          .error(function(data, status, headers, config) {
-
+           console.log('status is: ', status);
          });
   };
 

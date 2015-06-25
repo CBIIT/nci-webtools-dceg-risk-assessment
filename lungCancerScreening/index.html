@@ -334,16 +334,14 @@
                         <div id="mainBoxTitle">Your Results</div>
                         <div id="mainBoxContent">
 
-                            <p ng-show="!myForm.isInvalid">
-                                <span ng-bind="myForm.summary"></span>
-                            </p>
+                            <p ng-bind="myForm.summary"></p>
 
                             <section class="ac-container">
                                 <div>
                                     <input id="ac-1" name="accordion-1" type="checkbox" />
                                     <label for="ac-1">Risk of dying from lung cancer within 5 years in the absence of screening ( % )</label>
                                     <article class="ac-small">
-                                        <p>Risk: x%, top x% of risk group in trial.</p>
+                                        <p>Risk: {{myForm.result0}}%, top {{myForm.result0}}% of risk group in trial.</p>
                                         <p>Explanation: text</p>
                                         <p><a href="#" title="Learn more">Click here</a> to learn more about your results.</p>
                                         <p>test</p>
@@ -353,7 +351,7 @@
                                     <input id="ac-2" name="accordion-2" type="checkbox" />
                                     <label for="ac-2">Risk reduction due to lung cancer screening ( % )</label>
                                     <article class="ac-small">
-                                        <p>Result: x%</p>
+                                        <p>Result: {{myForm.result1}}%</p>
                                         <p>Explanation: text</p>
                                         <p><a href="#" title="Learn more">Click here</a> to learn more about your results.</p>
                                     </article>
@@ -362,7 +360,7 @@
                                     <input id="ac-3" name="accordion-3" type="checkbox" />
                                     <label for="ac-3">The chance of lung cancer diagnosis within 5 years in the absence of screening ( % )</label>
                                     <article class="ac-small">
-                                        <p>Result: x%</p>
+                                        <p>Result: {{myForm.result2}}%</p>
                                         <p>Explanation: text</p>
                                         <p><a href="#" title="Learn more">Click here</a> to learn more about your results.</p>
                                     </article>
@@ -371,7 +369,7 @@
                                     <input id="ac-4" name="accordion-4" type="checkbox" />
                                     <label for="ac-4">The chance of lung cancer diagnosis within 5 years with screening ( % )</label>
                                     <article class="ac-small">
-                                        <p>Result: x%</p>
+                                        <p>Result: {{myForm.result3}}%</p>
                                         <p>Explanation: text</p>
                                         <p><a href="#" title="Learn more">Click here</a> to learn more about your results.</p>
                                     </article>
@@ -380,7 +378,7 @@
                                     <input id="ac-5" name="accordion-5" type="checkbox" />
                                     <label for="ac-5">The chance of having a false positive result after 3 screens ( % )</label>
                                     <article class="ac-small">
-                                        <p>Result: x%</p>
+                                        <p>Result: {{myForm.result4}}%</p>
                                         <p>Explanation: text</p>
                                         <p><a href="#" title="Learn more">Click here</a> to learn more about your results.</p>
                                     </article>
