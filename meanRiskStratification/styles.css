@@ -32,7 +32,7 @@ table input[type="text"] {
   color: #fff;
 }
 .extra-padding {
-  padding: 25px;
+  padding: 1em;
 }
 .extra-vertical-margin {
   margin: 10px 0;
@@ -61,6 +61,9 @@ th {
   margin: 0 auto;
   height: 300px;
   width: 100%;
+}
+input[type="number"] {
+  width: 10rem;
 }
 .input:invalid {
   background-color: #ff0;
