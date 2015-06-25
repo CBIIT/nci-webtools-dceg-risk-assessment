@@ -695,9 +695,14 @@ function display_errors(message) {
     if (typeof message == "string") {
         text = message;
     }
+    if($('#errors').length > 0){
+        $("#errors").empty();
+        $("#errors").remove();
+    }
 
     $(".title.text-center").after("<div id='errors' class='alert alert-danger fade in'><a href='#' data-dismiss='alert' class='close'>&times;</a>" +
         "<ul class='list-unstyled'>" + text + "</ul></div>");
+
     $('#errors').fadeIn();
     scrollTop();
 }
