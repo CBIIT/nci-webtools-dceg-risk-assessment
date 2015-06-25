@@ -10,10 +10,9 @@ html(lang="en")
         script(src='mrs.js')
         link(rel='stylesheet', href='/common/css/font-awesome.css', type='text/css')
         link(rel='stylesheet', href='//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css')
+        link(rel='stylesheet', href='http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css', type='text/css')
         link(rel='stylesheet', href='/common/css/style.css')
         link(rel='stylesheet', href='styles.css')
-        link(rel='stylesheet', href='http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css', type='text/css')
-
     body
         .center-block
             .sr-only
@@ -28,9 +27,9 @@ html(lang="en")
                     br
                 h3.title.text-center(title='Mean Risk Stratification') Mean Risk Stratification (MRS)
                 #content
-                    .col-md-5
+                    .col-md-5.col-sm-5
                         .col-md-12.well
                             include partials/biomarker.jade
-                    .col-md-7
+                    .col-md-7.col-sm-7
                         include partials/results.jade
         include partials/footer.jade
