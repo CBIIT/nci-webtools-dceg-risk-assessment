@@ -66,7 +66,7 @@ app.controller("MyController", function($scope, $http) {
     validateAges();
   });
 
-  $scope.myForm.changeCigs = function() {
+  $scope.$watchCollection('[myForm.age, myForm.cigs, myForm.start, myForm.quit]', function(newValues) {
     $scope.myForm.cigsNumericCriteria = !numRegExp.test($scope.myForm.cigs ? $scope.myForm.cigs : '0');
 
     var age,
@@ -93,12 +93,11 @@ app.controller("MyController", function($scope, $http) {
         $scope.myForm.cigsCriteria = $scope.myForm.packYears < 30;
 
         console.log('pack years = ', $scope.myForm.packYears);
-        console.log('pack years criteria = ', $scope.myForm.packYears);
       }
     } else {
       $scope.myForm.cigsCriteria = false;
     }
-  };
+  });
 
   $scope.$watch('myForm.units', function() {
     if ($scope.myForm.units === 'us') {
