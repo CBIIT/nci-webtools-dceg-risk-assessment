@@ -98,7 +98,7 @@ function new_marker() {
 
         // add new marker to #markers element
         //$('#markers').append(newElement);
-        $(newElement).insertAfter($('#markers').children().last());
+        $(newElement[0]).insertAfter($('#markers').children().last());
     }
 }
 
