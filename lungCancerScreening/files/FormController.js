@@ -29,13 +29,12 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.result2 = 0;
     $scope.myForm.result3 = 0;
     $scope.myForm.result4 = 0;
+    $scope.myForm.cbChecked = false;
   }
   init();
 
   $scope.$watchCollection('[myForm.ageCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function(newValues) {
     var flag = false;
-
-    console.log('values are: ', newValues);
 
     for (var i = 0; i <= newValues.length; i++) {
       if (newValues[i])
@@ -98,7 +97,6 @@ app.controller("MyController", function($scope, $http) {
 
         $scope.myForm.cigsCriteria = $scope.myForm.packYears < 30;
 
-        console.log('pack years = ', $scope.myForm.packYears);
       }
     } else {
       $scope.myForm.cigsCriteria = false;
@@ -190,6 +188,7 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.result2 = 0;
     $scope.myForm.result3 = 0;
     $scope.myForm.result4 = 0;
+    $scope.myForm.cbChecked = false;
   };
 
   $scope.myForm.createSummary = function(bmi) {
@@ -211,7 +210,8 @@ app.controller("MyController", function($scope, $http) {
 
   $scope.myForm.setResultValues = function(data) {
     for (var i = 0; i < data.length; i++) {
-      $scope.myForm['result' + i] = data[i] * 0.001;
+      // Round to 2 decimal places and assign results to UI properties
+      $scope.myForm['result' + i] = Math.round(data[i] * 100) / 100;
     }
   };
 
