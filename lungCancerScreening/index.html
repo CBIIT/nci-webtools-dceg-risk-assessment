@@ -50,7 +50,6 @@
         </ul>
 
         <div id="ContentColumns" ng-controller="MyController">
-
             <p><a href="http://www.cancer.gov/clinicaltrials/noteworthy-trials/nlst" target="_blank" title="NLST (National Lung Screening Trial)">NLST (National Lung Screening Trial)</a> compares the efficacy of low-dose helical CT with that of standard
                 chest X-ray for detecting lung cancer. The initial findings reveal that low-dose CT resulted in 20% reduction in lung cancer mortality among participants satisfying the NLST inclusion criteria (55-74 years of age, minimum 30 pack-years
                 of smoking and no more than 15 years since quitting). But it is yet unknown if the risk of lung cancer death changes the benefits/harms of low-dose CT screening. The NLST Lung Cancer Screening Tool is a statistical analysis tool that predicts
@@ -325,8 +324,8 @@
             </div>
 
             <div id="ContentColumnsRight">
-
                 <div id="RightColumn">
+                    <div class="spinner-loading" ng-show="myForm.loading"></div>
                     <div id="mainBoxContainer">
                         <div id="mainBoxTitle">Your Results</div>
                         <div id="mainBoxContent">

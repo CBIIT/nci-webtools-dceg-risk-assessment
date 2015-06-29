@@ -33,6 +33,7 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.cbResult3 = false;
     $scope.myForm.cbResult4 = false;
     $scope.myForm.cbResult5 = false;
+    $scope.myForm.loading = false;
   }
   init();
 
@@ -216,7 +217,7 @@ app.controller("MyController", function($scope, $http) {
 
   $scope.myForm.setResultValues = function(data) {
     for (var i = 0; i < data.length; i++) {
-      // Round to 2 decimal places and assign results to UI properties
+      /* Round to 2 decimal places and assign results to UI properties */
       $scope.myForm['result' + i] = Math.round(data[i] * 100) / 100;
     }
   };
@@ -264,20 +265,26 @@ app.controller("MyController", function($scope, $http) {
 
     data = JSON.stringify(params);
 
-    // Ajax call to process results
+    $scope.myForm.loading = true;
+
+    /* Ajax call to process results */
     $http.post(url, data)
          .success(function(data, status, headers, config) {
            if (data.length) {
               $scope.myForm.setResultValues(data);
               $scope.myForm.summary = $scope.myForm.createSummary(params.bmi);
            }
+
+           $scope.myForm.loading = false;
          })
          .error(function(data, status, headers, config) {
            console.log('status is: ', status);
+
+          $scope.myForm.loading = false;
          });
   };
 
-  // Utility functions
+  /* Utility functions */
   function validateAges() {
     var age,
         start,
