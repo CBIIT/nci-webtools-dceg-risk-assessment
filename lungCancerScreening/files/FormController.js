@@ -29,7 +29,10 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.result2 = 0;
     $scope.myForm.result3 = 0;
     $scope.myForm.result4 = 0;
-    $scope.myForm.cbChecked = false;
+    $scope.myForm.cbResult2 = false;
+    $scope.myForm.cbResult3 = false;
+    $scope.myForm.cbResult4 = false;
+    $scope.myForm.cbResult5 = false;
   }
   init();
 
@@ -188,7 +191,10 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.result2 = 0;
     $scope.myForm.result3 = 0;
     $scope.myForm.result4 = 0;
-    $scope.myForm.cbChecked = false;
+    $scope.myForm.cbResult2 = false;
+    $scope.myForm.cbResult3 = false;
+    $scope.myForm.cbResult4 = false;
+    $scope.myForm.cbResult5 = false;
   };
 
   $scope.myForm.createSummary = function(bmi) {

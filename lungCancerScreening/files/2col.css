@@ -111,6 +111,11 @@ INPUT {
     PADDING-BOTTOM: 1px;
     PADDING-TOP: 1px
 }
+fieldset {
+	padding: 0;
+	margin: 0;
+	border: none;
+}
 .warning {
     margin: 0 15px;
     padding: 5px;
@@ -350,6 +355,9 @@ a.fill-div {
     top: 7px;
     background: transparent url(arrow_down.png) no-repeat center center;
 }
+.ac-container label.cursor-disabled {
+	cursor: default;
+}
 .ac-container input:checked + label:hover:after {
     background-image: url(arrow_up.png);
 }
@@ -438,6 +446,7 @@ input + span {
 .button-enabled {
     background-color: #d92000;
 }
+
 #mainBoxContainer {
     width: 480px;
     background: #C6E1EC;
