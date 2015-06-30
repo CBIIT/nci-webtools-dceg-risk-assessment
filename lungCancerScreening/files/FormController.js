@@ -261,27 +261,29 @@ app.controller("MyController", function($scope, $http) {
     if ($scope.myForm.type === 'former')
       params.smkyears = parseFloat($scope.myForm.quit) - parseFloat($scope.myForm.start);
 
-    console.log('params are: ', params);
-
     data = JSON.stringify(params);
 
     $scope.myForm.loading = true;
+    $scope.myForm.isInvalid = true;
 
     /* Ajax call to process results */
     $http.post(url, data)
-         .success(function(data, status, headers, config) {
-           if (data.length) {
-              $scope.myForm.setResultValues(data);
-              $scope.myForm.summary = $scope.myForm.createSummary(params.bmi);
-           }
+       .success(function(data, status, headers, config) {
+         if (data.length) {
+            $scope.myForm.setResultValues(data);
+            $scope.myForm.summary = $scope.myForm.createSummary(params.bmi);
+         }
+       })
+       .error(function(data, status, headers, config) {
+         console.log('status is: ', status);
 
-           $scope.myForm.loading = false;
-         })
-         .error(function(data, status, headers, config) {
-           console.log('status is: ', status);
-
-          $scope.myForm.loading = false;
-         });
+         $scope.myForm.loading = false;
+         $scope.myForm.isInvalid = false;
+       })
+       .finally(function(data) {
+         $scope.myForm.isInvalid = false;
+         $scope.myForm.loading = false;
+    	 });
   };
 
   /* Utility functions */
