@@ -34,6 +34,7 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.cbResult4 = false;
     $scope.myForm.cbResult5 = false;
     $scope.myForm.loading = false;
+    $scope.myForm.error = false;
   }
   init();
 
@@ -231,6 +232,9 @@ app.controller("MyController", function($scope, $http) {
         paramsArray = [],
         url = 'http://' + window.location.hostname + '/lungCancerRest/';
 
+    /* Reset error property to remove error message from UI */
+    $scope.myForm.error = false;
+
     if ($scope.myForm.units === 'us') {
       h = (parseFloat($scope.myForm.pHeight) * 12) + parseFloat($scope.myForm.subHeight ? $scope.myForm.subHeight : '0');
       w = parseFloat($scope.myForm.weight);
@@ -276,7 +280,7 @@ app.controller("MyController", function($scope, $http) {
        })
        .error(function(data, status, headers, config) {
          console.log('status is: ', status);
-
+         $scope.myForm.error = true;
          $scope.myForm.loading = false;
          $scope.myForm.isInvalid = false;
        })

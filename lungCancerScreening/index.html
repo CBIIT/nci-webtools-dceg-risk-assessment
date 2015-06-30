@@ -332,6 +332,12 @@
 
                             <p ng-bind="myForm.summary"></p>
                             <fieldset ng-disabled="!myForm.summary" ng-class="{'disabled': !myForm.summary}">
+                                <div class="error" ng-show="myForm.error">
+                                    <div class="error-heading">Error</div>
+                                    <div class="error-body">
+                                        There was a problem returning results due to the service being down. Please try to submit the form again.
+                                    </div>
+                                </div>
                                 <section class="ac-container">
                                     <div>
                                         <input id="ac-1" name="accordion-1" type="checkbox" ng-checked="myForm.summary" />
