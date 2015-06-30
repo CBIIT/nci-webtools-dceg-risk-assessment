@@ -331,7 +331,7 @@
                         <div id="mainBoxContent">
 
                             <p ng-bind="myForm.summary"></p>
-                            <fieldset ng-disabled="!myForm.summary">
+                            <fieldset ng-disabled="!myForm.summary" ng-class="{'disabled': !myForm.summary}">
                                 <section class="ac-container">
                                     <div>
                                         <input id="ac-1" name="accordion-1" type="checkbox" ng-checked="myForm.summary" />
