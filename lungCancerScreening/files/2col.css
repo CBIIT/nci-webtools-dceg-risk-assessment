@@ -197,7 +197,7 @@ a.fill-div {
     line-height: 20px;
 }
 #ContentColumnsLeft {
-    Width: 480px;
+    Width: 460px;
     float: left;
     padding-top: 5px;
     paddig-right: 5px;
@@ -205,6 +205,7 @@ a.fill-div {
     line-height: 20px;
 }
 #ContentColumnsRight {
+    width:520px;
     float: right;
     padding-left: 5px;
     padding-top: 5px;
@@ -314,7 +315,7 @@ a.fill-div {
     border-top: 1px solid #a0a0a0;
 }
 .ac-container {
-    width: 460px;
+    width: 500px;
     margin: 10px auto 15px auto;
     text-align: left;
 }
@@ -454,15 +455,14 @@ input + span {
     background-color: #d92000;
 }
 
-#mainBoxContainer {
-    width: 480px;
+.mainBoxContainer {
     background: #C6E1EC;
     margin-top: 15px;
     -moz-border-radius: 10px;
     border-radius: 10px;
     border: 1px solid #cbced2;
 }
-#mainBoxTitle {
+.mainBoxTitle {
     padding: 5px 0 5px 20px;
     font-size: 15px;
     font-weight: bold;
@@ -470,7 +470,7 @@ input + span {
     font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
     border-bottom: 1px solid #cbced2;
 }
-#mainBoxContent {
+.mainBoxContent {
     padding: 10px;
     background-color: #f4f6f9;
     border: 0px solid #ccc;

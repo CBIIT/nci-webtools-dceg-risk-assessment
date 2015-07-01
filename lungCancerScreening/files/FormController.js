@@ -302,7 +302,7 @@ app.controller("MyController", function($scope, $http) {
 
     if (!$scope.myForm.ageNumericCriteria) {
       age = parseFloat($scope.myForm.age);
-      $scope.myForm.ageCriteria = (age < 55 || age > 79);
+      $scope.myForm.ageCriteria = (age < 55 || age > 80);
     } else {
       $scope.myForm.ageCriteria = false;
     }
