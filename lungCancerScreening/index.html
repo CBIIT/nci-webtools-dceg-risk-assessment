@@ -36,23 +36,20 @@
             <img src="files/bcra-banner-2.jpg" alt="Breast Cancer Risk Assessment Tool" height="118" width="1000">
         </div>
 
-        <nav>
-            <ul>
-                <li class="menu-item"><a href="index.html">Home</a></li>
-                <li class="menu-item"><a href="about.html">About the Tool</a></li>
-                <li class="menu-item"><a href="risk.html">Risk Factor</a></li>
-                <li class="menu-item"><a href="about.html">Quick Links</a>
-                    <ul>
-                        <li><a href="#">Link 1</a></li>
-                        <li><a href="#">Link 2</a></li>
-                        <li><a href="#">Link 3</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
+        <ul id="nav">
+            <li class="menu-item"><a href="index.html">Home</a></li>
+            <li class="menu-item"><a href="about.html">About the Tool</a></li>
+            <li class="menu-item"><a href="risk.html">Risk Factor</a></li>
+            <li class="menu-item"><a href="about.html">Quick Links</a>
+                <ul>
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                </ul>
+            </li>
+        </ul>
 
         <div id="ContentColumns" ng-controller="MyController">
-
             <p><a href="http://www.cancer.gov/clinicaltrials/noteworthy-trials/nlst" target="_blank" title="NLST (National Lung Screening Trial)">NLST (National Lung Screening Trial)</a> compares the efficacy of low-dose helical CT with that of standard
                 chest X-ray for detecting lung cancer. The initial findings reveal that low-dose CT resulted in 20% reduction in lung cancer mortality among participants satisfying the NLST inclusion criteria (55-74 years of age, minimum 30 pack-years
                 of smoking and no more than 15 years since quitting). But it is yet unknown if the risk of lung cancer death changes the benefits/harms of low-dose CT screening. The NLST Lung Cancer Screening Tool is a statistical analysis tool that predicts
@@ -61,12 +58,12 @@
 
             <div id="ContentColumnsLeft">
 
-                <div id="mainBoxContainer">
-                    <div id="mainBoxTitle">Risk Tool</div>
-                    <div id="mainBoxContent">
+                <div class="mainBoxContainer">
+                    <div class="mainBoxTitle">Risk Tool</div>
+                    <div class="mainBoxContent">
                         <p>
                             <strong>
-                                The task force does not recommend that you get screened if you are not between the ages of 55 and 79, or if you are a non smoker, or if you are a current smoker with less than 30 pack-year of smoking or if you are a former smoker who quitted for more
+                                The task force does not recommend that you get screened if you are not between the ages of 55 and 80, or if you are a non smoker, or if you are a current smoker with less than 30 pack-year of smoking or if you are a former smoker who quitted for more
                                 than 15 years.
                             </strong>
                         </p>
@@ -92,7 +89,7 @@
                                             <td ng-show="myForm.ageCriteria" colspan="2">
                                                 <div class="warning">
                                                     The <a href="http://www.uspreventiveservicestaskforce.org/uspstf/uspslung.htm" target="_blank" title="U.S. Preventive Services Task Force">U.S. Preventive Services Task Force</a> does NOT recommend that
-                                                    you get screened unless you are between the age of 55 and 79.
+                                                    you get screened unless you are between the age of 55 and 80.
                                                 </div>
                                             </td>
                                         </tr>
@@ -327,65 +324,63 @@
             </div>
 
             <div id="ContentColumnsRight">
-
                 <div id="RightColumn">
+                    <div class="loading" ng-show="myForm.loading"></div>
+                    <div class="mainBoxContainer">
+                        <div class="mainBoxTitle">Your Results</div>
+                        <div class="mainBoxContent">
 
-                    <div id="mainBoxContainer">
-                        <div id="mainBoxTitle">Your Results</div>
-                        <div id="mainBoxContent">
-
-                            <p ng-show="!myForm.isInvalid">
-                                <span ng-bind="myForm.summary"></span>
-                            </p>
-
-                            <section class="ac-container">
-                                <div>
-                                    <input id="ac-1" name="accordion-1" type="checkbox" />
-                                    <label for="ac-1">Risk of dying from lung cancer within 5 years in the absence of screening ( % )</label>
-                                    <article class="ac-small">
-                                        <p>Risk: x%, top x% of risk group in trial.</p>
-                                        <p>Explanation: text</p>
-                                        <p><a href="#" title="Learn more">Click here</a> to learn more about your results.</p>
-                                        <p>test</p>
-                                    </article>
+                            <p ng-bind="myForm.summary"></p>
+                            <div class="error" ng-show="myForm.error">
+                                <div class="error-heading">Error</div>
+                                <div class="error-body">
+                                    There was a problem returning results due to the service being down. Please try to submit the form again.
                                 </div>
-                                <div>
-                                    <input id="ac-2" name="accordion-2" type="checkbox" />
-                                    <label for="ac-2">Risk reduction due to lung cancer screening ( % )</label>
-                                    <article class="ac-small">
-                                        <p>Result: x%</p>
-                                        <p>Explanation: text</p>
-                                        <p><a href="#" title="Learn more">Click here</a> to learn more about your results.</p>
-                                    </article>
-                                </div>
-                                <div>
-                                    <input id="ac-3" name="accordion-3" type="checkbox" />
-                                    <label for="ac-3">The chance of lung cancer diagnosis within 5 years in the absence of screening ( % )</label>
-                                    <article class="ac-small">
-                                        <p>Result: x%</p>
-                                        <p>Explanation: text</p>
-                                        <p><a href="#" title="Learn more">Click here</a> to learn more about your results.</p>
-                                    </article>
-                                </div>
-                                <div>
-                                    <input id="ac-4" name="accordion-4" type="checkbox" />
-                                    <label for="ac-4">The chance of lung cancer diagnosis within 5 years with screening ( % )</label>
-                                    <article class="ac-small">
-                                        <p>Result: x%</p>
-                                        <p>Explanation: text</p>
-                                        <p><a href="#" title="Learn more">Click here</a> to learn more about your results.</p>
-                                    </article>
-                                </div>
-                                <div>
-                                    <input id="ac-5" name="accordion-5" type="checkbox" />
-                                    <label for="ac-5">The chance of having a false positive result after 3 screens ( % )</label>
-                                    <article class="ac-small">
-                                        <p>Result: x%</p>
-                                        <p>Explanation: text</p>
-                                        <p><a href="#" title="Learn more">Click here</a> to learn more about your results.</p>
-                                    </article>
-                                </div>
-                            </section>
+                            </div>
+                            <fieldset ng-disabled="!myForm.summary" ng-class="{'disabled': !myForm.summary}">
+                                <section class="ac-container">
+                                    <div>
+                                        <input id="ac-1" name="accordion-1" type="checkbox" ng-checked="myForm.summary" />
+                                        <label for="ac-1" ng-class="{'cursor-disabled': !myForm.summary}">Risk of dying from lung cancer within 5 years in the absence of screening ( {{myForm.result0}}% )</label>
+                                        <article class="ac-small">
+                                            <p>Explanation: text</p>
+                                            <p><a href="#" title="Learn more">Click here</a> to learn more about your results.</p>
+                                        </article>
+                                    </div>
+                                    <div>
+                                        <input id="ac-2" name="accordion-2" type="checkbox" ng-model="myForm.cbResult2" />
+                                        <label for="ac-2" ng-class="{'cursor-disabled': !myForm.summary}">Risk reduction due to lung cancer screening ( {{myForm.result1}}% )</label>
+                                        <article class="ac-small">
+                                            <p>Explanation: text</p>
+                                            <p><a href="#" title="Learn more">Click here</a> to learn more about your results.</p>
+                                        </article>
+                                    </div>
+                                    <div>
+                                        <input id="ac-3" name="accordion-3" type="checkbox" ng-model="myForm.cbResult3" />
+                                        <label for="ac-3" ng-class="{'cursor-disabled': !myForm.summary}">The chance of lung cancer diagnosis within 5 years in the absence of screening ( {{myForm.result2}}% )</label>
+                                        <article class="ac-small">
+                                            <p>Explanation: text</p>
+                                            <p><a href="#" title="Learn more">Click here</a> to learn more about your results.</p>
+                                        </article>
+                                    </div>
+                                    <div>
+                                        <input id="ac-4" name="accordion-4" type="checkbox" ng-model="myForm.cbResult4" />
+                                        <label for="ac-4" ng-class="{'cursor-disabled': !myForm.summary}">The chance of lung cancer diagnosis within 5 years with screening ( {{myForm.result3}}% )</label>
+                                        <article class="ac-small">
+                                            <p>Explanation: text</p>
+                                            <p><a href="#" title="Learn more">Click here</a> to learn more about your results.</p>
+                                        </article>
+                                    </div>
+                                    <div>
+                                        <input id="ac-5" name="accordion-5" type="checkbox" ng-model="myForm.cbResult5" />
+                                        <label for="ac-5" ng-class="{'cursor-disabled': !myForm.summary}">The chance of having a false positive result after 3 screens ( {{myForm.result4}}% )</label>
+                                        <article class="ac-small">
+                                            <p>Explanation: text</p>
+                                            <p><a href="#" title="Learn more">Click here</a> to learn more about your results.</p>
+                                        </article>
+                                    </div>
+                                </section>
+                            </fieldset>
 
                             <table border="0" cellpadding="0" cellspacing="0" width="60%">
                                 <tr align="center" valign="middle">
@@ -408,9 +403,9 @@
                     </div>
                 </div>
 
-                <div id="mainBoxContainer">
-                    <div id="mainBoxTitle">Further Information</div>
-                    <div id="mainBoxContent">
+                <div class="mainBoxContainer">
+                    <div class="mainBoxTitle">Further Information</div>
+                    <div class="mainBoxContent">
 
                         <p>Learning about lung cancer and its treatment can help you prepare for your appointments, understand different types of treatment, and prevent and manage any side effects.
                             <br />

@@ -24,13 +24,22 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.numericValidationMessage = 'Please ensure the age entered above does not have any non-numeric characters.';
     $scope.myForm.isInvalid = false;
     $scope.myForm.summary = '';
+    $scope.myForm.result0 = 0;
+    $scope.myForm.result1 = 0;
+    $scope.myForm.result2 = 0;
+    $scope.myForm.result3 = 0;
+    $scope.myForm.result4 = 0;
+    $scope.myForm.cbResult2 = false;
+    $scope.myForm.cbResult3 = false;
+    $scope.myForm.cbResult4 = false;
+    $scope.myForm.cbResult5 = false;
+    $scope.myForm.loading = false;
+    $scope.myForm.error = false;
   }
   init();
 
   $scope.$watchCollection('[myForm.ageCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function(newValues) {
     var flag = false;
-
-    console.log('values are: ', newValues);
 
     for (var i = 0; i <= newValues.length; i++) {
       if (newValues[i])
@@ -93,7 +102,6 @@ app.controller("MyController", function($scope, $http) {
 
         $scope.myForm.cigsCriteria = $scope.myForm.packYears < 30;
 
-        console.log('pack years = ', $scope.myForm.packYears);
       }
     } else {
       $scope.myForm.cigsCriteria = false;
@@ -180,6 +188,15 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.pkyr_cat = 0;
     $scope.myForm.isInvalid = true;
     $scope.myForm.summary = '';
+    $scope.myForm.result0 = 0;
+    $scope.myForm.result1 = 0;
+    $scope.myForm.result2 = 0;
+    $scope.myForm.result3 = 0;
+    $scope.myForm.result4 = 0;
+    $scope.myForm.cbResult2 = false;
+    $scope.myForm.cbResult3 = false;
+    $scope.myForm.cbResult4 = false;
+    $scope.myForm.cbResult5 = false;
   };
 
   $scope.myForm.createSummary = function(bmi) {
@@ -199,6 +216,13 @@ app.controller("MyController", function($scope, $http) {
     return keyMap.race[$scope.myForm.group] + ' ' + keyMap.gender[$scope.myForm.gender] + ' of ' + $scope.myForm.age + ' years of age with BMI = ' + bmi;
   };
 
+  $scope.myForm.setResultValues = function(data) {
+    for (var i = 0; i < data.length; i++) {
+      /* Round to 2 decimal places and assign results to UI properties */
+      $scope.myForm['result' + i] = Math.round(data[i] * 100) / 100;
+    }
+  };
+
   $scope.myForm.submit = function() {
     var bmi = 0,
         h,
@@ -207,6 +231,9 @@ app.controller("MyController", function($scope, $http) {
         params,
         paramsArray = [],
         url = 'http://' + window.location.hostname + '/lungCancerRest/';
+
+    /* Reset error property to remove error message from UI */
+    $scope.myForm.error = false;
 
     if ($scope.myForm.units === 'us') {
       h = (parseFloat($scope.myForm.pHeight) * 12) + parseFloat($scope.myForm.subHeight ? $scope.myForm.subHeight : '0');
@@ -238,23 +265,32 @@ app.controller("MyController", function($scope, $http) {
     if ($scope.myForm.type === 'former')
       params.smkyears = parseFloat($scope.myForm.quit) - parseFloat($scope.myForm.start);
 
-    console.log('params are: ', params);
-
-    $scope.myForm.summary = $scope.myForm.createSummary(params.bmi);
-
     data = JSON.stringify(params);
 
-    // Ajax call to process results
-    $http.post(url, data)
-         .success(function(data, status, headers, config) {
-           console.log(data);
-         })
-         .error(function(data, status, headers, config) {
+    $scope.myForm.loading = true;
+    $scope.myForm.isInvalid = true;
 
-         });
+    /* Ajax call to process results */
+    $http.post(url, data)
+       .success(function(data, status, headers, config) {
+         if (data.length) {
+            $scope.myForm.setResultValues(data);
+            $scope.myForm.summary = $scope.myForm.createSummary(params.bmi);
+         }
+       })
+       .error(function(data, status, headers, config) {
+         console.log('status is: ', status);
+         $scope.myForm.error = true;
+         $scope.myForm.loading = false;
+         $scope.myForm.isInvalid = false;
+       })
+       .finally(function(data) {
+         $scope.myForm.isInvalid = false;
+         $scope.myForm.loading = false;
+    	 });
   };
 
-  // Utility functions
+  /* Utility functions */
   function validateAges() {
     var age,
         start,
@@ -266,7 +302,7 @@ app.controller("MyController", function($scope, $http) {
 
     if (!$scope.myForm.ageNumericCriteria) {
       age = parseFloat($scope.myForm.age);
-      $scope.myForm.ageCriteria = (age < 55 || age > 79);
+      $scope.myForm.ageCriteria = (age < 55 || age > 80);
     } else {
       $scope.myForm.ageCriteria = false;
     }
