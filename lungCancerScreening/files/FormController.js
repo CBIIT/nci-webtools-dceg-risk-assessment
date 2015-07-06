@@ -290,6 +290,10 @@ app.controller("MyController", function($scope, $http) {
     	 });
   };
 
+  $scope.myForm.printPage = function() {
+    window.print();
+  };
+
   /* Utility functions */
   function validateAges() {
     var age,
