@@ -1,6 +1,9 @@
 var app = angular.module("myapp", []);
 
 app.controller("MyController", function($scope, $http) {
+  /* These globals are used in multiple ajax calls in different functions */
+  var GLOBAL_DATA,
+      GLOBAL_RESULTS = {};
 
   var numPattern = '^[0-9]+(\.[0-9]{1,9})?$';
   var numRegExp = new RegExp(numPattern, 'i');
@@ -220,6 +223,8 @@ app.controller("MyController", function($scope, $http) {
     for (var i = 0; i < data.length; i++) {
       /* Round to 2 decimal places and assign results to UI properties */
       $scope.myForm['result' + i] = Math.round(data[i] * 100) / 100;
+
+      GLOBAL_RESULTS['result' + i] = $scope.myForm['result' + i];
     }
   };
 
@@ -265,13 +270,13 @@ app.controller("MyController", function($scope, $http) {
     if ($scope.myForm.type === 'former')
       params.smkyears = parseFloat($scope.myForm.quit) - parseFloat($scope.myForm.start);
 
-    data = JSON.stringify(params);
+    GLOBAL_DATA = JSON.stringify(params);
 
     $scope.myForm.loading = true;
     $scope.myForm.isInvalid = true;
 
     /* Ajax call to process results */
-    $http.post(url, data)
+    $http.post(url, GLOBAL_DATA)
        .success(function(data, status, headers, config) {
          if (data.length) {
             $scope.myForm.setResultValues(data);
@@ -281,8 +286,6 @@ app.controller("MyController", function($scope, $http) {
        .error(function(data, status, headers, config) {
          console.log('status is: ', status);
          $scope.myForm.error = true;
-         $scope.myForm.loading = false;
-         $scope.myForm.isInvalid = false;
        })
        .finally(function(data) {
          $scope.myForm.isInvalid = false;
@@ -292,6 +295,33 @@ app.controller("MyController", function($scope, $http) {
 
   $scope.myForm.printPage = function() {
     window.print();
+  };
+
+  $scope.myForm.downloadResults = function() {
+    var url = 'http://' + window.location.hostname + '/lungCancerRest/download';
+    var jsonModel = {};
+
+    if (!$scope.myForm.summary) return;
+
+    jsonModel.params = GLOBAL_DATA;
+    jsonModel.results = JSON.stringify(GLOBAL_RESULTS);
+
+    console.log(jsonModel);
+    return;
+
+    /* Ajax call to download form parameters and results */
+    $http.get(url, jsonModel)
+       .success(function(data, status, headers, config) {
+         console.log(data);
+       })
+       .error(function(data, status, headers, config) {
+         console.log('status is: ', status);
+         $scope.myForm.error = true;
+       })
+       .finally(function(data) {
+         $scope.myForm.isInvalid = false;
+         $scope.myForm.loading = false;
+    	 });
   };
 
   /* Utility functions */

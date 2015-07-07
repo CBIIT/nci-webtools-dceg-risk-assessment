@@ -116,7 +116,7 @@ fieldset {
 	margin: 0;
 	border: none;
 }
-fieldset.disabled {
+.disabled {
 	opacity: 0.5;
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
 }
@@ -422,6 +422,18 @@ fieldset.disabled label:hover {
 }
 .formTable select {
     width: 150px;
+}
+.utility-table {
+    width: 60%;
+    border: none;
+    margin: 0 auto;
+    padding:0;
+}
+.utility-table tr td.icon {
+    width: 8%;
+}
+.utility-table tr td.text {
+    width:42%;
 }
 select.small {
     width: 50px;
