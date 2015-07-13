@@ -5,6 +5,7 @@ app.controller("MyController", function($scope, $http) {
   var GLOBAL_DATA,
       GLOBAL_RESULTS = {};
 
+  /* RegEx for numerical field validation */
   var numPattern = '^[0-9]+(\.[0-9]{1,9})?$';
   var numRegExp = new RegExp(numPattern, 'i');
   $scope.myForm = {};
@@ -38,9 +39,11 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.cbResult5 = false;
     $scope.myForm.loading = false;
     $scope.myForm.error = false;
+    $scope.myForm.resultsFileLink = '#';
   }
   init();
 
+  /* $watchCollection allows watching of multiple properties and changing form state (valid/invalid) based on properties' values */
   $scope.$watchCollection('[myForm.ageCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function(newValues) {
     var flag = false;
 
@@ -94,10 +97,12 @@ app.controller("MyController", function($scope, $http) {
       if ($scope.myForm.type === 'current' || $scope.myForm.type === 'former') {
         start = parseFloat($scope.myForm.start);
 
+        /* Change formulate for packYears based on value of 'type' */
         if ($scope.myForm.type === 'current') {
           $scope.myForm.packYears = ((age - start) * (cigs / 20));
         }
 
+        /* Change formulate for packYears based on value of 'type' */
         if ($scope.myForm.type === 'former') {
           quit = parseFloat($scope.myForm.quit);
           $scope.myForm.packYears = ((quit - start) * (cigs / 20));
@@ -111,6 +116,7 @@ app.controller("MyController", function($scope, $http) {
     }
   });
 
+  /* Toggle relevant properties based on US or Metric units */
   $scope.$watch('myForm.units', function() {
     if ($scope.myForm.units === 'us') {
       $scope.myForm.heightPrimary = 'Feet';
@@ -127,6 +133,7 @@ app.controller("MyController", function($scope, $http) {
     convertHeightWeight();
   });
 
+  /* Switch height range validation based on US or Metric units (for meters/feet) */
   $scope.$watch('myForm.pHeight', function() {
     var isNumeric = numRegExp.test($scope.myForm.pHeight);
     var primary = parseFloat($scope.myForm.pHeight);
@@ -143,6 +150,7 @@ app.controller("MyController", function($scope, $http) {
     }
   });
 
+  /* Switch height range validation based on US or Metric units (for cm/inches) */
   $scope.$watch('myForm.subHeight', function() {
     var isNumeric = numRegExp.test($scope.myForm.subHeight);
     var sub = parseFloat($scope.myForm.subHeight);
@@ -200,8 +208,10 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.cbResult3 = false;
     $scope.myForm.cbResult4 = false;
     $scope.myForm.cbResult5 = false;
+    $scope.myForm.resultsFileLink= '#';
   };
 
+  /* Create BMI summary that displays in results section of UI */
   $scope.myForm.createSummary = function(bmi) {
     var keyMap = {
       gender: {
@@ -237,8 +247,14 @@ app.controller("MyController", function($scope, $http) {
         paramsArray = [],
         url = 'http://' + window.location.hostname + '/lungCancerRest/';
 
+    /* Reset summary property to disable results/download results button */
+    $scope.myForm.summary = '';
+
     /* Reset error property to remove error message from UI */
     $scope.myForm.error = false;
+
+    /* Reset results file link prior to calculation */
+    $scope.myForm.resultsFileLink = '#';
 
     if ($scope.myForm.units === 'us') {
       h = (parseFloat($scope.myForm.pHeight) * 12) + parseFloat($scope.myForm.subHeight ? $scope.myForm.subHeight : '0');
@@ -279,6 +295,7 @@ app.controller("MyController", function($scope, $http) {
     $http.post(url, GLOBAL_DATA)
        .success(function(data, status, headers, config) {
          if (data.length) {
+            $scope.myForm.resultsFileLink = data.pop();
             $scope.myForm.setResultValues(data);
             $scope.myForm.summary = $scope.myForm.createSummary(params.bmi);
          }
@@ -297,34 +314,8 @@ app.controller("MyController", function($scope, $http) {
     window.print();
   };
 
-  $scope.myForm.downloadResults = function() {
-    var url = 'http://' + window.location.hostname + '/lungCancerRest/download';
-    var jsonModel = {};
-
-    if (!$scope.myForm.summary) return;
-
-    jsonModel.params = GLOBAL_DATA;
-    jsonModel.results = JSON.stringify(GLOBAL_RESULTS);
-
-    console.log(jsonModel);
-    return;
-
-    /* Ajax call to download form parameters and results */
-    $http.get(url, jsonModel)
-       .success(function(data, status, headers, config) {
-         console.log(data);
-       })
-       .error(function(data, status, headers, config) {
-         console.log('status is: ', status);
-         $scope.myForm.error = true;
-       })
-       .finally(function(data) {
-         $scope.myForm.isInvalid = false;
-         $scope.myForm.loading = false;
-    	 });
-  };
-
   /* Utility functions */
+  /* Age validation */
   function validateAges() {
     var age,
         start,
@@ -361,6 +352,7 @@ app.controller("MyController", function($scope, $http) {
     }
   }
 
+  /* Calculates weight in US or Metric units when toggling 'unit' dropdown in UI */
   function convertHeightWeight() {
     var primary = parseFloat($scope.myForm.pHeight);
     var sub = parseFloat($scope.myForm.subHeight);

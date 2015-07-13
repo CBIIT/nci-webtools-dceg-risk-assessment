@@ -33,7 +33,7 @@
     <div id="center">
         <a name="top"></a>
         <div id="bcrabanner">
-            <img src="files/bcra-banner-2.jpg" alt="Breast Cancer Risk Assessment Tool" height="118" width="1000">
+            <img src="files/bcra-banner-2.jpg" alt="Lung Cancer Screening Risk Assessment Tool" title="Lung Cancer Screening Risk Assessment Tool" height="118" width="1000">
         </div>
 
         <ul id="nav">
@@ -381,24 +381,22 @@
                                     </div>
                                 </section>
                             </fieldset>
-
-                            <table cellspacing="0" class="utility-table">
-                                <tr valign="middle">
-                                    <td class="icon">
-                                        <img src="files/print.png">
-                                    </td>
-                                    <td class="text">
-                                        <strong><a href="#" ng-click="myForm.printPage()">Print</a></strong>
-                                    </td>
-                                    <td class="icon" ng-class="{'disabled': !myForm.summary}">
-                                        <img src="files/download.png">
-                                    </td>
-                                    <td class="text">
-                                        <strong><a href="#" ng-class="{'disabled': !myForm.summary}" ng-click="myForm.downloadResults()">Download Results</a></strong>
-                                    </td>
-                                </tr>
-                            </table>
-
+                                <table cellspacing="0" class="utility-table">
+                                    <tr valign="middle">
+                                        <td class="icon">
+                                            <img src="files/print.png" alt="Print" title="Print">
+                                        </td>
+                                        <td class="text">
+                                            <strong><a href="#" ng-click="myForm.printPage()">Print</a></strong>
+                                        </td>
+                                        <td class="icon" ng-class="{'disabled': !myForm.summary}">
+                                            <img ng-show="myForm.summary" src="files/download.png" alt="Download Results" title="Download Results">
+                                        </td>
+                                        <td class="text">
+                                            <a ng-show="myForm.summary" ng-href="{{myForm.resultsFileLink}}" target="_blank">Download Results</a>
+                                        </td>
+                                    </tr>
+                                </table>
                         </div>
                     </div>
                 </div>
@@ -406,7 +404,6 @@
                 <div class="mainBoxContainer">
                     <div class="mainBoxTitle">Further Information</div>
                     <div class="mainBoxContent">
-
                         <p>Learning about lung cancer and its treatment can help you prepare for your appointments, understand different types of treatment, and prevent and manage any side effects.
                             <br />
                         </p>
