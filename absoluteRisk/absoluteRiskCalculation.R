@@ -3,6 +3,7 @@
 #          Jun 05, 2015 Added update_cutpoints function to update the cutpoints in case
 #                       whe there are no subjects between 2 cutpoints
 #          Jun 08, 2015 Reorganized to be more modular, tidied up formatting
+#          Jul 02, 2015 Modified for weights
 
 ##################################################################################################
 #  To compile the c code on UNIX, enter the command "R CMD SHLIB source.c", then a shared library
@@ -40,7 +41,7 @@
 # age.new[4]=34
 
 compute.absolute.risk <- function(age.new, age.interval, cov.new = NULL, model.predictor = NULL, 
-                                  population.incidence.rates, beta.given = NULL, dist.risk.factors = NULL, 
+                                  population.incidence.rates, beta.given = NULL, dist.risk.factors = NULL, dist.weights = NULL,
                                   triple.check = NULL, use.c.code, competing.incidence.rates = NULL, return.lp = F, 
                                   genotype.new = NULL, snp.info = NULL, return.refs.risk = F, bin.fh.name = NA, n.imp = 5 ){
   set.seed(3948792)
@@ -56,9 +57,10 @@ compute.absolute.risk <- function(age.new, age.interval, cov.new = NULL, model.p
     age.new      <- temp[[1]]
     age.interval <- temp[[2]]
     
-    temp       <- check_model_inputs(cov.new, beta.given, dist.risk.factors, triple.check, model.predictor, n.imp)
-    data_use   <- temp[[1]]
-    beta.given <- temp[[2]]
+    temp         <- check_model_inputs(cov.new, beta.given, dist.risk.factors, dist.weights, triple.check, model.predictor, n.imp)
+    data_use     <- temp[[1]]
+    beta.given   <- temp[[2]]
+    dist.weights <- temp[[3]]
     
     design_covs <- make_design_matrix_covs(data_use, cov.new, model.predictor)
     
@@ -66,6 +68,7 @@ compute.absolute.risk <- function(age.new, age.interval, cov.new = NULL, model.p
     Z_new        <- t(design_covs); rm(design_covs); gc()
     beta_est     <- as.matrix(nrow = length(beta.given), ncol=1, beta.given)
     pop.dist.mat <- make_design_matrix_dist(data_use, dist.risk.factors, model.predictor)
+    pop.weights  <- dist.weights
   }
     
   if(handle.snps){
@@ -80,7 +83,8 @@ compute.absolute.risk <- function(age.new, age.interval, cov.new = NULL, model.p
 
     attenuate.fh  <-  processed_info[[1]]   
     fh.pop        <-  processed_info[[2]]    
-    fh.cov        <-  processed_info[[3]]  
+    fh.cov        <-  processed_info[[3]]
+    genotype.new  <-  processed_info[[4]] 
   }
 
   if (covs_in_model) {
@@ -90,10 +94,14 @@ compute.absolute.risk <- function(age.new, age.interval, cov.new = NULL, model.p
       covariate_stack5 <- do.call("rbind", replicate(n.imp, pop.dist.mat, simplify = FALSE))
       simulated_snps   <- sim_snps(snps.betas, snps.freqs, cbind( rep( fh.pop, n.imp)) )
       pop.dist.mat     <- cbind( simulated_snps, covariate_stack5 )
+      pop.weights      <- rep( dist.weights, n.imp )
       
       if(attenuate.fh){
         var_prs <- sum((snps.betas^2)*2*snps.freqs*(1-snps.freqs))
         alpha   <- var_prs/2
+        if(triple.check[[which(bin.fh.name==colnames(cov.new))]]$type=="factor"){
+          bin.fh.name = paste("as.factor(", bin.fh.name, ")1", sep="")
+        }
         beta_est[bin.fh.name,1] <- beta_est[bin.fh.name,1] - alpha
       }
       beta_est <- as.matrix(nrow = length(c( snps.betas, beta_est)), ncol = 1, c( snps.betas, beta_est) )
@@ -106,6 +114,7 @@ compute.absolute.risk <- function(age.new, age.interval, cov.new = NULL, model.p
     
     if(handle.snps){
       pop.dist.mat <- sim_snps(snps.betas, snps.freqs, cbind( rep( fh.pop, n.imp)) )
+      pop.weights  <- rep( 1/nrow(pop.dist.mat), nrow(pop.dist.mat) )
       beta_est     <- as.matrix(nrow = length(c( snps.betas)), ncol = 1, c( snps.betas) )
       Z_new        <- t(genotype.new)
     } 
@@ -114,8 +123,8 @@ compute.absolute.risk <- function(age.new, age.interval, cov.new = NULL, model.p
   res                       <- check_rates(competing.incidence.rates, lambda, age.new, age.interval)
   lambda                    <- res[[1]]
   competing.incidence.rates <- res[[2]]; rm(res)
-  approx_expectation_rr     <- mean(  exp( pop.dist.mat%*% beta_est) )
-  calculation               <- precise_lambda0(lambda, approx_expectation_rr, beta_est, pop.dist.mat)
+  approx_expectation_rr     <- weighted.mean(  exp( pop.dist.mat%*% beta_est), w = pop.weights, na.rm=T)
+  calculation               <- precise_lambda0(lambda, approx_expectation_rr, beta_est, pop.dist.mat, pop.weights)
   lambda_0                  <- calculation[[1]]
   precise_expectation_rr    <- calculation[[2]]
   pop.dist.mat              <- t(pop.dist.mat )
@@ -135,7 +144,7 @@ compute.absolute.risk <- function(age.new, age.interval, cov.new = NULL, model.p
   t00     <- proc.time()
 
   if(!handle.snps){
-      final_risks <- handle_missing_data(use.c.code, age.new, age.interval, Z_new, miss, present, ncuts, final_risks, ref_pop, lambda_0, beta_est, competing.incidence.rates)
+      final_risks <- handle_missing_data(use.c.code, age.new, age.interval, Z_new, miss, present, ncuts, final_risks, ref_pop, pop.weights, lambda_0, beta_est, competing.incidence.rates)
   } else {
       set = rep(F, nrow(genotype.new))
       set[miss]=T
@@ -143,10 +152,10 @@ compute.absolute.risk <- function(age.new, age.interval, cov.new = NULL, model.p
       miss_w_some_SNPs_miss   <- miss[ which( rowSums(is.na(subset(genotype.new, subset=set)))>0 ) ]
       
       if (length(miss_w_all_SNPs_present) > 0) {
-        final_risks <- handle_missing_data(use.c.code, age.new, age.interval, Z_new, miss_w_all_SNPs_present, setdiff(seq(1, nrow(cov.new)), miss_w_all_SNPs_present), ncuts, final_risks, ref_pop, lambda_0, beta_est, competing.incidence.rates)
+        final_risks <- handle_missing_data(use.c.code, age.new, age.interval, Z_new, miss_w_all_SNPs_present, setdiff(seq(1, nrow(cov.new)), miss_w_all_SNPs_present), ncuts, final_risks, ref_pop, pop.weights, lambda_0, beta_est, competing.incidence.rates)
       }
       if (length(miss_w_some_SNPs_miss) > 0) {
-        final_risks[miss_w_some_SNPs_miss] <- handle_missing_SNPs_and_covs(miss_w_some_SNPs_miss, Z_new, snps.betas, snps.freqs, age.new, age.interval, lambda_0, beta_est, competing.incidence.rates, fh.cov, ref_pop, use.c.code, ncuts)
+        final_risks[miss_w_some_SNPs_miss] <- handle_missing_SNPs_and_covs(miss_w_some_SNPs_miss, Z_new, snps.betas, snps.freqs, age.new, age.interval, lambda_0, beta_est, competing.incidence.rates, fh.cov, ref_pop, pop.weights, use.c.code, ncuts)
       }
   }
   t11    <- proc.time() - t00;  print(t11)
@@ -182,6 +191,31 @@ get_int <- function(a,t,lambda, Z_new, beta_est, competing.incidence.rates, ZBET
     holder <- holder + temp0*( (pick_lambda(u,lambda))*ZBETA + competing.incidence.rates[which(u==competing.incidence.rates[,1]),2])
   }
   holder
+}
+
+get_beta_given_names <-function(triple.check, model.predictor){
+  
+  check_triple_check(triple.check)
+  triple.check = process_triple_check(triple.check)
+  
+  if(is.null(colnames(triple.check))){
+    print("WARNING: triple.check must have same names and order as predictors in model.predictor.")
+    stop()
+  }
+  if(length(colnames(triple.check))!=length(all.vars(model.predictor)[2:length(all.vars(model.predictor))])){
+    print("WARNING: triple.check must have same names and order as predictors in model.predictor.")
+    stop()
+  }
+  if( sum(colnames(triple.check)!=all.vars(model.predictor)[2:length(all.vars(model.predictor))])>0 ){
+    print("WARNING: triple.check must have same names and order as predictors in model.predictor.")
+    stop()
+  }
+  variables <- unique(all.vars(model.predictor))[-1]
+  data_use  <- subset(triple.check, select = variables)
+  data_use[,all.vars(model.predictor)[1]] <- rep(0, nrow(data_use))
+  predictors <- as.matrix(model.matrix(model.predictor, data = as.data.frame(data_use))[,2:ncol(model.matrix(model.predictor, data = as.data.frame(data_use)))])
+  colnames(predictors)
+  
 }
 
 ###  make design matrix for cov.new
@@ -238,13 +272,13 @@ comp_Aj <- function(Z_new, age.new, age.interval, lambda, beta_est, competing.in
   } 
 
 ### iterate to obtain lambda_0
-precise_lambda0 <- function(lambda, approx_expectation_rr, beta_est, pop.dist.mat){
+precise_lambda0 <- function(lambda, approx_expectation_rr, beta_est, pop.dist.mat, pop.weights){
   diagnose                <- list()
   lambda_0                <- lambda
   precise_expectation_rr0 <- approx_expectation_rr-1
   precise_expectation_rr1 <- approx_expectation_rr
   iter                    <- 0
-  while( sum(abs(precise_expectation_rr1 - precise_expectation_rr0 )) >0.0001 ){
+  while( sum(abs(precise_expectation_rr1 - precise_expectation_rr0 )) >0.001 ){
     
     iter = iter+1
     precise_expectation_rr0 = precise_expectation_rr1
@@ -253,7 +287,7 @@ precise_lambda0 <- function(lambda, approx_expectation_rr, beta_est, pop.dist.ma
     lambda_0[,2] = lambda[,2] / precise_expectation_rr0
     # that lambda0 implies new expectation rr
     # this should be Nobs x Ntimes
-    this = survival_givenX(lambda_0, beta_est, pop.dist.mat)*(1/nrow(pop.dist.mat))
+    this = survival_givenX(lambda_0, beta_est, pop.dist.mat)*matrix(nrow=nrow(pop.dist.mat), ncol=nrow(lambda_0), pop.weights, byrow=T)
     denom = 1/colSums(this)
     probX_givenT = sweep( this, MARGIN = 2, denom, FUN="*" )
     
@@ -500,7 +534,8 @@ wrapper <- function(age.new, age.interval, cov.new, model.predictor, population.
   result
 }
 
-call_c1 <- function(final, miss, ref_risks, refmat, betavec, zmat, ncuts = 100, debug = 0) {
+call_c1 <- function(final, miss, ref_risks, refmat, betavec, zmat, pop.weights, ncuts = 100, debug = 0) {
+
 
   DMISS           <- 999999999.9
   DMISS_TEST      <- 999999999.0
@@ -521,11 +556,11 @@ call_c1 <- function(final, miss, ref_risks, refmat, betavec, zmat, ncuts = 100, 
   retvec          <- rep(DMISS, length(miss))
   retflag         <- 1
   
-
   temp <- .C("ref_risk1", as.numeric(ref_risks), as.numeric(betavec), as.numeric(t(zmat)), 
        as.numeric(t(refmat)), as.integer(n_beta), as.integer(nr_z), as.integer(nc_z),
        as.integer(nr_ref), as.integer(nc_ref), as.numeric(probs), as.integer(n_probs),
-       as.integer(debug), retvec = as.numeric(retvec), retflag = as.integer(retflag))
+       as.integer(debug), as.numeric(pop.weights),
+       retvec = as.numeric(retvec), retflag = as.integer(retflag))
 
   retflag <- temp$retflag
   if (retflag) stop("ERROR in c code")
@@ -539,7 +574,7 @@ call_c1 <- function(final, miss, ref_risks, refmat, betavec, zmat, ncuts = 100, 
 } # END: call_c1
 
 call_c2 <- function(final, miss, refmat, betavec, zmat, age_new, age_int, popSubFromLP, 
-                    lambda_0, compRates0, ncuts = 100, debug = 0) {
+                    lambda_0, compRates0, pop.weights, ncuts = 100, debug = 0) {
 
   DMISS           <- 999999999.9
   DMISS_TEST      <- 999999999.0
@@ -576,7 +611,7 @@ call_c2 <- function(final, miss, refmat, betavec, zmat, age_new, age_int, popSub
             as.integer(n_beta), as.integer(nr_z), as.integer(nc_z), as.integer(nr_ref), 
             as.integer(nc_ref), as.numeric(probs), as.integer(n_probs), as.integer(debug),
             as.integer(age_new), as.integer(age_int), as.integer(n_lambda), as.numeric(popSubFromLP), 
-            as.numeric(lambda), as.numeric(compRates),
+            as.numeric(lambda), as.numeric(compRates), as.numeric(pop.weights),
               retvec = as.numeric(retvec), retflag = as.integer(retflag))
 
   retflag <- temp$retflag
@@ -618,7 +653,7 @@ sim_snps <- function(betas, freqs, fh_status){
 }
 ## helper function for handling missing data
 handle_missing_data <- function(use.c.code, age.new, age.interval, Z_new, miss, present, ncuts, final_risks, 
-                                ref_pop, lambda_0, beta_est, competing.incidence.rates){
+                                ref_pop, pop.weights, lambda_0, beta_est, competing.incidence.rates){
   
   ###### Handle Missing Data  ##### If All times are the same
   if( length(unique(age.new[miss]))==1 & length(unique(age.interval[miss]))==1){
@@ -631,7 +666,7 @@ handle_missing_data <- function(use.c.code, age.new, age.interval, Z_new, miss, 
    
     if (use.c.code) {
       final_risks <- call_c1(final_risks, miss, ref_risks, ref_pop, beta_est[, 1], 
-                             Z_new, ncuts = ncuts, debug = 0) 
+                             Z_new, pop.weights, ncuts=ncuts, debug = 0) 
     } else {
       BETA  <- t(beta_est)
       Z_NEW <- Z_new
@@ -657,7 +692,7 @@ handle_missing_data <- function(use.c.code, age.new, age.interval, Z_new, miss, 
           these               <- (ref_LP >= temp[1]) & (ref_LP < temp[2])
           these[is.na(these)] <- FALSE
         }
-        final_risks[missi]  <- mean(ref_risks[these], na.rm = TRUE)
+        final_risks[missi]  <- weighted.mean(ref_risks[these], w = pop.weights[these], na.rm = TRUE)
       }
     }
   } # END: if( length(unique(age.new[miss]))==1 & length(unique(age.interval[miss]))==1)  
@@ -669,7 +704,8 @@ handle_missing_data <- function(use.c.code, age.new, age.interval, Z_new, miss, 
     if (use.c.code) {
       popSubFromLP = rep(0, ncol(ref_pop))
       final_risks  <- call_c2(final_risks, miss, ref_pop, beta_est[, 1], Z_new, age.new, 
-                               age.interval, popSubFromLP, lambda_0, competing.incidence.rates, ncuts = ncuts, debug = 0) 
+                               age.interval, popSubFromLP, lambda_0, competing.incidence.rates, pop.weights,
+                               ncuts = ncuts, debug = 0) 
     } else {
       
       BETA  <- t(beta_est)
@@ -704,7 +740,7 @@ handle_missing_data <- function(use.c.code, age.new, age.interval, Z_new, miss, 
         temp                <- REF[,these, drop = FALSE]
         ref_risks           <- comp_Aj(temp, pop.age.new, pop.age.interval, 
                                        lambda_0, beta_est, competing.incidence.rates)
-        final_risks[missi]  <- mean(ref_risks, na.rm = TRUE)   
+        final_risks[missi]  <- weighted.mean(ref_risks, w = pop.weights[these], na.rm = TRUE)   
       }
     }
   }
@@ -847,11 +883,11 @@ process_SNP_info <- function(covs_in_model, genotype.new, bin.fh.name, cov.new, 
         fh.pop = dist.risk.factors[,bin.fh.name]
         fh.cov = cov.new[,bin.fh.name]
         attenuate.fh = 1
-        if( prod(is.element(fh.pop, c(0,1,NA)) ) == 0){
+        if( prod(is.element(fh.pop, c(0,1,"0", "1", NA)) ) == 0){
           print("WARNING: The family history must be binary when using snp_info functionality. Check input for dist.risk.factors.")
           stop()     
         }
-        if( prod(is.element(fh.cov, c(0,1,NA)) ) == 0){
+        if( prod(is.element(fh.cov, c(0,1,"0", "1", NA)) ) == 0){
           print("WARNING: The family history must be binary when using snp_info functionality. Check input for cov.new.")
           stop()     
         }}
@@ -867,7 +903,7 @@ process_SNP_info <- function(covs_in_model, genotype.new, bin.fh.name, cov.new, 
     attenuate.fh = 0
     print("Note: As specified, the model does not adjust SNP imputations for family history.")
   }
-  res <- list(); res[[1]] = attenuate.fh; res[[2]] = fh.pop; res[[3]] = fh.cov; res
+  res <- list(); res[[1]] = attenuate.fh; res[[2]] = fh.pop; res[[3]] = fh.cov; res[[4]] = genotype.new; res
 }
 
 ## function to convert (start, end, rate) matrix into (integer_ages, rate) matrix
@@ -938,7 +974,7 @@ check_rates <- function(competing.incidence.rates, lambda, age.new, age.interval
   res=list(); res[[1]] = lambda; res[[2]] = competing.incidence.rates; res
 }
 
-check_model_inputs <- function(cov.new, beta.given, dist.risk.factors, triple.check, model.predictor, n.imp){
+check_model_inputs <- function(cov.new, beta.given, dist.risk.factors, dist.weights, triple.check, model.predictor, n.imp){
   if(length(n.imp)!=1){
     print("WARNING: n.imp must be a single integer.")
     stop()
@@ -994,6 +1030,19 @@ check_model_inputs <- function(cov.new, beta.given, dist.risk.factors, triple.ch
   if(nrow(dist.risk.factors) < 200){
     print(paste("WARNING: Samples in referent distribution dist.risk.factors should be large.  Currently only size ", nrow(dist.risk.factors),".", sep=""))
   }
+  if(is.null(dist.weights)){
+    dist.weights = rep(1/nrow(dist.risk.factors), nrow(dist.risk.factors))
+  }else{
+    if(length(dist.weights)!=nrow(dist.risk.factors)){
+      print("WARNING: If dist.weights is provided it must be same length as the number of rows in dist.risk.factors.")
+      stop()
+    }
+    if( sum((dist.weights<0), na.rm=T)!=0){
+      print("WARNING: dist.weights must not contain negative values.")
+      stop()
+    }
+    dist.weights = dist.weights / sum(dist.weights, na.rm=T)
+  }
   ## for now don't allow NA's here
   for(k in 1:ncol(triple.check)){
     if(is.factor(triple.check[,k])){
@@ -1021,7 +1070,7 @@ check_model_inputs <- function(cov.new, beta.given, dist.risk.factors, triple.ch
     beta.given = cbind(beta.given)
     rownames(beta.given) = temp
   }
-  res = list(); res[[1]] = data_use; res[[2]] = beta.given; res
+  res = list(); res[[1]] = data_use; res[[2]] = beta.given; res[[3]] = dist.weights; res
 }
 
 check_design_matrix <- function(beta.given, design_covs){
@@ -1067,7 +1116,7 @@ check_age_lengths <- function(age.new, age.interval, match, match_name){
 }
 
 handle_missing_SNPs_and_covs <- function(miss_w_some_SNPs_miss, Z_new, snps.betas, snps.freqs, age.new, age.interval,
-                                         lambda_0, beta_est, competing.incidence.rates, fh.cov, ref_pop, use.c.code, ncuts){
+                                         lambda_0, beta_est, competing.incidence.rates, fh.cov, ref_pop, pop.weights, use.c.code, ncuts){
   
   hold_risks <- matrix(NA, nrow = length(miss_w_some_SNPs_miss), ncol = 5)
   for(i in 1:5){
@@ -1079,7 +1128,7 @@ handle_missing_SNPs_and_covs <- function(miss_w_some_SNPs_miss, Z_new, snps.beta
     if(sum(is.na(hold_risks[,i]))>0){
       miss2          <- which(is.na(hold_risks[,i])==1)
       present2       <- which(is.na(hold_risks[,i])==0)
-      hold_risks[,i] <- handle_missing_data(use.c.code, age.new, age.interval, complete_Z_new, miss2, present2, ncuts, hold_risks[,i], ref_pop, lambda_0, beta_est, competing.incidence.rates)
+      hold_risks[,i] <- handle_missing_data(use.c.code, age.new, age.interval, complete_Z_new, miss2, present2, ncuts, hold_risks[,i], ref_pop, pop.weights, lambda_0, beta_est, competing.incidence.rates)
     }
   }
   rowMeans(hold_risks)
@@ -1160,9 +1209,10 @@ PRS.research <- function(age.new, age.interval, population.incidence.rates, use.
   pop.dist.mat <- cbind(PRS.)
   beta_est     <- as.matrix(nrow = length(c( log.OR)), ncol = 1, c( log.OR) )
   Z_new        <- t(pop.dist.mat)
+  pop.weights  <- rep(1/nrow(pop.dist.mat), length(pop.dist.mat))
   
-  approx_expectation_rr = mean(  exp( pop.dist.mat%*% beta_est) )
-  calc = precise_lambda0(lambda, approx_expectation_rr, beta_est, pop.dist.mat)
+  approx_expectation_rr = weighted.mean(  exp( pop.dist.mat%*% beta_est), w = pop.weights ) ## all equal weights
+  calc = precise_lambda0(lambda, approx_expectation_rr, beta_est, pop.dist.mat, pop.weights)
   lambda_0 = calc[[1]]
   precise_expectation_rr = calc[[2]]
   pop.dist.mat = t(pop.dist.mat )
