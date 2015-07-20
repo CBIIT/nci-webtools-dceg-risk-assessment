@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Arc">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8">
+
+    <!-- Latest AngularJS from CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+    <!-- Local UI-Bootstrap -->
+    <script src="js/ui-bootstrap-tpls-0.13.0.min.js"></script>
+    <!-- ARC Angular Code -->
+    <script src="js/app.js"></script>
+
+    <!-- Latest Bootstrap CSS from CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!-- ARC CSS -->
+    <link rel="stylesheet" href="css/app.css">
+
+    <title>Absolute Risk Calculator</title>
+</head>
+<body>
+    <div ng-controller="AccordionDemoCtrl">
+      <p>
+        <button class="btn btn-default btn-sm" ng-click="status.open = !status.open">Toggle last panel</button>
+        <button class="btn btn-default btn-sm" ng-click="status.isFirstDisabled = ! status.isFirstDisabled">Enable / Disable first panel</button>
+      </p>
+
+      <label class="checkbox">
+        <input type="checkbox" ng-model="oneAtATime">
+        Open only one at a time
+      </label>
+      <accordion close-others="oneAtATime">
+        <accordion-group heading="Static Header, initially expanded" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+          This content is straight in the template.
+        </accordion-group>
+        <accordion-group heading="{{group.title}}" ng-repeat="group in groups">
+          {{group.content}}
+        </accordion-group>
+        <accordion-group heading="Dynamic Body Content">
+          <p>The body of the accordion group grows to fit the contents</p>
+            <button class="btn btn-default btn-sm" ng-click="addItem()">Add Item</button>
+            <div ng-repeat="item in items">{{item}}</div>
+        </accordion-group>
+        <accordion-group is-open="status.open">
+            <accordion-heading>
+                I can have markup, too! <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+            </accordion-heading>
+            This is just some content to illustrate fancy headings.
+        </accordion-group>
+      </accordion>
+    </div>
+</body>
+</html>
