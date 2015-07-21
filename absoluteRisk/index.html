@@ -19,20 +19,23 @@
 
     <title>Absolute Risk Calculator</title>
 </head>
-<body>
-    <div class="container">
-        <div ng-controller="ArcAccordion as accordion">
-          <accordion close-others="oneAtATime">
-            <accordion-group heading="Static Header, initially expanded" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
-              This content is straight in the template.
-            </accordion-group>
-            <accordion-group heading="Dynamic Body Content">
-              <p>The body of the accordion group grows to fit the contents</p>
-                <button class="btn btn-default btn-sm" ng-click="addItem()">Add Item</button>
-                <div ng-repeat="item in items">{{item}}</div>
-            </accordion-group>
-          </accordion>
+    <body>
+        <div class="container" ng-controller="ArcAccordion as accordion">
+            <div ng-repeat="step in accordion.steps">
+                <h4>{{step.title}}</h4>
+                <accordion close-others="oneAtATime">
+                    <accordion-group is-open="accordion.status.isFirstOpen" is-disabled="accordion.status.isFirstDisabled" heading="{{step.sections[0].header}}">
+                        test
+                    </accordion-group>
+                    <accordion-group ng-repeat="section in step.sections" ng-if="!$first" heading="{{section.header}}">
+                        test +
+                    </accordion-group>
+                </accordion>
+            </div>
+            <h4>Output</h4>
+            <div>
+                Test output
+            </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>
