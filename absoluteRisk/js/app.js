@@ -1,28 +1,61 @@
 var app = angular.module('Arc', ['ui.bootstrap']);
 
-app.controller('AccordionDemoCtrl', function ($scope) {
-  $scope.oneAtATime = true;
+app.controller('ArcAccordion', function ($scope) {
+    var self = this;
 
-  $scope.groups = [
-    {
-      title: 'Dynamic Group Header - 1',
-      content: 'Dynamic Group Body - 1'
-    },
-    {
-      title: 'Dynamic Group Header - 2',
-      content: 'Dynamic Group Body - 2'
-    }
-  ];
+    self.steps = [
+        {
+            title: 'Build the Model',
+            sections: [
+                {
+                    header: 'List the Variables',
+                    required: true
+                },
+                {
+                    header: 'Give the Model Formula',
+                    required: true
+                },
+                {
+                    header: 'Provide Risk Factor Distribution',
+                    required: true
+                },
+                {
+                    header: 'Provide Log Odds Ratios',
+                    required: true
+                },
+                {
+                    header: 'Provide Incidence Rates of Disease in Population',
+                    required: true
+                },
+                {
+                    header: 'Provide Incidence Rates of Competing Mortality'
+                },
+                {
+                    header: 'Provide SNP Information'
+                }
+            ]
+        },
+        {
+            title: 'Apply the Model',
+            sections: [
+                {
+                    header: 'Starting Age and Length of Age Interval',
+                    required: true
+                },
+                {
+                    header: 'Provide Risk Factor for Prediction',
+                    required: true
+                },
+                {
+                    header: 'Provide Genotypes for Prediction'
+                }
+            ]
+        }
+    ];
 
-  $scope.items = ['Item 1', 'Item 2', 'Item 3'];
-
-  $scope.addItem = function() {
-    var newItemNo = $scope.items.length + 1;
-    $scope.items.push('Item ' + newItemNo);
-  };
-
-  $scope.status = {
-    isFirstOpen: true,
-    isFirstDisabled: false
-  };
+    self.oneAtATime = true;
+    self.status = {
+        isFirstOpen: true,
+        isFirstDisabled: false
+    };
 });
