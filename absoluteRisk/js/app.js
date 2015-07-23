@@ -58,4 +58,13 @@ app.controller('ArcAccordion', function ($scope) {
         isFirstOpen: true,
         isFirstDisabled: false
     };
+
+    /* Prototype Only Properties */
+    self.prototypeShow = false;
+    self.prototypeToggle = function(toggle) {
+        self.prototypeShow = toggle;
+    };
+
+    self.prototypeFileSection = 'export';
+    self.prototypeAgeSection = 'manual';
 });
