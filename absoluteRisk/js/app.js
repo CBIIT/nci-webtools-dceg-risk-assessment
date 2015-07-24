@@ -65,6 +65,14 @@ app.controller('ArcAccordion', function ($scope) {
         self.prototypeShow = toggle;
     };
 
+    self.prototypeVariableSection = 'manual';
     self.prototypeFileSection = true;
     self.prototypeAgeSection = 'manual';
+
+    self.getHeader = function(section) {
+        if (section.required)
+            return section.header + ' *';
+
+        return section.header;
+    };
 });
