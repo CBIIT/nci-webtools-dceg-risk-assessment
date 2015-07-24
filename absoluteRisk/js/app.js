@@ -13,7 +13,8 @@ app.controller('ArcAccordion', function ($scope) {
                 },
                 {
                     header: 'Give the Model Formula',
-                    required: true
+                    required: true,
+                    formula: true
                 },
                 {
                     header: 'Provide Risk Factor Distribution',
@@ -44,7 +45,8 @@ app.controller('ArcAccordion', function ($scope) {
                 },
                 {
                     header: 'Provide Risk Factor for Prediction',
-                    required: true
+                    required: true,
+                    upload: true
                 },
                 {
                     header: 'Provide Genotypes for Prediction'
