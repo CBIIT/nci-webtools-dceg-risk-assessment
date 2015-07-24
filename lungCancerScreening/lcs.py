@@ -6,6 +6,7 @@ import re
 import time
 import json
 import StringIO
+import argparse
 from flask import Flask, render_template, request, jsonify, make_response
 from rpy2.robjects.packages import SignatureTranslatedAnonymousPackage
 from rpy2.robjects.vectors import IntVector, FloatVector
@@ -85,8 +86,7 @@ def lungCancerRest():
 
         return json.dumps(string)
 
-    import argparse
-    if __name__ == '__main__':
+if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("-p", dest="port_number", default="9982", help="Sets the Port")
     # Default port is production value; prod,stage,dev = 9982, sandbox=9983
