@@ -65,6 +65,6 @@ app.controller('ArcAccordion', function ($scope) {
         self.prototypeShow = toggle;
     };
 
-    self.prototypeFileSection = 'export';
+    self.prototypeFileSection = true;
     self.prototypeAgeSection = 'manual';
 });
