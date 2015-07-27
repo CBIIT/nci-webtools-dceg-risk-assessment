@@ -3,7 +3,6 @@ library('stringr')
 
 #source ('./BiomarkerComparison.R')
 
-library(VGAM)
 rm(list=ls(all=TRUE))
 library(coxph.risk)
 source("cuts.R")
