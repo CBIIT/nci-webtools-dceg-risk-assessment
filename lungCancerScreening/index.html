@@ -7,7 +7,7 @@
     <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
     <link href="files/2col.css" rel="stylesheet" type="text/css" media="all">
     <link href="files/2col.css" rel="stylesheet" type="text/css" media="print">
-    <script src="files/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
     <script src="files/FormController.js"></script>
 </head>
 
@@ -75,7 +75,7 @@
                                         <tr>
                                             <td valign="top">Age</td>
                                             <td valign="top">
-                                                <input type="text" name="age" ng-model="myForm.age" ng-required="true">
+                                                <input type="text" name="age" ng-model="myForm.age" ng-model-options="{ updateOn: 'blur' }" ng-required="true">
                                             </td>
                                         </tr>
                                         <tr>
@@ -136,13 +136,13 @@
                                             </td>
 
                                             <td valign="top" ng-switch-when="current">
-                                                <input type="text" name="start" ng-model="myForm.start" ng-required="myForm.type == 'current'">
+                                                <input type="text" name="start" ng-model="myForm.start" ng-model-options="{ updateOn: 'blur' }" ng-required="myForm.type == 'current'">
                                             </td>
                                             <td valign="top" ng-switch-when="former">
-                                                <input type="text" name="start" ng-model="myForm.start" ng-required="myForm.type == 'former'">
+                                                <input type="text" name="start" ng-model="myForm.start" ng-model-options="{ updateOn: 'blur' }" ng-required="myForm.type == 'former'">
                                                 <br/>
                                                 <br/>
-                                                <input type="text" name="quit" ng-model="myForm.quit" ng-required="myForm.type == 'former'">
+                                                <input type="text" name="quit" ng-model="myForm.quit" ng-model-options="{ updateOn: 'blur' }" ng-required="myForm.type == 'former'">
                                             </td>
                                         </tr>
                                         <tr>
@@ -193,7 +193,7 @@
                                                 </div>
                                             </td>
                                             <td valign="top">
-                                                <input type="text" name="cigs" ng-model="myForm.cigs" ng-required="myForm.smokeShow">
+                                                <input type="text" name="cigs" ng-model="myForm.cigs" ng-model-options="{ updateOn: 'blur' }" ng-required="myForm.smokeShow">
                                             </td>
                                         </tr>
                                         <tr ng-show="myForm.cigsNumericCriteria">
@@ -263,11 +263,11 @@
                                             <td valign="top">Height?</td>
                                             <td valign="top">
                                                 <div>
-                                                    <input class="small" type="text" name="heightfeet" ng-model="myForm.pHeight" ng-required="true">
+                                                    <input class="small" type="text" name="heightfeet" ng-model="myForm.pHeight" ng-model-options="{ updateOn: 'blur' }" ng-required="true">
                                                     <span>{{myForm.heightPrimary}}</span>
                                                 </div>
                                                 <div>
-                                                    <input class="small" type="text" name="heightinches" ng-model="myForm.subHeight">
+                                                    <input class="small" type="text" name="heightinches" ng-model-options="{ updateOn: 'blur' }" ng-model="myForm.subHeight">
                                                     <span>{{myForm.heightSecondary}}</span>
                                                 </div>
                                             </td>
@@ -282,7 +282,7 @@
                                         <tr>
                                             <td valign="top">Weight?</td>
                                             <td valign="top">
-                                                <input type="text" name="weight" ng-model="myForm.weight" ng-required="true">
+                                                <input type="text" name="weight" ng-model="myForm.weight" ng-model-options="{ updateOn: 'blur' }" ng-required="true">
                                                 <span>{{myForm.weightUnits}}</span>
                                             </td>
                                         </tr>
