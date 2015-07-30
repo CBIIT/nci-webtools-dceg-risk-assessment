@@ -27,17 +27,17 @@
             <div ng-repeat="step in accordion.steps">
                 <h4>{{step.title}}</h4>
                 <accordion close-others="accordion.oneAtATime">
-                    <accordion-group is-disabled="accordion.status.isFirstDisabled" heading="{{accordion.getHeader(step.sections[0])}}">
-                        <form action="" ng-if="$first">
+                    <accordion-group is-disabled="accordion.status.isFirstDisabled" ng-repeat="section in step.sections" heading="{{section.header()}}">
+                        <form action="" ng-if="section.type === 'variable_list'">
                             <div class="form-group">
                                 <label class="radio-inline">
-                                    <input type="radio" name="{{'age_section_' + $index}}" value="manual" ng-model="accordion.prototypeVariableSection" checked> Manual
+                                    <input type="radio" name="{{'age_section_' + $index}}" value="manual" ng-model="section.model.inputMethod" checked> Manual
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="{{'age_section_' + $index}}" value="upload" ng-model="accordion.prototypeVariableSection"> Upload File
+                                    <input type="radio" name="{{'age_section_' + $index}}" value="upload" ng-model="section.model.inputMethod"> Upload File
                                 </label>
                             </div>
-                            <div ng-show="accordion.prototypeVariableSection === 'manual'">
+                            <div ng-show="section.model.inputMethod === 'manual'">
                                 <table class="table table-striped table-responsive">
                                     <thead>
                                         <tr>
@@ -110,7 +110,7 @@
                                     Save Model
                                 </button>
                             </div>
-                            <div ng-show="accordion.prototypeVariableSection === 'upload'">
+                            <div ng-show="section.model.inputMethod === 'upload'">
                                 <div class="form-group">
                                     <span class="btn btn-info btn-file">
                                         Browse <input type="file">
@@ -118,16 +118,16 @@
                                  </div>
                             </div>
                         </form>
-                        <form action="" ng-if="!$first">
+                        <form action="" ng-if="section.type === 'age_interval'">
                             <div class="form-group">
                                 <label class="radio-inline">
-                                    <input type="radio" name="{{'age_section_' + $index}}" value="manual" ng-model="accordion.prototypeAgeSection" checked> Manual
+                                    <input type="radio" name="{{'age_section_' + $index}}" value="manual" ng-model="section.model.inputMethod" checked> Manual
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="{{'age_section_' + $index}}" value="upload" ng-model="accordion.prototypeAgeSection"> Upload File
+                                    <input type="radio" name="{{'age_section_' + $index}}" value="upload" ng-model="section.model.inputMethod"> Upload File
                                 </label>
                             </div>
-                            <div ng-show="accordion.prototypeAgeSection === 'manual'">
+                            <div ng-show="section.model.inputMethod === 'manual'">
                                 <div class="form-group col-xs-2">
                                     <label for="age">Age: </label>
                                     <input type="text" name="age" id="age" class="form-control">
@@ -137,7 +137,7 @@
                                     <input type="text" name="age_interval" id="age_interval" class="form-control">
                                 </div>
                             </div>
-                            <div ng-show="accordion.prototypeAgeSection === 'upload'">
+                            <div ng-show="section.model.inputMethod === 'upload'">
                                 <div class="form-group">
                                     <span class="btn btn-info btn-file">
                                         Browse <input type="file">
@@ -145,9 +145,7 @@
                                  </div>
                             </div>
                         </form>
-                    </accordion-group>
-                    <accordion-group ng-repeat="section in step.sections" heading="{{accordion.getHeader(section)}}" ng-if="!$first">
-                        <form action="" ng-if="$index === 1 && section.formula">
+                        <form action="" ng-if="section.type === 'generate_formula'">
                             <div class="col-xs-6">
                                 <table class="table table-striped table-responsive">
                                     <thead>
@@ -196,15 +194,15 @@
                                     </tbody>
                                 </table>
                                 <div class="btn-toolbar">
-                                    <button type="button" class="btn btn-primary pull-right" ng-click="accordion.prototypeToggle(true)">
+                                    <button type="button" class="btn btn-primary pull-right" ng-click="section.model.toggleStatus('confirmed')">
                                         Confirm
                                     </button>
-                                    <button type="button" class="btn btn-info pull-right" ng-click="accordion.prototypeToggle(false)">
+                                    <button type="button" class="btn btn-info pull-right" ng-click="section.model.toggleStatus('edit')">
                                         Edit
                                     </button>
                                 </div>
                             </div>
-                            <div class="col-xs-6" ng-show="accordion.prototypeShow">
+                            <div class="col-xs-6" ng-show="section.model.status === 'confirmed'">
                                 <table class="table table-striped table-responsive">
                                     <thead>
                                         <tr>
@@ -249,13 +247,13 @@
                                 </div>
                             </div>
                         </form>
-                        <form action="" ng-if="$index !== 1 || section.upload">
+                        <form action="" ng-if="section.type === 'default'">
                             <div>
                                 <label>
-                                    <input type="checkbox" ng-model="accordion.prototypeFileSection"> Generate Template
+                                    <input type="checkbox" ng-model="section.model.genTemplate"> Generate Template
                                 </label>
                             </div>
-                            <div class="clearfix" ng-show="accordion.prototypeFileSection">
+                            <div class="clearfix" ng-show="section.model.genTemplate">
                                 <table class="table table-responsive table-striped">
                                     <thead>
                                         <tr>
@@ -300,7 +298,7 @@
                                     Export to CSV
                                 </button>
                             </div>
-                            <hr ng-show="accordion.prototypeFileSection">
+                            <hr ng-show="section.model.genTemplate">
                             <h5>Upload File</h5>
                             <div class="form-group">
                                 <span class="btn btn-info btn-file">
