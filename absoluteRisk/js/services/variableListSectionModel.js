@@ -21,10 +21,19 @@ app.factory('BuildVariableListModel', ['BuildVariable', function(Variable) {
             }
         },
         saveModel: function() {
-            return;
+            console.log(this.getJsonModel());
         },
         getJsonModel: function() {
-            console.log('this is variable list model');
+            var list = [];
+
+            angular.forEach(this.variableList, function(variable) {
+                list.push(variable.getJsonModel());
+            });
+
+            return {
+                inputMethod: this.inputMethod,
+                variableList: list
+            };
         }
     };
 

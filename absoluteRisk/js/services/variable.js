@@ -7,6 +7,7 @@ app.factory('BuildVariable', function() {
         self.name = '';
         self.type = 'continuous';
         self.levels = '';
+        self.levelsType = 'integer';
         self.ref = '';
     }
     Variable.prototype = {
@@ -23,6 +24,7 @@ app.factory('BuildVariable', function() {
                 name: self.name,
                 type: self.type,
                 levels: self.convertLevelsToArray(),
+                levelsType: self.levelsType,
                 ref: self.ref ? self.ref : self.getFirstEntryInLevels()
             };
         }
