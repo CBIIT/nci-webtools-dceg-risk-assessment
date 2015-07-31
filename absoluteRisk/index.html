@@ -49,51 +49,26 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <tr ng-repeat="variable in section.model.variableList">
                                             <td>
-                                                <input type="text" name="variable_name" placeholder="example: famhist" class="form-control">
+                                                <input type="text" name="name" placeholder="example: famhist" class="form-control" ng-model="variable.name">
                                             </td>
                                             <td>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="is_continuous_0" value="Yes" checked> Yes
+                                                    <input type="radio" name="{{'type_' + $index}}" value="Yes" checked> Yes
                                                 </label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="is_continuous_0" value="No"> No
+                                                    <input type="radio" name="{{'type_' + $index}}" value="No"> No
                                                 </label>
                                             </td>
                                             <td>
-                                                <input type="text" name="variable_name" placeholder="example: 1 5 8" class="form-control">
+                                                <input type="text" name="levels" placeholder="example: 1 5 8" class="form-control" ng-model="variable.levels">
                                             </td>
                                             <td>
-                                                <input type="text" name="variable_name" placeholder="example: 5" class="form-control">
+                                                <input type="text" name="ref" placeholder="example: 5" class="form-control" ng-model="variable.ref">
                                             </td>
                                             <td>
-                                                <a href="#">
-                                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                                    <span class="sr-only">Delete Variable</span>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="text" name="variable_name" placeholder="example: famhist" class="form-control">
-                                            </td>
-                                            <td>
-                                                <label class="radio-inline">
-                                                    <input type="radio" name="is_continuous_1" value="Yes" checked> Yes
-                                                </label>
-                                                <label class="radio-inline">
-                                                    <input type="radio" name="is_continuous_1" value="No"> No
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <input type="text" name="variable_name" placeholder="example: 1 5 8" class="form-control">
-                                            </td>
-                                            <td>
-                                                <input type="text" name="variable_name" placeholder="example: 5" class="form-control">
-                                            </td>
-                                            <td>
-                                                <a href="#">
+                                                <a ng-click="section.model.deleteVariable($index)">
                                                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                                     <span class="sr-only">Delete Variable</span>
                                                 </a>
@@ -101,7 +76,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <button type="button" class="btn btn-sm btn-link">
+                                <button type="button" class="btn btn-sm btn-link" ng-click="section.model.addVariable()">
                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                     <span class="sr-only">Add a Variable</span>
                                     Add a Variable

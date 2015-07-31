@@ -1,5 +1,14 @@
+/* A calculator tool with an accordion form UI */
 var app = angular.module('Arc', ['ui.bootstrap']);
 
+/*
+    A service that creates a generic accordion section with specific section models created within it
+    It takes the following parameters:
+        cfg: config object
+            header:     section heading, as string
+            type:       section model type, as string
+            optional:   boolean indicating whether section is required or optional for the user to complete
+*/
 app.factory('BuildSection', [
     'BuildVariableListModel',
     'BuildGenFormulaModel',
@@ -33,6 +42,7 @@ app.factory('BuildSection', [
 
             Section.prototype = {
                 createModel: function(type) {
+                    /* Use modelMap to create the correct section model based on section type */
                     return this.modelMap[type]();
                 },
                 getJsonModel: function() {
@@ -49,16 +59,29 @@ app.factory('BuildSection', [
     }
 ]);
 
-app.factory('BuildVariableListModel', function() {
+/* Section model services */
+app.factory('BuildVariableListModel', ['BuildVariable', function(buildVar) {
     function create() {
         function VariableListModel() {
             var self = this;
 
             self.inputMethod = 'manual';
+            self.variableList = [];
 
             /* Add more custom model functionality later */
+
+            /* Add a single variable to the list as default list state */
+            self.addVariable();
         }
         VariableListModel.prototype = {
+            addVariable: function() {
+                this.variableList.push(buildVar.create());
+            },
+            deleteVariable: function(index) {
+                if (this.variableList.length > 1) {
+                    this.variableList.splice(index, 1);
+                }   
+            },
             getJsonModel: function() {
                 console.log('this is variable list model');
             }
@@ -70,7 +93,7 @@ app.factory('BuildVariableListModel', function() {
     return {
         create: create
     };
-});
+}]);
 
 app.factory('BuildGenFormulaModel', function() {
     function create() {
@@ -142,6 +165,46 @@ app.factory('BuildDefaultModel', function() {
     };
 });
 
+app.factory('BuildVariable', function() {
+    function create(cfg) {
+        function Variable() {
+            var self = this;
+            /* Check for passed in JSON cfg at later time */
+
+            self.name = '';
+            self.type = 'continuous';
+            self.levels = '';
+            self.ref = '';
+        }
+
+        Variable.prototype = {
+            convertLevelsToArray: function() {
+                console.log('return converted levels as []');
+            },
+            getFirstEntryInLevels: function() {
+                console.log('returned first entry in levels');
+            },
+            getJsonModel: function() {
+                var self = this;
+
+                return {
+                    name: self.name,
+                    type: self.type,
+                    levels: self.convertLevelsToArray(),
+                    ref: self.ref ? self.ref : self.getFirstEntryInLevels()
+                };
+            }
+        };
+
+        return new Variable();
+    }
+
+    return {
+        create: create
+    };
+});
+
+/* Primary application controller */
 app.controller('ArcAccordion', ['BuildSection', function (buildSection, $scope) {
     var self = this;
 
@@ -172,7 +235,6 @@ app.controller('ArcAccordion', ['BuildSection', function (buildSection, $scope) 
             optional: true
         }
     ];
-
     var applyConfig = [
         {
             header: 'Starting Age and Length of Age Interval',
@@ -199,6 +261,7 @@ app.controller('ArcAccordion', ['BuildSection', function (buildSection, $scope) 
     self.buildStep = [];
     self.applyStep = [];
 
+    /* Create accordion form data with appropriate configuration */
     for (var i = 0; i < buildConfig.length; i++) {
         self.buildStep.push(buildSection.createSection(buildConfig[i]));
     }
