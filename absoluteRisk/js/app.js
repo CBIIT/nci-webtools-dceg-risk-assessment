@@ -1,45 +1,56 @@
 var app = angular.module('Arc', ['ui.bootstrap']);
 
-app.factory('BuildSection', function() {
-    function createSection(cfg) {
-        function Section() {
-            var self = this;
+app.factory('BuildSection', [
+    'BuildVariableListModel',
+    'BuildGenFormulaModel',
+    'BuildAgeIntervalModel',
+    'BuildDefaultModel',
+    function(buildVl, buildGf, buildAi, buildDef) {
+        function createSection(cfg) {
+            function Section() {
+                var self = this;
 
-            self.optional = cfg.optional ? cfg.optional : false;
-            self.header = function() {
-                var header = cfg.header;
+                self.modelMap = {
+                    'variable_list':    buildVl.create,
+                    'generate_formula': buildGf.create,
+                    'age_interval':     buildAi.create,
+                    'default':          buildDef.create
+                };
 
-                if (!self.optional) {
-                    header = header + ' *';
+                self.optional = cfg.optional ? cfg.optional : false;
+                self.header = function() {
+                    var header = cfg.header;
+
+                    if (!self.optional) {
+                        header = header + ' *';
+                    }
+                    return header;
+                };
+
+                self.type = cfg.type ? cfg.type : 'default';
+                self.model = self.createModel(self.type);
+            }
+
+            Section.prototype = {
+                createModel: function(type) {
+                    return this.modelMap[type]();
+                },
+                getJsonModel: function() {
+                    return this.model.getJsonModel();
                 }
-                return header;
             };
 
-            self.type = cfg.type ? cfg.type : 'default';
-            self.model = self.createModel(self.type);
+            return new Section();
         }
 
-        Section.prototype = {
-            createModel: function(type) {
-                switch(type) {
-                    case('variable_list'):
-                        return new VariableListModel();
-                    case('generate_formula'):
-                        return new GenFormulaModel();
-                    case('age_interval'):
-                        return new AgeIntervalModel();
-                    default:
-                        return new DefaultModel();
-                }
-            },
-            getJsonModel: function() {
-                return this.model.getJsonModel();
-            }
+        return {
+            createSection: createSection
         };
+    }
+]);
 
-        /***** Section Model Types *****/
-        /* Maybe these should be individual services */
-
+app.factory('BuildVariableListModel', function() {
+    function create() {
         function VariableListModel() {
             var self = this;
 
@@ -53,6 +64,16 @@ app.factory('BuildSection', function() {
             }
         };
 
+        return new VariableListModel();
+    }
+
+    return {
+        create: create
+    };
+});
+
+app.factory('BuildGenFormulaModel', function() {
+    function create() {
         function GenFormulaModel() {
             var self = this;
 
@@ -69,6 +90,16 @@ app.factory('BuildSection', function() {
             }
         };
 
+        return new GenFormulaModel();
+    }
+
+    return {
+        create: create
+    };
+});
+
+app.factory('BuildAgeIntervalModel', function() {
+    function create() {
         function AgeIntervalModel() {
             var self = this;
 
@@ -82,6 +113,16 @@ app.factory('BuildSection', function() {
             }
         };
 
+        return new AgeIntervalModel();
+    }
+
+    return {
+        create: create
+    };
+});
+
+app.factory('BuildDefaultModel', function() {
+    function create() {
         function DefaultModel() {
             this.genTemplate = true;
 
@@ -93,11 +134,11 @@ app.factory('BuildSection', function() {
             }
         };
 
-        return new Section();
+        return new DefaultModel();
     }
 
     return {
-        createSection: createSection
+        create: create
     };
 });
 
