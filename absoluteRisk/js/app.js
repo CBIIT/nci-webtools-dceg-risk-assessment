@@ -77,4 +77,10 @@ app.controller('ArcAccordion', ['BuildSection', function (Section, $scope) {
             sections: self.applyStep
         }
     );
+
+    self.init = function() {
+        self.steps[0].sections[0].isDisabled = false;
+    };
+
+    self.init();
 }]);

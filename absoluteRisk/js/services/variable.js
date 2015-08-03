@@ -12,20 +12,29 @@ app.factory('BuildVariable', function() {
     }
     Variable.prototype = {
         convertLevelsToArray: function() {
-            console.log('return converted levels as []');
+            var l = this.levels.split(' ');
+
+            if (this.levelsType === 'integer') {
+                angular.forEach(l, function(value, index) {
+                    l[index] = parseInt(value, 10);
+                });
+            }
+
+            return l;
         },
         getFirstEntryInLevels: function() {
             console.log('returned first entry in levels');
         },
         getJsonModel: function() {
             var self = this;
+            var levelsObj = self.convertLevelsToArray();
 
             return {
                 name: self.name,
                 type: self.type,
-                levels: self.convertLevelsToArray(),
+                levels: levelsObj,
                 levelsType: self.levelsType,
-                ref: self.ref ? self.ref : self.getFirstEntryInLevels()
+                ref: self.ref ? self.ref : levelsObj[0]
             };
         }
     };

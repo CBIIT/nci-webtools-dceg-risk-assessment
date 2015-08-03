@@ -1,5 +1,5 @@
 /* Creates a VariableList section model */
-app.factory('BuildVariableListModel', ['BuildVariable', function(Variable) {
+app.factory('BuildVariableListModel', ['BuildVariable', 'CacheService', function(Variable, Cache) {
     function VariableListModel() {
         var self = this;
 
@@ -21,7 +21,8 @@ app.factory('BuildVariableListModel', ['BuildVariable', function(Variable) {
             }
         },
         saveModel: function() {
-            console.log(this.getJsonModel());
+            Cache.data.section_1 = this.getJsonModel();
+            console.log('cache is: ', Cache.data);
         },
         getJsonModel: function() {
             var list = [];

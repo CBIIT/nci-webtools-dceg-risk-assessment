@@ -22,6 +22,7 @@ app.factory('BuildSection', [
                 'default':          defModel
             };
 
+            self.isDisabled = true;
             self.optional = cfg.optional ? cfg.optional : false;
             self.header = function() {
                 var header = cfg.header;
