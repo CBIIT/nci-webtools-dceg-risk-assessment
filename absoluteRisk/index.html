@@ -62,22 +62,26 @@
                                                 <input type="text" name="name" placeholder="example: famhist" class="form-control" ng-model="variable.name">
                                             </td>
                                             <td>
-                                                <label class="radio-inline">
-                                                    <input type="radio" name="{{'type_' + $index}}" value="continuous" ng-model="variable.type"> Yes
-                                                </label>
-                                                <label class="radio-inline">
-                                                    <input type="radio" name="{{'type_' + $index}}" value="factor" ng-model="variable.type"> No
-                                                </label>
+                                                <div class="form-group top-margin">
+                                                    <label class="radio-inline col-sm-5">
+                                                        <input type="radio" name="{{'type_' + $index}}" value="continuous" ng-model="variable.type"> Yes
+                                                    </label>
+                                                    <label class="radio-inline col-sm-1">
+                                                        <input type="radio" name="{{'type_' + $index}}" value="factor" ng-model="variable.type"> No
+                                                    </label>
+                                                </div>
                                             </td>
                                             <td>
-                                                <div class="form-group">
-                                                    <input type="text" name="levels" placeholder="example: 1 5 8" class="form-control" ng-model="variable.levels">
-                                                </div>
-                                                <div class="form-group">
-                                                    <select name="levels_type" class="form-control" ng-model="variable.levelsType">
-                                                        <option value="integer">integer</option>
-                                                        <option value="string">string</option>
-                                                    </select>
+                                                <div class="form-group rt-sm-gutter">
+                                                    <div class="col-sm-7">
+                                                        <input type="text" name="levels" placeholder="example: 1 5 8" class="form-control" ng-model="variable.levels">
+                                                    </div>
+                                                    <div class="col-sm-5">
+                                                        <select name="levels_type" class="form-control" ng-model="variable.levelsType">
+                                                            <option value="integer">integer</option>
+                                                            <option value="string">string</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </td>
                                             <td>

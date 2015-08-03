@@ -41,6 +41,11 @@ a {
     display: block;
 }
 
-.form-group {
-    margin-top: 10px;
+.rt-sm-gutter > [class*='col-'] {
+    padding-right:5px;
+    padding-left:0;
+}
+
+.form-group.top-margin {
+    margin-top: 7px;
 }
