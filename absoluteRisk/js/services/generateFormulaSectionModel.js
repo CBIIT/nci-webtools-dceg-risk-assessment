@@ -17,6 +17,7 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', fun
             var tempList = angular.copy(list);
 
             self.variables = [];
+            self.status = 'edit';
 
             angular.forEach(list, function(variable) {
                 tempList.shift();

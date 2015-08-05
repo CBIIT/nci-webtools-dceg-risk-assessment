@@ -169,10 +169,10 @@
                                     </tbody>
                                 </table>
                                 <div class="btn-toolbar">
-                                    <button type="button" class="btn btn-primary pull-right" ng-click="section.model.toggleStatus('confirmed')">
+                                    <button type="button" class="btn btn-primary pull-right" ng-click="section.model.toggleStatus('confirmed')" ng-disabled="section.model.status === 'confirmed'">
                                         Confirm
                                     </button>
-                                    <button type="button" class="btn btn-info pull-right" ng-click="section.model.toggleStatus('edit')">
+                                    <button type="button" class="btn btn-info pull-right" ng-click="section.model.toggleStatus('edit')" ng-disabled="section.model.status === 'edit'">
                                         Edit
                                     </button>
                                 </div>
