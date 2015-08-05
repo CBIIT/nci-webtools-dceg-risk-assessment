@@ -1,7 +1,10 @@
 /* Creates a Default section model */
 app.factory('BuildDefaultModel', function() {
     function DefaultModel() {
-        this.genTemplate = true;
+        var self = this;
+
+        self.genTemplate = true;
+        self.isDisabled = true;
 
         /* Add more custom model functionality later */
     }

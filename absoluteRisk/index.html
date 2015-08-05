@@ -35,8 +35,8 @@
         <div class="col-xs-12 col-md-8">
             <div ng-repeat="step in accordion.steps">
                 <h4>{{step.title}}</h4>
-                <accordion close-others="accordion.oneAtATime">
-                    <accordion-group ng-repeat="section in step.sections" heading="{{section.header()}}" is-disabled="section.isDisabled">
+                <accordion close-others="true">
+                    <accordion-group ng-repeat="section in step.sections" heading="{{section.header()}}" is-disabled="section.isDisabled" is-open="section.isOpen">
                         <form ng-if="section.type === 'variable_list'">
                             <div class="form-group">
                                 <label class="radio-inline">
@@ -151,33 +151,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <tr ng-repeat="variable in section.model.variables">
                                             <td>
-                                                <span>famhist</span>
-                                            </td>
-                                            <td>
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox" value="" checked>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <span>menarche_dec</span>
-                                            </td>
-                                            <td>
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox" value="" checked>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <span>parity</span>
+                                                <span>{{variable.name}}</span>
                                             </td>
                                             <td>
                                                 <div class="checkbox">
@@ -207,9 +183,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <tr ng-repeat="variable in section.model.variables">
                                             <td>
-                                                <span>famhist</span>
+                                                <span>{{variable.name}}</span>
                                             </td>
                                             <td>
                                                 <select name="interaction_terms" class="form-control" multiple>
@@ -217,17 +193,6 @@
                                                     <option value="menarche_dec">menarch_dec</option>
                                                     <option value="parity" selected>parity</option>
                                                     <option value="birth_dec">birth_dec</option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <span>menarche_dec</span>
-                                            </td>
-                                            <td>
-                                                <select name="interaction_terms" class="form-control" multiple>
-                                                    <option value="">Select...</option>
-                                                    <option value="parity" selected>parity</option>
                                                 </select>
                                             </td>
                                         </tr>

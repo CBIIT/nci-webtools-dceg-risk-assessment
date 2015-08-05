@@ -11,7 +11,8 @@ app.factory('BuildSection', [
     'BuildGenFormulaModel',
     'BuildAgeIntervalModel',
     'BuildDefaultModel',
-    function(vlModel, gfModel, aiModel, defModel) {
+    '$rootScope',
+    function(vlModel, gfModel, aiModel, defModel, $rootScope) {
         function Section(cfg) {
             var self = this;
 
@@ -22,7 +23,6 @@ app.factory('BuildSection', [
                 'default':          defModel
             };
 
-            self.isDisabled = true;
             self.optional = cfg.optional ? cfg.optional : false;
             self.header = function() {
                 var header = cfg.header;
@@ -35,12 +35,22 @@ app.factory('BuildSection', [
 
             self.type = cfg.type ? cfg.type : 'default';
             self.model = self.createModel(self.type);
+            self.isDisabled = true;
+            self.isOpen = false;
         }
 
         Section.prototype = {
+            init: function() {
+                this.model.init();
+            },
+            setSectionState: function(bool) {
+                this.isOpen = !bool;
+
+                $rootScope.$broadcast('sectionStateChanged', { type: this.type, state: 'complete' });
+            },
             createModel: function(type) {
                 /* Use modelMap to create the correct section model based on section type */
-                return new this.modelMap[type]();
+                return new this.modelMap[type](this);
             },
             getJsonModel: function() {
                 return this.model.getJsonModel();

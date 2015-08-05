@@ -1,12 +1,11 @@
 /* Creates a VariableList section model */
 app.factory('BuildVariableListModel', ['BuildVariable', 'CacheService', function(Variable, Cache) {
-    function VariableListModel() {
+    function VariableListModel(parent) {
         var self = this;
 
         self.inputMethod = 'manual';
         self.variableList = [];
-
-        /* Add more custom model functionality later */
+        self.section = parent;
 
         /* Add a single variable to the list as default list state */
         self.addVariable();
@@ -21,8 +20,10 @@ app.factory('BuildVariableListModel', ['BuildVariable', 'CacheService', function
             }
         },
         saveModel: function() {
-            Cache.data.section_1 = this.getJsonModel();
-            console.log('cache is: ', Cache.data);
+            var self = this;
+            var isValid = Cache.setData('section_1', this.getJsonModel());
+
+            self.section.setSectionState(isValid);
         },
         getJsonModel: function() {
             var list = [];

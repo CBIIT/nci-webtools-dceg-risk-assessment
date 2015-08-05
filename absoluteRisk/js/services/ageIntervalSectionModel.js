@@ -4,6 +4,7 @@ app.factory('BuildAgeIntervalModel', function() {
         var self = this;
 
         self.inputMethod = 'manual';
+        self.isDisabled = true;
 
         /* Add more custom model functionality later */
     }

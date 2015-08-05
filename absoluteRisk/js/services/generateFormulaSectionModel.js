@@ -7,12 +7,15 @@ app.factory('BuildGenFormulaModel', ['CacheService', function(Cache) {
         self.toggleStatus = function(status) {
             self.status = status;
         };
-
-        /* Add more custom model functionality later */
+        self.variables = [];
     }
     GenFormulaModel.prototype = {
+        init: function() {
+            var data = Cache.getData();
+            this.variables = data.section_1.variableList;
+        },
         saveModel: function() {
-            Cache.data.section_1 = this.getJsonModel();
+            Cache.data.section_2 = this.getJsonModel();
             console.log('cache is: ', Cache.data);
         },
         getJsonModel: function() {

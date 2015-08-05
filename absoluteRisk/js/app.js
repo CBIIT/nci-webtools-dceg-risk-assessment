@@ -2,7 +2,7 @@
 var app = angular.module('Arc', ['ui.bootstrap']);
 
 /* Primary application controller */
-app.controller('ArcAccordion', ['BuildSection', function (Section, $scope) {
+app.controller('ArcAccordion', ['BuildSection', 'CacheService', '$rootScope', '$scope', function (Section, Cache, $rootScope, $scope) {
     var self = this;
 
     var buildConfig = [
@@ -47,16 +47,10 @@ app.controller('ArcAccordion', ['BuildSection', function (Section, $scope) {
         }
     ];
 
-    /* Accordion settings */
-    self.oneAtATime = true;
-    self.status = {
-        isFirstOpen: true,
-        isFirstDisabled: false
-    };
-
     self.steps = [];
     self.buildStep = [];
     self.applyStep = [];
+    self.ind = 0;
 
     /* Create accordion form data with appropriate configuration */
     for (var i = 0; i < buildConfig.length; i++) {
@@ -80,6 +74,31 @@ app.controller('ArcAccordion', ['BuildSection', function (Section, $scope) {
 
     self.init = function() {
         self.steps[0].sections[0].isDisabled = false;
+        self.steps[0].sections[0].isOpen = true;
+
+        $scope.$on('sectionStateChanged', function(event, args) {
+            var type = args.type;
+            var state = args.state;
+            var section;
+
+            if (state === 'complete') {
+                // Means section has been validated and completed
+                switch(type) {
+                    case('variable_list'):
+                        section = self.steps[0].sections[1];
+                        section.isDisabled = false;
+                        section.isOpen = true;
+                        break;
+                    default:
+                        console.log('close penultimate section');
+                        break;
+                }
+            } else {
+                // Means state === 'edit'
+            }
+
+            section.init();
+        });
     };
 
     self.init();
