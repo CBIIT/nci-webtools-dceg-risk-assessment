@@ -78,10 +78,10 @@
                                             <td>
                                                 <div class="form-group rt-sm-gutter">
                                                     <div class="col-sm-7">
-                                                        <input type="text" name="levels" placeholder="example: 1 5 8" class="form-control" ng-model="variable.levels">
+                                                        <input type="text" name="levels" placeholder="example: 1 5 8" class="form-control" ng-model="variable.levels" ng-disabled="variable.type === 'continuous'">
                                                     </div>
                                                     <div class="col-sm-5">
-                                                        <select name="levels_type" class="form-control" ng-model="variable.levelsType">
+                                                        <select name="levels_type" class="form-control" ng-model="variable.levelsType" ng-disabled="variable.type === 'continuous'">
                                                             <option value="integer">integer</option>
                                                             <option value="string">string</option>
                                                         </select>
@@ -89,7 +89,7 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <input type="text" name="ref" placeholder="example: 5" class="form-control" ng-model="variable.ref">
+                                                <input type="text" name="ref" placeholder="example: 5" class="form-control" ng-model="variable.ref" ng-disabled="variable.type === 'continuous'">
                                             </td>
                                             <td>
                                                 <a ng-click="section.model.deleteVariable($index)">
@@ -191,7 +191,7 @@
                                                 <span>{{variable.name}}</span>
                                             </td>
                                             <td>
-                                                <select name="interaction_terms" class="form-control" multiple ng-show="$index < section.model.variables.length - 1 && variable.linear">
+                                                <select name="interaction_terms" class="form-control" multiple ng-show="$index < section.model.variables.length - 1 && variable.linear && section">
                                                     <option value="">Select...</option>
                                                     <option ng-repeat="term in variable.interaction" value="{{term.name}}">{{term.name}}</option>
                                                 </select>
