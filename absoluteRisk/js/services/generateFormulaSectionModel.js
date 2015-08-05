@@ -1,5 +1,5 @@
 /* Creates a GenFormula section model */
-app.factory('BuildGenFormulaModel', ['CacheService', function(Cache) {
+app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', function(FormulaVariable, Cache) {
     function GenFormulaModel() {
         var self = this;
 
@@ -11,8 +11,19 @@ app.factory('BuildGenFormulaModel', ['CacheService', function(Cache) {
     }
     GenFormulaModel.prototype = {
         init: function() {
+            var self = this;
             var data = Cache.getData();
-            this.variables = data.section_1.variableList;
+            var list = data.section_1.variableList;
+            var tempList = angular.copy(list);
+
+            self.variables = [];
+
+            angular.forEach(list, function(variable) {
+                tempList.shift();
+
+                var formulaVar = new FormulaVariable(variable, angular.copy(tempList));
+                self.variables.push(formulaVar);
+            });
         },
         saveModel: function() {
             Cache.data.section_2 = this.getJsonModel();
