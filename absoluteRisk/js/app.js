@@ -1,8 +1,24 @@
 /* A calculator tool with an accordion form UI */
-var app = angular.module('Arc', ['ui.bootstrap']);
+var app = angular.module('Arc', ['ui.bootstrap', 'ui.select', 'ngSanitize']);
+
+app.filter('verifyTerms', function() {
+    return function(input, terms, varList) {
+        var verifiedTerms = [];
+
+        angular.forEach(varList, function(v) {
+            angular.forEach(terms, function(term) {
+                if (v.name === term.name && v.linear) {
+                    verifiedTerms.push(term);
+                }
+            });
+        });
+
+        return verifiedTerms;
+    };
+});
 
 /* Primary application controller */
-app.controller('ArcAccordion', ['BuildSection', 'CacheService', '$rootScope', '$scope', function (Section, Cache, $rootScope, $scope) {
+app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$scope', '$sanitize', function (Section, Cache, $rootScope, $scope, $san) {
     var self = this;
 
     var buildConfig = [
@@ -71,6 +87,10 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService', '$rootScope', '$
             sections: self.applyStep
         }
     );
+
+    self.trustAsHtml = function(value) {
+      return $san(value);
+    };
 
     self.init = function() {
         self.steps[0].sections[0].isDisabled = false;

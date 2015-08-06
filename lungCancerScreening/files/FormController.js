@@ -245,6 +245,7 @@ app.controller("MyController", function($scope, $http) {
         data,
         params,
         paramsArray = [],
+        qtyears,
         url = 'http://' + window.location.hostname + '/lungCancerRest/';
 
     /* Reset summary property to disable results/download results button */
@@ -266,6 +267,8 @@ app.controller("MyController", function($scope, $http) {
       bmi = w / Math.pow(h, 2);
     }
 
+    qtyears = $scope.myForm.quit ? Math.round($scope.myForm.age - parseFloat($scope.myForm.quit)) : 0;
+
     params = {
       'age': Math.round($scope.myForm.age),
       'bmi': Math.round(bmi * 100) / 100,  //Measure to two decimal places
@@ -273,7 +276,7 @@ app.controller("MyController", function($scope, $http) {
       'emp': parseInt($scope.myForm.disease, 10),
       'fam.lung.trend': parseInt($scope.myForm.history, 10),
       'gender': parseInt($scope.myForm.gender, 10),
-      'qtyears': parseFloat($scope.myForm.quit ? $scope.myForm.quit : 0),
+      'qtyears': qtyears,
       'smkyears': 0,
       'race': parseInt($scope.myForm.group, 10),
       'edu6': parseInt($scope.myForm.education),

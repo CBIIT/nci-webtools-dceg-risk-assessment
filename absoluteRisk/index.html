@@ -8,6 +8,10 @@
 
     <!-- Latest AngularJS from CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-sanitize.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.12.1/select.min.js"></script>
+
 
     <!-- Local UI-Bootstrap -->
     <script src="js/ui-bootstrap-tpls-0.13.0.min.js"></script>
@@ -27,10 +31,22 @@
 
     <!-- Latest Bootstrap CSS from CDN -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.bootstrap3.css">
+
     <!-- Local ARC Tool CSS -->
     <link rel="stylesheet" href="css/app.css">
 
     <title>Absolute Risk Calculator</title>
+    <style type="text/css">
+        .select2 > .select2-choice.ui-select-match {
+          /* Because of the inclusion of Bootstrap */
+          height: 29px;
+        }
+
+        .selectize-control > .selectize-dropdown {
+          top: 36px;
+        }
+    </style>
 </head>
 
 <body>
@@ -191,10 +207,12 @@
                                                 <span>{{variable.name}}</span>
                                             </td>
                                             <td>
-                                                <select name="interaction_terms" class="form-control" multiple ng-show="$index < section.model.variables.length - 1 && variable.linear && section">
-                                                    <option value="">Select...</option>
-                                                    <option ng-repeat="term in variable.interaction" value="{{term.name}}">{{term.name}}</option>
-                                                </select>
+                                                <ui-select multiple ng-model="variable.interaction" theme="bootstrap" style="width: 150px">
+                                                  <ui-select-match placeholder="No selection...">{{$item.name}}</ui-select-match>
+                                                  <ui-select-choices repeat="term in variable.terms | verifyTerms: variable.terms: section.model.variables">
+                                                    <div ng-bind-html="term.name | highlight: $select.search"></div>
+                                                  </ui-select-choices>
+                                                </ui-select>
                                             </td>
                                         </tr>
                                     </tbody>

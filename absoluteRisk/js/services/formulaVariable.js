@@ -6,9 +6,8 @@ app.factory('BuildFormulaVariable', function() {
 
         self.name = v.name;
         self.linear = true;
-        self.interaction = interactionTerms;
-
-        console.log(self.interaction);
+        self.terms = interactionTerms; // List of terms that user can select
+        self.interaction = [];
     }
     FormulaVariable.prototype = {
         getJsonModel: function() {

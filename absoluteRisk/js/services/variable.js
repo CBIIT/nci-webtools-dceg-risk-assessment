@@ -22,9 +22,6 @@ app.factory('BuildVariable', function() {
 
             return l;
         },
-        getFirstEntryInLevels: function() {
-            console.log('returned first entry in levels');
-        },
         getJsonModel: function() {
             var self = this;
             var levelsObj = self.convertLevelsToArray();
@@ -33,7 +30,6 @@ app.factory('BuildVariable', function() {
                 name: self.name,
                 type: self.type,
                 levels: levelsObj,
-                levelsType: self.levelsType,
                 ref: self.ref ? self.ref : levelsObj[0]
             };
         }
