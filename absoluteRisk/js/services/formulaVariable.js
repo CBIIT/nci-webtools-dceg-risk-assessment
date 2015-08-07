@@ -25,6 +25,15 @@ app.factory('BuildFormulaVariable', ['$rootScope', 'verifyTermsFilter', function
             var vTerms = verifyTerms(null, self.terms, self.parent.variables);
             self.fakeTermsLength = vTerms.length;
 
+            /*
+                Reset interaction array if no terms to choose from.
+                Multi-select will not show in UI due to ng-show condition.
+                When multi-select is visible again, no terms should be selected
+            */
+            if (!self.fakeTermsLength) {
+                this.interaction = [];
+            }
+
             /* Updates interaction array by removing any non-linear terms from it */
             angular.forEach(self.interaction, function(interaction, index) {
                 if (interaction.name === v.name) {
@@ -35,6 +44,15 @@ app.factory('BuildFormulaVariable', ['$rootScope', 'verifyTermsFilter', function
     }
     FormulaVariable.prototype = {
         alertLinearState: function() {
+
+            /*
+                Reset interaction array if non-linear
+                Multi-select should be empty when it is visible in UI  again
+            */
+            if (!this.linear) {
+                this.interaction = [];
+            }
+
             $rootScope.$broadcast('linearStateChanged', { name: this.name });
         },
         getJsonModel: function() {
