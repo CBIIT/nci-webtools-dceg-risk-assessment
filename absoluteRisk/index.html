@@ -207,8 +207,7 @@
                                                 <span>{{variable.name}}</span>
                                             </td>
                                             <td>
-                                                <span>{{variable.terms.length}}</span>
-                                                <ui-select multiple ng-model="variable.interaction" theme="bootstrap" style="width: 150px" ng-show="variable.linear">
+                                                <ui-select multiple ng-model="variable.interaction" theme="bootstrap" style="width: 150px" ng-show="variable.linear && variable.fakeTermsLength">
                                                   <ui-select-match placeholder="No selection...">{{$item.name}}</ui-select-match>
                                                   <ui-select-choices repeat="term in variable.terms | verifyTerms: variable.terms: section.model.variables">
                                                     <div ng-bind-html="term.name | highlight: $select.search"></div>
