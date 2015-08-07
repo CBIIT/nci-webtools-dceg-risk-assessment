@@ -8,7 +8,7 @@ app.filter('verifyTerms', function() {
         angular.forEach(varList, function(v) {
             angular.forEach(terms, function(term) {
                 if (v.name === term.name && v.linear) {
-                    verifiedTerms.push(term);
+                    verifiedTerms.push(v);
                 }
             });
         });

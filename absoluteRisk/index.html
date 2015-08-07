@@ -177,7 +177,7 @@
                                             <td>
                                                 <div class="checkbox">
                                                     <label>
-                                                        <input type="checkbox" ng-model="variable.linear" ng-disabled="section.model.status === 'confirmed'">
+                                                        <input type="checkbox" ng-model="variable.linear" ng-change="variable.alertLinearState()" ng-disabled="section.model.status === 'confirmed'">
                                                     </label>
                                                 </div>
                                             </td>
@@ -207,7 +207,8 @@
                                                 <span>{{variable.name}}</span>
                                             </td>
                                             <td>
-                                                <ui-select multiple ng-model="variable.interaction" theme="bootstrap" style="width: 150px">
+                                                <span>{{variable.terms.length}}</span>
+                                                <ui-select multiple ng-model="variable.interaction" theme="bootstrap" style="width: 150px" ng-show="variable.linear">
                                                   <ui-select-match placeholder="No selection...">{{$item.name}}</ui-select-match>
                                                   <ui-select-choices repeat="term in variable.terms | verifyTerms: variable.terms: section.model.variables">
                                                     <div ng-bind-html="term.name | highlight: $select.search"></div>
