@@ -42,11 +42,35 @@ app.factory('BuildSection', [
             self.file = null;
             self.id = cfg.id ? cfg.id : self.type;
             self.fileId = self.id + '_file';
+            self.fileUrl = url = 'http://' + window.location.hostname + '/absoluteRiskRest/fileUpload';
 
             $rootScope.$on('fileAdded', function(e, data) {
                 if (data.id === self.fileId) {
                     self.file = data.file;
                     console.log(self.file);
+
+                    uiUploader.addFiles(self.file);
+
+/*
+                    uiUploader.startUpload({
+                        url: self.fileUrl,
+                        concurrency: 2,
+                        onProgress: function(file) {
+                            // file contains a File object
+                            console.log(file);
+                        },
+                        onCompleted: function(file, response) {
+                            // file contains a File object
+                            console.log(file);
+                            // response contains the server response
+                            console.log(response);
+                        },
+                        onCompletedAll: function(files) {
+                            // files is an array of File objects
+                            console.log(files);
+                        }
+                    });
+*/
                 }
             });
         }
