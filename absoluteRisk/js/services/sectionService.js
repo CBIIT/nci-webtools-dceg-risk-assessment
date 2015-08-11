@@ -12,7 +12,8 @@ app.factory('BuildSection', [
     'BuildAgeIntervalModel',
     'BuildDefaultModel',
     '$rootScope',
-    function(vlModel, gfModel, aiModel, defModel, $rootScope) {
+    'uiUploader',
+    function(vlModel, gfModel, aiModel, defModel, $rootScope, uiUploader) {
         function Section(cfg) {
             var self = this;
 
@@ -37,16 +38,36 @@ app.factory('BuildSection', [
             self.model = self.createModel(self.type);
             self.isDisabled = true;
             self.isOpen = false;
+
+            self.file = null;
+            self.id = cfg.id ? cfg.id : self.type;
+            self.fileId = self.id + '_file';
+
+            $rootScope.$on('fileAdded', function(e, data) {
+                if (data.id === self.fileId) {
+                    self.file = data.file;
+                    console.log(self.file);
+                }
+            });
         }
 
         Section.prototype = {
             init: function() {
-                this.model.init();
+                if (this.model.init) {
+                    this.model.init();
+                }
             },
             setSectionState: function(bool) {
                 this.isOpen = !bool;
 
                 $rootScope.$broadcast('sectionStateChanged', { type: this.type, state: 'complete' });
+            },
+            resetFile: function() {
+                /* Reset form to reset file input */
+                var sectionForm = document.getElementById(this.id);
+                sectionForm.reset();
+
+                this.file = null;
             },
             createModel: function(type) {
                 /* Use modelMap to create the correct section model based on section type */

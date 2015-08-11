@@ -1,16 +1,18 @@
 /* Creates a VariableList section model */
-app.factory('BuildVariableListModel', ['BuildVariable', 'CacheService', function(Variable, Cache) {
+app.factory('BuildVariableListModel', ['BuildVariable', 'CacheService', '$rootScope', function(Variable, Cache, $rootScope) {
     function VariableListModel(parent) {
         var self = this;
 
         self.inputMethod = 'manual';
-        self.variableList = [];
         self.section = parent;
-
-        /* Add a single variable to the list as default list state */
-        self.addVariable();
     }
     VariableListModel.prototype = {
+        init: function() {
+            this.variableList = [];
+
+            /* Add a single variable to the list as default list state */
+            this.addVariable();
+        },
         addVariable: function() {
             this.variableList.push(new Variable());
         },

@@ -1,5 +1,5 @@
 /* A calculator tool with an accordion form UI */
-var app = angular.module('Arc', ['ui.bootstrap', 'ui.select', 'ngSanitize']);
+var app = angular.module('Arc', ['ui.bootstrap', 'ui.select', 'ngSanitize', 'ui.uploader']);
 
 app.filter('verifyTerms', function() {
     return function(input, terms, varList) {
@@ -17,10 +17,30 @@ app.filter('verifyTerms', function() {
     };
 });
 
+app.directive('arcFileChange', ['$rootScope', function($rootScope) {
+    function link($scope, elem, attributes) {
+        var fileInputElem = elem[0];
+
+        fileInputElem.addEventListener('change', function(e) {
+            var file = e.target.files[0];
+            var id = e.target.id;
+
+            $rootScope.$broadcast('fileAdded', {id: id, file: file });
+            $scope.$apply();
+        });
+    }
+
+    return {
+      restrict: 'AE',
+      replace: 'true',
+      scope: {},
+      link: link
+    };
+}]);
+
 /* Primary application controller */
 app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$scope', '$sanitize', function (Section, Cache, $rootScope, $scope, $san) {
     var self = this;
-
     var buildConfig = [
         {
             header: 'List the Variables',
@@ -31,19 +51,24 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             type: 'generate_formula'
         },
         {
+            id: 'risk_factor_distribution',
             header: 'Provide Risk Factor Distribution'
         },
         {
+            id: 'log_odds_ratios',
             header: 'Provide Log Odds Ratios'
         },
         {
+            id: 'disease_incidence_rates',
             header: 'Provide Incidence Rates of Disease in Population'
         },
         {
+            id: 'mortality_incidence_rates',
             header: 'Provide Incidence Rates of Competing Mortality',
             optional: true
         },
         {
+            id: 'snp_information',
             header: 'Provide SNP Information',
             optional: true
         }
@@ -54,10 +79,12 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             type: 'age_interval'
         },
         {
+            id: 'risk_factor_prediction',
             header: 'Provide Risk Factor for Prediction',
             optional: true
         },
         {
+            id: 'genotypes_prediction',
             header: 'Provide Genotypes for Prediction',
             optional: true
         }
@@ -119,6 +146,9 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
 
             section.init();
         });
+
+        /* Initialize first section of application */
+        self.steps[0].sections[0].init();
     };
 
     self.init();

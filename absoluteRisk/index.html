@@ -12,8 +12,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.12.1/select.min.js"></script>
 
-
-    <!-- Local UI-Bootstrap -->
+    <!-- Local -->
+    <script src="js/angular-ui-uploader.min.js"></script>
     <script src="js/ui-bootstrap-tpls-0.13.0.min.js"></script>
 
     <!-- Angular Controllers -->
@@ -33,7 +33,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.bootstrap3.css">
 
-    <!-- Local ARC Tool CSS -->
+    <!-- Local CSS -->
     <link rel="stylesheet" href="css/app.css">
 
     <title>Absolute Risk Calculator</title>
@@ -56,12 +56,12 @@
                 <h4>{{step.title}}</h4>
                 <accordion close-others="true">
                     <accordion-group ng-repeat="section in step.sections" heading="{{section.header()}}" is-disabled="section.isDisabled" is-open="section.isOpen">
-                        <form ng-if="section.type === 'variable_list'">
+                        <form id="{{section.id}}" ng-if="section.type === 'variable_list'">
                             <div class="form-group">
-                                <label class="radio-inline">
+                                <label class="radio-inline" ng-click="section.resetFile()">
                                     <input type="radio" name="{{'age_section_' + $index}}" value="manual" ng-model="section.model.inputMethod" checked> Manual
                                 </label>
-                                <label class="radio-inline">
+                                <label class="radio-inline" ng-click="section.init()">
                                     <input type="radio" name="{{'age_section_' + $index}}" value="upload" ng-model="section.model.inputMethod"> Upload File
                                 </label>
                             </div>
@@ -128,9 +128,11 @@
                             <div ng-show="section.model.inputMethod === 'upload'">
                                 <div class="form-group">
                                     <span class="btn btn-info btn-file">
-                                        Browse <input type="file">
+                                        Browse <input type="file" id="{{section.id + '_file'}}" arc-file-change>
                                     </span>
-                                 </div>
+                                    <span ng-model="section.file">{{section.file.name}}</span>
+                                    <span ng-show="!section.file">No file selected</span>
+                                </div>
                             </div>
                         </form>
                         <form action="" ng-if="section.type === 'age_interval'">
