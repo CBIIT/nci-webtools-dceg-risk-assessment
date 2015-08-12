@@ -33,8 +33,8 @@ def index():
 def absoluteRiskRest():
         return
 
-@app.route('/', methods=['GET', 'POST'])
-def upload_file():
+@app.route('/absoluteRiskRest/fileUpload', methods=['GET', 'POST'])
+def fileUpload():
     if request.method == 'POST':
         file = request.files['file']
         file_path = ''
