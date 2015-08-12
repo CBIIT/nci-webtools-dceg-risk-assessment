@@ -49,9 +49,8 @@ app.factory('BuildSection', [
                     self.file = data.file;
                     console.log(self.file);
 
-                    uiUploader.addFiles(self.file);
+                    uiUploader.addFiles([self.file]);
 
-/*
                     uiUploader.startUpload({
                         url: self.fileUrl,
                         concurrency: 2,
@@ -70,7 +69,6 @@ app.factory('BuildSection', [
                             console.log(files);
                         }
                     });
-*/
                 }
             });
         }
