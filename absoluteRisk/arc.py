@@ -23,6 +23,22 @@ app = Flask(__name__)
 app.config['csv_upload_folder'] = UPLOAD_CSV_FOLDER
 app.config['rdata_upload_folder'] = UPLOAD_RDATA_FOLDER
 
+with open ('rfiles/upload_RData_file.r') as fh:
+    rcode = os.linesep.join(line.strip() for line in fh)
+    upload_rdata_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
+
+#with open ('rfiles/upload_CSV_file.r') as fh:
+ #       rcode = os.linesep.join(fh.readlines())
+  #      upload_csv_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
+
+#with open ('rfiles/create_model_formula.r') as fh:
+ #       rcode = os.linesep.join(fh.readlines())
+  #      model_formula_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
+
+#with open ('rfiles/convert_JSON_to_RData.r') as fh:
+ #       rcode = os.linesep.join(fh.readlines())
+ #       json_rdata_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
+
 @app.route('/')
 def index():
     # Render template
@@ -32,6 +48,7 @@ def index():
 @app.route('/absoluteRiskRest/', methods=['POST'])
 def absoluteRiskRest():
         return
+
 
 @app.route('/absoluteRiskRest/fileUpload', methods=['GET', 'POST'])
 def fileUpload():
@@ -48,7 +65,11 @@ def fileUpload():
                 file.save(os.path.join(app.config['rdata_upload_folder'], filename))
                 file_path = app.config['rdata_upload_folder'] + '/' + filename
 
-            return file_path
+            json_data = upload_rdata_wrapper.uploadRData(file_path)[0]
+            loadedJson = json.loads(json_data)
+            loadedJson.insert(0, {'path_to_file': file_path})
+
+            return json.dumps(loadedJson)
     return ''
 
 def allowed_file(filename):

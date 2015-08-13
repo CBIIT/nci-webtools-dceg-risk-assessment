@@ -4,15 +4,20 @@
 # Inputs: model_info "RData file name" and list_of variables "RData file names" 
 # outputs: the model formula
 #--------------------------------------------------------------------
+#
 # test code:
 #
 #
-# > tmp=create_formula("model_info.RData", "list_of_variables.RData")
-# > tmp
+# > t1=c("list_of_variables.RData")
+# > t2=c("model_info.RData")
+# > model_predictor = create_formula(t2,t1)
+# > model_predictor
 # [1] "Y ~ famhist + as.factor(menarche_dec) + as.factor(parity) + as.factor(birth_dec) + 
 #      as.factor(agemeno_dec) + as.factor(height_dec) + as.factor(bmi_dec) + as.factor(rd_menohrt) + 
 #      rd2_everhrt_e + rd2_everhrt_c + rd2_currhrt + as.factor(alcoholdweek_dec) + 
 #      as.factor(ever_smoke) + as.factor(bmi_dec)*as.factor(rd_menohrt)"
+#
+# > save(model_predictor, file="model_predictor.RData")
 #----------------------------------------------------------------------
 
 

@@ -26,11 +26,13 @@ library(tools)
 
 uploadCSV <- function(filename)
 {
-                mydata = read.table(filename, header = TRUE, sep = ",",  as.is = TRUE)
+                # mydata = read.table(filename, header = TRUE, sep = ",",  as.is = TRUE)
+
+		mydata <- read.csv(filename, sep=",",header=TRUE,stringsAsFactor=FALSE)
 
                 baseFileName = file_path_sans_ext(filename)
-				varName = basename(baseFileName)
-				assign(varName,mydata)
+		varName = basename(baseFileName)
+		assign(varName,mydata)
                 rdataFileName = paste(baseFileName,".RData",sep="") 
                 save(list=varName, file=rdataFileName)
                 
