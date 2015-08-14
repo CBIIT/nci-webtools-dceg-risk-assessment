@@ -13,7 +13,8 @@ app.factory('BuildSection', [
     'BuildDefaultModel',
     '$rootScope',
     'uiUploader',
-    function(vlModel, gfModel, aiModel, defModel, $rootScope, uiUploader) {
+    '$http',
+    function(vlModel, gfModel, aiModel, defModel, $rootScope, uiUploader, $http) {
         function Section(cfg) {
             var self = this;
 
@@ -42,7 +43,8 @@ app.factory('BuildSection', [
             self.file = null;
             self.id = cfg.id ? cfg.id : self.type;
             self.fileId = self.id + '_file';
-            self.fileUrl = url = 'http://' + window.location.hostname + '/absoluteRiskRest/fileUpload';
+            self.fileUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/fileUpload';
+            self.dataUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/dataUpload';
 
             $rootScope.$on('fileAdded', function(e, data) {
                 if (data.id === self.fileId) {
@@ -79,8 +81,21 @@ app.factory('BuildSection', [
                     this.model.init();
                 }
             },
-            setSectionState: function(bool) {
+            setSectionState: function(bool, data) {
+                var sectionData = JSON.stringify(data);
                 this.isOpen = !bool;
+
+                /* Ajax call to process results */
+                $http.post(this.dataUrl, sectionData)
+                   .success(function(data, status, headers, config) {
+                       console.log('data is: ', data);
+                   })
+                   .error(function(data, status, headers, config) {
+                       console.log('status is: ', status);
+                   })
+                   .finally(function(data) {
+                       console.log('finally, data is: ', data);
+                   });
 
                 $rootScope.$broadcast('sectionStateChanged', { type: this.type, state: 'complete' });
             },

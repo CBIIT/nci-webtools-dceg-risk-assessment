@@ -22,10 +22,13 @@ app.factory('BuildVariableListModel', ['BuildVariable', 'CacheService', '$rootSc
             }
         },
         saveModel: function() {
-            var self = this;
-            var isValid = Cache.setData('section_1', this.getJsonModel());
+            /* Validation will occur before Cache sets data, flesh out here */
+            var modelData = this.getJsonModel();
+            var isValid = Cache.setData('section_1', modelData);
 
-            self.section.setSectionState(isValid);
+            if (isValid) {
+                this.section.setSectionState(isValid, modelData);
+            }
         },
         getJsonModel: function() {
             var list = [];

@@ -23,21 +23,21 @@ app = Flask(__name__)
 app.config['csv_upload_folder'] = UPLOAD_CSV_FOLDER
 app.config['rdata_upload_folder'] = UPLOAD_RDATA_FOLDER
 
-with open ('rfiles/upload_RData_file.r') as fh:
+with open ('rfiles/upload_RData_file.R') as fh:
     rcode = os.linesep.join(line.strip() for line in fh)
     upload_rdata_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
 
-#with open ('rfiles/upload_CSV_file.r') as fh:
- #       rcode = os.linesep.join(fh.readlines())
-  #      upload_csv_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
+with open ('rfiles/upload_CSV_file.R') as fh:
+    rcode = os.linesep.join(fh.readlines())
+    upload_csv_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
 
-#with open ('rfiles/create_model_formula.r') as fh:
- #       rcode = os.linesep.join(fh.readlines())
-  #      model_formula_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
+with open ('rfiles/create_model_formula.R') as fh:
+    rcode = os.linesep.join(fh.readlines())
+    model_formula_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
 
-#with open ('rfiles/convert_JSON_to_RData.r') as fh:
- #       rcode = os.linesep.join(fh.readlines())
- #       json_rdata_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
+with open ('rfiles/convert_JSON_to_RData.R') as fh:
+    rcode = os.linesep.join(fh.readlines())
+    json_rdata_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
 
 @app.route('/')
 def index():
@@ -50,26 +50,39 @@ def absoluteRiskRest():
         return
 
 
-@app.route('/absoluteRiskRest/fileUpload', methods=['GET', 'POST'])
+@app.route('/absoluteRiskRest/fileUpload', methods=['POST'])
 def fileUpload():
     if request.method == 'POST':
         file = request.files['file']
-        file_path = ''
+        filepath = ''
 
         if file and allowed_file(file.filename):
             filename = time.strftime("%Y%m%d-%H%M%S") + '_' + secure_filename(file.filename)
             if (string.lower(filename.rsplit('.', 1)[1]) == 'csv'):
                 file.save(os.path.join(app.config['csv_upload_folder'], filename))
-                file_path = app.config['csv_upload_folder'] + '/' + filename
+                filepath = app.config['csv_upload_folder'] + '/' + filename
             else:
                 file.save(os.path.join(app.config['rdata_upload_folder'], filename))
-                file_path = app.config['rdata_upload_folder'] + '/' + filename
+                filepath = app.config['rdata_upload_folder'] + '/' + filename
 
-            json_data = upload_rdata_wrapper.uploadRData(file_path)[0]
+            json_data = upload_rdata_wrapper.uploadRData(filepath)[0]
             loadedJson = json.loads(json_data)
-            loadedJson.insert(0, {'path_to_file': file_path})
+            loadedJson.insert(0, {'path_to_file': filepath})
 
             return json.dumps(loadedJson)
+    return ''
+
+@app.route('/absoluteRiskRest/dataUpload', methods=['POST'])
+def dataUpload():
+    if request.method == 'POST':
+        data = request.json
+        filename = time.strftime("%Y%m%d-%H%M%S") + '_list_of_variables.rdata'
+        filepath = app.config['rdata_upload_folder'] + '/' + filename
+
+        json_rdata_wrapper.convertJSONtoRData(data, filepath)
+
+        return filepath
+
     return ''
 
 def allowed_file(filename):
