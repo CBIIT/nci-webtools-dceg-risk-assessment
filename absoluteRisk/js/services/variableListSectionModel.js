@@ -27,7 +27,7 @@ app.factory('BuildVariableListModel', ['BuildVariable', 'CacheService', '$rootSc
             var isValid = Cache.setData('section_1', modelData);
 
             if (isValid) {
-                this.section.setSectionState(isValid, modelData);
+                this.section.setSectionState(isValid, modelData.variableList);
             }
         },
         getJsonModel: function() {

@@ -28,8 +28,13 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', fun
             });
         },
         saveModel: function() {
-            Cache.data.section_2 = this.getJsonModel();
-            console.log('cache is: ', Cache.data);
+            /* Validation will occur before Cache sets data, flesh out here */
+            var modelData = this.getJsonModel();
+            var isValid = Cache.setData('section_2', modelData);
+
+            if (isValid) {
+                this.section.setSectionState(isValid, modelData.variableList);
+            }
         },
         getJsonModel: function() {
             console.log('this is generate formula model');

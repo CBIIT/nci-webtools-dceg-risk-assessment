@@ -28,15 +28,15 @@ with open ('rfiles/upload_RData_file.R') as fh:
     upload_rdata_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
 
 with open ('rfiles/upload_CSV_file.R') as fh:
-    rcode = os.linesep.join(fh.readlines())
+    rcode = os.linesep.join(line.strip() for line in fh)
     upload_csv_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
 
 with open ('rfiles/create_model_formula.R') as fh:
-    rcode = os.linesep.join(fh.readlines())
+    rcode = os.linesep.join(line.strip() for line in fh)
     model_formula_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
 
 with open ('rfiles/convert_JSON_to_RData.R') as fh:
-    rcode = os.linesep.join(fh.readlines())
+    rcode = os.linesep.join(line.strip() for line in fh)
     json_rdata_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
 
 @app.route('/')
@@ -75,7 +75,7 @@ def fileUpload():
 @app.route('/absoluteRiskRest/dataUpload', methods=['POST'])
 def dataUpload():
     if request.method == 'POST':
-        data = request.json
+        data = json.dumps(request.data)
         filename = time.strftime("%Y%m%d-%H%M%S") + '_list_of_variables.rdata'
         filepath = app.config['rdata_upload_folder'] + '/' + filename
 

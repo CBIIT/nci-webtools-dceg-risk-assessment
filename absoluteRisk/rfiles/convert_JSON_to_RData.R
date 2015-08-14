@@ -5,7 +5,7 @@
 # Inputs: (1) JSON data and (2) the RData file name (e.g. "test.RData)
 # Outputs: the RData file with saved objects
 #-----------------------------------------
-# 
+#
 # Test Code:
 #
 # > aa=toJSON(list_of_variables)
@@ -25,9 +25,6 @@
 library(rjson)
 
 convertJSONtoRData <- function(myJSONdata, filename) {
-
  	rData <- fromJSON(myJSONdata)
 	save(rData, file=filename)
-	
 }
-
