@@ -99,13 +99,6 @@ app.factory('BuildSection', [
 
                 $rootScope.$broadcast('sectionStateChanged', { type: this.type, state: 'complete' });
             },
-            resetFile: function() {
-                /* Reset form to reset file input */
-                var sectionForm = document.getElementById(this.id);
-                sectionForm.reset();
-
-                this.file = null;
-            },
             createModel: function(type) {
                 /* Use modelMap to create the correct section model based on section type */
                 return new this.modelMap[type](this);

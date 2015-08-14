@@ -58,11 +58,11 @@
                     <accordion-group ng-repeat="section in step.sections" heading="{{section.header()}}" is-disabled="section.isDisabled" is-open="section.isOpen">
                         <form id="{{section.id}}" ng-if="section.type === 'variable_list'">
                             <div class="form-group">
-                                <label class="radio-inline" ng-click="section.resetFile()">
-                                    <input type="radio" name="{{'age_section_' + $index}}" value="manual" ng-model="section.model.inputMethod" checked> Manual
+                                <label class="radio-inline">
+                                    <input type="radio" name="{{'age_section_' + $index}}" value="manual" ng-model="section.model.inputMethod" ng-click="section.init()" ng-disabled="section.model.inputMethod === 'manual'"> Manual
                                 </label>
-                                <label class="radio-inline" ng-click="section.init()">
-                                    <input type="radio" name="{{'age_section_' + $index}}" value="upload" ng-model="section.model.inputMethod"> Upload File
+                                <label class="radio-inline">
+                                    <input type="radio" name="{{'age_section_' + $index}}" value="upload" ng-model="section.model.inputMethod" ng-click="section.init()" ng-disabled="section.model.inputMethod === 'upload'" checked> Upload
                                 </label>
                             </div>
                             <div ng-show="section.model.inputMethod === 'manual'">
