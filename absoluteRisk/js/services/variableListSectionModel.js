@@ -50,6 +50,17 @@ app.factory('BuildVariableListModel', ['BuildVariable', 'CacheService', '$rootSc
             return {
                 variableList: list
             };
+        },
+        parseJsonModel: function(model) {
+            if (model) {
+                var m = JSON.parse(model);
+                var label = 'section_1';
+                var filePath = m.shift()['path_to_file'];
+                var variableList = m;
+
+                Cache.setSectionData(label, { 'path_to_file': filePath, 'variableList': variableList });
+                console.log('converted data for section_1 is: ', Cache.getSectionData(label));
+            }
         }
     };
 

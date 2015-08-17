@@ -60,12 +60,16 @@ app.factory('BuildSection', [
                             console.log(file);
                         },
                         onCompleted: function(file, response) {
+                            var convertedData = response;
 
-                            /* response contains the server response */
-                            console.log(response);
-
-                            $rootScope.$broadcast('sectionStateChanged', { type: this.type, state: 'complete' });
-                        }
+                            if (self.model.parseJsonModel) {
+                                console.log(convertedData);
+                                self.model.parseJsonModel(convertedData);
+                            }
+                            $rootScope.$broadcast('sectionStateChanged', { type: self.type, state: 'complete' });
+                            $rootScope.$apply();
+                        },
+                        onCompletedAll: function(file) {}
                     });
                 }
             });
