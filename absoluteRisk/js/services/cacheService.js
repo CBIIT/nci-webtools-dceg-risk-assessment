@@ -3,24 +3,24 @@ app.factory('CacheService', function() {
     var self = this;
     self.data = {};
 
-    self.getData = function(name, data) {
-        return self.data;
+    self.getSectionData = function(section) {
+        return self.data[section];
     };
 
-    self.setData = function(name, data) {
-        self.data[name] = data;
+    self.setSectionData = function(section, data) {
+        self.data[section] = data;
         console.log(self.data);
 
         return true;
     };
-    /*
-        Maybe in this service have variables associated with each section data that say something like "section complete".
-        Then each section can require this service (through sectionService.js) and "watch" the aforementioned variable to
-        enable itself when the previous section is complete.
-    */
+
+    self.setSectionKey = function(section, sectionKey, keyValue) {
+        self.data[section][sectionKey] = keyValue;
+    };
 
     return {
-        getData: self.getData,
-        setData: self.setData
+        getSectionData: self.getSectionData,
+        setSectionData: self.setSectionData,
+        setSectionKey: self.setSectionKey
     };
 });

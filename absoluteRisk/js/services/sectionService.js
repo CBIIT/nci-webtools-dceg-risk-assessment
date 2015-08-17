@@ -14,7 +14,8 @@ app.factory('BuildSection', [
     '$rootScope',
     'uiUploader',
     '$http',
-    function(vlModel, gfModel, aiModel, defModel, $rootScope, uiUploader, $http) {
+    'CacheService',
+    function(vlModel, gfModel, aiModel, defModel, $rootScope, uiUploader, $http, Cache) {
         function Section(cfg) {
             var self = this;
 
@@ -49,26 +50,21 @@ app.factory('BuildSection', [
             $rootScope.$on('fileAdded', function(e, data) {
                 if (data.id === self.fileId) {
                     self.file = data.file;
-                    console.log(self.file);
 
                     uiUploader.addFiles([self.file]);
-
                     uiUploader.startUpload({
                         url: self.fileUrl,
                         concurrency: 2,
                         onProgress: function(file) {
-                            // file contains a File object
+                            /* file contains a File object */
                             console.log(file);
                         },
                         onCompleted: function(file, response) {
-                            // file contains a File object
-                            console.log(file);
-                            // response contains the server response
+
+                            /* response contains the server response */
                             console.log(response);
-                        },
-                        onCompletedAll: function(files) {
-                            // files is an array of File objects
-                            console.log(files);
+
+                            $rootScope.$broadcast('sectionStateChanged', { type: this.type, state: 'complete' });
                         }
                     });
                 }
@@ -81,16 +77,23 @@ app.factory('BuildSection', [
                     this.model.init();
                 }
             },
-            setSectionState: function(bool, data) {
+            setSectionState: function(bool, data, label) {
                 var self = this;
                 var sectionData = JSON.stringify(data);
+                var sectionLabel = label;
+                var uploadPath = 'uploads/rdata/';
+
                 this.isOpen = !bool;
 
-                /* Ajax call to process results */
+                /* Ajax call to process save data as RData file and return the file as an attachment */
                 $http.post(this.dataUrl, sectionData)
                    .success(function(data, status, headers, config) {
                        /* Change location to endpoint to force 'file download' dialog */
                        window.location = 'http://' + window.location.hostname + '/absoluteRiskRest/downloadFile?filename=' + data;
+
+                       Cache.setSectionKey(sectionLabel, 'path_to_file', uploadPath + data);
+                       $rootScope.$broadcast('sectionStateChanged', { type: self.type, state: 'complete' });
+                       console.log(sectionLabel + ' JSON is:', Cache.getSectionData(sectionLabel));
                    })
                    .error(function(data, status, headers, config) {
                        console.log('status is: ', status);
@@ -98,8 +101,6 @@ app.factory('BuildSection', [
                    .finally(function(data) {
                        console.log('finally, data is: ', data);
                    });
-
-                $rootScope.$broadcast('sectionStateChanged', { type: this.type, state: 'complete' });
             },
             createModel: function(type) {
                 /* Use modelMap to create the correct section model based on section type */

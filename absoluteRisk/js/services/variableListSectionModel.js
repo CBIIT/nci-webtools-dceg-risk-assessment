@@ -33,10 +33,11 @@ app.factory('BuildVariableListModel', ['BuildVariable', 'CacheService', '$rootSc
         saveModel: function() {
             /* Validation will occur before Cache sets data, flesh out here */
             var modelData = this.getJsonModel();
-            var isValid = Cache.setData('section_1', modelData);
+            var sectionLabel = 'section_1';
+            var isValid = Cache.setSectionData(sectionLabel, modelData);
 
             if (isValid) {
-                this.section.setSectionState(isValid, modelData.variableList);
+                this.section.setSectionState(isValid, modelData.variableList, sectionLabel);
             }
         },
         getJsonModel: function() {
@@ -47,7 +48,6 @@ app.factory('BuildVariableListModel', ['BuildVariable', 'CacheService', '$rootSc
             });
 
             return {
-                inputMethod: this.inputMethod,
                 variableList: list
             };
         }
