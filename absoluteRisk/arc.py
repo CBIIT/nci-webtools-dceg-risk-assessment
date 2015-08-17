@@ -8,7 +8,7 @@ import json
 import StringIO
 import string
 import time
-from flask import Flask, render_template, request, jsonify, make_response
+from flask import Flask, render_template, request, jsonify, make_response, send_from_directory
 from rpy2.robjects.packages import SignatureTranslatedAnonymousPackage
 from rpy2.robjects.vectors import IntVector, FloatVector
 from socket import gethostname
@@ -47,8 +47,7 @@ def index():
 # This route will return a list in JSON format
 @app.route('/absoluteRiskRest/', methods=['POST'])
 def absoluteRiskRest():
-        return
-
+    return
 
 # This route takes a file as an input, creates the requested CSV or RData file, and returns  a JSON object based on the file data
 @app.route('/absoluteRiskRest/fileUpload', methods=['POST'])
@@ -78,18 +77,34 @@ def fileUpload():
 def dataUpload():
     if request.method == 'POST':
         data = json.dumps(request.data)
+
         filename = time.strftime("%Y%m%d-%H%M%S") + '_list_of_variables.rdata'
         filepath = app.config['rdata_upload_folder'] + '/' + filename
 
         json_rdata_wrapper.convertJSONtoRData(data, filepath)
 
-        return filepath
+        return filename
 
     return ''
 
+# This route returns a specified file if it exists on the server
+@app.route('/absoluteRiskRest/downloadFile', methods=['GET'])
+def downloadFile():
+    if 'filename' in request.args:
+        filename = request.args['filename']
+        filepath = os.path.join(app.config['rdata_upload_folder'], filename)
+
+        if (os.path.isfile(filepath)):
+            return send_from_directory(app.config['rdata_upload_folder'], filename, as_attachment=True)
+        else:
+            return 'This file no longer exists'
+    else:
+        return 'Correct parameter not provided in GET'
+
+# This method checks whether file of specified type is allowed to be uploaded
 def allowed_file(filename):
     return '.' in filename and \
-           string.lower(filename.rsplit('.', 1)[1]) in ALLOWED_EXTENSIONS
+        string.lower(filename.rsplit('.', 1)[1]) in ALLOWED_EXTENSIONS
 
 import argparse
 if __name__ == '__main__':

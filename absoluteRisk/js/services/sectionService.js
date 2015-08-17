@@ -82,13 +82,15 @@ app.factory('BuildSection', [
                 }
             },
             setSectionState: function(bool, data) {
+                var self = this;
                 var sectionData = JSON.stringify(data);
                 this.isOpen = !bool;
 
                 /* Ajax call to process results */
                 $http.post(this.dataUrl, sectionData)
                    .success(function(data, status, headers, config) {
-                       console.log('data is: ', data);
+                       /* Change location to endpoint to force 'file download' dialog */
+                       window.location = 'http://' + window.location.hostname + '/absoluteRiskRest/downloadFile?filename=' + data;
                    })
                    .error(function(data, status, headers, config) {
                        console.log('status is: ', status);
