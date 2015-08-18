@@ -103,6 +103,14 @@ def downloadFile():
     else:
         return 'Correct parameter not provided in GET'
 
+# This route returns the formula in JSON format
+@app.route('/absoluteRiskRest/generateFormula', methods=['POST'])
+def generateFormula():
+    if request.method == 'POST':
+        formulaModel = json.loads(request.data)
+
+        model_formula_wrapper.create_formula(json.dumps(formulaModel), path_to_variable_list_file
+
 # This method checks whether file of specified type is allowed to be uploaded
 def allowed_file(filename):
     return '.' in filename and \

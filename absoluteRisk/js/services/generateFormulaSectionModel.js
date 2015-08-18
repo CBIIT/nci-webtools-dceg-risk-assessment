@@ -27,6 +27,22 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', fun
                 self.variables.push(formulaVar);
             });
         },
+        generateFormula: function() {
+            var genFormulaUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/generateFormula';
+            var model = this.getJsonModel();
+
+            $http.post(genFormulaUrl, JSON.stringify(model.data))
+               .success(function(data, status, headers, config) {
+                   console.log('formula is: ', data);
+                   /* Later display formula in dialog window */
+               })
+               .error(function(data, status, headers, config) {
+                   console.log('status is: ', status);
+               })
+               .finally(function(data) {
+                   console.log('finally, data is: ', data);
+               });
+        },
         saveModel: function() {
             /* Validation will occur before Cache sets data, flesh out here */
             var model = this.getJsonModel();
