@@ -15,7 +15,7 @@ load("cbiit_models.RData")
 #
 #  example urlEncodedString
 #  
-#  age=61&bmi=27.25&cpd=8.911385&…..
+#  age=61&bmi=27.25&cpd=8.911385&â€¦..
 #
 ######
 
@@ -78,7 +78,7 @@ result3
 result4 <- 100*nhis$cxLCRAT
 result4
 
-result5 <- 1.0 - nhis$prob_0falsepos
+result5 <- 100*(1.0 - nhis$prob_0falsepos)
 result5
 
  
