@@ -9,7 +9,7 @@ app.factory('CacheService', function() {
 
     self.setSectionData = function(section, data) {
         self.data[section] = data;
-        console.log(self.data);
+        console.log(section + ' json model is: ', self.data[section]);
 
         return true;
     };

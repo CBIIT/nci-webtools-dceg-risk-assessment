@@ -76,12 +76,14 @@ def fileUpload():
 @app.route('/absoluteRiskRest/dataUpload', methods=['POST'])
 def dataUpload():
     if request.method == 'POST':
-        data = json.dumps(request.data)
+        sectionModel = json.loads(request.data)
+        sectionId = sectionModel['id']
+        sectionData = sectionModel['data']
 
-        filename = time.strftime("%Y%m%d-%H%M%S") + '_list_of_variables.rdata'
+        filename = time.strftime("%Y%m%d-%H%M%S") + "_" + sectionId + ".rdata"
         filepath = app.config['rdata_upload_folder'] + '/' + filename
 
-        json_rdata_wrapper.convertJSONtoRData(data, filepath)
+        json_rdata_wrapper.convertJSONtoRData(json.dumps(sectionData), filepath)
 
         return filename
 

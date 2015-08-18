@@ -13,8 +13,8 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', fun
     GenFormulaModel.prototype = {
         init: function() {
             var self = this;
-            var data = Cache.getSectionData('section_1');
-            var list = data.variableList;
+            var dataModel = Cache.getSectionData('section_1');
+            var list = dataModel.data;
             var tempList = angular.copy(list);
 
             self.variables = [];
@@ -29,15 +29,25 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', fun
         },
         saveModel: function() {
             /* Validation will occur before Cache sets data, flesh out here */
-            var modelData = this.getJsonModel();
-            var isValid = Cache.setSectionData('section_2', modelData);
+            var model = this.getJsonModel();
+            var sectionLabel = 'section_2';
+            var isValid = Cache.setSectionData(sectionLabel, model);
 
             if (isValid) {
-                this.section.setSectionState(isValid, modelData.variableList);
+                this.section.setSectionState(isValid, model, sectionLabel);
             }
         },
         getJsonModel: function() {
-            console.log('this is generate formula model');
+            var list = [];
+
+            angular.forEach(this.variables, function(variable) {
+                list.push(variable.getJsonModel());
+            });
+
+            return {
+                id: this.section.id,
+                data: list
+            };
         }
     };
 

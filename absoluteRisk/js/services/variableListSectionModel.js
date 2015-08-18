@@ -32,12 +32,12 @@ app.factory('BuildVariableListModel', ['BuildVariable', 'CacheService', '$rootSc
         },
         saveModel: function() {
             /* Validation will occur before Cache sets data, flesh out here */
-            var modelData = this.getJsonModel();
+            var model = this.getJsonModel();
             var sectionLabel = 'section_1';
-            var isValid = Cache.setSectionData(sectionLabel, modelData);
+            var isValid = Cache.setSectionData(sectionLabel, model);
 
             if (isValid) {
-                this.section.setSectionState(isValid, modelData.variableList, sectionLabel);
+                this.section.setSectionState(isValid, model, sectionLabel);
             }
         },
         getJsonModel: function() {
@@ -48,7 +48,8 @@ app.factory('BuildVariableListModel', ['BuildVariable', 'CacheService', '$rootSc
             });
 
             return {
-                variableList: list
+                id: this.section.id,
+                data: list
             };
         },
         parseJsonModel: function(model) {
@@ -58,8 +59,7 @@ app.factory('BuildVariableListModel', ['BuildVariable', 'CacheService', '$rootSc
                 var filePath = m.shift()['path_to_file'];
                 var variableList = m;
 
-                Cache.setSectionData(label, { 'path_to_file': filePath, 'variableList': variableList });
-                console.log('converted data for section_1 is: ', Cache.getSectionData(label));
+                Cache.setSectionData(label, { 'id': this.section.id, 'path_to_file': filePath, 'data': variableList });
             }
         }
     };

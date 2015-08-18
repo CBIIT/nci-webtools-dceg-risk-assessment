@@ -57,11 +57,16 @@ app.factory('BuildFormulaVariable', ['$rootScope', 'verifyTermsFilter', function
         },
         getJsonModel: function() {
             var self = this;
+            var interactionNames = [];
+
+            angularForEach(self.interaction, function(variable) {
+                interactionNames.push(variable.name);
+            });
 
             return {
                 name: self.name,
                 linear: self.linear,
-                interaction: self.interaction
+                interaction: interactionNames
             };
         }
     };
