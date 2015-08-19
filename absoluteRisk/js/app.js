@@ -89,6 +89,7 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             optional: true
         }
     ];
+    var modalInstance;
 
     self.steps = [];
     self.buildStep = [];
@@ -132,10 +133,15 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             var section;
 
             if (state === 'complete') {
-                // Means section has been validated and completed
+                /* Means section has been validated and completed */
                 switch(type) {
                     case('variable_list'):
                         section = self.steps[0].sections[1];
+                        section.isDisabled = false;
+                        section.isOpen = true;
+                        break;
+                    case('generate_formula'):
+                        section = self.steps[0].sections[2];
                         section.isDisabled = false;
                         section.isOpen = true;
                         break;
@@ -144,7 +150,7 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
                         break;
                 }
             } else {
-                // Means state === 'edit'
+                /* Means state === 'edit' */
             }
 
             section.init();
@@ -155,6 +161,22 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
 
             if (type === 'formula') {
                 console.log('its a formula string');
+                self.formula = args.content;
+
+                modalInstance = $modal.open({
+                    templateUrl: 'templates/displayFormula.html',
+                    controller: 'ModalController as modalCtrl',
+                    resolve: {
+                      data: function () {
+                        return {
+                            type: args.type,
+                            content: args.content,
+                            heading: 'Formula'
+                        };
+                      }
+                    }
+                });
+
             } else {
                 console.log('its a table template');
             }

@@ -59,7 +59,7 @@ app.factory('BuildFormulaVariable', ['$rootScope', 'verifyTermsFilter', function
             var self = this;
             var interactionNames = [];
 
-            angularForEach(self.interaction, function(variable) {
+            angular.forEach(self.interaction, function(variable) {
                 interactionNames.push(variable.name);
             });
 
