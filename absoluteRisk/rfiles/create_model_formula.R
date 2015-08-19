@@ -1,7 +1,7 @@
 
 #--------------------------------------------------------------------
 # Name: create_model_formula.R
-# Inputs: model_info "RData file name" and list_of variables "RData file names" 
+# Inputs: model_info with JSON format and list_of variables "RData file names" 
 # outputs: the model formula
 #--------------------------------------------------------------------
 #
@@ -9,8 +9,15 @@
 #
 #
 # > t1=c("list_of_variables.RData")
-# > t2=c("model_info.RData")
-# > model_predictor = create_formula(t2,t1)
+# > myJSON=c("[{\"name\":\"famhist\",\"linear\":true},{\"name\":\"menarche_dec\",
+#            \"linear\":true},{\"name\":\"parity\",\"linear\":true},{\"name\":\"birth_dec\",
+#            \"linear\":true},{\"name\":\"agemeno_dec\",\"linear\":true},{\"name\":\"height_dec\",
+#            \"linear\":true},{\"name\":\"bmi_dec\",\"linear\":true,\"interaction\":\"rd_menohrt\"},
+#            {\"name\":\"rd_menohrt\",\"linear\":true},{\"name\":\"rd2_everhrt_e\",\"linear\":true},
+#            {\"name\":\"rd2_everhrt_c\",\"linear\":true},{\"name\":\"rd2_currhrt\",\"linear\":true},
+#            {\"name\":\"alcoholdweek_dec\",\"linear\":true},{\"name\":\"ever_smoke\",\"linear\":true}])
+#
+# > model_predictor = create_formula(myJSON,t1)
 # > model_predictor
 # [1] "Y ~ famhist + as.factor(menarche_dec) + as.factor(parity) + as.factor(birth_dec) + 
 #      as.factor(agemeno_dec) + as.factor(height_dec) + as.factor(bmi_dec) + as.factor(rd_menohrt) + 
@@ -20,10 +27,13 @@
 # > save(model_predictor, file="model_predictor.RData")
 #----------------------------------------------------------------------
 
+library(rjson)
 
-create_formula <- function(model_info_RData, list_of_variables_RData){
+create_formula <- function(model_info_JSON, list_of_variables_RData) {
   
-  model_info=get(load(model_info_RData))
+  # model_info=get(load(model_info_RData))
+
+  model_info <- fromJSON(model_info_JSON)
   list_of_variables=get(load(list_of_variables_RData))
   
   # initialize

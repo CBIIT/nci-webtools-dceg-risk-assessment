@@ -107,9 +107,14 @@ def downloadFile():
 @app.route('/absoluteRiskRest/generateFormula', methods=['POST'])
 def generateFormula():
     if request.method == 'POST':
-        formulaModel = json.loads(request.data)
+        jsonData = json.loads(request.data)
+        formulaModel = jsonData['model']['data']
+        pathToFile = jsonData['pathToVariableListFile']
 
-        model_formula_wrapper.create_formula(json.dumps(formulaModel), path_to_variable_list_file
+        formula = model_formula_wrapper.create_formula(json.dumps(formulaModel), pathToFile)
+        return json.dumps(formula[0])
+
+    return ''
 
 # This method checks whether file of specified type is allowed to be uploaded
 def allowed_file(filename):

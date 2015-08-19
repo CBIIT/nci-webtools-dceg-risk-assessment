@@ -66,7 +66,7 @@ app.factory('BuildFormulaVariable', ['$rootScope', 'verifyTermsFilter', function
             return {
                 name: self.name,
                 linear: self.linear,
-                interaction: interactionNames
+                interaction: interactionNames.length ? interactionNames : null
             };
         }
     };

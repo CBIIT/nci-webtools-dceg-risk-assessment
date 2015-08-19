@@ -29,9 +29,12 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', fun
         },
         generateFormula: function() {
             var genFormulaUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/generateFormula';
-            var model = this.getJsonModel();
+            var dataJson = {
+                pathToVariableListFile: Cache.getSectionKey('section_1', 'path_to_file'),
+                model: this.getJsonModel()
+            };
 
-            $http.post(genFormulaUrl, JSON.stringify(model.data))
+            $http.post(genFormulaUrl, JSON.stringify(dataJson))
                .success(function(data, status, headers, config) {
                    console.log('formula is: ', data);
                    /* Later display formula in dialog window */

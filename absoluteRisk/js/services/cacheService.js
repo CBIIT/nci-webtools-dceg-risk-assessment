@@ -18,9 +18,14 @@ app.factory('CacheService', function() {
         self.data[section][sectionKey] = keyValue;
     };
 
+    self.getSectionKey = function(section, sectionKey) {
+        return self.data[section][sectionKey];
+    };
+
     return {
         getSectionData: self.getSectionData,
         setSectionData: self.setSectionData,
-        setSectionKey: self.setSectionKey
+        setSectionKey: self.setSectionKey,
+        getSectionKey: self.getSectionKey
     };
 });
