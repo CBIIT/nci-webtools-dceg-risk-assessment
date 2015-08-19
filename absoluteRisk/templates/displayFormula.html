@@ -1,0 +1,17 @@
+<div ng-controller="ArcAccordion as accordion">
+    <script type="text/ng-template" id="displayFormula.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Display Formula</h3>
+        </div>
+        <div class="modal-body">
+            <span ng-if="accordion.formula">{{accordion.formula}}</span>
+
+            <div ng-if="accordion.tableTemplate">
+                <span>Table Template yayy!</span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="accordion.close()">Close</button>
+        </div>
+    </script>
+</div>

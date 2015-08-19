@@ -39,7 +39,7 @@ app.directive('arcFileChange', ['$rootScope', function($rootScope) {
 }]);
 
 /* Primary application controller */
-app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$scope', '$sanitize', function (Section, Cache, $rootScope, $scope, $san) {
+app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$scope', '$sanitize', '$modal', function (Section, Cache, $rootScope, $scope, $san, $modal) {
     var self = this;
     var buildConfig = [
         {
@@ -95,6 +95,9 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
     self.applyStep = [];
     self.ind = 0;
 
+    self.formula = '';
+    self.templateData = '';
+
     /* Create accordion form data with appropriate configuration */
     for (var i = 0; i < buildConfig.length; i++) {
         self.buildStep.push(new Section(buildConfig[i]));
@@ -147,8 +150,15 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             section.init();
         });
 
-        /* Initialize first section of application */
-        self.steps[0].sections[0].init();
+        $scope.$on('modalContent', function(event, args) {
+            var type = args.type;
+
+            if (type === 'formula') {
+                console.log('its a formula string');
+            } else {
+                console.log('its a table template');
+            }
+        });
     };
 
     self.init();

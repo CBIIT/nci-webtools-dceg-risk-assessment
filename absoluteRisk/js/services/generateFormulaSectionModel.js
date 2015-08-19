@@ -1,5 +1,5 @@
 /* Creates a GenFormula section model */
-app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', function(FormulaVariable, Cache) {
+app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', '$rootScope', function(FormulaVariable, Cache, $rootScope) {
     function GenFormulaModel(parent) {
         var self = this;
 
@@ -38,6 +38,7 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', fun
                .success(function(data, status, headers, config) {
                    console.log('formula is: ', data);
                    /* Later display formula in dialog window */
+                   $rootScope.$broadcast('modalContent', { type: 'formula', content: data });
                })
                .error(function(data, status, headers, config) {
                    console.log('status is: ', status);
