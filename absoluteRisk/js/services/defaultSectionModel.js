@@ -17,10 +17,25 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
 
             if (self.section.dataRetrieval === 'static') {
                 /* Static data generation for template */
-                self.columns = genFormulaData.data;
+                angular.forEach(genFormulaData.data, function(variable) {
+                    self.columns.push(variable.name);
+                });
             } else {
                 /* Remote data generation for template */
             }
+        },
+        exportToCsv: function(e) {
+            var self = this;
+            var filename = self.section.id;
+        	var csvContent;
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            csvContent = 'data:text/csv;charset=utf-8,' + self.columns.join(',');
+
+    		encodedUri = encodeURI(csvContent);
+    		window.open(encodedUri, '_self');
         },
         getJsonModel: function() {
             console.log('this is default model');

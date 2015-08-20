@@ -112,7 +112,7 @@ app.factory('BuildSection', [
             },
             createModel: function(type) {
                 /* Use modelMap to create the correct section model based on section type */
-                return new this.modelMap[type](this, );
+                return new this.modelMap[type](this);
             },
             getJsonModel: function() {
                 return this.model.getJsonModel();
