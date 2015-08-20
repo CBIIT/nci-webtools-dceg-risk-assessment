@@ -40,6 +40,7 @@ app.factory('BuildSection', [
             self.model = self.createModel(self.type);
             self.isDisabled = true;
             self.isOpen = false;
+            self.dataRetrieval = cfg.dataRetrieval ? cfg.dataRetrieval : 'remote';
 
             self.file = null;
             self.id = cfg.id ? cfg.id : self.type;
@@ -51,26 +52,29 @@ app.factory('BuildSection', [
                 if (data.id === self.fileId) {
                     self.file = data.file;
 
-                    uiUploader.addFiles([self.file]);
-                    uiUploader.startUpload({
-                        url: self.fileUrl,
-                        concurrency: 2,
-                        onProgress: function(file) {
-                            /* file contains a File object */
-                            console.log(file);
-                        },
-                        onCompleted: function(file, response) {
-                            var convertedData = response;
+                    /* Guard against undefined file if user cancels out of 'upload' dialog */
+                    if (self.file) {
+                        uiUploader.addFiles([self.file]);
+                        uiUploader.startUpload({
+                            url: self.fileUrl,
+                            concurrency: 2,
+                            onProgress: function(file) {
+                                /* file contains a File object */
+                                console.log(file);
+                            },
+                            onCompleted: function(file, response) {
+                                var convertedData = response;
 
-                            if (self.model.parseJsonModel) {
-                                console.log(convertedData);
-                                self.model.parseJsonModel(convertedData);
-                            }
-                            $rootScope.$broadcast('sectionStateChanged', { type: self.type, state: 'complete' });
-                            $rootScope.$apply();
-                        },
-                        onCompletedAll: function(file) {}
-                    });
+                                if (self.model.parseJsonModel) {
+                                    console.log(convertedData);
+                                    self.model.parseJsonModel(convertedData);
+                                }
+                                $rootScope.$broadcast('sectionStateChanged', { type: self.type, state: 'complete' });
+                                $rootScope.$apply();
+                            },
+                            onCompletedAll: function(file) {}
+                        });
+                    }
                 }
             });
         }
@@ -108,7 +112,7 @@ app.factory('BuildSection', [
             },
             createModel: function(type) {
                 /* Use modelMap to create the correct section model based on section type */
-                return new this.modelMap[type](this);
+                return new this.modelMap[type](this, );
             },
             getJsonModel: function() {
                 return this.model.getJsonModel();

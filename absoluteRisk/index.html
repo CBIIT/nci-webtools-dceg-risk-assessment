@@ -226,46 +226,16 @@
                                 <table class="table table-responsive table-striped">
                                     <thead>
                                         <tr>
-                                            <th>famhist</th>
-                                            <th>menarche_dec</th>
-                                            <th>parity</th>
-                                            <th>birth_dec</th>
+                                            <th ng-repeat="column in section.model.columns">{{column.name}}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                placeholder
-                                            </td>
-                                            <td>
-                                                placeholder
-                                            </td>
-                                            <td>
-                                                placeholder
-                                            </td>
-                                            <td>
-                                                placeholder
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                placeholder
-                                            </td>
-                                            <td>
-                                                placeholder
-                                            </td>
-                                            <td>
-                                                placeholder
-                                            </td>
-                                            <td>
-                                                placeholder
-                                            </td>
+                                        <tr ng-repeat="ph in section.model.placeHolderRows">
+                                            <td ng-repeat="column in section.model.columns"></td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                <button class="btn btn-info pull-right">
-                                    Export to CSV
-                                </button>
+                                <button class="btn btn-info pull-right">Export to CSV</button>
                             </div>
                             <hr ng-show="section.model.genTemplate">
                             <h5>Upload File</h5>

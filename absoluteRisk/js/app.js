@@ -52,7 +52,8 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
         },
         {
             id: 'risk_factor_distribution',
-            header: 'Provide Risk Factor Distribution'
+            header: 'Provide Risk Factor Distribution',
+            dataRetrieval: 'static'
         },
         {
             id: 'log_odds_ratios',
@@ -75,10 +76,6 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
     ];
     var applyConfig = [
         {
-            header: 'Starting Age and Length of Age Interval',
-            type: 'age_interval'
-        },
-        {
             id: 'risk_factor_prediction',
             header: 'Provide Risk Factor for Prediction',
             optional: true
@@ -87,6 +84,10 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             id: 'genotypes_prediction',
             header: 'Provide Genotypes for Prediction',
             optional: true
+        },
+        {
+            header: 'Starting Age and Length of Age Interval',
+            type: 'age_interval'
         }
     ];
     var modalInstance;
