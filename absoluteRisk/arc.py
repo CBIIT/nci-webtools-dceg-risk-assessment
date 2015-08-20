@@ -58,14 +58,17 @@ def fileUpload():
 
         if file and allowed_file(file.filename):
             filename = time.strftime("%Y%m%d-%H%M%S") + '_' + secure_filename(file.filename)
+
             if (string.lower(filename.rsplit('.', 1)[1]) == 'csv'):
                 file.save(os.path.join(app.config['csv_upload_folder'], filename))
                 filepath = app.config['csv_upload_folder'] + '/' + filename
+                json_data = upload_csv_wrapper.uploadCSV(filepath)[0]
             else:
                 file.save(os.path.join(app.config['rdata_upload_folder'], filename))
                 filepath = app.config['rdata_upload_folder'] + '/' + filename
 
-            json_data = upload_rdata_wrapper.uploadRData(filepath)[0]
+                json_data = upload_rdata_wrapper.uploadRData(filepath)[0]
+
             loadedJson = json.loads(json_data)
             loadedJson.insert(0, {'path_to_file': filepath})
 

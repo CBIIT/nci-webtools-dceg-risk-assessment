@@ -241,9 +241,11 @@
                             <h5>Upload File</h5>
                             <div class="form-group">
                                 <span class="btn btn-info btn-file">
-                                    Browse <input type="file">
+                                    Browse <input type="file" id="{{section.id + '_file'}}" arc-file-change>
                                 </span>
-                             </div>
+                                <span ng-model="section.file">{{section.file.name}}</span>
+                                <span ng-show="!section.file">No file selected</span>
+                            </div>
                         </form>
                     </accordion-group>
                 </accordion>

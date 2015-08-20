@@ -63,13 +63,11 @@ app.factory('BuildSection', [
                                 console.log(file);
                             },
                             onCompleted: function(file, response) {
-                                var convertedData = response;
-
                                 if (self.model.parseJsonModel) {
-                                    console.log(convertedData);
-                                    self.model.parseJsonModel(convertedData);
+                                    console.log(response);
+                                    self.model.parseJsonModel(response);
                                 }
-                                $rootScope.$broadcast('sectionStateChanged', { type: self.type, state: 'complete' });
+                                $rootScope.$broadcast('sectionStateChanged', { id: self.id, state: 'complete' });
                                 $rootScope.$apply();
                             },
                             onCompletedAll: function(file) {}
@@ -100,7 +98,7 @@ app.factory('BuildSection', [
                        window.location = 'http://' + window.location.hostname + '/absoluteRiskRest/downloadFile?filename=' + data;
 
                        Cache.setSectionKey(sectionLabel, 'path_to_file', uploadPath + data);
-                       $rootScope.$broadcast('sectionStateChanged', { type: self.type, state: 'complete' });
+                       $rootScope.$broadcast('sectionStateChanged', { id: self.id, state: 'complete' });
                        console.log(sectionLabel + ' JSON is:', Cache.getSectionData(sectionLabel));
                    })
                    .error(function(data, status, headers, config) {

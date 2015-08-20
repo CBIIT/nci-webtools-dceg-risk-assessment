@@ -38,7 +38,18 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
     		window.open(encodedUri, '_self');
         },
         getJsonModel: function() {
-            console.log('this is default model');
+            /* For 'default' sections, only need to create {} with section id and RData file path */
+            Cache.setSectionData(this.section.id, {'path_to_file': ''} );
+        },
+        parseJsonModel: function(model) {
+            this.getJsonModel();
+
+            if (model) {
+                var m = JSON.parse(model);
+                var filePath = m.path_to_file;
+
+                Cache.setSectionKey(this.section.id, 'path_to_file', filePath);
+            }
         }
     };
 

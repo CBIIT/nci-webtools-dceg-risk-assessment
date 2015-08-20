@@ -129,13 +129,13 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
         self.steps[0].sections[0].isOpen = true;
 
         $scope.$on('sectionStateChanged', function(event, args) {
-            var type = args.type;
+            var id = args.id;
             var state = args.state;
             var section;
 
             if (state === 'complete') {
                 /* Means section has been validated and completed */
-                switch(type) {
+                switch(id) {
                     case('variable_list'):
                         section = self.steps[0].sections[1];
                         section.isDisabled = false;
@@ -143,6 +143,16 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
                         break;
                     case('generate_formula'):
                         section = self.steps[0].sections[2];
+                        section.isDisabled = false;
+                        section.isOpen = true;
+                        break;
+                    case('risk_factor_distribution'):
+                        section = self.steps[0].sections[3];
+                        section.isDisabled = false;
+                        section.isOpen = true;
+                        break;
+                    case('log_odds_ratios'):
+                        section = self.steps[0].sections[4];
                         section.isDisabled = false;
                         section.isOpen = true;
                         break;
