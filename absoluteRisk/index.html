@@ -238,12 +238,12 @@
                                 <table class="table table-responsive table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th ng-repeat="column in section.model.columns | limitTo: 5">{{column}}</th>
+                                            <th ng-repeat="column in section.model.templateCols | limitTo: 5">{{column}}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="ph in section.model.placeHolderRows">
-                                            <td ng-repeat="column in section.model.columns | limitTo: 5"></td>
+                                            <td ng-repeat="column in section.model.templateCols | limitTo: 5"></td>
                                         </tr>
                                     </tbody>
                                 </table>

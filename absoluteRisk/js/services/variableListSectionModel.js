@@ -34,7 +34,6 @@ app.factory('BuildVariableListModel', ['BuildVariable', 'CacheService', '$rootSc
         saveModel: function() {
             /* Validation will occur before Cache sets data, flesh out here */
             var model = this.getJsonModel();
-            //var sectionLabel = 'section_1';
             var isValid = Cache.setSectionData(this.section.id, model);
 
             if (isValid) {
@@ -56,11 +55,10 @@ app.factory('BuildVariableListModel', ['BuildVariable', 'CacheService', '$rootSc
         parseJsonModel: function(model) {
             if (model) {
                 var m = JSON.parse(model);
-                var label = 'section_1';
                 var filePath = m.shift()['path_to_file'];
                 var variableList = m;
 
-                Cache.setSectionData(label, { 'id': this.section.id, 'path_to_file': filePath, 'data': variableList });
+                Cache.setSectionData(this.section.id, { 'id': this.section.id, 'path_to_file': filePath, 'data': variableList });
             }
         }
     };

@@ -1,31 +1,30 @@
 /* Creates a Default section model */
 app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', function(Cache, $http, $rootScope) {
-    function DefaultModel(parent, cfg) {
+    function DefaultModel(parent) {
         var self = this;
 
         self.genTemplate = true;
         self.isDisabled = true;
         self.section = parent;
-        self.templateType = cfg.templateType;
-        self.sectionRef = cfg.sectionReference;
         self.placeHolderRows = [0, 1, 2, 3, 4];
     }
     DefaultModel.prototype = {
-        init: function() {
+        init: function(cfg) {
             var self = this;
-            var varListData = Cache.getSectionData('section_1');
-            var genFormulaData = Cache.getSectionData('section_2');
+            var templateType = cfg.templateType;
+            var referredSectionData;
 
-            self.templateCols = cfg.cols ? cfg.cols : [];
+            if (cfg.sectionReference) {
+                referredSectionData = Cache.getUiData(cfg.sectionReference);
+            }
+
+            self.templateType = cfg.templateType;
+            self.templateCols = cfg.cols ? cfg.cols : referredSectionData.columns;
             self.templateRows = [];
 
-            if (!self.templateCols.length) {
+            if (templateType === 'staticDual') {
                 /* Static data generation for template */
-                angular.forEach(genFormulaData.data, function(variable) {
-                    if (variable.linear) {
-                        self.templateCols.push(variable.name);
-                    }
-                });
+                /* 2 types of templates can be displayed, see what user selects
             } else {
                 /* Remote data generation for template */
             }

@@ -13,7 +13,7 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', '$h
     GenFormulaModel.prototype = {
         init: function() {
             var self = this;
-            var dataModel = Cache.getSectionData('section_1');
+            var dataModel = Cache.getSectionData('variable_list');
             var list = dataModel.data;
             var tempList = angular.copy(list);
 
@@ -30,14 +30,13 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', '$h
         generateFormula: function() {
             var genFormulaUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/generateFormula';
             var dataJson = {
-                pathToVariableListFile: Cache.getSectionKey('section_1', 'path_to_file'),
+                pathToVariableListFile: Cache.getSectionKey('variable_list', 'path_to_file'),
                 model: this.getJsonModel()
             };
 
             $http.post(genFormulaUrl, JSON.stringify(dataJson))
                .success(function(data, status, headers, config) {
-                   //console.log('formula is: ', data);
-                   /* Later display formula in dialog window */
+                   /* Display formula in a modal */
                    $rootScope.$broadcast('modalContent', { type: 'formula', content: JSON.parse(data) });
                })
                .error(function(data, status, headers, config) {
@@ -50,7 +49,6 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', '$h
         saveModel: function() {
             /* Validation will occur before Cache sets data, flesh out here */
             var model = this.getJsonModel();
-            //var sectionLabel = 'section_2';
             var isValid;
 
             /* Set column names for subsequent section, in Cache UI {} */
@@ -81,7 +79,7 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', '$h
                 id: this.section.id,
                 data: list,
                 ui: {
-                    columnNames: uiList
+                    columns: columnNames
                 }
             };
         }

@@ -21,7 +21,7 @@ app.factory('BuildSection', [
 
             self.modelMap = {
                 'variable_list':    { func: vlModel },
-                'generate_formula': { func: vlModelgfModel },
+                'generate_formula': { func: gfModel },
                 'age_interval':     { func: aiModel },
                 'default':          { func: defModel, params: {
                                                             templateType: cfg.templateType,
@@ -42,7 +42,7 @@ app.factory('BuildSection', [
             };
 
             self.type = cfg.type ? cfg.type : 'default';
-            self.model = self.createModel(self.type);
+            self.model = self.createModel();
             self.isDisabled = true;
             self.isOpen = false;
 
@@ -84,13 +84,23 @@ app.factory('BuildSection', [
         Section.prototype = {
             init: function() {
                 if (this.model.init) {
+                    if (this.type === 'default') {
+                        var modelCfg = {
+                            templateType: this.modelMap[this.type].params.templateType,
+                            cols: this.modelMap[this.type].params.cols,
+                            sectionReference: this.modelMap[this.type].params.sRef
+                        };
+
+                        this.model.init(modelCfg);
+                        return;
+                    }
+
                     this.model.init();
                 }
             },
             setSectionState: function(bool, data, label) {
                 var self = this;
                 var sectionData = JSON.stringify(data);
-                //var sectionLabel = label;
                 var uploadPath = 'uploads/rdata/';
 
                 this.isOpen = !bool;
@@ -101,7 +111,7 @@ app.factory('BuildSection', [
                        /* Change location to endpoint to force 'file download' dialog */
                        window.location = 'http://' + window.location.hostname + '/absoluteRiskRest/downloadFile?filename=' + data;
 
-                       Cache.setSectionKey(this.id, 'path_to_file', uploadPath + data);
+                       Cache.setSectionKey(self.id, 'path_to_file', uploadPath + data);
                        $rootScope.$broadcast('sectionStateChanged', { id: self.id, state: 'complete' });
                    })
                    .error(function(data, status, headers, config) {
@@ -113,18 +123,7 @@ app.factory('BuildSection', [
             },
             createModel: function(type) {
                 /* Use modelMap to create the correct section model based on section type */
-                if (type === 'default') {
-                    var modelCfg = {
-                        templateType: this.modelMap[type].params.templateType,
-                        cols
-                        : this.modelMap[type].params.cols,
-                        sectionReference: this.modelMap[type].params.sRef
-                    };
-
-                    return new this.modelMap[type].func(this, modelCfg);
-                }
-
-                return new this.modelMap[type].func(this);
+                return new this.modelMap[this.type].func(this);
             },
             getJsonModel: function() {
                 return this.model.getJsonModel();

@@ -54,7 +54,7 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             id: 'risk_factor_distribution',
             header: 'Provide Risk Factor Distribution',
             templateType: 'static',
-            sectionReference: 'section_1'
+            sectionReference: 'generate_formula'
         },
         {
             id: 'log_odds_ratios',
@@ -94,7 +94,7 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             id: 'risk_factor_prediction',
             header: 'Provide Risk Factor for Prediction',
             templateType: 'static',
-            sectionReference: 'section_1',
+            sectionReference: 'generate_formula',
             optional: true
         },
         {
