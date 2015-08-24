@@ -62,7 +62,8 @@ def fileUpload():
             if (string.lower(filename.rsplit('.', 1)[1]) == 'csv'):
                 file.save(os.path.join(app.config['csv_upload_folder'], filename))
                 filepath = app.config['csv_upload_folder'] + '/' + filename
-                json_data = upload_csv_wrapper.uploadCSV(filepath)[0]
+                convertedFilePath = app.config['rdata_upload_folder'] + '/' + filename
+                rdata_file_path = upload_csv_wrapper.uploadCSV(filepath, convertedFilePath)[0]
             else:
                 file.save(os.path.join(app.config['rdata_upload_folder'], filename))
                 filepath = app.config['rdata_upload_folder'] + '/' + filename

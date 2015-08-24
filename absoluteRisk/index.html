@@ -41,6 +41,17 @@
 </head>
 
 <body>
+    <header>
+        <div class="container">
+            <img class="img-responsive" src="/common/images/DCEG-logo.svg" alt="National Cancer Institute">
+        </div>
+        <div class="container row-blue">
+            <div class="col-xs-12">
+                <h4>Absolute Risk Calculator</h4>
+            </div>
+        </div>
+    </header>
+
     <div class="container" ng-controller="ArcAccordion as accordion">
         <div class="col-xs-12 col-md-8">
             <div ng-repeat="step in accordion.steps">
@@ -200,7 +211,7 @@
                                                 <span>{{variable.name}}</span>
                                             </td>
                                             <td>
-                                                <ui-select multiple ng-model="variable.interaction" theme="bootstrap" style="width: 150px" ng-show="variable.linear && variable.fakeTermsLength">
+                                                <ui-select multiple ng-model="variable.interaction" theme="bootstrap" ng-show="variable.linear && variable.fakeTermsLength">
                                                   <ui-select-match placeholder="No selection...">{{$item.name}}</ui-select-match>
                                                   <ui-select-choices repeat="term in variable.terms | verifyTerms: variable.terms: section.model.variables">
                                                     <div ng-bind-html="term.name | highlight: $select.search"></div>
@@ -223,15 +234,16 @@
                                 </label>
                             </div>
                             <div class="clearfix" ng-show="section.model.genTemplate">
+                                <p class="text-info">For templates with more than 5 columns, only 5 columns will be shown in the generated template. All columns will however be exported in the CSV file.</p>
                                 <table class="table table-responsive table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th ng-repeat="column in section.model.columns">{{column}}</th>
+                                            <th ng-repeat="column in section.model.columns | limitTo: 5">{{column}}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="ph in section.model.placeHolderRows">
-                                            <td ng-repeat="column in section.model.columns"></td>
+                                            <td ng-repeat="column in section.model.columns | limitTo: 5"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -263,5 +275,18 @@
             Test Output
         </div>
     </div>
+    <footer class="container footer">
+        <div class="center-block">
+            <ul class="list-inline">
+                <li><a href="http://www.hhs.gov/" target="_blank">U.S. Department of Health and Human Services</a></li>
+                <li><a href="http://www.nih.gov" target="_blank">National Institutes of Health</a></li>
+                <li><a href="http://www.cancer.gov/" target="_blank">National Cancer Institute</a></li>
+                <li><a href="http://usa.gov" target="_blank">USA.gov</a></li>
+            </ul>
+            <div class="text-center">
+                NIH ... Turning Discovery Into Health<sup>®</sup>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

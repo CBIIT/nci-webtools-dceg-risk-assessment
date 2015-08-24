@@ -36,7 +36,7 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', '$h
 
             $http.post(genFormulaUrl, JSON.stringify(dataJson))
                .success(function(data, status, headers, config) {
-                   console.log('formula is: ', data);
+                   //console.log('formula is: ', data);
                    /* Later display formula in dialog window */
                    $rootScope.$broadcast('modalContent', { type: 'formula', content: JSON.parse(data) });
                })
@@ -50,23 +50,39 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', '$h
         saveModel: function() {
             /* Validation will occur before Cache sets data, flesh out here */
             var model = this.getJsonModel();
-            var sectionLabel = 'section_2';
-            var isValid = Cache.setSectionData(sectionLabel, model);
+            //var sectionLabel = 'section_2';
+            var isValid;
+
+            /* Set column names for subsequent section, in Cache UI {} */
+            Cache.setUiData(this.section.id, model.ui);
+
+            /* Remove ui property from model before setting section data for remote use */
+            delete model.ui;
+
+            isValid = Cache.setSectionData(this.section.id, model);
 
             if (isValid) {
-                this.section.setSectionState(isValid, model, sectionLabel);
+                this.section.setSectionState(isValid, model, this.section.id);
             }
         },
         getJsonModel: function() {
             var list = [];
+            var columnNames = [];
 
             angular.forEach(this.variables, function(variable) {
+                if (variable.linear) {
+                    columnNames.push(variable.name);
+                }
+
                 list.push(variable.getJsonModel());
             });
 
             return {
                 id: this.section.id,
-                data: list
+                data: list,
+                ui: {
+                    columnNames: uiList
+                }
             };
         }
     };

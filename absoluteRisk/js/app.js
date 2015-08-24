@@ -53,24 +53,39 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
         {
             id: 'risk_factor_distribution',
             header: 'Provide Risk Factor Distribution',
-            dataRetrieval: 'static'
+            templateType: 'static',
+            sectionReference: 'section_1'
         },
         {
             id: 'log_odds_ratios',
-            header: 'Provide Log Odds Ratios'
+            header: 'Provide Log Odds Ratios',
+            templateType: 'remote',
+            columnNames: ['Variables', 'Lod Odds Ratios']
         },
         {
             id: 'disease_incidence_rates',
-            header: 'Provide Incidence Rates of Disease in Population'
+            header: 'Provide Incidence Rates of Disease in Population',
+            templateType: 'staticDual',
+            columnNames: [
+                ['Age (Integer)', 'Rate'],
+                ['Starting Age (Integer)', 'Ending Age (Integer)', 'Rate']
+            ]
         },
         {
             id: 'mortality_incidence_rates',
             header: 'Provide Incidence Rates of Competing Mortality',
+            templateType: 'staticDual',
+            columnNames: [
+                ['Age (Integer)', 'Rate'],
+                ['Starting Number', 'Ending Number', 'Rate']
+            ],
             optional: true
         },
         {
             id: 'snp_information',
             header: 'Provide SNP Information',
+            templateType: 'static',
+            columnNames: ['snp.name', 'snp.odds.ratio', 'snp.freq'],
             optional: true
         }
     ];
@@ -78,11 +93,15 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
         {
             id: 'risk_factor_prediction',
             header: 'Provide Risk Factor for Prediction',
+            templateType: 'static',
+            sectionReference: 'section_1',
             optional: true
         },
         {
             id: 'genotypes_prediction',
             header: 'Provide Genotypes for Prediction',
+            templateType: 'static',
+            sectionReference: 'snp_information',
             optional: true
         },
         {
@@ -156,8 +175,23 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
                         section.isDisabled = false;
                         section.isOpen = true;
                         break;
+                    case('disease_incidence_rates'):
+                        section = self.steps[0].sections[5];
+                        section.isDisabled = false;
+                        section.isOpen = true;
+                        break;
+                    case('mortality_incidence_rates'):
+                        section = self.steps[0].sections[6];
+                        section.isDisabled = false;
+                        section.isOpen = true;
+                        break;
+                    case('snp_information'):
+                        section = self.steps[0].sections[7];
+                        section.isDisabled = false;
+                        section.isOpen = true;
+                        break;
                     default:
-                        console.log('close penultimate section');
+                        console.log('in switch default');
                         break;
                 }
             } else {
@@ -171,7 +205,6 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             var type = args.type;
 
             if (type === 'formula') {
-                console.log('its a formula string');
                 self.formula = args.content;
 
                 modalInstance = $modal.open({

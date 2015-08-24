@@ -20,11 +20,16 @@ app.factory('BuildSection', [
             var self = this;
 
             self.modelMap = {
-                'variable_list':    vlModel,
-                'generate_formula': gfModel,
-                'age_interval':     aiModel,
-                'default':          defModel
-            };
+                'variable_list':    { func: vlModel },
+                'generate_formula': { func: vlModelgfModel },
+                'age_interval':     { func: aiModel },
+                'default':          { func: defModel, params: {
+                                                            templateType: cfg.templateType,
+                                                            cols: cfg.columnNames,
+                                                            sRef: cfg.sectionReference ? cfg.sectionReference : null
+                                                      }
+                                    }
+             };
 
             self.optional = cfg.optional ? cfg.optional : false;
             self.header = function() {
@@ -40,7 +45,6 @@ app.factory('BuildSection', [
             self.model = self.createModel(self.type);
             self.isDisabled = true;
             self.isOpen = false;
-            self.dataRetrieval = cfg.dataRetrieval ? cfg.dataRetrieval : 'remote';
 
             self.file = null;
             self.id = cfg.id ? cfg.id : self.type;
@@ -86,7 +90,7 @@ app.factory('BuildSection', [
             setSectionState: function(bool, data, label) {
                 var self = this;
                 var sectionData = JSON.stringify(data);
-                var sectionLabel = label;
+                //var sectionLabel = label;
                 var uploadPath = 'uploads/rdata/';
 
                 this.isOpen = !bool;
@@ -97,9 +101,8 @@ app.factory('BuildSection', [
                        /* Change location to endpoint to force 'file download' dialog */
                        window.location = 'http://' + window.location.hostname + '/absoluteRiskRest/downloadFile?filename=' + data;
 
-                       Cache.setSectionKey(sectionLabel, 'path_to_file', uploadPath + data);
+                       Cache.setSectionKey(this.id, 'path_to_file', uploadPath + data);
                        $rootScope.$broadcast('sectionStateChanged', { id: self.id, state: 'complete' });
-                       console.log(sectionLabel + ' JSON is:', Cache.getSectionData(sectionLabel));
                    })
                    .error(function(data, status, headers, config) {
                        console.log('status is: ', status);
@@ -110,7 +113,18 @@ app.factory('BuildSection', [
             },
             createModel: function(type) {
                 /* Use modelMap to create the correct section model based on section type */
-                return new this.modelMap[type](this);
+                if (type === 'default') {
+                    var modelCfg = {
+                        templateType: this.modelMap[type].params.templateType,
+                        cols
+                        : this.modelMap[type].params.cols,
+                        sectionReference: this.modelMap[type].params.sRef
+                    };
+
+                    return new this.modelMap[type].func(this, modelCfg);
+                }
+
+                return new this.modelMap[type].func(this);
             },
             getJsonModel: function() {
                 return this.model.getJsonModel();

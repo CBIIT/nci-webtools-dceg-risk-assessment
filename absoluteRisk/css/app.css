@@ -2,6 +2,33 @@ a {
     cursor: pointer;
 }
 
+header img {
+    width: 60%;
+}
+
+header h4 {
+    color: #FFF;
+    line-height: 0.5em;
+}
+
+.row-blue {
+    background-color: #2A71A5;
+    height: 2em;
+}
+
+.footer {
+    bottom: 0;
+    color: #FFF;
+    background-color: #123E57;
+    padding:25px 0;
+}
+.footer ul {
+    text-align: center;
+}
+.footer ul li a {
+    color: #FFF;
+}
+
 .nav, .pagination, .carousel, .panel-title a
 {
     cursor: pointer;
@@ -137,6 +164,10 @@ body > .select2-container.open {
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
 
+.ui-select-container {
+    width: 150px;
+}
+
 .ui-select-bootstrap .ui-select-toggle {
   position: relative;
 }
@@ -196,6 +227,10 @@ body > .ui-select-bootstrap.open {
   outline: none;
   height: 1.666666em;
   margin-bottom: 3px;
+}
+
+.ui-select-multiple input.ui-select-search {
+  width: auto !important;
 }
 
 .ui-select-multiple.ui-select-bootstrap .ui-select-match .close {

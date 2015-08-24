@@ -1,7 +1,7 @@
 #-------------------------------------------------------
 # Name: upload_CSV_file.R
 # Note: R function to handle the upload of a CSV file
-# Inputs: the input file name has the extension of csv 
+# Inputs: the input file name has the extension of csv
 # Outputs: return the corresponding RData filename with the extension ".RData"
 #--------------------------------------------------------
 #
@@ -24,26 +24,27 @@
 
 library(tools)
 
-uploadCSV <- function(filename)
+uploadCSV <- function(filename, convertedFileName)
 {
                 # mydata = read.table(filename, header = TRUE, sep = ",",  as.is = TRUE)
 
 		mydata <- read.csv(filename, sep=",",header=TRUE,stringsAsFactor=FALSE)
 
                 baseFileName = file_path_sans_ext(filename)
+                rdataName = file_path_sans_ext(convertedFileName)
 		varName = basename(baseFileName)
 		assign(varName,mydata)
-                rdataFileName = paste(baseFileName,".RData",sep="") 
+                rdataFileName = paste(rdataName,".RData",sep="")
                 save(list=varName, file=rdataFileName)
-                
+
                 return (rdataFileName)
 }
 
 
 getRDataInfo <- function(filename) {
-  
+
   mydata = read.table(filename, header = TRUE, sep = ",",  as.is = TRUE)
-  
+
   return (mydata)
 
 }

@@ -34,11 +34,11 @@ app.factory('BuildVariableListModel', ['BuildVariable', 'CacheService', '$rootSc
         saveModel: function() {
             /* Validation will occur before Cache sets data, flesh out here */
             var model = this.getJsonModel();
-            var sectionLabel = 'section_1';
-            var isValid = Cache.setSectionData(sectionLabel, model);
+            //var sectionLabel = 'section_1';
+            var isValid = Cache.setSectionData(this.section.id, model);
 
             if (isValid) {
-                this.section.setSectionState(isValid, model, sectionLabel);
+                this.section.setSectionState(isValid, model, this.section.id);
             }
         },
         getJsonModel: function() {
