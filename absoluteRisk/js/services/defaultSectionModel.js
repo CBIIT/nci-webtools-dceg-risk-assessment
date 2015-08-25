@@ -11,7 +11,6 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
     DefaultModel.prototype = {
         init: function(cfg) {
             var self = this;
-            var templateType = cfg.templateType;
             var endpoint = cfg.endpoint;
             var referredSectionData;
 
@@ -19,11 +18,12 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
                 referredSectionData = Cache.getUiData(cfg.sectionReference);
             }
 
+            self.templateType = cfg.templateType;
             self.columns = cfg.cols ? cfg.cols : referredSectionData.columns;
             self.templateCols = self.columns;
             self.templateRows = [];
 
-            if (templateType === 'staticDual') {
+            if (self.templateType === 'staticDual') {
                 /* Default to 2-column template */
                 self.templateCols = self.columns[0];
                 self.numOfCols = '2';
@@ -31,16 +31,14 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
                 /* 2 types of templates can be displayed, see what user selects */
             }
 
-            if (templateType === 'remote') {
+            if (self.templateType === 'remote') {
                 /* Remote data generation for template rows */
                 self.getRemoteData(endpoint);
             }
         },
-        selectTemplateColumns: function(e) {
-            e.preventDefault();
-            e.stopPropagation();
+        selectTemplateColumns: function(val) {
 
-            if (this.numOfCols === '2') {
+            if (val === '2') {
                 this.templateCols = this.columns[0];
             } else {
                 this.templateCols = this.columns[1];

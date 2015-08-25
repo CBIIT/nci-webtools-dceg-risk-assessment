@@ -230,10 +230,10 @@
                         <form ng-if="section.type === 'default'">
                             <div class="form-group" ng-if="section.model.templateType === 'staticDual'">
                                 <label class="radio-inline">
-                                    <input type="radio" name="{{'num_of_cols_' + $index}}" value="2" ng-model="section.model.numOfCols" ng-click="section.model.selectTemplateColumns($event)" checked> 2-column template
+                                    <input type="radio" name="{{'num_of_cols_' + $index}}" value="2" ng-model="section.model.numOfCols" ng-change="section.model.selectTemplateColumns('2')"> 2-column template
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="{{'num_of_cols_' + $index}}" value="3" ng-model="section.model.numOfCols" ng-click="section.model.selectTemplateColumns($event)"> 3-column template
+                                    <input type="radio" name="{{'num_of_cols_' + $index}}" value="3" ng-model="section.model.numOfCols" ng-change="section.model.selectTemplateColumns('3')"> 3-column template
                                 </label>
                             </div>
                             <div ng-if="section.model.templateType !== 'staticDual'">
