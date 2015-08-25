@@ -18,15 +18,14 @@ header h4 {
 
 .footer {
     bottom: 0;
-    color: #FFF;
-    background-color: #123E57;
+    color: #444;
     padding:25px 0;
 }
 .footer ul {
     text-align: center;
 }
 .footer ul li a {
-    color: #FFF;
+    color: #444;
 }
 
 .nav, .pagination, .carousel, .panel-title a
