@@ -39,6 +39,10 @@ with open ('rfiles/convert_JSON_to_RData.R') as fh:
     rcode = os.linesep.join(line.strip() for line in fh)
     json_rdata_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
 
+with open ('rfiles/log_odds_rates.R') as fh:
+    rcode = os.linesep.join(line.strip() for line in fh)
+    log_odds_rates_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
+
 @app.route('/')
 def index():
     # Render template
@@ -64,16 +68,18 @@ def fileUpload():
                 filepath = app.config['csv_upload_folder'] + '/' + filename
                 convertedFilePath = app.config['rdata_upload_folder'] + '/' + filename
                 rdata_file_path = upload_csv_wrapper.uploadCSV(filepath, convertedFilePath)[0]
+
+                print rdata_file_path
+                return json.dumps({'path_to_file': rdata_file_path})
             else:
                 file.save(os.path.join(app.config['rdata_upload_folder'], filename))
                 filepath = app.config['rdata_upload_folder'] + '/' + filename
-
                 json_data = upload_rdata_wrapper.uploadRData(filepath)[0]
 
-            loadedJson = json.loads(json_data)
-            loadedJson.insert(0, {'path_to_file': filepath})
+                loadedJson = json.loads(json_data)
+                loadedJson.insert(0, {'path_to_file': filepath})
 
-            return json.dumps(loadedJson)
+                return json.dumps(loadedJson)
     return ''
 
 # This route takes in a JSON object, converts it to an RData file, and returns the file to the user
@@ -117,6 +123,18 @@ def generateFormula():
 
         formula = model_formula_wrapper.create_formula(json.dumps(formulaModel), pathToFile)
         return json.dumps(formula[0])
+
+    return ''
+
+@app.route('/absoluteRiskRest/logOddsRatios', methods=['POST'])
+def logOddsRatios():
+    if request.method == 'POST':
+        jsonData = json.loads(request.data)
+        pathToVariableListFile = jsonData['pathToVariableListFile']
+        pathToGenFormulaFile = jsonData['pathToGenFormulaFile']
+
+        jsonList = log_odds_rates_wrapper.log_odds_rates(pathToVariableListFile, pathToGenFormulaFile)
+        print jsonList
 
     return ''
 

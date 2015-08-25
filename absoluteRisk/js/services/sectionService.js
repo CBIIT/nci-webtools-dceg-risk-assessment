@@ -26,7 +26,8 @@ app.factory('BuildSection', [
                 'default':          { func: defModel, params: {
                                                             templateType: cfg.templateType,
                                                             cols: cfg.columnNames,
-                                                            sRef: cfg.sectionReference ? cfg.sectionReference : null
+                                                            sRef: cfg.sectionReference ? cfg.sectionReference : null,
+                                                            endpoint: cfg.endpoint ? cfg.endpoint : null
                                                       }
                                     }
              };
@@ -71,6 +72,7 @@ app.factory('BuildSection', [
                                     console.log(response);
                                     self.model.parseJsonModel(response);
                                 }
+
                                 $rootScope.$broadcast('sectionStateChanged', { id: self.id, state: 'complete' });
                                 $rootScope.$apply();
                             },
@@ -88,7 +90,8 @@ app.factory('BuildSection', [
                         var modelCfg = {
                             templateType: this.modelMap[this.type].params.templateType,
                             cols: this.modelMap[this.type].params.cols,
-                            sectionReference: this.modelMap[this.type].params.sRef
+                            sectionReference: this.modelMap[this.type].params.sRef,
+                            endpoint: this.modelMap[this.type].params.endpoint
                         };
 
                         this.model.init(modelCfg);
@@ -111,7 +114,9 @@ app.factory('BuildSection', [
                        /* Change location to endpoint to force 'file download' dialog */
                        window.location = 'http://' + window.location.hostname + '/absoluteRiskRest/downloadFile?filename=' + data;
 
+                       /* Save returned file path to section as section key/value pair */
                        Cache.setSectionKey(self.id, 'path_to_file', uploadPath + data);
+                       
                        $rootScope.$broadcast('sectionStateChanged', { id: self.id, state: 'complete' });
                    })
                    .error(function(data, status, headers, config) {

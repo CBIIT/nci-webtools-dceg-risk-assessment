@@ -12,21 +12,24 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
         init: function(cfg) {
             var self = this;
             var templateType = cfg.templateType;
+            var endpoint = cfg.endpoint;
             var referredSectionData;
 
             if (cfg.sectionReference) {
                 referredSectionData = Cache.getUiData(cfg.sectionReference);
             }
 
-            self.templateType = cfg.templateType;
             self.templateCols = cfg.cols ? cfg.cols : referredSectionData.columns;
             self.templateRows = [];
 
             if (templateType === 'staticDual') {
                 /* Static data generation for template */
-                /* 2 types of templates can be displayed, see what user selects
-            } else {
-                /* Remote data generation for template */
+                /* 2 types of templates can be displayed, see what user selects */
+            }
+
+            if (templateType === 'remote') {
+                /* Remote data generation for template rows */
+                self.getRemoteData(endpoint);
             }
         },
         exportToCsv: function(e) {
@@ -41,6 +44,26 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
 
     		encodedUri = encodeURI(csvContent);
     		window.open(encodedUri, '_self');
+        },
+        getRemoteData: function(url) {
+            var remoteUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/' + url;
+            var remoteData = {
+                pathToVariableListFile: Cache.getSectionKey('variable_list', 'path_to_file'),
+                pathToGenFormulaFile: Cache.getSectionKey('generate_formula', 'path_to_file')
+            };
+
+            console.log('remote data is: ', remoteData);
+
+            $http.post(genFormulaUrl, JSON.stringify(remoteData))
+               .success(function(data, status, headers, config) {
+                   console.log('returned row names are: ', data);
+               })
+               .error(function(data, status, headers, config) {
+                   console.log('status is: ', status);
+               })
+               .finally(function(data) {
+                   console.log('finally, data is: ', data);
+               });
         },
         getJsonModel: function() {
             /* For 'default' sections, only need to create {} with section id and RData file path */

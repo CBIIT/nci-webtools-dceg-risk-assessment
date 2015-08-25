@@ -60,6 +60,7 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             id: 'log_odds_ratios',
             header: 'Provide Log Odds Ratios',
             templateType: 'remote',
+            endpoint: 'logOddsRatios',
             columnNames: ['Variables', 'Lod Odds Ratios']
         },
         {
