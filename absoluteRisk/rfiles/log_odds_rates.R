@@ -17,14 +17,14 @@
 #           \"as.factor(menarche_dec)5\"
 # > aa=fromJSON(qq)
 # > aa
-#    [1] "famhist"                                     "as.factor(menarche_dec)2"                   
-#    [3] "as.factor(menarche_dec)3"                    "as.factor(menarche_dec)5"                   
+#    [1] "famhist"                                     "as.factor(menarche_dec)2"
+#    [3] "as.factor(menarche_dec)3"                    "as.factor(menarche_dec)5"
 #
 #-------------------------------------------
 #
 
 library(rjson)
-source("absolute_risk_code_V4.15.R")
+source("./rfiles/absolute_risk_code_V4_15.R")
 
 log_odds_rates <- function(list_of_variables_RData, model_predictor_RData)
 {
@@ -35,5 +35,3 @@ log_odds_rates <- function(list_of_variables_RData, model_predictor_RData)
    listnamesJSON= toJSON(listnames)
    return (listnamesJSON)
 }
-
-

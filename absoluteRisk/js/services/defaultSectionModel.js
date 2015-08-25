@@ -19,17 +19,31 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
                 referredSectionData = Cache.getUiData(cfg.sectionReference);
             }
 
-            self.templateCols = cfg.cols ? cfg.cols : referredSectionData.columns;
+            self.columns = cfg.cols ? cfg.cols : referredSectionData.columns;
+            self.templateCols = self.columns;
             self.templateRows = [];
 
             if (templateType === 'staticDual') {
-                /* Static data generation for template */
+                /* Default to 2-column template */
+                self.templateCols = self.columns[0];
+                self.numOfCols = '2';
+
                 /* 2 types of templates can be displayed, see what user selects */
             }
 
             if (templateType === 'remote') {
                 /* Remote data generation for template rows */
                 self.getRemoteData(endpoint);
+            }
+        },
+        selectTemplateColumns: function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            if (this.numOfCols === '2') {
+                this.templateCols = this.columns[0];
+            } else {
+                this.templateCols = this.columns[1];
             }
         },
         exportToCsv: function(e) {
@@ -54,7 +68,7 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
 
             console.log('remote data is: ', remoteData);
 
-            $http.post(genFormulaUrl, JSON.stringify(remoteData))
+            $http.post(remoteUrl, JSON.stringify(remoteData))
                .success(function(data, status, headers, config) {
                    console.log('returned row names are: ', data);
                })
