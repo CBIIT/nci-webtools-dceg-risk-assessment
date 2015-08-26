@@ -50,7 +50,7 @@ app.factory('BuildSection', [
             self.file = null;
             self.id = cfg.id ? cfg.id : self.type;
             self.fileId = self.id + '_file';
-            self.fileUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/fileUpload';
+            self.fileUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/';
             self.dataUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/dataUpload';
 
             $rootScope.$on('fileAdded', function(e, data) {
@@ -61,7 +61,7 @@ app.factory('BuildSection', [
                     if (self.file) {
                         uiUploader.addFiles([self.file]);
                         uiUploader.startUpload({
-                            url: self.fileUrl,
+                            url: self.model.endpoint ? self.fileUrl + self.model.endpoint : self.fileUrl + 'fileUpload',
                             concurrency: 2,
                             onProgress: function(file) {
                                 /* file contains a File object */
@@ -116,7 +116,7 @@ app.factory('BuildSection', [
 
                        /* Save returned file path to section as section key/value pair */
                        Cache.setSectionKey(self.id, 'path_to_file', uploadPath + data);
-                       
+
                        $rootScope.$broadcast('sectionStateChanged', { id: self.id, state: 'complete' });
                    })
                    .error(function(data, status, headers, config) {

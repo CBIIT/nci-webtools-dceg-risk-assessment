@@ -61,12 +61,13 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             header: 'Provide Log Odds Ratios',
             templateType: 'remote',
             endpoint: 'logOddsRatios',
-            columnNames: ['Variables', 'Lod Odds Ratios']
+            columnNames: ['Variables', 'Log Odds Ratios']
         },
         {
             id: 'disease_incidence_rates',
             header: 'Provide Incidence Rates of Disease in Population',
             templateType: 'staticDual',
+            endpoint: 'diseaseRates',
             columnNames: [
                 ['Age (Integer)', 'Rate'],
                 ['Starting Age (Integer)', 'Ending Age (Integer)', 'Rate']
@@ -76,6 +77,7 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             id: 'mortality_incidence_rates',
             header: 'Provide Incidence Rates of Competing Mortality',
             templateType: 'staticDual',
+            endpoint: 'competingRates',
             columnNames: [
                 ['Age (Integer)', 'Rate'],
                 ['Starting Number', 'Ending Number', 'Rate']
@@ -86,6 +88,7 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             id: 'snp_information',
             header: 'Provide SNP Information',
             templateType: 'static',
+            endpoint: 'snpInformation',
             columnNames: ['snp.name', 'snp.odds.ratio', 'snp.freq'],
             optional: true
         }

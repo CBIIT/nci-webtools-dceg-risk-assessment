@@ -24,11 +24,9 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
             self.templateRows = [];
 
             if (self.templateType === 'staticDual') {
-                /* Default to 2-column template */
+                /* Default to 2-column template vs. 3-column template */
                 self.templateCols = self.columns[0];
                 self.numOfCols = '2';
-
-                /* 2 types of templates can be displayed, see what user selects */
             }
 
             if (self.templateType === 'remote') {
@@ -54,7 +52,7 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
 
             csvContent = 'data:text/csv;charset=utf-8,' + self.templateCols.join(',');
 
-    		encodedUri = encodeURI(csvContent);
+    		encodedUri = encodeURIComponent(csvContent);
     		window.open(encodedUri, '_self');
         },
         getRemoteData: function(url) {

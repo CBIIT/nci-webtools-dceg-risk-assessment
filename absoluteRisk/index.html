@@ -228,18 +228,18 @@
                             </div>
                         </form>
                         <form ng-if="section.type === 'default'">
-                            <div class="form-group" ng-if="section.model.templateType === 'staticDual'">
-                                <label class="radio-inline">
-                                    <input type="radio" name="{{'num_of_cols_' + $index}}" value="2" ng-model="section.model.numOfCols" ng-change="section.model.selectTemplateColumns('2')"> 2-column template
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" name="{{'num_of_cols_' + $index}}" value="3" ng-model="section.model.numOfCols" ng-change="section.model.selectTemplateColumns('3')"> 3-column template
-                                </label>
-                            </div>
-                            <div ng-if="section.model.templateType !== 'staticDual'">
+                            <div>
                                 <label>
                                     <input type="checkbox" ng-model="section.model.genTemplate"> Generate Template
                                 </label>
+                                <div class="form-group" ng-if="section.model.templateType === 'staticDual' && section.model.genTemplate">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="{{'num_of_cols_' + $index}}" value="2" ng-model="section.model.numOfCols" ng-change="section.model.selectTemplateColumns('2')"> 2-column template
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="{{'num_of_cols_' + $index}}" value="3" ng-model="section.model.numOfCols" ng-change="section.model.selectTemplateColumns('3')"> 3-column template
+                                    </label>
+                                </div>
                             </div>
                             <div class="clearfix" ng-show="section.model.genTemplate">
                                 <p class="text-info" ng-if="section.model.templateCols.length > 5">For templates with more than 5 columns, only 5 columns will be shown in the generated template. All columns will however be exported in the CSV file.</p>
@@ -290,16 +290,24 @@
         <div class="center-block">
             <ul class="list-inline">
                 <li><a href="http://www.cancer.gov/" title="Home" target="_blank">Home</a></li>
+                <li>|</li>
                 <li><a href="mailto:NCIAbsoluteRiskCalculatorWebAdmin@mail.nih.gov?subject=AbsoluteRiskCalculator" target="_top" title="Support">Support</a></li>
+                <li>|</li>
                 <li><a href="http://www.cancer.gov/global/web/policies" title="Policies" target="_blank">Policies</a></li>
+                <li>|</li>
                 <li><a href="http://www.cancer.gov/global/web/policies/accessibility" title="Accessibility" target="_blank">Accessibility</a></li>
+                <li>|</li>
                 <li><a href="http://cancer.gov/global/viewing-files" title="Viewing Files" target="_blank">Viewing Files</a></li>
+                <li>|</li>
                 <li><a href="http://www.cancer.gov/global/web/policies/foia" title="FOIA" target="_blank">FOIA</a></li>
             </ul>
             <ul class="list-inline">
                 <li><a href="http://www.hhs.gov/" target="_blank">U.S. Department of Health and Human Services</a></li>
+                <li>|</li>
                 <li><a href="http://www.nih.gov" target="_blank">National Institutes of Health</a></li>
+                <li>|</li>
                 <li><a href="http://www.cancer.gov/" target="_blank">National Cancer Institute</a></li>
+                <li>|</li>
                 <li><a href="http://usa.gov" target="_blank">USA.gov</a></li>
             </ul>
             <div class="text-center">
