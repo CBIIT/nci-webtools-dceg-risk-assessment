@@ -357,3 +357,85 @@ process_SNP_info <- function(filename,famHist)
   return (rdataFileName)
 }
 
+#----------------------------------------------------
+# Name: process_age_code.R
+# Function: check the age inputs 
+#
+# Inputs: 6 RData file names. Examples:
+#    (1) age_start_RData="age_new.RData"
+#    (2) age_interval_RData="tau.RData"
+#    (3) cov_new_RData="cov_new.RData"
+#    (4) snp_info_RData="snp_info.RData"
+#    (5) disease_rates_RData="pop_rates.RData"
+#    (6) competing_rates_RData="mort_rates_default_US.RData"
+
+# outputs: "NULL" if no errors.
+#----------------------------------------------------
+#
+# Test Code
+#
+#  > age_start_RData="age_new.RData"
+#  > age_interval_RData="tau.RData"
+#  > cov_new_RData="cov_new.RData"
+#  > genotype_new_RData="genotype_new.RData"
+#  > disease_rates_RData="pop_rates.RData"
+#  > competing_rates_RData="mort_rates_default_US.RData"
+#  > 
+#  > fam_hist_RData="famHist.RData"
+#  > snp_info_RData="snp_info.RData"
+#  > list_of_variables_RData="list_of_variables.RData"
+#  > model_predictor_RData="model_predictor.RData"
+#  > log_odds_RData="beta_given_better.RData"
+#  > ref_dataset_RData="risk_factor_distribution.RData"
+#  > 
+#  > source('H:/Rwork/MAAS/process_age_code.R')
+#  > process_age_code(age_start_RData, age_interval_RData, cov_new_RData,snp_info_RData, disease_rates_RData, competing_rates_RData)
+#    NULL
+#
+#------------------------------------------------------
+
+process_age_code <- function(ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_start_RData, age_interval_RData, cov_new_RData,snp_info_RData, disease_rates_RData, competing_rates_RData)
+{
+  apply.age.start=get(load(age_start_RData)) 
+  apply.age.interval.length=get(load(age_interval_RData)) 
+  apply.cov.profile=get(load(cov_new_RData))
+  apply.snp.profile=get(load(genotype_new_RData)) 
+  lambda=get(load(disease_rates_RData))
+  competing_rates=get(load(competing_rates_RData))
+  
+  fam_hist=get(load(fam_hist_RData))
+  snp_info=get(load(snp_info_RData))
+  list_of_variables=get(load(list_of_variables_RData))
+  model_predictor=as.formula( get(load(model_predictor_RData)) )
+  log_odds=get(load(log_odds_RData))
+  ref_dataset=get(load(ref_dataset_RData))
+  
+  results = compute.absolute.risk(model.formula = model_predictor, model.cov.info = list_of_variables, model.snp.info = snp_info, model.log.RR = log_odds,
+                                  model.ref.dataset = ref_dataset, model.ref.dataset.weights = NULL,
+                                  model.disease.incidence.rates = lambda,
+                                  model.competing.incidence.rates = competing_rates,
+                                  model.bin.fh.name = fam_hist, n.imp = 5,
+                                  apply.age.start = apply.age.start, apply.age.interval.length = apply.age.interval.length,
+                                  apply.cov.profile  = apply.cov.profile,
+                                  apply.snp.profile = apply.snp.profile,
+                                  use.c.code = 1,  return.lp = FALSE, return.refs.risk = TRUE)
+  
+  if(length(results$risk)<=12){
+    jpeg('rplot.jpg', width = 9, height = 9, units = 'in', res = 600)
+    par(mfrow=c(3,4))
+    for(i in 1:length(results$risk)){
+      plot(density(results$refs.risk, na.rm=T), main=paste("Subject ", i, sep=""), ylab = "Smoothed Frequency Density", xlab="Absolute Risk", lwd=2)
+      lines(abline(v=results$risk[i], col="red", lwd=2))
+    }
+    dev.off()
+  }else{
+    jpeg('rplot.jpg', width = 9, height = 9, units = 'in', res = 600))
+plot(density(results$risk, na.rm=T), main="Absolute Risk Distribution", ylab = "Smoothed Frequency Density", xlab="Absolute Risk", lwd=2)
+dev.off()
+  }
+  res = results$details
+  ref = results$refs.risk
+  write.csv(res , file="results.csv")
+  write.csv(ref , file="results_reference.csv")
+}
+
