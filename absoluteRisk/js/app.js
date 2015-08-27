@@ -49,7 +49,8 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
         },
         {
             header: 'Give the Model Formula',
-            type: 'generate_formula'
+            type: 'generate_formula',
+            fileUploadEndpoint: 'rdataFileUpload'
         },
         {
             id: 'risk_factor_distribution',

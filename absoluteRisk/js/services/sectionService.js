@@ -20,13 +20,13 @@ app.factory('BuildSection', [
             var self = this;
 
             self.modelMap = {
-                'variable_list':    { func: vlModel },
-                'generate_formula': { func: gfModel },
-                'age_interval':     { func: aiModel },
+                'variable_list':    { func: vlModel, params: { fileUploadEndpoint: cfg.fileUploadEndpoint }},
+                'generate_formula': { func: gfModel, params: { fileUploadEndpoint: cfg.fileUploadEndpoint }},
+                'age_interval':     { func: aiModel params: {}},
                 'default':          { func: defModel, params: {
                                                             templateType: cfg.templateType,
                                                             cols: cfg.columnNames,
-                                                            sRef: cfg.sectionReference ? cfg.sectionReference : null,
+                                                            sectionReference: cfg.sectionReference ? cfg.sectionReference : null,
                                                             templateEndpoint: cfg.templateEndpoint ? cfg.templateEndpoint : null,
                                                             fileUploadEndpoint: cfg.fileUploadEndpoint ? cfg.fileUploadEndpoint : null,
                                                             postUploadEndpoint: cfg.postUploadEndpoint ? cfg.postUploadEndpoint : null
@@ -96,21 +96,7 @@ app.factory('BuildSection', [
         Section.prototype = {
             init: function() {
                 if (this.model.init) {
-                    if (this.type === 'default') {
-                        var modelCfg = {
-                            templateType: this.modelMap[this.type].params.templateType,
-                            cols: this.modelMap[this.type].params.cols,
-                            sectionReference: this.modelMap[this.type].params.sRef,
-                            templateEndpoint: this.modelMap[this.type].params.templateEndpoint,
-                            fileUploadEndpoint: this.modelMap[this.type].params.fileUploadEndpoint,
-                            postUploadEndpoint: this.modelMap[this.type].params.postUploadEndpoint
-                        };
-
-                        this.model.init(modelCfg);
-                        return;
-                    }
-
-                    this.model.init();
+                    this.model.init(this.modelMap[this.type].params);
                 }
             },
             setSectionState: function(bool, data, label) {

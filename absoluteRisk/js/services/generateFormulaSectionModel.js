@@ -11,7 +11,7 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', '$h
         self.section = parent;
     }
     GenFormulaModel.prototype = {
-        init: function() {
+        init: function(cfg) {
             var self = this;
             var dataModel = Cache.getSectionData('variable_list');
             var list = dataModel.data;
@@ -19,6 +19,7 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', '$h
 
             self.variables = [];
             self.status = 'edit';
+            self.fileUploadEndpoint = cfg.fileUploadEndpoint;
 
             angular.forEach(list, function(variable) {
                 tempList.shift();

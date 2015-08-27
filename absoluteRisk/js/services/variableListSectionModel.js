@@ -6,21 +6,25 @@ app.factory('BuildVariableListModel', ['BuildVariable', 'CacheService', '$rootSc
         self.inputMethod = 'manual';
         self.section = parent;
         self.variableList = [];
-        self.init();
+        //self.init();
     }
     VariableListModel.prototype = {
-        init: function() {
-            if (this.inputMethod === 'manual') {
-                this.variableList.length = 0;
+        init: function(cfg) {
+            var self = this;
+
+            self.fileUploadEndpoint = cfg.fileUploadEndpoint;
+
+            if (self.inputMethod === 'manual') {
+                self.variableList.length = 0;
 
                 /* Add a single variable to the list as default list state */
-                this.addVariable();
+                self.addVariable();
             } else {
                 /* Reset form to reset file input */
-                var sectionForm = document.getElementById(this.section.id);
+                var sectionForm = document.getElementById(self.section.id);
                 sectionForm.reset();
 
-                this.section.file = null;
+                self.section.file = null;
             }
         },
         addVariable: function() {
