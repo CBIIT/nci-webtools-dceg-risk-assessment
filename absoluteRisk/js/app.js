@@ -44,7 +44,8 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
     var buildConfig = [
         {
             header: 'List the Variables',
-            type: 'variable_list'
+            type: 'variable_list',
+            fileUploadEndpoint: 'rdataFileUpload'
         },
         {
             header: 'Give the Model Formula',
@@ -54,20 +55,23 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             id: 'risk_factor_distribution',
             header: 'Provide Risk Factor Distribution',
             templateType: 'static',
+            fileUploadEndpoint: 'rdataFileUpload',
             sectionReference: 'generate_formula'
         },
         {
             id: 'log_odds_ratios',
             header: 'Provide Log Odds Ratios',
             templateType: 'remote',
-            endpoint: 'logOddsRatios',
+            templateEndpoint: 'logOddsRatios',
+            fileUploadEndpoint: 'csvFileUpload',
             columnNames: ['Variables', 'Log Odds Ratios']
         },
         {
             id: 'disease_incidence_rates',
             header: 'Provide Incidence Rates of Disease in Population',
             templateType: 'staticDual',
-            endpoint: 'diseaseRates',
+            fileUploadEndpoint: 'csvFileUpload',
+            postUploadEndpoint: 'diseaseRates',
             columnNames: [
                 ['Age (Integer)', 'Rate'],
                 ['Starting Age (Integer)', 'Ending Age (Integer)', 'Rate']
@@ -77,7 +81,8 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             id: 'mortality_incidence_rates',
             header: 'Provide Incidence Rates of Competing Mortality',
             templateType: 'staticDual',
-            endpoint: 'competingRates',
+            fileUploadEndpoint: 'csvFileUpload',
+            postUploadEndpoint: 'competingRates',
             columnNames: [
                 ['Age (Integer)', 'Rate'],
                 ['Starting Number', 'Ending Number', 'Rate']
@@ -88,7 +93,8 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             id: 'snp_information',
             header: 'Provide SNP Information',
             templateType: 'static',
-            endpoint: 'snpInformation',
+            fileUploadEndpoint: 'csvFileUpload',
+            postUploadEndpoint: 'snpInformation',
             columnNames: ['snp.name', 'snp.odds.ratio', 'snp.freq'],
             optional: true
         }

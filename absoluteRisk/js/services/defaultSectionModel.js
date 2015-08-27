@@ -11,7 +11,7 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
     DefaultModel.prototype = {
         init: function(cfg) {
             var self = this;
-            var endpoint = cfg.endpoint;
+            var endpoint = cfg.templateEndpoint;
             var referredSectionData;
 
             if (cfg.sectionReference) {

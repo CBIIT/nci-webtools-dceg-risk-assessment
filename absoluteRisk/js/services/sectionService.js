@@ -27,7 +27,9 @@ app.factory('BuildSection', [
                                                             templateType: cfg.templateType,
                                                             cols: cfg.columnNames,
                                                             sRef: cfg.sectionReference ? cfg.sectionReference : null,
-                                                            endpoint: cfg.endpoint ? cfg.endpoint : null
+                                                            templateEndpoint: cfg.templateEndpoint ? cfg.templateEndpoint : null,
+                                                            fileUploadEndpoint: cfg.fileUploadEndpoint ? cfg.fileUploadEndpoint : null,
+                                                            postUploadEndpoint: cfg.postUploadEndpoint ? cfg.postUploadEndpoint : null
                                                       }
                                     }
              };
@@ -53,6 +55,11 @@ app.factory('BuildSection', [
             self.fileUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/';
             self.dataUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/dataUpload';
 
+            /* This is for a scenario where a section uploads a CSV file and uses a section specific R script to convert to RData file */
+            if (self.model.fileUploadEndpoint) {
+                self.fileUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/' + self.model.fileUploadEndpoint;
+            }
+
             $rootScope.$on('fileAdded', function(e, data) {
                 if (data.id === self.fileId) {
                     self.file = data.file;
@@ -61,7 +68,7 @@ app.factory('BuildSection', [
                     if (self.file) {
                         uiUploader.addFiles([self.file]);
                         uiUploader.startUpload({
-                            url: self.model.endpoint ? self.fileUrl + self.model.endpoint : self.fileUrl + 'fileUpload',
+                            url: self.fileUrl,
                             concurrency: 2,
                             onProgress: function(file) {
                                 /* file contains a File object */
@@ -73,8 +80,12 @@ app.factory('BuildSection', [
                                     self.model.parseJsonModel(response);
                                 }
 
-                                $rootScope.$broadcast('sectionStateChanged', { id: self.id, state: 'complete' });
-                                $rootScope.$apply();
+                                if (self.model.postUploadEndpoint) {
+                                    self.model.postUploadActions(response);
+                                } else {
+                                    $rootScope.$broadcast('sectionStateChanged', { id: self.id, state: 'complete' });
+                                    $rootScope.$apply();
+                                }
                             },
                             onCompletedAll: function(file) {}
                         });
@@ -82,7 +93,6 @@ app.factory('BuildSection', [
                 }
             });
         }
-
         Section.prototype = {
             init: function() {
                 if (this.model.init) {
@@ -91,7 +101,9 @@ app.factory('BuildSection', [
                             templateType: this.modelMap[this.type].params.templateType,
                             cols: this.modelMap[this.type].params.cols,
                             sectionReference: this.modelMap[this.type].params.sRef,
-                            endpoint: this.modelMap[this.type].params.endpoint
+                            templateEndpoint: this.modelMap[this.type].params.templateEndpoint,
+                            fileUploadEndpoint: this.modelMap[this.type].params.fileUploadEndpoint,
+                            postUploadEndpoint: this.modelMap[this.type].params.postUploadEndpoint
                         };
 
                         this.model.init(modelCfg);

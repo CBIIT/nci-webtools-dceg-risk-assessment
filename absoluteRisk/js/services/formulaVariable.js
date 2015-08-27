@@ -44,7 +44,6 @@ app.factory('BuildFormulaVariable', ['$rootScope', 'verifyTermsFilter', function
     }
     FormulaVariable.prototype = {
         alertLinearState: function() {
-
             /*
                 Reset interaction array if non-linear
                 Multi-select should be empty when it is visible in UI  again

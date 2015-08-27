@@ -23,10 +23,11 @@ app = Flask(__name__)
 app.config['csv_upload_folder'] = UPLOAD_CSV_FOLDER
 app.config['rdata_upload_folder'] = UPLOAD_RDATA_FOLDER
 
-with open ('rfiles/upload_RData_file.R') as fh:
+with open ('rfiles/absoluteRiskCalculationWrapper.R') as fh:
     rcode = os.linesep.join(line.strip() for line in fh)
-    upload_rdata_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
+    arc_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
 
+'''
 with open ('rfiles/upload_CSV_file.R') as fh:
     rcode = os.linesep.join(line.strip() for line in fh)
     upload_csv_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
@@ -42,6 +43,7 @@ with open ('rfiles/convert_JSON_to_RData.R') as fh:
 with open ('rfiles/log_odds_rates.R') as fh:
     rcode = os.linesep.join(line.strip() for line in fh)
     log_odds_rates_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
+'''
 
 @app.route('/')
 def index():
@@ -53,33 +55,40 @@ def index():
 def absoluteRiskRest():
     return
 
-# This route takes a file as an input, creates the requested CSV or RData file, and returns  a JSON object based on the file data
+# This route takes a CSV file as an input, stores it ONLY, and returns the file path
 @app.route('/absoluteRiskRest/fileUpload', methods=['POST'])
-def fileUpload():
+def csvFileUpload():
     if request.method == 'POST':
         file = request.files['file']
         filepath = ''
 
         if file and allowed_file(file.filename):
             filename = time.strftime("%Y%m%d-%H%M%S") + '_' + secure_filename(file.filename)
+            file.save(os.path.join(app.config['csv_upload_folder'], filename))
+            filepath = app.config['csv_upload_folder'] + '/' + filename
 
-            if (string.lower(filename.rsplit('.', 1)[1]) == 'csv'):
-                file.save(os.path.join(app.config['csv_upload_folder'], filename))
-                filepath = app.config['csv_upload_folder'] + '/' + filename
-                convertedFilePath = app.config['rdata_upload_folder'] + '/' + filename
-                rdata_file_path = upload_csv_wrapper.uploadCSV(filepath, convertedFilePath)[0]
+            storedFilePath = arc_wrapper.uploadCSV(filepath)[0]
 
-                print rdata_file_path
-                return json.dumps({'path_to_file': rdata_file_path})
-            else:
-                file.save(os.path.join(app.config['rdata_upload_folder'], filename))
-                filepath = app.config['rdata_upload_folder'] + '/' + filename
-                json_data = upload_rdata_wrapper.uploadRData(filepath)[0]
+            return json.dumps({ path_to_file: storedFilePath })
+    return ''
 
-                loadedJson = json.loads(json_data)
-                loadedJson.insert(0, {'path_to_file': filepath})
+# This route takes a RData file as an input, stores it, and returns  a JSON object with data and file path
+@app.route('/absoluteRiskRest/fileUpload', methods=['POST'])
+def rdataFileUpload():
+    if request.method == 'POST':
+        file = request.files['file']
+        filepath = ''
 
-                return json.dumps(loadedJson)
+        if file and allowed_file(file.filename):
+            filename = time.strftime("%Y%m%d-%H%M%S") + '_' + secure_filename(file.filename)
+            file.save(os.path.join(app.config['rdata_upload_folder'], filename))
+            filepath = app.config['rdata_upload_folder'] + '/' + filename
+
+            json_data = arc_wrapper.uploadRData(filepath)[0]
+            loadedJson = json.loads(json_data)
+            loadedJson.insert(0, {'path_to_file': filepath})
+
+            return json.dumps(loadedJson)
     return ''
 
 # This route takes in a JSON object, converts it to an RData file, and returns the file to the user
@@ -93,7 +102,7 @@ def dataUpload():
         filename = time.strftime("%Y%m%d-%H%M%S") + "_" + sectionId + ".rdata"
         filepath = app.config['rdata_upload_folder'] + '/' + filename
 
-        json_rdata_wrapper.convertJSONtoRData(json.dumps(sectionData), filepath)
+        arc_wrapper.convertJSONtoRData(json.dumps(sectionData), filepath)
 
         return filename
 
@@ -121,7 +130,7 @@ def generateFormula():
         formulaModel = jsonData['model']['data']
         pathToFile = jsonData['pathToVariableListFile']
 
-        formula = model_formula_wrapper.create_formula(json.dumps(formulaModel), pathToFile)
+        formula = arc_wrapper.create_formula(json.dumps(formulaModel), pathToFile)
         return json.dumps(formula[0])
 
     return ''
@@ -133,8 +142,48 @@ def logOddsRatios():
         pathToVariableListFile = jsonData['pathToVariableListFile']
         pathToGenFormulaFile = jsonData['pathToGenFormulaFile']
 
-        jsonList = log_odds_rates_wrapper.log_odds_rates(pathToVariableListFile, pathToGenFormulaFile)
+        jsonList = arc_wrapper.log_odds_rates(pathToVariableListFile, pathToGenFormulaFile)
         print jsonList
+
+    return ''
+
+# This route takes a csv file as an input RData file, and returns  a JSON object based on the file data
+@app.route('/absoluteRiskRest/diseaseRates', methods=['POST'])
+def diseaseRates():
+    if request.method == 'POST':
+        file = request.files['file']
+        filepath = ''
+
+        if file and allowed_file(file.filename):
+            filename = time.strftime("%Y%m%d-%H%M%S") + '_' + secure_filename(file.filename)
+
+            file.save(os.path.join(app.config['csv_upload_folder'], filename))
+            filepath = app.config['csv_upload_folder'] + '/' + filename
+            convertedFilePath = app.config['rdata_upload_folder'] + '/' + filename
+            rdata_file_path = arc_wrapper.process_disease_rates(filepath, convertedFilePath)[0]
+
+            print rdata_file_path
+            return json.dumps({'path_to_file': rdata_file_path})
+
+    return ''
+
+# This route takes a file as an input, creates the requested CSV or RData file, and returns  a JSON object based on the file data
+@app.route('/absoluteRiskRest/mortalityRates', methods=['POST'])
+def mortalityRates():
+    if request.method == 'POST':
+        file = request.files['file']
+        filepath = ''
+
+        if file and allowed_file(file.filename):
+            filename = time.strftime("%Y%m%d-%H%M%S") + '_' + secure_filename(file.filename)
+
+            file.save(os.path.join(app.config['csv_upload_folder'], filename))
+            filepath = app.config['csv_upload_folder'] + '/' + filename
+            convertedFilePath = app.config['rdata_upload_folder'] + '/' + filename
+            rdata_file_path = arc_wrapper.process_competing_rates(filepath, convertedFilePath)[0]
+
+            print rdata_file_path
+            return json.dumps({'path_to_file': rdata_file_path})
 
     return ''
 
