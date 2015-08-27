@@ -157,6 +157,7 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
     self.init = function() {
         self.steps[0].sections[0].isDisabled = false;
         self.steps[0].sections[0].isOpen = true;
+        self.steps[0].sections[0].init();
 
         $scope.$on('sectionStateChanged', function(event, args) {
             var id = args.id;

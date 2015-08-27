@@ -22,7 +22,7 @@ app.factory('BuildSection', [
             self.modelMap = {
                 'variable_list':    { func: vlModel, params: { fileUploadEndpoint: cfg.fileUploadEndpoint }},
                 'generate_formula': { func: gfModel, params: { fileUploadEndpoint: cfg.fileUploadEndpoint }},
-                'age_interval':     { func: aiModel params: {}},
+                'age_interval':     { func: aiModel, params: {}},
                 'default':          { func: defModel, params: {
                                                             templateType: cfg.templateType,
                                                             cols: cfg.columnNames,
@@ -55,14 +55,14 @@ app.factory('BuildSection', [
             self.fileUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/';
             self.dataUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/dataUpload';
 
-            /* This is for a scenario where a section uploads a CSV file and uses a section specific R script to convert to RData file */
-            if (self.model.fileUploadEndpoint) {
-                self.fileUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/' + self.model.fileUploadEndpoint;
-            }
-
             $rootScope.$on('fileAdded', function(e, data) {
                 if (data.id === self.fileId) {
                     self.file = data.file;
+
+                    /* This is for a scenario where a section uploads a CSV file and uses a section specific R script to convert to RData file */
+                    if (self.model.fileUploadEndpoint) {
+                        self.fileUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/' + self.model.fileUploadEndpoint;
+                    }
 
                     /* Guard against undefined file if user cancels out of 'upload' dialog */
                     if (self.file) {

@@ -64,7 +64,7 @@
                                     <input type="radio" name="{{'age_section_' + $index}}" value="manual" ng-model="section.model.inputMethod" ng-click="section.init()" ng-disabled="section.model.inputMethod === 'manual'"> Manual
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="{{'age_section_' + $index}}" value="upload" ng-model="section.model.inputMethod" ng-click="section.init()" ng-disabled="section.model.inputMethod === 'upload'" checked> Upload
+                                    <input type="radio" name="{{'age_section_' + $index}}" value="upload" ng-model="section.model.inputMethod" ng-click="section.init()" ng-disabled="section.model.inputMethod === 'upload'" checked> Upload (as RData file)
                                 </label>
                             </div>
                             <div ng-show="section.model.inputMethod === 'manual'">

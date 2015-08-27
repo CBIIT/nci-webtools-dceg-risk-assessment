@@ -56,7 +56,7 @@ def absoluteRiskRest():
     return
 
 # This route takes a CSV file as an input, stores it ONLY, and returns the file path
-@app.route('/absoluteRiskRest/fileUpload', methods=['POST'])
+@app.route('/absoluteRiskRest/csvFileUpload', methods=['POST'])
 def csvFileUpload():
     if request.method == 'POST':
         file = request.files['file']
@@ -73,7 +73,7 @@ def csvFileUpload():
     return ''
 
 # This route takes a RData file as an input, stores it, and returns  a JSON object with data and file path
-@app.route('/absoluteRiskRest/fileUpload', methods=['POST'])
+@app.route('/absoluteRiskRest/rdataFileUpload', methods=['POST'])
 def rdataFileUpload():
     if request.method == 'POST':
         file = request.files['file']

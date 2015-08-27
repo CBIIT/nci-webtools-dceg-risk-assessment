@@ -52,7 +52,7 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
 
             csvContent = 'data:text/csv;charset=utf-8,' + self.templateCols.join(',');
 
-    		encodedUri = encodeURIComponent(csvContent);
+    		encodedUri = encodeURI(csvContent);
     		window.open(encodedUri, '_self');
         },
         getRemoteData: function(url) {
