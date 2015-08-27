@@ -429,7 +429,7 @@ process_age_code <- function(ref_dataset_RData, model_predictor_RData, log_odds_
     }
     dev.off()
   }else{
-    jpeg('rplot.jpg', width = 9, height = 9, units = 'in', res = 600))
+    jpeg('rplot.jpg', width = 9, height = 9, units = 'in', res = 600)
 plot(density(results$risk, na.rm=T), main="Absolute Risk Distribution", ylab = "Smoothed Frequency Density", xlab="Absolute Risk", lwd=2)
 dev.off()
   }
