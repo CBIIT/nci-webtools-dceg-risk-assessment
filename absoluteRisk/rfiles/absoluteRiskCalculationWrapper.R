@@ -228,50 +228,6 @@ log_odds_rates <- function(list_of_variables_RData, model_predictor_RData)
   return (listnamesJSON)
 }
 
-#----------------------------------------------------
-# Name: process_age_code.R
-# Function: check the age inputs
-#
-# Inputs: 6 RData file names. Examples:
-#    (1) age_start_RData="age_new.RData"
-#    (2) age_interval_RData="tau.RData"
-#    (3) cov_new_RData="cov_new.RData"
-#    (4) snp_info_RData="snp_info.RData"
-#    (5) disease_rates_RData="pop_rates.RData"
-#    (6) competing_rates_RData="mort_rates_default_US.RData"
-
-# outputs: "NULL" if no errors.
-#----------------------------------------------------
-#
-# Test Code
-#
-#  > age_start_RData="age_new.RData"
-#  > age_interval_RData="tau.RData"
-#  > cov_new_RData="cov_new.RData"
-#  > snp_info_RData="snp_info.RData"
-#  > disease_rates_RData="pop_rates.RData"
-#  > competing_rates_RData="mort_rates_default_US.RData"
-#  >
-#  > source('H:/Rwork/MAAS/process_age_code.R')
-#  > process_age_code(age_start_RData, age_interval_RData, cov_new_RData,snp_info_RData, disease_rates_RData, competing_rates_RData)
-#    NULL
-#
-#------------------------------------------------------
-
-process_age_code <- function(age_start_RData, age_interval_RData, cov_new_RData,snp_info_RData, disease_rates_RData, competing_rates_RData)
-{
-
-  apply.age.start=get(load(age_start_RData))
-  apply.age.interval.length=get(load(age_interval_RData))
-  apply.cov.profile=get(load(cov_new_RData))
-  apply.snp.profile=get(load(snp_info_RData))
-  lambda=get(load(disease_rates_RData))
-  competing_rates=get(load(competing_rates_RData))
-
-  check_age_inputs(apply.age.start, apply.age.interval.length, apply.cov.profile, apply.snp.profile, lambda, competing_rates)
-}
-
-
 #------------------------------------------
 # Function: read 2- or 3-column csv file and generate a 2-column data (age and rates)
 # Inputs: (1) the file name
@@ -394,7 +350,7 @@ process_SNP_info <- function(filename,famHist)
 #
 #------------------------------------------------------
 
-process_age_code <- function(ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_start_RData, age_interval_RData, cov_new_RData,snp_info_RData, disease_rates_RData, competing_rates_RData)
+process_age_code <- function(ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_start_RData, age_interval_RData, cov_new_RData, disease_rates_RData, competing_rates_RData)
 {
   apply.age.start=get(load(age_start_RData))
   apply.age.interval.length=get(load(age_interval_RData))
@@ -438,3 +394,46 @@ dev.off()
   write.csv(res , file="results.csv")
   write.csv(ref , file="results_reference.csv")
 }
+
+#----------------------------------------------------
+# Name: process_age_code_old.R
+# Function: check the age inputs 
+#
+# Inputs: 6 RData file names. Examples:
+#    (1) age_start_RData="age_new.RData"
+#    (2) age_interval_RData="tau.RData"
+#    (3) cov_new_RData="cov_new.RData"
+#    (4) snp_info_RData="snp_info.RData"
+#    (5) disease_rates_RData="pop_rates.RData"
+#    (6) competing_rates_RData="mort_rates_default_US.RData"
+
+# outputs: "NULL" if no errors.
+#----------------------------------------------------
+#
+# Test Code
+#
+#  > age_start_RData="age_new.RData"
+#  > age_interval_RData="tau.RData"
+#  > cov_new_RData="cov_new.RData"
+#  > snp_info_RData="snp_info.RData"
+#  > disease_rates_RData="pop_rates.RData"
+#  > competing_rates_RData="mort_rates_default_US.RData"
+#  >
+#  > source('H:/Rwork/MAAS/process_age_code.R')
+#  > process_age_code(age_start_RData, age_interval_RData, cov_new_RData,snp_info_RData, disease_rates_RData, competing_rates_RData)
+#    NULL
+#
+#------------------------------------------------------
+
+# process_age_code_old <- function(age_start_RData, age_interval_RData, cov_new_RData,snp_info_RData, disease_rates_RData, competing_rates_RData)
+# {
+#   
+#   apply.age.start=get(load(age_start_RData)) 
+#   apply.age.interval.length=get(load(age_interval_RData)) 
+#   apply.cov.profile=get(load(cov_new_RData))
+#   apply.snp.profile=get(load(snp_info_RData)) 
+#   lambda=get(load(disease_rates_RData))
+#   competing_rates=get(load(competing_rates_RData))
+#   
+#   check_age_inputs(apply.age.start, apply.age.interval.length, apply.cov.profile, apply.snp.profile, lambda, competing_rates)
+# }
