@@ -106,54 +106,54 @@ compute.absolute.risk <- function(model.formula = NULL, model.cov.info = NULL, m
   decision      <- decide_if_SNP_only(apply.cov.profile, model.formula, model.log.RR, model.ref.dataset, model.cov.info, model.snp.info, apply.snp.profile, apply.age.start, apply.age.interval.length)
   covs_in_model <-  decision[[1]]
   if(length(decision)>1) apply.snp.profile   <-  decision[[2]]
-
+  
   
   handle.snps = 1 - is.null(model.snp.info)
-
+  
   if (covs_in_model) {
     temp         <- check_age_lengths(apply.age.start, apply.age.interval.length, apply.cov.profile , "apply.cov.profile ")
     apply.age.start      <- temp[[1]]
     apply.age.interval.length <- temp[[2]]
-
+    
     temp         <- check_model_inputs(apply.cov.profile , model.log.RR, model.ref.dataset, model.ref.dataset.weights, model.cov.info, model.formula, n.imp)
     data_use     <- temp[[1]]
     model.log.RR   <- temp[[2]]
     model.ref.dataset.weights <- temp[[3]]
-
+    
     design_covs <- make_design_matrix_covs(data_use, apply.cov.profile, model.formula)
-
+    
     check_design_matrix(model.log.RR, design_covs)
     Z_new        <- t(design_covs); rm(design_covs); gc()
     beta_est     <- as.matrix(nrow = length(model.log.RR), ncol=1, model.log.RR)
     pop.dist.mat <- make_design_matrix_dist(data_use, model.ref.dataset, model.formula)
     pop.weights  <- model.ref.dataset.weights
   }
-
+  
   if(handle.snps){
-
+    
     check_SNP_info(model.snp.info)
-
+    
     snps.names <- paste(model.snp.info[,"snp.name"])
     snps.betas <- log( model.snp.info[,"snp.odds.ratio"] )
     snps.freqs <- model.snp.info[,"snp.freq"]
-
+    
     processed_info = process_SNP_info(covs_in_model, apply.snp.profile, model.bin.fh.name, apply.cov.profile , model.ref.dataset, model.snp.info)
-
+    
     attenuate.fh  <-  processed_info[[1]]
     fh.pop        <-  processed_info[[2]]
     fh.cov        <-  processed_info[[3]]
     apply.snp.profile  <-  processed_info[[4]]
   }
-
+  
   if (covs_in_model) {
-
+    
     if(handle.snps){
       # covariate_stack5 <- rbind(pop.dist.mat, pop.dist.mat, pop.dist.mat, pop.dist.mat, pop.dist.mat)
       covariate_stack5 <- do.call("rbind", replicate(n.imp, pop.dist.mat, simplify = FALSE))
       simulated_snps   <- sim_snps(snps.betas, snps.freqs, cbind( rep( fh.pop, n.imp)) )
       pop.dist.mat     <- cbind( simulated_snps, covariate_stack5 )
       pop.weights      <- rep( model.ref.dataset.weights, n.imp )
-
+      
       if(attenuate.fh){
         var_prs <- sum((snps.betas^2)*2*snps.freqs*(1-snps.freqs))
         alpha   <- var_prs/2
@@ -169,7 +169,7 @@ compute.absolute.risk <- function(model.formula = NULL, model.cov.info = NULL, m
     temp         <- check_age_lengths(apply.age.start, apply.age.interval.length, apply.snp.profile, "apply.snp.profile")
     apply.age.start      <- temp[[1]]
     apply.age.interval.length <- temp[[2]]
-
+    
     if(handle.snps){
       pop.dist.mat <- sim_snps(snps.betas, snps.freqs, cbind( rep( fh.pop, n.imp)) )
       pop.weights  <- rep( 1/nrow(pop.dist.mat), nrow(pop.dist.mat) )
@@ -186,15 +186,15 @@ compute.absolute.risk <- function(model.formula = NULL, model.cov.info = NULL, m
   lambda_0                  <- calculation[[1]]
   precise_expectation_rr    <- calculation[[2]]
   pop.dist.mat              <- t(pop.dist.mat )
-
+  
   ###### Compute A_j  ## only those without NA
   final_risks <- rep(NA, ncol(Z_new))
   lps <- t(Z_new)%*%beta_est
   these = which(colSums( is.na(Z_new))==0 )
-
+  
   if( length(these) > 0 ){
-      temp               <- subset(Z_new, select=these)
-      final_risks[these] <- comp_Aj(temp, apply.age.start[these], apply.age.interval.length[these], lambda_0, beta_est, model.competing.incidence.rates)
+    temp               <- subset(Z_new, select=these)
+    final_risks[these] <- comp_Aj(temp, apply.age.start[these], apply.age.interval.length[these], lambda_0, beta_est, model.competing.incidence.rates)
   }
   miss    <- which(is.na(final_risks))
   present <- which(!is.na(final_risks))
@@ -224,7 +224,7 @@ compute.absolute.risk <- function(model.formula = NULL, model.cov.info = NULL, m
 # lambda should be matrix of two columns (age, incidence rates ) diff ages in the rows
 
 pick_lambda <- function(t, lambda){
-
+  
   a <- which(t==lambda[,1])
   lambda[a,2]
 }
@@ -233,12 +233,12 @@ pick_lambda <- function(t, lambda){
 
 # computes internal integral over u for estimate of A_j
 get_int <- function(a,t,lambda, Z_new, beta_est, model.competing.incidence.rates, ZBETA = NULL){
-
+  
   holder<-0
   if (is.null(ZBETA)) {
     ZBETA <- t(exp(t(Z_new)%*%beta_est))
   }
-
+  
   for(u in min(a, na.rm = T):max(t, na.rm = T)){
     temp0  <- (u>=a)*(u<t)
     holder <- holder + temp0*( (pick_lambda(u,lambda))*ZBETA + model.competing.incidence.rates[which(u==model.competing.incidence.rates[,1]),2])
@@ -247,10 +247,10 @@ get_int <- function(a,t,lambda, Z_new, beta_est, model.competing.incidence.rates
 }
 
 get_beta_given_names <-function(model.cov.info, model.formula){
-
+  
   check_triple_check(model.cov.info)
   model.cov.info = process_triple_check(model.cov.info)
-
+  
   if(is.null(colnames(model.cov.info))){
     return_and_print("ERROR: model.cov.info must have same names and order as predictors in model.formula.")
     stop()
@@ -268,19 +268,19 @@ get_beta_given_names <-function(model.cov.info, model.formula){
   data_use[,all.vars(model.formula)[1]] <- rep(0, nrow(data_use))
   predictors <- as.matrix(model.matrix(model.formula, data = as.data.frame(data_use))[,2:ncol(model.matrix(model.formula, data = as.data.frame(data_use)))])
   colnames(predictors)
-
+  
 }
 
 ###  make design matrix for apply.cov.profile
 make_design_matrix_covs <- function(data_use, apply.cov.profile, model.formula){
-
+  
   options(na.action='na.pass')
   init_n   <- nrow(data_use)
   jump_cov <- nrow(apply.cov.profile )
-
+  
   data_use   <- rbind(data_use, apply.cov.profile )
   data_use[,all.vars(model.formula)[1]] <- rep(0, nrow(data_use))
-
+  
   predictors <- as.matrix(model.matrix(model.formula, data = as.data.frame(data_use))[,2:ncol(model.matrix(model.formula, data = as.data.frame(data_use)))])
   set        <- rep(F, nrow(predictors))
   set[(init_n+1):(init_n+jump_cov)]=T
@@ -290,14 +290,14 @@ make_design_matrix_covs <- function(data_use, apply.cov.profile, model.formula){
 
 ###  make design matrix for model.ref.dataset
 make_design_matrix_dist <- function(data_use, model.ref.dataset, model.formula){
-
+  
   init_n   <- nrow(data_use)
   jump_cov <- nrow(model.ref.dataset)
-
+  
   data_use <- rbind(data_use, model.ref.dataset)
   data_use <- cbind(data_use, rep(0, nrow(data_use)))
   colnames(data_use) <- c(colnames(data_use)[1:(length(colnames(data_use))-1)],  all.vars(model.formula)[1])
-
+  
   predictors   <- as.matrix(model.matrix(model.formula, data = as.data.frame(data_use))[,2:ncol(model.matrix(model.formula, data = as.data.frame(data_use)))])
   pop.dist.mat <- predictors[(init_n+1):(init_n+jump_cov),]
   cbind(pop.dist.mat)
@@ -305,24 +305,24 @@ make_design_matrix_dist <- function(data_use, model.ref.dataset, model.formula){
 
 ###### Compute Absolute Risk
 comp_Aj <- function(Z_new, apply.age.start, apply.age.interval.length, lambda, beta_est, model.competing.incidence.rates){
-
-    ZBETA <- t(exp(t(beta_est)%*%Z_new))
-    avec  <- apply.age.start + apply.age.interval.length
-    tvec  <- min(apply.age.start, na.rm = T):max(avec, na.rm = T)
-    temp  <- match(tvec, lambda[,1])
-    c2    <- t(Z_new)%*%beta_est
-    c3    <- log(lambda[temp, 2])
-
-    Aj_est <- rep(0, ncol(Z_new))
-    for(i in 1:length(tvec)){
-      t         <- tvec[i]
-      temp      <- get_int(apply.age.start,t,lambda, Z_new, beta_est, model.competing.incidence.rates, ZBETA = ZBETA)
-      this_year <- (t >= apply.age.start)*(t < avec)*exp(c3[i] + c2 - temp)
-
-      Aj_est    <- Aj_est + this_year
-    }
-    Aj_est
+  
+  ZBETA <- t(exp(t(beta_est)%*%Z_new))
+  avec  <- apply.age.start + apply.age.interval.length
+  tvec  <- min(apply.age.start, na.rm = T):max(avec, na.rm = T)
+  temp  <- match(tvec, lambda[,1])
+  c2    <- t(Z_new)%*%beta_est
+  c3    <- log(lambda[temp, 2])
+  
+  Aj_est <- rep(0, ncol(Z_new))
+  for(i in 1:length(tvec)){
+    t         <- tvec[i]
+    temp      <- get_int(apply.age.start,t,lambda, Z_new, beta_est, model.competing.incidence.rates, ZBETA = ZBETA)
+    this_year <- (t >= apply.age.start)*(t < avec)*exp(c3[i] + c2 - temp)
+    
+    Aj_est    <- Aj_est + this_year
   }
+  Aj_est
+}
 
 ### iterate to obtain lambda_0
 precise_lambda0 <- function(lambda, approx_expectation_rr, beta_est, pop.dist.mat, pop.weights){
@@ -332,7 +332,7 @@ precise_lambda0 <- function(lambda, approx_expectation_rr, beta_est, pop.dist.ma
   precise_expectation_rr1 <- approx_expectation_rr
   iter                    <- 0
   while( sum(abs(precise_expectation_rr1 - precise_expectation_rr0 )) >0.001 ){
-
+    
     iter = iter+1
     precise_expectation_rr0 = precise_expectation_rr1
     diagnose[[iter]]=precise_expectation_rr0
@@ -343,7 +343,7 @@ precise_lambda0 <- function(lambda, approx_expectation_rr, beta_est, pop.dist.ma
     this = survival_givenX(lambda_0, beta_est, pop.dist.mat)*matrix(nrow=nrow(pop.dist.mat), ncol=nrow(lambda_0), pop.weights, byrow=T)
     denom = 1/colSums(this)
     probX_givenT = sweep( this, MARGIN = 2, denom, FUN="*" )
-
+    
     # to compute next iteration
     precise_expectation_rr1 = colSums( sweep( probX_givenT, MARGIN = 1,  exp( pop.dist.mat %*% beta_est ), FUN="*") )
   }
@@ -354,7 +354,7 @@ precise_lambda0 <- function(lambda, approx_expectation_rr, beta_est, pop.dist.ma
 
 ### getting lambda_0 iteratively
 survival_givenX <- function(lambda_0, beta_est, pop.dist.mat){ # must produce matrix with Nobs x Ntimes
-
+  
   ## cumulative up to but not including current time
   mult   <- -exp( pop.dist.mat %*% beta_est )
   cumLam <- cumsum( c(0,lambda_0[,2]) )[1:length(lambda_0[,2])]
@@ -373,18 +373,18 @@ process_triple_check <- function(model.cov.info){
     maximum_dim = max(maximum_dim, length(model.cov.info[[i]]$levels) )
   }
   matt = data.frame(starter_column = rep(0, maximum_dim))
-
+  
   for(i in 1:length(model.cov.info)){
-
+    
     if(model.cov.info[[i]]$type == "continuous"){
-        matt[,model.cov.info[[i]]$name] = rep(0,maximum_dim)
+      matt[,model.cov.info[[i]]$name] = rep(0,maximum_dim)
     }
     if(model.cov.info[[i]]$type == "factor"){
-        matt[,model.cov.info[[i]]$name] = factor( c(model.cov.info[[i]]$levels, rep(model.cov.info[[i]]$levels[1], maximum_dim - length(model.cov.info[[i]]$levels))), levels = unique(c(model.cov.info[[i]]$levels, rep(model.cov.info[[i]]$levels[1], maximum_dim - length(model.cov.info[[i]]$levels)))))
-        ### if there is a referent level specified, recode that way
-        if(is.null(model.cov.info[[i]]$ref)==FALSE){
-            matt[,model.cov.info[[i]]$name] = relevel(matt[,model.cov.info[[i]]$name], ref = as.character(model.cov.info[[i]]$ref))
-        }
+      matt[,model.cov.info[[i]]$name] = factor( c(model.cov.info[[i]]$levels, rep(model.cov.info[[i]]$levels[1], maximum_dim - length(model.cov.info[[i]]$levels))), levels = unique(c(model.cov.info[[i]]$levels, rep(model.cov.info[[i]]$levels[1], maximum_dim - length(model.cov.info[[i]]$levels)))))
+      ### if there is a referent level specified, recode that way
+      if(is.null(model.cov.info[[i]]$ref)==FALSE){
+        matt[,model.cov.info[[i]]$name] = relevel(matt[,model.cov.info[[i]]$name], ref = as.character(model.cov.info[[i]]$ref))
+      }
     }
   }
   matt[,1] <- NULL
@@ -393,7 +393,7 @@ process_triple_check <- function(model.cov.info){
 
 ## verify that model.cov.info is in the proper form
 check_triple_check <- function(model.cov.info){
-
+  
   if( is.list(model.cov.info)!=TRUE){
     return_and_print("ERROR: model.cov.info must be a list.")
     stop()
@@ -412,7 +412,7 @@ check_triple_check <- function(model.cov.info){
       stop()
     }}
   for(i in 1:length(model.cov.info)){
-
+    
     if( model.cov.info[[i]]$type == "continuous"  & is.null(model.cov.info[[i]]$levels)!=TRUE){
       print(paste("WARNING: You have specified that the variable '", model.cov.info[[i]]$name, "' is continuous, so the 'levels' input for that variable is not needed and will not be used.", sep="") )
     }# allow to continue
@@ -439,16 +439,16 @@ check_triple_check <- function(model.cov.info){
 ## option to flag factor variables by including a vector of Variable names
 ## if factor_vars input is not provided, then considered continuous if more than 12 unique levels, else factor
 make_triple_check <- function(frame, factor_vars = NULL){
-
+  
   if( !is.data.frame(frame) ){
     return_and_print("ERROR: input must be a dataframe")
     stop()
   }
-
+  
   the_names = colnames(frame)
   model.cov.info = list()
   length(model.cov.info)=length(the_names)
-
+  
   if(is.null(factor_vars)==FALSE){
     if(is.vector(factor_vars)!=TRUE ){
       return_and_print(paste("ERROR: The optional 'flag' of factor variables must be specified as a vector.", sep="") )
@@ -459,9 +459,9 @@ make_triple_check <- function(frame, factor_vars = NULL){
       stop()
     }
   }
-
+  
   for(i in 1:ncol(frame)){
-
+    
     temp = list()
     temp$name = the_names[i]
     ###
@@ -491,16 +491,16 @@ make_triple_check <- function(frame, factor_vars = NULL){
 ## Function for combining Absolute Risks for Adjacent Intervals
 combine_risks_two_intervals <- function(age_start_1, age_interval_1, absolute_risks_1, age_start_2, age_interval_2,
                                         absolute_risks_2){
-
+  
   if( sum(age_start_1 + age_interval_1 != age_start_2) >0 ){
     return_and_print(paste("ERROR: To combine risks for two intervals, they must be adjacent.", sep="") )
     stop()
   }
-
+  
   overall_age_start = age_start_1
   overall_age_interval = age_interval_1 + age_interval_2
   overall_absolute_risks =  absolute_risks_1 + (1 - absolute_risks_1)*absolute_risks_2
-
+  
   result = list()
   result$details = cbind(overall_age_start, overall_age_interval, overall_absolute_risks)
   result$risk = cbind(overall_absolute_risks)
@@ -510,10 +510,10 @@ combine_risks_two_intervals <- function(age_start_1, age_interval_1, absolute_ri
 ## helper function for computing absolute risk of competing mortality
 comp_AR_compete <- function(apply.age.start, apply.age.interval.length, model.competing.incidence.rates){
   ###### Compute A_j
-
+  
   Aj_est <- 0
   for(t in min(apply.age.start, na.rm = T):max(apply.age.start+apply.age.interval.length, na.rm = T)){
-
+    
     this_year <- (t>=apply.age.start)*(t<apply.age.start+apply.age.interval.length)*exp( log(pick_lambda(t, model.competing.incidence.rates)) - get_int_compete(apply.age.start,t, model.competing.incidence.rates) )#ex[t-apply.age.start+1]=Aj_est
     Aj_est    <- Aj_est + this_year
   }
@@ -522,7 +522,7 @@ comp_AR_compete <- function(apply.age.start, apply.age.interval.length, model.co
 
 ## helper function for computing survival of competing risk
 get_int_compete <- function(a,t,model.competing.incidence.rates){
-
+  
   holder <- 0
   for(u in min(a, na.rm = T):max(t, na.rm = T)){
     holder <- holder+(u>=a)*(u<t)*model.competing.incidence.rates[which(u==model.competing.incidence.rates[,1]),2]
@@ -578,13 +578,13 @@ get_int_compete <- function(a,t,model.competing.incidence.rates){
 #' 
 #' 
 compute.absolute.risk.split.interval <- function(apply.age.start, apply.age.interval.length, apply.cov.profile, model.formula, model.disease.incidence.rates,
-                    model.log.RR, model.ref.dataset, model.ref.dataset.weights=NULL, model.cov.info, use.c.code=1, model.competing.incidence.rates = NULL,
-                    return.lp = FALSE, apply.snp.profile = NULL, model.snp.info = NULL, model.bin.fh.name = NULL, cut.time = NULL, apply.cov.profile.2 = NULL,
-                    model.formula.2 = NULL, model.log.RR.2 = NULL, model.ref.dataset.2 = NULL, model.ref.dataset.weights.2 = NULL, model.cov.info.2 = NULL, model.bin.fh.name.2 = NULL, n.imp = 5, return.refs.risk=FALSE){
-
+                                                 model.log.RR, model.ref.dataset, model.ref.dataset.weights=NULL, model.cov.info, use.c.code=1, model.competing.incidence.rates = NULL,
+                                                 return.lp = FALSE, apply.snp.profile = NULL, model.snp.info = NULL, model.bin.fh.name = NULL, cut.time = NULL, apply.cov.profile.2 = NULL,
+                                                 model.formula.2 = NULL, model.log.RR.2 = NULL, model.ref.dataset.2 = NULL, model.ref.dataset.weights.2 = NULL, model.cov.info.2 = NULL, model.bin.fh.name.2 = NULL, n.imp = 5, return.refs.risk=FALSE){
+  
   ## if any of the second arguments are specified, then two two version
   if( is.null( cut.time )*is.null( apply.cov.profile.2 )*is.null( model.formula.2 )*is.null( model.log.RR.2 )*is.null( model.ref.dataset.2 )*is.null( model.cov.info.2 ) ==0 ){
-
+    
     if(is.null( cut.time )){
       return_and_print(paste("ERROR: If you wish to use different model inputs over parts of the age interval, must specify cut.time.", sep="") )
       stop()
@@ -599,7 +599,7 @@ compute.absolute.risk.split.interval <- function(apply.age.start, apply.age.inte
     if(is.null( model.formula.2 )){
       model.formula.2 = model.formula
     }
-
+    
     if(is.null( model.log.RR.2 )){
       model.log.RR.2 = model.log.RR
     }
@@ -612,17 +612,17 @@ compute.absolute.risk.split.interval <- function(apply.age.start, apply.age.inte
     if(is.null( model.bin.fh.name.2 )){
       model.bin.fh.name.2 = model.bin.fh.name
     }
-
+    
     apply.age.start.1 = apply.age.start
     apply.age.interval.length.1 = (cut.time - apply.age.start)*( (cut.time - apply.age.start) < apply.age.interval.length) +   (apply.age.interval.length)*( 1 - ( (cut.time - apply.age.start) < apply.age.interval.length))
     apply.age.interval.length.1[which(apply.age.interval.length.1<0)]=0
-
+    
     apply.age.start.2 = apply.age.start.1 + apply.age.interval.length.1
     apply.age.interval.length.2 = apply.age.start + apply.age.interval.length - apply.age.start.2
     
     result1 = compute.absolute.risk(apply.age.start=apply.age.start.1, apply.age.interval.length=apply.age.interval.length.1, apply.cov.profile=apply.cov.profile  , model.formula=model.formula,   model.disease.incidence.rates=model.disease.incidence.rates, model.log.RR=model.log.RR,    model.ref.dataset=model.ref.dataset,   model.ref.dataset.weights=model.ref.dataset.weights,  model.cov.info=model.cov.info,   use.c.code=use.c.code, model.competing.incidence.rates=model.competing.incidence.rates, return.lp=return.lp, apply.snp.profile = apply.snp.profile, model.snp.info = model.snp.info,  model.bin.fh.name = model.bin.fh.name,  n.imp = n.imp, return.refs.risk=return.refs.risk )
     result2 = compute.absolute.risk(apply.age.start=apply.age.start.2, apply.age.interval.length=apply.age.interval.length.2, apply.cov.profile=apply.cov.profile.2, model.formula=model.formula.2, model.disease.incidence.rates=model.disease.incidence.rates, model.log.RR=model.log.RR.2, model.ref.dataset=model.ref.dataset.2, model.ref.dataset.weights=model.ref.dataset.weights.2, model.cov.info=model.cov.info.2, use.c.code=use.c.code, model.competing.incidence.rates=model.competing.incidence.rates, return.lp=return.lp, apply.snp.profile = apply.snp.profile, model.snp.info = model.snp.info,  model.bin.fh.name = model.bin.fh.name.2, n.imp = n.imp, return.refs.risk=return.refs.risk )
-
+    
     result = combine_risks_two_intervals(result1$details[,"Int_Start"], result1$details[,"Int_End"] - result1$details[,"Int_Start"], result1$details[,"Risk_Estimate"], result2$details[,"Int_Start"], result2$details[,"Int_End"] - result2$details[,"Int_Start"], result2$details[,"Risk_Estimate"])
     result$details = cbind(apply.age.start.1, apply.age.start.2, apply.age.start.2 + apply.age.interval.length.2, apply.cov.profile , apply.cov.profile.2, result$risk)
     if(return.lp){
@@ -636,13 +636,13 @@ compute.absolute.risk.split.interval <- function(apply.age.start, apply.age.inte
   else{  # just run standard function
     result = compute.absolute.risk(apply.age.start=apply.age.start, apply.age.interval.length=apply.age.interval.length, apply.cov.profile=apply.cov.profile , model.formula=model.formula, model.disease.incidence.rates=model.disease.incidence.rates, model.log.RR=model.log.RR, model.ref.dataset=model.ref.dataset, model.ref.dataset.weights=model.ref.dataset.weights, model.cov.info=model.cov.info, use.c.code=use.c.code, model.competing.incidence.rates=model.competing.incidence.rates, return.lp=return.lp, apply.snp.profile = apply.snp.profile, model.snp.info = model.snp.info, model.bin.fh.name = model.bin.fh.name, n.imp = n.imp)
   }
-
+  
   result
 }
 
 call_c1 <- function(final, lps, ref_full_LP, miss, ref_risks, refmat, betavec, zmat, pop.weights, ncuts = 100, debug = 0) {
-
-
+  
+  
   DMISS            <- 999999999.9
   DMISS_TEST       <- 999999999.0
   zmat             <- zmat[, miss, drop = FALSE]
@@ -663,13 +663,13 @@ call_c1 <- function(final, lps, ref_full_LP, miss, ref_risks, refmat, betavec, z
   retlps           <- rep(DMISS, length(miss))
   retflag          <- 1
   dim(ref_full_LP) <- NULL
-
+  
   temp <- .C("ref_risk1", as.numeric(ref_risks), as.numeric(betavec), as.numeric(t(zmat)),
-       as.numeric(t(refmat)), as.integer(n_beta), as.integer(nr_z), as.integer(nc_z),
-       as.integer(nr_ref), as.integer(nc_ref), as.numeric(probs), as.integer(n_probs),
-       as.integer(debug), as.numeric(pop.weights), as.double(ref_full_LP),
-       retvec = as.numeric(retvec), retflag = as.integer(retflag), retlps=as.numeric(retlps))
-
+             as.numeric(t(refmat)), as.integer(n_beta), as.integer(nr_z), as.integer(nc_z),
+             as.integer(nr_ref), as.integer(nc_ref), as.numeric(probs), as.integer(n_probs),
+             as.integer(debug), as.numeric(pop.weights), as.double(ref_full_LP),
+             retvec = as.numeric(retvec), retflag = as.integer(retflag), retlps=as.numeric(retlps))
+  
   retflag <- temp$retflag
   if (retflag) stop("ERROR in c code")
   retvec  <- temp$retvec
@@ -678,17 +678,17 @@ call_c1 <- function(final, lps, ref_full_LP, miss, ref_risks, refmat, betavec, z
   if (any(temp)) retvec[temp] <- NA
   temp    <- retlps > DMISS_TEST
   if (any(temp)) retlps[temp] <- NA
-
+  
   final[miss] <- retvec
   lps[miss]   <- retlps
-
+  
   list(final=final, lps=lps)
-
+  
 } # END: call_c1
 
 call_c2 <- function(final, lps, ref_full_LP, miss, refmat, betavec, zmat, age_new, age_int, popSubFromLP,
                     lambda_0, compRates0, pop.weights, ncuts = 100, debug = 0) {
-
+  
   DMISS            <- 999999999.9
   DMISS_TEST       <- 999999999.0
   zmat             <- zmat[, miss, drop = FALSE]
@@ -707,10 +707,10 @@ call_c2 <- function(final, lps, ref_full_LP, miss, refmat, betavec, zmat, age_ne
   retlps           <- rep(DMISS, length(miss))
   retflag          <- 1
   dim(ref_full_LP) <- NULL
-
+  
   age_new         <- age_new[miss]
   age_int         <- age_int[miss]
-
+  
   # Get all values of age
   temp                         <- c(age_new, age_new+age_int)
   maxa                         <- max(temp)
@@ -721,14 +721,14 @@ call_c2 <- function(final, lps, ref_full_LP, miss, refmat, betavec, zmat, age_ne
   compRates[compRates0[, 1]+1] <- compRates0[, 2]
   temp                         <- is.na(compRates)
   compRates[temp]              <- DMISS
-
+  
   temp <- .C("ref_risk2", as.numeric(betavec), as.numeric(t(zmat)), as.numeric(t(refmat)),
-            as.integer(n_beta), as.integer(nr_z), as.integer(nc_z), as.integer(nr_ref),
-            as.integer(nc_ref), as.numeric(probs), as.integer(n_probs), as.integer(debug),
-            as.integer(age_new), as.integer(age_int), as.integer(n_lambda), as.numeric(popSubFromLP),
-            as.numeric(lambda), as.numeric(compRates), as.numeric(pop.weights), as.double(ref_full_LP),
-              retvec = as.numeric(retvec), retflag = as.integer(retflag), retlps=as.numeric(retlps))
-
+             as.integer(n_beta), as.integer(nr_z), as.integer(nc_z), as.integer(nr_ref),
+             as.integer(nc_ref), as.numeric(probs), as.integer(n_probs), as.integer(debug),
+             as.integer(age_new), as.integer(age_int), as.integer(n_lambda), as.numeric(popSubFromLP),
+             as.numeric(lambda), as.numeric(compRates), as.numeric(pop.weights), as.double(ref_full_LP),
+             retvec = as.numeric(retvec), retflag = as.integer(retflag), retlps=as.numeric(retlps))
+  
   retflag <- temp$retflag
   if (retflag) stop("ERROR in c code")
   retvec  <- temp$retvec
@@ -737,31 +737,31 @@ call_c2 <- function(final, lps, ref_full_LP, miss, refmat, betavec, zmat, age_ne
   if (any(temp)) retvec[temp] <- NA
   temp    <- retlps > DMISS_TEST
   if (any(temp)) retlps[temp] <- NA
-
+  
   final[miss] <- retvec
   lps[miss]   <- retlps
-
+  
   list(final=final, lps=lps)
-
+  
 } # END: call_c2
 
 sim_snps <- function(betas, freqs, fh_status){
-
+  
   snps <- matrix( NA, ncol = length(betas), nrow = length(fh_status))
-
+  
   prob012_fh_no = cbind( (1-freqs)^2, 2*freqs*(1-freqs), freqs^2)
-
+  
   beta_mat = matrix( betas, nrow = length(betas), ncol = 3, byrow = F)
   top = exp( beta_mat*matrix(c(0,1,2), nrow = length(betas), ncol = 3, byrow = T)/2 )*matrix(prob012_fh_no, nrow = length(betas), ncol = 3, byrow = F)
   bottom = matrix(rowSums(top), nrow =length(betas), ncol = 3, byrow = F)
-
+  
   prob012_fh_yes = top/bottom
-
+  
   fh_no  <- which(fh_status==0)
   fh_yes <- which(fh_status==1)
-
+  
   vals = matrix( runif(length(betas)*length(fh_status)), ncol = length(betas), nrow = length(fh_status))
-
+  
   if(length(fh_no)>0){
     snps[fh_no,] =  ( vals[fh_no,] > matrix(prob012_fh_no[,1], nrow = length(fh_no), ncol = length(prob012_fh_no[,1]), byrow = T ) ) + ( vals[fh_no,] > matrix(rowSums(subset(prob012_fh_no, select=1:2)), nrow = length(fh_no), ncol = length(prob012_fh_no[,1]), byrow = T ) )
   }
@@ -769,7 +769,7 @@ sim_snps <- function(betas, freqs, fh_status){
     snps[fh_yes,] =  ( vals[fh_yes,] > matrix(prob012_fh_yes[,1], nrow = length(fh_yes), ncol = length(prob012_fh_yes[,1]), byrow = T ) ) + ( vals[fh_yes,] > matrix(rowSums(subset(prob012_fh_yes, select=1:2)), nrow = length(fh_yes), ncol = length(prob012_fh_yes[,1]), byrow = T ) )
   }
   snps
-
+  
 }
 ## helper function for handling missing data
 handle_missing_data <- function(use.c.code, apply.age.start, apply.age.interval.length, Z_new, miss, present, ncuts, final_risks,
@@ -781,14 +781,14 @@ handle_missing_data <- function(use.c.code, apply.age.start, apply.age.interval.
     
     pop.apply.age.start = unique(apply.age.start)  # change to single values so don't have to worry about dimension of ref_pop
     pop.apply.age.interval.length = unique(apply.age.interval.length)
-
+    
     ###### Compute A_j_pop for ref_risks
-
+    
     ref_risks   <- comp_Aj(ref_pop, pop.apply.age.start, pop.apply.age.interval.length, lambda_0, beta_est, model.competing.incidence.rates)
-
+    
     if (use.c.code) {
       temp <- call_c1(final_risks, lps, ref_full_LP, miss, ref_risks, ref_pop, beta_est[, 1],
-                             Z_new, pop.weights, ncuts=ncuts, debug = 0)
+                      Z_new, pop.weights, ncuts=ncuts, debug = 0)
       final_risks <- temp$final ## will be: final_risks  <- temp[[1]]
       lps         <- temp$lps      ## will be: lps <- temp[[2]]
     } else {
@@ -796,85 +796,85 @@ handle_missing_data <- function(use.c.code, apply.age.start, apply.age.interval.
       Z_NEW <- Z_new
       REF   <- ref_pop
       PROBS <- seq(0, 1, 1/ncuts)
-
+      
       for(i in 1:length(miss)){
         missi <- miss[i]
-
+        
         ## make sure LPs based on non-missing covariates for the observation with missing
         present     <- which(is.na(Z_NEW[, missi])!=TRUE)
         if(length(present)==0){
           final_risks[missi] <- 0 
         }else{
-        BETAV       <- BETA[1, present, drop = FALSE]
-        ref_LP      <- BETAV%*%REF[present, , drop = FALSE] #just LP from predictors?
-        miss_LP     <- BETAV%*%Z_NEW[present, missi, drop = FALSE] #just LP from predictors?
-
-        cutpoints           <- get_cutpoints(ref_LP, PROBS)
-        ncuts               <- length(cutpoints)
-        miss_perc           <- get_miss_perc(cutpoints, miss_LP)
-        these               <- (ref_LP >= cutpoints[miss_perc]) & (ref_LP < cutpoints[miss_perc+1])
-        these[is.na(these)] <- FALSE
-        if (!sum(these)) {
-          temp                <- get_newEndpoints(cutpoints, miss_LP, miss_perc, ref_LP)
-          these               <- (ref_LP >= temp[1]) & (ref_LP < temp[2])
+          BETAV       <- BETA[1, present, drop = FALSE]
+          ref_LP      <- BETAV%*%REF[present, , drop = FALSE] #just LP from predictors?
+          miss_LP     <- BETAV%*%Z_NEW[present, missi, drop = FALSE] #just LP from predictors?
+          
+          cutpoints           <- get_cutpoints(ref_LP, PROBS)
+          ncuts               <- length(cutpoints)
+          miss_perc           <- get_miss_perc(cutpoints, miss_LP)
+          these               <- (ref_LP >= cutpoints[miss_perc]) & (ref_LP < cutpoints[miss_perc+1])
           these[is.na(these)] <- FALSE
+          if (!sum(these)) {
+            temp                <- get_newEndpoints(cutpoints, miss_LP, miss_perc, ref_LP)
+            these               <- (ref_LP >= temp[1]) & (ref_LP < temp[2])
+            these[is.na(these)] <- FALSE
+          }
+          final_risks[missi]  <- weighted.mean(ref_risks[these], w = pop.weights[these], na.rm = TRUE)
+          lps[missi]          <- weighted.mean(ref_full_LP[these], w = pop.weights[these], na.rm = TRUE)
         }
-        final_risks[missi]  <- weighted.mean(ref_risks[these], w = pop.weights[these], na.rm = TRUE)
-        lps[missi]          <- weighted.mean(ref_full_LP[these], w = pop.weights[these], na.rm = TRUE)
-      }
       }
     }
   } # END: if( length(unique(apply.age.start[miss]))==1 & length(unique(apply.age.interval.length[miss]))==1)
-
-
+  
+  
   ###### Handle Missing Data  ##### If All times are different
   if( length(unique(apply.age.start[miss])) > 1 || length(unique(apply.age.interval.length[miss])) > 1){
     if (use.c.code) {
       popSubFromLP = rep(0, ncol(ref_pop))
       temp  <- call_c2(final_risks, lps, ref_full_LP, miss, ref_pop, beta_est[, 1], Z_new, apply.age.start,
-                               apply.age.interval.length, popSubFromLP, lambda_0, model.competing.incidence.rates, pop.weights,
-                               ncuts = ncuts, debug = 0)
+                       apply.age.interval.length, popSubFromLP, lambda_0, model.competing.incidence.rates, pop.weights,
+                       ncuts = ncuts, debug = 0)
       final_risks <- temp$final ## will be: final_risks  <- temp[[1]]
       lps         <- temp$lps      ## will be: lps <- temp[[2]]
     } else {
-
+      
       BETA  <- t(beta_est)
       Z_NEW <- Z_new
       REF   <- ref_pop
       CVEC  <- 2:(ncuts-1)
       PROBS <- seq(0, 1, 1/ncuts)
-
+      
       for(i in 1:length(miss)){
         missi <- miss[i]
-
+        
         pop.apply.age.start = apply.age.start[missi]  # change to single values so don't have to worry about dimension of ref_pop
         pop.apply.age.interval.length = apply.age.interval.length[missi];
-
+        
         ## make sure LPs based on non-missing covariates for the observation with missing
         present = which(is.na(Z_new[,missi])!=TRUE)
         if(length(present)==0){
           final_risks[missi] <- 0 
         }else{
-        BETAV       <- BETA[1, present, drop = FALSE]
-        ref_LP      <- BETAV%*%REF[present, , drop = FALSE] #just LP from predictors?
-        miss_LP     <- BETAV%*%Z_NEW[present, missi, drop = FALSE] #just LP from predictors?
-
-        cutpoints           <- get_cutpoints(ref_LP, PROBS)
-        ncuts               <- length(cutpoints)
-        miss_perc           <- get_miss_perc(cutpoints, miss_LP)
-        these               <- (ref_LP >= cutpoints[miss_perc]) & (ref_LP < cutpoints[miss_perc+1])
-        these[is.na(these)] <- FALSE
-        if (!sum(these)) {
-          temp                <- get_newEndpoints(cutpoints, miss_LP, miss_perc, ref_LP)
-          these               <- (ref_LP >= temp[1]) & (ref_LP < temp[2])
+          BETAV       <- BETA[1, present, drop = FALSE]
+          ref_LP      <- BETAV%*%REF[present, , drop = FALSE] #just LP from predictors?
+          miss_LP     <- BETAV%*%Z_NEW[present, missi, drop = FALSE] #just LP from predictors?
+          
+          cutpoints           <- get_cutpoints(ref_LP, PROBS)
+          ncuts               <- length(cutpoints)
+          miss_perc           <- get_miss_perc(cutpoints, miss_LP)
+          these               <- (ref_LP >= cutpoints[miss_perc]) & (ref_LP < cutpoints[miss_perc+1])
           these[is.na(these)] <- FALSE
-        }
-        temp                <- REF[,these, drop = FALSE]
-        ref_risks           <- comp_Aj(temp, pop.apply.age.start, pop.apply.age.interval.length,
-                                       lambda_0, beta_est, model.competing.incidence.rates)
-        final_risks[missi]  <- weighted.mean(ref_risks, w = pop.weights[these], na.rm = TRUE)
-        lps[missi]          <- weighted.mean(ref_full_LP[these], w = pop.weights[these], na.rm = TRUE)
-      }}
+          if (!sum(these)) {
+            temp                <- get_newEndpoints(cutpoints, miss_LP, miss_perc, ref_LP)
+            these               <- (ref_LP >= temp[1]) & (ref_LP < temp[2])
+            these[is.na(these)] <- FALSE
+          }
+          temp                <- REF[,these, drop = FALSE]
+          ref_risks           <- comp_Aj(temp, pop.apply.age.start, pop.apply.age.interval.length,
+                                         lambda_0, beta_est, model.competing.incidence.rates)
+          final_risks[missi]  <- weighted.mean(ref_risks, w = pop.weights[these], na.rm = TRUE)
+          lps[missi]          <- weighted.mean(ref_full_LP[these], w = pop.weights[these], na.rm = TRUE)
+        }}
     }
   }
   ## end function
@@ -883,7 +883,7 @@ handle_missing_data <- function(use.c.code, apply.age.start, apply.age.interval.
 
 # Function to compute cutpoints
 get_cutpoints <- function(ref_LP, probs) {
-
+  
   # Get the number of digits
   se     <- sd(ref_LP, na.rm = TRUE)
   if (se < 1e-15) se <- 1e-12
@@ -893,13 +893,13 @@ get_cutpoints <- function(ref_LP, probs) {
   cuts   <- round(cuts, digits = digits)
   cuts   <- unique(cuts)
   if (length(cuts) < 2) stop("ERROR: computing cutpoints")
-
+  
   cuts
-
+  
 } # END: get_cutpoints
 
 get_endpoints <- function(cutpoints, miss_LP) {
-
+  
   ncuts     <- length(cutpoints)
   miss_perc <- sum(cutpoints <= as.numeric(miss_LP))
   if (miss_perc == ncuts) {
@@ -909,14 +909,14 @@ get_endpoints <- function(cutpoints, miss_LP) {
   }
   a <- cutpoints[miss_perc]
   b <- cutpoints[miss_perc+1]
-
+  
   c(a, b)
-
+  
 } # END: get_endpoints
 
 # Function to return missing percentile
 get_miss_perc <- function(cutpoints, miss_LP) {
-
+  
   ncuts     <- length(cutpoints)
   miss_perc <- sum(cutpoints <= as.numeric(miss_LP))
   if (miss_perc == ncuts) {
@@ -924,14 +924,14 @@ get_miss_perc <- function(cutpoints, miss_LP) {
   } else if (!miss_perc) {
     miss_perc <- 1
   }
-
+  
   miss_perc
-
+  
 } # END: get_miss_perc
 
 # Functon to return the endpoints
 get_newEndpoints <- function(cutpoints, miss_LP, miss_perc, ref_LP) {
-
+  
   # Remove cutpoint defined by miss_perc + 1
   ncuts <- length(cutpoints)
   left  <- miss_perc - 1
@@ -947,14 +947,14 @@ get_newEndpoints <- function(cutpoints, miss_LP, miss_perc, ref_LP) {
     left  <- left - 1
     right <- right + 1
   }
-
+  
   c(cut1, cut2)
-
+  
 } # END: get_newEndpoints
 
 decide_if_SNP_only <- function(apply.cov.profile , model.formula, model.log.RR, model.ref.dataset, model.cov.info,
                                model.snp.info, apply.snp.profile, apply.age.start, apply.age.interval.length){
-
+  
   if(is.null(apply.cov.profile ) & is.null(model.formula) & is.null(model.log.RR) & is.null(model.ref.dataset) & is.null(model.cov.info)){
     covs_in_model = 0
     if( is.null(model.snp.info) ){
@@ -969,12 +969,12 @@ decide_if_SNP_only <- function(apply.cov.profile , model.formula, model.log.RR, 
         apply.snp.profile = matrix(ncol = nrow(model.snp.info), nrow = length(apply.age.start), NA)
         print(paste("Note: You did not provide apply.snp.profile.  Imputed SNPs for ", length(apply.age.start) , " individuals, matching number of age intervals specified.", sep=""))
       }
-      }
+    }
     if(is.vector(apply.snp.profile)){
       apply.snp.profile = cbind(apply.snp.profile)
-     }
+    }
   }else{
-
+    
     if( is.null(apply.cov.profile ) + is.null(model.formula) + is.null(model.log.RR) + is.null(model.ref.dataset) + is.null(model.cov.info) >0  ){
       return_and_print("ERROR: If any of apply.cov.profile , model.formula, model.log.RR, model.ref.dataset, or model.cov.info are NULL then they must all be NULL, and will define a SNP-only Model.")
       stop()
@@ -1004,7 +1004,7 @@ check_SNP_info <- function(model.snp.info){
 
 process_SNP_info <- function(covs_in_model, apply.snp.profile, model.bin.fh.name, apply.cov.profile , model.ref.dataset, model.snp.info){
   if( covs_in_model){
-
+    
     if(is.null(apply.snp.profile)){
       apply.snp.profile = matrix(ncol = nrow(model.snp.info), nrow = nrow(apply.cov.profile ), NA)
       print("Note: You included snp_info, but did not provide apply.snp.profile.  Will impute all SNPs. ")
@@ -1045,14 +1045,14 @@ process_SNP_info <- function(covs_in_model, apply.snp.profile, model.bin.fh.name
 }
 
 check_disease_rates <- function(filename){
-
+  
   lambda = read.table(filename, sep=",")
   lambda = check_flexible_rate_inputs(lambda, "model.disease.incidence.rates")
   lambda
 }
 
 check_competing_rates <- function(filename, lambda){
-
+  
   if(is.null(filename) || filename==""){
     model.competing.incidence.rates= data.frame( cbind(lambda[,1], rep(0, length(lambda[,1]))) )
   }else{
@@ -1064,12 +1064,12 @@ check_competing_rates <- function(filename, lambda){
 
 ## function to convert (start, end, rate) matrix into (integer_ages, rate) matrix
 format_flexible_rate_inputs<-function(mat){
-
+  
   if(ncol(mat)==3){
     start <- mat[,1]
     end   <- mat[,2]
     rate  <- mat[,3]
-
+    
     integer_ages <- seq(min(start), max(end))
     formatted    <- cbind( integer_ages, rep(NA, length(integer_ages))  )
     for(i in 1:nrow(mat)){
@@ -1078,9 +1078,9 @@ format_flexible_rate_inputs<-function(mat){
     }
     colnames(formatted) <- c("ages", "rates")
     formatted
-    }else{
-      formatted = mat
-    }
+  }else{
+    formatted = mat
+  }
   formatted
 }
 
@@ -1112,13 +1112,13 @@ check_flexible_rate_inputs<-function(mat, name){
 }
 
 check_rates <- function(model.competing.incidence.rates, lambda, apply.age.start, apply.age.interval.length){
-
+  
   lambda = check_flexible_rate_inputs(lambda, "model.disease.incidence.rates")
-
+  
   if(is.null(model.competing.incidence.rates)){  model.competing.incidence.rates= cbind(lambda[,1], rep(0, length(lambda[,1])))   }
-
+  
   model.competing.incidence.rates = check_flexible_rate_inputs(model.competing.incidence.rates, "model.competing.incidence.rates")
-
+  
   if( prod(is.element(seq(range(apply.age.start)[1], range(apply.age.start + apply.age.interval.length)[2]), lambda[,1])) == 0){
     return_and_print("ERROR: The 'model.disease.incidence.rates' input must have age-specific rates for each integer age covered by the prediction intervals defined by 'apply.age.start' and 'apply.age.interval.length.'  You must make these inputs consistent with one another to proceed.")
     stop()
@@ -1153,7 +1153,7 @@ check_model_inputs <- function(apply.cov.profile , model.log.RR, model.ref.datas
   }
   check_triple_check(model.cov.info)
   model.cov.info = process_triple_check(model.cov.info)
-
+  
   ### Will verify all names and proper order of things against model.cov.info - so check against model first
   if(is.null(colnames(model.cov.info))){
     return_and_print("ERROR: model.cov.info must have same names and order as predictors in model.formula.")
@@ -1210,7 +1210,7 @@ check_model_inputs <- function(apply.cov.profile , model.log.RR, model.ref.datas
   }
   variables <- unique(all.vars(model.formula))[-1]
   data_use  <- subset(model.cov.info, select = variables)
-
+  
   if(is.vector(model.log.RR)==FALSE & is.matrix(model.log.RR)==FALSE){
     return_and_print("ERROR: model.log.RR must be either a vector, or a matrix with only one column.")
     stop()
@@ -1230,22 +1230,22 @@ check_model_inputs <- function(apply.cov.profile , model.log.RR, model.ref.datas
 }
 
 check_design_matrix <- function(model.log.RR, design_covs){
-
-    if(is.null(rownames(model.log.RR)) ){
-      return_and_print("ERROR: row names of model.log.RR must match names and order in design matrix.")
-      print(paste("Row names of model.log.RR = NULL"))
-      print(paste("Names of design_matrix = ", paste0(colnames(design_covs), collapse=", ") ))
-      stop()
-    }
-    if( sum( rownames(model.log.RR)!= colnames(design_covs) )>0){
-      return_and_print("ERROR: row names of model.log.RR must match names and order in design matrix.")
-      print(cbind(names(model.log.RR), colnames(design_covs)))
-      stop()
-    }
+  
+  if(is.null(rownames(model.log.RR)) ){
+    return_and_print("ERROR: row names of model.log.RR must match names and order in design matrix.")
+    print(paste("Row names of model.log.RR = NULL"))
+    print(paste("Names of design_matrix = ", paste0(colnames(design_covs), collapse=", ") ))
+    stop()
   }
+  if( sum( rownames(model.log.RR)!= colnames(design_covs) )>0){
+    return_and_print("ERROR: row names of model.log.RR must match names and order in design matrix.")
+    print(cbind(names(model.log.RR), colnames(design_covs)))
+    stop()
+  }
+}
 
 check_age_inputs <- function(apply.age.start, apply.age.interval.length, apply.cov.profile, apply.snp.profile, lambda, model.competing.incidence.rates){
-
+  
   if(!is.null(apply.cov.profile)){
     temp <- check_age_lengths(apply.age.start, apply.age.interval.length, apply.cov.profile , "apply.cov.profile ")
   }else if(!is.null(apply.snp.profile)){
@@ -1254,14 +1254,14 @@ check_age_inputs <- function(apply.age.start, apply.age.interval.length, apply.c
     return_and_print("ERROR: Must provide either apply.cov.profile or apply.snp.profile, consistent with model.")
     stop()
   }
-
+  
   if(mode(temp)=="character"){
     return_and_print(temp)
     stop()
   }else{
     apply.age.start           <- temp[[1]]
     apply.age.interval.length <- temp[[2]]
-
+    
     if( prod(is.element(seq(range(apply.age.start)[1], range(apply.age.start + apply.age.interval.length)[2]), lambda[,1])) == 0){
       return_and_print("ERROR: The prediction intervals defined by 'apply.age.start' and 'apply.age.interval.length' are not covered by the provided 'model.disease.incidence.rates' input. You must make these inputs consistent with one another to proceed.")
       stop()
@@ -1274,7 +1274,7 @@ check_age_inputs <- function(apply.age.start, apply.age.interval.length, apply.c
 }
 
 check_age_lengths <- function(apply.age.start, apply.age.interval.length, match, match_name){
-
+  
   if(length(apply.age.start)==1){
     apply.age.start = rep(apply.age.start, nrow(match))
   }
@@ -1305,20 +1305,20 @@ package_results <- function(final_risks, Z_new, covs_in_model, handle.snps, appl
   result <-list()
   result$risk           <- cbind(as.vector(final_risks))
   colnames(result$risk) <- c("Risk_Estimate")
-
+  
   if(covs_in_model){
     if(handle.snps==0){
-      info = cbind(as.vector(apply.age.start), as.vector(apply.age.start + apply.age.interval.length), apply.cov.profile , as.vector(final_risks))
-      colnames(info) = c("Int_Start", "Int_End", colnames(apply.cov.profile ), "Risk_Estimate")
+      info = cbind(as.vector(apply.age.start), as.vector(apply.age.start + apply.age.interval.length), as.vector(final_risks), apply.cov.profile )
+      colnames(info) = c("Int_Start", "Int_End", "Risk_Estimate", colnames(apply.cov.profile ))
       beta.names = rownames(model.log.RR)
     }else{
-      info = cbind(as.vector(apply.age.start), as.vector(apply.age.start + apply.age.interval.length), cbind( apply.snp.profile, apply.cov.profile ), as.vector(final_risks))
-      colnames(info) = c("Int_Start", "Int_End", snps.names, colnames(apply.cov.profile ), "Risk_Estimate")
+      info = cbind(as.vector(apply.age.start), as.vector(apply.age.start + apply.age.interval.length), as.vector(final_risks), cbind( apply.snp.profile, apply.cov.profile ))
+      colnames(info) = c("Int_Start", "Int_End", "Risk_Estimate", snps.names, colnames(apply.cov.profile ))
       beta.names = c( snps.names, rownames(model.log.RR) )
     }
   }else{
-    info = cbind(as.vector(apply.age.start), as.vector(apply.age.start + apply.age.interval.length), apply.snp.profile, as.vector(final_risks))
-    colnames(info) = c("Int_Start", "Int_End", snps.names, "Risk_Estimate")
+    info = cbind(as.vector(apply.age.start), as.vector(apply.age.start + apply.age.interval.length), as.vector(final_risks), apply.snp.profile)
+    colnames(info) = c("Int_Start", "Int_End", "Risk_Estimate", snps.names)
     beta.names =  snps.names
   }
   result$details = info
@@ -1326,7 +1326,7 @@ package_results <- function(final_risks, Z_new, covs_in_model, handle.snps, appl
   rownames(beta.used) <- beta.names
   colnames(beta.used) <- "log OR used"
   result$beta.used    <- beta.used
-
+  
   if(return.lp==T){
     result$lps <- lps
   }
@@ -1349,7 +1349,7 @@ package_results <- function(final_risks, Z_new, covs_in_model, handle.snps, appl
 #' @examples
 #' print("Hello world")
 get_refs_risk <- function(ref_pop, apply.age.start, apply.age.interval.length, lambda_0, beta_est, model.competing.incidence.rates, handle.snps, n.imp ){
-
+  
   refs.risk = comp_Aj(ref_pop, apply.age.start[1], apply.age.interval.length[1], lambda_0, beta_est, model.competing.incidence.rates)
   refs.lps = t(ref_pop)%*%beta_est
   
@@ -1379,7 +1379,7 @@ get_refs_risk <- function(ref_pop, apply.age.start, apply.age.interval.length, l
 PRS.research <- function(apply.age.start, apply.age.interval.length, model.disease.incidence.rates, use.c.code = 1,
                          model.competing.incidence.rates = NULL, variance.explained, N = 10000,
                          predict.stand.vals = NULL){
-
+  
   if(length(apply.age.start)!=1 || length(apply.age.interval.length)!=1){
     return_and_print("ERROR:  You may only choose one value for apply.age.start and one value for apply.age.interval.length.")
     stop()
@@ -1388,13 +1388,13 @@ PRS.research <- function(apply.age.start, apply.age.interval.length, model.disea
   apply.age.interval.length <- rep(apply.age.interval.length, N)
   lambda       <- model.disease.incidence.rates
   if(is.null(model.competing.incidence.rates)){  model.competing.incidence.rates= cbind(lambda[,1], rep(0, length(lambda[,1])))   }
-
+  
   if(ncol(lambda)!=2){ return_and_print("ERROR: model.disease.incidence.rates should have 2 columns: [Ages,Rates]"); stop() }
-
+  
   if(ncol(model.competing.incidence.rates)!=2){ return_and_print("ERROR: model.competing.incidence.rates should have 2 columns: [Ages,Rates]"); stop() }
-
+  
   if(sum(lambda[,1]%%1)!=0){ return_and_print("ERROR: The first column of model.disease.incidence.rates should be integer ages."); stop()  }
-
+  
   if(sum(model.competing.incidence.rates[,1]%%1)!=0){ return_and_print("ERROR: The first column of model.competing.incidence.rates should be integer ages."); stop()  }
   if( prod(is.element(seq(range(apply.age.start)[1], range(apply.age.start+apply.age.interval.length)[2]), lambda[,1])) == 0){
     return_and_print("ERROR: The 'model.disease.incidence.rates' input must have age-specific rates for each integer age covered by the prediction intervals defined by 'apply.age.start' and 'apply.age.interval.length.'  You must make these inputs consistent with one another to proceed.")
@@ -1404,25 +1404,25 @@ PRS.research <- function(apply.age.start, apply.age.interval.length, model.disea
     return_and_print("ERROR: The 'model.competing.incidence.rates' input must have age-specific rates for each integer age covered by the prediction intervals defined by 'apply.age.start' and 'apply.age.interval.length.'  You must make these inputs consistent with one another to proceed.")
     stop()
   }
-
+  
   PRS.         <- rnorm(N)
   log.OR       <- variance.explained^0.5
   pop.dist.mat <- cbind(PRS.)
   beta_est     <- as.matrix(nrow = length(c( log.OR)), ncol = 1, c( log.OR) )
   Z_new        <- t(pop.dist.mat)
   pop.weights  <- rep(1/nrow(pop.dist.mat), length(pop.dist.mat))
-
+  
   approx_expectation_rr = weighted.mean(  exp( pop.dist.mat%*% beta_est), w = pop.weights ) ## all equal weights
   calc = precise_lambda0(lambda, approx_expectation_rr, beta_est, pop.dist.mat, pop.weights)
   lambda_0 = calc[[1]]
   precise_expectation_rr = calc[[2]]
   pop.dist.mat = t(pop.dist.mat )
-
+  
   ###### Compute A_j  ##
   final_risks <- comp_Aj(Z_new, apply.age.start, apply.age.interval.length, lambda_0, beta_est, model.competing.incidence.rates)
-
+  
   if(is.null(predict.stand.vals)==0){
-
+    
     if(is.vector(predict.stand.vals)==0){
       return_and_print("ERROR: predict.stand.vals must be a vector")
       stop()
