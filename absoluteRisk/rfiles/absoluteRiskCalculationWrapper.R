@@ -7,9 +7,9 @@ library(Matrix)
 library(slam)
 library(modeest)
 
-source("absoluteRiskCalculation.R")
+source("./rfiles/absoluteRiskCalculation.R")
 
-dyn.load("source.dll")
+#dyn.load("source.dll")
 
 #-----------------------------------------
 # Function: convert the JSON data to RData
@@ -179,16 +179,18 @@ form_type<-function(var_name, model_info, list_of_variables){
 # 1         1            1      3         1           1         10       9          2             1             0           0
 #--------------------------------------------------------
 
-uploadCSV <- function(filename)
+uploadCSV <- function(filename, convertedFilePath)
 {
   # mydata = read.table(filename, header = TRUE, sep = ",",  as.is = TRUE)
 
   mydata <- read.csv(filename, sep=",",header=TRUE,stringsAsFactor=FALSE)
 
   baseFileName = file_path_sans_ext(filename)
+  convertedFileName = file_path_sans_ext(convertedFilePath)
+
   varName = basename(baseFileName)
   assign(varName,mydata)
-  rdataFileName = paste(baseFileName,".RData",sep="")
+  rdataFileName = paste(convertedFileName,".RData",sep="")
   save(list=varName, file=rdataFileName)
 
   return (rdataFileName)
@@ -218,12 +220,11 @@ uploadCSV <- function(filename)
 #-------------------------------------------
 #
 
-log_odds_rates <- function(list_of_variables_RData, model_predictor_RData)
+log_odds_rates <- function(list_of_variables_RData, formula_data)
 {
   list_of_variables=get(load(list_of_variables_RData))
-  model_predictor=get(load(model_predictor_RData))
 
-  listnames = get_beta_given_names(list_of_variables, as.formula(model_predictor))
+  listnames = get_beta_given_names(list_of_variables, as.formula(formula_data))
   listnamesJSON= toJSON(listnames)
   return (listnamesJSON)
 }

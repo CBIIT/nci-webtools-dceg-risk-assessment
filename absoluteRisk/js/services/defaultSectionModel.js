@@ -22,6 +22,7 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
             self.columns = cfg.cols ? cfg.cols : referredSectionData.columns;
             self.templateCols = self.columns;
             self.templateRows = [];
+            self.fileUploadEndpoint = cfg.fileUploadEndpoint;
 
             if (self.templateType === 'staticDual') {
                 /* Default to 2-column template vs. 3-column template */
@@ -50,23 +51,40 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
             e.preventDefault();
             e.stopPropagation();
 
-            csvContent = 'data:text/csv;charset=utf-8,' + self.templateCols.join(',');
+            csvContent = 'data:text/csv;charset=utf-8,' + self.templateCols.join(',') + '\n';
+
+            if (self.templateType === 'remote') {
+                angular.forEach(self.templateRows, function(row) {
+                    csvContent += row + '\n';
+
+                });
+            }
+
+            console.log(csvContent);
 
     		encodedUri = encodeURI(csvContent);
     		window.open(encodedUri, '_self');
         },
         getRemoteData: function(url) {
+            var self = this;
             var remoteUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/' + url;
             var remoteData = {
                 pathToVariableListFile: Cache.getSectionKey('variable_list', 'path_to_file'),
-                pathToGenFormulaFile: Cache.getSectionKey('generate_formula', 'path_to_file')
+                pathToGenFormulaFile: Cache.getSectionKey('generate_formula', 'path_to_file'),
+                formulaData: Cache.getSectionData('generate_formula')
             };
-
-            console.log('remote data is: ', remoteData);
 
             $http.post(remoteUrl, JSON.stringify(remoteData))
                .success(function(data, status, headers, config) {
-                   console.log('returned row names are: ', data);
+                   var re = /as.factor/gi;
+
+                   self.templateRows = data;
+/*
+                   angular.forEach(data, function(name) {
+                      name =  str.replace(re, '');
+                      self.templateRows.push(name);
+                   });
+*/
                })
                .error(function(data, status, headers, config) {
                    console.log('status is: ', status);

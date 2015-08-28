@@ -27,24 +27,6 @@ with open ('rfiles/absoluteRiskCalculationWrapper.R') as fh:
     rcode = os.linesep.join(line.strip() for line in fh)
     arc_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
 
-'''
-with open ('rfiles/upload_CSV_file.R') as fh:
-    rcode = os.linesep.join(line.strip() for line in fh)
-    upload_csv_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
-
-with open ('rfiles/create_model_formula.R') as fh:
-    rcode = os.linesep.join(line.strip() for line in fh)
-    model_formula_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
-
-with open ('rfiles/convert_JSON_to_RData.R') as fh:
-    rcode = os.linesep.join(line.strip() for line in fh)
-    json_rdata_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
-
-with open ('rfiles/log_odds_rates.R') as fh:
-    rcode = os.linesep.join(line.strip() for line in fh)
-    log_odds_rates_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
-'''
-
 @app.route('/')
 def index():
     # Render template
@@ -55,21 +37,39 @@ def index():
 def absoluteRiskRest():
     return
 
-# This route takes a CSV file as an input, stores it ONLY, and returns the file path
+# This route takes a CSV file as an input, saves it to the server, and returns the file path
 @app.route('/absoluteRiskRest/csvFileUpload', methods=['POST'])
 def csvFileUpload():
     if request.method == 'POST':
         file = request.files['file']
         filepath = ''
+        fileAllowed = allowed_file(file.filename)
 
-        if file and allowed_file(file.filename):
+        if file and fileAllowed:
             filename = time.strftime("%Y%m%d-%H%M%S") + '_' + secure_filename(file.filename)
             file.save(os.path.join(app.config['csv_upload_folder'], filename))
             filepath = app.config['csv_upload_folder'] + '/' + filename
 
-            storedFilePath = arc_wrapper.uploadCSV(filepath)[0]
+            return json.dumps({ 'path_to_file': filepath })
+    return ''
 
-            return json.dumps({ path_to_file: storedFilePath })
+# This route takes a CSV file as an input, stores it as RData file, and returns the converted file path
+@app.route('/absoluteRiskRest/csvFileUploadConversion', methods=['POST'])
+def csvFileUploadConversion():
+    if request.method == 'POST':
+        file = request.files['file']
+        filepath = ''
+        fileAllowed = allowed_file(file.filename)
+
+        if file and fileAllowed:
+            filename = time.strftime("%Y%m%d-%H%M%S") + '_' + secure_filename(file.filename)
+            file.save(os.path.join(app.config['csv_upload_folder'], filename))
+            filepath = app.config['csv_upload_folder'] + '/' + filename
+            convertedFilePath = app.config['rdata_upload_folder'] + '/' + filename
+
+            storedFilePath = arc_wrapper.uploadCSV(filepath, convertedFilePath)[0]
+
+            return json.dumps({ 'path_to_file': storedFilePath })
     return ''
 
 # This route takes a RData file as an input, stores it, and returns  a JSON object with data and file path
@@ -78,8 +78,9 @@ def rdataFileUpload():
     if request.method == 'POST':
         file = request.files['file']
         filepath = ''
+        fileAllowed = allowed_file(file.filename)
 
-        if file and allowed_file(file.filename):
+        if file and fileAllowed:
             filename = time.strftime("%Y%m%d-%H%M%S") + '_' + secure_filename(file.filename)
             file.save(os.path.join(app.config['rdata_upload_folder'], filename))
             filepath = app.config['rdata_upload_folder'] + '/' + filename
@@ -141,9 +142,11 @@ def logOddsRatios():
         jsonData = json.loads(request.data)
         pathToVariableListFile = jsonData['pathToVariableListFile']
         pathToGenFormulaFile = jsonData['pathToGenFormulaFile']
+        formulaData = jsonData['formulaData']['data']
 
-        jsonList = arc_wrapper.log_odds_rates(pathToVariableListFile, pathToGenFormulaFile)
-        print jsonList
+        print formulaData
+        jsonList = arc_wrapper.log_odds_rates(pathToVariableListFile, pathToGenFormulaFile, formulaData)
+        #print jsonList
 
     return ''
 

@@ -254,7 +254,9 @@
                                             <td ng-repeat="column in section.model.templateCols | limitTo: 5"></td>
                                         </tr>
                                         <tr ng-repeat="row in section.model.templateRows" ng-if="section.model.templateRows.length">
-                                            <td ng-repeat="column in section.model.templateCols | limitTo: 5"></td>
+                                            <td ng-repeat="column in section.model.templateCols | limitTo: 5">
+                                                <span ng-if="$index === 0">{{row}}</span>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

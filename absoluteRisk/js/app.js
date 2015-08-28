@@ -56,7 +56,7 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             id: 'risk_factor_distribution',
             header: 'Provide Risk Factor Distribution',
             templateType: 'static',
-            fileUploadEndpoint: 'rdataFileUpload',
+            fileUploadEndpoint: 'csvFileUploadConversion',
             sectionReference: 'generate_formula'
         },
         {
