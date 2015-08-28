@@ -263,14 +263,15 @@
                                             <td ng-show="section.model.templateCols.length > 4">...</td>
                                         </tr>
                                         <tr ng-show="section.model.templateRows.length && section.model.templateRows.length > 5">
-                                            <td>...</td>
+                                            <td colspan="{{section.model.templateCols.length}}" ng-show="section.model.templateCols.length < 5">...</td>
+                                            <td colspan="5" ng-show="section.model.templateCols.length > 4">...</td>
                                         </tr>
                                     </tbody>
                                 </table>
                                 <button class="btn btn-info pull-right" ng-click="section.model.exportToCsv($event)">Export to CSV</button>
                             </div>
                             <hr ng-show="section.model.genTemplate">
-                            <h5>Upload File</h5>
+                            <h5>Upload (as CSV file)</h5>
                             <div class="form-group">
                                 <span class="btn btn-info btn-file">
                                     Browse <input type="file" id="{{section.id + '_file'}}" arc-file-change>
