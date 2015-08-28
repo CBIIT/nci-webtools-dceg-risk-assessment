@@ -9,7 +9,14 @@ library(modeest)
 
 source("./rfiles/absoluteRiskCalculation.R")
 
-#dyn.load("source.dll")
+sysname <- Sys.info()['sysname']
+
+if(sysname == "Linux") {
+  dyn.load("source.so")
+  
+} else if(sysname == "Windows") {
+  dyn.load("source.dll")
+}
 
 #-----------------------------------------
 # Function: convert the JSON data to RData
