@@ -7,7 +7,7 @@ library(Matrix)
 library(slam)
 library(modeest)
 
-source("./rfiles/absoluteRiskCalculation.R")
+source("./absoluteRiskCalculation.R")
 
 sysname <- Sys.info()['sysname']
 
