@@ -150,9 +150,10 @@ def logOddsRatios():
 
     return ''
 
-# This route takes a csv file as an input RData file, and returns  a JSON object based on the file data
-@app.route('/absoluteRiskRest/diseaseRates', methods=['POST'])
-def diseaseRates():
+# This route takes a csv file as an input, and converts it to a 'disease rates' specific RData file.
+# It then returns  a JSON object based on the file data
+@app.route('/absoluteRiskRest/csvFileUploadDiseaseRates', methods=['POST'])
+def csvFileUploadDiseaseRates():
     if request.method == 'POST':
         file = request.files['file']
         filepath = ''

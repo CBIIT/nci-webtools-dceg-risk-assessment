@@ -13,7 +13,7 @@ sysname <- Sys.info()['sysname']
 
 if(sysname == "Linux") {
   dyn.load("source.so")
-  
+
 } else if(sysname == "Windows") {
   dyn.load("source.dll")
 }
@@ -280,11 +280,13 @@ process_competing_rates <- function(csvFileName,diseaseRDataFileName)
 # check_disease_rates(filename)
 #------------------------------------------
 
-process_disease_rates <- function(filename)
+process_disease_rates <- function(filename, convertedFilePath)
 {
   lambda = check_disease_rates(filename)
   baseFileName = file_path_sans_ext(filename)
-  rdataFileName = paste(baseFileName,".RData",sep="")
+  convertedFileName = file_path_sans_ext(convertedFilePath)
+
+  rdataFileName = paste(convertedFileName,".RData",sep="")
 
   save(lambda, file=rdataFileName)
   return (rdataFileName)
