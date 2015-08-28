@@ -64,15 +64,14 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             header: 'Provide Log Odds Ratios',
             templateType: 'remote',
             templateEndpoint: 'logOddsRatios',
-            fileUploadEndpoint: 'csvFileUpload',
+            fileUploadEndpoint: 'csvFileUploadConversion',
             columnNames: ['Variables', 'Log Odds Ratios']
         },
         {
             id: 'disease_incidence_rates',
             header: 'Provide Incidence Rates of Disease in Population',
             templateType: 'staticDual',
-            fileUploadEndpoint: 'csvFileUpload',
-            postUploadEndpoint: 'diseaseRates',
+            fileUploadEndpoint: 'csvFileUploadDiseaseRates',
             columnNames: [
                 ['Age (Integer)', 'Rate'],
                 ['Starting Age (Integer)', 'Ending Age (Integer)', 'Rate']
