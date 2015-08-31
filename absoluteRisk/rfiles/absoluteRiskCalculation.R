@@ -1046,7 +1046,7 @@ process_SNP_info <- function(covs_in_model, apply.snp.profile, model.bin.fh.name
 
 check_disease_rates <- function(filename){
 
-  lambda = read.table(filename, sep=",")
+  lambda = read.table(filename, sep=",", header=T)
   lambda = check_flexible_rate_inputs(lambda, "model.disease.incidence.rates")
   lambda
 }
@@ -1056,7 +1056,7 @@ check_competing_rates <- function(filename, lambda){
   if(is.null(filename) || filename==""){
     model.competing.incidence.rates= data.frame( cbind(lambda[,1], rep(0, length(lambda[,1]))) )
   }else{
-    model.competing.incidence.rates = read.table(filename, sep=",")
+    model.competing.incidence.rates = read.table(filename, sep=",", header=T)
   }
   model.competing.incidence.rates = check_flexible_rate_inputs(model.competing.incidence.rates, "model.competing.incidence.rates")
   model.competing.incidence.rates
@@ -1095,7 +1095,7 @@ check_flexible_rate_inputs<-function(mat, name){
   }
   ll = nrow(mat)
   if(ll>1 & ncol(mat)==3){
-    if(sum(mat[2:ll,1] - mat[1:(ll-1),2]-1)!=0){
+    if(sum(mat[2:ll,1] - mat[1:(ll-1),2])!=0){
       return_and_print(paste("ERROR: The rates provided in ", name, " must cover sequential age intervals (i.e. if an interval ends at age 30, the next interval must start at age 31).", sep=""))
       stop()
     }
