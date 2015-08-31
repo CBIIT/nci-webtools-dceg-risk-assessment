@@ -144,10 +144,10 @@ def logOddsRatios():
         pathToGenFormulaFile = jsonData['pathToGenFormulaFile']
         formulaData = jsonData['formulaData']['data']
 
-        print formulaData
-        jsonList = arc_wrapper.log_odds_rates(pathToVariableListFile, pathToGenFormulaFile, formulaData)
-        #print jsonList
+        formula = arc_wrapper.create_formula(json.dumps(formulaData), pathToVariableListFile)
+        jsonList = arc_wrapper.log_odds_rates(pathToVariableListFile, json.dumps(formula[0]))
 
+        return jsonList[0]
     return ''
 
 # This route takes a csv file as an input, and converts it to a 'disease rates' specific RData file.

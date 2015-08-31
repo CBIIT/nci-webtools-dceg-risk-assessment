@@ -6,7 +6,7 @@ app.factory('BuildVariableListModel', ['BuildVariable', 'CacheService', '$rootSc
         self.inputMethod = 'manual';
         self.section = parent;
         self.variableList = [];
-        //self.init();
+        /* self.init(); */
     }
     VariableListModel.prototype = {
         init: function(cfg) {
