@@ -7,7 +7,7 @@ library(Matrix)
 library(slam)
 library(modeest)
 
-source("./rfiles/absoluteRiskCalculation.R")
+source("./absoluteRiskCalculation.R")
 
 sysname <- Sys.info()['sysname']
 
@@ -63,8 +63,6 @@ convertJSONtoRData <- function(myJSONdata, filename) {
 # [[1]]$name
 # [#1] "famhist"
 #------------------------------------------------------
-
-library(rjson)
 
 uploadRData <- function(filename)
 {
