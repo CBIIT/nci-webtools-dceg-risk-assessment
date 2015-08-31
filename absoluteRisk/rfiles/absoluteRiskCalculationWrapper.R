@@ -64,8 +64,6 @@ convertJSONtoRData <- function(myJSONdata, filename) {
 # [#1] "famhist"
 #------------------------------------------------------
 
-library(rjson)
-
 uploadRData <- function(filename)
 {
 
