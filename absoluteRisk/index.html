@@ -55,6 +55,13 @@
     <div class="container" ng-controller="ArcAccordion as accordion">
         <div class="col-xs-12 col-md-8">
             <div ng-repeat="step in accordion.steps">
+                <div class="form-group clearfix" ng-if="step.id === 'apply'">
+                    <form>
+                        <button type="button" class="btn btn-primary pull-right" ng-click="">
+                            Save Model
+                        </button>
+                    </form>
+                </div>
                 <h4>{{step.title}}</h4>
                 <accordion close-others="true">
                     <accordion-group ng-repeat="section in step.sections" heading="{{section.header()}}" is-disabled="section.isDisabled" is-open="section.isOpen">

@@ -58,7 +58,7 @@ app.factory('BuildVariableListModel', ['BuildVariable', 'CacheService', '$rootSc
         },
         parseJsonModel: function(model) {
             if (model) {
-                var m = JSON.parse(model);
+                var m = model;
                 var filePath = m.shift()['path_to_file'];
                 var variableList = m;
 

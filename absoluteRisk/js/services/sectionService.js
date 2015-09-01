@@ -77,11 +77,11 @@ app.factory('BuildSection', [
                             onCompleted: function(file, response) {
                                 if (self.model.parseJsonModel) {
                                     console.log(response);
-                                    self.model.parseJsonModel(response);
+                                    self.model.parseJsonModel(JSON.parse(response));
                                 }
 
                                 if (self.model.postUploadEndpoint) {
-                                    self.model.postUploadActions(response);
+                                    self.model.postUploadActions(JSON.parse(response));
                                 } else {
                                     $rootScope.$broadcast('sectionStateChanged', { id: self.id, state: 'complete' });
                                     $rootScope.$apply();

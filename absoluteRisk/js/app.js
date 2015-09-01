@@ -82,7 +82,8 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             header: 'Provide Incidence Rates of Competing Mortality',
             templateType: 'staticDual',
             fileUploadEndpoint: 'csvFileUpload',
-            postUploadEndpoint: 'competingRates',
+            postUploadEndpoint: 'mortalityRates',
+            sectionReference: 'disease_incidence_rates',
             columnNames: [
                 ['Age (Integer)', 'Rate'],
                 ['Starting Number', 'Ending Number', 'Rate']
@@ -140,10 +141,12 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
 
     self.steps.push(
         {
+            id: 'build',
             title: 'Build the Model',
             sections: self.buildStep
         },
         {
+            id: 'apply',
             title: 'Apply the Model',
             sections: self.applyStep
         }

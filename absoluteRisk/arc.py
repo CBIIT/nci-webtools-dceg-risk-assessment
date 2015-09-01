@@ -184,7 +184,7 @@ def mortalityRates():
             file.save(os.path.join(app.config['csv_upload_folder'], filename))
             filepath = app.config['csv_upload_folder'] + '/' + filename
             convertedFilePath = app.config['rdata_upload_folder'] + '/' + filename
-            rdata_file_path = arc_wrapper.process_competing_rates(filepath, convertedFilePath)[0]
+            rdata_file_path = arc_wrapper.process_disease_rates(filepath, convertedFilePath)[0]
 
             print rdata_file_path
             return json.dumps({'path_to_file': rdata_file_path})

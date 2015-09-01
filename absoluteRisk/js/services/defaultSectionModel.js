@@ -15,7 +15,8 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
             var referredSectionData;
 
             if (cfg.sectionReference) {
-                referredSectionData = Cache.getUiData(cfg.sectionReference);
+                self.sectionReference = cfg.sectionReference;
+                referredSectionData = Cache.getUiData(self.sectionReference);
             }
 
             self.templateType = cfg.templateType;
@@ -23,6 +24,7 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
             self.templateCols = self.columns;
             self.templateRows = [];
             self.fileUploadEndpoint = cfg.fileUploadEndpoint;
+            self.postUploadEndpoint = cfg.postUploadEndpoint;
 
             if (self.templateType === 'staticDual') {
                 /* Default to 2-column template vs. 3-column template */
@@ -79,12 +81,6 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
                    var re = /as.factor/gi;
 
                    self.templateRows = data;
-/*
-                   angular.forEach(data, function(name) {
-                      name =  str.replace(re, '');
-                      self.templateRows.push(name);
-                   });
-*/
                })
                .error(function(data, status, headers, config) {
                    console.log('status is: ', status);
@@ -93,9 +89,19 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
                    console.log('finally, data is: ', data);
                });
         },
+        postUploadActions: function(pathObj) {
+            var self = this;
+
+            var csvFilePath = pathObj['path_to_file'];
+            var rdataFilePath = Cache.getSectionKey(self.sectionReference, 'path_to_file');
+
+            console.log(csvFilePath, rdataFilePath);
+
+            /* /mortalityRates endpoint will get called here to create post-calculation Rdata file on server */
+        },
         getJsonModel: function() {
-            /* For 'default' sections, only need to create {} with section id and RData file path */
-            Cache.setSectionData(this.section.id, {'path_to_file': ''} );
+            /* For 'default' sections, only need to create {} with section id and possible csv/rdata file paths */
+            Cache.setSectionData(this.section.id, {'id': this.section.id, 'path_to_file': ''} );
 
             /* Also store column and row template data for potential use by other sections */
             Cache.setUiData(this.section.id, {columns: this.templateCols, rows: this.templateRows });
@@ -104,7 +110,7 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
             this.getJsonModel();
 
             if (model) {
-                var m = JSON.parse(model);
+                var m = model;
                 var filePath = m.path_to_file;
 
                 Cache.setSectionKey(this.section.id, 'path_to_file', filePath);
