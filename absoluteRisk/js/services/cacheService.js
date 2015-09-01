@@ -4,6 +4,10 @@ app.factory('CacheService', function() {
     self.remoteData = {};
     self.uiData = {};
 
+    self.getData = function() {
+        console.log('Data so far: ', self.remoteData);
+    };
+
     self.getSectionData = function(section) {
         console.log(section + ' remote data is: ', self.remoteData[section]);
         return self.remoteData[section];
@@ -34,6 +38,7 @@ app.factory('CacheService', function() {
     };
 
     return {
+        getData: self.getData,
         getSectionData: self.getSectionData,
         setSectionData: self.setSectionData,
         getSectionKey: self.getSectionKey,

@@ -83,8 +83,7 @@ app.factory('BuildSection', [
                                 if (self.model.postUploadEndpoint) {
                                     self.model.postUploadActions(JSON.parse(response));
                                 } else {
-                                    $rootScope.$broadcast('sectionStateChanged', { id: self.id, state: 'complete' });
-                                    $rootScope.$apply();
+                                    self.broadcastSectionStatus(true);
                                 }
                             },
                             onCompletedAll: function(file) {}
@@ -115,7 +114,7 @@ app.factory('BuildSection', [
                        /* Save returned file path to section as section key/value pair */
                        Cache.setSectionKey(self.id, 'path_to_file', uploadPath + data);
 
-                       $rootScope.$broadcast('sectionStateChanged', { id: self.id, state: 'complete' });
+                       self.broadcastSectionStatus();
                    })
                    .error(function(data, status, headers, config) {
                        console.log('status is: ', status);
@@ -127,6 +126,13 @@ app.factory('BuildSection', [
             createModel: function(type) {
                 /* Use modelMap to create the correct section model based on section type */
                 return new this.modelMap[this.type].func(this);
+            },
+            broadcastSectionStatus: function(runApply) {
+                $rootScope.$broadcast('sectionStateChanged', { id: this.id, state: 'complete' });
+
+                if (runApply) {
+                    $rootScope.$apply();
+                }
             },
             getJsonModel: function() {
                 return this.model.getJsonModel();

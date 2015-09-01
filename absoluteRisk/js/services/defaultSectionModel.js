@@ -92,12 +92,27 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
         postUploadActions: function(pathObj) {
             var self = this;
 
-            var csvFilePath = pathObj['path_to_file'];
-            var rdataFilePath = Cache.getSectionKey(self.sectionReference, 'path_to_file');
+            var postUploadUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/' + self.postUploadEndpoint;
+            var postUploadData = {
+                csvFilePath: pathObj['path_to_file'],
+                rdataFilePath: Cache.getSectionKey(self.sectionReference, 'path_to_file')
+            };
 
-            console.log(csvFilePath, rdataFilePath);
+            console.log(postUploadData.csvFilePath, postUploadData.rdataFilePath);
 
-            /* /mortalityRates endpoint will get called here to create post-calculation Rdata file on server */
+            /* Passes in path to section CSV file, and path to referred section's RData file */
+            $http.post(postUploadUrl, JSON.stringify(postUploadData))
+               .success(function(data, status, headers, config) {
+                   /* Store RData file path in global JSON object and open next section */
+                   self.parseJsonModel(data);
+                   self.section.broadcastSectionStatus();
+               })
+               .error(function(data, status, headers, config) {
+                   console.log('status is: ', status);
+               })
+               .finally(function(data) {
+                   console.log('finally, data is: ', data);
+               });
         },
         getJsonModel: function() {
             /* For 'default' sections, only need to create {} with section id and possible csv/rdata file paths */
@@ -110,8 +125,7 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
             this.getJsonModel();
 
             if (model) {
-                var m = model;
-                var filePath = m.path_to_file;
+                var filePath = model.path_to_file;
 
                 Cache.setSectionKey(this.section.id, 'path_to_file', filePath);
             }

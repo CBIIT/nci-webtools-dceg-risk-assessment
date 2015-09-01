@@ -32,12 +32,12 @@ def index():
     # Render template
     return render_template('index.html')
 
-# This route will return a list in JSON format
+# Root endpoint
 @app.route('/absoluteRiskRest/', methods=['POST'])
 def absoluteRiskRest():
     return
 
-# This route takes a CSV file as an input, saves it to the server, and returns the file path
+# This route takes a CSV file as an input, saves it to the server, and returns the CSV file path as JSON
 @app.route('/absoluteRiskRest/csvFileUpload', methods=['POST'])
 def csvFileUpload():
     if request.method == 'POST':
@@ -53,7 +53,7 @@ def csvFileUpload():
             return json.dumps({ 'path_to_file': filepath })
     return ''
 
-# This route takes a CSV file as an input, stores it as RData file, and returns the converted file path
+# This route takes a CSV file as an input, stores it as RData file, and returns the RData file path as JSON
 @app.route('/absoluteRiskRest/csvFileUploadConversion', methods=['POST'])
 def csvFileUploadConversion():
     if request.method == 'POST':
@@ -72,7 +72,7 @@ def csvFileUploadConversion():
             return json.dumps({ 'path_to_file': storedFilePath })
     return ''
 
-# This route takes a RData file as an input, stores it, and returns  a JSON object with data and file path
+# This route takes a RData file as an input, stores it, and returns a JSON object with data and file path
 @app.route('/absoluteRiskRest/rdataFileUpload', methods=['POST'])
 def rdataFileUpload():
     if request.method == 'POST':
@@ -92,7 +92,7 @@ def rdataFileUpload():
             return json.dumps(loadedJson)
     return ''
 
-# This route takes in a JSON object, converts it to an RData file, and returns the file to the user
+# This route takes in a JSON object, converts it to an RData file, and returns the filename to the user as JSON
 @app.route('/absoluteRiskRest/dataUpload', methods=['POST'])
 def dataUpload():
     if request.method == 'POST':
@@ -109,7 +109,7 @@ def dataUpload():
 
     return ''
 
-# This route returns a specified file if it exists on the server
+# This route returns a specified file, if it exists on the server
 @app.route('/absoluteRiskRest/downloadFile', methods=['GET'])
 def downloadFile():
     if 'filename' in request.args:
@@ -123,7 +123,7 @@ def downloadFile():
     else:
         return 'Correct parameter not provided in GET'
 
-# This route returns the formula in JSON format
+# This route returns the generated formula string as JSON
 @app.route('/absoluteRiskRest/generateFormula', methods=['POST'])
 def generateFormula():
     if request.method == 'POST':
@@ -136,6 +136,7 @@ def generateFormula():
 
     return ''
 
+# This route takes in 3 params for R calculations, and returns log_odds_rates based calculations as JSON
 @app.route('/absoluteRiskRest/logOddsRatios', methods=['POST'])
 def logOddsRatios():
     if request.method == 'POST':
@@ -151,7 +152,7 @@ def logOddsRatios():
     return ''
 
 # This route takes a csv file as an input, and converts it to a 'disease rates' specific RData file.
-# It then returns  a JSON object based on the file data
+# It then returns the RData file path as JSON
 @app.route('/absoluteRiskRest/csvFileUploadDiseaseRates', methods=['POST'])
 def csvFileUploadDiseaseRates():
     if request.method == 'POST':
@@ -171,23 +172,19 @@ def csvFileUploadDiseaseRates():
 
     return ''
 
-# This route takes a file as an input, creates the requested CSV or RData file, and returns  a JSON object based on the file data
+# This route takes 2 params for R calculations, and returns the RData file path as JSON
 @app.route('/absoluteRiskRest/mortalityRates', methods=['POST'])
 def mortalityRates():
     if request.method == 'POST':
-        file = request.files['file']
-        filepath = ''
+        jsonData = json.loads(request.data)
+        pathToMortalityRatesCSVFile = jsonData['csvFilePath']
+        pathToDiseaseRatesRDataFile = jsonData['rdataFilePath']
 
-        if file and allowed_file(file.filename):
-            filename = time.strftime("%Y%m%d-%H%M%S") + '_' + secure_filename(file.filename)
+        convertedFilePath = app.config['rdata_upload_folder'] + '/' + filename
+        rdata_file_path = arc_wrapper.process_disease_rates(filepath, convertedFilePath)[0]
 
-            file.save(os.path.join(app.config['csv_upload_folder'], filename))
-            filepath = app.config['csv_upload_folder'] + '/' + filename
-            convertedFilePath = app.config['rdata_upload_folder'] + '/' + filename
-            rdata_file_path = arc_wrapper.process_disease_rates(filepath, convertedFilePath)[0]
-
-            print rdata_file_path
-            return json.dumps({'path_to_file': rdata_file_path})
+        print rdata_file_path
+        return json.dumps({'path_to_file': rdata_file_path})
 
     return ''
 

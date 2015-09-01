@@ -254,12 +254,14 @@ log_odds_rates <- function(list_of_variables_RData, formula_data)
 # process_competing_rates(csvFileName,diseaseRDataFileName)
 #------------------------------------------
 
-process_competing_rates <- function(csvFileName,diseaseRDataFileName)
+process_competing_rates <- function(csvFileName, diseaseRDataFileName, convertedFilePath)
 {
   lambda=get(load(diseaseRDataFileName))
   model.competing.incidence.rates = check_competing_rates(csvFileName, lambda)
   baseFileName = file_path_sans_ext(csvFileName)
-  rdataFileName = paste(baseFileName,".RData",sep="")
+  convertedFileName = file_path_sans_ext(convertedFilePath)
+
+  rdataFileName = paste(convertedFileName,".RData",sep="")
   save(model.competing.incidence.rates, file=rdataFileName)
   return (rdataFileName)
 }

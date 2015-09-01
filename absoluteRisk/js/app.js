@@ -204,6 +204,21 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
                         section.isDisabled = false;
                         section.isOpen = true;
                         break;
+                    case('risk_factor_prediction'):
+                        section = self.steps[1].sections[0];
+                        section.isDisabled = false;
+                        section.isOpen = true;
+                        break;
+                    case('genotypes_prediction'):
+                        section = self.steps[1].sections[1];
+                        section.isDisabled = false;
+                        section.isOpen = true;
+                        break;
+                    case('age_interval'):
+                        section = self.steps[1].sections[2];
+                        section.isDisabled = false;
+                        section.isOpen = true;
+                        break;
                     default:
                         console.log('in switch default');
                         break;
