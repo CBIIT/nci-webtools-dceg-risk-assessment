@@ -12,19 +12,26 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
         init: function(cfg) {
             var self = this;
             var endpoint = cfg.templateEndpoint;
-            var referredSectionData;
 
             if (cfg.sectionReference) {
                 self.sectionReference = cfg.sectionReference;
-                referredSectionData = Cache.getUiData(self.sectionReference);
+                self.referredSectionData = angular.copy(Cache.getUiData(self.sectionReference));
             }
 
             self.templateType = cfg.templateType;
-            self.columns = cfg.cols ? cfg.cols : referredSectionData.columns;
-            self.templateCols = self.columns;
             self.templateRows = [];
             self.fileUploadEndpoint = cfg.fileUploadEndpoint;
             self.postUploadEndpoint = cfg.postUploadEndpoint;
+
+            if (cfg.famHist) {
+                self.columns = cfg.cols;
+                self.referredSectionData.columns.unshift('Family history is not in the model');
+                self.hasFamHist = cfg.famHist;
+                self.famHist = self.referredSectionData.columns[0];
+            } else {
+                self.columns = cfg.cols ? cfg.cols : self.referredSectionData.columns;
+                self.templateCols = self.columns;
+            }
 
             if (self.templateType === 'staticDual') {
                 /* Default to 2-column template vs. 3-column template */

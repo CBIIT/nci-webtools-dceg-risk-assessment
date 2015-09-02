@@ -286,6 +286,11 @@
                                 <span ng-model="section.file">{{section.file.name}}</span>
                                 <span ng-show="!section.file">No file selected</span>
                             </div>
+                            <div class="form-group" ng-show="section.model.hasFamHist">
+                                <span>Family History Variable Name: </span>
+                                <select ng-model="section.model.famHist" ng-options="column for column in section.model.referredSectionData.columns">
+                                </select>
+                            </div>
                         </form>
                     </accordion-group>
                 </accordion>

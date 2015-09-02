@@ -96,6 +96,8 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             templateType: 'static',
             fileUploadEndpoint: 'csvFileUpload',
             postUploadEndpoint: 'snpInformation',
+            famHist: true,
+            sectionReference: 'generate_formula',
             columnNames: ['snp.name', 'snp.odds.ratio', 'snp.freq'],
             optional: true
         }

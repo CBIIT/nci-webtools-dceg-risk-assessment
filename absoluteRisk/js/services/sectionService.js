@@ -29,7 +29,8 @@ app.factory('BuildSection', [
                                                             sectionReference: cfg.sectionReference ? cfg.sectionReference : null,
                                                             templateEndpoint: cfg.templateEndpoint ? cfg.templateEndpoint : null,
                                                             fileUploadEndpoint: cfg.fileUploadEndpoint ? cfg.fileUploadEndpoint : null,
-                                                            postUploadEndpoint: cfg.postUploadEndpoint ? cfg.postUploadEndpoint : null
+                                                            postUploadEndpoint: cfg.postUploadEndpoint ? cfg.postUploadEndpoint : null,
+                                                            famHist: cfg.famHist ? cfm.famHist : null
                                                       }
                                     }
              };
