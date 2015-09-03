@@ -14,8 +14,20 @@ app.factory('BuildAgeIntervalModel', function() {
         }
     }
     AgeIntervalModel.prototype = {
+        init: function(cfg) {
+            var self = this;
+
+            self.fileUploadEndpoint = cfg.fileUploadEndpoint;
+            self.templateCols = cfg.cols;
+        },
+        saveModel: function() {
+            console.log('saving model');
+        },
         getJsonModel: function() {
-            console.log('this is age interval model');
+            return {
+                age: this.age,
+                ageInterval: this.ageInterval
+            };
         }
     };
 

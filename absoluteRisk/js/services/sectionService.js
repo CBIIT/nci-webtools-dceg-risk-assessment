@@ -22,7 +22,11 @@ app.factory('BuildSection', [
             self.modelMap = {
                 'variable_list':    { func: vlModel, params: { fileUploadEndpoint: cfg.fileUploadEndpoint }},
                 'generate_formula': { func: gfModel, params: { fileUploadEndpoint: cfg.fileUploadEndpoint }},
-                'age_interval':     { func: aiModel, params: {}},
+                'age_interval':     { func: aiModel, params: {
+                                                            fileUploadEndpoint: cfg.fileUploadEndpoint,
+                                                            cols: cfg.columnNames
+                                                      }
+                                    },
                 'default':          { func: defModel, params: {
                                                             templateType: cfg.templateType,
                                                             cols: cfg.columnNames,

@@ -285,8 +285,45 @@
                                     <select ng-model="section.model.ageInterval" ng-options="interval for interval in section.model.ageIntervals">
                                     </select>
                                 </div>
+                                <button type="button" class="btn btn-primary pull-right" ng-click="section.model.saveModel()">
+                                    Save Model
+                                </button>
                             </div>
                             <div ng-show="section.model.inputMethod === 'upload'">
+                                <div>
+                                    <label>
+                                        <input type="checkbox" ng-model="section.model.genTemplate"> Generate Template
+                                    </label>
+                                </div>
+                                <div class="clearfix" ng-show="section.model.genTemplate">
+                                    <p class="text-info" ng-if="section.model.templateCols.length > 4">For templates with more than 4 columns, only the first 4 columns will be shown in the generated template. All columns will however be exported in the CSV file.</p>
+                                    <p class="text-info" ng-if="section.model.templateRows.length > 5">For templates with more than 5 rows, only the first 5 rows will be shown in the generated template. All rows will however be exported in the CSV file.</p>
+                                    <table class="table table-responsive table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th ng-repeat="column in section.model.templateCols | limitTo: 4">{{column}}</th>
+                                                <th ng-show="section.model.templateCols.length > 4">...</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="ph in section.model.placeHolderRows" ng-show="!section.model.templateRows.length">
+                                                <td ng-repeat="column in section.model.templateCols | limitTo: 4"></td>
+                                                <td ng-show="section.model.templateCols.length > 4">...</td>
+                                            </tr>
+                                            <tr ng-repeat="row in section.model.templateRows | limitTo: 5" ng-show="section.model.templateRows.length">
+                                                <td ng-repeat="column in section.model.templateCols | limitTo: 4">
+                                                    <span ng-show="$index === 0">{{row}}</span>
+                                                </td>
+                                                <td ng-show="section.model.templateCols.length > 4">...</td>
+                                            </tr>
+                                            <tr ng-show="section.model.templateRows.length && section.model.templateRows.length > 5">
+                                                <td colspan="{{section.model.templateCols.length}}" ng-show="section.model.templateCols.length < 5">...</td>
+                                                <td colspan="5" ng-show="section.model.templateCols.length > 4">...</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <button class="btn btn-info pull-right" ng-click="section.model.exportToCsv($event)">Export to CSV</button>
+                                </div>
                                 <h5>Upload (as CSV file)</h5>
                                 <div class="form-group">
                                     <span class="btn btn-info btn-file">

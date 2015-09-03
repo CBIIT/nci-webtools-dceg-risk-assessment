@@ -184,7 +184,9 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
         },
         {
             header: 'Starting Age and Length of Age Interval',
-            type: 'age_interval'
+            type: 'age_interval',
+            columnNames: ['Age', 'Age Interval'],
+            fileUploadEndpoint: 'csvFileUploadConversion',
         }
     ];
     var modalInstance;
