@@ -26,7 +26,7 @@ app.factory('BuildSection', [
                 'default':          { func: defModel, params: {
                                                             templateType: cfg.templateType,
                                                             cols: cfg.columnNames,
-                                                            sectionReference: cfg.sectionReference ? cfg.sectionReference : null,
+                                                            sectionDependency: cfg.sectionDependency ? cfg.sectionDependency : null,
                                                             templateEndpoint: cfg.templateEndpoint ? cfg.templateEndpoint : null,
                                                             fileUploadEndpoint: cfg.fileUploadEndpoint ? cfg.fileUploadEndpoint : null,
                                                             postUploadActions: cfg.postUploadActions ? cfg.postUploadActions : null,

@@ -7,35 +7,38 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
         self.isDisabled = true;
         self.section = parent;
         self.placeHolderRows = [0, 1, 2, 3, 4];
+        self.columns = [];
+        self.templateCols = [];
+        self.templateRows = [];
     }
     DefaultModel.prototype = {
         init: function(cfg) {
             var self = this;
             var endpoint = cfg.templateEndpoint;
 
-            if (cfg.sectionReference) {
-                self.sectionReference = cfg.sectionReference;
-                self.referredSectionData = angular.copy(Cache.getUiData(self.sectionReference));
-                self.templateRows = self.referredSectionData.hasOwnProperty('rows') && self.referredSectionData.rows.length ? self.referredSectionData.rows : [];
-            } else {
-                self.templateRows = [];
+            self.columns = cfg.cols;
+
+            if (cfg.sectionDependency) {
+                self.sectionDependency = cfg.sectionDependency;
+                self.sectionDependencyData = angular.copy(Cache.getUiData(self.sectionDependency.id));
+
+                if (self.sectionDependency.mapping === 'list') {
+                    self.hasFamHist = true;
+                    self.sectionDependencyData.rows.unshift('Family history is not in the model');
+                    self.famHist = self.sectionDependencyData.rows[0];
+                }
+
+                if (self.sectionDependency.mapping === 'rowToColumn') {
+                    self.columns = self.sectionDependencyData.rows;
+                }
             }
+
+            self.templateCols = self.columns;
 
             self.postUploadActions = cfg.postUploadActions;
             self.templateType = cfg.templateType;
             self.fileUploadEndpoint = cfg.fileUploadEndpoint;
             self.postUploadEndpoint = cfg.postUploadEndpoint;
-
-            if (cfg.famHist) {
-                self.hasFamHist = cfg.famHist;
-                self.referredSectionData.columns.unshift('Family history is not in the model');
-                self.famHist = self.referredSectionData.columns[0];
-                self.columns = cfg.cols;
-                self.templateCols = self.columns;
-            } else {
-                self.columns = cfg.cols ? cfg.cols : self.referredSectionData.columns;
-                self.templateCols = self.columns;
-            }
 
             if (self.templateType === 'staticDual') {
                 /* Default to 2-column template vs. 3-column template */
@@ -86,8 +89,6 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
 
             $http.post(remoteUrl, JSON.stringify(remoteData))
                .success(function(data, status, headers, config) {
-                   var re = /as.factor/gi;
-
                    self.templateRows = data;
                })
                .error(function(data, status, headers, config) {
@@ -105,7 +106,7 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
             };
 
             if (self.hasOwnProperty('hasFamHist')) {
-                obj['famHist'] = self.famHist !== self.referredSectionData.columns[0] ? self.famHist : 'NA';
+                obj['famHist'] = self.famHist !== self.sectionDependencyData.rows[0] ? self.famHist : 'NA';
             }
 
             return obj;

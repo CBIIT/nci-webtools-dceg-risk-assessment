@@ -57,7 +57,10 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             header: 'Provide Risk Factor Distribution',
             templateType: 'static',
             fileUploadEndpoint: 'csvFileUploadConversion',
-            sectionReference: 'generate_formula'
+            sectionDependency: {
+                id: 'generate_formula',
+                mapping: 'rowToColumn'
+            }
         },
         {
             id: 'log_odds_ratios',
@@ -89,7 +92,7 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
                 var postUploadUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/' + self.postUploadEndpoint;
                 var postUploadData = {
                     csvFilePath: pathObj['path_to_file'],
-                    rdataFilePath: Cache.getSectionKey(self.sectionReference, 'path_to_file')
+                    rdataFilePath: Cache.getSectionKey(self.sectionDependency.id, 'path_to_file')
                 };
 
                 /* Passes in path to section CSV file, and path to referred section's RData file */
@@ -106,7 +109,10 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
                        console.log('finally, data is: ', data);
                    });
             },
-            sectionReference: 'disease_incidence_rates',
+            sectionDependency:  {
+                id: 'disease_incidence_rates',
+                mapping: 'rdataFilePath'
+            },
             columnNames: [
                 ['Age (Integer)', 'Rate'],
                 ['Starting Number', 'Ending Number', 'Rate']
@@ -145,8 +151,10 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
                        console.log('finally, data is: ', data);
                    });
             },
-            famHist: true,
-            sectionReference: 'generate_formula',
+            sectionDependency:  {
+                id: 'generate_formula',
+                mapping: 'list'
+            },
             columnNames: ['snp.name', 'snp.odds.ratio', 'snp.freq'],
             optional: true
         }
@@ -156,7 +164,10 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             id: 'risk_factor_prediction',
             header: 'Provide Risk Factor for Prediction',
             templateType: 'static',
-            sectionReference: 'generate_formula',
+            sectionDependency:  {
+                id: 'generate_formula',
+                mapping: 'rowToColumn'
+            },
             fileUploadEndpoint: 'csvFileUploadConversion',
             optional: true
         },
@@ -164,7 +175,10 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             id: 'genotypes_prediction',
             header: 'Provide Genotypes for Prediction',
             templateType: 'static',
-            sectionReference: 'snp_information',
+            sectionDependency:  {
+                id: 'snp_information',
+                mapping: 'rowToColumn'
+            },
             fileUploadEndpoint: 'csvFileUploadConversion',
             optional: true
         },

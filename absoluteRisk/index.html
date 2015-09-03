@@ -288,7 +288,7 @@
                             </div>
                             <div class="form-group" ng-show="section.model.hasFamHist">
                                 <span>Family History Variable Name: </span>
-                                <select ng-model="section.model.famHist" ng-options="column for column in section.model.referredSectionData.columns">
+                                <select ng-model="section.model.famHist" ng-options="row for row in section.model.sectionDependencyData.rows">
                                 </select>
                             </div>
                         </form>

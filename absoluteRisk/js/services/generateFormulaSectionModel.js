@@ -52,7 +52,7 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', '$h
             var model = this.getJsonModel();
             var isValid;
 
-            /* Set column names for subsequent section, in Cache UI {} */
+            /* Store row names for use in subsequent section, in Cache UI {} */
             Cache.setUiData(this.section.id, model.ui);
 
             /* Remove ui property from model before setting section data for remote use */
@@ -66,11 +66,11 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', '$h
         },
         getJsonModel: function() {
             var list = [];
-            var columnNames = [];
+            var rowNames = [];
 
             angular.forEach(this.variables, function(variable) {
                 if (variable.linear) {
-                    columnNames.push(variable.name);
+                    rowNames.push(variable.name);
                 }
 
                 list.push(variable.getJsonModel());
@@ -80,7 +80,7 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', '$h
                 id: this.section.id,
                 data: list,
                 ui: {
-                    columns: columnNames
+                    rows: rowNames
                 }
             };
         }
