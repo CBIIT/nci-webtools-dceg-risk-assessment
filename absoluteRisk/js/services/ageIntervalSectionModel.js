@@ -4,9 +4,14 @@ app.factory('BuildAgeIntervalModel', function() {
         var self = this;
 
         self.inputMethod = 'manual';
-        self.isDisabled = true;
+        self.ages = arrRange(120);
+        self.ageIntervals = arrRange(100);
+        self.age = self.ages[29];
+        self.ageInterval = self.ageIntervals[2];
 
-        /* Add more custom model functionality later */
+        function arrRange(i){
+            return i ? arrRange(i-1).concat(i):[];
+        }
     }
     AgeIntervalModel.prototype = {
         getJsonModel: function() {

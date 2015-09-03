@@ -48,7 +48,7 @@ app.factory('BuildSection', [
 
             self.type = cfg.type ? cfg.type : 'default';
             self.model = self.createModel();
-            self.isDisabled = true;
+            self.isDisabled = false;
             self.isOpen = false;
 
             self.file = null;

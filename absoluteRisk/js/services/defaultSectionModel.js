@@ -4,7 +4,6 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
         var self = this;
 
         self.genTemplate = true;
-        self.isDisabled = true;
         self.section = parent;
         self.placeHolderRows = [0, 1, 2, 3, 4];
         self.columns = [];

@@ -144,33 +144,6 @@
                                 </div>
                             </div>
                         </form>
-                        <form ng-if="section.type === 'age_interval'">
-                            <div class="form-group">
-                                <label class="radio-inline">
-                                    <input type="radio" name="{{'age_section_' + $index}}" value="manual" ng-model="section.model.inputMethod" checked> Manual
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" name="{{'age_section_' + $index}}" value="upload" ng-model="section.model.inputMethod"> Upload File
-                                </label>
-                            </div>
-                            <div ng-show="section.model.inputMethod === 'manual'">
-                                <div class="form-group col-xs-2">
-                                    <label for="age">Age: </label>
-                                    <input type="text" name="age" id="age" class="form-control">
-                                </div>
-                                <div class="form-group col-xs-2 col-sm-4">
-                                    <label for="age_interval">Age Interval: </label>
-                                    <input type="text" name="age_interval" id="age_interval" class="form-control">
-                                </div>
-                            </div>
-                            <div ng-show="section.model.inputMethod === 'upload'">
-                                <div class="form-group">
-                                    <span class="btn btn-info btn-file">
-                                        Browse <input type="file">
-                                    </span>
-                                 </div>
-                            </div>
-                        </form>
                         <form ng-if="section.type === 'generate_formula'">
                             <div class="col-xs-6">
                                 <table class="table table-striped table-responsive">
@@ -290,6 +263,38 @@
                                 <span>Family History Variable Name: </span>
                                 <select ng-model="section.model.famHist" ng-options="row for row in section.model.sectionDependencyData.rows">
                                 </select>
+                            </div>
+                        </form>
+                        <form ng-if="section.type === 'age_interval'">
+                            <div class="form-group">
+                                <label class="radio-inline">
+                                    <input type="radio" name="{{'age_section_' + $index}}" value="manual" ng-model="section.model.inputMethod" checked> Manual
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="{{'age_section_' + $index}}" value="upload" ng-model="section.model.inputMethod"> Upload File
+                                </label>
+                            </div>
+                            <div ng-show="section.model.inputMethod === 'manual'">
+                                <div class="form-group">
+                                    <span>Age: </span>
+                                    <select ng-model="section.model.age" ng-options="age for age in section.model.ages">
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <span>Age Interval: </span>
+                                    <select ng-model="section.model.ageInterval" ng-options="interval for interval in section.model.ageIntervals">
+                                    </select>
+                                </div>
+                            </div>
+                            <div ng-show="section.model.inputMethod === 'upload'">
+                                <h5>Upload (as CSV file)</h5>
+                                <div class="form-group">
+                                    <span class="btn btn-info btn-file">
+                                        Browse <input type="file" id="{{section.id + '_file'}}" arc-file-change>
+                                    </span>
+                                    <span ng-model="section.file">{{section.file.name}}</span>
+                                    <span ng-show="!section.file">No file selected</span>
+                                </div>
                             </div>
                         </form>
                     </accordion-group>
