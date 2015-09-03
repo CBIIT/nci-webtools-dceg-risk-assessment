@@ -16,11 +16,13 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
             if (cfg.sectionReference) {
                 self.sectionReference = cfg.sectionReference;
                 self.referredSectionData = angular.copy(Cache.getUiData(self.sectionReference));
+                self.templateRows = self.referredSectionData.hasOwnProperty('rows') && self.referredSectionData.rows.length ? self.referredSectionData.rows : [];
+            } else {
+                self.templateRows = [];
             }
 
             self.postUploadActions = cfg.postUploadActions;
             self.templateType = cfg.templateType;
-            self.templateRows = [];
             self.fileUploadEndpoint = cfg.fileUploadEndpoint;
             self.postUploadEndpoint = cfg.postUploadEndpoint;
 
@@ -63,7 +65,7 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
 
             csvContent = 'data:text/csv;charset=utf-8,' + self.templateCols.join(',') + '\n';
 
-            if (self.templateType === 'remote') {
+            if (self.templateRows.length) {
                 angular.forEach(self.templateRows, function(row) {
                     csvContent += row + '\n';
 

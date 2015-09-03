@@ -132,7 +132,7 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
                 $http.post(postUploadUrl, JSON.stringify(postUploadData))
                    .success(function(data, status, headers, config) {
                        /* Remove first row name because it's actually the first column header */
-                       data.rows.pop();
+                       data.rows.shift();
 
                        /* Store RData file path in global JSON object and open next section */
                        self.parseJsonModel(data);
