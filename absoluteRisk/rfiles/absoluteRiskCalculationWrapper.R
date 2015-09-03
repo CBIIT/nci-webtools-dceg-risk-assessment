@@ -309,13 +309,15 @@ process_disease_rates <- function(filename, convertedFilePath)
 #
 #--------------------------------------------------------
 
-process_SNP_info <- function(filename,famHist)
+process_SNP_info <- function(filename, famHist, convertedFilePath)
 {
   mydata <- read.csv(filename, sep=",",header=TRUE,stringsAsFactor=FALSE)
   baseFileName = file_path_sans_ext(filename)
+  convertedFileName = file_path_sans_ext(convertedFilePath)
+
   varName = basename(baseFileName)
   assign(varName,mydata)
-  rdataFileName = paste(baseFileName,".RData",sep="")
+  rdataFileName = paste(convertedFileName,".RData",sep="")
   save(list=varName, file=rdataFileName)
 
   save(famHist, file="famHist.RData")

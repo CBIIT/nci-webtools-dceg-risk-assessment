@@ -39,7 +39,7 @@ app.directive('arcFileChange', ['$rootScope', function($rootScope) {
 }]);
 
 /* Primary application controller */
-app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$scope', '$sanitize', '$modal', function (Section, Cache, $rootScope, $scope, $san, $modal) {
+app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$scope', '$sanitize', '$modal', '$http', function (Section, Cache, $rootScope, $scope, $san, $modal, $http) {
     var self = this;
     var buildConfig = [
         {
@@ -83,6 +83,29 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             templateType: 'staticDual',
             fileUploadEndpoint: 'csvFileUpload',
             postUploadEndpoint: 'mortalityRates',
+            postUploadActions: function(pathObj) {
+                var self = this;
+
+                var postUploadUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/' + self.postUploadEndpoint;
+                var postUploadData = {
+                    csvFilePath: pathObj['path_to_file'],
+                    rdataFilePath: Cache.getSectionKey(self.sectionReference, 'path_to_file')
+                };
+
+                /* Passes in path to section CSV file, and path to referred section's RData file */
+                $http.post(postUploadUrl, JSON.stringify(postUploadData))
+                   .success(function(data, status, headers, config) {
+                       /* Store RData file path in global JSON object and open next section */
+                       self.parseJsonModel(data);
+                       self.section.broadcastSectionStatus();
+                   })
+                   .error(function(data, status, headers, config) {
+                       console.log('status is: ', status);
+                   })
+                   .finally(function(data) {
+                       console.log('finally, data is: ', data);
+                   });
+            },
             sectionReference: 'disease_incidence_rates',
             columnNames: [
                 ['Age (Integer)', 'Rate'],
@@ -96,6 +119,32 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             templateType: 'static',
             fileUploadEndpoint: 'csvFileUpload',
             postUploadEndpoint: 'snpInformation',
+            postUploadActions: function(pathObj) {
+                var self = this;
+
+                var postUploadUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/' + self.postUploadEndpoint;
+                var postUploadData = {
+                    csvFilePath: pathObj['path_to_file'],
+                    famHist: self.famHist
+                };
+
+                /* Passes in path to section CSV file, and path to referred section's RData file */
+                $http.post(postUploadUrl, JSON.stringify(postUploadData))
+                   .success(function(data, status, headers, config) {
+                       /* Remove first row name because it's actually the first column header */
+                       data.rows.pop();
+
+                       /* Store RData file path in global JSON object and open next section */
+                       self.parseJsonModel(data);
+                       self.section.broadcastSectionStatus();
+                   })
+                   .error(function(data, status, headers, config) {
+                       console.log('status is: ', status);
+                   })
+                   .finally(function(data) {
+                       console.log('finally, data is: ', data);
+                   });
+            },
             famHist: true,
             sectionReference: 'generate_formula',
             columnNames: ['snp.name', 'snp.odds.ratio', 'snp.freq'],
@@ -108,6 +157,7 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             header: 'Provide Risk Factor for Prediction',
             templateType: 'static',
             sectionReference: 'generate_formula',
+            fileUploadEndpoint: 'csvFileUploadConversion',
             optional: true
         },
         {
@@ -115,6 +165,7 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             header: 'Provide Genotypes for Prediction',
             templateType: 'static',
             sectionReference: 'snp_information',
+            fileUploadEndpoint: 'csvFileUploadConversion',
             optional: true
         },
         {
@@ -202,24 +253,25 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
                         section.isOpen = true;
                         break;
                     case('snp_information'):
-                        section = self.steps[0].sections[7];
-                        section.isDisabled = false;
-                        section.isOpen = true;
-                        break;
-                    case('risk_factor_prediction'):
+                        /* Close last section of first accordion */
+                        self.steps[0].sections[6].isOpen = false;
+
                         section = self.steps[1].sections[0];
                         section.isDisabled = false;
                         section.isOpen = true;
                         break;
-                    case('genotypes_prediction'):
+                    case('risk_factor_prediction'):
                         section = self.steps[1].sections[1];
                         section.isDisabled = false;
                         section.isOpen = true;
                         break;
-                    case('age_interval'):
+                    case('genotypes_prediction'):
                         section = self.steps[1].sections[2];
                         section.isDisabled = false;
                         section.isOpen = true;
+                        break;
+                    case('age_interval'):
+                        console.log('final section completed');
                         break;
                     default:
                         console.log('in switch default');
@@ -230,6 +282,7 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             }
 
             section.init();
+            Cache.getData();
         });
 
         $scope.$on('modalContent', function(event, args) {

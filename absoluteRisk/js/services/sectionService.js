@@ -29,8 +29,9 @@ app.factory('BuildSection', [
                                                             sectionReference: cfg.sectionReference ? cfg.sectionReference : null,
                                                             templateEndpoint: cfg.templateEndpoint ? cfg.templateEndpoint : null,
                                                             fileUploadEndpoint: cfg.fileUploadEndpoint ? cfg.fileUploadEndpoint : null,
+                                                            postUploadActions: cfg.postUploadActions ? cfg.postUploadActions : null,
                                                             postUploadEndpoint: cfg.postUploadEndpoint ? cfg.postUploadEndpoint : null,
-                                                            famHist: cfg.famHist ? cfm.famHist : null
+                                                            famHist: cfg.famHist ? cfg.famHist : null
                                                       }
                                     }
              };
@@ -77,7 +78,6 @@ app.factory('BuildSection', [
                             },
                             onCompleted: function(file, response) {
                                 if (self.model.parseJsonModel) {
-                                    console.log(response);
                                     self.model.parseJsonModel(JSON.parse(response));
                                 }
 
@@ -134,9 +134,6 @@ app.factory('BuildSection', [
                 if (runApply) {
                     $rootScope.$apply();
                 }
-            },
-            getJsonModel: function() {
-                return this.model.getJsonModel();
             }
         };
 

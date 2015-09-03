@@ -18,16 +18,18 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
                 self.referredSectionData = angular.copy(Cache.getUiData(self.sectionReference));
             }
 
+            self.postUploadActions = cfg.postUploadActions;
             self.templateType = cfg.templateType;
             self.templateRows = [];
             self.fileUploadEndpoint = cfg.fileUploadEndpoint;
             self.postUploadEndpoint = cfg.postUploadEndpoint;
 
             if (cfg.famHist) {
-                self.columns = cfg.cols;
-                self.referredSectionData.columns.unshift('Family history is not in the model');
                 self.hasFamHist = cfg.famHist;
+                self.referredSectionData.columns.unshift('Family history is not in the model');
                 self.famHist = self.referredSectionData.columns[0];
+                self.columns = cfg.cols;
+                self.templateCols = self.columns;
             } else {
                 self.columns = cfg.cols ? cfg.cols : self.referredSectionData.columns;
                 self.templateCols = self.columns;
@@ -45,7 +47,6 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
             }
         },
         selectTemplateColumns: function(val) {
-
             if (val === '2') {
                 this.templateCols = this.columns[0];
             } else {
@@ -68,8 +69,6 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
 
                 });
             }
-
-            console.log(csvContent);
 
     		encodedUri = encodeURI(csvContent);
     		window.open(encodedUri, '_self');
@@ -96,43 +95,31 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
                    console.log('finally, data is: ', data);
                });
         },
-        postUploadActions: function(pathObj) {
+        getJsonModel: function() {
             var self = this;
-
-            var postUploadUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/' + self.postUploadEndpoint;
-            var postUploadData = {
-                csvFilePath: pathObj['path_to_file'],
-                rdataFilePath: Cache.getSectionKey(self.sectionReference, 'path_to_file')
+            var obj = {
+                'id': this.section.id,
+                'path_to_file': ''
             };
 
-            console.log(postUploadData.csvFilePath, postUploadData.rdataFilePath);
+            if (self.hasOwnProperty('hasFamHist')) {
+                obj['famHist'] = self.famHist !== self.referredSectionData.columns[0] ? self.famHist : 'NA';
+            }
 
-            /* Passes in path to section CSV file, and path to referred section's RData file */
-            $http.post(postUploadUrl, JSON.stringify(postUploadData))
-               .success(function(data, status, headers, config) {
-                   /* Store RData file path in global JSON object and open next section */
-                   self.parseJsonModel(data);
-                   self.section.broadcastSectionStatus();
-               })
-               .error(function(data, status, headers, config) {
-                   console.log('status is: ', status);
-               })
-               .finally(function(data) {
-                   console.log('finally, data is: ', data);
-               });
-        },
-        getJsonModel: function() {
-            /* For 'default' sections, only need to create {} with section id and possible csv/rdata file paths */
-            Cache.setSectionData(this.section.id, {'id': this.section.id, 'path_to_file': ''} );
-
-            /* Also store column and row template data for potential use by other sections */
-            Cache.setUiData(this.section.id, {columns: this.templateCols, rows: this.templateRows });
+            return obj;
         },
         parseJsonModel: function(model) {
-            this.getJsonModel();
+            var m = this.getJsonModel();
+
+            /* For 'default' sections, only need to create {} with section id and possible csv/rdata file paths */
+            Cache.setSectionData(this.section.id, m);
 
             if (model) {
                 var filePath = model.path_to_file;
+                var rows = model.hasOwnProperty('rows') ? model.rows : this.templateRows;
+
+                /* Also store column and row template data for potential use by other sections */
+                Cache.setUiData(this.section.id, {columns: this.templateCols, rows: rows });
 
                 Cache.setSectionKey(this.section.id, 'path_to_file', filePath);
             }

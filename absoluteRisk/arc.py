@@ -7,7 +7,7 @@ import time
 import json
 import StringIO
 import string
-import time
+import csv
 from flask import Flask, render_template, request, jsonify, make_response, send_from_directory
 from rpy2.robjects.packages import SignatureTranslatedAnonymousPackage
 from rpy2.robjects.vectors import IntVector, FloatVector
@@ -179,12 +179,36 @@ def mortalityRates():
         jsonData = json.loads(request.data)
         pathToMortalityRatesCSVFile = jsonData['csvFilePath']
         pathToDiseaseRatesRDataFile = jsonData['rdataFilePath']
+        filename = os.path.basename(pathToMortalityRatesCSVFile)
 
         convertedFilePath = app.config['rdata_upload_folder'] + '/' + filename
-        rdata_file_path = arc_wrapper.process_disease_rates(filepath, convertedFilePath)[0]
+        rdata_file_path = arc_wrapper.process_competing_rates(pathToMortalityRatesCSVFile, pathToDiseaseRatesRDataFile, convertedFilePath)[0]
 
         print rdata_file_path
         return json.dumps({'path_to_file': rdata_file_path})
+
+    return ''
+
+# This route takes 2 params for R calculations, and returns the RData file path as JSON
+@app.route('/absoluteRiskRest/snpInformation', methods=['POST'])
+def snpInformation():
+    if request.method == 'POST':
+        jsonData = json.loads(request.data)
+        pathToSnpCSVFile = jsonData['csvFilePath']
+        famHistVarName = jsonData['famHist']
+        filename = os.path.basename(pathToSnpCSVFile)
+
+        convertedFilePath = app.config['rdata_upload_folder'] + '/' + filename
+        rdata_file_path = arc_wrapper.process_SNP_info(pathToSnpCSVFile, famHistVarName, convertedFilePath)[0]
+        snpColNames = []
+
+        with open(pathToSnpCSVFile) as f:
+            reader = csv.reader(f, delimiter="\t")
+            for i in reader:
+                colName = i[0].split(',')[0]
+                snpColNames.append(colName)
+
+        return json.dumps({'path_to_file': rdata_file_path, 'rows': snpColNames })
 
     return ''
 
