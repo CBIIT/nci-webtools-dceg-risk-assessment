@@ -13,6 +13,7 @@ from rpy2.robjects.packages import SignatureTranslatedAnonymousPackage
 from rpy2.robjects.vectors import IntVector, FloatVector
 from socket import gethostname
 from werkzeug import secure_filename
+import tempfile
 
 UPLOAD_CSV_FOLDER = 'uploads/csv'
 UPLOAD_RDATA_FOLDER = 'uploads/rdata'
@@ -109,15 +110,38 @@ def dataUpload():
 
     return ''
 
+# This route takes in a JSON object, converts it to a CSV file, and returns the file to the user
+@app.route('/absoluteRiskRest/exportToCsv', methods=['POST'])
+def exportToCsv():
+    if request.method == 'POST':
+        csvModel = json.loads(request.data)
+        csvFileId = csvModel['id']
+        csvContent = csvModel['content']
+
+        filename = time.strftime("%Y%m%d-%H%M%S") + "_" + csvFileId + ".csv"
+        filepath = app.config['csv_upload_folder'] + '/' + filename
+
+        with open(filepath,"wb") as fo:
+                fo.write(csvContent)
+
+        return filepath
+
+    return ''
+
 # This route returns a specified file, if it exists on the server
 @app.route('/absoluteRiskRest/downloadFile', methods=['GET'])
 def downloadFile():
     if 'filename' in request.args:
         filename = request.args['filename']
-        filepath = os.path.join(app.config['rdata_upload_folder'], filename)
+        fileFolder = app.config['rdata_upload_folder']
+
+        if string.lower(filename.rsplit('.', 1)[1]) == 'csv':
+            fileFolder = app.config['csv_upload_folder']
+
+        filepath = os.path.join(fileFolder, filename)
 
         if (os.path.isfile(filepath)):
-            return send_from_directory(app.config['rdata_upload_folder'], filename, as_attachment=True)
+            return send_from_directory(fileFolder, filename, as_attachment=True)
         else:
             return 'This file no longer exists'
     else:

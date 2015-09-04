@@ -60,22 +60,35 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
         exportToCsv: function(e) {
             var self = this;
             var filename = self.section.id;
-        	var csvContent;
+            var csvExportUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/exportToCsv';
+        	var csvData = {
+                id: self.section.id,
+                content: ''
+            };
 
             e.preventDefault();
             e.stopPropagation();
 
-            csvContent = 'data:text/csv;charset=utf-8,' + self.templateCols.join(',') + '\n';
+            csvData.content = self.templateCols.join(',') + '\n';
 
             if (self.templateRows.length) {
                 angular.forEach(self.templateRows, function(row) {
-                    csvContent += row + '\n';
+                    csvData.content += row + '\n';
 
                 });
             }
 
-    		encodedUri = encodeURI(csvContent);
-    		window.open(encodedUri, '_self');
+            $http.post(csvExportUrl, JSON.stringify(csvData))
+               .success(function(data, status, headers, config) {
+                   var fileName = data.replace(/^.*[\\\/]/, '');
+                   window.location = 'http://' + window.location.hostname + '/absoluteRiskRest/downloadFile?filename=' + fileName;
+               })
+               .error(function(data, status, headers, config) {
+                   console.log('status is: ', status);
+               })
+               .finally(function(data) {
+                   console.log('finally, data is: ', data);
+               });
         },
         getRemoteData: function(url) {
             var self = this;

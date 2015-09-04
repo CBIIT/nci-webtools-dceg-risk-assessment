@@ -297,7 +297,12 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
                 /* Means state === 'edit' */
             }
 
-            section.init();
+            if (section) {
+                section.init();
+            } else {
+                console.log('data must be complete since no more sections left');
+            }
+            
             Cache.getData();
         });
 
