@@ -7,10 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Latest AngularJS from CDN -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-sanitize.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-sanitize.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.12.1/select.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-animate.min.js"></script>
 
     <!-- Local -->
     <script src="js/angular-ui-uploader.min.js"></script>
@@ -68,10 +69,10 @@
                         <form id="{{section.id}}" ng-if="section.type === 'variable_list'">
                             <div class="form-group">
                                 <label class="radio-inline">
-                                    <input type="radio" name="{{'age_section_' + $index}}" value="manual" ng-model="section.model.inputMethod" ng-click="section.init()" ng-disabled="section.model.inputMethod === 'manual'"> Manual
+                                    <input type="radio" name="{{'variable_section_' + $index}}" value="manual" ng-model="section.model.inputMethod" ng-click="section.init()" ng-disabled="section.model.inputMethod === 'manual'"> Manual
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="{{'age_section_' + $index}}" value="upload" ng-model="section.model.inputMethod" ng-click="section.init()" ng-disabled="section.model.inputMethod === 'upload'" checked> Upload (as RData file)
+                                    <input type="radio" name="{{'variable_section_' + $index}}" value="upload" ng-model="section.model.inputMethod" ng-click="section.init()" ng-disabled="section.model.inputMethod === 'upload'" checked> Upload (as RData file)
                                 </label>
                             </div>
                             <div ng-show="section.model.inputMethod === 'manual'">
@@ -144,66 +145,85 @@
                                 </div>
                             </div>
                         </form>
-                        <form ng-if="section.type === 'generate_formula'">
-                            <div class="col-xs-6">
-                                <table class="table table-striped table-responsive">
-                                    <thead>
-                                        <tr>
-                                            <th>Variable Name</th>
-                                            <th>Linear Terms</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="variable in section.model.variables">
-                                            <td>
-                                                <span>{{variable.name}}</span>
-                                            </td>
-                                            <td>
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox" ng-model="variable.linear" ng-change="variable.alertLinearState()" ng-disabled="section.model.status === 'confirmed'">
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div class="btn-toolbar">
-                                    <button type="button" class="btn btn-primary pull-right" ng-click="section.model.toggleStatus('confirmed')" ng-disabled="section.model.status === 'confirmed'">
-                                        Confirm
-                                    </button>
-                                    <button type="button" class="btn btn-info pull-right" ng-click="section.model.toggleStatus('edit')" ng-disabled="section.model.status === 'edit'">
-                                        Edit
-                                    </button>
+                        <form id="{{section.id}}" ng-if="section.type === 'generate_formula'">
+                            <div class="form-group">
+                                <label class="radio-inline">
+                                    <input type="radio" name="{{'formula_section_' + $index}}" value="manual" ng-model="section.model.inputMethod" ng-click="section.init()" ng-disabled="section.model.inputMethod === 'manual'"> Manual
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="{{'formula_section_' + $index}}" value="upload" ng-model="section.model.inputMethod" ng-click="section.init()" ng-disabled="section.model.inputMethod === 'upload'" checked> Upload (as RData file)
+                                </label>
+                            </div>
+                            <div ng-show="section.model.inputMethod === 'manual'">
+                                <div class="col-xs-6">
+                                    <table class="table table-striped table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th>Variable Name</th>
+                                                <th>Linear Terms</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="variable in section.model.variables">
+                                                <td>
+                                                    <span>{{variable.name}}</span>
+                                                </td>
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" ng-model="variable.linear" ng-change="variable.alertLinearState()" ng-disabled="section.model.status === 'confirmed'">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="btn-toolbar">
+                                        <button type="button" class="btn btn-primary pull-right" ng-click="section.model.toggleStatus('confirmed')" ng-disabled="section.model.status === 'confirmed'">
+                                            Confirm
+                                        </button>
+                                        <button type="button" class="btn btn-info pull-right" ng-click="section.model.toggleStatus('edit')" ng-disabled="section.model.status === 'edit'">
+                                            Edit
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6" ng-show="section.model.status === 'confirmed'">
+                                    <table class="table table-striped table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th>Variable Name</th>
+                                                <th>Interaction Terms</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="variable in section.model.variables">
+                                                <td>
+                                                    <span>{{variable.name}}</span>
+                                                </td>
+                                                <td>
+                                                    <ui-select multiple ng-model="variable.interaction" theme="bootstrap" ng-show="variable.linear && variable.fakeTermsLength">
+                                                      <ui-select-match placeholder="No selection...">{{$item.name}}</ui-select-match>
+                                                      <ui-select-choices repeat="term in variable.terms | verifyTerms: variable.terms: section.model.variables">
+                                                        <div ng-bind-html="term.name | highlight: $select.search"></div>
+                                                      </ui-select-choices>
+                                                    </ui-select>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="btn-toolbar">
+                                        <button type="button" class="btn btn-primary pull-right" ng-click="section.model.saveModel()">Save Model</button>
+                                        <button type="button" class="btn btn-info pull-right" ng-click="section.model.generateFormula()">Generate Formula</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-xs-6" ng-show="section.model.status === 'confirmed'">
-                                <table class="table table-striped table-responsive">
-                                    <thead>
-                                        <tr>
-                                            <th>Variable Name</th>
-                                            <th>Interaction Terms</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="variable in section.model.variables">
-                                            <td>
-                                                <span>{{variable.name}}</span>
-                                            </td>
-                                            <td>
-                                                <ui-select multiple ng-model="variable.interaction" theme="bootstrap" ng-show="variable.linear && variable.fakeTermsLength">
-                                                  <ui-select-match placeholder="No selection...">{{$item.name}}</ui-select-match>
-                                                  <ui-select-choices repeat="term in variable.terms | verifyTerms: variable.terms: section.model.variables">
-                                                    <div ng-bind-html="term.name | highlight: $select.search"></div>
-                                                  </ui-select-choices>
-                                                </ui-select>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div class="btn-toolbar">
-                                    <button type="button" class="btn btn-primary pull-right" ng-click="section.model.saveModel()">Save Model</button>
-                                    <button type="button" class="btn btn-info pull-right" ng-click="section.model.generateFormula()">Generate Formula</button>
+                            <div ng-show="section.model.inputMethod === 'upload'">
+                                <div class="form-group">
+                                    <span class="btn btn-info btn-file">
+                                        Browse <input type="file" id="{{section.id + '_file'}}" arc-file-change>
+                                    </span>
+                                    <span ng-model="section.file">{{section.file.name}}</span>
+                                    <span ng-show="!section.file">No file selected</span>
                                 </div>
                             </div>
                         </form>

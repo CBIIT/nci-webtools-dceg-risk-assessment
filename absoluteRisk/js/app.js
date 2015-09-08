@@ -1,5 +1,5 @@
 /* A calculator tool with an accordion form UI */
-var app = angular.module('Arc', ['ui.bootstrap', 'ui.select', 'ngSanitize', 'ui.uploader']);
+var app = angular.module('Arc', ['ui.bootstrap', 'ui.select', 'ngSanitize', 'ui.uploader', 'ngAnimate']);
 
 app.filter('verifyTerms', function() {
     return function(input, terms, varList) {
@@ -302,7 +302,7 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             } else {
                 console.log('data must be complete since no more sections left');
             }
-            
+
             Cache.getData();
         });
 

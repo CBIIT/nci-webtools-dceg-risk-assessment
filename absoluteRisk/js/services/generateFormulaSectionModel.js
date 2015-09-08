@@ -3,6 +3,7 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', '$h
     function GenFormulaModel(parent) {
         var self = this;
 
+        self.inputMethod = 'manual';
         self.status = 'edit';
         self.toggleStatus = function(status) {
             self.status = status;
@@ -17,16 +18,24 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', '$h
             var list = dataModel.data;
             var tempList = angular.copy(list);
 
-            self.variables = [];
-            self.status = 'edit';
-            self.fileUploadEndpoint = cfg.fileUploadEndpoint;
+            if (self.inputMethod === 'manual') {
+                self.variables = [];
+                self.status = 'edit';
+                self.fileUploadEndpoint = cfg.fileUploadEndpoint;
 
-            angular.forEach(list, function(variable) {
-                tempList.shift();
+                angular.forEach(list, function(variable) {
+                    tempList.shift();
 
-                var formulaVar = new FormulaVariable(variable, angular.copy(tempList), self);
-                self.variables.push(formulaVar);
-            });
+                    var formulaVar = new FormulaVariable(variable, angular.copy(tempList), self);
+                    self.variables.push(formulaVar);
+                });
+            } else {
+                /* Reset form to reset file input */
+                var sectionForm = document.getElementById(self.section.id);
+                sectionForm.reset();
+
+                self.section.file = null;
+            }
         },
         generateFormula: function() {
             var genFormulaUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/generateFormula';
@@ -65,26 +74,57 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', '$h
             }
         },
         getJsonModel: function() {
-            var list = [];
-            var rowNames = [];
-
-            angular.forEach(this.variables, function(variable) {
-                if (variable.linear) {
-                    rowNames.push(variable.name);
-                }
-
-                list.push(variable.getJsonModel());
-            });
+            var variablesObj = getLinearVariables(this.variables, true);
 
             return {
                 id: this.section.id,
-                data: list,
+                data: variablesObj.list,
                 ui: {
-                    rows: rowNames
+                    rows: variablesObj.linearVars
                 }
             };
+        },
+        parseJsonModel: function(model) {
+            if (model) {
+                var m = model;
+                var filePath = m.shift()['path_to_file'];
+                var linearVarsFromRDataFile = getLinearVariables(m).linearVars;
+                var sectionData = {
+                    'id': this.section.id,
+                    'path_to_file': filePath,
+                    'data': m
+                };
+
+                console.log('parsed model is: ', model);
+                Cache.setSectionData(this.section.id, sectionData);
+                Cache.setUiData(this.section.id, { rows: linearVarsFromRDataFile });
+                Cache.getUiData(this.section.id);
+            }
         }
     };
+
+    /* Helper Functions */
+    function getLinearVariables(model, isJsonMethod) {
+        var self = this;
+        var list = [];
+        var linearVars = [];
+        var allVars = model;
+
+        angular.forEach(allVars, function(variable) {
+            if (variable.linear) {
+                linearVars.push(variable.name);
+            }
+
+            if (isJsonMethod) {
+                list.push(variable.getJsonModel());
+            }
+        });
+
+        return {
+            list: list,
+            linearVars: linearVars
+        };
+    }
 
     return GenFormulaModel;
 }]);
