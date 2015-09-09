@@ -227,7 +227,7 @@ def snpInformation():
         snpColNames = []
 
         with open(pathToSnpCSVFile) as f:
-            reader = csv.reader(f, delimiter="\t")
+            reader = csv.reader(f, dialect=csv.excel_tab, delimiter="\t")
             for i in reader:
                 colName = i[0].split(',')[0]
                 snpColNames.append(colName)
