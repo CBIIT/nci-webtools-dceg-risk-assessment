@@ -27,6 +27,7 @@
     <script src="js/services/variableListSectionModel.js"></script>
     <script src="js/services/generateFormulaSectionModel.js"></script>
     <script src="js/services/ageIntervalSectionModel.js"></script>
+    <script src="js/services/snpSectionModel.js"></script>
     <script src="js/services/defaultSectionModel.js"></script>
     <script src="js/services/variable.js"></script>
     <script src="js/services/formulaVariable.js"></script>
@@ -227,7 +228,7 @@
                                 </div>
                             </div>
                         </form>
-                        <form ng-if="section.type === 'default'">
+                        <form ng-if="section.type === 'default' || section.type === 'snp_information'">
                             <div>
                                 <label>
                                     <input type="checkbox" ng-model="section.model.genTemplate"> Generate Template
@@ -279,10 +280,13 @@
                                 <span ng-model="section.file">{{section.file.name}}</span>
                                 <span ng-show="!section.file">No file selected</span>
                             </div>
-                            <div class="form-group" ng-show="section.model.hasFamHist">
+                            <div class="form-group" ng-show="section.type === 'snp_information'">
                                 <span>Family History Variable Name: </span>
                                 <select ng-model="section.model.famHist" ng-options="row for row in section.model.sectionDependencyData.rows">
                                 </select>
+                            </div>
+                            <div class="btn-toolbar" ng-show="section.type === 'snp_information'">
+                                <button type="button" class="btn btn-primary pull-right" ng-click="section.model.saveModel()">Save As RData</button>
                             </div>
                         </form>
                         <form ng-if="section.type === 'age_interval'">

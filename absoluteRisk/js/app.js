@@ -122,7 +122,7 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
         {
             id: 'snp_information',
             header: 'Provide SNP Information',
-            templateType: 'static',
+            type: 'snp_information',
             fileUploadEndpoint: 'csvFileUpload',
             postUploadEndpoint: 'snpInformation',
             postUploadActions: function(pathObj) {
@@ -142,7 +142,6 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
 
                        /* Store RData file path in global JSON object and open next section */
                        self.parseJsonModel(data);
-                       self.section.broadcastSectionStatus();
                    })
                    .error(function(data, status, headers, config) {
                        console.log('status is: ', status);
@@ -153,7 +152,6 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             },
             sectionDependency:  {
                 id: 'generate_formula',
-                mapping: 'list'
             },
             columnNames: ['snp.name', 'snp.odds.ratio', 'snp.freq'],
             optional: true

@@ -10,12 +10,13 @@ app.factory('BuildSection', [
     'BuildVariableListModel',
     'BuildGenFormulaModel',
     'BuildAgeIntervalModel',
+    'BuildSnpModel',
     'BuildDefaultModel',
     '$rootScope',
     'uiUploader',
     '$http',
     'CacheService',
-    function(vlModel, gfModel, aiModel, defModel, $rootScope, uiUploader, $http, Cache) {
+    function(vlModel, gfModel, aiModel, snpModel, defModel, $rootScope, uiUploader, $http, Cache) {
         function Section(cfg) {
             var self = this;
 
@@ -27,6 +28,14 @@ app.factory('BuildSection', [
                                                             cols: cfg.columnNames
                                                       }
                                     },
+                'snp_information':  { func: snpModel, params: {
+                                                            cols: cfg.columnNames,
+                                                            sectionDependency: cfg.sectionDependency ? cfg.sectionDependency : null,
+                                                            fileUploadEndpoint: cfg.fileUploadEndpoint ? cfg.fileUploadEndpoint : null,
+                                                            postUploadActions: cfg.postUploadActions ? cfg.postUploadActions : null,
+                                                            postUploadEndpoint: cfg.postUploadEndpoint ? cfg.postUploadEndpoint : null
+                                                      }
+                                    },
                 'default':          { func: defModel, params: {
                                                             templateType: cfg.templateType,
                                                             cols: cfg.columnNames,
@@ -34,8 +43,7 @@ app.factory('BuildSection', [
                                                             templateEndpoint: cfg.templateEndpoint ? cfg.templateEndpoint : null,
                                                             fileUploadEndpoint: cfg.fileUploadEndpoint ? cfg.fileUploadEndpoint : null,
                                                             postUploadActions: cfg.postUploadActions ? cfg.postUploadActions : null,
-                                                            postUploadEndpoint: cfg.postUploadEndpoint ? cfg.postUploadEndpoint : null,
-                                                            famHist: cfg.famHist ? cfg.famHist : null
+                                                            postUploadEndpoint: cfg.postUploadEndpoint ? cfg.postUploadEndpoint : null
                                                       }
                                     }
              };
@@ -114,10 +122,15 @@ app.factory('BuildSection', [
                 $http.post(this.dataUrl, sectionData)
                    .success(function(data, status, headers, config) {
                        /* Change location to endpoint to force 'file download' dialog */
-                       window.location = 'http://' + window.location.hostname + '/absoluteRiskRest/downloadFile?filename=' + data;
+                       if (!self.model.rdataStoreOnly) {
+                           window.location = 'http://' + window.location.hostname + '/absoluteRiskRest/downloadFile?filename=' + data;
 
-                       /* Save returned file path to section as section key/value pair */
-                       Cache.setSectionKey(self.id, 'path_to_file', uploadPath + data);
+                           /* Save returned file path to section as section key/value pair */
+                           Cache.setSectionKey(self.id, 'path_to_file', uploadPath + data);
+                       } else {
+                           /* Save returned file path to section as section key/value pair */
+                           Cache.setSectionKey(self.id, 'path_to_famHist_file', uploadPath + data);
+                       }
 
                        self.broadcastSectionStatus();
                    })
