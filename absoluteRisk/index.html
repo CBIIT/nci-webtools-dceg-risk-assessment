@@ -58,7 +58,7 @@
             <div ng-repeat="step in accordion.steps">
                 <div class="form-group clearfix" ng-if="step.id === 'apply'">
                     <form>
-                        <button type="button" class="btn btn-primary pull-right" ng-click="">
+                        <button type="button" class="btn btn-success pull-right" ng-click="">
                             Save Model
                         </button>
                     </form>
@@ -132,7 +132,7 @@
                                     Add a Variable
                                 </button>
                                 <button type="button" class="btn btn-primary pull-right" ng-click="section.model.saveModel()">
-                                    Save Model
+                                    Save As RData
                                 </button>
                             </div>
                             <div ng-show="section.model.inputMethod === 'upload'">
@@ -212,7 +212,7 @@
                                         </tbody>
                                     </table>
                                     <div class="btn-toolbar">
-                                        <button type="button" class="btn btn-primary pull-right" ng-click="section.model.saveModel()">Save Model</button>
+                                        <button type="button" class="btn btn-primary pull-right" ng-click="section.model.saveModel()">Save As RData</button>
                                         <button type="button" class="btn btn-info pull-right" ng-click="section.model.generateFormula()">Generate Formula</button>
                                     </div>
                                 </div>
@@ -306,7 +306,7 @@
                                     </select>
                                 </div>
                                 <button type="button" class="btn btn-primary pull-right" ng-click="section.model.saveModel()">
-                                    Save Model
+                                    Save As RData
                                 </button>
                             </div>
                             <div ng-show="section.model.inputMethod === 'upload'">
@@ -345,7 +345,7 @@
             </div>
             <div class="form-group clearfix">
                 <form>
-                    <button type="button" class="btn btn-primary pull-right">
+                    <button type="button" class="btn btn-success pull-right">
                         Calculate
                     </button>
                 </form>
