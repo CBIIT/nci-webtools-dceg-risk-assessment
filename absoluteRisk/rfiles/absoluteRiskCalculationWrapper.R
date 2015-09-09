@@ -408,6 +408,37 @@ dev.off()
 }
 
 #----------------------------------------------------
+# Name: process_age_code_helper.R
+# Function: check the age inputs 
+# (merged age_start and age_interval into one parameter for use with manual form submission)
+#
+# Inputs: 5 RData file names. Examples:
+#    (1) age_RData="age_interval.rdata"
+#    (2) cov_new_RData="cov_new.RData"
+#    (3) snp_info_RData="snp_info.RData"
+#    (4) disease_rates_RData="pop_rates.RData"
+#    (5) competing_rates_RData="mort_rates_default_US.RData"
+
+# outputs: "NULL" if no errors.
+#----------------------------------------------------
+
+process_age_code_helper <- function(ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_RData, cov_new_RData, disease_rates_RData, competing_rates_RData)
+{
+  age <- get(load(age_RData))
+  
+  age_start <- age$age
+  age_interval <- age$ageInterval
+  
+  age_start_RData <- "age_start.RData"
+  age_interval_RData <- "age_interval.RData"
+  
+  save(age_start, file = age_start_RData)
+  save(age_interval, file = age_interval_RData)
+  
+  process_age_code(ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_start_RData, age_interval_RData, cov_new_RData, disease_rates_RData, competing_rates_RData)
+    
+}
+#----------------------------------------------------
 # Name: process_age_code_old.R
 # Function: check the age inputs
 #
