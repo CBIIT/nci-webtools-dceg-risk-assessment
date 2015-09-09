@@ -21,7 +21,10 @@ app.factory('CacheService', function() {
 
     self.getSectionKey = function(section, sectionKey) {
         console.log(section + ' remote data after key is: ', self.remoteData[section]);
-        return self.remoteData[section][sectionKey];
+
+        if (self.remoteData.hasOwnProperty(section) && self.remoteData[section].hasOwnProperty(sectionKey)) {
+            return self.remoteData[section][sectionKey];
+        }
     };
 
     self.setSectionKey = function(section, sectionKey, keyValue) {

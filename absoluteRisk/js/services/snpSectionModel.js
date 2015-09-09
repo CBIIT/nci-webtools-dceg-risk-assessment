@@ -1,4 +1,4 @@
-/* Creates a Default section model */
+/* Creates a SNP Information section model */
 app.factory('BuildSnpModel', ['CacheService', '$http', '$rootScope', function(Cache, $http, $rootScope) {
     function snpModel(parent) {
         var self = this;
@@ -73,13 +73,14 @@ app.factory('BuildSnpModel', ['CacheService', '$http', '$rootScope', function(Ca
             var filePath = Cache.getSectionKey(this.section.id, 'path_to_file');
             var obj = {
                 'id': this.section.id,
-                'famHist': self.famHist !== self.sectionDependencyData.rows[0] ? self.famHist : 'NA',
-                'path_to_file': '',
-                'path_to_famHist_file': ''
+                data: {
+                    'famHist': self.famHist !== self.sectionDependencyData.rows[0] ? self.famHist : 'NA',
+                    'path_to_file': ''
+                }
             };
 
             if (filePath) {
-                obj['path_to_file'] = filePath;
+                obj.data['path_to_file'] = filePath;
             }
 
             return obj;
