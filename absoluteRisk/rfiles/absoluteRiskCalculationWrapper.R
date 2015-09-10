@@ -362,7 +362,7 @@ process_SNP_info <- function(filename, famHist, convertedFilePath)
 #
 #------------------------------------------------------
 
-process_age_code <- function(ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_start_RData, age_interval_RData, cov_new_RData, disease_rates_RData, competing_rates_RData)
+process_age_code <- function(ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_start_RData, age_interval_RData, cov_new_RData, disease_rates_RData, competing_rates_RData, genotype_new_RData)
 {
   apply.age.start=get(load(age_start_RData))
   apply.age.interval.length=get(load(age_interval_RData))
@@ -422,7 +422,7 @@ dev.off()
 # outputs: "NULL" if no errors.
 #----------------------------------------------------
 
-process_age_code_helper <- function(ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_RData, cov_new_RData, disease_rates_RData, competing_rates_RData)
+process_age_code_helper <- function(ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_RData, cov_new_RData, disease_rates_RData, competing_rates_RData, genotype_new_RData)
 {
   age <- get(load(age_RData))
   
