@@ -336,7 +336,7 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
 
     self.calculateData = function() {
         var accordionData = Cache.createFilePathsObject();
-        var calculateDataUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/exportToCsv';
+        var calculateDataUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/calculate';
 
         console.log('accordion data is: ', accordionData);
 

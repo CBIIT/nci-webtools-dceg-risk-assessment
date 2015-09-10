@@ -49,6 +49,10 @@ app.factory('CacheService', function() {
                 'path_to_file': globalData[sectionKey]['path_to_file']
             };
 
+            if (sectionKey === 'generate_formula') {
+                filePathsObj[sectionKey]['formulaData'] = globalData[sectionKey]['data'];
+            }
+
             if (sectionKey === 'snp_information') {
                 filePathsObj[sectionKey]['path_to_famHist_file'] = globalData[sectionKey]['path_to_famHist_file'];
             }

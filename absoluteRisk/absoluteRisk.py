@@ -243,7 +243,6 @@ def calculate():
         jsonData = json.loads(request.data)
 
         ref_dataset_RData = jsonData['risk_factor_distribution']['path_to_file']
-        model_predictor_RData = jsonData['generate_formula']['path_to_file']
         log_odds_RData = jsonData['log_odds_ratios']['path_to_file']
         list_of_variables_RData = jsonData['variable_list']['path_to_file']
         snp_info_RData = jsonData['snp_information']['path_to_file']
@@ -253,6 +252,10 @@ def calculate():
         genotype_new_RData = jsonData['genotypes_prediction']['path_to_file']
         disease_rates_RData = jsonData['disease_incidence_rates']['path_to_file']
         competing_rates_RData = jsonData['mortality_incidence_rates']['path_to_file']
+
+        #model_predictor_formula = jsonData['generate_formula']['formulaData']
+        model_predictor_RData = jsonData['generate_formula']['path_to_file']
+        #model_predictor_RData = arc_wrapper.create_formula(json.dumps(formulaData), list_of_variables_RData)
 
         results = arc_wrapper.process_age_code_helper(ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_RData, cov_new_RData, genotype_new_RData, disease_rates_RData, competing_rates_RData)
 
