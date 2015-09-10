@@ -389,7 +389,7 @@ process_age_code <- function(ref_dataset_RData, model_predictor_RData, log_odds_
                                   use.c.code = 1,  return.lp = FALSE, return.refs.risk = TRUE)
 
   if(length(results$risk)<=12){
-    jpeg('rplot.jpg', width = 9, height = 9, units = 'in', res = 600)
+    jpeg('tmp/rplot.jpg', width = 9, height = 9, units = 'in', res = 600)
     par(mfrow=c(3,4))
     for(i in 1:length(results$risk)){
       plot(density(results$refs.risk, na.rm=T), main=paste("Subject ", i, sep=""), ylab = "Smoothed Frequency Density", xlab="Absolute Risk", lwd=2)
@@ -397,19 +397,27 @@ process_age_code <- function(ref_dataset_RData, model_predictor_RData, log_odds_
     }
     dev.off()
   }else{
-    jpeg('rplot.jpg', width = 9, height = 9, units = 'in', res = 600)
+    jpeg('tmp/rplot.jpg', width = 9, height = 9, units = 'in', res = 600)
 plot(density(results$risk, na.rm=T), main="Absolute Risk Distribution", ylab = "Smoothed Frequency Density", xlab="Absolute Risk", lwd=2)
 dev.off()
   }
   res = results$details
   ref = results$refs.risk
-  write.csv(res , file="results.csv")
-  write.csv(ref , file="results_reference.csv")
+  #write.csv(res , file="results.csv")
+  #write.csv(ref , file="results_reference.csv")
+
+  write.csv(res , file="tmp/results.csv")
+  write.csv(ref , file="tmp/results_reference.csv")
+
+  results = list()
+  results = c(results, '/tmp/rplot.jpg', 'tmp/results.csv', 'tmp/results_reference.csv')
+
+  return (results)
 }
 
 #----------------------------------------------------
 # Name: process_age_code_helper.R
-# Function: check the age inputs 
+# Function: check the age inputs
 # (merged age_start and age_interval into one parameter for use with manual form submission)
 #
 # Inputs: 5 RData file names. Examples:
@@ -425,18 +433,21 @@ dev.off()
 process_age_code_helper <- function(ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_RData, cov_new_RData, genotype_new_RData, disease_rates_RData, competing_rates_RData)
 {
   age <- get(load(age_RData))
-  
+
   age_start <- age$age
   age_interval <- age$ageInterval
-  
-  age_start_RData <- "age_start.RData"
-  age_interval_RData <- "age_interval.RData"
-  
+
+  #age_start_RData <- "age_start.RData"
+  #age_interval_RData <- "age_interval.RData"
+
+  age_start_RData <- "uploads/rdata/age_start.RData"
+  age_interval_RData <- "uploads/rdata/age_interval.RData"
+
   save(age_start, file = age_start_RData)
   save(age_interval, file = age_interval_RData)
-  
+
   process_age_code(ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_start_RData, age_interval_RData, cov_new_RData, genotype_new_RData, disease_rates_RData, competing_rates_RData)
-    
+
 }
 #----------------------------------------------------
 # Name: process_age_code_old.R
