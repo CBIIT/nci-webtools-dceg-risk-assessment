@@ -286,7 +286,7 @@
                                 </select>
                             </div>
                             <div class="btn-toolbar" ng-show="section.type === 'snp_information'">
-                                <button type="button" class="btn btn-primary pull-right" ng-click="section.model.saveModel()">Save As RData</button>
+                                <button type="button" class="btn btn-primary pull-right" ng-click="section.model.saveModel()">Save</button>
                             </div>
                         </form>
                         <form ng-if="section.type === 'age_interval'">
@@ -349,7 +349,7 @@
             </div>
             <div class="form-group clearfix">
                 <form>
-                    <button type="button" class="btn btn-success pull-right">
+                    <button type="button" class="btn btn-success pull-right" ng-click="accordion.calculateData()">
                         Calculate
                     </button>
                 </form>
@@ -357,7 +357,15 @@
         </div>
         <div class="col-xs-12 col-md-4">
             <h4>Output</h4>
-            Test Output
+            <div class="result_plot" ng-show="accordion.resultsImage">
+                <img src="{{accordion.resultImage}}" alt="Result" title="Result">
+            </div>
+            <div ng-show="accordion.resultsImage">
+                <hr>
+                <h4>Download Results</h4>
+                <a href="{{accordion.resultsFilePath}}">Results</a>
+                <a href="{{accordion.resultsRefFilePath}}">Results Reference</a>
+            </div>
         </div>
     </div>
     <footer class="container footer">

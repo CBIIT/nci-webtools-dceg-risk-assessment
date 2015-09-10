@@ -5,7 +5,7 @@ app.factory('CacheService', function() {
     self.uiData = {};
 
     self.getData = function() {
-        console.log('Data so far: ', self.remoteData);
+        return self.remoteData;
     };
 
     self.getSectionData = function(section) {
@@ -40,6 +40,23 @@ app.factory('CacheService', function() {
         self.uiData[section] = data;
     };
 
+    self.createFilePathsObject = function() {
+        var globalData = self.getData();
+        var filePathsObj = {};
+
+        for (var sectionKey in globalData) {
+            filePathsObj[sectionKey] = {
+                'path_to_file': globalData[sectionKey]['path_to_file']
+            };
+
+            if (sectionKey === 'snp_information') {
+                filePathsObj[sectionKey]['path_to_famHist_file'] = globalData[sectionKey]['path_to_famHist_file'];
+            }
+        }
+
+        return filePathsObj;
+    };
+
     return {
         getData: self.getData,
         getSectionData: self.getSectionData,
@@ -47,6 +64,7 @@ app.factory('CacheService', function() {
         getSectionKey: self.getSectionKey,
         setSectionKey: self.setSectionKey,
         getUiData: self.getUiData,
-        setUiData: self.setUiData
+        setUiData: self.setUiData,
+        createFilePathsObject: self.createFilePathsObject
     };
 });

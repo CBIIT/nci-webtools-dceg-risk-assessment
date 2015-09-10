@@ -195,7 +195,11 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
     self.ind = 0;
 
     self.formula = '';
-    self.templateData = '';
+
+    /* Results Data */
+    self.resultsImage = '';
+    self.resultsFilePath = 'http://' + window.location.hostname + '/absoluteRiskRest/';
+    self.resultsRefFilePath = 'http://' + window.location.hostname + '/absoluteRiskRest/';
 
     /* Create accordion form data with appropriate configuration */
     for (var i = 0; i < buildConfig.length; i++) {
@@ -328,6 +332,24 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
                 console.log('its a table template');
             }
         });
+    };
+
+    self.calculateData = function() {
+        var accordionData = Cache.createFilePathsObject();
+        var calculateDataUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/exportToCsv';
+
+        console.log('accordion data is: ', accordionData);
+
+        $http.post(calculateDataUrl, JSON.stringify(accordionData))
+           .success(function(data, status, headers, config) {
+               console.log('calculated data is:', data);
+           })
+           .error(function(data, status, headers, config) {
+               console.log('status is: ', status);
+           })
+           .finally(function(data) {
+               console.log('finally, data is: ', data);
+           });
     };
 
     self.init();

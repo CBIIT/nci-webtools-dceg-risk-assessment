@@ -66,7 +66,7 @@ app.factory('BuildSnpModel', ['CacheService', '$http', '$rootScope', function(Ca
             /* Validation will occur before Cache sets data, flesh out here */
             var model = this.getJsonModel();
 
-            this.section.setSectionState(isValid, model, this.section.id);
+            this.section.setSectionState(true, model, this.section.id);
         },
         getJsonModel: function() {
             var self = this;
