@@ -435,7 +435,7 @@ process_age_code_helper <- function(ref_dataset_RData, model_predictor_RData, lo
   save(age_start, file = age_start_RData)
   save(age_interval, file = age_interval_RData)
   
-  process_age_code(ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_start_RData, age_interval_RData, cov_new_RData, disease_rates_RData, competing_rates_RData)
+  process_age_code(ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_start_RData, age_interval_RData, cov_new_RData, disease_rates_RData, competing_rates_RData, genotype_new_RData)
     
 }
 #----------------------------------------------------
