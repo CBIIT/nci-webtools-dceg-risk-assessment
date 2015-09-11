@@ -137,7 +137,7 @@ compute.absolute.risk <- function(model.formula = NULL, model.cov.info = NULL, m
     snps.betas <- log( model.snp.info[,"snp.odds.ratio"] )
     snps.freqs <- model.snp.info[,"snp.freq"]
 
-    processed_info = process_SNP_info(covs_in_model, apply.snp.profile, model.bin.fh.name, apply.cov.profile , model.ref.dataset, model.snp.info)
+    processed_info = process_SNP(covs_in_model, apply.snp.profile, model.bin.fh.name, apply.cov.profile , model.ref.dataset, model.snp.info)
 
     attenuate.fh  <-  processed_info[[1]]
     fh.pop        <-  processed_info[[2]]
@@ -1002,7 +1002,7 @@ check_SNP_info <- function(model.snp.info){
   }
 }
 
-process_SNP_info <- function(covs_in_model, apply.snp.profile, model.bin.fh.name, apply.cov.profile , model.ref.dataset, model.snp.info){
+process_SNP <- function(covs_in_model, apply.snp.profile, model.bin.fh.name, apply.cov.profile , model.ref.dataset, model.snp.info){
   if( covs_in_model){
 
     if(is.null(apply.snp.profile)){
