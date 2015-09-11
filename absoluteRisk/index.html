@@ -357,6 +357,16 @@
         </div>
         <div class="col-xs-12 col-md-4">
             <h4>Output</h4>
+            <div class="result_plot" ng-show="accordion.showData">
+                <img src="images/benryanconversion.png" alt="Result" title="Result" />
+            </div>
+            <div ng-show="accordion.showData">
+                <hr>
+                <h4>Download Results</h4>
+                <a href="#">Results</a><br>
+                <a href="#">Results Reference</a>
+            </div>
+            <!--
             <div class="result_plot" ng-show="accordion.resultsImage">
                 <img ng-src="{{accordion.resultsImage}}" alt="Result" title="Result" />
             </div>
@@ -366,6 +376,7 @@
                 <a href="{{accordion.resultsFilePath}}">Results</a>
                 <a href="{{accordion.resultsRefFilePath}}">Results Reference</a>
             </div>
+            -->
         </div>
     </div>
     <footer class="container footer">

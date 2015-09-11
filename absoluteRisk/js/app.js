@@ -201,6 +201,9 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
     self.resultsFilePath = 'http://' + window.location.hostname + '/absoluteRiskRest/';
     self.resultsRefFilePath = 'http://' + window.location.hostname + '/absoluteRiskRest/';
 
+    /* Dummy Result Boolean For Demo Only */
+    self.showData = false;
+
     /* Create accordion form data with appropriate configuration */
     for (var i = 0; i < buildConfig.length; i++) {
         self.buildStep.push(new Section(buildConfig[i]));
@@ -340,6 +343,9 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
 
         console.log('accordion data is: ', accordionData);
 
+        self.showData = true;
+
+/*
         $http.post(calculateDataUrl, JSON.stringify(accordionData))
            .success(function(data, status, headers, config) {
                console.log('calculated data is:', data);
@@ -350,6 +356,7 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
            .finally(function(data) {
                console.log('finally, data is: ', data);
            });
+*/
     };
 
     self.init();
