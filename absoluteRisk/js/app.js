@@ -343,9 +343,12 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
 
         console.log('accordion data is: ', accordionData);
 
+        /* Delegating last section save to global Calculate mechanism */
+        self.steps[1].sections[2].model.saveModel();
+
         self.showData = true;
 
-/*
+
         $http.post(calculateDataUrl, JSON.stringify(accordionData))
            .success(function(data, status, headers, config) {
                console.log('calculated data is:', data);
@@ -356,7 +359,6 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
            .finally(function(data) {
                console.log('finally, data is: ', data);
            });
-*/
     };
 
     self.init();

@@ -5,9 +5,6 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', '$h
 
         self.inputMethod = 'manual';
         self.status = 'edit';
-        self.toggleStatus = function(status) {
-            self.status = status;
-        };
         self.variables = [];
         self.section = parent;
     }
@@ -72,6 +69,25 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', '$h
             if (isValid) {
                 this.section.setSectionState(isValid, model, this.section.id);
             }
+        },
+        toggleStatus: function(status) {
+            var filteredList = [];
+            var linearVars = getLinearVariables(this.variables).linearVars;
+            var variableList = Cache.getSectionKey('variable_list', 'data');
+
+            if (status === 'confirmed') {
+                angular.forEach(variableList, function(variable) {
+                    angular.forEach(linearVars, function(v) {
+                        if (variable.name === v) {
+                            filteredList.push(variable);
+                        }
+                    });
+                });
+            }
+
+            this.status = status;
+
+            console.log('filtered list is: ', filteredList);
         },
         getJsonModel: function() {
             var variablesObj = getLinearVariables(this.variables, true);
