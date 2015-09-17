@@ -67,7 +67,10 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', '$h
             isValid = Cache.setSectionData(this.section.id, model);
 
             if (isValid) {
-                this.section.setSectionState(isValid, model, this.section.id);
+                this.section.setSectionState({
+                    isValid: isValid,
+                    data: model
+                });
             }
         },
         toggleStatus: function(status) {
@@ -83,11 +86,24 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', '$h
                         }
                     });
                 });
+
+                if (filteredList.length < variableList.length) {
+
+                    console.log('filtered list is: ', filteredList);
+                    this.section.setSectionState({
+                        id: 'variable_list',
+                        isValid: isValid,
+                        data: {
+                            id: 'variable_list',
+                            data: filteredList,
+                        },
+                        rdataStoreOnly: true,
+                        skipBroadcast: true
+                    });
+                }
             }
 
             this.status = status;
-
-            console.log('filtered list is: ', filteredList);
         },
         getJsonModel: function() {
             var variablesObj = getLinearVariables(this.variables, true);

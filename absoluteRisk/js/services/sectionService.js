@@ -111,28 +111,30 @@ app.factory('BuildSection', [
                     this.model.init(this.modelMap[this.type].params);
                 }
             },
-            setSectionState: function(bool, data, label) {
+            setSectionState: function(cfg) {
                 var self = this;
-                var sectionData = JSON.stringify(data);
+                var params = cfg;
+                var sectionData = JSON.stringify(params.data);
                 var uploadPath = 'uploads/rdata/';
+                var id = params.id ? params.id : self.id;
+                var pathKey = params.pathKey ? params.pathKey : 'path_to_file';
 
-                this.isOpen = !bool;
+                self.isOpen = !params.isValid;
 
                 /* Ajax call to process save data as RData file and return the file as an attachment */
                 $http.post(this.dataUrl, sectionData)
                    .success(function(data, status, headers, config) {
                        /* Change location to endpoint to force 'file download' dialog */
-                       if (!self.model.rdataStoreOnly) {
+                       if (!params.rdataStoreOnly) {
                            window.location = 'http://' + window.location.hostname + '/absoluteRiskRest/downloadFile?filename=' + data;
-
-                           /* Save returned file path to section as section key/value pair */
-                           Cache.setSectionKey(self.id, 'path_to_file', uploadPath + data);
-                       } else {
-                           /* Save returned file path to section as section key/value pair */
-                           Cache.setSectionKey(self.id, 'path_to_famHist_file', uploadPath + data);
                        }
 
-                       self.broadcastSectionStatus();
+                       Cache.setSectionKey(id, pathKey, uploadPath + data);
+
+                       /* In case any RData files need to be updated without re-initializing a section */
+                       if (!params.skipBroadcast) {
+                           self.broadcastSectionStatus();
+                       }
                    })
                    .error(function(data, status, headers, config) {
                        console.log('status is: ', status);

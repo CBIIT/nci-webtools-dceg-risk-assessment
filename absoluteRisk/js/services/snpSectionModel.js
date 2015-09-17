@@ -27,8 +27,6 @@ app.factory('BuildSnpModel', ['CacheService', '$http', '$rootScope', function(Ca
             self.fileUploadEndpoint = cfg.fileUploadEndpoint;
             self.postUploadActions = cfg.postUploadActions;
             self.postUploadEndpoint = cfg.postUploadEndpoint;
-
-            self.rdataStoreOnly = true;
         },
         exportToCsv: function(e) {
             var self = this;
@@ -66,7 +64,12 @@ app.factory('BuildSnpModel', ['CacheService', '$http', '$rootScope', function(Ca
             /* Validation will occur before Cache sets data, flesh out here */
             var model = this.getJsonModel();
 
-            this.section.setSectionState(true, model, this.section.id);
+            this.section.setSectionState({
+                isValid: true,
+                data: model,
+                rdataStoreOnly: true,
+                pathKey: 'path_to_famHist_file'
+            });
         },
         getJsonModel: function() {
             var self = this;

@@ -62,7 +62,10 @@ app.factory('BuildAgeIntervalModel', ['CacheService', '$http', function(Cache, $
             var isValid = Cache.setSectionData(this.section.id, model);
 
             if (isValid) {
-                this.section.setSectionState(isValid, model, this.section.id);
+                this.section.setSectionState({
+                    isValid: isValid,
+                    data: model
+                });
             }
         },
         getJsonModel: function() {
