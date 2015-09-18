@@ -261,7 +261,7 @@ def calculate():
 
         print results
 
-        json.dumps(results)
+        return results[0]
 
     return ''
 

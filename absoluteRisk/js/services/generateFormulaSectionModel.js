@@ -87,20 +87,16 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', '$h
                     });
                 });
 
-                if (filteredList.length < variableList.length) {
-
-                    console.log('filtered list is: ', filteredList);
-                    this.section.setSectionState({
+                this.section.setSectionState({
+                    id: 'variable_list',
+                    isValid: false,
+                    data: {
                         id: 'variable_list',
-                        isValid: isValid,
-                        data: {
-                            id: 'variable_list',
-                            data: filteredList,
-                        },
-                        rdataStoreOnly: true,
-                        skipBroadcast: true
-                    });
-                }
+                        data: filteredList,
+                    },
+                    rdataStoreOnly: true,
+                    skipBroadcast: true
+                });
             }
 
             this.status = status;

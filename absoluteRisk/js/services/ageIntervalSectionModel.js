@@ -64,7 +64,8 @@ app.factory('BuildAgeIntervalModel', ['CacheService', '$http', function(Cache, $
             if (isValid) {
                 this.section.setSectionState({
                     isValid: isValid,
-                    data: model
+                    data: model,
+                    rdataStoreOnly: true
                 });
             }
         },

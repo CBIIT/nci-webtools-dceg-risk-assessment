@@ -63,9 +63,10 @@ app.factory('BuildSnpModel', ['CacheService', '$http', '$rootScope', function(Ca
         saveModel: function() {
             /* Validation will occur before Cache sets data, flesh out here */
             var model = this.getJsonModel();
+            var isValid = Cache.setSectionData(this.section.id, model);
 
             this.section.setSectionState({
-                isValid: true,
+                isValid: isValid,
                 data: model,
                 rdataStoreOnly: true,
                 pathKey: 'path_to_famHist_file'
@@ -83,7 +84,7 @@ app.factory('BuildSnpModel', ['CacheService', '$http', '$rootScope', function(Ca
             };
 
             if (filePath) {
-                obj.data['path_to_file'] = filePath;
+                obj['path_to_file'] = filePath;
             }
 
             return obj;

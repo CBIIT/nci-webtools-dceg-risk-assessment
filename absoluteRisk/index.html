@@ -69,7 +69,7 @@
                     <form>
                         <h4 class="pull-left">{{step.title}}</h4>
                         <button type="button" class="btn btn-success pull-right" ng-click="" ng-if="step.id === 'build'">
-                            Load (from RData)
+                            Load from RData
                         </button>
                     </form>
                 </div>
@@ -81,7 +81,7 @@
                                     <input type="radio" name="{{'variable_section_' + $index}}" value="manual" ng-model="section.model.inputMethod" ng-click="section.init()" ng-disabled="section.model.inputMethod === 'manual'"> Manual
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="{{'variable_section_' + $index}}" value="upload" ng-model="section.model.inputMethod" ng-click="section.init()" ng-disabled="section.model.inputMethod === 'upload'" checked> Load (from RData)
+                                    <input type="radio" name="{{'variable_section_' + $index}}" value="upload" ng-model="section.model.inputMethod" ng-click="section.init()" ng-disabled="section.model.inputMethod === 'upload'" checked> Load from RData
                                 </label>
                             </div>
                             <div ng-show="section.model.inputMethod === 'manual'">
@@ -160,7 +160,7 @@
                                     <input type="radio" name="{{'formula_section_' + $index}}" value="manual" ng-model="section.model.inputMethod" ng-click="section.init()" ng-disabled="section.model.inputMethod === 'manual'"> Manual
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="{{'formula_section_' + $index}}" value="upload" ng-model="section.model.inputMethod" ng-click="section.init()" ng-disabled="section.model.inputMethod === 'upload'" checked> Load (from RData)
+                                    <input type="radio" name="{{'formula_section_' + $index}}" value="upload" ng-model="section.model.inputMethod" ng-click="section.init()" ng-disabled="section.model.inputMethod === 'upload'" checked> Load from RData
                                 </label>
                             </div>
                             <div ng-show="section.model.inputMethod === 'manual'">

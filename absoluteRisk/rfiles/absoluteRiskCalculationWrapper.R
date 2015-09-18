@@ -410,7 +410,8 @@ dev.off()
   write.csv(ref , file="tmp/results_reference.csv")
 
   results = list()
-  results = c(results, '/tmp/rplot.jpg', 'tmp/results.csv', 'tmp/results_reference.csv')
+  results = c(results, 'tmp/rplot.jpg', 'tmp/results.csv', 'tmp/results_reference.csv')
+  results = paste('tmp/rplot.jpg', 'tmp/results.csv', 'temp/results_reference.csv', sep=",")
 
   return (results)
 }

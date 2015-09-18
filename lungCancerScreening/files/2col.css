@@ -3,10 +3,10 @@ BODY {
     PADDING-LEFT: 0px;
     PADDING-BOTTOM: 0px;
     MARGIN: 0px;
-    font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
     COLOR: #777;
     PADDING-TOP: 0px;
     font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 .skip a, .skip a:hover, .skip a:visited {
     position: absolute;
@@ -59,7 +59,6 @@ H1 {
     font-type: arial, sans-serif
 }
 h2 {
-    font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
     color: #223355;
     font-size: 14px;
     margin-bottom: 0;
@@ -145,31 +144,6 @@ a.fill-div {
     padding: 0;
     text-align: left;
 }
-#ncibanner {
-    PADDING-RIGHT: 0px;
-    PADDING-LEFT: 0px;
-    LEFT: 0px;
-    PADDING-BOTTOM: 0px;
-    MARGIN: 0px;
-    WIDTH: 759px;
-    PADDING-TOP: 0px;
-    HEIGHT: 60px
-}
-#ncibannerpopup {
-    PADDING-RIGHT: 0px;
-    PADDING-LEFT: 0px;
-    LEFT: 0px;
-    PADDING-BOTTOM: 0px;
-    MARGIN: 0px;
-    WIDTH: 497px;
-    PADDING-TOP: 0px;
-    HEIGHT: 55px
-}
-#bcrabanner {
-    HEIGHT: 118px;
-    margin-top: 10px;
-    margin-bottom: 7px;
-}
 #main {
     float: none;
     left: 0px;
@@ -186,8 +160,7 @@ a.fill-div {
     line-height: 20px;
 }
 #ContentColumns {
-    width: 1000px;
-    font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
+    width: 100%;
     line-height: 20px;
 	position: relative;
 }
@@ -197,39 +170,23 @@ a.fill-div {
     line-height: 20px;
 }
 #ContentColumnsLeft {
-    Width: 460px;
+    Width: 48%;
     float: left;
     padding-top: 5px;
     paddig-right: 5px;
-    font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
     line-height: 20px;
 }
 #ContentColumnsRight {
-    width:520px;
+    width:51%;
     float: right;
     padding-left: 5px;
     padding-top: 5px;
     padding-bottom: 5px;
 }
-#logos {
-    height: 43px;
-    background-color: #A90101;
-}
-#logosContainer {
-    width: 1020px;
-    margin: 0 auto;
-}
-#logos #left {
-    float: left;
-}
-#logos #right {
-    height: 43px;
-    float: right;
-}
 #nav {
     width: 1000px;
-    margin-bottom: 10px;
     text-align: center;
+    margin-bottom:0;
 }
 #nav ul {
     display: none;
@@ -238,14 +195,8 @@ a.fill-div {
     display: block;
 }
 #nav {
-    width: 960px;
-    background: #efefef;
-    background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);
-    background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%);
-    background: -webkit-linear-gradient(top, #efefef 0%, #bbbbbb 100%);
-    box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.15);
+    width: 100%;
     padding: 0 20px;
-    border-radius: 10px;
     list-style: none;
     position: relative;
     display: inline-table;
@@ -310,17 +261,15 @@ a.fill-div {
     font-size: 15px;
     font-weight: bold;
     color: #777777;
-    font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
     border-bottom: 1px solid #a0a0a0;
     border-top: 1px solid #a0a0a0;
 }
 .ac-container {
-    width: 500px;
+    width: 98%;
     margin: 10px auto 15px auto;
     text-align: left;
 }
 .ac-container label, fieldset.disabled label:hover {
-    font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
     padding: 5px 20px;
     position: relative;
     z-index: 20;
@@ -440,10 +389,10 @@ select.small {
 }
 .formTable input {
     display: inline-block;
-    width: 135px;
+    width: 150px;
 }
 input.small {
-    width: 58px;
+    width: 74px;
 }
 input + span {
     display: block;
@@ -453,7 +402,6 @@ input + span {
     color: #d92000;
     font-size: 12px;
     font-weight: bold;
-    font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
     width: 75px;
     height: 25px;
     -moz-border-radius: 5px;
@@ -479,7 +427,6 @@ input + span {
     font-size: 15px;
     font-weight: bold;
     color: #777777;
-    font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
     border-bottom: 1px solid #cbced2;
 }
 .mainBoxContent {
@@ -488,42 +435,6 @@ input + span {
     border: 0px solid #ccc;
     -moz-border-radius: 0px 0px 0px 10px;
     border-radius: 0px 0px 10px 10px;
-}
-#footer {
-    CLEAR: both;
-    BORDER-TOP: #cccccc 0px solid;
-    MARGIN: 20px 0px 20px 0px;
-    WIDTH: 1000px;
-    PADDING-TOP: 35px;
-    TEXT-ALIGN: center
-}
-#footer {
-    COLOR: #4d4d4d;
-    font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
-    font-size: 12px;
-}
-#footer A {
-    COLOR: #4d4d4d;
-    font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
-    font-size: 12px;
-}
-#footer A:link {
-    COLOR: #4d4d4d;
-    font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
-    font-size: 12px;
-}
-#footer A:visited {
-    COLOR: #4d4d4d;
-    font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
-    font-size: 12px;
-}
-#footer A:active {
-    COLOR: #4d4d4d;
-    font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
-    font-size: 12px;
-}
-#footer A:hover {
-    COLOR: #980000
 }
 
 .loading {
@@ -565,4 +476,45 @@ input + span {
 }
 .error-body {
 	padding: 15px;
+}
+
+
+/* Bootstrap Override Styles */
+a {
+    cursor: pointer;
+}
+
+.header img {
+    width: 60%;
+}
+
+.header h4 {
+    color: #FFF;
+    line-height: 0.5em;
+}
+
+.row-blue {
+    background-color: #2A71A5;
+    height: 2em;
+}
+
+.row-nav {
+    background: #efefef;
+    background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);
+    background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%);
+    background: -webkit-linear-gradient(top, #efefef 0%, #bbbbbb 100%);
+    box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.15);
+    margin-bottom:10px;
+}
+
+.footer {
+    bottom: 0;
+    color: #444;
+    padding:25px 0;
+}
+.footer ul {
+    text-align: center;
+}
+.footer ul li a {
+    color: #444;
 }
