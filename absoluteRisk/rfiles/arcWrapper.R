@@ -8,8 +8,8 @@ library(slam)
 library(modeest)
 #library(iCare)
 
-lib = switch(Sys.info()['sysname'], 
-             Windows = 'source.dll', 
+lib = switch(Sys.info()['sysname'],
+             Windows = 'source.dll',
              Linux = 'source.so')
 dyn.load(lib)
 
@@ -35,7 +35,7 @@ dyn.load(lib)
 #------------------------------------------
 
 convertJSONtoRData <- function(myJSONdata, filename) {
-  
+
   rData <- fromJSON(myJSONdata)
   save(rData, file = filename)
 }
@@ -94,18 +94,18 @@ uploadRData <- function(filename)
 
 
 create_formula <- function(model_info_JSON, list_of_variables_RData) {
-  
+
   # model_info=get(load(model_info_RData))
-  
+
   model_info <- fromJSON(model_info_JSON)
   list_of_variables=get(load(list_of_variables_RData))
-  
+
   # initialize
   form = "Y ~ "
   inter = " "
   # add linear terms, collect interactions
   for(i in 1:length(model_info)){
-    
+
     # if linear term
     if(model_info[[i]]$linear){
       if(i!=1){
@@ -136,7 +136,7 @@ create_formula <- function(model_info_JSON, list_of_variables_RData) {
 }
 
 form_type <- function(var_name, model_info, list_of_variables){
-  
+
   for(j in 1:length(list_of_variables)){
     if(var_name == list_of_variables[[j]]$name){
       i = j; break
@@ -152,7 +152,7 @@ form_type <- function(var_name, model_info, list_of_variables){
 
 #-------------------------------------------------------
 # Function: Converts an uploaded csv file to an RData file and returns the path
-# Inputs: (1) The input file name (*.csv) and 
+# Inputs: (1) The input file name (*.csv) and
 #         (2) The path to the output file, without the file extension
 # Outputs: Returns the corresponding RData filename with the extension ".RData"
 #--------------------------------------------------------
@@ -174,31 +174,31 @@ form_type <- function(var_name, model_info, list_of_variables){
 uploadCSV <- function(filename, convertedFilePath)
 {
   mydata <- read.csv(filename, sep=",", header = TRUE, stringsAsFactor = FALSE)
-  
+
   convertedFileName = file_path_sans_ext(convertedFilePath)
   rdataFileName = paste(convertedFileName, ".RData", sep = "")
-  
+
   save(mydata, file = rdataFileName)
   return (rdataFileName)
 }
 
 #-------------------------------------------------------
 # Function: Converts a two-column log_odds_rates file to an RData file and returns the path
-# Inputs: (1) The input file name (*.csv) and 
+# Inputs: (1) The input file name (*.csv) and
 #         (2) The path to the output file, without the file extension
 # Outputs: Returns the corresponding RData filename with the extension ".RData"
 #--------------------------------------------------------
 
 upload_log_odds <- function(csvFilePath, rDataFilePath) {
   fileContents = get(load(uploadCSV(csvFilePath, rDataFilePath)))
-  
+
   rmatrix <- matrix(fileContents[[2]], ncol=1)
   rownames(rmatrix) <- fileContents$names
-  
+
   rDataFilePath <- paste(rDataFilePath, ".RData", sep="")
-  
+
   save(rmatrix, file=rDataFilePath)
-  
+
   return (rDataFilePath)
 }
 
@@ -229,9 +229,9 @@ log_odds_rates <- function(list_of_variables_RData, model_predictor_RData)
 {
   list_of_variables = get(load(list_of_variables_RData))
   predictor = as.formula(get(load(model_predictor_RData)))
-  
+
   listnames = get_beta_given_names(list_of_variables, predictor)
-  
+
   listnamesJSON = toJSON(listnames)
   return (listnamesJSON)
 }
@@ -261,10 +261,10 @@ process_competing_rates <- function(csvFileName, diseaseRDataFileName, converted
 {
   lambda = get(load(diseaseRDataFileName))
   model.competing.incidence.rates = check_competing_rates(csvFileName, lambda)
-  
+
   convertedFileName = file_path_sans_ext(convertedFilePath)
   rdataFileName = paste(convertedFileName, ".RData", sep="")
-  
+
   save(model.competing.incidence.rates, file = rdataFileName)
   return (rdataFileName)
 }
@@ -286,10 +286,10 @@ process_competing_rates <- function(csvFileName, diseaseRDataFileName, converted
 process_disease_rates <- function(filename, convertedFilePath)
 {
   lambda = check_disease_rates(filename)
-  
+
   convertedFileName = file_path_sans_ext(convertedFilePath)
   rdataFileName = paste(convertedFileName, ".RData", sep = "")
-  
+
   save(lambda, file = rdataFileName)
   return (rdataFileName)
 }
@@ -315,16 +315,16 @@ process_disease_rates <- function(filename, convertedFilePath)
 process_SNP_info <- function(filename, famHist, snpFilePath, famHistFilePath)
 {
   mydata <- read.csv(filename, sep=",", header = TRUE, stringsAsFactor = FALSE)
-  
+
   snpFileName = file_path_sans_ext(snpFilePath)
   famHistFileName = file_path_sans_ext(famHistFilePath)
-  
+
   snpFileName = paste(snpFileName, ".RData",sep="")
   famHistFileName = paste(famHistFileName, ".RData",sep="")
 
   save(mydata, file = snpFileName)
   save(famHist, file = famHistFileName)
-  
+
   return (toJSON(c(rdataFileName, famHistFileName)))
 }
 
@@ -370,21 +370,21 @@ process_age_code <- function(ref_dataset_RData, model_predictor_RData, log_odds_
   image_path <- 'tmp/rplot.jpg'
   results_path <- 'tmp/results.csv'
   results_reference_path <- 'tmp/results_reference.csv'
-  
+
   apply.age.start=get(load(age_start_RData))
   apply.age.interval.length=get(load(age_interval_RData))
   apply.cov.profile=get(load(cov_new_RData))
   apply.snp.profile=get(load(genotype_new_RData))
   lambda=get(load(disease_rates_RData))
   competing_rates=get(load(competing_rates_RData))
-  
+
   fam_hist=get(load(fam_hist_RData))
   snp_info=get(load(snp_info_RData))
   list_of_variables=get(load(list_of_variables_RData))
   model_predictor=as.formula( get(load(model_predictor_RData)) )
   log_odds=get(load(log_odds_RData))
   ref_dataset=get(load(ref_dataset_RData))
-  
+
   results = compute.absolute.risk(model.formula = model_predictor, model.cov.info = list_of_variables, model.snp.info = snp_info, model.log.RR = log_odds,
                                   model.ref.dataset = ref_dataset, model.ref.dataset.weights = NULL,
                                   model.disease.incidence.rates = lambda,
@@ -394,7 +394,7 @@ process_age_code <- function(ref_dataset_RData, model_predictor_RData, log_odds_
                                   apply.cov.profile  = apply.cov.profile,
                                   apply.snp.profile = apply.snp.profile,
                                   use.c.code = 1,  return.lp = FALSE, return.refs.risk = TRUE)
-  
+
   if(length(results$risk)<=12){
     jpeg(image_path, width = 9, height = 9, units = 'in', res = 600)
     par(mfrow=c(3,4))
@@ -412,11 +412,14 @@ process_age_code <- function(ref_dataset_RData, model_predictor_RData, log_odds_
   ref = results$refs.risk
   #write.csv(res , file="results.csv")
   #write.csv(ref , file="results_reference.csv")
-  
+
   write.csv(res , file=results_path)
   write.csv(ref , file=results_reference_path)
-  
-  return (toJSON(c(image_path,  results_path, results_reference_path)))
+
+  #return (toJSON(c(image_path,  results_path, results_reference_path)))
+  results = paste(image_path,  results_path, results_reference_path, sep=",")
+
+  return (results)
 }
 
 #----------------------------------------------------
@@ -437,19 +440,19 @@ process_age_code <- function(ref_dataset_RData, model_predictor_RData, log_odds_
 finalCalculation <- function(ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_RData, cov_new_RData, genotype_new_RData, disease_rates_RData, competing_rates_RData)
 {
   age <- get(load(age_RData))
-  
+
   age_start <- age$age
   age_interval <- age$ageInterval
-  
+
   #age_start_RData <- "age_start.RData"
   #age_interval_RData <- "age_interval.RData"
-  
+
   age_start_RData <- "uploads/rdata/age_start.RData"
   age_interval_RData <- "uploads/rdata/age_interval.RData"
-  
+
   save(age_start, file = age_start_RData)
   save(age_interval, file = age_interval_RData)
-  
+
   return (process_age_code(ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_start_RData, age_interval_RData, cov_new_RData, genotype_new_RData, disease_rates_RData, competing_rates_RData))
-  
+
 }
