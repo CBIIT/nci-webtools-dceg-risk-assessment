@@ -67,7 +67,7 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             header: 'Provide Log Odds Ratios',
             templateType: 'remote',
             templateEndpoint: 'logOddsRatios',
-            fileUploadEndpoint: 'csvFileUploadConversion',
+            fileUploadEndpoint: 'logOddsFileUploadConversion',
             columnNames: ['Variables', 'Log Odds Ratios']
         },
         {

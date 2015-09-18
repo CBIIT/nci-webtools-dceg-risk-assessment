@@ -73,6 +73,25 @@ def csvFileUploadConversion():
             return json.dumps({ 'path_to_file': storedFilePath })
     return ''
 
+# Specific to 'log odds'. This route takes a CSV file as an input, stores it as RData file, and returns the RData file path as JSON
+@app.route('/absoluteRiskRest/logOddsFileUploadConversion', methods=['POST'])
+def logOddsFileUploadConversion():
+    if request.method == 'POST':
+        file = request.files['file']
+        filepath = ''
+        fileAllowed = allowed_file(file.filename)
+
+        if file and fileAllowed:
+            filename = time.strftime("%Y%m%d-%H%M%S") + '_' + secure_filename(file.filename)
+            file.save(os.path.join(app.config['csv_upload_folder'], filename))
+            filepath = app.config['csv_upload_folder'] + '/' + filename
+            convertedFilePath = app.config['rdata_upload_folder'] + '/' + filename
+
+            storedFilePath = arc_wrapper.upload_log_odds(filepath, convertedFilePath)[0]
+
+            return json.dumps({ 'path_to_file': storedFilePath })
+    return ''
+
 # This route takes a RData file as an input, stores it, and returns a JSON object with data and file path
 @app.route('/absoluteRiskRest/rdataFileUpload', methods=['POST'])
 def rdataFileUpload():
@@ -221,9 +240,10 @@ def snpInformation():
         pathToSnpCSVFile = jsonData['csvFilePath']
         famHistVarName = jsonData['famHist']
         filename = os.path.basename(pathToSnpCSVFile)
+        famHistFileName = app.config['rdata_upload_folder'] + '/' + time.strftime("%Y%m%d-%H%M%S") + '_' + 'famHist'
 
         convertedFilePath = app.config['rdata_upload_folder'] + '/' + filename
-        rdata_file_path = arc_wrapper.process_SNP_info(pathToSnpCSVFile, famHistVarName, convertedFilePath)[0]
+        rdata_file_path = arc_wrapper.process_SNP_info(pathToSnpCSVFile, famHistVarName, convertedFilePath, famHistFileName)[0]
         snpColNames = []
 
         with open(pathToSnpCSVFile) as f:
