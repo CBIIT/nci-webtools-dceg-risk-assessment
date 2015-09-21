@@ -170,14 +170,14 @@ a.fill-div {
     line-height: 20px;
 }
 #ContentColumnsLeft {
-    Width: 48%;
+    Width: 45%;
     float: left;
     padding-top: 5px;
     paddig-right: 5px;
     line-height: 20px;
 }
 #ContentColumnsRight {
-    width:51%;
+    width:54%;
     float: right;
     padding-left: 5px;
     padding-top: 5px;
@@ -233,6 +233,7 @@ a.fill-div {
     top: 100%;
     width: 200px;
     text-align: left;
+    z-index: 500;
 }
 #nav ul li {
     float: none;
@@ -495,7 +496,7 @@ a {
 
 .row-blue {
     background-color: #2A71A5;
-    height: 2em;
+    height: 2.25em;
 }
 
 .row-nav {
@@ -503,7 +504,6 @@ a {
     background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);
     background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%);
     background: -webkit-linear-gradient(top, #efefef 0%, #bbbbbb 100%);
-    box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.15);
     margin-bottom:10px;
 }
 

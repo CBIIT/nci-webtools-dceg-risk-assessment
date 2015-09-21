@@ -30,10 +30,9 @@ app.factory('BuildSection', [
                                     },
                 'snp_information':  { func: snpModel, params: {
                                                             cols: cfg.columnNames,
-                                                            sectionDependency: cfg.sectionDependency ? cfg.sectionDependency : null,
-                                                            fileUploadEndpoint: cfg.fileUploadEndpoint ? cfg.fileUploadEndpoint : null,
-                                                            postUploadActions: cfg.postUploadActions ? cfg.postUploadActions : null,
-                                                            postUploadEndpoint: cfg.postUploadEndpoint ? cfg.postUploadEndpoint : null
+                                                            sectionDependency: cfg.sectionDependency,
+                                                            fileUploadEndpoint: cfg.fileUploadEndpoint,
+                                                            saveEndpoint: cfg.saveEndpoint
                                                       }
                                     },
                 'default':          { func: defModel, params: {
@@ -95,7 +94,9 @@ app.factory('BuildSection', [
 
                                 if (self.model.postUploadEndpoint) {
                                     self.model.postUploadActions(JSON.parse(response));
-                                } else {
+                                }
+
+                                if (!self.model.postUploadEndpoint && !self.model.saveEndpoint) {
                                     self.broadcastSectionStatus(true);
                                 }
                             },
@@ -149,6 +150,10 @@ app.factory('BuildSection', [
             },
             broadcastSectionStatus: function(runApply) {
                 $rootScope.$broadcast('sectionStateChanged', { id: this.id, state: 'complete' });
+
+                if (this.id === 'age_interval') {
+                    $rootScope.$broadcast('runCalculations');
+                }
 
                 if (runApply) {
                     $rootScope.$apply();

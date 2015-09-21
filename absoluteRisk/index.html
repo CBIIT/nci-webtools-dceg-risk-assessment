@@ -32,6 +32,11 @@
     <script src="js/services/variable.js"></script>
     <script src="js/services/formulaVariable.js"></script>
 
+    <script>
+        var x = new Variable();
+
+    </script>
+
     <!-- Latest Bootstrap CSS from CDN -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.bootstrap3.css">
@@ -74,7 +79,10 @@
                     </form>
                 </div>
                 <accordion close-others="true">
-                    <accordion-group ng-repeat="section in step.sections" heading="{{section.header()}}" is-disabled="section.isDisabled" is-open="section.isOpen">
+                    <accordion-group ng-repeat="section in step.sections"is-disabled="section.isDisabled" is-open="section.isOpen">
+                        <accordion-heading>
+                            {{section.header()}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': section.isOpen, 'glyphicon-chevron-right': !section.isOpen}"></i>
+                        </accordion-heading>
                         <form id="{{section.id}}" ng-if="section.type === 'variable_list'">
                             <div class="form-group">
                                 <label class="radio-inline">

@@ -25,8 +25,7 @@ app.factory('BuildSnpModel', ['CacheService', '$http', '$rootScope', function(Ca
             self.famHist = self.sectionDependencyData.rows[0];
 
             self.fileUploadEndpoint = cfg.fileUploadEndpoint;
-            self.postUploadActions = cfg.postUploadActions;
-            self.postUploadEndpoint = cfg.postUploadEndpoint;
+            self.saveEndpoint = cfg.saveEndpoint;
         },
         exportToCsv: function(e) {
             var self = this;
@@ -62,15 +61,39 @@ app.factory('BuildSnpModel', ['CacheService', '$http', '$rootScope', function(Ca
         },
         saveModel: function() {
             /* Validation will occur before Cache sets data, flesh out here */
-            var model = this.getJsonModel();
-            var isValid = Cache.setSectionData(this.section.id, model);
+            var self = this;
 
-            this.section.setSectionState({
-                isValid: isValid,
-                data: model,
-                rdataStoreOnly: true,
-                pathKey: 'path_to_famHist_file'
-            });
+            this.setModelState();
+        },
+        setModelState: function() {
+            /* Overrides section level 'setSectionState' function */
+
+            /* Validation will occur before Cache sets data, flesh out here */
+            var self = this;
+            var model = this.getJsonModel();
+            var saveUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/' + self.saveEndpoint;
+            var saveData = {
+                csvFilePath: model.path_to_file,
+                famHist: self.famHist
+            };
+
+            /* Passes in path to section CSV file, and path to referred section's RData file */
+            $http.post(saveUrl, JSON.stringify(saveData))
+               .success(function(data, status, headers, config) {
+                   /* Remove first row name because it's actually the first column header */
+                   data.rows.shift();
+
+                   /* Store RData file path in global JSON object and open next section */
+                   self.parseJsonModel(data);
+
+                   self.section.broadcastSectionStatus();
+               })
+               .error(function(data, status, headers, config) {
+                   console.log('status is: ', status);
+               })
+               .finally(function(data) {
+                   console.log('finally, data is: ', data);
+               });
         },
         getJsonModel: function() {
             var self = this;
@@ -78,8 +101,7 @@ app.factory('BuildSnpModel', ['CacheService', '$http', '$rootScope', function(Ca
             var obj = {
                 'id': this.section.id,
                 data: {
-                    'famHist': self.famHist !== self.sectionDependencyData.rows[0] ? self.famHist : 'NA',
-                    'path_to_file': ''
+                    'famHist': self.famHist !== self.sectionDependencyData.rows[0] ? self.famHist : 'NA'
                 }
             };
 
@@ -90,18 +112,29 @@ app.factory('BuildSnpModel', ['CacheService', '$http', '$rootScope', function(Ca
             return obj;
         },
         parseJsonModel: function(model) {
-            m = this.getJsonModel();
+            var m = this.getJsonModel();
 
             Cache.setSectionData(this.section.id, m);
 
             if (model) {
-                var filePath = model.path_to_file;
                 var rows = model.hasOwnProperty('rows') ? model.rows : this.templateRows;
+                var filePath;
+
+                if (model.rows) {
+                    var pathToFiles = JSON.parse(model.path_to_file);
+                    filePath = pathToFiles[0];
+                    famHistFilePath = pathToFiles[1];
+
+                    Cache.setSectionKey(this.section.id, 'path_to_famHist_file', famHistFilePath);
+                } else {
+                    filePath = model.path_to_file;
+                }
 
                 /* Also store column and row template data for potential use by other sections */
                 Cache.setUiData(this.section.id, {columns: this.templateCols, rows: rows });
 
                 Cache.setSectionKey(this.section.id, 'path_to_file', filePath);
+                console.log(Cache.getData());
             }
         }
     };

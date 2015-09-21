@@ -124,32 +124,7 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
             header: 'Provide SNP Information',
             type: 'snp_information',
             fileUploadEndpoint: 'csvFileUpload',
-            postUploadEndpoint: 'snpInformation',
-            postUploadActions: function(pathObj) {
-                var self = this;
-
-                var postUploadUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/' + self.postUploadEndpoint;
-                var postUploadData = {
-                    csvFilePath: pathObj['path_to_file'],
-                    famHist: self.famHist
-                };
-
-                /* Passes in path to section CSV file, and path to referred section's RData file */
-                $http.post(postUploadUrl, JSON.stringify(postUploadData))
-                   .success(function(data, status, headers, config) {
-                       /* Remove first row name because it's actually the first column header */
-                       data.rows.shift();
-
-                       /* Store RData file path in global JSON object and open next section */
-                       self.parseJsonModel(data);
-                   })
-                   .error(function(data, status, headers, config) {
-                       console.log('status is: ', status);
-                   })
-                   .finally(function(data) {
-                       console.log('finally, data is: ', data);
-                   });
-            },
+            saveEndpoint: 'snpInformation',
             sectionDependency:  {
                 id: 'generate_formula',
             },
@@ -335,19 +310,25 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
                 console.log('its a table template');
             }
         });
+
+        $scope.$on('runCalculations', function(event, args) {
+            console.log('prepping calcs and running');
+            self.runCalculations();
+        });
     };
 
     self.calculateData = function() {
-        var accordionData = Cache.createFilePathsObject();
-        var calculateDataUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/calculate';
-
-        console.log('accordion data is: ', accordionData);
-
         /* Delegating last section save to global Calculate mechanism */
         self.steps[1].sections[2].model.saveModel();
 
         self.showData = true;
+    };
 
+    self.runCalculations = function() {
+        var accordionData = Cache.createFilePathsObject();
+        var calculateDataUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/calculate';
+
+        console.log('accordion data is: ', accordionData);
 
         $http.post(calculateDataUrl, JSON.stringify(accordionData))
            .success(function(data, status, headers, config) {

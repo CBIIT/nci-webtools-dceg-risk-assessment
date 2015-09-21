@@ -325,7 +325,7 @@ process_SNP_info <- function(filename, famHist, snpFilePath, famHistFilePath)
   save(mydata, file = snpFileName)
   save(famHist, file = famHistFileName)
 
-  return (toJSON(c(rdataFileName, famHistFileName)))
+  return (toJSON(c(snpFileName, famHistFileName)))
 }
 
 
