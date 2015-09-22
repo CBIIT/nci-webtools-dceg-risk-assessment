@@ -93,7 +93,7 @@ uploadRData <- function(filename)
 #----------------------------------------------------------------------
 
 
-create_formula <- function(model_info_JSON, list_of_variables_RData) {
+create_formula <- function(model_info_JSON, list_of_variables_RData, file_path) {
 
   # model_info=get(load(model_info_RData))
 
@@ -132,7 +132,12 @@ create_formula <- function(model_info_JSON, list_of_variables_RData) {
   }
   # add interaction terms
   form = paste(form, inter, sep="")
-  return (form)
+  
+  fileName = file_path_sans_ext(file_path)
+  rdataFileName = paste(fileName, ".RData", sep = "")
+  
+  save(form, file=rdataFileName)
+  return (c(form, rdataFileName))
 }
 
 form_type <- function(var_name, model_info, list_of_variables){
