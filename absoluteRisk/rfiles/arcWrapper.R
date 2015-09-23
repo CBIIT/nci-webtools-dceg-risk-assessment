@@ -430,7 +430,8 @@ process_age_code <- function(file_path_prefix, ref_dataset_RData, model_predicto
   write.csv(res , file=results_path)
   write.csv(ref , file=results_reference_path)
   
-  return (toJSON(c(image_path,  results_path, results_reference_path)))
+  results = paste(image_path, results_path, results_reference_path, sep=",")
+  return (results)
 }
 
 #----------------------------------------------------
