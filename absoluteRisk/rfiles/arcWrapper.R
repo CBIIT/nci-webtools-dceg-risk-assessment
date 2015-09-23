@@ -35,9 +35,8 @@ dyn.load(lib)
 #------------------------------------------
 
 convertJSONtoRData <- function(myJSONdata, filename) {
-
-  rData <- fromJSON(myJSONdata)
-  save(rData, file = filename)
+    rData <- fromJSON(myJSONdata)
+    save(rData, file = filename)
 }
 
 #-----------------------------------------------------
@@ -93,7 +92,7 @@ uploadRData <- function(filename)
 #----------------------------------------------------------------------
 
 
-create_formula <- function(model_info_JSON, list_of_variables_RData, file_path) {
+create_formula <- function(model_info_JSON, list_of_variables_RData) {
 
   # model_info=get(load(model_info_RData))
 
@@ -132,12 +131,7 @@ create_formula <- function(model_info_JSON, list_of_variables_RData, file_path) 
   }
   # add interaction terms
   form = paste(form, inter, sep="")
-  
-  fileName = file_path_sans_ext(file_path)
-  rdataFileName = paste(fileName, ".RData", sep = "")
-  
-  save(form, file=rdataFileName)
-  return (c(form, rdataFileName))
+  return (form)
 }
 
 form_type <- function(var_name, model_info, list_of_variables){
@@ -233,8 +227,8 @@ upload_log_odds <- function(csvFilePath, rDataFilePath) {
 log_odds_rates <- function(list_of_variables_RData, model_predictor_RData)
 {
   list_of_variables = get(load(list_of_variables_RData))
-  predictor = as.formula(get(load(model_predictor_RData)))
-
+  #predictor = as.formula(get(load(model_predictor_RData)))
+  predictor = as.formula(model_predictor_RData)
   listnames = get_beta_given_names(list_of_variables, predictor)
 
   listnamesJSON = toJSON(listnames)

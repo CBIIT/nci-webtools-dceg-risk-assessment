@@ -120,6 +120,10 @@ def dataUpload():
         sectionId = sectionModel['id']
         sectionData = sectionModel['data']
 
+        if ('isFormula' in sectionModel):
+            pathToVarListFile = sectionModel['pathToVariableListFile']
+            sectionData = arc_wrapper.create_formula(json.dumps(sectionData), pathToVarListFile)[0]
+
         filename = time.strftime("%Y%m%d-%H%M%S") + "_" + sectionId + ".rdata"
         filepath = app.config['rdata_upload_folder'] + '/' + filename
 
@@ -272,13 +276,9 @@ def calculate():
         genotype_new_RData = jsonData['genotypes_prediction']['path_to_file']
         disease_rates_RData = jsonData['disease_incidence_rates']['path_to_file']
         competing_rates_RData = jsonData['mortality_incidence_rates']['path_to_file']
-
-        #model_predictor_formula = jsonData['generate_formula']['formulaData']
         model_predictor_RData = jsonData['generate_formula']['path_to_file']
-        #model_predictor_RData = arc_wrapper.create_formula(json.dumps(formulaData), list_of_variables_RData)
 
-        results = arc_wrapper.process_age_code_helper(ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_RData, cov_new_RData, genotype_new_RData, disease_rates_RData, competing_rates_RData)
-
+        results = arc_wrapper.finalCalculation(ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_RData, cov_new_RData, genotype_new_RData, disease_rates_RData, competing_rates_RData)
         print results
 
         return results[0]

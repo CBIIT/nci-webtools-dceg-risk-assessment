@@ -107,6 +107,8 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', '$h
             return {
                 id: this.section.id,
                 data: variablesObj.list,
+                isFormula: true,
+                pathToVariableListFile: Cache.getSectionKey('variable_list', 'path_to_file'),
                 ui: {
                     rows: variablesObj.linearVars
                 }
