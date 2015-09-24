@@ -8,6 +8,8 @@ library(slam)
 library(modeest)
 library(iCare)
 
+source('./absoluteRiskCalculation.R')
+
 #-----------------------------------------
 # Function: convert the JSON data to RData
 # Inputs: (1) JSON data and (2) the RData file name (e.g. "test.RData)
