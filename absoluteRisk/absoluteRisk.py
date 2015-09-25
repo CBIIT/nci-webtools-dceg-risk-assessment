@@ -107,7 +107,12 @@ def rdataFileUpload():
 
             json_data = arc_wrapper.uploadRData(filepath)[0]
             loadedJson = json.loads(json_data)
-            loadedJson.insert(0, {'path_to_file': filepath})
+
+            if (isinstance(loadedJson, list)):
+                loadedJson.insert(0, {'path_to_file': filepath})
+
+            if (isinstance(loadedJson, unicode)):
+                loadedJson = {'formula': arc_wrapper.uploadRData(filepath)[0], 'path_to_file': filepath}
 
             return json.dumps(loadedJson)
     return ''

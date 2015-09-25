@@ -55,6 +55,8 @@
     </header>
 
     <div class="container" ng-controller="ArcAccordion as accordion">
+        <div class="loading" ng-show="accordion.calcRunning"></div>
+        <div class="loading-overlay" ng-show="accordion.calcRunning"></div>
         <div class="col-xs-12 col-md-8">
             <div ng-repeat="step in accordion.steps">
                 <div class="form-group clearfix" ng-if="step.id === 'apply'">
@@ -354,34 +356,23 @@
             </div>
             <div class="form-group clearfix">
                 <form>
-                    <button type="button" class="btn btn-success pull-right" ng-click="accordion.calculateData()">
+                    <button type="button" class="btn btn-success pull-right" ng-click="accordion.calculateData()" ng-disabled="accordion.calcRunning">
                         Calculate
                     </button>
                 </form>
             </div>
         </div>
-        <div class="col-xs-12 col-md-4 top-margin">
+        <div class="col-xs-12 col-md-4 top-margin output">
             <h4>Output</h4>
-            <div class="result_plot" ng-show="accordion.showData">
-                <img src="images/benryanconversion.png" alt="Result" title="Result" />
+            <div class="result-plot" ng-show="accordion.resultsImagePath">
+                <img ng-src="{{accordion.resultsImagePath}}" alt="Result" title="Result" />
             </div>
-            <div ng-show="accordion.showData">
+            <div ng-show="accordion.resultsImagePath">
                 <hr>
                 <h4>Download Results</h4>
-                <a href="#">Results</a><br>
-                <a href="#">Results Reference</a>
-            </div>
-            <!--
-            <div class="result_plot" ng-show="accordion.resultsImage">
-                <img ng-src="{{accordion.resultsImage}}" alt="Result" title="Result" />
-            </div>
-            <div ng-show="accordion.resultsImage">
-                <hr>
-                <h4>Download Results</h4>
-                <a href="{{accordion.resultsFilePath}}">Results</a>
+                <a href="{{accordion.resultsFilePath}}">Results</a><br>
                 <a href="{{accordion.resultsRefFilePath}}">Results Reference</a>
             </div>
-            -->
         </div>
     </div>
     <footer class="container footer">

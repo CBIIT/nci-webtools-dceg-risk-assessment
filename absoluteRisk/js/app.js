@@ -172,9 +172,10 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
     self.formula = '';
 
     /* Results Data */
-    self.resultsImage = '';
-    self.resultsFilePath = 'http://' + window.location.hostname + '/absoluteRiskRest/';
-    self.resultsRefFilePath = 'http://' + window.location.hostname + '/absoluteRiskRest/';
+    self.calcRunning = false;
+    self.resultsImagePath = '';
+    self.resultsFilePath = 'http://' + window.location.hostname + '/absoluteRisk/';
+    self.resultsRefFilePath = 'http://' + window.location.hostname + '/absoluteRisk/';
 
     /* Dummy Result Boolean For Demo Only */
     self.showData = false;
@@ -326,13 +327,26 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
 
     self.runCalculations = function() {
         var accordionData = Cache.createFilePathsObject();
+        var baseUrl = 'http://' + window.location.hostname + '/absoluteRisk/';
         var calculateDataUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/calculate';
 
         console.log('accordion data is: ', accordionData);
+        self.calcRunning = true;
+
+        self.resultsImagePath = '';
+        self.resultsFilePath = baseUrl;
+        self.resultsRefFilePath = baseUrl;
 
         $http.post(calculateDataUrl, JSON.stringify(accordionData))
            .success(function(data, status, headers, config) {
+               var filePaths = data.split(',');
+
+               self.resultsImagePath = baseUrl + filePaths[0];
+               self.resultsFilePath = self.resultsFilePath + filePaths[1];
+               self.resultsRefFilePath = self.resultsRefFilePath + filePaths[2];
                console.log('calculated data is:', data);
+
+               self.calcRunning = false;
            })
            .error(function(data, status, headers, config) {
                console.log('status is: ', status);
