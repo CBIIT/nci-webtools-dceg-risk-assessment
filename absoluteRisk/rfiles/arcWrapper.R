@@ -6,21 +6,9 @@ library(SparseM)
 library(Matrix)
 library(slam)
 library(modeest)
-#library(iCare)
+library(iCare)
 
-# source("./absoluteRiskCalculation.R")
-
-# lib = switch(Sys.info()['sysname'],
-#              Windows = 'source.dll',
-#              Linux = 'source.so')
-
-source("./rfiles/absoluteRiskCalculation.R")
-
-lib = switch(Sys.info()['sysname'],
-             Windows = './rfiles/source.dll',
-             Linux = './rfiles/source.so')
-
-dyn.load(lib)
+source('./absoluteRiskCalculation.R')
 
 #-----------------------------------------
 # Function: convert the JSON data to RData
