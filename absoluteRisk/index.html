@@ -362,7 +362,7 @@
         </div>
         <div class="col-xs-12 top-margin" ng-class="{'output': accordion.calcRunning}">
             <h4>Output</h4>
-            <div class="large loading" ng-show="!accordion.calcRunning"><div>Loading…</div></div>
+            <div class="large loading" ng-show="accordion.calcRunning"><div>Loading…</div></div>
             <div class="result-plot" ng-show="accordion.resultsImagePath">
                 <img ng-src="{{accordion.resultsImagePath}}" alt="Result" title="Result" />
             </div>

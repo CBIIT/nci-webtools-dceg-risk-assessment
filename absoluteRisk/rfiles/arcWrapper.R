@@ -6,9 +6,21 @@ library(SparseM)
 library(Matrix)
 library(slam)
 library(modeest)
-library(iCare)
+#library(iCare)
 
-source('./absoluteRiskCalculation.R')
+# source("./absoluteRiskCalculation.R")
+
+# lib = switch(Sys.info()['sysname'],
+#              Windows = 'source.dll',
+#              Linux = 'source.so')
+
+source("./rfiles/absoluteRiskCalculation.R")
+
+lib = switch(Sys.info()['sysname'],
+             Windows = './rfiles/source.dll',
+             Linux = './rfiles/source.so')
+
+dyn.load(lib)
 
 #-----------------------------------------
 # Function: convert the JSON data to RData
@@ -366,21 +378,21 @@ process_age_code <- function(file_path_prefix, ref_dataset_RData, model_predicto
   image_path <- paste(file_path_prefix, '_rplot.jpg', sep="" )
   results_path <- paste(file_path_prefix, '_results.csv', sep="")
   results_reference_path <- paste(file_path_prefix, '_results_reference.csv', sep="")
-  
+
   apply.age.start=get(load(age_start_RData))
   apply.age.interval.length=get(load(age_interval_RData))
   apply.cov.profile=get(load(cov_new_RData))
   apply.snp.profile=get(load(genotype_new_RData))
   lambda=get(load(disease_rates_RData))
   competing_rates=get(load(competing_rates_RData))
-  
+
   fam_hist=get(load(fam_hist_RData))
   snp_info=get(load(snp_info_RData))
   list_of_variables=get(load(list_of_variables_RData))
   model_predictor=as.formula( get(load(model_predictor_RData)) )
   log_odds=get(load(log_odds_RData))
   ref_dataset=get(load(ref_dataset_RData))
-  
+
   results = compute.absolute.risk(model.formula = model_predictor, model.cov.info = list_of_variables, model.snp.info = snp_info, model.log.RR = log_odds,
                                   model.ref.dataset = ref_dataset, model.ref.dataset.weights = NULL,
                                   model.disease.incidence.rates = lambda,
@@ -390,7 +402,7 @@ process_age_code <- function(file_path_prefix, ref_dataset_RData, model_predicto
                                   apply.cov.profile  = apply.cov.profile,
                                   apply.snp.profile = apply.snp.profile,
                                   use.c.code = 1,  return.lp = FALSE, return.refs.risk = TRUE)
-  
+
   if(length(results$risk)<=12){
     jpeg(image_path, width = 9, height = 9, units = 'in', res = 600)
     par(mfrow=c(3,4))
@@ -408,10 +420,10 @@ process_age_code <- function(file_path_prefix, ref_dataset_RData, model_predicto
   ref = results$refs.risk
   #write.csv(res , file="results.csv")
   #write.csv(ref , file="results_reference.csv")
-  
+
   write.csv(res , file=results_path)
   write.csv(ref , file=results_reference_path)
-  
+
   results = paste(image_path, results_path, results_reference_path, sep=",")
   return (results)
 }
@@ -434,19 +446,19 @@ process_age_code <- function(file_path_prefix, ref_dataset_RData, model_predicto
 finalCalculation <- function(file_path_prefix, ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_RData, cov_new_RData, genotype_new_RData, disease_rates_RData, competing_rates_RData)
 {
   age <- get(load(age_RData))
-  
+
   age_start <- age$age
   age_interval <- age$ageInterval
-  
+
   #age_start_RData <- "age_start.RData"
   #age_interval_RData <- "age_interval.RData"
-  
+
   age_start_RData <- "uploads/rdata/age_start.RData"
   age_interval_RData <- "uploads/rdata/age_interval.RData"
-  
+
   save(age_start, file = age_start_RData)
   save(age_interval, file = age_interval_RData)
-  
+
   return (process_age_code(file_path_prefix, ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_start_RData, age_interval_RData, cov_new_RData, genotype_new_RData, disease_rates_RData, competing_rates_RData))
-  
+
 }
