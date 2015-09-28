@@ -340,19 +340,18 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
         $http.post(calculateDataUrl, JSON.stringify(accordionData))
            .success(function(data, status, headers, config) {
                var filePaths = data.split(',');
-
+               self.calcRunning = false;
                self.resultsImagePath = baseUrl + filePaths[0];
                self.resultsFilePath = self.resultsFilePath + filePaths[1];
                self.resultsRefFilePath = self.resultsRefFilePath + filePaths[2];
                console.log('calculated data is:', data);
-
-               self.calcRunning = false;
            })
            .error(function(data, status, headers, config) {
                console.log('status is: ', status);
            })
            .finally(function(data) {
                console.log('finally, data is: ', data);
+               self.calcRunning = false;
            });
     };
 

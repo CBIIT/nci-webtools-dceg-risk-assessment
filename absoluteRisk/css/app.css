@@ -81,20 +81,10 @@ header h4 {
 }
 
 .output {
-    height: 625px;
+    height:300px;
 }
 
-.loading-overlay {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1040;
-    background-color: #000000;
-    opacity: 0.6;
-}
-
+/*
 .loading {
 	content: '';
 	display: block;
@@ -106,6 +96,66 @@ header h4 {
 	z-index: 1050;
 	border-radius: 10px;
 	background: url('/common/images/loading.gif') no-repeat 50%;
+}
+*/
+
+/**
+ * (C)Leanest CSS spinner ever
+ */
+
+@keyframes spin {
+	to { transform: rotate(1turn); }
+}
+
+.loading {
+	position: relative;
+	display: block;
+	width: 5em;
+	height: 5em;
+	margin: 0 auto;
+	font-size: 12px;
+	text-indent: 999em;
+	overflow: hidden;
+	animation: spin 1s infinite steps(8);
+}
+
+.large.loading {
+	font-size: 24px;
+}
+
+.loading:before,
+.loading:after,
+.loading > div:before,
+.loading > div:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 2.25em; /* (container width - part width)/2  */
+	width: .5em;
+	height: 1.5em;
+	border-radius: .2em;
+	background: #eee;
+	box-shadow: 0 3.5em #eee; /* container height - part height */
+	transform-origin: 50% 2.5em; /* container height / 2 */
+}
+
+.loading:before {
+	background: #555;
+}
+
+.loading:after {
+	transform: rotate(-45deg);
+	background: #777;
+}
+
+.loading > div:before {
+	transform: rotate(-90deg);
+	background: #999;
+}
+
+.loading > div:after {
+	transform: rotate(-135deg);
+	background: #bbb;
 }
 
 
