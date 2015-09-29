@@ -48,7 +48,6 @@ app.factory('DataRetrieval', [
                .finally(function(data) {
                    finallyCallback();
                });
-
         };
 
         return {

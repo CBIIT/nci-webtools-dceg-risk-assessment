@@ -16,7 +16,8 @@ app.factory('BuildSection', [
     'uiUploader',
     '$http',
     'CacheService',
-    function(vlModel, gfModel, aiModel, snpModel, defModel, $rootScope, uiUploader, $http, Cache) {
+    'DataRetrieval',
+    function(vlModel, gfModel, aiModel, snpModel, defModel, $rootScope, uiUploader, $http, Cache, dataRetrieval) {
         function Section(cfg) {
             var self = this;
 
@@ -115,34 +116,33 @@ app.factory('BuildSection', [
             setSectionState: function(cfg) {
                 var self = this;
                 var params = cfg;
-                var sectionData = JSON.stringify(params.data);
+                var sectionData = params.data;
                 var uploadPath = 'uploads/rdata/';
                 var id = params.id ? params.id : self.id;
                 var pathKey = params.pathKey ? params.pathKey : 'path_to_file';
 
                 self.isOpen = !params.isValid;
 
-                /* Ajax call to process save data as RData file and return the file as an attachment */
-                $http.post(this.dataUrl, sectionData)
-                   .success(function(data, status, headers, config) {
-                       /* Change location to endpoint to force 'file download' dialog */
-                       if (!params.rdataStoreOnly) {
-                           window.location = 'http://' + window.location.hostname + '/absoluteRiskRest/downloadFile?filename=' + data;
-                       }
+                function successCb(d) {
+                    /* Change location to endpoint to force 'file download' dialog */
+                    if (!params.rdataStoreOnly) {
+                        window.location = 'http://' + window.location.hostname + '/absoluteRiskRest/downloadFile?filename=' + d;
+                    }
 
-                       Cache.setSectionKey(id, pathKey, uploadPath + data);
+                    Cache.setSectionKey(id, pathKey, uploadPath + d);
 
-                       /* In case any RData files need to be updated without re-initializing a section */
-                       if (!params.skipBroadcast) {
-                           self.broadcastSectionStatus();
-                       }
-                   })
-                   .error(function(data, status, headers, config) {
-                       console.log('status is: ', status);
-                   })
-                   .finally(function(data) {
-                       console.log('finally, data is: ', data);
-                   });
+                    /* In case any RData files need to be updated without re-initializing a section */
+                    if (!params.skipBroadcast) {
+                        self.broadcastSectionStatus();
+                    }
+                }
+
+                /* Call data retrieval service to save Rdata file and return saved file to user */
+                dataRetrieval.retrieveData({
+                    url: self.dataUrl,
+                    data: sectionData,
+                    success: successCb
+                });
             },
             createModel: function(type) {
                 /* Use modelMap to create the correct section model based on section type */
