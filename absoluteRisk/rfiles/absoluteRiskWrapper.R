@@ -6,17 +6,9 @@ library(SparseM)
 library(Matrix)
 library(slam)
 library(modeest)
+library(iCare)
 
-source("./absoluteRiskCalculation.R")
-
-sysname <- Sys.info()['sysname']
-
-if(sysname == "Linux") {
-  dyn.load("source.so")
-
-} else if(sysname == "Windows") {
-  dyn.load("source.dll")
-}
+source("./rfiles/absoluteRiskCalculation.R")
 
 #-----------------------------------------
 # Function: convert the JSON data to RData
@@ -40,10 +32,8 @@ if(sysname == "Linux") {
 #------------------------------------------
 
 convertJSONtoRData <- function(myJSONdata, filename) {
-
-  rData <- fromJSON(myJSONdata)
-  save(rData, file=filename)
-
+    rData <- fromJSON(myJSONdata)
+    save(rData, file = filename)
 }
 
 #-----------------------------------------------------
@@ -66,35 +56,29 @@ convertJSONtoRData <- function(myJSONdata, filename) {
 
 uploadRData <- function(filename)
 {
-
-  # get() returns the variable name from load(filename)
-
-  tmp = load(filename)
-  tmpvar = get(tmp)
-  result = toJSON(tmpvar)
-  return (result)
-
+  fileData = get(load(filename)) # Load the contents of the file
+  return (toJSON(fileData))
 }
 
-
 #--------------------------------------------------------------------
-# Inputs: model_info with JSON format and list_of variables "RData file names"
-# outputs: the model formula
+# Function: Generates a model formula and returns it as a string
+# Inputs: (1) model_info as JSON and (2) list_of_variables as RData
+# outputs: the model formula (character string)
 #--------------------------------------------------------------------
 #
 # test code:
 #
 #
-# > t1=c("list_of_variables.RData")
-# > myJSON=c("[{\"name\":\"famhist\",\"linear\":true},{\"name\":\"menarche_dec\",
+# > t1 = "list_of_variables.RData"
+# > myJSON="[{\"name\":\"famhist\",\"linear\":true},{\"name\":\"menarche_dec\",
 #            \"linear\":true},{\"name\":\"parity\",\"linear\":true},{\"name\":\"birth_dec\",
 #            \"linear\":true},{\"name\":\"agemeno_dec\",\"linear\":true},{\"name\":\"height_dec\",
 #            \"linear\":true},{\"name\":\"bmi_dec\",\"linear\":true,\"interaction\":\"rd_menohrt\"},
 #            {\"name\":\"rd_menohrt\",\"linear\":true},{\"name\":\"rd2_everhrt_e\",\"linear\":true},
 #            {\"name\":\"rd2_everhrt_c\",\"linear\":true},{\"name\":\"rd2_currhrt\",\"linear\":true},
-#            {\"name\":\"alcoholdweek_dec\",\"linear\":true},{\"name\":\"ever_smoke\",\"linear\":true}])
+#            {\"name\":\"alcoholdweek_dec\",\"linear\":true},{\"name\":\"ever_smoke\",\"linear\":true}]"
 #
-# > model_predictor = create_formula(myJSON,t1)
+# > model_predictor = create_formula(myJSON, t1)
 # > model_predictor
 # [1] "Y ~ famhist + as.factor(menarche_dec) + as.factor(parity) + as.factor(birth_dec) +
 #      as.factor(agemeno_dec) + as.factor(height_dec) + as.factor(bmi_dec) + as.factor(rd_menohrt) +
@@ -118,6 +102,7 @@ create_formula <- function(model_info_JSON, list_of_variables_RData) {
   # add linear terms, collect interactions
   for(i in 1:length(model_info)){
 
+    # if linear term
     if(model_info[[i]]$linear){
       if(i!=1){
         form = paste(form, " + ", sep="")
@@ -146,7 +131,7 @@ create_formula <- function(model_info_JSON, list_of_variables_RData) {
   return (form)
 }
 
-form_type<-function(var_name, model_info, list_of_variables){
+form_type <- function(var_name, model_info, list_of_variables){
 
   for(j in 1:length(list_of_variables)){
     if(var_name == list_of_variables[[j]]$name){
@@ -162,19 +147,17 @@ form_type<-function(var_name, model_info, list_of_variables){
 }
 
 #-------------------------------------------------------
-# Note: R function to handle the upload of a CSV file
-# Inputs: the input file name has the extension of csv
-# Outputs: return the corresponding RData filename with the extension ".RData"
+# Function: Converts an uploaded csv file to an RData file and returns the path
+# Inputs: (1) The input file name (*.csv) and
+#         (2) The path to the output file, without the file extension
+# Outputs: Returns the corresponding RData filename with the extension ".RData"
 #--------------------------------------------------------
 #
 # Test Code:
 #
-# > uploadCSV("cov_new.csv")
-#     [1] "cov_new.RData"
 # > test=uploadCSV("cov_new.csv")
 # > test
 #     [1] "cov_new.RData"
-# > load(test)
 # > mydata=load(test)
 # > mydata
 #     [1] "cov_new"
@@ -186,34 +169,47 @@ form_type<-function(var_name, model_info, list_of_variables){
 
 uploadCSV <- function(filename, convertedFilePath)
 {
-  # mydata = read.table(filename, header = TRUE, sep = ",",  as.is = TRUE)
+  mydata <- read.csv(filename, sep=",", header = TRUE, stringsAsFactor = FALSE)
 
-  mydata <- read.csv(filename, sep=",",header=TRUE,stringsAsFactor=FALSE)
-
-  baseFileName = file_path_sans_ext(filename)
   convertedFileName = file_path_sans_ext(convertedFilePath)
+  rdataFileName = paste(convertedFileName, ".RData", sep = "")
 
-  varName = basename(baseFileName)
-  assign(varName,mydata)
-  rdataFileName = paste(convertedFileName,".RData",sep="")
-  save(list=varName, file=rdataFileName)
-
+  save(mydata, file = rdataFileName)
   return (rdataFileName)
 }
 
+#-------------------------------------------------------
+# Function: Converts a two-column log_odds_rates file to an RData file and returns the path
+# Inputs: (1) The input file name (*.csv) and
+#         (2) The path to the output file, without the file extension
+# Outputs: Returns the corresponding RData filename with the extension ".RData"
+#--------------------------------------------------------
+
+upload_log_odds <- function(csvFilePath, rDataFilePath) {
+  fileContents = get(load(uploadCSV(csvFilePath, rDataFilePath)))
+
+  rmatrix <- matrix(fileContents[[2]], ncol=1)
+  rownames(rmatrix) <- fileContents$names
+
+  rDataFilePath <- paste(rDataFilePath, ".RData", sep="")
+
+  save(rmatrix, file=rDataFilePath)
+
+  return (rDataFilePath)
+}
 
 #------------------------------------------
-# Function: File to generate the names of log odds rates (aka "beta_given")
-# Inputs: (1) RData file name for list_of_variables (e.g.list_of_variables.RData") and
-#         (2) RData file name for model_predictor (e.g.,"model_predictor.RData")
-# Outputs: return the listnames in JSON format
+# Function: Generates the names of log odds rates (aka "beta_given")
+# Inputs: (1) RData file name for list_of_variables (e.g. "list_of_variables.RData") and
+#         (2) RData file name for model_predictor (e.g. "model_predictor.RData")
+# Outputs: Returns the list of names as JSON
 #------------------------------------------
 #
 # Test Code:
 #
-# > t1=c("list_of_variables.RData")
-# > t2=c("model_predictor.RData")
-# > qq=log_odds_rates(t1,t2)
+# > t1 = "list_of_variables.RData"
+# > t2 = "model_predictor.RData"
+# > qq = log_odds_rates(t1,t2)
 # > qq
 #     [1] "[\"famhist\",\"as.factor(menarche_dec)2\",\"as.factor(menarche_dec)3\",
 #           \"as.factor(menarche_dec)5\"
@@ -225,14 +221,17 @@ uploadCSV <- function(filename, convertedFilePath)
 #-------------------------------------------
 #
 
-log_odds_rates <- function(list_of_variables_RData, formula_data)
+log_odds_rates <- function(list_of_variables_RData, model_predictor_RData)
 {
-  list_of_variables=get(load(list_of_variables_RData))
+  list_of_variables = get(load(list_of_variables_RData))
+  #predictor = as.formula(get(load(model_predictor_RData)))
+  predictor = as.formula(model_predictor_RData)
+  listnames = get_beta_given_names(list_of_variables, predictor)
 
-  listnames = get_beta_given_names(list_of_variables, as.formula(formula_data))
-  listnamesJSON= toJSON(listnames)
+  listnamesJSON = toJSON(listnames)
   return (listnamesJSON)
 }
+
 
 #------------------------------------------
 # Function: read 2- or 3-column csv file and generate a 2-column data (age and rates)
@@ -256,13 +255,13 @@ log_odds_rates <- function(list_of_variables_RData, formula_data)
 
 process_competing_rates <- function(csvFileName, diseaseRDataFileName, convertedFilePath)
 {
-  lambda=get(load(diseaseRDataFileName))
+  lambda = get(load(diseaseRDataFileName))
   model.competing.incidence.rates = check_competing_rates(csvFileName, lambda)
-  baseFileName = file_path_sans_ext(csvFileName)
-  convertedFileName = file_path_sans_ext(convertedFilePath)
 
-  rdataFileName = paste(convertedFileName,".RData",sep="")
-  save(model.competing.incidence.rates, file=rdataFileName)
+  convertedFileName = file_path_sans_ext(convertedFilePath)
+  rdataFileName = paste(convertedFileName, ".RData", sep="")
+
+  save(model.competing.incidence.rates, file = rdataFileName)
   return (rdataFileName)
 }
 
@@ -283,17 +282,18 @@ process_competing_rates <- function(csvFileName, diseaseRDataFileName, converted
 process_disease_rates <- function(filename, convertedFilePath)
 {
   lambda = check_disease_rates(filename)
-  baseFileName = file_path_sans_ext(filename)
+  lambda = na.omit(lambda)
+  
   convertedFileName = file_path_sans_ext(convertedFilePath)
+  rdataFileName = paste(convertedFileName, ".RData", sep = "")
 
-  rdataFileName = paste(convertedFileName,".RData",sep="")
-
-  save(lambda, file=rdataFileName)
+  save(lambda, file = rdataFileName)
   return (rdataFileName)
 }
 
+
 #-------------------------------------------------------
-# Note: R function to handle the SNP_info data sets
+# Function: Handles the SNP_info data sets
 # Inputs:
 #    (1) the SNP_info data in csv format
 #    (2) the string of "Family History variable name"
@@ -305,28 +305,28 @@ process_disease_rates <- function(filename, convertedFilePath)
 #--------------------------------------------------------
 #
 # Test Code:
-# > process_SNP_info("test.csv","famhist")
+# > process_SNP_info("test.csv","famhist", "snp_info", "famhist_variable_name")
 #
 #--------------------------------------------------------
 
-process_SNP_info <- function(filename, famHist, convertedFilePath)
+process_SNP_info <- function(filename, famHist, snpFilePath, famHistFilePath)
 {
-  mydata <- read.csv(filename, sep=",",header=TRUE,stringsAsFactor=FALSE)
-  baseFileName = file_path_sans_ext(filename)
-  convertedFileName = file_path_sans_ext(convertedFilePath)
+  mydata <- read.csv(filename, sep=",", header = TRUE, stringsAsFactor = FALSE)
 
-  varName = basename(baseFileName)
-  assign(varName,mydata)
-  rdataFileName = paste(convertedFileName,".RData",sep="")
-  save(list=varName, file=rdataFileName)
+  snpFileName = file_path_sans_ext(snpFilePath)
+  famHistFileName = file_path_sans_ext(famHistFilePath)
 
-  save(famHist, file="famHist.RData")
+  snpFileName = paste(snpFileName, ".RData",sep="")
+  famHistFileName = paste(famHistFileName, ".RData",sep="")
 
-  return (rdataFileName)
+  save(mydata, file = snpFileName)
+  save(famHist, file = famHistFileName)
+
+  return (toJSON(c(snpFileName, famHistFileName)))
 }
 
+
 #----------------------------------------------------
-# Name: process_age_code.R
 # Function: check the age inputs
 #
 # Inputs: 6 RData file names. Examples:
@@ -337,7 +337,7 @@ process_SNP_info <- function(filename, famHist, convertedFilePath)
 #    (5) disease_rates_RData="pop_rates.RData"
 #    (6) competing_rates_RData="mort_rates_default_US.RData"
 
-# outputs: "NULL" if no errors.
+# outputs: Returns the paths to the output files in JSON format
 #----------------------------------------------------
 #
 # Test Code
@@ -362,8 +362,12 @@ process_SNP_info <- function(filename, famHist, convertedFilePath)
 #
 #------------------------------------------------------
 
-process_age_code <- function(ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_start_RData, age_interval_RData, cov_new_RData, genotype_new_RData, disease_rates_RData, competing_rates_RData)
+process_age_code <- function(file_path_prefix, ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_start_RData, age_interval_RData, cov_new_RData, genotype_new_RData, disease_rates_RData, competing_rates_RData)
 {
+  image_path <- paste(file_path_prefix, '_rplot.jpg', sep="" )
+  results_path <- paste(file_path_prefix, '_results.csv', sep="")
+  results_reference_path <- paste(file_path_prefix, '_results_reference.csv', sep="")
+
   apply.age.start=get(load(age_start_RData))
   apply.age.interval.length=get(load(age_interval_RData))
   apply.cov.profile=get(load(cov_new_RData))
@@ -389,7 +393,7 @@ process_age_code <- function(ref_dataset_RData, model_predictor_RData, log_odds_
                                   use.c.code = 1,  return.lp = FALSE, return.refs.risk = TRUE)
 
   if(length(results$risk)<=12){
-    jpeg('tmp/rplot.jpg', width = 9, height = 9, units = 'in', res = 600)
+    jpeg(image_path, width = 9, height = 9, units = 'in', res = 600)
     par(mfrow=c(3,4))
     for(i in 1:length(results$risk)){
       plot(density(results$refs.risk, na.rm=T), main=paste("Subject ", i, sep=""), ylab = "Smoothed Frequency Density", xlab="Absolute Risk", lwd=2)
@@ -397,22 +401,19 @@ process_age_code <- function(ref_dataset_RData, model_predictor_RData, log_odds_
     }
     dev.off()
   }else{
-    jpeg('tmp/rplot.jpg', width = 9, height = 9, units = 'in', res = 600)
-plot(density(results$risk, na.rm=T), main="Absolute Risk Distribution", ylab = "Smoothed Frequency Density", xlab="Absolute Risk", lwd=2)
-dev.off()
+    jpeg(image_path, width = 9, height = 9, units = 'in', res = 600)
+    plot(density(results$risk, na.rm=T), main="Absolute Risk Distribution", ylab = "Smoothed Frequency Density", xlab="Absolute Risk", lwd=2)
+    dev.off()
   }
   res = results$details
   ref = results$refs.risk
   #write.csv(res , file="results.csv")
   #write.csv(ref , file="results_reference.csv")
 
-  write.csv(res , file="tmp/results.csv")
-  write.csv(ref , file="tmp/results_reference.csv")
+  write.csv(res , file=results_path)
+  write.csv(ref , file=results_reference_path)
 
-  results = list()
-  results = c(results, 'tmp/rplot.jpg', 'tmp/results.csv', 'tmp/results_reference.csv')
-  results = paste('tmp/rplot.jpg', 'tmp/results.csv', 'temp/results_reference.csv', sep=",")
-
+  results = paste(image_path, results_path, results_reference_path, sep=",")
   return (results)
 }
 
@@ -428,67 +429,25 @@ dev.off()
 #    (4) disease_rates_RData="pop_rates.RData"
 #    (5) competing_rates_RData="mort_rates_default_US.RData"
 
-# outputs: "NULL" if no errors.
+# outputs: JSON list of output files
 #----------------------------------------------------
 
-process_age_code_helper <- function(ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_RData, cov_new_RData, genotype_new_RData, disease_rates_RData, competing_rates_RData)
+finalCalculation <- function(file_path_prefix, ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_RData, cov_new_RData, genotype_new_RData, disease_rates_RData, competing_rates_RData)
 {
   age <- get(load(age_RData))
 
   age_start <- age$age
   age_interval <- age$ageInterval
-
   #age_start_RData <- "age_start.RData"
   #age_interval_RData <- "age_interval.RData"
-
-  age_start_RData <- "uploads/rdata/age_start.RData"
-  age_interval_RData <- "uploads/rdata/age_interval.RData"
+  
+  timestamp <- format(Sys.time(), "%Y%m%d-%H%M%S")
+  age_start_RData <- paste("./uploads/rdata/", timestamp, "_age_start.RData", sep="")
+  age_interval_RData <- paste("./uploads/rdata/", timestamp, "_age_interval.RData", sep="")
 
   save(age_start, file = age_start_RData)
   save(age_interval, file = age_interval_RData)
 
-  process_age_code(ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_start_RData, age_interval_RData, cov_new_RData, genotype_new_RData, disease_rates_RData, competing_rates_RData)
+  return (process_age_code(file_path_prefix, ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_start_RData, age_interval_RData, cov_new_RData, genotype_new_RData, disease_rates_RData, competing_rates_RData))
 
 }
-#----------------------------------------------------
-# Name: process_age_code_old.R
-# Function: check the age inputs
-#
-# Inputs: 6 RData file names. Examples:
-#    (1) age_start_RData="age_new.RData"
-#    (2) age_interval_RData="tau.RData"
-#    (3) cov_new_RData="cov_new.RData"
-#    (4) snp_info_RData="snp_info.RData"
-#    (5) disease_rates_RData="pop_rates.RData"
-#    (6) competing_rates_RData="mort_rates_default_US.RData"
-
-# outputs: "NULL" if no errors.
-#----------------------------------------------------
-#
-# Test Code
-#
-#  > age_start_RData="age_new.RData"
-#  > age_interval_RData="tau.RData"
-#  > cov_new_RData="cov_new.RData"
-#  > snp_info_RData="snp_info.RData"
-#  > disease_rates_RData="pop_rates.RData"
-#  > competing_rates_RData="mort_rates_default_US.RData"
-#  >
-#  > source('H:/Rwork/MAAS/process_age_code.R')
-#  > process_age_code(age_start_RData, age_interval_RData, cov_new_RData,snp_info_RData, disease_rates_RData, competing_rates_RData)
-#    NULL
-#
-#------------------------------------------------------
-
-# process_age_code_old <- function(age_start_RData, age_interval_RData, cov_new_RData,snp_info_RData, disease_rates_RData, competing_rates_RData)
-# {
-#
-#   apply.age.start=get(load(age_start_RData))
-#   apply.age.interval.length=get(load(age_interval_RData))
-#   apply.cov.profile=get(load(cov_new_RData))
-#   apply.snp.profile=get(load(snp_info_RData))
-#   lambda=get(load(disease_rates_RData))
-#   competing_rates=get(load(competing_rates_RData))
-#
-#   check_age_inputs(apply.age.start, apply.age.interval.length, apply.cov.profile, apply.snp.profile, lambda, competing_rates)
-# }
