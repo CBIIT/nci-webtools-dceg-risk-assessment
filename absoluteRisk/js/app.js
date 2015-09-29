@@ -39,7 +39,7 @@ app.directive('arcFileChange', ['$rootScope', function($rootScope) {
 }]);
 
 /* Primary application controller */
-app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$scope', '$sanitize', '$modal', '$http', function (Section, Cache, $rootScope, $scope, $san, $modal, $http) {
+app.controller('ArcAccordion', ['BuildSection', 'CacheService', 'DataRetrieval', '$rootScope', '$scope', '$sanitize', '$modal', '$http', function (Section, Cache, dataRetrieval, $rootScope, $scope, $san, $modal, $http) {
     var self = this;
     var buildConfig = [
         {
@@ -343,28 +343,24 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
         self.resultsFilePath = baseUrl;
         self.resultsRefFilePath = baseUrl;
 
-        $http.post(calculateDataUrl, JSON.stringify(accordionData))
-           .success(function(data, status, headers, config) {
-               var filePaths = data.split(',');
-               self.calcRunning = false;
-               self.resultsImagePath = baseUrl + filePaths[0];
-               self.resultsFilePath = self.resultsFilePath + filePaths[1];
-               self.resultsRefFilePath = self.resultsRefFilePath + filePaths[2];
-               console.log('calculated data is:', data);
-           })
-           .error(function(data, status, headers, config) {
-               if (status === 500) {
-                   $scope.$broadcast('modalContent', {status: status, type: 'error', content: data.message, description: 'There was a problem while processing the data. Please see the message below:' });
-               }
+        function successCb(d) {
+            var filePaths = d.split(',');
+            self.resultsImagePath = baseUrl + filePaths[0];
+            self.resultsFilePath = self.resultsFilePath + filePaths[1];
+            self.resultsRefFilePath = self.resultsRefFilePath + filePaths[2];
+        }
 
-               if (status === 503) {
-                   $scope.$broadcast('modalContent', {status: status, type: 'error', content: '', description: 'There was a problem while processing the data. The application may not be running.' });
-               }
-           })
-           .finally(function(data) {
-               console.log('finally, data is: ', data);
-               self.calcRunning = false;
-           });
+        function finallyCb() {
+            self.calcRunning = false;
+        }
+
+        /* Call data retrieval service to get final calculations back from the server */
+        dataRetrieval.retrieveData({
+            url: calculateDataUrl,
+            data: accordionData,
+            success: successCb,
+            finally: finallyCb
+        });
     };
 
     self.init();
