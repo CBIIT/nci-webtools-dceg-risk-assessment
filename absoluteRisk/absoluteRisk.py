@@ -24,7 +24,7 @@ app = Flask(__name__)
 app.config['csv_upload_folder'] = UPLOAD_CSV_FOLDER
 app.config['rdata_upload_folder'] = UPLOAD_RDATA_FOLDER
 
-with open ('rfiles/arcWrapper.R') as fh:
+with open ('rfiles/absoluteRiskWrapper.R') as fh:
     rcode = os.linesep.join(line.strip() for line in fh)
     arc_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
 
