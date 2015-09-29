@@ -284,13 +284,34 @@ def calculate():
         model_predictor_RData = jsonData['generate_formula']['path_to_file']
 
         print "Reference Dataset: " + ref_dataset_RData +"\nModel_predictor_RData: " + model_predictor_RData + "\nLog Odds: " + log_odds_RData + "\nList of Variables: " + list_of_variables_RData + "\nSnp Info: " + snp_info_RData + "\nFamily History: " + fam_hist_RData + "\nAge: " + age_RData + "\nCovariate: " + cov_new_RData + "\nGenotype: " + genotype_new_RData + "\nDisease Rates: " + disease_rates_RData + "\nCompeting Rates: " + competing_rates_RData
-        results = arc_wrapper.finalCalculation('', ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_RData, cov_new_RData, genotype_new_RData, disease_rates_RData, competing_rates_RData)
-
-        print results
-
-        return results[0]
+        try:
+            results =arc_wrapper.finalCalculation('', ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_RData, cov_new_RData, genotype_new_RData, disease_rates_RData, competing_rates_RData)
+            return results[0]
+        except Exception,e:
+            raise InvalidUsage(e.args[0], status_code=500)
 
     return ''
+
+class InvalidUsage(Exception):
+    status_code = 400
+
+    def __init__(self, message, status_code=None, payload=None):
+        Exception.__init__(self)
+        self.message = message
+        if status_code is not None:
+            self.status_code = status_code
+        self.payload = payload
+
+    def to_dict(self):
+        rv = dict(self.payload or ())
+        rv['message'] = self.message
+        return rv
+
+@app.errorhandler(InvalidUsage)
+def handle_invalid_usage(error):
+    response = jsonify(error.to_dict())
+    response.status_code = error.status_code
+    return response
 
 # This method checks whether file of specified type is allowed to be uploaded
 def allowed_file(filename):

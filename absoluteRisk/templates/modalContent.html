@@ -1,0 +1,15 @@
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title">{{modalCtrl.heading}}</h3>
+    </div>
+    <div class="modal-body" ng-class="{'bg-info': !modalCtrl.statusCode, 'bg-danger': modalCtrl.statusCode}">
+        <div ng-show="modalCtrl.statusCode">
+            <div ng-show="modalCtrl.description">{{modalCtrl.description}}</div>
+            <div ng-show="modalCtrl.content">{{modalCtrl.content}}</div>
+        </div>
+        <div ng-show="!modalCtrl.statusCode">{{modalCtrl.content}}</div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="modalCtrl.close()">Close</button>
+    </div>
+</div>

@@ -289,27 +289,33 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
 
         $scope.$on('modalContent', function(event, args) {
             var type = args.type;
+            var statusCode = args.status ? args.status : null;
+            var heading;
 
             if (type === 'formula') {
                 self.formula = args.content;
-
-                modalInstance = $modal.open({
-                    templateUrl: 'templates/displayFormula.html',
-                    controller: 'ModalController as modalCtrl',
-                    resolve: {
-                      data: function () {
-                        return {
-                            type: args.type,
-                            content: args.content,
-                            heading: 'Formula'
-                        };
-                      }
-                    }
-                });
-
-            } else {
-                console.log('its a table template');
+                heading = 'Formula';
             }
+
+            if (type === 'error') {
+                heading = 'Error';
+            }
+
+            modalInstance = $modal.open({
+                templateUrl: 'templates/modalContent.html',
+                controller: 'ModalController as modalCtrl',
+                resolve: {
+                  data: function () {
+                    return {
+                        statusCode: statusCode,
+                        type: args.type,
+                        content: args.content,
+                        heading: heading,
+                        description: args.description
+                    };
+                  }
+                }
+            });
         });
 
         $scope.$on('runCalculations', function(event, args) {
@@ -347,7 +353,13 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService','$rootScope', '$s
                console.log('calculated data is:', data);
            })
            .error(function(data, status, headers, config) {
-               console.log('status is: ', status);
+               if (status === 500) {
+                   $scope.$broadcast('modalContent', {status: status, type: 'error', content: data.message, description: 'There was a problem while processing the data. Please see the message below:' });
+               }
+
+               if (status === 503) {
+                   $scope.$broadcast('modalContent', {status: status, type: 'error', content: '', description: 'There was a problem while processing the data. The application may not be running.' });
+               }
            })
            .finally(function(data) {
                console.log('finally, data is: ', data);
