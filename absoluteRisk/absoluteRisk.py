@@ -17,12 +17,14 @@ import tempfile
 
 UPLOAD_CSV_FOLDER = 'uploads/csv'
 UPLOAD_RDATA_FOLDER = 'uploads/rdata'
+RESULTS_FOLDER = 'tmp'
 
 ALLOWED_EXTENSIONS = set(['csv', 'rdata'])
 
 app = Flask(__name__)
 app.config['csv_upload_folder'] = UPLOAD_CSV_FOLDER
 app.config['rdata_upload_folder'] = UPLOAD_RDATA_FOLDER
+app.config['results_folder'] = RESULTS_FOLDER
 
 with open ('rfiles/absoluteRiskWrapper.R') as fh:
     rcode = os.linesep.join(line.strip() for line in fh)
@@ -283,8 +285,9 @@ def calculate():
         competing_rates_RData = jsonData['mortality_incidence_rates']['path_to_file']
         model_predictor_RData = jsonData['generate_formula']['path_to_file']
 
-        print "Reference Dataset: " + ref_dataset_RData +"\nModel_predictor_RData: " + model_predictor_RData + "\nLog Odds: " + log_odds_RData + "\nList of Variables: " + list_of_variables_RData + "\nSnp Info: " + snp_info_RData + "\nFamily History: " + fam_hist_RData + "\nAge: " + age_RData + "\nCovariate: " + cov_new_RData + "\nGenotype: " + genotype_new_RData + "\nDisease Rates: " + disease_rates_RData + "\nCompeting Rates: " + competing_rates_RData
-        results = arc_wrapper.finalCalculation('', ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_RData, cov_new_RData, genotype_new_RData, disease_rates_RData, competing_rates_RData)
+        print "Reference Dataset: " + ref_dataset_RData +"\nModel Formula: " + model_predictor_RData + "\nLog Odds: " + log_odds_RData + "\nList of Variables: " + list_of_variables_RData + "\nSnp Info: " + snp_info_RData + "\nFamily History: " + fam_hist_RData + "\nAge: " + age_RData + "\nCovariate: " + cov_new_RData + "\nGenotype: " + genotype_new_RData + "\nDisease Rates: " + disease_rates_RData + "\nCompeting Rates: " + competing_rates_RData
+        results_path = app.config['results_folder'] + '/' + time.strftime("%Y%m%d-%H%M%S")
+		results = arc_wrapper.finalCalculation(results_path, ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_RData, cov_new_RData, genotype_new_RData, disease_rates_RData, competing_rates_RData)
 
         print results
 

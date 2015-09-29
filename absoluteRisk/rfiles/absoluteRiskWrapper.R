@@ -438,12 +438,12 @@ finalCalculation <- function(file_path_prefix, ref_dataset_RData, model_predicto
 
   age_start <- age$age
   age_interval <- age$ageInterval
-
   #age_start_RData <- "age_start.RData"
   #age_interval_RData <- "age_interval.RData"
-
-  age_start_RData <- "uploads/rdata/age_start.RData"
-  age_interval_RData <- "uploads/rdata/age_interval.RData"
+  
+  timestamp <- format(Sys.time(), "%Y%m%d-%H%M%S")
+  age_start_RData <- paste("./uploads/rdata/", timestamp, "_age_start.RData", sep="")
+  age_interval_RData <- paste("./uploads/rdata/", timestamp, "_age_interval.RData", sep="")
 
   save(age_start, file = age_start_RData)
   save(age_interval, file = age_interval_RData)
