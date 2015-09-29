@@ -294,7 +294,8 @@ process_competing_rates <- function(csvFileName, diseaseRDataFileName, converted
 process_disease_rates <- function(filename, convertedFilePath)
 {
   lambda = check_disease_rates(filename)
-
+  lambda = na.omit(lambda)
+  
   convertedFileName = file_path_sans_ext(convertedFilePath)
   rdataFileName = paste(convertedFileName, ".RData", sep = "")
 
