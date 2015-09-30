@@ -1,5 +1,5 @@
 /* Creates an AgeInterval section model */
-app.factory('BuildAgeIntervalModel', ['CacheService', '$http', function(Cache, $http) {
+app.factory('BuildAgeIntervalModel', ['CacheService', 'DataRetrieval', function(Cache, dataRetrieval) {
     function AgeIntervalModel(parent) {
         var self = this;
 
@@ -41,21 +41,20 @@ app.factory('BuildAgeIntervalModel', ['CacheService', '$http', function(Cache, $
             if (self.templateRows.length) {
                 angular.forEach(self.templateRows, function(row) {
                     csvData.content += row + '\n';
-
                 });
             }
 
-            $http.post(csvExportUrl, JSON.stringify(csvData))
-               .success(function(data, status, headers, config) {
-                   var fileName = data.replace(/^.*[\\\/]/, '');
-                   window.location = 'http://' + window.location.hostname + '/absoluteRiskRest/downloadFile?filename=' + fileName;
-               })
-               .error(function(data, status, headers, config) {
-                   console.log('status is: ', status);
-               })
-               .finally(function(data) {
-                   console.log('finally, data is: ', data);
-               });
+            function successCb(d) {
+                var fileName = d.replace(/^.*[\\\/]/, '');
+                window.location = 'http://' + window.location.hostname + '/absoluteRiskRest/downloadFile?filename=' + fileName;
+            }
+
+            /* Call data retrieval service to return saved CSV file */
+            dataRetrieval.retrieveData({
+                url: csvExportUrl,
+                data: csvData,
+                success: successCb
+            });
         },
         saveModel: function() {
             var model = this.getJsonModel();

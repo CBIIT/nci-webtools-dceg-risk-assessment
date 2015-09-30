@@ -14,10 +14,9 @@ app.factory('BuildSection', [
     'BuildDefaultModel',
     '$rootScope',
     'uiUploader',
-    '$http',
     'CacheService',
     'DataRetrieval',
-    function(vlModel, gfModel, aiModel, snpModel, defModel, $rootScope, uiUploader, $http, Cache, dataRetrieval) {
+    function(vlModel, gfModel, aiModel, snpModel, defModel, $rootScope, uiUploader, Cache, dataRetrieval) {
         function Section(cfg) {
             var self = this;
 

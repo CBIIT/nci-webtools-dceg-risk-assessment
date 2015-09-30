@@ -1,5 +1,5 @@
 /* Creates a GenFormula section model */
-app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', '$http', '$rootScope', function(FormulaVariable, Cache, $http, $rootScope) {
+app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', 'DataRetrieval', '$rootScope', function(FormulaVariable, Cache, dataRetrieval, $rootScope) {
     function GenFormulaModel(parent) {
         var self = this;
 
@@ -41,17 +41,17 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', '$h
                 model: this.getJsonModel()
             };
 
-            $http.post(genFormulaUrl, JSON.stringify(dataJson))
-               .success(function(data, status, headers, config) {
-                   /* Display formula in a modal */
-                   $rootScope.$broadcast('modalContent', { type: 'formula', content: JSON.parse(data) });
-               })
-               .error(function(data, status, headers, config) {
-                   console.log('status is: ', status);
-               })
-               .finally(function(data) {
-                   console.log('finally, data is: ', data);
-               });
+            function successCb(d) {
+                /* Display formula in a modal window */
+                $rootScope.$broadcast('modalContent', { type: 'formula', content: JSON.parse(d) });
+            }
+
+            /* Call data retrieval service to return created Formula */
+            dataRetrieval.retrieveData({
+                url: genFormulaUrl,
+                data: dataJson,
+                success: successCb
+            });
         },
         saveModel: function() {
             /* Validation will occur before Cache sets data, flesh out here */

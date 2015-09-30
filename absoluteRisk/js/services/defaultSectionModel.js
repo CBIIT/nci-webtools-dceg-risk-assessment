@@ -1,5 +1,5 @@
 /* Creates a Default section model */
-app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', function(Cache, $http, $rootScope) {
+app.factory('BuildDefaultModel', ['CacheService', 'DataRetrieval', '$rootScope', function(Cache, dataRetrieval, $rootScope) {
     function DefaultModel(parent) {
         var self = this;
 
@@ -78,17 +78,17 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
                 });
             }
 
-            $http.post(csvExportUrl, JSON.stringify(csvData))
-               .success(function(data, status, headers, config) {
-                   var fileName = data.replace(/^.*[\\\/]/, '');
-                   window.location = 'http://' + window.location.hostname + '/absoluteRiskRest/downloadFile?filename=' + fileName;
-               })
-               .error(function(data, status, headers, config) {
-                   console.log('status is: ', status);
-               })
-               .finally(function(data) {
-                   console.log('finally, data is: ', data);
-               });
+            function successCb(d) {
+                var fileName = d.replace(/^.*[\\\/]/, '');
+                window.location = 'http://' + window.location.hostname + '/absoluteRiskRest/downloadFile?filename=' + fileName;
+            }
+
+            /* Call data retrieval service to return saved CSV file */
+            dataRetrieval.retrieveData({
+                url: csvExportUrl,
+                data: csvData,
+                success: successCb
+            });
         },
         getRemoteData: function(url) {
             var self = this;
@@ -99,16 +99,16 @@ app.factory('BuildDefaultModel', ['CacheService', '$http', '$rootScope', functio
                 formulaData: Cache.getSectionData('generate_formula')
             };
 
-            $http.post(remoteUrl, JSON.stringify(remoteData))
-               .success(function(data, status, headers, config) {
-                   self.templateRows = data;
-               })
-               .error(function(data, status, headers, config) {
-                   console.log('status is: ', status);
-               })
-               .finally(function(data) {
-                   console.log('finally, data is: ', data);
-               });
+            function successCb(d) {
+                self.templateRows = d;
+            }
+
+            /* Call data retrieval service to return saved CSV file */
+            dataRetrieval.retrieveData({
+                url: remoteUrl,
+                data: remoteData,
+                success: successCb
+            });
         },
         getJsonModel: function() {
             var self = this;

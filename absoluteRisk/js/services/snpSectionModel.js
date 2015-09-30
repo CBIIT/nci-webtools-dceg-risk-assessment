@@ -1,5 +1,5 @@
 /* Creates a SNP Information section model */
-app.factory('BuildSnpModel', ['CacheService', '$http', '$rootScope', function(Cache, $http, $rootScope) {
+app.factory('BuildSnpModel', ['CacheService', 'DataRetrieval', '$rootScope', function(Cache, dataRetrieval, $rootScope) {
     function snpModel(parent) {
         var self = this;
 
@@ -47,17 +47,17 @@ app.factory('BuildSnpModel', ['CacheService', '$http', '$rootScope', function(Ca
                 });
             }
 
-            $http.post(csvExportUrl, JSON.stringify(csvData))
-               .success(function(data, status, headers, config) {
-                   var fileName = data.replace(/^.*[\\\/]/, '');
-                   window.location = 'http://' + window.location.hostname + '/absoluteRiskRest/downloadFile?filename=' + fileName;
-               })
-               .error(function(data, status, headers, config) {
-                   console.log('status is: ', status);
-               })
-               .finally(function(data) {
-                   console.log('finally, data is: ', data);
-               });
+            function successCb(d) {
+                var fileName = d.replace(/^.*[\\\/]/, '');
+                window.location = 'http://' + window.location.hostname + '/absoluteRiskRest/downloadFile?filename=' + fileName;
+            }
+
+            /* Call data retrieval service to return saved CSV file */
+            dataRetrieval.retrieveData({
+                url: csvExportUrl,
+                data: csvData,
+                success: successCb
+            });
         },
         saveModel: function() {
             /* Validation will occur before Cache sets data, flesh out here */
@@ -77,23 +77,22 @@ app.factory('BuildSnpModel', ['CacheService', '$http', '$rootScope', function(Ca
                 famHist: self.famHist
             };
 
-            /* Passes in path to section CSV file, and path to referred section's RData file */
-            $http.post(saveUrl, JSON.stringify(saveData))
-               .success(function(data, status, headers, config) {
-                   /* Remove first row name because it's actually the first column header */
-                   data.rows.shift();
+            function successCb(d) {
+                /* Remove first row name because it's actually the first column header */
+                d.rows.shift();
 
-                   /* Store RData file path in global JSON object and open next section */
-                   self.parseJsonModel(data);
+                /* Store RData file path in global JSON object and open next section */
+                self.parseJsonModel(d);
 
-                   self.section.broadcastSectionStatus();
-               })
-               .error(function(data, status, headers, config) {
-                   console.log('status is: ', status);
-               })
-               .finally(function(data) {
-                   console.log('finally, data is: ', data);
-               });
+                self.section.broadcastSectionStatus();
+            }
+
+            /* Call data retrieval service to get final calculations back from the server */
+            dataRetrieval.retrieveData({
+                url: saveUrl,
+                data: saveData,
+                success: successCb
+            });
         },
         getJsonModel: function() {
             var self = this;
