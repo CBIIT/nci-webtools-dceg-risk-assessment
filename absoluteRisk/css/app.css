@@ -158,6 +158,9 @@ header h4 {
 	background: #bbb;
 }
 
+.glyphicon-green {
+    color: #5cb85c;
+}
 
 /* AngularUI ui-select directive CSS */
 /*!
