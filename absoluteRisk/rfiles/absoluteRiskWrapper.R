@@ -198,6 +198,84 @@ upload_log_odds <- function(csvFilePath, rDataFilePath) {
   return (rDataFilePath)
 }
 
+
+#-------------------------------------------------------
+# Function: Generates JSON from a given formula
+# Inputs: (1) The path to the RData formula
+#         (2) The pathe to the variables list file
+# Outputs: Returns the formula as JSON
+#--------------------------------------------------------
+
+process_formula <- function(formulaFilePath, variablesFilePath) {
+  return (toJSON(process_formula_terms(formulaFilePath, variablesFilePath)))
+}
+
+process_formula_terms <- function(formulaFilePath, variablesFilePath) {
+
+  vars = get(load(variablesFilePath))
+  form = get(load(formulaFilePath))
+  split = strsplit(gsub(" ", "", substring(form, 4, nchar(form))), "[+]") # split formula string on + signs
+  formulaTerms = list()
+  interactionTerms = list()
+  formulaData = list()
+  
+  # assign default values
+  for (i in 1:length(vars)) {
+    formulaData[[i]] = list(name = vars[[i]]$name, linear = TRUE, interaction = "")
+  }
+  
+  # get linear/interaction terms
+  for (i in 1:length(split[[1]])) {
+    term = split[[1]][i]
+    
+    # if not interaction term
+    if (length(grep("[*]", term)) == 0) {
+      formulaTerms = c(formulaTerms, removeFactor(term))
+    }
+    
+    else {
+      interactionTerms = c(interactionTerms, term)
+    }
+  }
+  
+  # check for linear state
+  for (i in 1:length(vars)) {
+    linear = FALSE
+    term = vars[[i]]$name
+    
+    for (j in 1:length(formulaTerms)) {
+      if (term == formulaTerms[j]) {
+        linear = TRUE
+      }
+    }
+    
+    formulaData[[i]]$linear = linear
+  }
+  
+  # add interaction terms
+  for(i in 1:length(interactionTerms)) {
+    term = interactionTerms[[i]][1]
+    indexTerm = removeFactor(strsplit(term, "[*]")[[1]][1])
+    interaction = removeFactor(strsplit(term, "[*]")[[1]][2])
+
+    for(j in 1:length(formulaData)) {
+      if (indexTerm == formulaData[[j]]$name) {
+        formulaData[[j]]$interaction[i] = interaction
+      }
+    }
+  }
+
+  
+  return (formulaData)
+}
+
+removeFactor <- function(term) {
+  if (length(grep("[()]", term)) != 0)
+    term = strsplit(term, "[()]")[[1]][2]
+  
+  return (term)
+}
+
 #------------------------------------------
 # Function: Generates the names of log odds rates (aka "beta_given")
 # Inputs: (1) RData file name for list_of_variables (e.g. "list_of_variables.RData") and
@@ -418,17 +496,22 @@ process_age_code <- function(file_path_prefix, ref_dataset_RData, model_predicto
 }
 
 #----------------------------------------------------
-# Name: process_age_code_helper.R
-# Function: check the age inputs
-# (merged age_start and age_interval into one parameter for use with manual form submission)
+# Name: finalCalculation
+# Function: Perform the final calculation
 #
-# Inputs: 5 RData file names. Examples:
-#    (1) age_RData="age_interval.rdata"
-#    (2) cov_new_RData="cov_new.RData"
-#    (3) snp_info_RData="snp_info.RData"
-#    (4) disease_rates_RData="pop_rates.RData"
-#    (5) competing_rates_RData="mort_rates_default_US.RData"
-
+# Inputs: 
+#    (1) path to results files (eg: "tmp/")
+#    (2) path to reference dataset (eg: "ref_dataset.RData")
+#    (3) path to model predictor (eg: "model_predictor.RData")
+#    (4) path to log odds rates (eg: "beta_given_better.RData")
+#    (5) path to list of variables(eg: "list_of_variables.RData")
+#    (6) path to snp information (eg: "snp_info.RData")
+#    (7) path to family history variable (eg: "famHist.RData")
+#    (8) path to age information (eg: "age.RData")
+#    (9) path to covariate information (eg: "cov_new.RData")
+#    (10) path to genotype information (eg: "genotype_new.RData")
+#    (11) path to disease mortality rates (eg: "mort_rates_default_US.RData")
+#    (12) path to competing mortality rates (eg: "pop_rates.RData")
 # outputs: JSON list of output files
 #----------------------------------------------------
 
@@ -451,3 +534,99 @@ finalCalculation <- function(file_path_prefix, ref_dataset_RData, model_predicto
   return (process_age_code(file_path_prefix, ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_start_RData, age_interval_RData, cov_new_RData, genotype_new_RData, disease_rates_RData, competing_rates_RData))
 
 }
+
+#----------------------------------------------------
+# Name: saveAllFiles
+# Function: Combines RData files into a single file for use with saving sessions
+#
+# Inputs: 
+#    (1) path to rdata file (eg: "tmp/")
+#    (2) path to reference dataset (eg: "ref_dataset.RData")
+#    (3) path to model predictor (eg: "model_predictor.RData")
+#    (4) path to log odds rates (eg: "beta_given_better.RData")
+#    (5) path to list of variables(eg: "list_of_variables.RData")
+#    (6) path to snp information (eg: "snp_info.RData")
+#    (7) path to family history variable (eg: "famHist.RData")
+#    (8) path to disease mortality rates (eg: "mort_rates_default_US.RData")
+#    (9) path to competing mortality rates (eg: "pop_rates.RData")
+# Outputs: Returns the path to the file
+
+saveAllFiles <- function(filePath, 
+                         listOfVariablesRData, 
+                         modelPredictorRData, 
+                         riskFactorDistributionRData, 
+                         logOddsRatesRData, 
+                         diseaseIncidenceRatesRData, 
+                         competingMortalityRatesRData, 
+                         snpInformationRData, 
+                         familyHistoryRData)
+{
+  allData = list()
+  allData$listOfVariables = get(load(listOfVariablesRData))
+  allData$modelPredictor = get(load(modelPredictorRData))
+  allData$riskFactorDistribution = get(load(riskFactorDistributionRData))
+  allData$logOddsRates = get(load(logOddsRatesRData))
+  allData$model.competing.incidence.rates = get(load(diseaseIncidenceRatesRData))
+  allData$lambda = get(load(competingMortalityRatesRData))
+  allData$snpInformation = get(load(snpInformationRData))
+  allData$familyHistoryRData = get(load(familyHistoryRData))
+  
+  save(allData, file=filePath)
+  
+  return (filePath)
+}
+
+
+#----------------------------------------------------
+# Name: loadAllFiles
+# Function: Loads RData files from a single saved RData file
+#
+# Inputs: 
+#    (1) path to rdata file (eg: "tmp/savedFile.RData")
+#    (2) path prefix for all restored rdata files (eg: "tmp/restored_")
+# Returns a JSON array containing the list of variables, model formula and list of restored files
+
+loadAllFiles <- function(filePath, prefix)
+{
+  allData = get(load(filePath))
+  
+  variablesFilePath = paste(prefix, "_list_of_variables.rdata", sep = "")
+  modelPredictorFilePath = paste(prefix, "_model_predictor.rdata", sep = "")
+  riskFactorDistributionFilePath = paste(prefix, "_risk_factor_distribution.rdata", sep = "")
+  logOddsRatesFilePath = paste(prefix, "_log_odds_rates.rdata", sep = "")
+  diseaseIncidenceRatesFilePath = paste(prefix, "_disease_incidence_rates.rdata", sep = "")
+  competingMortalityRatesFilePath = paste(prefix, "_competing_mortality_rates.rdata", sep = "")
+  snpInformationFilePath = paste(prefix, "_snp_information.rdata", sep = "")
+  familyHistoryFilePath = paste(prefix, "_family_history.rdata", sep = "")
+  
+  
+  listOfVariables = allData$listOfVariables
+  modelPredictor = allData$modelPredictor
+  riskFactorDistribution = allData$riskFactorDistribution
+  logOddsRates = allData$logOddsRates
+  model.competing.incidence.rates = allData$model.competing.incidence.rates
+  lambda = allData$lambda
+  snpInformation = allData$snpInformation
+  familyHistory = allData$familyHistory
+
+
+  save(listOfVariables, file = variablesFilePath)
+  save(modelPredictor, file = modelPredictorFilePath)
+  save(riskFactorDistribution, file = riskFactorDistributionFilePath)
+  save(logOddsRates, file = logOddsRatesFilePath)
+  save(model.competing.incidence.rates, file = diseaseIncidenceRatesFilePath)
+  save(lambda, file = competingMortalityRatesFilePath)
+  save(snpInformation, file = snpInformationFilePath)
+  save(familyHistory, file = familyHistoryFilePath)
+
+  variables = get(load(variablesFilePath))
+  form = process_formula_terms(modelPredictorFilePath, variablesFilePath)
+  fileList = c(variablesFilePath, modelPredictorFilePath, riskFactorDistributionFilePath, logOddsRatesFilePath, diseaseIncidenceRatesFilePath, competingMortalityRatesFilePath, snpInformationFilePath, familyHistoryFilePath)
+  
+  information = list(listOfVariables, form, fileList)
+  
+  return (toJSON(information))
+}
+
+
+
