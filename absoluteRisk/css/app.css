@@ -162,6 +162,14 @@ header h4 {
     color: #5cb85c;
 }
 
+.tool-logo img {
+    width:7%;
+}
+
+hr {
+    margin-top: 0;
+}
+
 /* AngularUI ui-select directive CSS */
 /*!
  * ui-select
