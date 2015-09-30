@@ -77,7 +77,7 @@
                 <accordion close-others="true">
                     <accordion-group ng-repeat="section in step.sections" is-disabled="section.isDisabled" is-open="section.isOpen">
                         <accordion-heading>
-                            {{section.header()}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': section.isOpen, 'glyphicon-chevron-right': !section.isOpen}"></i>
+                            <span  ng-class="{'text-muted': section.isDisabled }"> {{section.header()}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': section.isOpen, 'glyphicon-chevron-right': !section.isOpen}"></i></span>
                         </accordion-heading>
                         <form id="{{section.id}}" ng-if="section.type === 'variable_list'">
                             <div class="form-group">

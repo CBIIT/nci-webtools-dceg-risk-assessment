@@ -70,9 +70,11 @@ def csvFileUploadConversion():
             filepath = app.config['csv_upload_folder'] + '/' + filename
             convertedFilePath = app.config['rdata_upload_folder'] + '/' + filename
 
-            storedFilePath = arc_wrapper.uploadCSV(filepath, convertedFilePath)[0]
-
-            return json.dumps({ 'path_to_file': storedFilePath })
+            try:
+                storedFilePath = arc_wrapper.uploadCSV(filepath, convertedFilePath)[0]
+                return json.dumps({ 'path_to_file': storedFilePath })
+            except Exception, e:
+                raise InvalidUsage(e.args[0], status_code = 500)
     return ''
 
 # Specific to 'log odds'. This route takes a CSV file as an input, stores it as RData file, and returns the RData file path as JSON
@@ -89,9 +91,11 @@ def logOddsFileUploadConversion():
             filepath = app.config['csv_upload_folder'] + '/' + filename
             convertedFilePath = app.config['rdata_upload_folder'] + '/' + filename
 
-            storedFilePath = arc_wrapper.upload_log_odds(filepath, convertedFilePath)[0]
-
-            return json.dumps({ 'path_to_file': storedFilePath })
+            try:
+                storedFilePath = arc_wrapper.upload_log_odds(filepath, convertedFilePath)[0]
+                return json.dumps({ 'path_to_file': storedFilePath })
+            except Exception, e:
+                raise InvalidUsage(e.args[0], status_code = 500)
     return ''
 
 # This route takes a RData file as an input, stores it, and returns a JSON object with data and file path
@@ -107,16 +111,20 @@ def rdataFileUpload():
             file.save(os.path.join(app.config['rdata_upload_folder'], filename))
             filepath = app.config['rdata_upload_folder'] + '/' + filename
 
-            json_data = arc_wrapper.uploadRData(filepath)[0]
-            loadedJson = json.loads(json_data)
+            try:
+                json_data = arc_wrapper.uploadRData(filepath)[0]
+                loadedJson = json.loads(json_data)
 
-            if (isinstance(loadedJson, list)):
-                loadedJson.insert(0, {'path_to_file': filepath})
+                if (isinstance(loadedJson, list)):
+                    loadedJson.insert(0, {'path_to_file': filepath})
 
-            if (isinstance(loadedJson, unicode)):
-                loadedJson = {'formula': arc_wrapper.uploadRData(filepath)[0], 'path_to_file': filepath}
+                if (isinstance(loadedJson, unicode)):
+                    #loadedJson = {'formula': arc_wrapper.uploadRData(filepath)[0], 'path_to_file': filepath}
+                    loadedJson = {'formula': json_data, 'path_to_file': filepath}
 
-            return json.dumps(loadedJson)
+                return json.dumps(loadedJson)
+            except Exception, e:
+                raise InvalidUsage(e.args[0], status_code = 500)
     return ''
 
 # This route takes in a JSON object, converts it to an RData file, and returns the filename to the user as JSON
@@ -127,17 +135,19 @@ def dataUpload():
         sectionId = sectionModel['id']
         sectionData = sectionModel['data']
 
-        if ('isFormula' in sectionModel):
-            pathToVarListFile = sectionModel['pathToVariableListFile']
-            sectionData = arc_wrapper.create_formula(json.dumps(sectionData), pathToVarListFile)[0]
+        try:
+            if ('isFormula' in sectionModel):
+                pathToVarListFile = sectionModel['pathToVariableListFile']
+                sectionData = arc_wrapper.create_formula(json.dumps(sectionData), pathToVarListFile)[0]
 
-        filename = time.strftime("%Y%m%d-%H%M%S") + "_" + sectionId + ".rdata"
-        filepath = app.config['rdata_upload_folder'] + '/' + filename
+            filename = time.strftime("%Y%m%d-%H%M%S") + "_" + sectionId + ".rdata"
+            filepath = app.config['rdata_upload_folder'] + '/' + filename
 
-        arc_wrapper.convertJSONtoRData(json.dumps(sectionData), filepath)
+            arc_wrapper.convertJSONtoRData(json.dumps(sectionData), filepath)
 
-        return filename
-
+            return filename
+        except Exception, e:
+            raise InvalidUsage(e.args[0], status_code = 500)
     return ''
 
 # This route takes in a JSON object, converts it to a CSV file, and returns the file to the user
@@ -152,7 +162,7 @@ def exportToCsv():
         filepath = app.config['csv_upload_folder'] + '/' + filename
 
         with open(filepath,"wb") as fo:
-                fo.write(csvContent)
+            fo.write(csvContent)
 
         return filepath
 
@@ -185,8 +195,11 @@ def generateFormula():
         formulaModel = jsonData['model']['data']
         pathToFile = jsonData['pathToVariableListFile']
 
-        formula = arc_wrapper.create_formula(json.dumps(formulaModel), pathToFile)
-        return json.dumps(formula[0])
+        try:
+            formula = arc_wrapper.create_formula(json.dumps(formulaModel), pathToFile)
+            return json.dumps(formula[0])
+        except Exception, e:
+            raise InvalidUsage(e.args[0], status_code = 500)
 
     return ''
 
@@ -194,15 +207,21 @@ def generateFormula():
 @app.route('/absoluteRiskRest/logOddsRatios', methods=['POST'])
 def logOddsRatios():
     if request.method == 'POST':
-        jsonData = json.loads(request.data)
-        pathToVariableListFile = jsonData['pathToVariableListFile']
-        pathToGenFormulaFile = jsonData['pathToGenFormulaFile']
-        formulaData = jsonData['formulaData']['data']
+        try:
+            jsonData = json.loads(request.data)
+            pathToVariableListFile = jsonData['pathToVariableListFile']
+            pathToGenFormulaFile = jsonData['pathToGenFormulaFile']
+            formulaData = jsonData['formulaData']['data']
 
-        formula = arc_wrapper.create_formula(json.dumps(formulaData), pathToVariableListFile)
-        jsonList = arc_wrapper.log_odds_rates(pathToVariableListFile, json.dumps(formula[0]))
+            try:
+                formula = arc_wrapper.create_formula(json.dumps(formulaData), pathToVariableListFile)
+                jsonList = arc_wrapper.log_odds_rates(pathToVariableListFile, json.dumps(formula[0]))
 
-        return jsonList[0]
+                return jsonList[0]
+            except Exception, e:
+                raise InvalidUsage(e.args[0], status_code = 500)
+        except KeyError, e:
+            raise InvalidUsage('KeyError: ' + e.args[0], status_code = 500)
     return ''
 
 # This route takes a csv file as an input, and converts it to a 'disease rates' specific RData file.
@@ -219,11 +238,14 @@ def csvFileUploadDiseaseRates():
             file.save(os.path.join(app.config['csv_upload_folder'], filename))
             filepath = app.config['csv_upload_folder'] + '/' + filename
             convertedFilePath = app.config['rdata_upload_folder'] + '/' + filename
-            rdata_file_path = arc_wrapper.process_disease_rates(filepath, convertedFilePath)[0]
 
-            print rdata_file_path
-            return json.dumps({'path_to_file': rdata_file_path})
+            try:
+                rdata_file_path = arc_wrapper.process_disease_rates(filepath, convertedFilePath)[0]
 
+                print rdata_file_path
+                return json.dumps({'path_to_file': rdata_file_path})
+            except Exception, e:
+                raise InvalidUsage(e.args[0], status_code = 500)
     return ''
 
 # This route takes 2 params for R calculations, and returns the RData file path as JSON
@@ -236,11 +258,14 @@ def mortalityRates():
         filename = os.path.basename(pathToMortalityRatesCSVFile)
 
         convertedFilePath = app.config['rdata_upload_folder'] + '/' + filename
-        rdata_file_path = arc_wrapper.process_competing_rates(pathToMortalityRatesCSVFile, pathToDiseaseRatesRDataFile, convertedFilePath)[0]
 
-        print rdata_file_path
-        return json.dumps({'path_to_file': rdata_file_path})
+        try:
+            rdata_file_path = arc_wrapper.process_competing_rates(pathToMortalityRatesCSVFile, pathToDiseaseRatesRDataFile, convertedFilePath)[0]
 
+            print rdata_file_path
+            return json.dumps({'path_to_file': rdata_file_path})
+        except Exception, e:
+            raise InvalidUsage(e.args[0], status_code = 500)
     return ''
 
 # This route takes 2 params for R calculations, and returns the RData file path as JSON
@@ -252,18 +277,21 @@ def snpInformation():
         famHistVarName = jsonData['famHist']
         filename = os.path.basename(pathToSnpCSVFile)
         famHistFileName = app.config['rdata_upload_folder'] + '/' + time.strftime("%Y%m%d-%H%M%S") + '_' + 'famHist'
-
         convertedFilePath = app.config['rdata_upload_folder'] + '/' + filename
-        rdata_file_path = arc_wrapper.process_SNP_info(pathToSnpCSVFile, famHistVarName, convertedFilePath, famHistFileName)[0]
         snpColNames = []
 
-        with open(pathToSnpCSVFile) as f:
-            reader = csv.reader(f, dialect=csv.excel_tab, delimiter="\t")
-            for i in reader:
-                colName = i[0].split(',')[0]
-                snpColNames.append(colName)
+        try:
+            rdata_file_path = arc_wrapper.process_SNP_info(pathToSnpCSVFile, famHistVarName, convertedFilePath, famHistFileName)[0]
 
-        return json.dumps({'path_to_file': rdata_file_path, 'rows': snpColNames })
+            with open(pathToSnpCSVFile) as f:
+                reader = csv.reader(f, dialect=csv.excel_tab, delimiter="\t")
+                for i in reader:
+                    colName = i[0].split(',')[0]
+                    snpColNames.append(colName)
+
+            return json.dumps({'path_to_file': rdata_file_path, 'rows': snpColNames })
+        except Exception, e:
+            raise InvalidUsage(e.args[0], status_code = 500)
 
     return ''
 
@@ -273,23 +301,26 @@ def calculate():
     if request.method == 'POST':
         jsonData = json.loads(request.data)
 
-        ref_dataset_RData = jsonData['risk_factor_distribution']['path_to_file']
-        log_odds_RData = jsonData['log_odds_ratios']['path_to_file']
-        list_of_variables_RData = jsonData['variable_list']['path_to_file']
-        snp_info_RData = jsonData['snp_information']['path_to_file']
-        fam_hist_RData = jsonData['snp_information']['path_to_famHist_file']
-        age_RData = jsonData['age_interval']['path_to_file']
-        cov_new_RData = jsonData['risk_factor_prediction']['path_to_file']
-        genotype_new_RData = jsonData['genotypes_prediction']['path_to_file']
-        disease_rates_RData = jsonData['disease_incidence_rates']['path_to_file']
-        competing_rates_RData = jsonData['mortality_incidence_rates']['path_to_file']
-        model_predictor_RData = jsonData['generate_formula']['path_to_file']
+        try:
+            ref_dataset_RData = jsonData['risk_factor_distribution']['path_to_file']
+            log_odds_RData = jsonData['log_odds_ratios']['path_to_file']
+            list_of_variables_RData = jsonData['variable_list']['path_to_file']
+            snp_info_RData = jsonData['snp_information']['path_to_file']
+            fam_hist_RData = jsonData['snp_information']['path_to_famHist_file']
+            age_RData = jsonData['age_interval']['path_to_file']
+            cov_new_RData = jsonData['risk_factor_prediction']['path_to_file']
+            genotype_new_RData = jsonData['genotypes_prediction']['path_to_file']
+            disease_rates_RData = jsonData['disease_incidence_rates']['path_to_file']
+            competing_rates_RData = jsonData['mortality_incidence_rates']['path_to_file']
+            model_predictor_RData = jsonData['generate_formula']['path_to_file']
 
-        print "Reference Dataset: " + ref_dataset_RData +"\nModel_predictor_RData: " + model_predictor_RData + "\nLog Odds: " + log_odds_RData + "\nList of Variables: " + list_of_variables_RData + "\nSnp Info: " + snp_info_RData + "\nFamily History: " + fam_hist_RData + "\nAge: " + age_RData + "\nCovariate: " + cov_new_RData + "\nGenotype: " + genotype_new_RData + "\nDisease Rates: " + disease_rates_RData + "\nCompeting Rates: " + competing_rates_RData
+            print "Reference Dataset: " + ref_dataset_RData +"\nModel_predictor_RData: " + model_predictor_RData + "\nLog Odds: " + log_odds_RData + "\nList of Variables: " + list_of_variables_RData + "\nSnp Info: " + snp_info_RData + "\nFamily History: " + fam_hist_RData + "\nAge: " + age_RData + "\nCovariate: " + cov_new_RData + "\nGenotype: " + genotype_new_RData + "\nDisease Rates: " + disease_rates_RData + "\nCompeting Rates: " + competing_rates_RData
+        except KeyError, e:
+            raise InvalidUsage('KeyError: ' + e.args[0], status_code = 500)
 
         try:
             results_path = app.config['results_folder'] + '/' + time.strftime("%Y%m%d-%H%M%S")
-		    results = arc_wrapper.finalCalculation(results_path, ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_RData, cov_new_RData, genotype_new_RData, disease_rates_RData, competing_rates_RData)
+            results = arc_wrapper.finalCalculation(results_path, ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_RData, cov_new_RData, genotype_new_RData, disease_rates_RData, competing_rates_RData)
 
             return results[0]
         except Exception,e:

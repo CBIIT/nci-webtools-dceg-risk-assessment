@@ -59,7 +59,7 @@ app.factory('BuildSection', [
 
             self.type = cfg.type ? cfg.type : 'default';
             self.model = self.createModel();
-            self.isDisabled = false;
+            self.isDisabled = true;
             self.isOpen = false;
 
             self.file = null;
@@ -88,16 +88,22 @@ app.factory('BuildSection', [
                                 console.log(file);
                             },
                             onCompleted: function(file, response) {
-                                if (self.model.parseJsonModel) {
-                                    self.model.parseJsonModel(JSON.parse(response));
-                                }
+                                var resp = JSON.parse(response);
 
-                                if (self.model.postUploadEndpoint) {
-                                    self.model.postUploadActions(JSON.parse(response));
-                                }
+                                if (resp.message) {
+                                    dataRetrieval.errorHandler(resp, 500);
+                                } else {
+                                    if (self.model.parseJsonModel) {
+                                        self.model.parseJsonModel(JSON.parse(response));
+                                    }
 
-                                if (!self.model.postUploadEndpoint && !self.model.saveEndpoint) {
-                                    self.broadcastSectionStatus(true);
+                                    if (self.model.postUploadEndpoint) {
+                                        self.model.postUploadActions(JSON.parse(response));
+                                    }
+
+                                    if (!self.model.postUploadEndpoint && !self.model.saveEndpoint) {
+                                        self.broadcastSectionStatus(true);
+                                    }
                                 }
                             },
                             onCompletedAll: function(file) {}

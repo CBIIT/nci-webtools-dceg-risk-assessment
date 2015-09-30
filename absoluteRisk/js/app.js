@@ -95,19 +95,18 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService', 'DataRetrieval',
                     rdataFilePath: Cache.getSectionKey(self.sectionDependency.id, 'path_to_file')
                 };
 
-                /* Passes in path to section CSV file, and path to referred section's RData file */
-                $http.post(postUploadUrl, JSON.stringify(postUploadData))
-                   .success(function(data, status, headers, config) {
-                       /* Store RData file path in global JSON object and open next section */
-                       self.parseJsonModel(data);
-                       self.section.broadcastSectionStatus();
-                   })
-                   .error(function(data, status, headers, config) {
-                       console.log('status is: ', status);
-                   })
-                   .finally(function(data) {
-                       console.log('finally, data is: ', data);
-                   });
+                function successCb(d) {
+                    /* Store RData file path in global JSON object and open next section */
+                    self.parseJsonModel(d);
+                    self.section.broadcastSectionStatus();
+                }
+
+                /* Call data retrieval service to get final calculations back from the server */
+                dataRetrieval.retrieveData({
+                    url: postUploadUrl,
+                    data: postUploadData,
+                    success: successCb
+                });
             },
             sectionDependency:  {
                 id: 'disease_incidence_rates',
