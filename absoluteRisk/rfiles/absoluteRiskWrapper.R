@@ -238,23 +238,12 @@ process_formula_terms <- function(formulaFilePath, variablesFilePath) {
 
   # check for linear state
   for (i in 1:length(vars)) {
-<<<<<<< HEAD
-    linear = FALSE
-    term = vars[[i]]$name
-
-=======
->>>>>>> 0beec9e3bd0aa46578d621b41debdecce8659b9a
     for (j in 1:length(formulaTerms)) {
       # a formula term is linear if it is found within the list of variables
       if (vars[[i]]$name == formulaTerms[j]) {
         formulaData[[i]]$linear = TRUE
       }
     }
-<<<<<<< HEAD
-
-    formulaData[[i]]$linear = linear
-=======
->>>>>>> 0beec9e3bd0aa46578d621b41debdecce8659b9a
   }
 
   # add interaction terms
@@ -271,12 +260,7 @@ process_formula_terms <- function(formulaFilePath, variablesFilePath) {
       }
     }
   }
-<<<<<<< HEAD
 
-
-=======
-
->>>>>>> 0beec9e3bd0aa46578d621b41debdecce8659b9a
   return (formulaData)
 }
 
