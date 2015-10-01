@@ -221,7 +221,7 @@ process_formula_terms <- function(formulaFilePath, variablesFilePath) {
   
   # assign default values
   for (i in 1:length(vars)) {
-    formulaData[[i]] = list(name = vars[[i]]$name, linear = TRUE, interaction = "")
+    formulaData[[i]] = list(name = vars[[i]]$name, linear = FALSE, interaction = NULL)
   }
   
   # get linear/interaction terms
@@ -230,37 +230,38 @@ process_formula_terms <- function(formulaFilePath, variablesFilePath) {
     
     # if not interaction term
     if (length(grep("[*]", term)) == 0) {
-      formulaTerms = c(formulaTerms, removeFactor(term))
+      formulaTerms[length(formulaTerms) + 1] = removeFactor(term)
     }
     
     else {
-      interactionTerms = c(interactionTerms, term)
+      interactionTerms[length(interactionTerms) + 1] = term
     }
   }
   
   # check for linear state
   for (i in 1:length(vars)) {
-    linear = FALSE
-    term = vars[[i]]$name
-    
     for (j in 1:length(formulaTerms)) {
-      if (term == formulaTerms[j]) {
-        linear = TRUE
+      # a formula term is linear if it is found within the list of variables
+      if (vars[[i]]$name == formulaTerms[j]) {
+        formulaData[[i]]$linear = TRUE
       }
     }
     
-    formulaData[[i]]$linear = linear
   }
+  
+  print(interactionTerms)
   
   # add interaction terms
   for(i in 1:length(interactionTerms)) {
-    term = interactionTerms[[i]][1]
-    indexTerm = removeFactor(strsplit(term, "[*]")[[1]][1])
-    interaction = removeFactor(strsplit(term, "[*]")[[1]][2])
+    term = strsplit(interactionTerms[[i]][1], "[*]")[[1]]
+    
+    indexTerm = removeFactor(term[1])
+    interaction = removeFactor(term[2])
 
     for(j in 1:length(formulaData)) {
       if (indexTerm == formulaData[[j]]$name) {
-        formulaData[[j]]$interaction[i] = interaction
+        #append interaction to list
+        formulaData[[j]]$interaction[length(formulaData[[j]]$interaction) + 1] = interaction
       }
     }
   }
