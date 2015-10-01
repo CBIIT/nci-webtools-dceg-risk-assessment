@@ -511,19 +511,6 @@ process_age_code <- function(file_path_prefix, ref_dataset_RData, model_predicto
 
 finalCalculation <- function(file_path_prefix, ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_RData, cov_new_RData, genotype_new_RData, disease_rates_RData, competing_rates_RData)
 {
-<<<<<<< HEAD
-  age <- get(load(age_RData))
-
-  age_start <- age$age
-  age_interval <- age$ageInterval
-  #age_start_RData <- "age_start.RData"
-  #age_interval_RData <- "age_interval.RData"
-
-  timestamp <- format(Sys.time(), "%Y%m%d-%H%M%S")
-  age_start_RData <- paste("./uploads/rdata/", timestamp, "_age_start.RData", sep="")
-  age_interval_RData <- paste("./uploads/rdata/", timestamp, "_age_interval.RData", sep="")
-
-=======
   age = get(load(age_RData))
 
   age_start = age$age
@@ -535,7 +522,6 @@ finalCalculation <- function(file_path_prefix, ref_dataset_RData, model_predicto
   age_start_RData = paste("./uploads/rdata/", timestamp, "_age_start.rdata", sep = "")
   age_interval_RData = paste("./uploads/rdata/", timestamp, "_age_interval.rdata", sep = "")
 
->>>>>>> 0beec9e3bd0aa46578d621b41debdecce8659b9a
   save(age_start, file = age_start_RData)
   save(age_interval, file = age_interval_RData)
 
@@ -577,15 +563,9 @@ saveAllFiles <- function(filePath,
   allData$lambda = get(load(competingMortalityRatesRData))
   allData$snpInformation = get(load(snpInformationRData))
   allData$familyHistoryRData = get(load(familyHistoryRData))
-<<<<<<< HEAD
-
-  save(allData, file=filePath)
-
-=======
 
   save(allData, file = filePath)
 
->>>>>>> 0beec9e3bd0aa46578d621b41debdecce8659b9a
   return (filePath)
 }
 
@@ -602,19 +582,6 @@ saveAllFiles <- function(filePath,
 loadAllFiles <- function(filePath, prefix)
 {
   allData = get(load(filePath))
-<<<<<<< HEAD
-
-  variablesFilePath = paste(prefix, "_list_of_variables.rdata", sep = "")
-  modelPredictorFilePath = paste(prefix, "_model_predictor.rdata", sep = "")
-  riskFactorDistributionFilePath = paste(prefix, "_risk_factor_distribution.rdata", sep = "")
-  logOddsRatesFilePath = paste(prefix, "_log_odds_rates.rdata", sep = "")
-  diseaseIncidenceRatesFilePath = paste(prefix, "_disease_incidence_rates.rdata", sep = "")
-  competingMortalityRatesFilePath = paste(prefix, "_competing_mortality_rates.rdata", sep = "")
-  snpInformationFilePath = paste(prefix, "_snp_information.rdata", sep = "")
-  familyHistoryFilePath = paste(prefix, "_family_history.rdata", sep = "")
-
-
-=======
 
   variablesFilePath = paste(prefix, "list_of_variables.rdata", sep = "_")
   modelPredictorFilePath = paste(prefix, "model_predictor.rdata", sep = "_")
@@ -626,7 +593,6 @@ loadAllFiles <- function(filePath, prefix)
   familyHistoryFilePath = paste(prefix, "family_history.rdata", sep = "_")
 
 
->>>>>>> 0beec9e3bd0aa46578d621b41debdecce8659b9a
   listOfVariables = allData$listOfVariables
   modelPredictor = allData$modelPredictor
   riskFactorDistribution = allData$riskFactorDistribution
