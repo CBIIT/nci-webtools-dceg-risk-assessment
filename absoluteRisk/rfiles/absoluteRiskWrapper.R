@@ -218,40 +218,40 @@ process_formula_terms <- function(formulaFilePath, variablesFilePath) {
   formulaTerms = list()
   interactionTerms = list()
   formulaData = list()
-  
+
   # assign default values
   for (i in 1:length(vars)) {
     formulaData[[i]] = list(name = vars[[i]]$name, linear = TRUE, interaction = "")
   }
-  
+
   # get linear/interaction terms
   for (i in 1:length(split[[1]])) {
     term = split[[1]][i]
-    
+
     # if not interaction term
     if (length(grep("[*]", term)) == 0) {
       formulaTerms = c(formulaTerms, removeFactor(term))
     }
-    
+
     else {
       interactionTerms = c(interactionTerms, term)
     }
   }
-  
+
   # check for linear state
   for (i in 1:length(vars)) {
     linear = FALSE
     term = vars[[i]]$name
-    
+
     for (j in 1:length(formulaTerms)) {
       if (term == formulaTerms[j]) {
         linear = TRUE
       }
     }
-    
+
     formulaData[[i]]$linear = linear
   }
-  
+
   # add interaction terms
   for(i in 1:length(interactionTerms)) {
     term = interactionTerms[[i]][1]
@@ -265,14 +265,14 @@ process_formula_terms <- function(formulaFilePath, variablesFilePath) {
     }
   }
 
-  
+
   return (formulaData)
 }
 
 removeFactor <- function(term) {
   if (length(grep("[()]", term)) != 0)
     term = strsplit(term, "[()]")[[1]][2]
-  
+
   return (term)
 }
 
@@ -302,7 +302,6 @@ removeFactor <- function(term) {
 log_odds_rates <- function(list_of_variables_RData, model_predictor_RData)
 {
   list_of_variables = get(load(list_of_variables_RData))
-  #predictor = as.formula(get(load(model_predictor_RData)))
   predictor = as.formula(model_predictor_RData)
   listnames = get_beta_given_names(list_of_variables, predictor)
 
@@ -361,7 +360,7 @@ process_disease_rates <- function(filename, convertedFilePath)
 {
   lambda = check_disease_rates(filename)
   lambda = na.omit(lambda)
-  
+
   convertedFileName = file_path_sans_ext(convertedFilePath)
   rdataFileName = paste(convertedFileName, ".RData", sep = "")
 
@@ -499,7 +498,7 @@ process_age_code <- function(file_path_prefix, ref_dataset_RData, model_predicto
 # Name: finalCalculation
 # Function: Perform the final calculation
 #
-# Inputs: 
+# Inputs:
 #    (1) path to results files (eg: "tmp/")
 #    (2) path to reference dataset (eg: "ref_dataset.RData")
 #    (3) path to model predictor (eg: "model_predictor.RData")
@@ -523,7 +522,7 @@ finalCalculation <- function(file_path_prefix, ref_dataset_RData, model_predicto
   age_interval <- age$ageInterval
   #age_start_RData <- "age_start.RData"
   #age_interval_RData <- "age_interval.RData"
-  
+
   timestamp <- format(Sys.time(), "%Y%m%d-%H%M%S")
   age_start_RData <- paste("./uploads/rdata/", timestamp, "_age_start.RData", sep="")
   age_interval_RData <- paste("./uploads/rdata/", timestamp, "_age_interval.RData", sep="")
@@ -539,7 +538,7 @@ finalCalculation <- function(file_path_prefix, ref_dataset_RData, model_predicto
 # Name: saveAllFiles
 # Function: Combines RData files into a single file for use with saving sessions
 #
-# Inputs: 
+# Inputs:
 #    (1) path to rdata file (eg: "tmp/")
 #    (2) path to reference dataset (eg: "ref_dataset.RData")
 #    (3) path to model predictor (eg: "model_predictor.RData")
@@ -551,14 +550,14 @@ finalCalculation <- function(file_path_prefix, ref_dataset_RData, model_predicto
 #    (9) path to competing mortality rates (eg: "pop_rates.RData")
 # Outputs: Returns the path to the file
 
-saveAllFiles <- function(filePath, 
-                         listOfVariablesRData, 
-                         modelPredictorRData, 
-                         riskFactorDistributionRData, 
-                         logOddsRatesRData, 
-                         diseaseIncidenceRatesRData, 
-                         competingMortalityRatesRData, 
-                         snpInformationRData, 
+saveAllFiles <- function(filePath,
+                         listOfVariablesRData,
+                         modelPredictorRData,
+                         riskFactorDistributionRData,
+                         logOddsRatesRData,
+                         diseaseIncidenceRatesRData,
+                         competingMortalityRatesRData,
+                         snpInformationRData,
                          familyHistoryRData)
 {
   allData = list()
@@ -570,9 +569,9 @@ saveAllFiles <- function(filePath,
   allData$lambda = get(load(competingMortalityRatesRData))
   allData$snpInformation = get(load(snpInformationRData))
   allData$familyHistoryRData = get(load(familyHistoryRData))
-  
+
   save(allData, file=filePath)
-  
+
   return (filePath)
 }
 
@@ -581,7 +580,7 @@ saveAllFiles <- function(filePath,
 # Name: loadAllFiles
 # Function: Loads RData files from a single saved RData file
 #
-# Inputs: 
+# Inputs:
 #    (1) path to rdata file (eg: "tmp/savedFile.RData")
 #    (2) path prefix for all restored rdata files (eg: "tmp/restored_")
 # Returns a JSON array containing the list of variables, model formula and list of restored files
@@ -589,7 +588,7 @@ saveAllFiles <- function(filePath,
 loadAllFiles <- function(filePath, prefix)
 {
   allData = get(load(filePath))
-  
+
   variablesFilePath = paste(prefix, "_list_of_variables.rdata", sep = "")
   modelPredictorFilePath = paste(prefix, "_model_predictor.rdata", sep = "")
   riskFactorDistributionFilePath = paste(prefix, "_risk_factor_distribution.rdata", sep = "")
@@ -598,8 +597,8 @@ loadAllFiles <- function(filePath, prefix)
   competingMortalityRatesFilePath = paste(prefix, "_competing_mortality_rates.rdata", sep = "")
   snpInformationFilePath = paste(prefix, "_snp_information.rdata", sep = "")
   familyHistoryFilePath = paste(prefix, "_family_history.rdata", sep = "")
-  
-  
+
+
   listOfVariables = allData$listOfVariables
   modelPredictor = allData$modelPredictor
   riskFactorDistribution = allData$riskFactorDistribution
@@ -622,11 +621,8 @@ loadAllFiles <- function(filePath, prefix)
   variables = get(load(variablesFilePath))
   form = process_formula_terms(modelPredictorFilePath, variablesFilePath)
   fileList = c(variablesFilePath, modelPredictorFilePath, riskFactorDistributionFilePath, logOddsRatesFilePath, diseaseIncidenceRatesFilePath, competingMortalityRatesFilePath, snpInformationFilePath, familyHistoryFilePath)
-  
+
   information = list(listOfVariables, form, fileList)
-  
+
   return (toJSON(information))
 }
-
-
-
