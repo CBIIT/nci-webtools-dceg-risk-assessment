@@ -8,7 +8,7 @@ library(slam)
 library(modeest)
 library(iCare)
 
-source("./rfiles/absoluteRiskCalculation.R")
+source("absoluteRiskCalculation.R")
 
 #-----------------------------------------
 # Function: convert the JSON data to RData
@@ -150,7 +150,7 @@ form_type <- function(var_name, model_info, list_of_variables){
 # Function: Converts an uploaded csv file to an RData file and returns the path
 # Inputs: (1) The input file name (*.csv) and
 #         (2) The path to the output file, without the file extension
-# Outputs: Returns the corresponding RData filename with the extension ".RData"
+# Outputs: Returns the corresponding RData filename with the extension ".rdata"
 #--------------------------------------------------------
 #
 # Test Code:
@@ -172,7 +172,7 @@ uploadCSV <- function(filename, convertedFilePath)
   mydata <- read.csv(filename, sep=",", header = TRUE, stringsAsFactor = FALSE)
 
   convertedFileName = file_path_sans_ext(convertedFilePath)
-  rdataFileName = paste(convertedFileName, ".RData", sep = "")
+  rdataFileName = paste(convertedFileName, ".rdata", sep = "")
 
   save(mydata, file = rdataFileName)
   return (rdataFileName)
@@ -191,7 +191,7 @@ upload_log_odds <- function(csvFilePath, rDataFilePath) {
   rmatrix <- matrix(fileContents[[2]], ncol=1)
   rownames(rmatrix) <- fileContents$names
 
-  rDataFilePath <- paste(rDataFilePath, ".RData", sep="")
+  rDataFilePath <- paste(rDataFilePath, ".rdata", sep="")
 
   save(rmatrix, file=rDataFilePath)
 
@@ -201,8 +201,8 @@ upload_log_odds <- function(csvFilePath, rDataFilePath) {
 
 #-------------------------------------------------------
 # Function: Generates JSON from a given formula
-# Inputs: (1) The path to the RData formula
-#         (2) The pathe to the variables list file
+# Inputs: (1) The path to the RData formula (eg: 'model_predictor.RData')
+#         (2) The path to the variables list file (eg: 'list_of_variables.RData')
 # Outputs: Returns the formula as JSON
 #--------------------------------------------------------
 
@@ -246,10 +246,7 @@ process_formula_terms <- function(formulaFilePath, variablesFilePath) {
         formulaData[[i]]$linear = TRUE
       }
     }
-    
   }
-  
-  print(interactionTerms)
   
   # add interaction terms
   for(i in 1:length(interactionTerms)) {
@@ -266,7 +263,6 @@ process_formula_terms <- function(formulaFilePath, variablesFilePath) {
     }
   }
 
-  
   return (formulaData)
 }
 
@@ -303,8 +299,8 @@ removeFactor <- function(term) {
 log_odds_rates <- function(list_of_variables_RData, model_predictor_RData)
 {
   list_of_variables = get(load(list_of_variables_RData))
-  #predictor = as.formula(get(load(model_predictor_RData)))
-  predictor = as.formula(model_predictor_RData)
+  predictor = as.formula(get(load(model_predictor_RData)))
+#  predictor = as.formula(model_predictor_RData)
   listnames = get_beta_given_names(list_of_variables, predictor)
 
   listnamesJSON = toJSON(listnames)
