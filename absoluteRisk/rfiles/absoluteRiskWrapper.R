@@ -8,7 +8,7 @@ library(slam)
 library(modeest)
 library(iCare)
 
-source("./rfiles/absoluteRiskCalculation.R")
+#source("./rfiles/absoluteRiskCalculation.R")
 
 #-----------------------------------------
 # Function: convert the JSON data to RData
@@ -169,7 +169,7 @@ form_type <- function(var_name, model_info, list_of_variables){
 
 uploadCSV <- function(filename, convertedFilePath)
 {
-  mydata = read.csv(filename, sep = ", ", header = TRUE, stringsAsFactor = FALSE)
+  mydata = read.csv(filename, sep = ",", header = TRUE, stringsAsFactor = FALSE)
   
   convertedFileName = file_path_sans_ext(convertedFilePath)
   rdataFileName = paste(convertedFileName, ".rdata", sep = "")
@@ -385,7 +385,7 @@ process_disease_rates <- function(filename, convertedFilePath)
 
 process_SNP_info <- function(filename, famHist, snpFilePath, famHistFilePath)
 {
-  mydata = read.csv(filename, sep = ", ", header = TRUE, stringsAsFactor = FALSE)
+  mydata = read.csv(filename, sep = ",", header = TRUE, stringsAsFactor = FALSE)
   
   snpFileName = file_path_sans_ext(snpFilePath)
   famHistFileName = file_path_sans_ext(famHistFilePath)
