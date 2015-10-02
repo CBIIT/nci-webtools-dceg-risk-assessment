@@ -107,6 +107,6 @@ for(i in 1:nrow)
 #5.       The chance of having a false positive result after 3 screens is result5 (in %)
 
 
-return (c(xx,yy,cc,zz,aa,bb))
+return (c(xx,yy,zz,aa,bb,cc))
 
 }
