@@ -436,6 +436,7 @@ process_SNP_info <- function(filename, famHist, snpFilePath, famHistFilePath)
 
 process_age_code <- function(file_path_prefix, ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_start_RData, age_interval_RData, cov_new_RData, genotype_new_RData, disease_rates_RData, competing_rates_RData)
 {
+  dir.create('tmp')
   image_path = paste(file_path_prefix, 'rplot.jpg', sep = "_" )
   results_path = paste(file_path_prefix, 'results.csv', sep = "_")
   results_reference_path = paste(file_path_prefix, 'results_reference.csv', sep = "_")
