@@ -19,7 +19,7 @@
         </div>
         <div class="container row-blue">
             <div class="col-xs-12">
-                <h4>Lung Cancer Screening Tool</h4>
+                <h4>Risk-based NLST Outcomes Tool (RNOT)</h4>
             </div>
         </div>
         <div class="skip"><a title="Skip to content" href="#skiptocontent">Skip to content</a></div>
@@ -60,9 +60,10 @@
         <div id="ContentColumns" ng-controller="MyController" class="clearfix">
             <p><a href="http://www.uspreventiveservicestaskforce.org/Page/Topic/recommendation-summary/lung-cancer-screening" target="_blank" title="USPSTF (U.S. Preventive Services Task Force)">USPSTF (U.S. Preventive Services Task Force)</a> compares the efficacy of low-dose helical CT with that of standard
                 chest X-ray for detecting lung cancer. The initial findings reveal that low-dose CT resulted in 20% reduction in lung cancer mortality among participants satisfying the USPSTF inclusion criteria (55-80 years of age, minimum 30 pack-years
-                of smoking and no more than 15 years since quitting). But it is yet unknown if the risk of lung cancer death changes the benefits/harms of low-dose CT screening. The USPSTF Lung Cancer Screening Tool is a statistical analysis tool that predicts
+                of smoking and no more than 15 years since quitting). But it is yet unknown if the risk of lung cancer death changes the benefits/harms of low-dose CT screening. The Risk-based NLST Outcomes Tool (RNOT) is a statistical analysis tool that predicts
                 a person's risk of lung cancer death based on a series of demographic and clinical risk factors for lung cancer. Findings from the tool support defining the high-risk targeting population for low-dose CT screening where benefits of screening
                 overweigh harms thus improving the selection process for lung-cancer screening.</p>
+            <p>The best way to lower your risk of lung cancer, and all smoking-related diseases, is to quit smoking. Learn more by visiting <a href="http://smokefree.gov" target="smokefree">smokefree.gov</a> and the CDC page on <a href="http://www.cdc.gov/tobacco/quit_smoking/" target="cdcSmokeFree">quitting smoking</a>.</p>
 
             <div id="ContentColumnsLeft">
 
@@ -94,12 +95,14 @@
                                             </td>
                                         </tr>
                                         <tr>
+                                            <!--
                                             <td ng-show="myForm.ageCriteria" colspan="2">
                                                 <div class="warning">
                                                     The <a href="http://www.uspreventiveservicestaskforce.org/uspstf/uspslung.htm" target="_blank" title="U.S. Preventive Services Task Force">U.S. Preventive Services Task Force</a> does NOT recommend that
                                                     you get screened unless you are between the age of 55 and 80.
                                                 </div>
                                             </td>
+                                            -->
                                         </tr>
                                         <tr>
                                             <td valign="top">Gender</td>
@@ -122,7 +125,7 @@
                                                 </select>
                                             </td>
                                         </tr>
-
+                                        <!--
                                         <tr ng-show="myForm.typeCriteria">
                                             <td colspan="2">
                                                 <div class="warning">
@@ -131,7 +134,7 @@
                                                 </div>
                                             </td>
                                         </tr>
-
+                                        -->
                                         <tr ng-switch="myForm.type">
                                             <td valign="top" ng-switch-when="current">
                                                 <span style="margin-left: 30px;">What age did you start smoking?</span>
@@ -181,6 +184,7 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        <!--
                                         <tr ng-show="myForm.quitCriteria">
                                             <td colspan="2">
                                                 <div class="warning">
@@ -189,6 +193,7 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        -->
                                         <tr ng-show="myForm.smokeShow">
                                             <td valign="top" ng-switch="myForm.type">
                                                 <div style="margin-left: 30px">
@@ -211,6 +216,7 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        <!--
                                         <tr ng-show="myForm.cigsCriteria">
                                             <td colspan="2">
                                                 <div class="warning">
@@ -218,6 +224,7 @@
                                                     you get screened unless you have a minimum 30 pack-years of smoking.</div>
                                             </td>
                                         </tr>
+                                        -->
                                         <tr>
                                             <td valign="top">Race or Ethnic Group:</td>
                                             <td valign="top">
@@ -230,6 +237,7 @@
                                                 </select>
                                             </td>
                                         </tr>
+                                        <!--
                                         <tr ng-show="myForm.groupCriteria">
                                             <td colspan="2">
                                                 <div class="warning">
@@ -237,11 +245,13 @@
                                                     you get screened because you are not a smoker.</div>
                                             </td>
                                         </tr>
+                                        -->
                                         <tr>
                                             <td valign="top">Lung disease?</td>
                                             <td valign="top">
                                                 <select ng-model="myForm.disease" ng-required="true">
                                                     <option value="">Select...</option>
+                                                    <option value="2">COPD</option>
                                                     <option value="1">Emphysema</option>
                                                     <option value="0">None</option>
                                                 </select>
@@ -351,6 +361,7 @@
                                         <input id="ac-1" name="accordion-1" type="checkbox" ng-checked="myForm.summary" />
                                         <label for="ac-1" ng-class="{'cursor-disabled': !myForm.summary}">Risk of dying from lung cancer within 5 years in the absence of screening: {{myForm.result0}}%</label>
                                         <article class="ac-small">
+                                            <p ng-show="myForm.results0 > myForm.results2">This risk is unstable</p>
                                             <p>Explanation: text</p>
                                             <p><a href="#" title="Learn more">Click here</a> to learn more about your results.</p>
                                         </article>
@@ -365,8 +376,16 @@
                                     </div>
                                     <div>
                                         <input id="ac-3" name="accordion-3" type="checkbox" ng-model="myForm.cbResult3" />
-                                        <label for="ac-3" ng-class="{'cursor-disabled': !myForm.summary}">The chance of lung cancer diagnosis within 5 years in the absence of screening: {{myForm.result2}}%</label>
+                                        <label for="ac-3" ng-class="{'cursor-disabled': !myForm.summary}">The chance of lung cancer diagnosis within 5 years in the absence of screening:
+                                            <span ng-if="myForm.result0 > myForm.result2">
+                                                {{myForm.result0}}%
+                                            </span>
+                                            <span ng-if="myForm.result0 <= myForm.result2">
+                                                {{myForm.result2}}%
+                                            </span>
+                                        </label>
                                         <article class="ac-small">
+                                            <p ng-show="myForm.results0 > myForm.results2">This risk is unstable</p>
                                             <p>Explanation: text</p>
                                             <p><a href="#" title="Learn more">Click here</a> to learn more about your results.</p>
                                         </article>
@@ -389,6 +408,8 @@
                                     </div>
                                 </section>
                             </fieldset>
+                            <!-- Comment Until Needed Again -->
+                            <!--
                                 <table cellspacing="0" class="utility-table">
                                     <tr valign="middle">
                                         <td class="icon">
@@ -405,6 +426,7 @@
                                         </td>
                                     </tr>
                                 </table>
+                            -->
                         </div>
                     </div>
                 </div>
@@ -412,8 +434,11 @@
                 <div class="mainBoxContainer">
                     <div class="mainBoxTitle">Further Information</div>
                     <div class="mainBoxContent">
-                        <p>Learning about lung cancer and its treatment can help you prepare for your appointments, understand different types of treatment, and prevent and manage any side effects.
-                            <br />
+                        <p>Learning about lung cancer and its treatment can help you prepare for your appointments, understand different types of treatment, and prevent and manage any side effects.</p>
+                        <p>
+                           <u>Resources</u><br />
+                            <a href="http://nomograms.mskcc.org/Lung/Screening.aspx">MSKCC Lung Cancer Screening Decision Tool</a><br />
+                            <a href="http://www.shouldiscreen.com/lung-cancer-risk-calculator">SIS Lung Cancer Screening Tool</a><br />
                         </p>
 
                     </div>

@@ -2,8 +2,8 @@ var app = angular.module("myapp", []);
 
 app.controller("MyController", function($scope, $http) {
   /* These globals are used in multiple ajax calls in different functions */
-  var GLOBAL_DATA,
-      GLOBAL_RESULTS = {};
+  var GLOBAL_DATA
+      //GLOBAL_RESULTS = {};
 
   /* RegEx for numerical field validation */
   var numPattern = '^[0-9]+(\.[0-9]{1,9})?$';
@@ -44,7 +44,9 @@ app.controller("MyController", function($scope, $http) {
   init();
 
   /* $watchCollection allows watching of multiple properties and changing form state (valid/invalid) based on properties' values */
-  $scope.$watchCollection('[myForm.ageCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function(newValues) {
+  //$scope.$watchCollection('[myForm.ageCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function(newValues) {
+  $scope.$watchCollection('[myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function(newValues) {
+
     var flag = false;
 
     for (var i = 0; i <= newValues.length; i++) {
@@ -122,12 +124,12 @@ app.controller("MyController", function($scope, $http) {
       $scope.myForm.heightPrimary = 'Feet';
       $scope.myForm.heightSecondary = 'Inch(es)';
       $scope.myForm.weightUnits = 'Pound(s)';
-      $scope.myForm.heightWarning = 'Please ensure, that feet are greater than 0 and less than or equal to 10, and inches are greater than 0 and less than 12. Please ensure that the height values above do not include any non-numeric characters.';
+      $scope.myForm.heightWarning = 'Please ensure, that feet are greater than 0 and less than or equal to 10, and inches are greater than or equal to 0 and less than 12. Please ensure that the height values above do not include any non-numeric characters.';
     } else {
       $scope.myForm.heightPrimary = 'Meter(s)';
       $scope.myForm.heightSecondary = 'Centimeter(s)';
       $scope.myForm.weightUnits = 'Kilogram(s)';
-      $scope.myForm.heightWarning = 'Please ensure, that meters are greater than 0 and less than or equal to 3, and centimeters are greater than 0 and less than 30. Please ensure that the values above do not include any non-numeric characters.';
+      $scope.myForm.heightWarning = 'Please ensure, that meters are greater than 0 and less than or equal to 3, and centimeters are greater than or equal to 0 and less than 30. Please ensure that the values above do not include any non-numeric characters.';
     }
 
     convertHeightWeight();
@@ -161,9 +163,9 @@ app.controller("MyController", function($scope, $http) {
     }
 
     if ($scope.myForm.units === 'us') {
-      $scope.myForm.subHeightCriteria = sub <= 0 || sub >= 12 || !isNumeric;
+      $scope.myForm.subHeightCriteria = sub < 0 || sub >= 12 || !isNumeric;
     } else {
-      $scope.myForm.subHeightCriteria = sub <= 0 || sub > 30 || !isNumeric;
+      $scope.myForm.subHeightCriteria = sub < 0 || sub > 30 || !isNumeric;
     }
   });
 
@@ -234,7 +236,7 @@ app.controller("MyController", function($scope, $http) {
       /* Round to 2 decimal places and assign results to UI properties */
       $scope.myForm['result' + i] = Math.round(data[i] * 100) / 100;
 
-      GLOBAL_RESULTS['result' + i] = $scope.myForm['result' + i];
+      //GLOBAL_RESULTS['result' + i] = $scope.myForm['result' + i];
     }
   };
 
