@@ -3,7 +3,7 @@ var app = angular.module("myapp", []);
 app.controller("MyController", function($scope, $http) {
   /* These globals are used in multiple ajax calls in different functions */
   var GLOBAL_DATA
-      //GLOBAL_RESULTS = {};
+      /* GLOBAL_RESULTS = {}; */
 
   /* RegEx for numerical field validation */
   var numPattern = '^[0-9]+(\.[0-9]{1,9})?$';
@@ -45,7 +45,7 @@ app.controller("MyController", function($scope, $http) {
   init();
 
   /* $watchCollection allows watching of multiple properties and changing form state (valid/invalid) based on properties' values */
-  //$scope.$watchCollection('[myForm.ageCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function(newValues) {
+  /* scope.$watchCollection('[myForm.ageCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function(newValues) { */
   $scope.$watchCollection('[myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function(newValues) {
 
     var flag = false;
@@ -236,9 +236,10 @@ app.controller("MyController", function($scope, $http) {
   $scope.myForm.setResultValues = function(data) {
     for (var i = 0; i < data.length; i++) {
       /* Round to 2 decimal places and assign results to UI properties */
-      $scope.myForm['result' + i] = Math.round(data[i] * 100) / 100;
+      /* $scope.myForm['result' + i] = Math.round(data[i] * 100) / 100; */
+      $scope.myForm['result' + i] = Math.ceil(data[i]);
 
-      //GLOBAL_RESULTS['result' + i] = $scope.myForm['result' + i];
+      /* GLOBAL_RESULTS['result' + i] = $scope.myForm['result' + i]; */
     }
   };
 
@@ -275,7 +276,7 @@ app.controller("MyController", function($scope, $http) {
 
     params = {
       'age': Math.round($scope.myForm.age),
-      'bmi': Math.round(bmi * 100) / 100,  //Measure to two decimal places
+      'bmi': Math.round(bmi * 100) / 100,  /* Measure to two decimal places */
       'cpd': parseFloat($scope.myForm.cigs),
       'emp': parseInt($scope.myForm.disease, 10),
       'fam.lung.trend': parseInt($scope.myForm.history, 10),

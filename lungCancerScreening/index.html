@@ -365,45 +365,45 @@
                                         <label for="ac-1" ng-class="{'cursor-disabled': !myForm.summary}"> Lung cancer death</label>
                                         <article class="ac-medium">
                                             <p ng-show="myForm.results0 > myForm.results2">This risk is unstable</p>
-                                            <p>Chance of dying from lung cancer within 5 years in the absence of screening: {{result0}} out of 1000.</p>
-                                            <p>Among 1000 people in the US with this risk-factor profile, {{result0}} will die from lung cancer within 5 years, if they do not attend screening.</p>
+                                            <p>Chance of dying from lung cancer within 5 years in the absence of screening: {{myForm.result0}} out of 1000.</p>
+                                            <p>Among 1000 people in the US with this risk-factor profile, {{myForm.result0}} will die from lung cancer within 5 years, if they do not attend screening.</p>
                                         </article>
                                         <article class="ac-medium">
-                                            <p>Reduction in 5-year lung cancer death risk, due to screening: {{result1}} out of 1000</p>
-                                            <p>In the NLST, those who underwent 3 rounds of annual CT screening had their risk reduced by 20%. Therefore, among the {{result0}} out of 1000 people who would have died from lung cancer in 5 years, {{result1}} people would not die from lung cancer within 5 years, if they undergo 3 yearly CT lung screens as in the NLST.</p>
+                                            <p>Reduction in 5-year lung cancer death risk, due to screening: {{myForm.result1}} out of 1000</p>
+                                            <p>In the NLST, those who underwent 3 rounds of annual CT screening had their risk reduced by 20%. Therefore, among the {{myForm.result0}} out of 1000 people who would have died from lung cancer in 5 years, {{myForm.result1}} people would not die from lung cancer within 5 years, if they undergo 3 yearly CT lung screens as in the NLST.</p>
                                         </article>
                                         <article class="ac-medium">
                                             <p>
                                                 Of those eligible for lung screening, number who have less reduction:
                                                 <span ng-if="myForm.result0 > myForm.result2">
-                                                    {{myForm.result0}}% out of 1000
+                                                    {{myForm.result0}} out of 1000
                                                 </span>
                                                 <span ng-if="myForm.result0 <= myForm.result2">
-                                                    {{myForm.result2}}% out of 1000
+                                                    {{myForm.result2}} out of 1000
                                                 </span>
                                             </p>
                                             <p ng-show="myForm.results0 > myForm.results2">This risk is unstable</p>
-                                            <p>Out of 1000 people eligible for lung screening according to US Preventive Services Task Force recommendations, {{result5}} are estimated to have less reduction in lung cancer death than someone with this risk factor profile.</p>
+                                            <p>Out of 1000 people eligible for lung screening according to US Preventive Services Task Force recommendations, {{myForm.result5}} are estimated to have less reduction in lung cancer death than someone with this risk factor profile.</p>
                                         </article>
                                     </div>
                                     <div>
                                         <input id="ac-4" name="accordion-4" type="checkbox" ng-model="myForm.cbResult3" />
                                         <label for="ac-4" ng-class="{'cursor-disabled': !myForm.summary}">Lung cancer diagnosis</label>
                                         <article class="ac-medium">
-                                            <p>The chance of lung cancer diagnosis within 5 years in the absence of screening: {{result3}} out of 1000</p>
-                                            <p>Among 1000 people in the US with this risk-factor profile, {{result3}} will be diagnosed with lung cancer within 5 years, if they do not attend screening.</p>
+                                            <p>The chance of lung cancer diagnosis within 5 years in the absence of screening: {{myForm.result3}} out of 1000</p>
+                                            <p>Among 1000 people in the US with this risk-factor profile, {{myForm.result3}} will be diagnosed with lung cancer within 5 years, if they do not attend screening.</p>
                                         </article>
                                         <article class="ac-medium">
-                                            <p>Increase in 5-year lung cancer diagnoses, due to screening: {{result4}} out of 1000</p>
-                                            <p>In the NLST, those who underwent CT screening had 12.4% more lung cancers diagnosed, all of which require treatment. Therefore, among 1000 people with this risk-factor profile, {{result4}} extra lung cancer would be diagnosed within 5 years, if they undergo 3 yearly CT lung screens as in the NLST.</p>
+                                            <p>Increase in 5-year lung cancer diagnoses, due to screening: {{myForm.result4}} out of 1000</p>
+                                            <p>In the NLST, those who underwent CT screening had 12.4% more lung cancers diagnosed, all of which require treatment. Therefore, among 1000 people with this risk-factor profile, {{myForm.result4}} extra lung cancer would be diagnosed within 5 years, if they undergo 3 yearly CT lung screens as in the NLST.</p>
                                         </article>
                                     </div>
                                     <div>
                                         <input id="ac-5" name="accordion-5" type="checkbox" ng-model="myForm.cbResult5" />
                                         <label for="ac-5" ng-class="{'cursor-disabled': !myForm.summary}">False-positive CT lung screen</label>
                                         <article class="ac-medium">
-                                            <p>Chance of false-positive CT lung screen: {{result5} out of 1000</p>
-                                            <p>Out of 1000 NLST participants with this risk profile, {{result5}} had at least one false-positive CT screen out of 3 CT screens.</p>
+                                            <p>Chance of false-positive CT lung screen: {{myForm.result5}} out of 1000</p>
+                                            <p>Out of 1000 NLST participants with this risk profile, {{myForm.result5}} had at least one false-positive CT screen out of 3 CT screens.</p>
                                         </article>
                                     </div>
                                 </section>

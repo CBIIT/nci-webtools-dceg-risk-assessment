@@ -61,7 +61,8 @@ def lungCancerRest():
                        'Risk reduction due to lung cancer screening',
                        'The chance of lung cancer diagnosis within 5 years in the absence of screening',
                        'The chance of lung cancer diagnosis within 5 years with screening',
-                       'The chance of having a false positive result after 3 screens'
+                       'The chance of having a false positive result after 3 screens',
+                       'Chance of false-positive CT lung screen'
                       ]
 
         fromR = (wrapper.getJSONData(age,bmi,cpd,emp,famlungtrend,gender,qtyears,smkyears,race,edu6,pkyrcat))
