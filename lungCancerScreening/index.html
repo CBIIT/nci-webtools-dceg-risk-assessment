@@ -63,7 +63,7 @@
                 of smoking and no more than 15 years since quitting). But it is yet unknown if the risk of lung cancer death changes the benefits/harms of low-dose CT screening. The Risk-based NLST Outcomes Tool (RNOT) is a statistical analysis tool that predicts
                 a person's risk of lung cancer death based on a series of demographic and clinical risk factors for lung cancer. Findings from the tool support defining the high-risk targeting population for low-dose CT screening where benefits of screening
                 overweigh harms thus improving the selection process for lung-cancer screening.</p>
-            <p>The best way to lower your risk of lung cancer, and all smoking-related diseases, is to quit smoking. Learn more by visiting <a href="http://smokefree.gov" target="smokefree">smokefree.gov</a> and the CDC page on <a href="http://www.cdc.gov/tobacco/quit_smoking/" target="cdcSmokeFree">quitting smoking</a>.</p>
+            <p class="text-bold">The best way to lower your risk of lung cancer, and all smoking-related diseases, is to quit smoking. Learn more by visiting <a href="http://smokefree.gov" target="smokefree">smokefree.gov</a> and the CDC page on <a href="http://www.cdc.gov/tobacco/quit_smoking/" target="cdcSmokeFree">quitting smoking</a>.</p>
 
             <div id="ContentColumnsLeft">
 
@@ -358,52 +358,52 @@
                             <fieldset ng-disabled="!myForm.summary" ng-class="{'disabled': !myForm.summary}">
                                 <section class="ac-container">
                                     <div>
+                                        <p ng-show="myForm.summary">You are ELGIBLE/INELIGIBLE for CT lung screening according to US Preventive Services Task Force recommendations.</p>
+                                    </div>
+                                    <div>
                                         <input id="ac-1" name="accordion-1" type="checkbox" ng-checked="myForm.summary" />
-                                        <label for="ac-1" ng-class="{'cursor-disabled': !myForm.summary}">Risk of dying from lung cancer within 5 years in the absence of screening: {{myForm.result0}}%</label>
-                                        <article class="ac-small">
+                                        <label for="ac-1" ng-class="{'cursor-disabled': !myForm.summary}"> Lung cancer death</label>
+                                        <article class="ac-medium">
                                             <p ng-show="myForm.results0 > myForm.results2">This risk is unstable</p>
-                                            <p>Explanation: text</p>
-                                            <p><a href="#" title="Learn more">Click here</a> to learn more about your results.</p>
+                                            <p>Chance of dying from lung cancer within 5 years in the absence of screening: {{result0}} out of 1000.</p>
+                                            <p>Among 1000 people in the US with this risk-factor profile, {{result0}} will die from lung cancer within 5 years, if they do not attend screening.</p>
                                         </article>
-                                    </div>
-                                    <div>
-                                        <input id="ac-2" name="accordion-2" type="checkbox" ng-model="myForm.cbResult2" />
-                                        <label for="ac-2" ng-class="{'cursor-disabled': !myForm.summary}">5-year lung cancer death risk reduction due to lung cancer screening: {{myForm.result1}}%</label>
-                                        <article class="ac-small">
-                                            <p>Explanation: text</p>
-                                            <p><a href="#" title="Learn more">Click here</a> to learn more about your results.</p>
+                                        <article class="ac-medium">
+                                            <p>Reduction in 5-year lung cancer death risk, due to screening: {{result1}} out of 1000</p>
+                                            <p>In the NLST, those who underwent 3 rounds of annual CT screening had their risk reduced by 20%. Therefore, among the {{result0}} out of 1000 people who would have died from lung cancer in 5 years, {{result1}} people would not die from lung cancer within 5 years, if they undergo 3 yearly CT lung screens as in the NLST.</p>
                                         </article>
-                                    </div>
-                                    <div>
-                                        <input id="ac-3" name="accordion-3" type="checkbox" ng-model="myForm.cbResult3" />
-                                        <label for="ac-3" ng-class="{'cursor-disabled': !myForm.summary}">The chance of lung cancer diagnosis within 5 years in the absence of screening:
-                                            <span ng-if="myForm.result0 > myForm.result2">
-                                                {{myForm.result0}}%
-                                            </span>
-                                            <span ng-if="myForm.result0 <= myForm.result2">
-                                                {{myForm.result2}}%
-                                            </span>
-                                        </label>
-                                        <article class="ac-small">
+                                        <article class="ac-medium">
+                                            <p>
+                                                Of those eligible for lung screening, number who have less reduction:
+                                                <span ng-if="myForm.result0 > myForm.result2">
+                                                    {{myForm.result0}}% out of 1000
+                                                </span>
+                                                <span ng-if="myForm.result0 <= myForm.result2">
+                                                    {{myForm.result2}}% out of 1000
+                                                </span>
+                                            </p>
                                             <p ng-show="myForm.results0 > myForm.results2">This risk is unstable</p>
-                                            <p>Explanation: text</p>
-                                            <p><a href="#" title="Learn more">Click here</a> to learn more about your results.</p>
+                                            <p>Out of 1000 people eligible for lung screening according to US Preventive Services Task Force recommendations, {{result5}} are estimated to have less reduction in lung cancer death than someone with this risk factor profile.</p>
                                         </article>
                                     </div>
                                     <div>
-                                        <input id="ac-4" name="accordion-4" type="checkbox" ng-model="myForm.cbResult4" />
-                                        <label for="ac-4" ng-class="{'cursor-disabled': !myForm.summary}">The chance of lung cancer diagnosis within 5 years with screening: {{myForm.result3}}%</label>
-                                        <article class="ac-small">
-                                            <p>Explanation: text</p>
-                                            <p><a href="#" title="Learn more">Click here</a> to learn more about your results.</p>
+                                        <input id="ac-4" name="accordion-4" type="checkbox" ng-model="myForm.cbResult3" />
+                                        <label for="ac-4" ng-class="{'cursor-disabled': !myForm.summary}">Lung cancer diagnosis</label>
+                                        <article class="ac-medium">
+                                            <p>The chance of lung cancer diagnosis within 5 years in the absence of screening: {{result3}} out of 1000</p>
+                                            <p>Among 1000 people in the US with this risk-factor profile, {{result3}} will be diagnosed with lung cancer within 5 years, if they do not attend screening.</p>
+                                        </article>
+                                        <article class="ac-medium">
+                                            <p>Increase in 5-year lung cancer diagnoses, due to screening: {{result4}} out of 1000</p>
+                                            <p>In the NLST, those who underwent CT screening had 12.4% more lung cancers diagnosed, all of which require treatment. Therefore, among 1000 people with this risk-factor profile, {{result4}} extra lung cancer would be diagnosed within 5 years, if they undergo 3 yearly CT lung screens as in the NLST.</p>
                                         </article>
                                     </div>
                                     <div>
                                         <input id="ac-5" name="accordion-5" type="checkbox" ng-model="myForm.cbResult5" />
-                                        <label for="ac-5" ng-class="{'cursor-disabled': !myForm.summary}">The chance of having a false positive result after 3 screens: {{myForm.result4}}%</label>
-                                        <article class="ac-small">
-                                            <p>Explanation: text</p>
-                                            <p><a href="#" title="Learn more">Click here</a> to learn more about your results.</p>
+                                        <label for="ac-5" ng-class="{'cursor-disabled': !myForm.summary}">False-positive CT lung screen</label>
+                                        <article class="ac-medium">
+                                            <p>Chance of false-positive CT lung screen: {{result5} out of 1000</p>
+                                            <p>Out of 1000 NLST participants with this risk profile, {{result5}} had at least one false-positive CT screen out of 3 CT screens.</p>
                                         </article>
                                     </div>
                                 </section>

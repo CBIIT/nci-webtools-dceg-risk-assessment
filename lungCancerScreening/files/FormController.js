@@ -33,6 +33,7 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.result2 = 0;
     $scope.myForm.result3 = 0;
     $scope.myForm.result4 = 0;
+    $scope.myForm.result5 = 0;
     $scope.myForm.cbResult2 = false;
     $scope.myForm.cbResult3 = false;
     $scope.myForm.cbResult4 = false;
@@ -206,6 +207,7 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.result2 = 0;
     $scope.myForm.result3 = 0;
     $scope.myForm.result4 = 0;
+    $scope.myForm.result5 = 0;
     $scope.myForm.cbResult2 = false;
     $scope.myForm.cbResult3 = false;
     $scope.myForm.cbResult4 = false;

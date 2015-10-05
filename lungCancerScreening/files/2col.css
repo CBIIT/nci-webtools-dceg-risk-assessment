@@ -271,16 +271,16 @@ a.fill-div {
     text-align: left;
 }
 .ac-container label, fieldset.disabled label:hover {
-    padding: 5px 20px;
+    padding: 5px 10px;
     position: relative;
     z-index: 20;
     display: block;
     height: 30px;
+    font-weight: 14px;
     cursor: pointer;
     color: #777;
     text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
-    line-height: 33px;
-    font-size: 12px;
+    line-height: 22px;
     font-weight: bold;
     background: #ffffff;
     background: -moz-linear-gradient(top, #ffffff 1%, #eaeaea 100%);
@@ -337,7 +337,7 @@ fieldset.disabled label:hover {
 }
 .ac-container article p {
     color: #777;
-    font-size: 14px;
+    font-size: 13px;
     padding: 10px;
     text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
 }
@@ -353,7 +353,7 @@ fieldset.disabled label:hover {
     height: 100px;
 }
 .ac-container input:checked ~ article.ac-medium {
-    height: 140px;
+    height: 150px;
 }
 .ac-container input:checked ~ article.ac-large {
     height: 180px;
@@ -517,4 +517,8 @@ a {
 }
 .footer ul li a {
     color: #444;
+}
+
+.text-bold {
+    font-weight: bold;
 }
