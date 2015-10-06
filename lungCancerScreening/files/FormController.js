@@ -41,6 +41,7 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.loading = false;
     $scope.myForm.error = false;
     $scope.myForm.resultsFileLink = '#';
+    $scope.myForm.unstableRisk = false;
   }
   init();
 
@@ -213,6 +214,7 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.cbResult4 = false;
     $scope.myForm.cbResult5 = false;
     $scope.myForm.resultsFileLink= '#';
+    $scope.myForm.unstableRisk = false;
   };
 
   /* Create BMI summary that displays in results section of UI */
@@ -240,6 +242,11 @@ app.controller("MyController", function($scope, $http) {
       $scope.myForm['result' + i] = Math.ceil(data[i]);
 
       /* GLOBAL_RESULTS['result' + i] = $scope.myForm['result' + i]; */
+    }
+
+    if ($scope.myForm.result0 > $scope.myForm.result2) {
+        $scope.myForm.result2 = $scope.myForm.result0;
+        $scope.myForm.unstableRisk = true;
     }
   };
 
