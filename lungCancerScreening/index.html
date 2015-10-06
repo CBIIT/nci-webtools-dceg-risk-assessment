@@ -251,8 +251,7 @@
                                             <td valign="top">
                                                 <select ng-model="myForm.disease" ng-required="true">
                                                     <option value="">Select...</option>
-                                                    <option value="2">COPD</option>
-                                                    <option value="1">Emphysema</option>
+                                                    <option value="1">COPD or Emphysema</option>
                                                     <option value="0">None</option>
                                                 </select>
                                             </td>
@@ -358,7 +357,7 @@
                             <fieldset ng-disabled="!myForm.summary" ng-class="{'disabled': !myForm.summary}">
                                 <section class="ac-container">
                                     <div>
-                                        <p ng-show="myForm.summary">You are ELGIBLE/INELIGIBLE for CT lung screening according to US Preventive Services Task Force recommendations.</p>
+                                        <p>You are ELGIBLE/INELIGIBLE for CT lung screening according to US Preventive Services Task Force recommendations.</p>
                                     </div>
                                     <div>
                                         <input id="ac-1" name="accordion-1" type="checkbox" ng-checked="myForm.summary" />
