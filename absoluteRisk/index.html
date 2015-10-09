@@ -67,8 +67,8 @@
       </div>
       </uib-tab>
       <uib-tab heading="Arc for Researchers" active="isActive[1].active">
-        <div class="tabContent">
-        <div class="container" ng-controller="ArcAccordion as accordion">
+        <div class="tabContent container" >
+        <div ng-controller="ArcAccordion as accordion">
             <div class="col-xs-12">
                 <div ng-repeat="step in accordion.steps">
                     <div class="form-group clearfix" ng-if="step.id === 'apply'">
