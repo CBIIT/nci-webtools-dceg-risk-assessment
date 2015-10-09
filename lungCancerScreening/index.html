@@ -39,23 +39,6 @@
             </ul>
         </div>
     </div>
-<!--
-    <div id="logos">
-        <div id="logosContainer">
-            <div id="left">
-                <a href="http://www.cancer.gov" target="_blank">
-                    <img src="files/nci.jpg" width="286" height="43" border="0" alt="National Cancer Institute" title="National Cancer Institute" />
-                </a>
-            </div>
-            <div id="right">
-                <a href="http://www.cancer.gov" target="_blank">
-                    <img src="files/nih.jpg" width="322" height="43" border="0" alt="at the National Institutes of Health" title="at the National Institutes of Health" />
-                </a>
-            </div>
-        </div>
-    </div>
--->
-
     <div class="container">
         <div id="ContentColumns" ng-controller="MyController" class="clearfix">
             <p><a href="http://www.uspreventiveservicestaskforce.org/Page/Topic/recommendation-summary/lung-cancer-screening" target="_blank" title="USPSTF (U.S. Preventive Services Task Force)">USPSTF (U.S. Preventive Services Task Force)</a> compares the efficacy of low-dose helical CT with that of standard
@@ -66,7 +49,6 @@
             <p class="text-bold">The best way to lower your risk of lung cancer, and all smoking-related diseases, is to quit smoking. Learn more by visiting <a href="http://smokefree.gov" target="smokefree">smokefree.gov</a> and the CDC page on <a href="http://www.cdc.gov/tobacco/quit_smoking/" target="cdcSmokeFree">quitting smoking</a>.</p>
 
             <div id="ContentColumnsLeft">
-
                 <div class="mainBoxContainer">
                     <div class="mainBoxTitle">Risk Tool</div>
                     <div class="mainBoxContent">
@@ -95,15 +77,18 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <!--
                                             <td ng-show="myForm.ageCriteria" colspan="2">
                                                 <div class="warning">
                                                     The <a href="http://www.uspreventiveservicestaskforce.org/uspstf/uspslung.htm" target="_blank" title="U.S. Preventive Services Task Force">U.S. Preventive Services Task Force</a> does NOT recommend that
-                                                    you get screened unless you are between the age of 55 and 80.
+                                                    you get screened unless you are between the age of 50 and 80.
                                                 </div>
                                             </td>
-                                            -->
                                         </tr>
+                                    </tbody>
+                                </table>
+                                <fieldset ng-disabled="myForm.ageCriteria">
+                                <table border="0" cellpadding="0" cellspacing="0" class="formTable">
+                                    <tbody>
                                         <tr>
                                             <td valign="top">Gender</td>
                                             <td valign="top">
@@ -332,6 +317,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                </fieldset>
                             </form>
                         </div>
                         <br />
