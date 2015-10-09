@@ -11,6 +11,17 @@ header h4 {
     line-height: 0.5em;
 }
 
+.tabContent {
+  border-top: 1px solid #FFFFFF;
+  border-right: 1px solid #DDDDDD;
+  border-left: 1px solid #DDDDDD;
+  border-bottom: 1px solid #DDDDDD;
+}
+
+.pad {
+  padding: 20px;
+}
+
 .row-blue {
     background-color: #2A71A5;
     height: 2em;
