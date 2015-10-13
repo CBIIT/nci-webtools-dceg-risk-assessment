@@ -38,6 +38,29 @@ app.directive('arcFileChange', ['$rootScope', function($rootScope) {
     };
 }]);
 
+/* Tabs controller */
+app.controller('ArcTabs', function($scope, $window) {
+  $scope.isActive = [{active: true}, {active: false}, {active: false}, {active: false}];
+  $scope.selectResearcherTab = function() {
+    $scope.isActive[0].active = false;
+    $scope.isActive[1].active = true;
+    $scope.isActive[2].active = false;
+    $scope.isActive[3].active = false;
+  }
+  $scope.selectClinicianTab = function() {
+    $scope.isActive[0].active = false;
+    $scope.isActive[1].active = false;
+    $scope.isActive[2].active = true;
+    $scope.isActive[3].active = false;
+  }
+  $scope.selectHelpTab = function() {
+    $scope.isActive[0].active = false;
+    $scope.isActive[1].active = false;
+    $scope.isActive[2].active = false;
+    $scope.isActive[3].active = true;
+  }
+});
+
 /* Primary application controller */
 app.controller('ArcAccordion', ['BuildSection', 'CacheService', 'DataRetrieval', '$rootScope', '$scope', '$sanitize', '$modal', '$http', function (Section, Cache, dataRetrieval, $rootScope, $scope, $san, $modal, $http) {
     var self = this;
