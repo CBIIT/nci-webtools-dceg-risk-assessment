@@ -349,8 +349,8 @@
                                         <input id="ac-1" name="accordion-1" type="checkbox" ng-checked="myForm.summary" />
                                         <label for="ac-1" ng-class="{'cursor-disabled': !myForm.summary}"> Lung cancer death</label>
                                         <article class="ac-medium">
-                                            <p ng-show="myForm.unstableRisk">This risk is unstable</p>
                                             <p>Chance of dying from lung cancer within 5 years in the absence of screening: {{myForm.result0}} out of 1000.</p>
+                                            <p ng-show="myForm.unstableRisk">This risk is unstable</p>
                                             <p>Among 1000 people in the US with this risk-factor profile, {{myForm.result0}} will die from lung cancer within 5 years, if they do not attend screening.</p>
                                         </article>
                                         <article class="ac-medium">
