@@ -85,7 +85,7 @@ xx = 10 * result1
 yy = 10 * result2
 cc = 0
 zz = 10 * result3
-aa = 10 * result4
+aa = 10 * (result4 - result3)
 bb = 10 * result5
 
 # calculation of top x% from the risk distribution table for “cc”
@@ -95,7 +95,7 @@ nrow <- size[1]
 
 for(i in 1:nrow)
 { if (result1 > dist[i,2])
-  {cc=1000*dist[i,1];
+  {cc=1000*(1 - dist[i,1]);
    break;}
 }
 

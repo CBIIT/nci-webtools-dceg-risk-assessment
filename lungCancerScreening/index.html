@@ -79,8 +79,11 @@
                                         <tr>
                                             <td ng-show="myForm.ageCriteria" colspan="2">
                                                 <div class="warning">
+                                                    <!--
                                                     The <a href="http://www.uspreventiveservicestaskforce.org/uspstf/uspslung.htm" target="_blank" title="U.S. Preventive Services Task Force">U.S. Preventive Services Task Force</a> does NOT recommend that
                                                     you get screened unless you are between the age of 50 and 80.
+                                                    -->
+                                                    This tool calculates risk for men and women 50 to 80 years of age
                                                 </div>
                                             </td>
                                         </tr>
@@ -216,9 +219,9 @@
                                                 <select ng-model="myForm.group" ng-required="true">
                                                     <option value="">Select...</option>
                                                     <option value="0">White</option>
-                                                    <option value="1">Black</option>
+                                                    <option value="1">Black or African-American</option>
                                                     <option value="2">Hispanic</option>
-                                                    <option value="3">Other</option>
+                                                    <option value="3">Asian or Pacific Islander</option>
                                                 </select>
                                             </td>
                                         </tr>
@@ -238,6 +241,7 @@
                                                     <option value="">Select...</option>
                                                     <option value="1">COPD or Emphysema</option>
                                                     <option value="0">None</option>
+                                                    <option value="0">I don't know</option>
                                                 </select>
                                             </td>
                                         </tr>
@@ -249,11 +253,12 @@
                                                     <option value="0">No parent</option>
                                                     <option value="1">One parent had lung cancer</option>
                                                     <option value="2">Both parents had lung cancer</option>
+                                                    <option value="0">I don't know</option>
                                                 </select>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td valign="top">Units?</td>
+                                            <td valign="top">Units for entering height and weight</td>
                                             <td valign="top">
                                                 <select ng-model="myForm.units">
                                                     <option value="metric">Metric</option>
