@@ -1,0 +1,33 @@
+
+
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title">{{modalCtrl.heading}}</h3>
+    </div>
+
+    <div class="modal-body">
+        <p class="text-info">For templates with more than 4 columns, only the first 4 columns will be shown in the generated template. All columns will however be exported in the CSV file.</p>
+
+        <table class="table table-responsive table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th ng-repeat="column in modalCtrl.content.templateCols | limitTo: 4">{{column}}</th>
+                    <th ng-show="modalCtrl.content.templateCols.length > 5">...</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="_ in ((_ = []) && (_.length=5) && _) track by $index" style="height: 40px;">
+                        <td ng-repeat="column in modalCtrl.content.templateCols | limitTo: 4"></td>
+                        <td ng-show="modalCtrl.content.templateCols.length > 4">...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-info" ng-click="modalCtrl.content.exportToCsv($event)">Export to CSV</button>
+        <button class="btn btn-primary" type="button" ng-click="modalCtrl.close()">Close</button>
+    </div>
+
+
+</div>

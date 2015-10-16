@@ -39,7 +39,7 @@ app.directive('arcFileChange', ['$rootScope', function($rootScope) {
 }]);
 
 /* Tabs controller */
-app.controller('ArcTabs', function($scope, $window) {
+app.controller('ArcTabs', ['$scope', function($scope) {
   $scope.isActive = [{active: true}, {active: false}, {active: false}, {active: false}];
   $scope.selectResearcherTab = function() {
     $scope.isActive[0].active = false;
@@ -59,11 +59,12 @@ app.controller('ArcTabs', function($scope, $window) {
     $scope.isActive[2].active = false;
     $scope.isActive[3].active = true;
   }
-});
+}]);
 
 /* Primary application controller */
 app.controller('ArcAccordion', ['BuildSection', 'CacheService', 'DataRetrieval', '$rootScope', '$scope', '$sanitize', '$modal', '$http', function (Section, Cache, dataRetrieval, $rootScope, $scope, $san, $modal, $http) {
     var self = this;
+
     var buildConfig = [
         {
             header: 'List the Variables',
@@ -313,6 +314,7 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService', 'DataRetrieval',
             var type = args.type;
             var statusCode = args.status ? args.status : null;
             var heading;
+            var templateURL = 'templates/modalContent.html';
 
             if (type === 'formula') {
                 self.formula = args.content;
@@ -323,8 +325,14 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService', 'DataRetrieval',
                 heading = 'Error';
             }
 
+            if (type === 'template') {
+                heading = 'CSV Template';
+                templateURL = 'templates/csvTemplate.html';
+
+            }
+
             modalInstance = $modal.open({
-                templateUrl: 'templates/modalContent.html',
+                templateUrl: templateURL,
                 controller: 'ModalController as modalCtrl',
                 resolve: {
                   data: function () {
@@ -384,6 +392,10 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService', 'DataRetrieval',
             finally: finallyCb
         });
     };
+
+    self.generateModal = function(d, r) {
+        $rootScope.$broadcast('modalContent', { type: d, content: r});
+    }
 
     self.init();
 }]);
