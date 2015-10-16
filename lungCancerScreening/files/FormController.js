@@ -2,8 +2,7 @@ var app = angular.module("myapp", []);
 
 app.controller("MyController", function($scope, $http) {
   /* These globals are used in multiple ajax calls in different functions */
-  var GLOBAL_DATA
-      /* GLOBAL_RESULTS = {}; */
+  var GLOBAL_DATA;
 
   /* RegEx for numerical field validation */
   var numPattern = '^[0-9]+(\.[0-9]{1,9})?$';
@@ -42,8 +41,11 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.error = false;
     $scope.myForm.resultsFileLink = '#';
     $scope.myForm.unstableRisk = false;
+    $scope.myForm.eligibility = true;
   }
   init();
+
+
 
   /* $watchCollection allows watching of multiple properties and changing form state (valid/invalid) based on properties' values */
   /* scope.$watchCollection('[myForm.ageCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function(newValues) { */
@@ -57,6 +59,16 @@ app.controller("MyController", function($scope, $http) {
     }
 
     $scope.myForm.isInvalid = flag;
+  });
+
+  $scope.$watch('myForm.age', function() {
+    validateAges();
+  });
+
+  $scope.$watchCollection('[myForm.quitCriteria, myForm.cigsCriteria, myForm.ageCriteria]', function(newValues) {
+      $scope.myForm.eligibility = !newValues[0] && !newValues[1] && !newValues[2];
+
+      console.log('eligibility is: ', $scope.myForm.eligibility);
   });
 
   $scope.$watch('myForm.age', function() {
@@ -101,12 +113,12 @@ app.controller("MyController", function($scope, $http) {
       if ($scope.myForm.type === 'current' || $scope.myForm.type === 'former') {
         start = parseFloat($scope.myForm.start);
 
-        /* Change formulate for packYears based on value of 'type' */
+        /* Change formula for packYears based on value of 'type' */
         if ($scope.myForm.type === 'current') {
           $scope.myForm.packYears = ((age - start) * (cigs / 20));
         }
 
-        /* Change formulate for packYears based on value of 'type' */
+        /* Change formula for packYears based on value of 'type' */
         if ($scope.myForm.type === 'former') {
           quit = parseFloat($scope.myForm.quit);
           $scope.myForm.packYears = ((quit - start) * (cigs / 20));
@@ -215,6 +227,7 @@ app.controller("MyController", function($scope, $http) {
     $scope.myForm.cbResult5 = false;
     $scope.myForm.resultsFileLink= '#';
     $scope.myForm.unstableRisk = false;
+    $scope.myForm.eligibility = true;
   };
 
   /* Create BMI summary that displays in results section of UI */

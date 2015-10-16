@@ -348,7 +348,12 @@
                             <fieldset ng-disabled="!myForm.summary" ng-class="{'disabled': !myForm.summary}">
                                 <section class="ac-container">
                                     <div>
-                                        <p>You are ELIGIBLE/INELIGIBLE for CT lung screening according to US Preventive Services Task Force recommendations.</p>
+                                        <p>
+                                            You are
+                                            <span ng-if="myForm.eligibility">ELIGIBLE </span>
+                                            <span ng-if="!myForm.eligibility">INELIGIBLE </span>
+                                            for CT lung screening according to US Preventive Services Task Force recommendations.
+                                        </p>
                                     </div>
                                     <div>
                                         <input id="ac-1" name="accordion-1" type="checkbox" ng-checked="myForm.summary" />
