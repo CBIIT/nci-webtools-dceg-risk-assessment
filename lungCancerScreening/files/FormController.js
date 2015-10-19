@@ -46,7 +46,6 @@ app.controller("MyController", function($scope, $http) {
   init();
 
 
-
   /* $watchCollection allows watching of multiple properties and changing form state (valid/invalid) based on properties' values */
   /* scope.$watchCollection('[myForm.ageCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function(newValues) { */
   $scope.$watchCollection('[myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function(newValues) {
@@ -239,9 +238,9 @@ app.controller("MyController", function($scope, $http) {
       },
       race: {
         '0': 'White',
-        '1': 'Black',
+        '1': 'Black or African-American',
         '2': 'Hispanic',
-        '3': 'Other'
+        '3': 'Asian or Pacific Islander'
       }
     };
 
