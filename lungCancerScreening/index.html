@@ -41,11 +41,7 @@
     </div>
     <div class="container">
         <div id="ContentColumns" ng-controller="MyController" class="clearfix">
-            <p><a href="http://www.uspreventiveservicestaskforce.org/Page/Topic/recommendation-summary/lung-cancer-screening" target="_blank" title="USPSTF (U.S. Preventive Services Task Force)">USPSTF (U.S. Preventive Services Task Force)</a> compares the efficacy of low-dose helical CT with that of standard
-                chest X-ray for detecting lung cancer. The initial findings reveal that low-dose CT resulted in 20% reduction in lung cancer mortality among participants satisfying the USPSTF inclusion criteria (50-80 years of age, minimum 30 pack-years
-                of smoking and no more than 15 years since quitting). But it is yet unknown if the risk of lung cancer death changes the benefits/harms of low-dose CT screening. The Risk-based NLST Outcomes Tool (RNOT) is a statistical analysis tool that predicts
-                a person's risk of lung cancer death based on a series of demographic and clinical risk factors for lung cancer. Findings from the tool support defining the high-risk targeting population for low-dose CT screening where benefits of screening
-                overweigh harms thus improving the selection process for lung-cancer screening.</p>
+            <p>The National Lung Screening Trial (NLST) compared the efficacy of low-dose helical CT with that of standard chest X-ray for detecting lung cancer.  Low-dose CT resulted in 20% reduction in lung cancer mortality, and the <a href="http://www.uspreventiveservicestaskforce.org/Page/Topic/recommendation-summary/lung-cancer-screening" target="_blank" title="USPSTF (U.S. Preventive Services Task Force)">US Preventive Services Task Force (USPSTF)</a> recommends CT lung screening for those 50-80 years of age, minimum 30 pack-years of smoking, and no more than 15 years since quitting.  The Risk-based NLST Outcomes Tool (RNOT) provides chance of diagnosis and death from lung cancer, and risk of false-positive CT screen, based on data from the NLST.</p>
             <p class="text-bold">The best way to lower your risk of lung cancer, and all smoking-related diseases, is to quit smoking. Learn more by visiting <a href="http://smokefree.gov" target="smokefree">smokefree.gov</a> and the CDC page on <a href="http://www.cdc.gov/tobacco/quit_smoking/" target="cdcSmokeFree">quitting smoking</a>.</p>
 
             <div id="ContentColumnsLeft">
@@ -76,20 +72,19 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        <!--
                                         <tr>
                                             <td ng-show="myForm.ageCriteria" colspan="2">
                                                 <div class="warning">
-                                                    <!--
                                                     The <a href="http://www.uspreventiveservicestaskforce.org/uspstf/uspslung.htm" target="_blank" title="U.S. Preventive Services Task Force">U.S. Preventive Services Task Force</a> does NOT recommend that
                                                     you get screened unless you are between the age of 50 and 80.
-                                                    -->
                                                     This tool calculates risk for men and women 50 to 80 years of age
                                                 </div>
                                             </td>
                                         </tr>
+                                    -->
                                     </tbody>
                                 </table>
-                                <fieldset ng-disabled="myForm.ageCriteria">
                                 <table border="0" cellpadding="0" cellspacing="0" class="formTable">
                                     <tbody>
                                         <tr>
@@ -322,7 +317,6 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                </fieldset>
                             </form>
                         </div>
                         <br />
@@ -350,9 +344,20 @@
                                     <div>
                                         <p>
                                             You are
-                                            <span ng-if="myForm.eligibility">ELIGIBLE </span>
-                                            <span ng-if="!myForm.eligibility">INELIGIBLE </span>
-                                            for CT lung screening according to US Preventive Services Task Force recommendations.
+                                            <span ng-if="myForm.eligibility">ELIGIBLE for CT lung screening according to US Preventive Services Task Force recommendations.</span>
+                                            <span ng-if="!myForm.eligibility">INELIGIBLE for CT lung screening according to US Preventive Services Task Force recommendations, due to the following reason(s):</span>
+                                            
+                                            <ul>
+                                                <li ng-show="myForm.ageCriteria">
+                                                    This tool calculates risk for men and women 50 to 80 years of age
+                                                </li>
+                                                <li ng-show="myForm.quitCriteria">
+                                                    The <a href="http://www.uspreventiveservicestaskforce.org/uspstf/uspslung.htm" target="_blank" title="U.S. Preventive Services Task Force">U.S. Preventive Services Task Force</a> does NOT recommend that you get screened if you quitted smoking for more than 15 years.
+                                                </li>
+                                                <li ng-show="myForm.cigsCriteria">
+                                                    The <a href="http://www.uspreventiveservicestaskforce.org/uspstf/uspslung.htm" target="_blank" title="U.S. Preventive Services Task Force">U.S. Preventive Services Task Force</a> does NOT recommend that you get screened unless you have a minimum 30 pack-years of smoking.
+                                                </li>
+                                            </ul>
                                         </p>
                                     </div>
                                     <div>
