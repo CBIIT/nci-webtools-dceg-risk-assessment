@@ -565,6 +565,8 @@ saveAllFiles <- function(filePath,
   allData$snpInformation = get(load(snpInformationRData))
   allData$familyHistoryRData = get(load(familyHistoryRData))
 
+  dir.create('tmp')
+  filePath = paste(filePath, "rdata", sep=".")
   save(allData, file = filePath)
 
   return (filePath)

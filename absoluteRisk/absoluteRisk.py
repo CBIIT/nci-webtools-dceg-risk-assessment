@@ -168,6 +168,22 @@ def exportToCsv():
 
     return ''
 
+@app.route('/absoluteRiskRest/downloadSession', methods=['GET'])
+def downloadSession():
+    if 'filename' in request.args:
+        filename = request.args['filename']
+        fileFolder = app.config['results_folder'];
+        
+        filepath = os.path.join(fileFolder, filename)
+        
+        if (os.path.isfile(filepath)):
+            return send_from_directory(fileFolder, filename, as_attachment=True)
+        else:
+            return 'This file no longer exists'
+    else:
+        return 'Correct parameter not provided in GET'
+
+
 # This route returns a specified file, if it exists on the server
 @app.route('/absoluteRiskRest/downloadFile', methods=['GET'])
 def downloadFile():
@@ -177,6 +193,10 @@ def downloadFile():
 
         if string.lower(filename.rsplit('.', 1)[1]) == 'csv':
             fileFolder = app.config['csv_upload_folder']
+
+        if 'session' in request.args:
+            fileFolder = app.config['results_folder'];
+
 
         filepath = os.path.join(fileFolder, filename)
 
@@ -326,6 +346,35 @@ def calculate():
         except Exception,e:
             raise InvalidUsage(e.args[0], status_code=500)
     return ''
+
+# This route takes 2 params for R calculations, and returns the RData file path as JSON
+@app.route('/absoluteRiskRest/saveSession', methods=['POST'])
+def saveSession():
+    if request.method == 'POST':
+        jsonData = json.loads(request.data)
+
+        try:
+            ref_dataset_RData = jsonData['risk_factor_distribution']['path_to_file']
+            log_odds_RData = jsonData['log_odds_ratios']['path_to_file']
+            list_of_variables_RData = jsonData['variable_list']['path_to_file']
+            snp_info_RData = jsonData['snp_information']['path_to_file']
+            fam_hist_RData = jsonData['snp_information']['path_to_famHist_file']
+            disease_rates_RData = jsonData['disease_incidence_rates']['path_to_file']
+            competing_rates_RData = jsonData['mortality_incidence_rates']['path_to_file']
+            model_predictor_RData = jsonData['generate_formula']['path_to_file']
+
+        except KeyError, e:
+            raise InvalidUsage('KeyError: ' + e.args[0], status_code = 500)
+
+        try:
+            results_path = app.config['results_folder'] + '/' + time.strftime("%Y%m%d-%H%M%S")
+            results = arc_wrapper.saveAllFiles(results_path, list_of_variables_RData, model_predictor_RData, ref_dataset_RData, log_odds_RData, disease_rates_RData, competing_rates_RData, snp_info_RData, fam_hist_RData)
+
+            return results[0]
+        except Exception,e:
+            raise InvalidUsage(e.args[0], status_code=500)
+    return ''
+
 
 # This is a simple custom Error handling class/handler to return humanly readable error strings to the UI
 class InvalidUsage(Exception):

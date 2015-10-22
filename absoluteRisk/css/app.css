@@ -11,6 +11,18 @@ header h4 {
     line-height: 0.5em;
 }
 
+li.active {
+    font-weight: bold;
+}
+
+.text-muted {
+    color: #AAAAAA;
+}
+
+.form-group {
+    margin-top: 5px;
+}
+
 .tabContent {
   
   padding-top: 20px;
