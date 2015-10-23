@@ -419,6 +419,26 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService', 'DataRetrieval',
         
         
     }
+    
+    self.getExampleFile = function(section) {
+        console.log('section type: ', section);
+        var filename = section;
+        
+        switch(section) {
+            case 'variable_list':
+                filename = 'list_of_variables.rdata';
+                break;
+            case 'generate_formula':
+                filename = 'model_predictor.rdata';
+                break;
+            default:
+                filename += '.csv';
+                break;
+        }
+        
+        window.location = 'http://' + window.location.hostname + '/absoluteRiskRest/downloadExample?filename=' + filename;
+        
+    }
 
     self.generateModal = function(d, r) {
         $rootScope.$broadcast('modalContent', { type: d, content: r});

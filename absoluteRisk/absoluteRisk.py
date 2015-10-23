@@ -17,6 +17,7 @@ import tempfile
 
 UPLOAD_CSV_FOLDER = 'uploads/csv'
 UPLOAD_RDATA_FOLDER = 'uploads/rdata'
+EXAMPLES_FOLDER = 'examples'
 RESULTS_FOLDER = 'tmp'
 
 ALLOWED_EXTENSIONS = set(['csv', 'rdata'])
@@ -25,6 +26,7 @@ app = Flask(__name__)
 app.config['csv_upload_folder'] = UPLOAD_CSV_FOLDER
 app.config['rdata_upload_folder'] = UPLOAD_RDATA_FOLDER
 app.config['results_folder'] = RESULTS_FOLDER
+app.config['examples_folder'] = EXAMPLES_FOLDER
 
 with open ('rfiles/absoluteRiskWrapper.R') as fh:
     rcode = os.linesep.join(line.strip() for line in fh)
@@ -168,6 +170,23 @@ def exportToCsv():
 
     return ''
 
+
+@app.route('/absoluteRiskRest/downloadExample', methods=['GET'])
+def downloadExample():
+    if 'filename' in request.args:
+        filename = request.args['filename']
+        fileFolder = app.config['examples_folder'];
+        
+        filepath = os.path.join(fileFolder, filename)
+        
+        if (os.path.isfile(filepath)):
+            return send_from_directory(fileFolder, filename, as_attachment=True)
+        else:
+            return 'This file no longer exists'
+    else:
+        return 'Correct parameter not provided in GET'
+
+
 @app.route('/absoluteRiskRest/downloadSession', methods=['GET'])
 def downloadSession():
     if 'filename' in request.args:
@@ -206,6 +225,7 @@ def downloadFile():
             return 'This file no longer exists'
     else:
         return 'Correct parameter not provided in GET'
+
 
 # This route returns the generated formula string as JSON
 @app.route('/absoluteRiskRest/generateFormula', methods=['POST'])

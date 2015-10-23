@@ -59,7 +59,7 @@
 
     <div class="container" ng-controller="ArcTabs">
       <tabset>
-      <tab heading="Home" active="isActive[0].active">
+      <tab class="tab" heading="Home" active="isActive[0].active">
       <div class="pad tabContent">
         <h4>Welcome to the Absolute Risk Calculator!</h4><br>
         <a ng-click="selectResearcherTab()">Arc for Researchers</a><br>
@@ -74,7 +74,7 @@
                 <div ng-repeat="step in accordion.steps">
                     <div class="form-group clearfix" ng-if="step.id === 'apply'">
                         <form>
-                            <button type="button" class="btn btn-success pull-right" ng-click="">
+                            <button type="button" class="btn btn-success pull-right" ng-click="accordion.saveSessionRData()">
                                 Save All As RData
                             </button>
                         </form>
@@ -168,7 +168,7 @@
                                             Browse <input type="file" id="{{section.id + '_file'}}" arc-file-change>
                                         </span>
                                         <span ng-model="section.file">{{section.file.name}}</span>
-                                        <span ng-show="!section.file">No file selected</span>
+                                        <span ng-show="!section.file">No file selected <a ng-click="accordion.getExampleFile(section.id)">(example)</a></span>
                                     </div>
                                 </div>
                             </form>
@@ -250,19 +250,19 @@
                                             Browse <input type="file" id="{{section.id + '_file'}}" arc-file-change>
                                         </span>
                                         <span ng-model="section.file">{{section.file.name}}</span>
-                                        <span ng-show="!section.file">No file selected</span>
+                                        <span ng-show="!section.file">No file selected <a ng-click="accordion.getExampleFile(section.id)">(example)</a></span>
                                     </div>
                                 </div>
                             </form>
                             <form ng-if="section.type === 'default' || section.type === 'snp_information'">
                                 <div class="form-group">
-                                  <button type="button" class="btn btn-primary" ng-click="accordion.generateModal('template', section.model)">View Template</button>
                                     <span class="btn btn-info btn-file">
-                                        Upload (as CSV file) <input type="file" id="{{section.id + '_file'}}" arc-file-change>
+                                        Upload CSV file <input type="file" id="{{section.id + '_file'}}" arc-file-change>
                                     </span>
                                     <span ng-model="section.file">{{section.file.name}}</span>
-                                    <span ng-show="!section.file">No file selected</span>
-                                </div>
+                                    <span ng-show="!section.file">No file selected <a ng-click="accordion.getExampleFile(section.id)">(example)</a></span>
+                                    <a class="pull-right" ng-click="accordion.generateModal('template', section.model)">View Template</a>
+                                  </div>
                                 <div class="form-group" ng-show="section.type === 'snp_information'">
                                     <span>Family History Variable Name: </span>
                                     <select ng-model="section.model.famHist" ng-options="row for row in section.model.sectionDependencyData.rows"  ng-change="section.model.saveModel()">
@@ -292,12 +292,12 @@
                                 </div>
                                 <div ng-show="section.model.inputMethod === 'upload'">
                                     <div class="form-group">
-                                      <button type="button" class="btn btn-primary" ng-click="accordion.generateModal('template', section.model)">View Template</button>
                                         <span class="btn btn-info btn-file">
-                                            Upload (as CSV file) <input type="file" id="{{section.id + '_file'}}" arc-file-change>
+                                            Upload CSV file <input type="file" id="{{section.id + '_file'}}" arc-file-change>
                                         </span>
                                         <span ng-model="section.file">{{section.file.name}}</span>
-                                        <span ng-show="!section.file">No file selected</span>
+                                        <span ng-show="!section.file">No file selected <a ng-click="accordion.getExampleFile(section.id)">(example)</a></span>
+                                      <a class="pull-right" ng-click="accordion.generateModal('template', section.model)">View Template</a>
                                     </div>
                                 </div>
                             </form>
