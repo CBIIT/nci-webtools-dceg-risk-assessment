@@ -39,12 +39,15 @@
             </ul>
         </div>
     </div>
-    <div class="container">
-        <div id="ContentColumns" ng-controller="MyController" class="clearfix">
-            <p>The National Lung Screening Trial (NLST) compared the efficacy of low-dose helical CT with that of standard chest X-ray for detecting lung cancer.  Low-dose CT resulted in 20% reduction in lung cancer mortality, and the <a href="http://www.uspreventiveservicestaskforce.org/Page/Topic/recommendation-summary/lung-cancer-screening" target="_blank" title="USPSTF (U.S. Preventive Services Task Force)">US Preventive Services Task Force (USPSTF)</a> recommends CT lung screening for those 50-80 years of age, minimum 30 pack-years of smoking, and no more than 15 years since quitting.  The Risk-based NLST Outcomes Tool (RNOT) provides chance of diagnosis and death from lung cancer, and risk of false-positive CT screen, based on data from the NLST.</p>
-            <p class="text-bold">The best way to lower your risk of lung cancer, and all smoking-related diseases, is to quit smoking. Learn more by visiting <a href="http://smokefree.gov" target="smokefree">smokefree.gov</a> and the CDC page on <a href="http://www.cdc.gov/tobacco/quit_smoking/" target="cdcSmokeFree">quitting smoking</a>.</p>
-
-            <div id="ContentColumnsLeft">
+    <div class="container" ng-controller="MyController">
+        <div class="row">
+            <div class="col-xs-12">
+                <p>The National Lung Screening Trial (NLST) compared the efficacy of low-dose helical CT with that of standard chest X-ray for detecting lung cancer.  Low-dose CT resulted in 20% reduction in lung cancer mortality, and the <a href="http://www.uspreventiveservicestaskforce.org/Page/Topic/recommendation-summary/lung-cancer-screening" target="_blank" title="USPSTF (U.S. Preventive Services Task Force)">US Preventive Services Task Force (USPSTF)</a> recommends CT lung screening for those 50-80 years of age, minimum 30 pack-years of smoking, and no more than 15 years since quitting.  The Risk-based NLST Outcomes Tool (RNOT) provides chance of diagnosis and death from lung cancer, and risk of false-positive CT screen, based on data from the NLST.</p>
+                <p class="text-bold">The best way to lower your risk of lung cancer, and all smoking-related diseases, is to quit smoking. Learn more by visiting <a href="http://smokefree.gov" target="smokefree">smokefree.gov</a> and the CDC page on <a href="http://www.cdc.gov/tobacco/quit_smoking/" target="cdcSmokeFree">quitting smoking</a>.</p>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div id="ContentColumnsLeft" class="col-xs-12 col-md-6">
                 <div class="mainBoxContainer">
                     <div class="mainBoxTitle">Risk Tool</div>
                     <div class="mainBoxContent">
@@ -325,7 +328,7 @@
                 </div>
             </div>
 
-            <div id="ContentColumnsRight">
+            <div id="ContentColumnsRight" class="col-xs-12 col-md-6">
                 <div id="RightColumn">
                     <div class="loading" ng-show="myForm.loading"></div>
                     <div class="mainBoxContainer">
