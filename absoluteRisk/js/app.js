@@ -392,6 +392,53 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService', 'DataRetrieval',
             finally: finallyCb
         });
     };
+    
+    self.saveSessionRData = function() {
+        console.log('called save session function');
+        var accordionData = Cache.createFilePathsObject();
+        console.log('section data is: ', accordionData);
+        var baseUrl = 'http://' + window.location.hostname + '/absoluteRisk/';
+        var saveSessionUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/saveSession';
+        
+        self.savedSessionFilePath = '';
+        
+        function successCb(d) {
+            self.savedSessionFilePath = baseUrl + d;
+            console.log('saved session file url: ', self.savedSessionFilePath);
+            console.log('recieved parameter: ', d);
+            var file = d.split("/")[1];
+            console.log('filename:', file);
+            window.location = 'http://' + window.location.hostname + '/absoluteRiskRest/downloadSession?filename=' + file;
+        }
+        
+        dataRetrieval.retrieveData({
+            url: saveSessionUrl,
+            data: accordionData,
+            success: successCb
+        });
+        
+        
+    }
+    
+    self.getExampleFile = function(section) {
+        console.log('section type: ', section);
+        var filename = section;
+        
+        switch(section) {
+            case 'variable_list':
+                filename = 'list_of_variables.rdata';
+                break;
+            case 'generate_formula':
+                filename = 'model_predictor.rdata';
+                break;
+            default:
+                filename += '.csv';
+                break;
+        }
+        
+        window.location = 'http://' + window.location.hostname + '/absoluteRiskRest/downloadExample?filename=' + filename;
+        
+    }
 
     self.generateModal = function(d, r) {
         $rootScope.$broadcast('modalContent', { type: d, content: r});
