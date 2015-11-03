@@ -6,6 +6,9 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link href="files/2col.css" rel="stylesheet" type="text/css" media="all">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 <body>
     <div class="header">
@@ -13,30 +16,46 @@
             <a href="http://dceg.cancer.gov/" target="dceg"><img class="img-responsive" src="/common/images/DCEG-logo.svg" alt="National Cancer Institute: Division of Cancer Epidemiology and Genetics" title="National Cancer Institute: Division of Cancer Epidemiology and Genetics"></a>
         </div>
         <div class="container row-blue">
-            <div class="col-xs-12">
-                <h4>Risk-based NLST Outcomes Tool (RNOT)</h4>
+            <div class="row">
+                <div class="col-xs-12">
+                    <h4>Risk-based NLST Outcomes Tool (RNOT)</h4>
+                </div>
             </div>
         </div>
         <div class="skip"><a title="Skip to content" href="#skiptocontent">Skip to content</a></div>
         <a name="top"></a>
-        <div class="container row-nav">
-            <ul id="nav">
-                <li class="menu-item"><a href="index.html">Home</a></li>
-                <li class="menu-item"><a href="about.html">About the Tool</a></li>
-                <li class="menu-item"><a href="risk.html">Risk Factor</a></li>
-                <li class="menu-item"><a href="about.html">Quick Links</a>
-                    <ul>
-                        <li><a href="#">Link 1</a></li>
-                        <li><a href="#">Link 2</a></li>
-                        <li><a href="#">Link 3</a></li>
-                    </ul>
-                </li>
-            </ul>
+        <div class="container navbar navbar-default">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#lcs-navbar-collapse" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="lcs-navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="active"><a href="about.html">About the Tool</a></li>
+                    <li><a href="risk.html">Risk Factor</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quick Links <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Link 1</a></li>
+                            <li><a href="#">Link 2</a></li>
+                            <li><a href="#">Link 3</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
     <div class="container">
-        <div id="ContentColumns" class="clearfix">
-            <div id="ContentColumnsText">
+        <div class="row">
+            <div class="col-xs-12">
                 <h2>Lung Cancer Screening Tool</h2>
                 <p>The National Lung Screening Trial (NLST) compared the efficacy of low-dose helical CT with that of standard chest X-ray for detecting lung cancer.  Low-dose CT resulted in 20% reduction in lung cancer mortality, and the <a href="http://www.uspreventiveservicestaskforce.org/Page/Topic/recommendation-summary/lung-cancer-screening" target="_blank" title="USPSTF (U.S. Preventive Services Task Force)">US Preventive Services Task Force (USPSTF)</a> recommends CT lung screening for those 50-80 years of age, minimum 30 pack-years of smoking, and no more than 15 years since quitting.  The Risk-based NLST Outcomes Tool (RNOT) provides chance of diagnosis and death from lung cancer, and risk of false-positive CT screen, based on data from the NLST.</p>
             </div>
