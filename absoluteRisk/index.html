@@ -278,9 +278,15 @@
                                     
                                     <a class="pull-right" ng-click="accordion.generateModal('template', section.model)">View Template</a>
                                   </div>
-                                    <button type="button" class="btn btn-primary pull-right" ng-click="accordion.submitFirstSection(section)">
-                                        Validate and Submit
-                                    </button>
+                                
+                                    
+                                <button ng-show = "section.type === 'default'" type="button" class="btn btn-primary pull-right" ng-click="accordion.validateAndSubmit(section)">
+                                    Validate and Submit
+                                </button>
+
+                                <button ng-show = "section.type === 'snp_information'" type="button" class="btn btn-primary pull-right" ng-click="accordion.submitFirstSection(section)">
+                                    Validate and Submit
+                                </button>
 
                                 <div class="form-group" ng-show="section.type === 'snp_information'">
                                     <span>Family History Variable Name: </span>
