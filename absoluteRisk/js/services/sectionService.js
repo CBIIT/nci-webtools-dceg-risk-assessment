@@ -103,7 +103,7 @@ app.factory('BuildSection', [
                                     }
 
                                     if (!self.model.postUploadEndpoint && !self.model.saveEndpoint) {
-                                        self.broadcastSectionStatus(true);
+                                        /* self.broadcastSectionStatus(true); */
                                     }
                                 } else {
                                     dataRetrieval.errorHandler(resp, 503);

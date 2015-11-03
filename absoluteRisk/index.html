@@ -160,8 +160,8 @@
                                     </button>
                                     
                                 <div class="btn-toolbar">
-                                    <button type="button" class="btn btn-primary pull-right" ng-click="section.model.saveModel()">
-                                        Submit
+                                    <button type="button" class="btn btn-primary pull-right" ng-click="accordion.validateAndSubmit(section)">
+                                        Validate and Submit
                                     </button>
                                     <button type="button" class="btn btn-info pull-right" ng-click="section.model.saveModel()" >
                                         Download RData
@@ -175,8 +175,8 @@
                                         </span>
                                         <span ng-model="section.file">{{section.file.name}}</span>
                                         <span ng-show="!section.file">No file selected <a ng-click="accordion.getExampleFile(section.id)">(example)</a></span>
-                                    <button type="button" class="btn btn-primary pull-right" ng-click="accordion.validate(section.id)">
-                                        Submit
+                                    <button type="button" class="btn btn-primary pull-right" ng-click="accordion.validateAndSubmit(section)">
+                                        Validate and Submit
                                     </button>
                                     </div>
                                 </div>
@@ -260,8 +260,8 @@
                                         </span>
                                         <span ng-model="section.file">{{section.file.name}}</span>
                                         <span ng-show="!section.file">No file selected <a ng-click="accordion.getExampleFile(section.id)">(example)</a></span>
-                                        <button type="button" class="btn btn-primary pull-right" ng-click="accordion.validate(section.id)">
-                                             Submit
+                                        <button type="button" class="btn btn-primary pull-right" ng-click="accordion.validateAndSubmit(section)">
+                                            Validate and Submit
                                          </button>
                                     </div>
                                 </div>
@@ -278,13 +278,13 @@
                                     
                                     <a class="pull-right" ng-click="accordion.generateModal('template', section.model)">View Template</a>
                                   </div>
-                                    <button type="button" class="btn btn-primary pull-right" ng-click="accordion.validate(section.id)">
-                                        Submit
+                                    <button type="button" class="btn btn-primary pull-right" ng-click="accordion.submitFirstSection(section)">
+                                        Validate and Submit
                                     </button>
 
                                 <div class="form-group" ng-show="section.type === 'snp_information'">
                                     <span>Family History Variable Name: </span>
-                                    <select ng-model="section.model.famHist" ng-options="row for row in section.model.sectionDependencyData.rows"  ng-change="section.model.saveModel()">
+                                    <select ng-model="section.model.famHist" ng-options="row for row in section.model.sectionDependencyData.rows">
                                     </select>
                                 </div>
                             </form>
