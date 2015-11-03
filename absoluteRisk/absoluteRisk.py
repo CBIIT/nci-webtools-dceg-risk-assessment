@@ -243,6 +243,22 @@ def generateFormula():
 
     return ''
 
+# This route processes a formula file and returns its json
+@app.route('/absoluteRiskRest/processFormula', methods=['POST'])
+def processFormula():
+    if request.method == 'POST':
+        jsonData = json.loads(request.data)
+        pathToFormula = jsonData['pathToFormulaFile']
+        pathToVariableList = jsonData['pathToVariableListFile']
+
+        try:
+            formula = arc_wrapper.process_formula(pathToFormula, pathToVariableList)
+            return json.dumps(formula[0])
+        except Exception, e:
+            raise InvalidUsage(e.args[0], status_code = 500)
+
+    return ''
+
 # This route takes in 3 params for R calculations, and returns log_odds_rates based calculations as JSON
 @app.route('/absoluteRiskRest/logOddsRatios', methods=['POST'])
 def logOddsRatios():

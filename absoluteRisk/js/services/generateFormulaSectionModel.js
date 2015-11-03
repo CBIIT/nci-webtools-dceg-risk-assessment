@@ -117,18 +117,65 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', 'Da
         parseJsonModel: function(model) {
             if (model) {
                 var m = model;
-                var filePath = m.shift()['path_to_file'];
-                var linearVarsFromRDataFile = getLinearVariables(m).linearVars;
+                console.log(m);
+                var filePath = m['path_to_file'];
+                
+                var formulaFilePath = m['path_to_file'];
+                var variablesFilePath = Cache.getSectionKey('variable_list', 'path_to_file');
+                
+                processFormulaURL = 'http://' + window.location.hostname + '/absoluteRiskRest/processFormula';
+                
+                
+                var dataJson = {
+                    pathToFormulaFile : m['path_to_file'],
+                    pathToVariableListFile : Cache.getSectionKey('variable_list', 'path_to_file')
+                };
+                
+                var id = this.section.id;
+
+                var formulaJSON = [];
+                var linearVarsFromRDataFile = getLinearVariables(this.variables, true)['linearVars']; 
+                
+                function successCb(d) {
+                    var formulaJSON = angular.fromJson(d);
+
+                    console.log("testing call" + linearVarsFromRDataFile);
+                    
+                    var sectionData = {
+                        'id': id,
+                        'path_to_file': m['path_to_file'],
+                        'data': angular.fromJson(formulaJSON)
+                    };
+                    
+                    console.log(sectionData);
+        
+                    console.log('parsed model is: ', model);
+                    Cache.setSectionData(id, sectionData);
+                    Cache.setUiData(id, { rows: linearVarsFromRDataFile });
+                    Cache.getUiData(id);
+                }
+                
+                /* Call data retrieval service to return JSON formula */
+                dataRetrieval.retrieveData({
+                    url: processFormulaURL,
+                    data: dataJson,
+                    success: successCb
+                });
+                
+                console.log(formulaJSON);
+                    
                 var sectionData = {
                     'id': this.section.id,
                     'path_to_file': filePath,
-                    'data': m
+                    'data': formulaJSON
                 };
-
+    
                 console.log('parsed model is: ', model);
                 Cache.setSectionData(this.section.id, sectionData);
                 Cache.setUiData(this.section.id, { rows: linearVarsFromRDataFile });
                 Cache.getUiData(this.section.id);
+                
+
             }
         }
     };
