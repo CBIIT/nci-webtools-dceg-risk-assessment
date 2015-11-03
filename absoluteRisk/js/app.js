@@ -121,6 +121,7 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService', 'DataRetrieval',
 
                 function successCb(d) {
                     /* Store RData file path in global JSON object and open next section */
+                    console.log("successfully uploaded file: callback");
                     self.parseJsonModel(d);
                     self.section.broadcastSectionStatus();
                 }
@@ -417,6 +418,10 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService', 'DataRetrieval',
             success: successCb
         });
         
+        
+    }
+    
+    self.loadSessionRData = function() {
         
     }
     
