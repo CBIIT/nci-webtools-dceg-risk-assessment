@@ -161,7 +161,7 @@
                                     
                                 <div class="btn-toolbar">
                                     <button type="button" class="btn btn-primary pull-right" ng-click="accordion.validateAndSubmit(section)">
-                                        Validate and Submit
+                                       Submit
                                     </button>
                                     <button type="button" class="btn btn-info pull-right" ng-click="section.model.saveModel()" >
                                         Download RData
@@ -175,7 +175,7 @@
                                         </span>
                                         <span ng-model="section.file">{{section.file.name}}</span>
                                         <span ng-show="!section.file">No file selected <a ng-click="accordion.getExampleFile(section.id)">(example)</a></span>
-                                    <button type="button" class="btn btn-primary pull-right" ng-click="accordion.validateAndSubmit(section)">
+                                    <button type="button" class="btn btn-primary pull-right" ng-click="accordion.validateAndSubmit(section)" ng-disabled = "accordion.completedUpload(section)">
                                         Validate and Submit
                                     </button>
                                     </div>
@@ -260,7 +260,7 @@
                                         </span>
                                         <span ng-model="section.file">{{section.file.name}}</span>
                                         <span ng-show="!section.file">No file selected <a ng-click="accordion.getExampleFile(section.id)">(example)</a></span>
-                                        <button type="button" class="btn btn-primary pull-right" ng-click="accordion.validateAndSubmit(section)">
+                                        <button type="button" class="btn btn-primary pull-right" ng-click="accordion.validateAndSubmit(section)" ng-disabled = "accordion.completedUpload(section)">
                                             Validate and Submit
                                          </button>
                                     </div>
@@ -280,11 +280,11 @@
                                   </div>
                                 
                                     
-                                <button ng-show = "section.type === 'default'" type="button" class="btn btn-primary pull-right" ng-click="accordion.validateAndSubmit(section)">
+                                <button ng-show = "section.type === 'default'" type="button" class="btn btn-primary pull-right" ng-click="accordion.validateAndSubmit(section)" ng-disabled = "accordion.completedUpload(section)">
                                     Validate and Submit
                                 </button>
 
-                                <button ng-show = "section.type === 'snp_information'" type="button" class="btn btn-primary pull-right" ng-click="accordion.submitFirstSection(section)">
+                                <button ng-show = "section.type === 'snp_information'" type="button" class="btn btn-primary pull-right" ng-click="accordion.submitBuildSteps(section)">
                                     Validate and Submit
                                 </button>
 
