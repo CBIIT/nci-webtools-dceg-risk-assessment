@@ -298,7 +298,57 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService', 'DataRetrieval',
                         console.log('in switch default');
                         break;
                 }
-            } else {
+            }
+            else if (state === 'uploaded') {
+                /* Means section file has been uploaded */
+                switch(id) {
+                    case('variable_list'):
+                        section = self.steps[0].sections[1];
+                        section.uploaded = true;
+                        break;
+                    case('generate_formula'):
+                        section = self.steps[0].sections[2];
+                        section.uploaded = true;
+                        break;
+                    case('risk_factor_distribution'):
+                        section = self.steps[0].sections[3];
+                        section.uploaded = true;
+                        break;
+                    case('log_odds_ratios'):
+                        section = self.steps[0].sections[4];
+                        section.uploaded = true;
+                        break;
+                    case('disease_incidence_rates'):
+                        section = self.steps[0].sections[5];
+                        section.uploaded = true;
+                        break;
+                    case('mortality_incidence_rates'):
+                        section = self.steps[0].sections[6];
+                        section.uploaded = true;
+                        break;
+                    case('snp_information'):
+                        /* Close last section of first accordion */
+                        section = self.steps[1].sections[0];
+                        section.uploaded = true;
+                        break;
+                    case('risk_factor_prediction'):
+                        section = self.steps[1].sections[1];
+                        section.uploaded = true;
+                        break;
+                    case('genotypes_prediction'):
+                        section = self.steps[1].sections[2];
+                        section.uploaded = true;
+                        break;
+                    case('age_interval'):
+                        section = self.steps[1].sections[3];
+                        section.uploaded = true;
+                        break;
+                    default:
+                        console.log('in switch default');
+                        break;
+                }
+            }
+            else {
                 /* Means state === 'edit' */
             }
 
@@ -451,10 +501,37 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService', 'DataRetrieval',
         section.broadcastSectionStatus();
     }
     
-    self.submitFirstSection = function(section) {
+    self.submitBuildSteps = function(section) {
         section.model.saveModel();
         section.broadcastSectionStatus();
 
+    }
+    
+    self.completedUpload = function(section) {
+        switch(section.id) {
+            case('variable_list'):
+                return !self.steps[0].sections[1].uploaded;
+            case('generate_formula'):
+                return !self.steps[0].sections[2].uploaded;
+            case('risk_factor_distribution'):
+                return !self.steps[0].sections[3].uploaded;
+            case('log_odds_ratios'):
+                return !self.steps[0].sections[4].uploaded;
+            case('disease_incidence_rates'):
+                return !self.steps[0].sections[5].uploaded;
+            case('mortality_incidence_rates'):
+                return !self.steps[0].sections[6].uploaded;
+            case('snp_information'):
+                return !self.steps[1].sections[0].uploaded;
+            case('risk_factor_prediction'):
+                return !self.steps[1].sections[1].uploaded;
+            case('genotypes_prediction'):
+                return !self.steps[1].sections[2].uploaded;
+            case('age_interval'):
+                return !self.steps[1].sections[3].uploaded;
+            default:
+                return true;
+        }
     }
 
     self.init();

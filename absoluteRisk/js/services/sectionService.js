@@ -103,7 +103,7 @@ app.factory('BuildSection', [
                                     }
 
                                     if (!self.model.postUploadEndpoint && !self.model.saveEndpoint) {
-                                        /* self.broadcastSectionStatus(true); */
+                                        self.broadcastUploadStatus(true);
                                     }
                                 } else {
                                     dataRetrieval.errorHandler(resp, 503);
@@ -167,6 +167,14 @@ app.factory('BuildSection', [
                     $rootScope.$broadcast('runCalculations');
                 }
 
+                if (runApply) {
+                    $rootScope.$apply();
+                }
+            },
+            broadcastUploadStatus: function(runApply) {
+                var self = this;
+                self.isValid = true;
+                $rootScope.$broadcast('sectionStateChanged', { id: this.id, state: 'uploaded' });
                 if (runApply) {
                     $rootScope.$apply();
                 }
