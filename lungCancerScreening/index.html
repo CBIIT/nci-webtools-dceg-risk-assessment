@@ -94,15 +94,16 @@
                                             <span class="help-block">{{myForm.numericValidationMessage}}</span>
                                         </div>
                                     </div>
-                                    <!--
                                     <div ng-show="myForm.ageCriteria" class="row">
-                                        <div class="col-xs-12 warning">
-                                            The <a href="http://www.uspreventiveservicestaskforce.org/uspstf/uspslung.htm" target="_blank" title="U.S. Preventive Services Task Force">U.S. Preventive Services Task Force</a> does NOT recommend that
-                                            you get screened unless you are between the age of 50 and 80.
-                                            This tool calculates risk for men and women 50 to 80 years of age
+                                        <div class="col-xs-12 has-error">
+                                            <span class="help-block">
+                                                <p>This tool calculates risk for men and women 50 to 80 years of age.</p>
+                                                <p>
+                                                    The <a href="http://www.uspreventiveservicestaskforce.org/uspstf/uspslung.htm" target="_blank" title="U.S. Preventive Services Task Force">U.S. Preventive Services Task Force</a> does NOT recommend that you get screened unless you are between the age of 50 and 80.
+                                                </p>
+                                            </span>
                                         </div>
                                     </div>
-                                    -->
                                     <div class="form-group">
                                         <label for="" class="col-xs-12 col-md-6 control-label">Gender</label>
                                         <div class="col-xs-12 col-md-6">
@@ -124,7 +125,6 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <!--
                                     <div ng-show="myForm.typeCriteria" class="row">
                                         <div class="col-xs-12 has-error">
                                             <span class="help-block">
@@ -133,7 +133,6 @@
                                             </span>
                                         </div>
                                     </div>
-                                    -->
                                     <div class="form-group" ng-class="{'has-error': myForm.startNumericCriteria || myForm.startAgeCriteria }" ng-show="myForm.type === 'current' || myForm.type === 'former'">
                                         <div class="col-xs-12 col-md-2"></div>
                                         <label for="start" class="col-xs-12 col-md-4 control-label">What age did you start smoking?</label>
@@ -367,10 +366,12 @@
                                                 <p>Reduction in 5-year lung cancer death risk, due to screening: {{myForm.result1}} out of 1000</p>
                                                 <p>In the NLST, those who underwent 3 rounds of annual CT screening had their risk reduced by 20%. Therefore, among the {{myForm.result0}} out of 1000 people who would have died from lung cancer in 5 years, {{myForm.result1}} people would not die from lung cancer within 5 years, if they undergo 3 yearly CT lung screens as in the NLST.</p>
                                             </article>
+                                            <!--
                                             <article class="ac-medium">
                                                 <p>Of those eligible for lung screening, number who have less reduction: {{myForm.result5}} out of 1000</p>
                                                 <p>Out of 1000 people eligible for lung screening according to US Preventive Services Task Force recommendations, {{myForm.result5}} are estimated to have less reduction in lung cancer death than someone with this risk factor profile.</p>
                                             </article>
+                                            -->
                                         </div>
                                         <div>
                                             <input id="ac-4" name="accordion-4" type="checkbox" ng-model="myForm.cbResult2" />
