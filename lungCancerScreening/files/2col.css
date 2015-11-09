@@ -198,8 +198,7 @@ fieldset.disabled label:hover {
     height: 100px;
 }
 .ac-container input:checked ~ article.ac-medium {
-    height: 150px;
-    overflow: auto;
+    height: auto;
 }
 .ac-container input:checked ~ article.ac-large {
     height: 180px;
