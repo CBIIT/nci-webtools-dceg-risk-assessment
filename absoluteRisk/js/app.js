@@ -39,26 +39,20 @@ app.directive('arcFileChange', ['$rootScope', function($rootScope) {
 }]);
 
 /* Tabs controller */
-app.controller('ArcTabs', ['$scope', function($scope) {
-  $scope.isActive = [{active: true}, {active: false}, {active: false}, {active: false}];
-  $scope.selectResearcherTab = function() {
-    $scope.isActive[0].active = false;
-    $scope.isActive[1].active = true;
-    $scope.isActive[2].active = false;
-    $scope.isActive[3].active = false;
-  }
-  $scope.selectClinicianTab = function() {
-    $scope.isActive[0].active = false;
-    $scope.isActive[1].active = false;
-    $scope.isActive[2].active = true;
-    $scope.isActive[3].active = false;
-  }
-  $scope.selectHelpTab = function() {
-    $scope.isActive[0].active = false;
-    $scope.isActive[1].active = false;
-    $scope.isActive[2].active = false;
-    $scope.isActive[3].active = true;
-  }
+app.controller('ArcTabs', [function() {
+    
+    this.select = function(index) {
+       this.active = [false, false, false, false];
+       this.active[index] = true;
+    }
+    
+    this.class = function(index) {
+        if (this.active[index]) {
+            return "tabSelected"
+        }
+    }
+    
+    this.select(0);
 }]);
 
 /* Primary application controller */
@@ -498,10 +492,12 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService', 'DataRetrieval',
     }
     
     self.validateAndSubmit = function(section) {
+        section.validated = true;
         section.broadcastSectionStatus();
     }
     
     self.submitBuildSteps = function(section) {
+        section.validated = true;
         section.model.saveModel();
         section.broadcastSectionStatus();
 

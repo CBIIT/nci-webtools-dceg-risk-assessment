@@ -7,7 +7,7 @@ app.factory('BuildVariable', function() {
         self.name = '';
         self.type = 'continuous';
         self.levels = '';
-        self.levelsType = 'integer';
+        self.levelsType = 'string';
         self.ref = '';
     }
     Variable.prototype = {
