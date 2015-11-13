@@ -19,6 +19,8 @@ app.factory('BuildSection', [
     function(vlModel, gfModel, aiModel, snpModel, defModel, $rootScope, uiUploader, Cache, dataRetrieval) {
         function Section(cfg) {
             var self = this;
+            self.setUploadingStatus(true);
+
 
             self.modelMap = {
                 'variable_list':    { func: vlModel, params: { fileUploadEndpoint: cfg.fileUploadEndpoint }},
@@ -104,6 +106,7 @@ app.factory('BuildSection', [
 
                                     if (!self.model.postUploadEndpoint && !self.model.saveEndpoint) {
                                         self.broadcastUploadStatus(true);
+                                        self.setUploadingStatus(false);
                                     }
                                 } else {
                                     dataRetrieval.errorHandler(resp, 503);
@@ -178,6 +181,12 @@ app.factory('BuildSection', [
                 if (runApply) {
                     $rootScope.$apply();
                 }
+            },
+            setUploadingStatus: function(status) {
+                var self = this;
+                self.uploading = status;
+                
+                $rootScope.$apply();
             }
         };
 

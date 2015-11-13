@@ -126,7 +126,11 @@ create_formula <- function(model_info_JSON, list_of_variables_RData) {
   }
   # add interaction terms
   form = paste(form, inter, sep = "")
-  return (form)
+  
+  timestamp = format(Sys.time(), "%Y%m%d-%H%M%S")
+  filePath = paste("./uploads/rdata/",timestamp,"_model_predictor.rdata", sep="")
+  save(form, file = filePath)
+  return (c(form, filePath))
 }
 
 form_type <- function(var_name, model_info, list_of_variables){
@@ -565,8 +569,6 @@ saveAllFiles <- function(filePath,
   allData$snpInformation = get(load(snpInformationRData))
   allData$familyHistoryRData = get(load(familyHistoryRData))
 
-  dir.create('tmp')
-  filePath = paste(filePath, "rdata", sep=".")
   save(allData, file = filePath)
 
   return (filePath)

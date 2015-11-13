@@ -40,6 +40,7 @@
 
     <!-- Local CSS -->
     <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/theme.css">
     <link rel="icon" type="image/png" href="images/favicon.png">
     
     <title>Absolute Risk Calculator</title>
@@ -59,16 +60,16 @@
     </header>
 
     <div class="container" ng-controller="ArcTabs as tabs">
-      <tabset>
-      <tab class="tab {{ tabs.class(0) }}" heading="Home" active="tabs.active[0]">
+      <tabset class="fadeTabs">
+      <tab class="tab" heading="Home" active="tabs.active[0]">
       <div class="pad tabContent">
-        <h4>Welcome to the Absolute Risk Calculator!</h4><br>
+        <h4>Welcome to the Absolute Risk Calculator</h4><br>
         <a ng-click="tabs.select(1)">ARC for Researchers</a><br>
         <a ng-click="tabs.select(2)">ARC for Clinicians</a><br>
         <a ng-click="tabs.select(3)">Help</a>
       </div>
       </tab>
-      <tab heading="ARC for Researchers" active="tabs.active[1]" class="{{ tabs.class(1) }}">
+      <tab heading="ARC for Researchers" active="tabs.active[1]" >
         <div class="tabContent container" >
         <div ng-controller="ArcAccordion as accordion">
             <div class="col-md-6">
@@ -126,7 +127,7 @@
                                                     
                                                 </td>
                                                 <td>
-                                                    <input type="text" name="levels" placeholder="eg: 1 2 3 4+" class="form-control" ng-model="variable.levels" ng-disabled="variable.type === 'continuous'">
+                                                    <input type="text" name="levels" placeholder="eg: 1 3 5+" class="form-control" ng-model="variable.levels" ng-disabled="variable.type === 'continuous'">
                                                 </td>
                                                 <td>
                                                     <input type="text" name="ref" placeholder="eg: 5" class="form-control" ng-model="variable.ref" ng-disabled="variable.type === 'continuous'">
@@ -158,12 +159,20 @@
                                 <div ng-show="section.model.inputMethod === 'upload'">
                                     <div class="form-group">
                                         <span class="btn btn-info btn-file">
-                                            Browse <input type="file" id="{{section.id + '_file'}}" arc-file-change>
+                                            Browse <input type="file" id="{{section.id + '_file'}}" arc-file-change ng-click="accordion.selectFile(section)">
                                         </span>
                                         <span ng-model="section.file">{{section.file.name}}</span>
                                         <span ng-show="!section.file">No file selected <a ng-click="accordion.getExampleFile(section.id)">(example)</a></span>
                                     <button type="button" class="btn btn-primary pull-right" ng-click="accordion.validateAndSubmit(section)" ng-disabled = "accordion.completedUpload(section)">
+                                        
+
+                                        <span ng-show="accordion.uploadInProgress(section) && section.selectedFile">
+                                        Uploading
+                                        </span>
+                                        
+                                        <span ng-show="!accordion.uploadInProgress(section) || !section.selectedFile">
                                         Submit
+                                        </span>
                                     </button>
                                     </div>
                                 </div>
@@ -196,7 +205,7 @@
                                                         <input type="checkbox" ng-model="variable.linear" ng-change="variable.alertLinearState()">
                                                     </td>
                                                     <td>
-                                                        <ui-select multiple ng-model="variable.interaction" theme="bootstrap" ng-show="variable.linear && variable.fakeTermsLength">
+                                                        <ui-select multiple ng-model="variable.interaction" theme="bootstrap" ng-show="variable.linear ">
                                                           <ui-select-match placeholder="No selection...">{{$item.name}}</ui-select-match>
                                                           <ui-select-choices repeat="term in variable.terms | verifyTerms: variable.terms: section.model.variables" ng-change="console.log('changed')">
                                                             <div ng-bind-html="term.name | highlight: $select.search"></div>
@@ -207,7 +216,7 @@
                                             </tbody>
                                         </table>
                                         <div class="btn-toolbar">
-                                            <button type="button" class="btn btn-primary pull-right" ng-click="section.model.saveModel()">Confirm</button>
+                                            <button type="button" class="btn btn-primary pull-right" ng-click="accordion.submitFormula(section)">Submit</button>
                                             <button type="button" class="btn btn-info pull-right" ng-click="section.model.generateFormula()">View Formula</button>
                                         </div>
                                     </div>
@@ -215,12 +224,19 @@
                                 <div ng-show="section.model.inputMethod === 'upload'">
                                     <div class="form-group">
                                         <span class="btn btn-info btn-file">
-                                            Browse <input type="file" id="{{section.id + '_file'}}" arc-file-change>
+                                            Browse <input type="file" id="{{section.id + '_file'}}" arc-file-change ng-click="accordion.selectFile(section)">
                                         </span>
                                         <span ng-model="section.file">{{section.file.name}}</span>
                                         <span ng-show="!section.file">No file selected <a ng-click="accordion.getExampleFile(section.id)">(example)</a></span>
                                         <button type="button" class="btn btn-primary pull-right" ng-click="accordion.validateAndSubmit(section)" ng-disabled = "accordion.completedUpload(section)">
+                                            
+                                            <span ng-show="accordion.uploadInProgress(section) && section.selectedFile">
+                                            Uploading
+                                            </span>
+                                            
+                                            <span ng-show="!accordion.uploadInProgress(section) || !section.selectedFile">
                                             Submit
+                                            </span>   
                                          </button>
                                     </div>
                                 </div>
@@ -228,7 +244,7 @@
                             <form ng-if="section.type === 'default' || section.type === 'snp_information'">
                                 <div class="form-group">
                                     <span class="btn btn-info btn-file">
-                                        Upload CSV file <input type="file" id="{{section.id + '_file'}}" arc-file-change>
+                                        Upload CSV file <input type="file" id="{{section.id + '_file'}}" arc-file-change ng-click="accordion.selectFile(section)">
                                     </span>
                                     <span ng-model="section.file">{{section.file.name}}</span>
                                     <span ng-show="!section.file">No file selected <a ng-click="accordion.getExampleFile(section.id)">(example)</a></span>
@@ -237,11 +253,17 @@
                                 
                                     
                                 <button ng-show = "section.type === 'default'" type="button" class="btn btn-primary pull-right" ng-click="accordion.validateAndSubmit(section)" ng-disabled = "accordion.completedUpload(section)">
-                                    Submit
+                                        <span ng-show="accordion.uploadInProgress(section) && section.selectedFile">
+                                        Uploading
+                                        </span>
+                                        
+                                        <span ng-show="!accordion.uploadInProgress(section) || !section.selectedFile">
+                                        Submit
+                                        </span>                                    
                                 </button>
 
                                 <button ng-show = "section.type === 'snp_information'" type="button" class="btn btn-primary pull-right" ng-click="accordion.submitBuildSteps(section)">
-                                    Submit
+                                        Submit
                                 </button>
 
                                 <div class="form-group" ng-show="section.type === 'snp_information'">
@@ -309,19 +331,20 @@
         </div>
       </div>
       </tab>
-      <tab heading="ARC for Clinicians" active="tabs.active[2]" class="{{ tabs.class(2) }}">
+      <tab heading="ARC for Clinicians" active="tabs.active[2]">
       <div class="pad tabContent">
       Arc for clinicians
       </div>
       </tab>
-      <tab heading="Help" active="tabs.active[3]" class="{{ tabs.class(3) }}">
+      <tab heading="Help" active="tabs.active[3]">
       <div class="pad tabContent">
       Help contents
       </div>
       </tab>
     </tabset>
+    <hr>
     </div>
-
+    
     <footer class="container footer">
         <div class="center-block">
             <ul class="list-inline">

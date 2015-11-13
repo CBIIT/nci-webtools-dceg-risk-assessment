@@ -42,14 +42,12 @@ app.directive('arcFileChange', ['$rootScope', function($rootScope) {
 app.controller('ArcTabs', [function() {
     
     this.select = function(index) {
-       this.active = [false, false, false, false];
+       this.active = new Array(4);
        this.active[index] = true;
     }
     
     this.class = function(index) {
-        if (this.active[index]) {
-            return "tabSelected"
-        }
+        return this.active[index] ? 'tabSelected' : null;
     }
     
     this.select(0);
@@ -117,7 +115,7 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService', 'DataRetrieval',
                     /* Store RData file path in global JSON object and open next section */
                     console.log("successfully uploaded file: callback");
                     self.parseJsonModel(d);
-                    self.section.broadcastSectionStatus();
+                    self.section.broadcastUploadStatus();
                 }
 
                 /* Call data retrieval service to get final calculations back from the server */
@@ -299,43 +297,102 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService', 'DataRetrieval',
                     case('variable_list'):
                         section = self.steps[0].sections[1];
                         section.uploaded = true;
+                        section.uploading = false;
                         break;
                     case('generate_formula'):
                         section = self.steps[0].sections[2];
                         section.uploaded = true;
+                        section.uploading = false;
                         break;
                     case('risk_factor_distribution'):
                         section = self.steps[0].sections[3];
                         section.uploaded = true;
+                        section.uploading = false;
                         break;
                     case('log_odds_ratios'):
                         section = self.steps[0].sections[4];
                         section.uploaded = true;
+                        section.uploading = false;
                         break;
                     case('disease_incidence_rates'):
                         section = self.steps[0].sections[5];
                         section.uploaded = true;
+                        section.uploading = false;
                         break;
                     case('mortality_incidence_rates'):
                         section = self.steps[0].sections[6];
                         section.uploaded = true;
+                        section.uploading = false;
                         break;
                     case('snp_information'):
                         /* Close last section of first accordion */
                         section = self.steps[1].sections[0];
                         section.uploaded = true;
+                        section.uploading = false;
                         break;
                     case('risk_factor_prediction'):
                         section = self.steps[1].sections[1];
                         section.uploaded = true;
+                        section.uploading = false;
                         break;
                     case('genotypes_prediction'):
                         section = self.steps[1].sections[2];
                         section.uploaded = true;
+                        section.uploading = false;
                         break;
                     case('age_interval'):
                         section = self.steps[1].sections[3];
                         section.uploaded = true;
+                        section.uploading = false;
+                        break;
+                    default:
+                        console.log('in switch default');
+                        break;
+                }
+            }
+            else if (state === 'uploading') {
+                /* Means section file is being uploaded */
+                switch(id) {
+                    case('variable_list'):
+                        section = self.steps[0].sections[1];
+                        section.uploading = true;
+                        break;
+                    case('generate_formula'):
+                        section = self.steps[0].sections[2];
+                        section.uploading = true;
+                        break;
+                    case('risk_factor_distribution'):
+                        section = self.steps[0].sections[3];
+                        section.uploading = true;
+                        break;
+                    case('log_odds_ratios'):
+                        section = self.steps[0].sections[4];
+                        section.uploading = true;
+                        break;
+                    case('disease_incidence_rates'):
+                        section = self.steps[0].sections[5];
+                        section.uploading = true;
+                        break;
+                    case('mortality_incidence_rates'):
+                        section = self.steps[0].sections[6];
+                        section.uploading = true;
+                        break;
+                    case('snp_information'):
+                        /* Close last section of first accordion */
+                        section = self.steps[1].sections[0];
+                        section.uploading = true;
+                        break;
+                    case('risk_factor_prediction'):
+                        section = self.steps[1].sections[1];
+                        section.uploading = true;
+                        break;
+                    case('genotypes_prediction'):
+                        section = self.steps[1].sections[2];
+                        section.uploading = true;
+                        break;
+                    case('age_interval'):
+                        section = self.steps[1].sections[3];
+                        section.uploading = true;
                         break;
                     default:
                         console.log('in switch default');
@@ -364,6 +421,7 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService', 'DataRetrieval',
             if (type === 'formula') {
                 self.formula = args.content;
                 heading = 'Formula';
+                templateURL = 'templates/formulaTemplate.html';
             }
 
             if (type === 'error') {
@@ -381,12 +439,13 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService', 'DataRetrieval',
                 controller: 'ModalController as modalCtrl',
                 resolve: {
                   data: function () {
+                                            
                     return {
                         statusCode: statusCode,
                         type: args.type,
                         content: args.content,
                         heading: heading,
-                        description: args.description
+                        description: args.description,
                     };
                   }
                 }
@@ -402,6 +461,7 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService', 'DataRetrieval',
     self.calculateData = function() {
         /* Delegating last section save to global Calculate mechanism */
         self.steps[1].sections[2].model.saveModel();
+        self.steps[1].sections[2].validated = true;
 
         self.showData = true;
     };
@@ -463,6 +523,11 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService', 'DataRetrieval',
         });
     }
     
+    self.submitFormula = function(section) {
+        section.validated = true;
+        section.model.saveModel();
+    }
+    
     self.loadSessionRData = function() {
         
     }
@@ -493,6 +558,7 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService', 'DataRetrieval',
     
     self.validateAndSubmit = function(section) {
         section.validated = true;
+        
         section.broadcastSectionStatus();
     }
     
@@ -501,6 +567,37 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService', 'DataRetrieval',
         section.model.saveModel();
         section.broadcastSectionStatus();
 
+    }
+    
+    self.selectFile = function(section) {
+        section.selectedFile = true;
+    }
+    
+    self.uploadInProgress = function(section) {
+        switch(section.id) {
+            case('variable_list'):
+                return self.steps[0].sections[1].uploading;
+            case('generate_formula'):
+                return self.steps[0].sections[2].uploading;
+            case('risk_factor_distribution'):
+                return self.steps[0].sections[3].uploading;
+            case('log_odds_ratios'):
+                return self.steps[0].sections[4].uploading;
+            case('disease_incidence_rates'):
+                return self.steps[0].sections[5].uploading;
+            case('mortality_incidence_rates'):
+                return self.steps[0].sections[6].uploading;
+            case('snp_information'):
+                return self.steps[1].sections[0].uploading;
+            case('risk_factor_prediction'):
+                return self.steps[1].sections[1].uploading;
+            case('genotypes_prediction'):
+                return self.steps[1].sections[2].uploading;
+            case('age_interval'):
+                return self.steps[1].sections[3].uploading;
+            default:
+                return true;
+        }
     }
     
     self.completedUpload = function(section) {

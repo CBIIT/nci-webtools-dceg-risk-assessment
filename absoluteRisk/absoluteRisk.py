@@ -236,8 +236,10 @@ def generateFormula():
         pathToFile = jsonData['pathToVariableListFile']
 
         try:
-            formula = arc_wrapper.create_formula(json.dumps(formulaModel), pathToFile)
-            return json.dumps(formula[0])
+            formulaData = arc_wrapper.create_formula(json.dumps(formulaModel), pathToFile)
+            formula = {'formula': formulaData[0], 'path': formulaData[1]}
+            
+            return json.dumps(formula)
         except Exception, e:
             raise InvalidUsage(e.args[0], status_code = 500)
 
