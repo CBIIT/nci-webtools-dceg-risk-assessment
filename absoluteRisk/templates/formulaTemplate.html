@@ -1,0 +1,18 @@
+
+
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title">{{modalCtrl.heading}}</h3>
+    </div>
+
+    <div class="modal-body">
+        {{modalCtrl.content['formula']}}
+    </div>
+    
+
+    <div class="modal-footer">
+        <button class="btn btn-info" type="button" ng-click="modalCtrl.downloadFile()">Download Formula</button>
+        <button class="btn btn-primary" type="button" ng-click="modalCtrl.close()">Close</button>
+    </div>
+
+</div>
