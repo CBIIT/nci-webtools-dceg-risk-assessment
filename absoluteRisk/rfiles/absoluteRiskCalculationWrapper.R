@@ -329,11 +329,12 @@ verifyAgeInterval <- function(ageIntervalCSV,
   ageIntervalLength         = ageInterval[[2]]
   
   riskFactorForPrediction   = read.csv(riskFactorForPredictionCSV)
-  snpInformationCSV         = read.csv(snpInformationCSV)
+  snpInformation            = read.csv(snpInformationCSV)
   diseaseIncidenceRates     = read.csv(diseaseIncidenceRatesCSV)
   competingIncidenceRates   = verifyCompetingRates(competingIncidenceRatesCSV, diseaseIncidenceRates)
   
-  check_age_inputs (ageStart, ageIntervalLength, riskFactorForPrediction, apply.snp.profile, diseaseIncidenceRates, competingIncidenceRates)
+  check_age_inputs (ageStart, ageIntervalLength, riskFactorForPrediction, 
+                    snpInformation, diseaseIncidenceRates, competingIncidenceRates)
 }
 
 #-------------------------------------------------------
