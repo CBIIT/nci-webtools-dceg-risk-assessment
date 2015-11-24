@@ -103,8 +103,8 @@ form_type <- function(var_name, model_info, list_of_variables){
 #-------------------------------------------------------
 
 createFormulaFile <- function(filePath, modelInfoJSON, listOfVariablesRData) {
-    formula = createFormula(modelInfoJSON, listOfVariablesRData)
-    save(formula, file = filePath)
+  formula = createFormula(modelInfoJSON, listOfVariablesRData)
+  save(formula, file = filePath)
 }
 
 #-------------------------------------------------------
@@ -193,7 +193,7 @@ removeFactor <- function(term) {
 #-------------------------------------------------------
 getLogOddsNames <- function(listOfVariables, modelPredictor) {
   names = verifyModelFormula(listOfVariables, modelPredictor)
-
+  
   return (toJSON(names))
 }
 
@@ -229,10 +229,8 @@ verifyRiskFactorDistribution <- function(riskFactorDistribution, listOfVariables
   names = sapply(variables, function(x) x$name)
   
   if (sum(colnames(data) == names) != length(names)) {
-    return("ERROR: Column names must match names and order in list of variables")
+    stop("ERROR: Column names must match names and order in list of variables")
   }
-  
-  stop()
 }
 
 #-------------------------------------------------------
@@ -249,14 +247,12 @@ verifyLogOddsRatios <- function(logOddsRatios, listOfVariables, modelPredictor) 
   data = read.csv(logOddsRatios)
   
   if (ncol(data) != 2) {
-    return("ERROR: The uploaded log odds ratios file must have two columns")
+    stop("ERROR: The uploaded log odds ratios file must have two columns")
   }
   
   if (sum(data[[1]] == rows) != length(rows)) {
-    return("ERROR: Row names must match names and order in design matrix.")
+    stop("ERROR: Row names must match names and order in design matrix.")
   }
-  
-  stop()
 }
 
 #-------------------------------------------------------
@@ -305,7 +301,6 @@ verifyRiskFactorForPrediction <- function(fileName) {
   model.cov.info = read.csv(fileName)
   check_triple_check(model.cov.info)
 }
-
 
 #-------------------------------------------------------
 # verifyAgeInterval
