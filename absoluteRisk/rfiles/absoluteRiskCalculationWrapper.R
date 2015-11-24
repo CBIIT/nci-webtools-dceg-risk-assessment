@@ -380,8 +380,8 @@ finalCalculation <- function(filePath = NULL, listOfVariablesRData = NULL, model
   resultsPath = paste(filePath, 'results.csv', sep = '_')
   resultsReferencePath = paste(filePath, 'results_reference.csv', sep = '_')
   
-  modelFormula              = as.formula(get(load(modelFormulaRData)))
   listOfVariables           = get(load(listOfVariablesRData))
+  modelFormula              = as.formula(get(load(modelFormulaRData)))
   
   riskFactorDistribution    = read.csv(riskFactorDistributionCSV, stringsAsFactors = FALSE)
   logOddsRatios             = as.matrix(read.csv(logOddsRatiosCSV, row.names = 1))
@@ -442,4 +442,99 @@ finalCalculation <- function(filePath = NULL, listOfVariablesRData = NULL, model
   
   results = c(imagePath, resultsPath, resultsReferencePath)
   return (results)
+}
+
+
+#-------------------------------------------------------
+# saveSession
+#
+# Function: Creates a session file from the given RData
+# Inputs:   (1)  String   - Path to the sesion file
+#           (2)  RData    - Path to the list of variables
+#           (3)  RData    - Path to the model formula
+#           (4)  CSV      - Path to the risk factor distribution
+#           (5)  CSV      - Path to the log odds ratios
+#           (6)  CSV      - Path to the disease incidence rates
+#           (7)  CSV      - Path to the mortality incidence rates
+#           (8)  CSV      - Path to the SNP information
+#           (9)  String   - The family history variable name
+# 
+#-------------------------------------------------------
+
+saveSession <- function(filePath = NULL, listOfVariablesRData = NULL, modelFormulaRData = NULL,
+                        riskFactorDistributionCSV = NULL, logOddsRatiosCSV = NULL,
+                        diseaseIncidenceRatesCSV, mortalityIncidenceRatesCSV = NULL,
+                        snpInformationCSV = NULL, familyHistory = NULL) {
+  
+  model = list()
+  
+  model$listOfVariables           = get(load(listOfVariablesRData))
+  model$modelFormula              = get(load(modelFormulaRData))
+  
+  model$riskFactorDistribution    = read.csv(riskFactorDistributionCSV, stringsAsFactors = FALSE)
+  model$logOddsRatios             = as.matrix(read.csv(logOddsRatiosCSV, row.names = 1))
+  model$diseaseIncidenceRates     = verifyDiseaseRates(diseaseIncidenceRatesCSV)
+  model$mortalityIncidenceRates   = verifyCompetingRates(mortalityIncidenceRatesCSV, diseaseIncidenceRates)
+  model$snpInformation            = read.csv(snpInformationCSV)
+  model$familyHistory             = familyHistory  
+  
+  save(model, file = filePath)
+}
+
+#-------------------------------------------------------
+# loadSession
+#
+# Function: Creates RData and CSV files from a saved session file
+# Inputs:   (1)  The path to the output files
+#           (2)  The path to the saved session file
+# Outputs:  A vector consisting of: 
+#           (1)  RData    - Path to the list of variables
+#           (2)  RData    - Path to the model formula
+#           (3)  CSV      - Path to the risk factor distribution
+#           (4)  CSV      - Path to the log odds ratios
+#           (5)  CSV      - Path to the disease incidence rates
+#           (6)  CSV      - Path to the mortality incidence rates
+#           (7)  CSV      - Path to the SNP information
+#           (8)  String   - The family history variable name
+# 
+#-------------------------------------------------------
+
+loadSession <- function(filePath, sessionFile) {
+  
+  model = get(load(sessionFile))
+  
+  listOfVariables             = model$listOfVariables
+  modelFormula                = model$modelFormula
+  
+  riskFactorDistribution      = model$riskFactorDistribution
+  logOddsRatios               = model$logOddsRatios
+  diseaseIncidenceRates       = model$diseaseIncidenceRates
+  mortalityIncidenceRates     = model$mortalityIncidenceRates
+  snpInformation              = model$snpInformation
+  familyHistory               = model$familyHistory
+  
+  listOfVariablesPath         = paste(filePath, "list_of_variables.rdata", sep = "_")
+  modelFormulaPath            = paste(filePath, "model_predictor.rdata", sep = "_")
+  riskFactorDistributionPath  = paste(filePath, "risk_factor_distribution.csv", sep = "_")
+  logOddsRatiosPath           = paste(filePath, "log_odds_ratios.csv", sep = "_")
+  diseaseIncidenceRatesPath   = paste(filePath, "disease_incidence_rates.csv", sep = "_")
+  mortalityIncidenceRatesPath = paste(filePath, "mortality_incidence_rates.csv", sep = "_")
+  snpInformationPath          = paste(filePath, "snp_information.csv", sep = "_")
+  
+  save(listOfVariables, file = listOfVariablesPath)
+  save(modelFormula, file = modelFormulaPath)
+  
+  write.csv(riskFactorDistribution, file = riskFactorDistributionPath)
+  write.csv(logOddsRatios, file = logOddsRatiosPath)
+  write.csv(diseaseIncidenceRates, file = diseaseIncidenceRatesPath)
+  write.csv(mortalityIncidenceRates, file = mortalityIncidenceRatesPath)
+  write.csv(snpInformation, file = snpInformationPath)
+  
+  return (c(listOfVariablesPath,
+            modelFormulaPath,
+            logOddsRatiosPath,
+            diseaseIncidenceRatesPath,
+            mortalityIncidenceRatesPath,
+            snpInformationPath,
+            familyHistory))
 }
