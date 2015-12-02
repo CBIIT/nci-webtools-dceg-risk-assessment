@@ -262,8 +262,8 @@ verifyLogOddsRatios <- function(logOddsRatios, listOfVariables, modelPredictor) 
 # Inputs:   (1) The file name
 # Outputs:  (1) The information in this file as a data frame
 #-------------------------------------------------------
-verifyDiseaseRates <- function(fileName) {
-  return (na.omit(check_disease_rates(fileName)))
+verifyDiseaseRates <- function(diseaseRatesCSV) {
+  return (na.omit(check_disease_rates(diseaseRatesCSV)))
 }
 
 #-------------------------------------------------------

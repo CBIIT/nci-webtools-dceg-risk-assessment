@@ -625,3 +625,140 @@ loadAllFiles <- function(filePath, prefix)
 
   return (toJSON(information))
 }
+
+
+
+#-------------------------------------------------------
+# verifyModelFormula
+# 
+# Function: Verifies the list of variables and model formula
+# Inputs:   (1) RData - Path to the list of variables
+#           (2) RData - Path to the Model Predictor
+# Outputs:  (1) Any error messages from validation
+#-------------------------------------------------------
+verifyModelFormula <- function(listOfVariables, modelPredictor) {
+  variables = get(load(listOfVariables))
+  predictor = as.formula(get(load(modelPredictor)))
+  
+  names = get_beta_given_names(variables, predictor)
+  
+  return (names)
+}
+
+#-------------------------------------------------------
+# verifyRiskFactorDistribution
+# 
+# Function: Verifies the risk factor distribution
+# Inputs:   (1) CSV - Path to the risk factor distribution file
+#           (2) RData - Path to the list of variables
+# Outputs:  (1) Any error messages from validation
+#-------------------------------------------------------
+verifyRiskFactorDistribution <- function(riskFactorDistribution, listOfVariables) {
+  data = read.csv(riskFactorDistribution)
+  variables = get(load(listOfVariables))
+  
+  names = sapply(variables, function(x) x$name)
+  
+  if (sum(colnames(data) == names) != length(names)) {
+    stop("ERROR: Column names must match names and order in list of variables")
+  }
+}
+
+#-------------------------------------------------------
+# verifyLogOddsRatios
+# 
+# Function: Verifies the log odds ratios
+# Inputs:   (1) CSV - Path to log odds ratios file
+#           (2) RData - Path to the List of variables
+#           (3) RData - Path to the Model Predictor
+# Outputs:  (1) Any error messages from validation
+#-------------------------------------------------------
+verifyLogOddsRatios <- function(logOddsRatios, listOfVariables, modelPredictor) {
+  rows = verifyModelFormula(listOfVariables, modelPredictor)
+  data = read.csv(logOddsRatios)
+  
+  if (ncol(data) != 2) {
+    stop("ERROR: The uploaded log odds ratios file must have two columns")
+  }
+  
+  if (sum(data[[1]] == rows) != length(rows)) {
+    stop("ERROR: Row names must match names and order in design matrix.")
+  }
+}
+
+#-------------------------------------------------------
+# verifyDiseaseRates
+# 
+# Function: Processes the population disease incidence rates file
+# Inputs:   (1) The file name
+# Outputs:  (1) The information in this file as a data frame
+#-------------------------------------------------------
+verifyDiseaseRates <- function(diseaseRatesCSV) {
+  return (na.omit(check_disease_rates(diseaseRatesCSV)))
+}
+
+#-------------------------------------------------------
+# verifyCompetingRates
+# 
+# Function: Processes the competing mortality incidence rates file
+# Inputs:   (1) The file name
+# Outputs:  (1) The information in this file as a data frame
+#-------------------------------------------------------
+verifyCompetingRates <- function(competingRatesCSV, lambda) {
+  return (check_competing_rates(competingRatesCSV, lambda))
+}
+
+#-------------------------------------------------------
+# verifySNPInfo
+# 
+# Function: Verifies the SNP info
+# Inputs:   (1) CSV - Path to the SNP information
+# Outputs:  (1) Any error messages from validation
+#-------------------------------------------------------
+
+verifySNPInfo <- function(fileName) {
+  snpInfo = read.csv(fileName)
+  check_SNP_info(snpInfo)
+}
+
+#-------------------------------------------------------
+# verifyRiskFactorForPrediction
+# 
+# Function: Verifies the risk factor for prediction
+# Inputs:   (1) CSV - Path to the risk factor for prediction
+# Outputs:  (1) Any error messages from validation
+#-------------------------------------------------------
+verifyRiskFactorForPrediction <- function(fileName) {
+  model.cov.info = read.csv(fileName)
+  check_triple_check(model.cov.info)
+}
+
+#-------------------------------------------------------
+# verifyAgeInterval
+# 
+# Function: Verifies the age/interval file
+# Inputs:   (1) CSV - Path to the age/interval file
+#           (2) CSV - Path to the risk factor for prediction file
+#           (3) CSV - Path to the snp information file
+#           (4) CSV - Path to the disease incidence rates file
+#           (5) CSV - Path to the competing incidence rates file
+# Outputs:  (1) Any error messages from validation
+#-------------------------------------------------------
+verifyAgeInterval <- function(ageIntervalCSV, 
+                              riskFactorForPredictionCSV = NULL, 
+                              snpInformationCSV = NULL, 
+                              diseaseIncidenceRatesCSV = NULL, 
+                              competingIncidenceRatesCSV = NULL) {
+  
+  ageInterval               = read.csv(ageIntervalCSV)
+  ageStart                  = ageInterval[[1]]
+  ageIntervalLength         = ageInterval[[2]]
+  
+  riskFactorForPrediction   = read.csv(riskFactorForPredictionCSV)
+  snpInformation            = read.csv(snpInformationCSV)
+  diseaseIncidenceRates     = read.csv(diseaseIncidenceRatesCSV)
+  competingIncidenceRates   = verifyCompetingRates(competingIncidenceRatesCSV, diseaseIncidenceRates)
+  
+  check_age_inputs (ageStart, ageIntervalLength, riskFactorForPrediction, 
+                    snpInformation, diseaseIncidenceRates, competingIncidenceRates)
+}
