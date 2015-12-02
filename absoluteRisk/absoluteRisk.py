@@ -42,6 +42,7 @@ def index():
 def absoluteRiskRest():
     return
 
+
 # This route takes a CSV file as an input, saves it to the server, and returns the CSV file path as JSON
 @app.route('/absoluteRiskRest/csvFileUpload', methods=['POST'])
 def csvFileUpload():
@@ -261,6 +262,153 @@ def processFormula():
 
     return ''
 
+# This route takes in 2 parameters for validation of the model formula and returns any error emssages
+@app.route('/absoluteRiskRest/verifyModelFormula', methods=['POST'])
+def verifyModelFormula():
+    if request.method == 'POST':
+        try:
+            jsonData = json.loads(request.data)
+            pathToVariableListFile = jsonData['pathToVariableListFile']
+            pathToGenFormulaFile = jsonData['pathToGenFormulaFile']
+            
+            try:
+                arc_wrapper.verifyModelFormula(pathToVariableListFile, pathToGenFormulaFile)
+                
+            except Exception, e:
+                raise InvalidUsage(e.args[0], status_code = 500)
+        except KeyError, e:
+            raise InvalidUsage('KeyError: ' + e.args[0], status_code = 500)
+    return ''
+
+# This route takes in 2 parameters to validate the risk factor distribution and returns any error messages
+@app.route('/absoluteRiskRest/verifyRiskFactorDistribution', methods=['POST'])
+def verifyRiskFactorDistribution():
+    if request.method == 'POST':
+        try:
+            jsonData = json.loads(request.data)
+            pathToRiskFactorDistribution = jsonData['pathToRiskFactorDistributionCSV']
+            pathToGenFormulaFile = jsonData['pathToGenFormulaFile']
+            
+            try:
+                arc_wrapper.verifyRiskFactorDistribution(pathToRiskFactorDistribution, pathToGenFormulaFile)
+                
+            except Exception, e:
+                raise InvalidUsage(e.args[0], status_code = 500)
+        except KeyError, e:
+            raise InvalidUsage('KeyError: ' + e.args[0], status_code = 500)
+    return ''
+
+# This route takes in 3 parameters to validate the log odds ratios and returns any error messages
+@app.route('/absoluteRiskRest/verifyLogOddsRatios', methods=['POST'])
+def verifyLogOddsRatios():
+    if request.method == 'POST':
+        try:
+            jsonData = json.loads(request.data)
+            pathToLogOddsRatiosFile = jsonData['pathToLogOddsCSV']
+            pathToVariableListFile = jsonData['pathToVariableListFile']
+            pathToGenFormulaFile = jsonData['pathToGenFormulaFile']
+            
+            try:
+                arc_wrapper.verifyLogOddsRatios(pathToLogOddsRatiosFile, pathToVariableListFile, pathToGenFormulaFile)
+                
+            except Exception, e:
+                raise InvalidUsage(e.args[0], status_code = 500)
+        except KeyError, e:
+            raise InvalidUsage('KeyError: ' + e.args[0], status_code = 500)
+    return ''
+
+# This route takes in 1 parameter to validate the disease incidence rates and returns any error messages
+@app.route('/absoluteRiskRest/verifyDiseaseRates', methods=['POST'])
+def verifyDiseaseRates():
+    if request.method == 'POST':
+        try:
+            jsonData = json.loads(request.data)
+            pathToDiseaseRatesFile = jsonData['pathToDiseaseRatesCSV']
+            
+            try:
+                arc_wrapper.verifyDiseaseRates(pathToDiseaseRatesFile)
+                
+            except Exception, e:
+                raise InvalidUsage(e.args[0], status_code = 500)
+        except KeyError, e:
+            raise InvalidUsage('KeyError: ' + e.args[0], status_code = 500)
+    return ''
+
+# This route takes in 2 parameters to validate the competing mortality incidence rates and returns any error messages
+@app.route('/absoluteRiskRest/verifyCompetingRates', methods=['POST'])
+def verifyCompetingRates():
+    if request.method == 'POST':
+        try:
+            jsonData = json.loads(request.data)
+            pathToDiseaseRatesFile = jsonData['pathTodiseaseRatesCSV']
+            pathToCompetingRatesFile = jsonData['pathToCompetingRatesCSV']
+            
+            try:
+                arc_wrapper.verifyCompetingRates(pathToCompetingRatesFile, pathToDiseaseRatesFile)
+                
+            except Exception, e:
+                raise InvalidUsage(e.args[0], status_code = 500)
+        except KeyError, e:
+            raise InvalidUsage('KeyError: ' + e.args[0], status_code = 500)
+    return ''
+
+
+# This route takes in 1 parameter to validate the snp information file and returns any error messages
+@app.route('/absoluteRiskRest/verifySNPInfo', methods=['POST'])
+def verifySNPInfo():
+    if request.method == 'POST':
+        try:
+            jsonData = json.loads(request.data)
+            pathToSnpInfoFile = jsonData['pathToSnpInfoCSV']
+            
+            try:
+                arc_wrapper.verifySNPInfo(pathToSnpInfoFile)
+                
+            except Exception, e:
+                raise InvalidUsage(e.args[0], status_code = 500)
+        except KeyError, e:
+            raise InvalidUsage('KeyError: ' + e.args[0], status_code = 500)
+    return ''
+
+# This route takes in 1 parameter to validate the risk factor for prediction file and returns any error messages
+@app.route('/absoluteRiskRest/verifyRiskFactorForPrediction', methods=['POST'])
+def verifyRiskFactorForPrediction():
+    if request.method == 'POST':
+        try:
+            jsonData = json.loads(request.data)
+            pathToRiskFactorPredictionFile = jsonData['pathToRiskFactorPredictionCSV']
+            
+            try:
+                arc_wrapper.verifyRiskFactorForPrediction(pathToRiskFactorPredictionFile)
+                
+            except Exception, e:
+                raise InvalidUsage(e.args[0], status_code = 500)
+        except KeyError, e:
+            raise InvalidUsage('KeyError: ' + e.args[0], status_code = 500)
+    return ''
+
+# This route takes in 5 parameters to validate the age intervals file and returns any error messages
+@app.route('/absoluteRiskRest/verifyRiskFactorForPrediction', methods=['POST'])
+def verifyAgeInterval():
+    if request.method == 'POST':
+        try:
+            jsonData = json.loads(request.data)
+            
+            pathToAgeIntervalFile = jsonData['pathToAgeIntervalCSV']
+            pathToRiskFactorPredictionFile = jsonData['pathToRiskFactorPredictionCSV']
+            pathToSnpInfoFile = jsonData['pathToSnpInfoCSV']
+            pathToDiseaseRatesFile = jsonData['pathToDiseaseRatesCSV']
+            pathToCompetingRatesFile = jsonData['pathToCompetingRatesCSV']
+            
+            try:
+                arc_wrapper.verifyAgeInterval(pathToAgeIntervalFile, pathToRiskFactorPredictionFile, pathToSnpInfoFile, pathToDiseaseRatesFile, pathToCompetingRatesFile)
+                
+            except Exception, e:
+                raise InvalidUsage(e.args[0], status_code = 500)
+        except KeyError, e:
+            raise InvalidUsage('KeyError: ' + e.args[0], status_code = 500)
+    return ''
+            
 # This route takes in 3 params for R calculations, and returns log_odds_rates based calculations as JSON
 @app.route('/absoluteRiskRest/logOddsRatios', methods=['POST'])
 def logOddsRatios():

@@ -654,7 +654,7 @@ verifyModelFormula <- function(listOfVariables, modelPredictor) {
 # Outputs:  (1) Any error messages from validation
 #-------------------------------------------------------
 verifyRiskFactorDistribution <- function(riskFactorDistribution, listOfVariables) {
-  data = read.csv(riskFactorDistribution)
+  data = read.csv(riskFactorDistribution, stringsAsFactors = FALSE)
   variables = get(load(listOfVariables))
   
   names = sapply(variables, function(x) x$name)
@@ -704,7 +704,8 @@ verifyDiseaseRates <- function(diseaseRatesCSV) {
 # Inputs:   (1) The file name
 # Outputs:  (1) The information in this file as a data frame
 #-------------------------------------------------------
-verifyCompetingRates <- function(competingRatesCSV, lambda) {
+verifyCompetingRates <- function(competingRatesCSV, diseaseRatesCSV) {
+  lambda = verifyDiseaseRates(diseaseRatesCSV)
   return (check_competing_rates(competingRatesCSV, lambda))
 }
 
@@ -716,8 +717,8 @@ verifyCompetingRates <- function(competingRatesCSV, lambda) {
 # Outputs:  (1) Any error messages from validation
 #-------------------------------------------------------
 
-verifySNPInfo <- function(fileName) {
-  snpInfo = read.csv(fileName)
+verifySNPInfo <- function(snpInfoCSV) {
+  snpInfo = read.csv(snpInfoCSV)
   check_SNP_info(snpInfo)
 }
 
@@ -728,8 +729,8 @@ verifySNPInfo <- function(fileName) {
 # Inputs:   (1) CSV - Path to the risk factor for prediction
 # Outputs:  (1) Any error messages from validation
 #-------------------------------------------------------
-verifyRiskFactorForPrediction <- function(fileName) {
-  model.cov.info = read.csv(fileName)
+verifyRiskFactorForPrediction <- function(riskFactorForPredictionCSV) {
+  model.cov.info = read.csv(riskFactorForPredictionCSV, stringsAsFactors = FALSE)
   check_triple_check(model.cov.info)
 }
 
@@ -757,7 +758,7 @@ verifyAgeInterval <- function(ageIntervalCSV,
   riskFactorForPrediction   = read.csv(riskFactorForPredictionCSV)
   snpInformation            = read.csv(snpInformationCSV)
   diseaseIncidenceRates     = read.csv(diseaseIncidenceRatesCSV)
-  competingIncidenceRates   = verifyCompetingRates(competingIncidenceRatesCSV, diseaseIncidenceRates)
+  competingIncidenceRates   = verifyCompetingRates(competingIncidenceRatesCSV, diseaseIncidenceRatesCSV)
   
   check_age_inputs (ageStart, ageIntervalLength, riskFactorForPrediction, 
                     snpInformation, diseaseIncidenceRates, competingIncidenceRates)

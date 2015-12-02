@@ -223,7 +223,7 @@ verifyModelFormula <- function(listOfVariables, modelPredictor) {
 # Outputs:  (1) Any error messages from validation
 #-------------------------------------------------------
 verifyRiskFactorDistribution <- function(riskFactorDistribution, listOfVariables) {
-  data = read.csv(riskFactorDistribution)
+  data = read.csv(riskFactorDistribution, stringsAsFactors = FALSE)
   variables = get(load(listOfVariables))
   
   names = sapply(variables, function(x) x$name)
@@ -273,7 +273,8 @@ verifyDiseaseRates <- function(diseaseRatesCSV) {
 # Inputs:   (1) The file name
 # Outputs:  (1) The information in this file as a data frame
 #-------------------------------------------------------
-verifyCompetingRates <- function(competingRatesCSV, lambda) {
+verifyCompetingRates <- function(competingRatesCSV, diseaseRatesCSV) {
+  lambda = verifyDiseaseRates(diseaseRatesCSV)
   return (check_competing_rates(competingRatesCSV, lambda))
 }
 
@@ -284,9 +285,8 @@ verifyCompetingRates <- function(competingRatesCSV, lambda) {
 # Inputs:   (1) CSV - Path to the SNP information
 # Outputs:  (1) Any error messages from validation
 #-------------------------------------------------------
-
-verifySNPInfo <- function(fileName) {
-  snpInfo = read.csv(fileName)
+verifySNPInfo <- function(snpInfoCSV) {
+  snpInfo = read.csv(snpInfoCSV)
   check_SNP_info(snpInfo)
 }
 
@@ -297,8 +297,8 @@ verifySNPInfo <- function(fileName) {
 # Inputs:   (1) CSV - Path to the risk factor for prediction
 # Outputs:  (1) Any error messages from validation
 #-------------------------------------------------------
-verifyRiskFactorForPrediction <- function(fileName) {
-  model.cov.info = read.csv(fileName)
+verifyRiskFactorForPrediction <- function(riskFactorForPredictionCSV) {
+  model.cov.info = read.csv(riskFactorForPredictionCSV, stringsAsFactors = FALSE)
   check_triple_check(model.cov.info)
 }
 
@@ -386,7 +386,7 @@ finalCalculation <- function(filePath = NULL, listOfVariablesRData = NULL, model
   riskFactorDistribution    = read.csv(riskFactorDistributionCSV, stringsAsFactors = FALSE)
   logOddsRatios             = as.matrix(read.csv(logOddsRatiosCSV, row.names = 1))
   diseaseIncidenceRates     = verifyDiseaseRates(diseaseIncidenceRatesCSV)
-  mortalityIncidenceRates   = verifyCompetingRates(mortalityIncidenceRatesCSV, diseaseIncidenceRates)
+  mortalityIncidenceRates   = verifyCompetingRates(mortalityIncidenceRatesCSV, diseaseIncidenceRatesCSV)
   snpInformation            = read.csv(snpInformationCSV)
   
   riskFactorPrediction      = read.csv(riskFactorForPredictionCSV)
