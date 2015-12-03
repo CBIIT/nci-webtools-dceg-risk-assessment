@@ -62,6 +62,10 @@ tab {
     height: 2em;
 }
 
+footer {
+    text-align: center;
+}
+
 .footer {
     bottom: 0;
     color: #444;

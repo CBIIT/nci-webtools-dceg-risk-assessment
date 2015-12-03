@@ -11,8 +11,8 @@
 .btn-warning,
 .btn-danger {
   border-radius: 2px;
-  box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.3);
-  transition: background 0.1s linear; 
+  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.2);
+  transition: background 0.1s linear;
 }
 
 .btn-default:hover,
@@ -21,7 +21,7 @@
 .btn-info:hover,
 .btn-warning:hover,
 .btn-danger:hover {
-  box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.3);
   text-shadow: 0px 0px 2px rgba(160, 160, 160, 0.5);
 }
 
@@ -135,7 +135,7 @@ fieldset[disabled] .btn-primary.active {
   background-image: none;
 }
 .btn-success {
-  border-color: #77b077;
+  border-color: #5f8c5f;
 }
 .btn-success:hover,
 .btn-success:focus {
@@ -448,8 +448,10 @@ fieldset[disabled] .btn-danger.active {
   background-color: transparent;
   border: none;
   color: #666666;
+  font-size: 1.15em;
   -webkit-box-shadow: inset 0 -1px 0 #dddddd;
   box-shadow: inset 0 -1px 0 #dddddd;
+  text-shadow: 0px 0px 2px #ddeffd;
   -webkit-transition: all 0.2s;
   -o-transition: all 0.2s;
   transition: all 0.2s;
@@ -459,7 +461,7 @@ fieldset[disabled] .btn-danger.active {
   background-color: transparent;
   -webkit-box-shadow: inset 0 -2px 0 #37a0f4;
   box-shadow: inset 0 -1px 0 #37a0f4;
-  text-shadow: 0px 0px 1px #bcdffb;
+  text-shadow: 0px 0px 2px #ddeffd;
   color: #39a1f4;
 }
 .nav-tabs > li.active > a,
@@ -467,7 +469,7 @@ fieldset[disabled] .btn-danger.active {
   border: none;
   -webkit-box-shadow: inset 0 -2px 0 #2196f3;
   box-shadow: inset 0 -2px 0 #2196f3;
-  text-shadow: 0px 0px 1px #bcdffb;
+  text-shadow: 0px 0px 2px #d0e8fc;
   color: #2196f3;
 }
 .nav-tabs > li.active > a:hover,
