@@ -11,26 +11,44 @@ header h4 {
     line-height: 0.5em;
 }
 
-li.active {
-    font-weight: bold;
+tab {
+    border-style: none;
 }
 
-.text-muted {
-    color: #AAAAAA;
+.fadeTabs > .tab-content {
+    position: relative;
 }
 
-.form-group {
-    margin-top: 5px;
+.fadeTabs > .tab-content > .tab-pane {
+    transition: opacity 0.07s linear;
+}
+
+.fadeTabs > .tab-content > .tab-pane.active-remove {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: block;
+}
+
+.fadeTabs > .tab-content > .tab-pane.active-remove-active {
+    opacity: 0;
+}
+
+.fadeTabs > .tab-content > .tab-pane.active-add {
+    opacity: 0;
 }
 
 .tabContent {
-  
+  transition: all 0.05s linear; 
   padding-top: 20px;
+  padding-bottom: 20px;
   border-top: 1px solid #FFFFFF;
-  border-right: 1px solid #DDDDDD;
-  border-left: 1px solid #DDDDDD;
-  border-bottom: 1px solid #DDDDDD;
   max-width: 100%;
+}
+
+.centerCheckbox {
+    text-align: center;
+    margin-top: 5px;
 }
 
 .pad {
@@ -42,6 +60,10 @@ li.active {
 .row-blue {
     background-color: #2A71A5;
     height: 2em;
+}
+
+footer {
+    text-align: center;
 }
 
 .footer {
@@ -105,7 +127,7 @@ li.active {
 }
 
 .result-plot img {
-    width: 75%;
+    width: 100%;
 }
 
 .output {

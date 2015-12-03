@@ -19,6 +19,8 @@ app.factory('BuildSection', [
     function(vlModel, gfModel, aiModel, snpModel, defModel, $rootScope, uiUploader, Cache, dataRetrieval) {
         function Section(cfg) {
             var self = this;
+            self.setUploadingStatus(true);
+
 
             self.modelMap = {
                 'variable_list':    { func: vlModel, params: { fileUploadEndpoint: cfg.fileUploadEndpoint }},
@@ -62,6 +64,8 @@ app.factory('BuildSection', [
             self.isDisabled = true;
             self.isOpen = false;
             self.isValid = false;
+            self.pathToCSV = '';
+            self.pathToRData = '';
 
             self.file = null;
             self.id = cfg.id ? cfg.id : self.type;
@@ -94,6 +98,12 @@ app.factory('BuildSection', [
                                 if (resp.message) {
                                     dataRetrieval.errorHandler(resp, 500);
                                 } else if (resp.length > 1 || resp.path_to_file) {
+                                    
+                                    console.log("Full response is: ", resp);
+                                    
+                                    self.pathToCSV = resp.path_to_csv_file;
+                                    self.pathToRData = resp.path_to_file || resp[0].path_to_file;
+                                    
                                     if (self.model.parseJsonModel) {
                                         self.model.parseJsonModel(JSON.parse(response));
                                     }
@@ -104,6 +114,7 @@ app.factory('BuildSection', [
 
                                     if (!self.model.postUploadEndpoint && !self.model.saveEndpoint) {
                                         self.broadcastUploadStatus(true);
+                                        self.setUploadingStatus(false);
                                     }
                                 } else {
                                     dataRetrieval.errorHandler(resp, 503);
@@ -178,6 +189,12 @@ app.factory('BuildSection', [
                 if (runApply) {
                     $rootScope.$apply();
                 }
+            },
+            setUploadingStatus: function(status) {
+                var self = this;
+                self.uploading = status;
+                
+                $rootScope.$apply();
             }
         };
 

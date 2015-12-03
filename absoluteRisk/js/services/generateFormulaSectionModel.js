@@ -42,8 +42,14 @@ app.factory('BuildGenFormulaModel', ['BuildFormulaVariable', 'CacheService', 'Da
             };
 
             function successCb(d) {
+                
+                fileName = d['path'].split('/');
+                fileName = fileName[fileName.length - 1];
+                
+                var url = 'http://' + window.location.hostname + '/absoluteRiskRest/downloadFile?filename=' + fileName;
+                
                 /* Display formula in a modal window */
-                $rootScope.$broadcast('modalContent', { type: 'formula', content: JSON.parse(d) });
+                $rootScope.$broadcast('modalContent', { type: 'formula', content: {'formula': d['formula'], 'path_to_formula': url} });
             }
 
             /* Call data retrieval service to return created Formula */
