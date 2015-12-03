@@ -75,7 +75,7 @@ def csvFileUploadConversion():
 
             try:
                 storedFilePath = arc_wrapper.uploadCSV(filepath, convertedFilePath)[0]
-                return json.dumps({ 'path_to_file': storedFilePath })
+                return json.dumps({ 'path_to_file': storedFilePath, 'path_to_csv_file': filepath})
             except Exception, e:
                 raise InvalidUsage(e.args[0], status_code = 500)
     return ''
@@ -96,7 +96,7 @@ def logOddsFileUploadConversion():
 
             try:
                 storedFilePath = arc_wrapper.upload_log_odds(filepath, convertedFilePath)[0]
-                return json.dumps({ 'path_to_file': storedFilePath })
+                return json.dumps({ 'path_to_file': storedFilePath, 'path_to_csv_file': filepath })
             except Exception, e:
                 raise InvalidUsage(e.args[0], status_code = 500)
     return ''
@@ -287,10 +287,10 @@ def verifyRiskFactorDistribution():
         try:
             jsonData = json.loads(request.data)
             pathToRiskFactorDistribution = jsonData['pathToRiskFactorDistributionCSV']
-            pathToGenFormulaFile = jsonData['pathToGenFormulaFile']
+            pathToVariableListFile = jsonData['pathToVariableListFile']
             
             try:
-                arc_wrapper.verifyRiskFactorDistribution(pathToRiskFactorDistribution, pathToGenFormulaFile)
+                arc_wrapper.verifyRiskFactorDistribution(pathToRiskFactorDistribution, pathToVariableListFile)
                 
             except Exception, e:
                 raise InvalidUsage(e.args[0], status_code = 500)
@@ -340,7 +340,7 @@ def verifyCompetingRates():
     if request.method == 'POST':
         try:
             jsonData = json.loads(request.data)
-            pathToDiseaseRatesFile = jsonData['pathTodiseaseRatesCSV']
+            pathToDiseaseRatesFile = jsonData['pathToDiseaseRatesCSV']
             pathToCompetingRatesFile = jsonData['pathToCompetingRatesCSV']
             
             try:
@@ -377,9 +377,11 @@ def verifyRiskFactorForPrediction():
         try:
             jsonData = json.loads(request.data)
             pathToRiskFactorPredictionFile = jsonData['pathToRiskFactorPredictionCSV']
+            pathToVariableListFile = jsonData['pathToVariableListFile']
+
             
             try:
-                arc_wrapper.verifyRiskFactorForPrediction(pathToRiskFactorPredictionFile)
+                arc_wrapper.verifyRiskFactorForPrediction(pathToRiskFactorPredictionFile, pathToVariableListFile)
                 
             except Exception, e:
                 raise InvalidUsage(e.args[0], status_code = 500)
@@ -388,7 +390,7 @@ def verifyRiskFactorForPrediction():
     return ''
 
 # This route takes in 5 parameters to validate the age intervals file and returns any error messages
-@app.route('/absoluteRiskRest/verifyRiskFactorForPrediction', methods=['POST'])
+@app.route('/absoluteRiskRest/verifyAgeInterval', methods=['POST'])
 def verifyAgeInterval():
     if request.method == 'POST':
         try:
@@ -449,7 +451,7 @@ def csvFileUploadDiseaseRates():
                 rdata_file_path = arc_wrapper.process_disease_rates(filepath, convertedFilePath)[0]
 
                 print rdata_file_path
-                return json.dumps({'path_to_file': rdata_file_path})
+                return json.dumps({'path_to_file': rdata_file_path, 'path_to_csv_file':filepath})
             except Exception, e:
                 raise InvalidUsage(e.args[0], status_code = 500)
     return ''
@@ -469,7 +471,7 @@ def mortalityRates():
             rdata_file_path = arc_wrapper.process_competing_rates(pathToMortalityRatesCSVFile, pathToDiseaseRatesRDataFile, convertedFilePath)[0]
 
             print rdata_file_path
-            return json.dumps({'path_to_file': rdata_file_path})
+            return json.dumps({'path_to_file': rdata_file_path, 'path_to_csv_file': pathToMortalityRatesCSVFile})
         except Exception, e:
             raise InvalidUsage(e.args[0], status_code = 500)
     return ''
@@ -495,7 +497,7 @@ def snpInformation():
                     colName = i[0].split(',')[0]
                     snpColNames.append(colName)
 
-            return json.dumps({'path_to_file': rdata_file_path, 'rows': snpColNames })
+            return json.dumps({'path_to_file': rdata_file_path, 'rows': snpColNames, 'path_to_csv_file':pathToSnpCSVFile })
         except Exception, e:
             raise InvalidUsage(e.args[0], status_code = 500)
 

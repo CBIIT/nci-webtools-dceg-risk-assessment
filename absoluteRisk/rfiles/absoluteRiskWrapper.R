@@ -677,9 +677,9 @@ verifyLogOddsRatios <- function(logOddsRatios, listOfVariables, modelPredictor) 
   rows = verifyModelFormula(listOfVariables, modelPredictor)
   data = read.csv(logOddsRatios)
   
-  if (ncol(data) != 2) {
-    stop("ERROR: The uploaded log odds ratios file must have two columns")
-  }
+#  if (ncol(data) != 2) {
+#    stop("ERROR: The uploaded log odds ratios file must have two columns")
+#  }
   
   if (sum(data[[1]] == rows) != length(rows)) {
     stop("ERROR: Row names must match names and order in design matrix.")
@@ -716,7 +716,6 @@ verifyCompetingRates <- function(competingRatesCSV, diseaseRatesCSV) {
 # Inputs:   (1) CSV - Path to the SNP information
 # Outputs:  (1) Any error messages from validation
 #-------------------------------------------------------
-
 verifySNPInfo <- function(snpInfoCSV) {
   snpInfo = read.csv(snpInfoCSV)
   check_SNP_info(snpInfo)
@@ -727,11 +726,18 @@ verifySNPInfo <- function(snpInfoCSV) {
 # 
 # Function: Verifies the risk factor for prediction
 # Inputs:   (1) CSV - Path to the risk factor for prediction
+#           (2) RData - Path to the list of variables
 # Outputs:  (1) Any error messages from validation
 #-------------------------------------------------------
-verifyRiskFactorForPrediction <- function(riskFactorForPredictionCSV) {
-  model.cov.info = read.csv(riskFactorForPredictionCSV, stringsAsFactors = FALSE)
-  check_triple_check(model.cov.info)
+verifyRiskFactorForPrediction <- function(riskFactorForPredictionCSV, listOfVariables) {
+  data = read.csv(riskFactorForPredictionCSV, stringsAsFactors = FALSE)
+  variables = get(load(listOfVariables))
+  
+  names = sapply(variables, function(x) x$name)
+  
+  if (sum(colnames(data) == names) != length(names)) {
+    stop("ERROR: Column names must match names and order in list of variables")
+  }
 }
 
 #-------------------------------------------------------

@@ -186,6 +186,19 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService', 'DataRetrieval',
     self.ind = 0;
 
     self.formula = '';
+    
+    self.validationPaths = {
+        'variable_list' : {},
+        'generate_formula' : {},
+        'risk_factor_distribution' : {},
+        'log_odds_ratios' : {},
+        'disease_incidence_rates' : {},
+        'mortality_incidence_rates' : {},
+        'snp_information' : {},
+        'risk_factor_prediction' : {},
+        'genotypes_prediction' : {},
+        'age_interval' : {}
+    };
 
     /* Results Data */
     self.calcRunning = false;
@@ -557,9 +570,101 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService', 'DataRetrieval',
     }
     
     self.validateAndSubmit = function(section) {
-        section.validated = true;
         
-        section.broadcastSectionStatus();
+        console.log(section);
+        
+        self.validationPaths[section.id] = {
+            csv: section.pathToCSV,
+            rdata: section.pathToRData
+        }
+        
+        
+        console.log("Paths: ", self.validationPaths);
+        
+        var validationUrl = 'http://' + window.location.hostname + '/absoluteRiskRest/verify';
+        var data = {};
+        
+        switch(section.id) {
+            case('generate_formula'):
+                validationUrl += "ModelFormula";
+                data = {
+                    pathToVariableListFile: self.validationPaths['variable_list']['rdata'],
+                    pathToGenFormulaFile: self.validationPaths['generate_formula']['rdata']
+                };
+                break;
+            case('risk_factor_distribution'):
+                validationUrl += "RiskFactorDistribution";
+                data = {
+                    pathToVariableListFile: self.validationPaths['variable_list']['rdata'],
+                    pathToRiskFactorDistributionCSV: self.validationPaths['risk_factor_distribution']['csv']
+                };
+                break;
+            case('log_odds_ratios'):
+                validationUrl += "LogOddsRatios";
+                data = {
+                    pathToVariableListFile: self.validationPaths['variable_list']['rdata'],
+                    pathToGenFormulaFile: self.validationPaths['generate_formula']['rdata'],
+                    pathToLogOddsCSV: self.validationPaths['log_odds_ratios']['csv']
+                };
+                break;
+            case('disease_incidence_rates'):
+                validationUrl += "DiseaseRates";
+                data = {
+                    pathToDiseaseRatesCSV: self.validationPaths['disease_incidence_rates']['csv']
+                }
+                break;
+            case('mortality_incidence_rates'):
+                validationUrl += "CompetingRates";
+                data = {
+                    pathToDiseaseRatesCSV: self.validationPaths['disease_incidence_rates']['csv'],
+                    pathToCompetingRatesCSV: self.validationPaths['mortality_incidence_rates']['rdata']
+                }
+                break;
+            case('snp_information'):
+                validationUrl += "SNPInfo";
+                data = {
+                    pathToSnpInfoCSV: self.validationPaths['snp_information']['csv']
+                }
+                break;
+            case('risk_factor_prediction'):
+                validationUrl += "RiskFactorForPrediction";
+                data = {
+                    pathToVariableListFile: self.validationPaths['variable_list']['rdata'],
+                    pathToRiskFactorPredictionCSV: self.validationPaths['risk_factor_prediction']['csv']
+                }
+                break;
+            case('age_interval'):
+                validationUrl += "AgeInterval";
+                data = {
+                    pathToAgeIntervalCSV: self.validationPaths[age_interval]['csv'],
+                    pathToRiskFactorPredictionCSV: self.validationPaths['risk_factor_prediction']['csv'],
+                    pathToSnpInfoCSV: self.validationPaths['snp_information']['csv'],
+                    pathToDiseaseRatesCSV: self.validationPaths['disease_incidence_rates']['csv'],
+                    pathToCompetingRatesCSV: self.validationPaths['mortality_incidence_rates']['rdata']
+                }
+                break;
+            
+            default:
+                section.validated = true;
+                section.broadcastSectionStatus();
+
+        }
+        
+        
+        function successCb(d) {
+            section.validated = true;
+            console.log('successfully validated ', section.id);
+            section.broadcastSectionStatus();
+            
+        }
+        
+        dataRetrieval.retrieveData({
+            url: validationUrl,
+            data: data,
+            success: successCb
+        });
+        
+        
     }
     
     self.submitBuildSteps = function(section) {

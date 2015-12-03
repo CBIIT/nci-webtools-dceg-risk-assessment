@@ -64,6 +64,8 @@ app.factory('BuildSection', [
             self.isDisabled = true;
             self.isOpen = false;
             self.isValid = false;
+            self.pathToCSV = '';
+            self.pathToRData = '';
 
             self.file = null;
             self.id = cfg.id ? cfg.id : self.type;
@@ -96,6 +98,12 @@ app.factory('BuildSection', [
                                 if (resp.message) {
                                     dataRetrieval.errorHandler(resp, 500);
                                 } else if (resp.length > 1 || resp.path_to_file) {
+                                    
+                                    console.log("Full response is: ", resp);
+                                    
+                                    self.pathToCSV = resp.path_to_csv_file;
+                                    self.pathToRData = resp.path_to_file || resp[0].path_to_file;
+                                    
                                     if (self.model.parseJsonModel) {
                                         self.model.parseJsonModel(JSON.parse(response));
                                     }
