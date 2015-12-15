@@ -1,0 +1,184 @@
+extends index
+
+block page-title
+    title About the Tool - MRAT
+
+block content
+    .section-title
+        span About the Tool
+        span:a(href='mrat/index.html') Calculate Risk for New Patients
+    .section-content
+        ul.section-anchors
+            li
+                a(href='#questions') Explaining the Questions
+                | &#124;
+            li
+                a(href='#results') Explaining the Results
+                | &#124;
+            li
+                a(href='#model') About the Model
+                | &#124;
+            li
+                a(href='#reference') Reference
+        p
+            .about-question-title
+                strong Question 1:
+                em Does the patient live in the Northern, Central, or Southern United States?
+            .about-question-explanation
+                strong Explanation
+                | Melanoma is more common in people who live in areas that get large amounts of UV
+                | radiation from the sun. For example, melanoma is more common in California than
+                | in Minnesota, where the sun is not as strong.
+        hr
+        .about-question-title
+            strong Question 2:
+            em What is the patient's gender?
+        .about-question-explanation
+            strong Explanation
+            | In the United States, melanoma incidence is higher for men than for women. Risk
+            | factors for melanoma and sun behavior patterns are also different between men and
+            | women.
+        hr
+        p.about-question-title
+            a(name='q3')
+            strong Question 3:
+            em What is the patient's race?
+        p.about-question-explanation
+            strong Explanation
+            | The risks are estimated only for non-Hispanic whites; data on other ethnicities
+            | were too limited to accurately estimate risk. White people get melanoma far more
+            | often than do African American people, probably because light skin is more easily
+            | damaged by the sun.
+        hr
+        p.about-question-title
+            a(name='q4')
+            strong Question 4:
+            em What is the patient's age?
+        p.about-question-explanation
+            strong Explanation
+            | The risk of developing melanoma increases with age. Most cancers develop slowly
+            | over time. For this reason, melanoma is more common among older individuals.
+        p
+            a.top(href="#top") Back to Top
+        hr
+        p.about-question-title
+            strong Question 5:
+            br
+            em Has the patient ever had a blistering sunburn?
+        p.about-question-explanation
+            strong Explanation
+            br
+            | People who have had at least one severe, blistering sunburn are at increased risk
+            | of melanoma. Doctors advise protection from the sun to reduce the risk of melanoma.
+        a.top(href="#top") Back to Top
+        hr
+        p.about-question-title
+            strong Question 5 for females:
+            br
+            strong Question 6 for males:
+            br
+            em Is the patient's complexion light, medium, or dark?
+            br
+        p.about-question-explanation
+            strong Explanation
+            br
+            | Melanoma occurs more frequently in people who have fair skin that burns or freckles
+            | easily (these people also usually have red or blond hair and blue eyes) than in
+            | people with dark skin, probably because light skin is more easily damaged by the
+            | sun.
+        p
+            a.top(href="#top") Back to Top
+        hr
+        p.about-question-title
+            strong Question 6 (for females only):
+            em
+                | After repeated and prolonged exposure to sunlight, at the age the patient is now,
+                | how tan would the patient's skin become?
+        p.about-question-explanation
+            strong Explanation
+            | Melanoma occurs more frequently in people who have skin that burns easily and does
+            | not tan well. Sun resistance, or the ability to tan instead of burn when exposed
+            | to the sun, has been associated with a lower risk of melanoma. People who tan well,
+            | however, are also at risk of melanoma and their risk is higher the more sun exposure
+            | that they have.
+        a.top(href="#top") Back to Top
+        hr
+        p.about-question-title
+            strong Question 7 (for males only):
+            em How many moles larger than 5mm in diameter are on the patient's back?
+        p.about-question-explanation
+            strong Explanation
+            | Having many moles increases the risk of developing melanoma. Dysplastic nevi are
+            | larger moles that are more likely than ordinary moles to become cancerous. The back
+            | and shoulders are commonly and readily examined and the evaluation is easier than
+            | on chronically exposed areas.
+        a.top(href="#top") Back to Top
+        hr
+        p.about-question-title
+            strong Question 7 for females:
+            strong Question 8 for males:
+            em How many moles less than or equal to 5mm in diameter are on the patient's back?
+        p.about-question-explanation
+            strong Explanation
+            | Having many moles, particularly larger moles, increases the risk of developing melanoma.
+            | The back and shoulders are commonly and readily examined and the evaluation is easier
+            | than on chronically exposed areas. Characteristics of the back are highly correlated
+            | with total body characteristics.
+        a.top(href="#top") Back to Top
+        hr
+        p.about-question-title
+            strong Question 8 for females:
+            strong Question 9 for males:
+            em How extensive is the freckling on the patient's back and shoulders?
+        p.about-question-explanation
+            strong Explanation
+            | Melanoma occurs more frequently in people who have fair skin that freckles easily.
+            | The back and shoulders are commonly and readily examined and the evaluation is easier
+            | than on chronically exposed areas.
+        a.top(href="#top") Back to Top
+        p.about-question-title
+            strong Question 10 (for males only):
+            em Does the patient have severe solar damage on the shoulders?
+        p.about-question-explanation
+            strong Explanation
+            | UV radiation from the sun causes premature aging of the skin and skin damage that
+            | can lead to melanoma.
+        a.top(href="#top") Back to Top
+        hr
+        a(name='results')
+        strong Explaining the Results
+        p
+            | The Melanoma Risk Assessment Tool will estimate an individual's risk of developing
+            | melanoma during the next 5-year period and up to age 70 based on the risk factor
+            | information provided. Risk estimates calculated by the tool are estimates of absolute
+            | melanoma risk. Absolute melanoma risk is the chance or probability of developing
+            | melanoma in a defined age interval. Although an individual's risk may be accurately
+            | estimated, these predictions do not allow one to say precisely who will develop
+            | melanoma cancer.
+        p
+            | The MRAT risk calculator may be updated periodically as new data or research becomes
+            | available.
+        a.top(href="#top") Back to Top
+        hr
+        a(name='model')
+        strong About the Model
+        p
+            | The Melanoma Risk Assessment Tool is based on a statistical model. The model uses
+            | patient's self-reported history and a brief physical exam by a health care professional.
+            | Data from a case-control study involved 1663 non-Hispanic white patients from clinics
+            | in Philadelphia, PA and San Francisco, CA were used in developing the model. This
+            | model has not been tested in large populations. In other words, the model has not
+            | been "validated" for all non-Hispanic whites. Researchers are conducting
+            | additional studies and welcome partnerships to validate this tool.
+        p
+            | The MRAT risk calculator may be updated periodically as new data or research becomes
+            | available. The system is currently on statistical model version 1 and software version
+        a.top(href="#top") Back to Top
+        hr
+        p
+            a(name='reference'): strong Reference
+            a(href='http://www.ncbi.nlm.nih.gov/pubmed/16728488')
+                | Fears TR, Guerry D IV, Pfeiffer
+                | RM, et al: Identifying Individuals at High Risk of Melanoma: A Practical Predictor
+                | of Absolute Risk. J Clin Oncol 24(22): pp-pp, 2006.
+            a.top(href="#top") Back to Top

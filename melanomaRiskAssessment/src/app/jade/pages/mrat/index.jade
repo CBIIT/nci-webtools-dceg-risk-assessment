@@ -1,0 +1,16 @@
+doctype html
+html
+    head
+        block page-title
+            title MRAT
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        link(href="/common/css/style.css",rel="stylesheet", type="text/css")
+        link(href="styles.css",rel="stylesheet", type="text/css")
+        block stylesheet
+        block script
+    body
+        include ../../templates/header
+        include ../../templates/navigation
+        block content
+            h1 This is the index
+        include ../../templates/footer
