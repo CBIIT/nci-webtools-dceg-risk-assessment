@@ -4,9 +4,9 @@ html
         block page-title
             title MRAT
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
-        link(href="/common/css/style.css",rel="stylesheet", type="text/css")
-        link(href="styles.css",rel="stylesheet", type="text/css")
+        include ../../templates/stylesheets
         block stylesheet
+        include ../../templates/scripts
         block script
     body
         include ../../templates/header
