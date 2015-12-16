@@ -1,9 +1,14 @@
+body {
+  margin: 0;
+  font-size: 13pt;
+}
 header {
-  margin: -15px;
-  margin-bottom: 0;
+  margin: 0 0 5% 0;
 }
 header img#nci-banner {
-  width: 600px !important;
+  width: 95% !important;
+  max-width: 500px;
+  min-width: 30px;
   height: 60px !important;
   padding: 20px 10px 5px 20px;
 }
@@ -16,20 +21,38 @@ header #toolTitle {
 }
 header #toolTitle #toolName {
   font-weight: bold;
-  font-size: medium;
+  font-size: 0.9em;
 }
 header #toolTitle #toolDescription {
-  font-size: small;
+  font-size: 0.8em;
   font-style: italic;
 }
 nav {
+  background: #b5c6d0;
+  background: -webkit-linear-gradient(315deg, #fff 0%, #f2f6f8 5%, #d8e1e7 6%, #b5c6d0 5%, #e0eff9 100%);
+  background: -moz-linear-gradient(315deg, #fff 0%, #f2f6f8 5%, #d8e1e7 6%, #b5c6d0 5%, #e0eff9 100%);
+  background: -o-linear-gradient(315deg, #fff 0%, #f2f6f8 5%, #d8e1e7 6%, #b5c6d0 5%, #e0eff9 100%);
+  background: -ms-linear-gradient(315deg, #fff 0%, #f2f6f8 5%, #d8e1e7 6%, #b5c6d0 5%, #e0eff9 100%);
+  background: linear-gradient(135deg, #fff 0%, #f2f6f8 5%, #d8e1e7 6%, #b5c6d0 5%, #e0eff9 100%);
   margin-left: -10px;
-  padding-left: 105px;
-  font-size: 11pt;
+  padding-left: 125px;
+  font-size: 0.8em;
   font-family: sans-serif;
+  border-top: 2px solid #bb0e3d;
 }
 nav li a {
   padding: 10px 15px !important;
+  color: #000;
+  font-weight: bold;
+}
+nav li a:hover {
+  background-color: #fff;
+  text-decoration: underline;
+}
+.horizontal-nav a {
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
 }
 .horizontal-nav ul {
   list-style-type: none;
@@ -41,14 +64,71 @@ nav li a {
   float: left;
 }
 .horizontal-nav ul li :hover {
-  background-color: #00f;
+  background-color: #fff;
+}
+.horizontal-nav ul li :hover > ul {
+  display: block;
 }
 .horizontal-nav ul li a {
-  display: inline-block;
-  text-align: center;
   padding: 15px;
 }
-.horizontal-nav ul li ul {
+.horizontal-nav ul ul {
   display: none;
+}
+#content {
+  margin: 0 auto;
+  padding-left: 6%;
+  padding-right: 6%;
+}
+section .section-content,
+section .section-title {
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+section .section-title {
+  font-size: 0.9em;
+  font-weight: bold;
+  padding: 5px 20px;
+  background: #f0f8ff;
+}
+section .section-title :nth-child(2) {
+  float: right;
+}
+section .section-description {
+  margin: 1% auto;
+  padding: 10px;
+  font-size: 0.8em;
+  border: 1px solid;
+  width: 50%;
+}
+footer {
+  color: #fff;
+  background: #2a71a5;
+  padding: 2% 0;
+  clear: both;
+  text-align: center;
+  font-size: 0.8em;
+  margin-top: 5%;
+}
+footer ul li {
+  list-style: none;
+  display: inline-block;
+  margin: 0 5px;
+}
+footer ul li a {
+  color: #fff;
+}
+.section-anchors {
+  margin: 0 auto;
+}
+.section-anchors ul li {
+  display: inline;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.spacer {
+  content: "|";
+  display: inline-block;
 }
 
