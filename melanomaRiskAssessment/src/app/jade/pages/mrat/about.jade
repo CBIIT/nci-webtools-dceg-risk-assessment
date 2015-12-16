@@ -1,9 +1,8 @@
-extends index
+//-extends index
+//-block page-title
+//-    title About the Tool - MRAT
 
-block page-title
-    title About the Tool - MRAT
-
-block content
+section#about
     .section-title
         span About the Tool
         span:a(href='mrat/index.html') Calculate Risk for New Patients
@@ -11,13 +10,13 @@ block content
         ul.section-anchors
             li
                 a(href='#questions') Explaining the Questions
-                | &#124;
+            .spacer
             li
                 a(href='#results') Explaining the Results
-                | &#124;
+            .spacer
             li
                 a(href='#model') About the Model
-                | &#124;
+            .spacer
             li
                 a(href='#reference') Reference
         p

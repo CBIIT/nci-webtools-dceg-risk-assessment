@@ -1,9 +1,9 @@
-extends index
+//-extends index
+//-
+//-block page-title
+//-    title Download Source Code - MRAT
 
-block page-title
-    title Download Source Code - MRAT
-
-block content
+section#source-code
     p
       | An interactive tool designed by scientists at the National Cancer Institute (NCI),
       | the University of Pennsylvania, and the University of California, San Francisco
@@ -21,10 +21,12 @@ block content
           strong What You'll Download
           br
           | A ZIP file (26 KB) containing the source code and
-          a(href='documentation.html') documentation
+          | &nbsp;
+          a(href='#documentation') documentation
           |  for the Melanoma Risk calculation engine. The code is available as a C# class library.
         p
           | By downloading, you accept our
-          a(href='code-conditions.html') Terms & Conditions
+          | &nbsp;
+          a(href='#terms-conditions') Terms & Conditions
           | .
         p: a(href='files/MRAT_Source_Code.zip') Accept & Download
