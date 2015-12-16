@@ -1,1 +1,54 @@
+header {
+  margin: -15px;
+  margin-bottom: 0;
+}
+header img#nci-banner {
+  width: 600px !important;
+  height: 60px !important;
+  padding: 20px 10px 5px 20px;
+}
+header #toolTitle {
+  background: #2a71a5;
+  color: #fff;
+  margin-top: -6px;
+  padding: 5px;
+  padding-left: 127px;
+}
+header #toolTitle #toolName {
+  font-weight: bold;
+  font-size: medium;
+}
+header #toolTitle #toolDescription {
+  font-size: small;
+  font-style: italic;
+}
+nav {
+  margin-left: -10px;
+  padding-left: 105px;
+  font-size: 11pt;
+  font-family: sans-serif;
+}
+nav li a {
+  padding: 10px 15px !important;
+}
+.horizontal-nav ul {
+  list-style-type: none;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+.horizontal-nav ul li {
+  float: left;
+}
+.horizontal-nav ul li :hover {
+  background-color: #00f;
+}
+.horizontal-nav ul li a {
+  display: inline-block;
+  text-align: center;
+  padding: 15px;
+}
+.horizontal-nav ul li ul {
+  display: none;
+}
 
