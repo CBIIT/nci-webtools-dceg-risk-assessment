@@ -1,28 +1,139 @@
-form
-  display block
-  > ul
-    list-style none
-  li
-    margin 5px 0px
-    overflow hidden
-    > label
-      display inline-block
-      float left
-      width 5em
-    > p
-      box-sizing border-box
-      display inline-block
-      float left
-      margin 0px -13em 0px -5em
-      padding 0px 13em 0px 5em
-      width 100%
-    > .input
-      display inline-block
-      width 13em
-      select
-        width 100%
-.female, .male
-  &:not(.show)
-    display none
-.no-css
-  display none
+body
+    margin 0
+    font-size 13pt
+
+header
+    margin 0 0 5% 0
+    img#nci-banner
+        width 95% !important
+        max-width 500px
+        min-width 30px
+        height 60px !important
+        padding 20px 10px 5px 20px
+    #toolTitle
+        background #2A71A5
+        color white
+        margin-top -6px
+        padding 5px
+        padding-left 127px
+        #toolName
+            font-weight bold
+            font-size .9em
+        #toolDescription
+            font-size .8em
+            font-style italic
+nav
+    background #B5C6D0
+    background linear-gradient(135deg, #ffffff 0%,#f2f6f8 5%, #d8e1e7 6%, #b5c6d0 5%, #e0eff9 100%)
+    margin-left -10px
+    padding-left 125px
+    font-size .8em
+    font-family sans-serif
+    border-top 2px solid #BB0E3D
+    li
+        a
+            padding 10px 15px !important
+            color black
+            font-weight bold
+        a:hover
+            background-color #ffffff
+            text-decoration underline
+
+.horizontal-nav
+    a
+        text-decoration none
+        display inline-block
+        text-align center
+    ul
+        list-style-type none
+        overflow hidden
+        margin 0
+        padding 0
+        li
+            float left
+            :hover
+                background-color #ffffff
+                > ul
+                    display block
+            a
+                padding 15px
+        ul
+            display none // hide for now
+
+#content
+    margin 0 auto
+    padding-left 6%
+    padding-right 6%
+    form
+      display block
+      > ul
+        list-style none
+      li
+        margin 5px 0px
+        overflow hidden
+        > label
+          display inline-block
+          float left
+          width 5em
+        > p
+          box-sizing border-box
+          display inline-block
+          float left
+          margin 0px -13em 0px -5em
+          padding 0px 13em 0px 5em
+          width 100%
+        > .input
+          display inline-block
+          width 13em
+          select
+            width 100%
+    .female, .male
+      &:not(.show)
+        display none
+    .no-css
+      display none
+section
+    .section-content,.section-title
+        margin-top 1%
+        margin-bottom 1%
+    .section-title
+        font-size .9em
+        font-weight bold
+        padding 5px 20px
+        background aliceblue
+        :nth-child(2)
+            float right
+    .section-description
+        margin 1% auto
+        padding 10px
+        font-size .8em
+        border 1px solid
+        width 50%
+
+footer
+    color #FFF
+    background #2A71A5
+    padding 2% 0
+    clear both
+    text-align center
+    font-size .8em
+    margin-top 5%
+    ul li
+        list-style none
+        display inline-block
+        margin 0 5px
+        a
+          color #FFF
+
+.section-anchors
+    margin 0 auto
+    ul
+        li
+            display inline
+            list-style none
+            margin 0
+            padding 0
+
+.spacer
+    content "|"
+    display inline-block

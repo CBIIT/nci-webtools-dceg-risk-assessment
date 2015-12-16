@@ -46,7 +46,7 @@ gulp.task('dev', ['jade-compile', 'js:copy', 'ls:app', 'css'], function(done){
 // task for rendering jade files to HTML
 gulp.task('jade-compile', function(){
     // only return the compiled index to root
-    return gulp.src(['app/jade/pages/mrat/**/*.jade']).pipe(gulpJade({
+    return gulp.src(['app/jade/pages/mrat/index.jade']).pipe(gulpJade({
         pretty: true,
         basedir: parentDir
     })).pipe(gulp.dest(parentDir));

@@ -1,28 +1,28 @@
-extends index
+//-extends index
+//-block page-title
+//-    title About the Tool - MRAT
 
-block page-title
-    title About the Tool - MRAT
-
-block content
+section#about
     .section-title
         span About the Tool
-        span:a(href='mrat/index.html') Calculate Risk for New Patients
+        a(title='go to melanoma risk assessment', href='#calculator') Calculate Risk for New Patients
     .section-content
-        ul.section-anchors
-            li
-                a(href='#questions') Explaining the Questions
-                | &#124;
-            li
-                a(href='#results') Explaining the Results
-                | &#124;
-            li
-                a(href='#model') About the Model
-                | &#124;
-            li
-                a(href='#reference') Reference
+        .section-anchors
+            ul
+                li
+                    a(title='skip to explanations of the questions', href='#questions') Explaining the Questions
+                .spacer
+                li
+                    a(title='skip to explanations of the results',href='#results') Explaining the Results
+                .spacer
+                li
+                    a(title='skip to the model', href='#model') About the Model
+                .spacer
+                li
+                    a(title='go to references', href='#reference') Reference
         p
             .about-question-title
-                strong Question 1:
+                strong Question 1: &nbsp;
                 em Does the patient live in the Northern, Central, or Southern United States?
             .about-question-explanation
                 strong Explanation
@@ -31,7 +31,7 @@ block content
                 | in Minnesota, where the sun is not as strong.
         hr
         .about-question-title
-            strong Question 2:
+            strong Question 2: &nbsp;
             em What is the patient's gender?
         .about-question-explanation
             strong Explanation
@@ -40,8 +40,7 @@ block content
             | women.
         hr
         p.about-question-title
-            a(name='q3')
-            strong Question 3:
+            strong Question 3: &nbsp;
             em What is the patient's race?
         p.about-question-explanation
             strong Explanation
@@ -51,8 +50,7 @@ block content
             | damaged by the sun.
         hr
         p.about-question-title
-            a(name='q4')
-            strong Question 4:
+            strong Question 4: &nbsp;
             em What is the patient's age?
         p.about-question-explanation
             strong Explanation
@@ -62,8 +60,7 @@ block content
             a.top(href="#top") Back to Top
         hr
         p.about-question-title
-            strong Question 5:
-            br
+            strong Question 5: &nbsp;
             em Has the patient ever had a blistering sunburn?
         p.about-question-explanation
             strong Explanation
@@ -75,10 +72,8 @@ block content
         p.about-question-title
             strong Question 5 for females:
             br
-            strong Question 6 for males:
-            br
+            strong Question 6 for males: &nbsp;
             em Is the patient's complexion light, medium, or dark?
-            br
         p.about-question-explanation
             strong Explanation
             br

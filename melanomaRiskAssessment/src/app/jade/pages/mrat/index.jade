@@ -2,7 +2,7 @@ doctype html
 html
     head
         block page-title
-            title MRAT
+            title Melanoma Risk Assessment Tool (MRAT)
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         include ../../templates/stylesheets
         block stylesheet
@@ -10,7 +10,11 @@ html
         block script
     body
         include ../../templates/header
-        include ../../templates/navigation
-        block content
-            h1 This is the index
+        #content
+            include calculator
+            include about
+            include cancer-risk
+            include source-code
+            include documentation
+            include terms-conditions
         include ../../templates/footer
