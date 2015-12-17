@@ -2,9 +2,6 @@ section#risk-calculator
     .section-description
         span.hidden-anchor
           a(href='#survey')
-        include ../../templates/tool-description
-        p
-          a(href='http://www.ncbi.nlm.nih.gov/pubmed/16728488') JCO Publication
         p
           strong Before using the tool, please note the following:
         ul.red-arrow
@@ -33,8 +30,8 @@ section#risk-calculator
       form#survey(action="/calculate/",method="POST")
         ul
           li
-            label 1
-            p Does the patient live in the Northern, Central, or Southern United States?
+            label.question-num 1
+            p.question-text Does the patient live in the Northern, Central, or Southern United States?
             .input
               select
                 option Select
@@ -42,8 +39,8 @@ section#risk-calculator
                 option Central
                 option South
           li
-            label 2
-            p
+            label.question-num 2
+            p.question-text
               span
                 | What is the patient's gender?
               br
@@ -57,8 +54,8 @@ section#risk-calculator
                 option Male
                 option Female
           li
-            label 3
-            p
+            label.question-num 3
+            p.question-text
               | What is the patient's gender race?
             .input
               select
@@ -66,8 +63,8 @@ section#risk-calculator
                 option Non-White Hispanic
                 option Other
           li
-            label 4
-            p
+            label.question-num 4
+            p.question-text
               | What is the patient's age?
             .input
               select
@@ -78,21 +75,21 @@ section#risk-calculator
                   option= n++
                 option(value=71) 71 or older
           li.male
-            label
+            label.question-num
               span 5
               b.no-css &nbsp;Males only
-            p Ask the patient: Did you ever get a blistering sunburn?
+            p.question-text Ask the patient: Did you ever get a blistering sunburn?
             .input
               select
                 option Select
                 option Yes
                 option No
           li.male.female
-            label
+            label.question-num
               span.female 5
               span.no-css &nbsp;or&nbsp;
               span.male 6
-            p Ask the patient: Is your complexion light, medium, or dark?
+            p.question-text Ask the patient: Is your complexion light, medium, or dark?
             .input
               select
                 option Select
@@ -100,10 +97,10 @@ section#risk-calculator
                 option Medium
                 option Dark
           li.female
-            label
+            label.question-num
               span 6
               b.no-css &nbsp;Females only
-            p
+            p.question-text
               | Ask the patient: After repeated and prolonged exposure to sunlight, at the age you are now, would your skin become
               | very brown and deeply tanned, moderately tanned, lightly tanned, or not tanned at all?
             .input
@@ -114,10 +111,10 @@ section#risk-calculator
                 option Lightly tanned
                 option No tan at all
           li.male
-            label
+            label.question-num
               span 7
               b.no-css &nbsp;Males only
-            p
+            p.question-text
               | How many moles larger than 5mm in diameter are on the patient's back?
             .input
               select
@@ -125,11 +122,11 @@ section#risk-calculator
                 option Less than two
                 option Two or more
           li.male.female
-            label
+            label.question-num
               span.female 7
               span.no-css &nbsp;or&nbsp;
               span.male 8
-            p
+            p.question-text
               span
                 | How many moles less than or equal to 5mm in diameter are on the patient's back?
             .input
@@ -139,11 +136,11 @@ section#risk-calculator
                 option Seven to seventeen
                 option More than seventeen
           li.male.female
-            label
+            label.question-num
               span.female 8
               span.no-css &nbsp;or&nbsp;
               span.male 9
-            p
+            p.question-text
               | How extensive is the freckling on the patient's back and shoulders?
             .input
               select
@@ -153,10 +150,10 @@ section#risk-calculator
                 option Moderate
                 option Severe
           li.male
-            label
+            label.question-num
               span 10
               b.no-css &nbsp;Males only
-            p Does the patient have severe solar damage on the shoulders?
+            p.question-text Does the patient have severe solar damage on the shoulders?
             .input
               select
                 option Select
