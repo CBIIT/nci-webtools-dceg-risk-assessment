@@ -90,7 +90,7 @@ nav li a:hover {
 }
 #quicklinks {
   float: left;
-  width: 10%;
+  width: 230px;
   position: absolute;
   font-size: 0.8em;
 }
@@ -222,3 +222,25 @@ footer ul li a {
   display: inline-block;
 }
 
+@media (max-width: 768px) {
+  .horizontal-nav ul li {
+    float: none;
+  }
+  .horizontal-nav ul li a {
+    display: block;
+  }
+  nav {
+    background: #b5c6d0;
+  }
+}
+@media (max-width: 990px) {
+  section,
+  #quicklinks {
+    width: 90%;
+    float: none;
+    position: inherit;
+  }
+  .section-description {
+    width: 85%;
+  }
+}
