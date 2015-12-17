@@ -5,28 +5,20 @@
 
 section#source-code
     .section-description
-        | An interactive tool designed by scientists at the National Cancer Institute (NCI),
-        | the University of Pennsylvania, and the University of California, San Francisco
-        | to estimate a person's absolute risk of developing invasive melanoma. The tool helps
-        | clinicians identify individuals at higher risk of melanoma and plan with them for
-        | appropriate screening interventions.
-    .section-title Download Source Code
+        include ../../templates/tool-description
+    .section-title Download Source Code for the Melanoma Risk Calculation Engine
     .section-content
-        h2
-          | Download Source Code for the Melanoma Risk Calculation Engine
         p
-          | The MRAT risk calculator may be updated periodically as new data or research becomes
-          | available. The system is currently on statistical model version 1 and software version 2.0
+            | The MRAT risk calculator may be updated periodically as new data or research becomes
+            | available. The system is currently on statistical model version 1 and software version 2.0
         p
-          strong What You'll Download
-          br
-          | A ZIP file (26 KB) containing the source code and
-          | &nbsp;
-          a(href='#documentation') documentation
-          |  for the Melanoma Risk calculation engine. The code is available as a C# class library.
+            | The source code for the MRAT risk calculator can be accessed via the &nbsp;
+            a(href="https://github.com/CBIIT/nci-webtools-dceg-risk-assessment/tree/master/melanomaRiskAssessment", target="_blank") GitHub Repository
+            | .
         p
-          | By downloading, you accept our
-          | &nbsp;
-          a(href='#terms-conditions') Terms & Conditions
-          | .
-        p: a(href='files/MRAT_Source_Code.zip') Accept & Download
+            | By downloading, you accept our
+            | &nbsp;
+            a(href='#terms-conditions') Terms & Conditions
+            | .
+        include documentation
+        include terms-conditions
