@@ -88,11 +88,18 @@ nav li a:hover {
 #content a :hover {
   text-decoration: none;
 }
+dl {
+  padding: 0 60px;
+}
+dl dt {
+  font-weight: bold;
+}
 #quicklinks {
   float: left;
-  width: 230px;
+  width: 10%;
   position: absolute;
   font-size: 0.8em;
+  margin-right: 2%;
 }
 #quicklinks #quick-title {
   margin: 0 auto;
@@ -121,27 +128,52 @@ form li {
   margin: 5px 0px;
   overflow: hidden;
 }
-form > label {
+form li > label {
   display: inline-block;
   float: left;
   width: 5em;
 }
-form > p {
+form li > p {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   display: inline-block;
   float: left;
   margin: 0px -13em 0px -5em;
-  padding: 0px 13em 0px 5em;
+  padding: 5px 13em 5px 5em;
   width: 100%;
 }
-form > .input {
+form li > .input {
   display: inline-block;
   width: 13em;
 }
-form > .input select {
+form li > .input select {
   width: 100%;
+}
+form input,
+form select {
+  width: 300px;
+  padding: 10px;
+}
+form .question-num {
+  border-right: 4px #606060 solid;
+  color: #606060;
+  padding: 5px 0;
+  font-weight: bold;
+  text-align: center;
+}
+form .question-text {
+  font-size: 1.1em;
+  font-family: "Calibri", "sans-serif", "Arial";
+  text-indent: 15px;
+}
+form button {
+  float: right;
+  padding: 8px 60px;
+  font-size: 0.9;
+}
+form em {
+  font-size: 0.9em;
 }
 .female:not(.show),
 .male:not(.show) {
@@ -153,6 +185,7 @@ form > .input select {
 section {
   float: right;
   width: 85%;
+  margin-left: 2%;
 }
 section .section-content,
 section .section-title {
@@ -210,8 +243,10 @@ footer ul li a {
 }
 .section-anchors {
   margin: 0 auto;
+  padding: 0;
+  text-align: center;
 }
-.section-anchors ul li {
+.section-anchors li {
   display: inline;
   list-style: none;
   margin: 0;

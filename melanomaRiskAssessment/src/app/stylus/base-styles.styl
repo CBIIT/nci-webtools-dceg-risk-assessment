@@ -70,12 +70,17 @@ nav
         color #BB0E3D
         :hover
             text-decoration none
+dl
+    padding 0 60px
+    dt
+        font-weight bold
 
 #quicklinks
     float left
-    width 230px
+    width 10%
     position absolute
     font-size 0.8em
+    margin-right 2%
     #quick-title
         margin 0 auto
         padding 2%
@@ -98,22 +103,43 @@ form
     li
         margin 5px 0px
         overflow hidden
-    > label
-        display inline-block
-        float left
-        width 5em
-    > p
-        box-sizing border-box
-        display inline-block
-        float left
-        margin 0px -13em 0px -5em
-        padding 0px 13em 0px 5em
-        width 100%
-    > .input
-        display inline-block
-        width 13em
-        select
+        > label
+            display inline-block
+            float left
+            width 5em
+        > p
+            box-sizing border-box
+            display inline-block
+            float left
+            margin 0px -13em 0px -5em
+            padding 5px 13em 5px 5em
             width 100%
+        > .input
+            display inline-block
+            width 13em
+            select
+                width 100%
+    input, select
+        width 300px
+        padding 10px
+
+    .question-num
+        border-right 4px #606060 solid
+        color #606060
+        padding 5px 0
+        font-weight bold
+        text-align center
+
+    .question-text
+        font-size 1.1em
+        font-family "Calibri", "sans-serif", "Arial"
+        text-indent 15px
+    button
+        float right
+        padding 8px 60px
+        font-size .9
+    em
+        font-size 0.9em
 .female, .male
     &:not(.show)
         display none
@@ -123,6 +149,7 @@ form
 section
     float right
     width 85%
+    margin-left 2%
     .section-content,.section-title
         margin-top 1%
         margin-bottom 1%
@@ -172,12 +199,13 @@ footer
 
 .section-anchors
     margin 0 auto
-    ul
-        li
-            display inline
-            list-style none
-            margin 0
-            padding 0
+    padding 0
+    text-align center
+    li
+        display inline
+        list-style none
+        margin 0
+        padding 0
 
 .spacer
     content "|"
