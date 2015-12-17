@@ -88,6 +88,33 @@ nav li a:hover {
 #content a :hover {
   text-decoration: none;
 }
+#quicklinks {
+  float: left;
+  width: 10%;
+  position: absolute;
+  font-size: 0.8em;
+}
+#quicklinks #quick-title {
+  margin: 0 auto;
+  padding: 2%;
+  text-align: center;
+  background: #606060;
+  color: #fff;
+  border: 1px ridge #606060;
+}
+#quicklinks ul {
+  list-style: none;
+  border: 1px ridge #606060;
+  margin: 0;
+  padding: 5px;
+}
+#quicklinks ul li {
+  margin: 10px auto;
+}
+section {
+  float: right;
+  width: 85%;
+}
 section .section-content,
 section .section-title {
   margin-top: 1%;
@@ -106,6 +133,7 @@ section .section-title a {
   font-size: 0.9em;
 }
 section .section-description {
+  background: #f0ffff;
   margin: 1% auto;
   padding: 10px;
   font-size: 0.8em;
