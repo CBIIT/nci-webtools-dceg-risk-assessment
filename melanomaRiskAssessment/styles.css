@@ -1,8 +1,10 @@
 body {
   margin: 0;
   font-size: 13pt;
+  font-family: sans-serif, Helvetica, Calibri, Arial Rounded MT Bold;
 }
 header {
+  background: #f7f8f3;
   margin: 0 0 5% 0;
 }
 header img#nci-banner {
@@ -17,7 +19,7 @@ header #toolTitle {
   color: #fff;
   margin-top: -6px;
   padding: 5px;
-  padding-left: 127px;
+  padding-left: 100px;
 }
 header #toolTitle #toolName {
   font-weight: bold;
@@ -37,7 +39,7 @@ nav {
   margin-left: -10px;
   padding-left: 125px;
   font-size: 0.8em;
-  font-family: sans-serif;
+  font-family: sans-serif !important;
   border-top: 2px solid #bb0e3d;
 }
 nav li a {
@@ -80,6 +82,12 @@ nav li a:hover {
   padding-left: 6%;
   padding-right: 6%;
 }
+#content a {
+  color: #bb0e3d;
+}
+#content a :hover {
+  text-decoration: none;
+}
 section .section-content,
 section .section-title {
   margin-top: 1%;
@@ -93,6 +101,9 @@ section .section-title {
 }
 section .section-title :nth-child(2) {
   float: right;
+}
+section .section-title a {
+  font-size: 0.9em;
 }
 section .section-description {
   margin: 1% auto;
@@ -117,6 +128,18 @@ footer ul li {
 }
 footer ul li a {
   color: #fff;
+}
+.about-question-title {
+  border-left: 2px solid #2a71a5;
+  padding-left: 5px;
+  margin: 1% auto;
+}
+.termToDefine {
+  font-style: italic;
+}
+.references {
+  font-style: italic;
+  font-size: initial;
 }
 .section-anchors {
   margin: 0 auto;
