@@ -111,6 +111,45 @@ nav li a:hover {
 #quicklinks ul li {
   margin: 10px auto;
 }
+form {
+  display: block;
+}
+form > ul {
+  list-style: none;
+}
+form li {
+  margin: 5px 0px;
+  overflow: hidden;
+}
+form > label {
+  display: inline-block;
+  float: left;
+  width: 5em;
+}
+form > p {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: inline-block;
+  float: left;
+  margin: 0px -13em 0px -5em;
+  padding: 0px 13em 0px 5em;
+  width: 100%;
+}
+form > .input {
+  display: inline-block;
+  width: 13em;
+}
+form > .input select {
+  width: 100%;
+}
+.female:not(.show),
+.male:not(.show) {
+  display: none;
+}
+.no-css {
+  display: none;
+}
 section {
   float: right;
   width: 85%;

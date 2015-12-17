@@ -28,6 +28,138 @@ section#risk-calculator
             | for other races/ethnicities are too limited to accurately estimate risk.
           li A recent version of Internet Explorer, Firefox, or Netscape is recommended.
     .section-title
-        span Questions
+      span Questions
     .section-content
-        #survey
+      form#survey(action="/calculate/",method="POST")
+        ul
+          li
+            label 1
+            p Does the patient live in the Northern, Central, or Southern United States?
+            .input
+              select
+                option Select
+                option North
+                option Central
+                option South
+          li
+            label 2
+            p
+              span
+                | What is the patient's gender?
+              br
+              em
+                | Please note: This tool uses gender-specific risk models.
+                | It requries different information of male patients than female patients.
+                | The answer to this question will determine what other questions are asked below.
+            .input
+              select#gender(name='gender')
+                option Select
+                option Male
+                option Female
+          li
+            label 3
+            p
+              | What is the patient's gender race?
+            .input
+              select
+                option Select
+                option Non-White Hispanic
+                option Other
+          li
+            label 4
+            p
+              | What is the patient's age?
+            .input
+              select
+                option Select
+                option(value=19) 19 or younger
+                - var n = 20
+                while n < 71
+                  option= n++
+                option(value=71) 71 or older
+          li.male
+            label
+              span 5
+              b.no-css &nbsp;Males only
+            p Ask the patient: Did you ever get a blistering sunburn?
+            .input
+              select
+                option Select
+                option Yes
+                option No
+          li.male.female
+            label
+              span.female 5
+              span.no-css &nbsp;or&nbsp;
+              span.male 6
+            p Ask the patient: Is your complexion light, medium, or dark?
+            .input
+              select
+                option Select
+                option Light
+                option Medium
+                option Dark
+          li.female
+            label
+              span 6
+              b.no-css &nbsp;Females only
+            p
+              | Ask the patient: After repeated and prolonged exposure to sunlight, at the age you are now, would your skin become
+              | very brown and deeply tanned, moderately tanned, lightly tanned, or not tanned at all?
+            .input
+              select
+                option Select
+                option Very brown and deeply tanned
+                option Moderately tanned
+                option Lightly tanned
+                option No tan at all
+          li.male
+            label
+              span 7
+              b.no-css &nbsp;Males only
+            p
+              | How many moles larger than 5mm in diameter are on the patient's back?
+            .input
+              select
+                option Select
+                option Less than two
+                option Two or more
+          li.male.female
+            label
+              span.female 7
+              span.no-css &nbsp;or&nbsp;
+              span.male 8
+            p
+              span
+                | How many moles less than or equal to 5mm in diameter are on the patient's back?
+            .input
+              select
+                option Select
+                option Less than seven
+                option Seven to seventeen
+                option More than seventeen
+          li.male.female
+            label
+              span.female 8
+              span.no-css &nbsp;or&nbsp;
+              span.male 9
+            p
+              | How extensive is the freckling on the patient's back and shoulders?
+            .input
+              select
+                option Select
+                option Absent
+                option Mild
+                option Moderate
+                option Severe
+          li.male
+            label
+              span 10
+              b.no-css &nbsp;Males only
+            p Does the patient have severe solar damage on the shoulders?
+            .input
+              select
+                option Select
+                option Yes
+                option No
+        button Calculate Risk

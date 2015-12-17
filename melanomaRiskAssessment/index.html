@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link href="/common/css/style.css" rel="stylesheet" type="text/css">
     <link href="styles.css" rel="stylesheet" type="text/css">
+    <script src="mrat.js" type="application/javascript"></script>
   </head>
   <body>
     <header><span id="top"></span><a href="http://cancer.gov/" target="_blank"><img id="nci-banner" src="/common/images/nci-logo-full.svg" alt="National Cancer Institute"></a>
@@ -76,7 +77,196 @@
         </div>
         <div class="section-title"><span>Questions</span></div>
         <div class="section-content">
-          <div id="survey"></div>
+          <form id="survey" action="/calculate/" method="POST">
+            <ul>
+              <li>
+                <label>1</label>
+                <p>Does the patient live in the Northern, Central, or Southern United States?</p>
+                <div class="input">
+                  <select>
+                    <option>Select</option>
+                    <option>North</option>
+                    <option>Central</option>
+                    <option>South</option>
+                  </select>
+                </div>
+              </li>
+              <li>
+                <label>2</label>
+                <p><span>What is the patient's gender?</span><br><em>
+                    Please note: This tool uses gender-specific risk models.
+                    It requries different information of male patients than female patients.
+                    The answer to this question will determine what other questions are asked below.</em></p>
+                <div class="input">
+                  <select id="gender" name="gender">
+                    <option>Select</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                  </select>
+                </div>
+              </li>
+              <li>
+                <label>3</label>
+                <p>What is the patient's gender race?</p>
+                <div class="input">
+                  <select>
+                    <option>Select</option>
+                    <option>Non-White Hispanic</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              </li>
+              <li>
+                <label>4</label>
+                <p>What is the patient's age?</p>
+                <div class="input">
+                  <select>
+                    <option>Select</option>
+                    <option value="19">19 or younger</option>
+                    <option>20</option>
+                    <option>21</option>
+                    <option>22</option>
+                    <option>23</option>
+                    <option>24</option>
+                    <option>25</option>
+                    <option>26</option>
+                    <option>27</option>
+                    <option>28</option>
+                    <option>29</option>
+                    <option>30</option>
+                    <option>31</option>
+                    <option>32</option>
+                    <option>33</option>
+                    <option>34</option>
+                    <option>35</option>
+                    <option>36</option>
+                    <option>37</option>
+                    <option>38</option>
+                    <option>39</option>
+                    <option>40</option>
+                    <option>41</option>
+                    <option>42</option>
+                    <option>43</option>
+                    <option>44</option>
+                    <option>45</option>
+                    <option>46</option>
+                    <option>47</option>
+                    <option>48</option>
+                    <option>49</option>
+                    <option>50</option>
+                    <option>51</option>
+                    <option>52</option>
+                    <option>53</option>
+                    <option>54</option>
+                    <option>55</option>
+                    <option>56</option>
+                    <option>57</option>
+                    <option>58</option>
+                    <option>59</option>
+                    <option>60</option>
+                    <option>61</option>
+                    <option>62</option>
+                    <option>63</option>
+                    <option>64</option>
+                    <option>65</option>
+                    <option>66</option>
+                    <option>67</option>
+                    <option>68</option>
+                    <option>69</option>
+                    <option>70</option>
+                    <option value="71">71 or older</option>
+                  </select>
+                </div>
+              </li>
+              <li class="male">
+                <label><span>5</span><b class="no-css">&nbsp;Males only</b></label>
+                <p>Ask the patient: Did you ever get a blistering sunburn?</p>
+                <div class="input">
+                  <select>
+                    <option>Select</option>
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </div>
+              </li>
+              <li class="male female">
+                <label><span class="female">5</span><span class="no-css">&nbsp;or&nbsp;</span><span class="male">6</span></label>
+                <p>Ask the patient: Is your complexion light, medium, or dark?</p>
+                <div class="input">
+                  <select>
+                    <option>Select</option>
+                    <option>Light</option>
+                    <option>Medium</option>
+                    <option>Dark</option>
+                  </select>
+                </div>
+              </li>
+              <li class="female">
+                <label><span>6</span><b class="no-css">&nbsp;Females only</b></label>
+                <p>
+                  Ask the patient: After repeated and prolonged exposure to sunlight, at the age you are now, would your skin become
+                  very brown and deeply tanned, moderately tanned, lightly tanned, or not tanned at all?
+                </p>
+                <div class="input">
+                  <select>
+                    <option>Select</option>
+                    <option>Very brown and deeply tanned</option>
+                    <option>Moderately tanned</option>
+                    <option>Lightly tanned</option>
+                    <option>No tan at all</option>
+                  </select>
+                </div>
+              </li>
+              <li class="male">
+                <label><span>7</span><b class="no-css">&nbsp;Males only</b></label>
+                <p>How many moles larger than 5mm in diameter are on the patient's back?</p>
+                <div class="input">
+                  <select>
+                    <option>Select</option>
+                    <option>Less than two</option>
+                    <option>Two or more</option>
+                  </select>
+                </div>
+              </li>
+              <li class="male female">
+                <label><span class="female">7</span><span class="no-css">&nbsp;or&nbsp;</span><span class="male">8</span></label>
+                <p><span>How many moles less than or equal to 5mm in diameter are on the patient's back?</span></p>
+                <div class="input">
+                  <select>
+                    <option>Select</option>
+                    <option>Less than seven</option>
+                    <option>Seven to seventeen</option>
+                    <option>More than seventeen</option>
+                  </select>
+                </div>
+              </li>
+              <li class="male female">
+                <label><span class="female">8</span><span class="no-css">&nbsp;or&nbsp;</span><span class="male">9</span></label>
+                <p>How extensive is the freckling on the patient's back and shoulders?</p>
+                <div class="input">
+                  <select>
+                    <option>Select</option>
+                    <option>Absent</option>
+                    <option>Mild</option>
+                    <option>Moderate</option>
+                    <option>Severe</option>
+                  </select>
+                </div>
+              </li>
+              <li class="male">
+                <label><span>10</span><b class="no-css">&nbsp;Males only</b></label>
+                <p>Does the patient have severe solar damage on the shoulders?</p>
+                <div class="input">
+                  <select>
+                    <option>Select</option>
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </div>
+              </li>
+            </ul>
+            <button>Calculate Risk</button>
+          </form>
         </div>
       </section>
       <section id="about">
