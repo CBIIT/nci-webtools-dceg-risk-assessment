@@ -1,5 +1,6 @@
+
 doctype html
-html
+html(lang="en")
     head
         block page-title
             title Melanoma Risk Assessment Tool (MRAT)
@@ -16,4 +17,5 @@ html
             include calculator
             include cancer-risk
             include source-code
-        include ../../templates/footer
+            include ../../templates/footer
+        script(type="application/javascript", src="src/node_modules/requirejs/require.js", data-main="require-config")

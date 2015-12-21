@@ -7,6 +7,9 @@
     "dev": "gulp dev"
   },
   "dependencies": {
+    "jquery": "^1.11.3",
+    "jquery-ui": "^1.10.5",
+    "requirejs": "^2.1.22"
   },
   "devDependencies": {
     "gulp": "^3.9.0",

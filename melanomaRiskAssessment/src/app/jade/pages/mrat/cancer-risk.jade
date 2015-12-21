@@ -6,14 +6,14 @@
 section#cancer-risk
     .section-title
         span Melanoma Cancer Risk
-        a(href='#risk-calculator') Calculate Risk for New Patients
+        a.goTo(name='#risk-calculator') Calculate Risk for New Patients
     .section-content
         p
             | No one knows the exact causes of melanoma. Doctors can seldom explain why one person
             | gets melanoma and another does not. However, research has shown that people with
             | certain
             | &nbsp;
-            a.termToDefine(data-term="risk factors") risk factors
+            a.termToDefine(data-term="rf") risk factors
             |  are more likely than others to develop melanoma. Anything that increases the chance
             | of developing a disease is called a risk factor.
 
@@ -24,11 +24,11 @@ section#cancer-risk
                 | treated for melanoma have a high risk of a second, separate melanoma. Some people
                 | develop more than two melanomas. People who have had one or more of the common skin
                 | cancers (
-                a.termToDefine(data-term='basal_cell_carcinoma')
+                a.termToDefine(data-term='bcc')
                 | basal
                 | cell carcinoma
                 |  or
-                a.termToDefine(data-term='squamous_cell_carcinoma')
+                a.termToDefine(data-term='scc')
                 | squamous cell carcinoma
                 | ) are also at increased risk of melanoma. These
                 | individuals should be in screening and surveillance programs and this risk assessment
@@ -66,7 +66,7 @@ section#cancer-risk
                 | that parents protect children's skin from the sun. Such protection may reduce the
                 | risk of melanoma later in life.
             dt
-                a.termToDefine(data-term='uv_rad') Ultraviolet (UV) radiation
+                a.termToDefine(data-term='uv') Ultraviolet (UV) radiation
                 | :
             dd
                 | Melanoma is more common in people who
@@ -80,12 +80,12 @@ section#cancer-risk
             dt
                 | Weakened
                 | &nbsp;
-                a.termToDefine(data-term='immune_system') immune system:
+                a.termToDefine(data-term='is') immune system:
             dd
                 | People whose immune system is weakened by certain cancers or other
                 | immune disorders, or by drugs given after organ
                 | &nbsp;
-                a.termToDefine(data-term='transplantation') transplantation
+                a.termToDefine(data-term='transplant') transplantation
                 | , are at increased risk of developing melanoma. Although these conditions
                 | are not common, it would be advisable for such individuals to be in
                 | screening and surveillance programs.
@@ -114,7 +114,7 @@ section#cancer-risk
                 li Protect yourself when you are at higher elevations, such as in the mountains.
                 li
                     | Help protect your skin by using a lotion, cream, or gel that contains
-                    a.termToDefine(data-term='sunscreen')
+                    a.termToDefine(data-term='ss')
                     em sunscreen
                     | . Use sunscreens
                     |     that reflect, absorb, and/or scatter both types of ultraviolet radiation. These
@@ -128,6 +128,6 @@ section#cancer-risk
                     | &nbsp;
                     | and
                     | &nbsp;
-                    a.termToDefine(data-term='uvb_rad') UVB
+                    a.termToDefine(data-term='uvb') UVB
                     |  radiation. Sunglasses can protect both the eyes and the skin around the eyes.
-        a.top(href="#top") Back to Top
+        a.goTo(name="#top") Back to Top
