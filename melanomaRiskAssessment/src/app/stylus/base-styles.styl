@@ -1,11 +1,15 @@
 body
     margin 0
-    font-size 13pt
     font-family sans-serif,  Helvetica, Calibri, Arial Rounded MT Bold
 
 header
-    background #F7F8F3
-    margin 0 0 5% 0
+    margin 0
+    background #f7f8f3
+    position fixed
+    top 0
+    width 100%
+    height 160px
+    padding-top 0
     img#nci-banner
         width 95% !important
         max-width 500px
@@ -29,14 +33,14 @@ nav
     background linear-gradient(135deg, #ffffff 0%,#f2f6f8 5%, #d8e1e7 6%, #b5c6d0 5%, #e0eff9 100%)
     margin-left -10px
     padding-left 125px
-    font-size .8em
+    font-size .9em
     font-family sans-serif !important
     border-top 2px solid #BB0E3D
+    height 23%
     li
         a
             padding 10px 15px !important
             color black
-            font-weight bold
         a:hover
             background-color #ffffff
             text-decoration underline
@@ -62,14 +66,35 @@ nav
         ul
             display none // hide for now
 
+
+#content,#quicklinks,footer
+    z-index -1
+
 #content
-    margin 0 auto
+    font-size 11pt
     padding-left 6%
     padding-right 6%
+    position absolute
+    top 200px
     a
+        text-decoration underline
         color #BB0E3D
         :hover
             text-decoration none
+    footer
+        color black
+        padding 2% 0
+        clear both
+        text-align center
+        font-size .8em
+        ul li
+            list-style none
+            display inline-block
+            margin 0 5px
+            a
+              color black
+              :hover
+                  text-decoration none
 dl
     padding 0 60px
     dt
@@ -149,41 +174,26 @@ form
 section
     float right
     width 85%
-    margin-left 2%
-    .section-content,.section-title
-        margin-top 1%
-        margin-bottom 1%
-    .section-title
-        font-size .9em
-        font-weight bold
-        padding 5px 20px
-        background aliceblue
-        :nth-child(2)
-            float right
-        a
-            font-size .9em
-    .section-description
-        background #F0FFFF
-        margin 1% auto
-        padding 10px
-        font-size .8em
-        border 1px solid
-        width 50%
+    margin-bottom 200px
 
-footer
-    color #FFF
-    background #2A71A5
-    padding 2% 0
-    clear both
-    text-align center
-    font-size .8em
-    margin-top 5%
-    ul li
-        list-style none
-        display inline-block
-        margin 0 5px
-        a
-          color #FFF
+.section-content,.section-title
+    margin-top 1%
+    margin-bottom 1%
+.section-title
+    font-weight bold
+    padding 5px 20px
+    background aliceblue
+    :nth-child(2)
+        float right
+    a
+        font-size .9em
+
+.section-description
+    background #F0FFFF
+    margin 1% auto
+    padding 10px
+    border 1px solid
+    width 50%
 
 .about-question-title
     border-left 2px solid #2A71A5
@@ -208,5 +218,11 @@ footer
         padding 0
 
 .spacer
-    content "|"
-    display inline-block
+    border-left 2px solid
+    border-color inherit
+    display inline
+    margin 0 10px
+
+
+    #reference
+        width 300px

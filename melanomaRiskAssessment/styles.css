@@ -1,11 +1,15 @@
 body {
   margin: 0;
-  font-size: 13pt;
   font-family: sans-serif, Helvetica, Calibri, Arial Rounded MT Bold;
 }
 header {
+  margin: 0;
   background: #f7f8f3;
-  margin: 0 0 5% 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 160px;
+  padding-top: 0;
 }
 header img#nci-banner {
   width: 95% !important;
@@ -38,14 +42,14 @@ nav {
   background: linear-gradient(135deg, #fff 0%, #f2f6f8 5%, #d8e1e7 6%, #b5c6d0 5%, #e0eff9 100%);
   margin-left: -10px;
   padding-left: 125px;
-  font-size: 0.8em;
+  font-size: 0.9em;
   font-family: sans-serif !important;
   border-top: 2px solid #bb0e3d;
+  height: 23%;
 }
 nav li a {
   padding: 10px 15px !important;
   color: #000;
-  font-weight: bold;
 }
 nav li a:hover {
   background-color: #fff;
@@ -77,15 +81,41 @@ nav li a:hover {
 .horizontal-nav ul ul {
   display: none;
 }
+#content,
+#quicklinks,
+footer {
+  z-index: -1;
+}
 #content {
-  margin: 0 auto;
+  font-size: 11pt;
   padding-left: 6%;
   padding-right: 6%;
+  position: absolute;
+  top: 200px;
 }
 #content a {
+  text-decoration: underline;
   color: #bb0e3d;
 }
 #content a :hover {
+  text-decoration: none;
+}
+#content footer {
+  color: #000;
+  padding: 2% 0;
+  clear: both;
+  text-align: center;
+  font-size: 0.8em;
+}
+#content footer ul li {
+  list-style: none;
+  display: inline-block;
+  margin: 0 5px;
+}
+#content footer ul li a {
+  color: #000;
+}
+#content footer ul li a :hover {
   text-decoration: none;
 }
 dl {
@@ -185,49 +215,30 @@ form em {
 section {
   float: right;
   width: 85%;
-  margin-left: 2%;
+  margin-bottom: 200px;
 }
-section .section-content,
-section .section-title {
+.section-content,
+.section-title {
   margin-top: 1%;
   margin-bottom: 1%;
 }
-section .section-title {
-  font-size: 0.9em;
+.section-title {
   font-weight: bold;
   padding: 5px 20px;
   background: #f0f8ff;
 }
-section .section-title :nth-child(2) {
+.section-title :nth-child(2) {
   float: right;
 }
-section .section-title a {
+.section-title a {
   font-size: 0.9em;
 }
-section .section-description {
+.section-description {
   background: #f0ffff;
   margin: 1% auto;
   padding: 10px;
-  font-size: 0.8em;
   border: 1px solid;
   width: 50%;
-}
-footer {
-  color: #fff;
-  background: #2a71a5;
-  padding: 2% 0;
-  clear: both;
-  text-align: center;
-  font-size: 0.8em;
-  margin-top: 5%;
-}
-footer ul li {
-  list-style: none;
-  display: inline-block;
-  margin: 0 5px;
-}
-footer ul li a {
-  color: #fff;
 }
 .about-question-title {
   border-left: 2px solid #2a71a5;
@@ -253,8 +264,13 @@ footer ul li a {
   padding: 0;
 }
 .spacer {
-  content: "|";
-  display: inline-block;
+  border-left: 2px solid;
+  border-color: inherit;
+  display: inline;
+  margin: 0 10px;
+}
+.spacer #reference {
+  width: 300px;
 }
 
 @media (max-width: 768px) {
@@ -266,16 +282,50 @@ footer ul li a {
   }
   nav {
     background: #b5c6d0;
-  }
-}
-@media (max-width: 990px) {
-  section,
-  #quicklinks {
-    width: 90%;
-    float: none;
-    position: inherit;
+    height: 95%;
+    padding-left: 0;
   }
   .section-description {
     width: 85%;
+  }
+  .section-title {
+    overflow: auto;
+    text-align: right;
+  }
+}
+@media (max-width: 990px) {
+  dl {
+    padding: 0;
+  }
+  .spacer {
+    display: block;
+  }
+  #content {
+    padding-top: 350px;
+    position: inherit;
+  }
+  section,
+  #quicklinks {
+    width: 95%;
+    float: none;
+    position: inherit;
+  }
+  .section-anchors li,
+  footer li {
+    padding: 5px 0;
+  }
+  form li .question-num {
+    float: left;
+  }
+  form li p.question-text {
+    margin-left: 10px;
+    padding: 0;
+  }
+  form li > .input {
+    width: 100%;
+    margin: 10px auto;
+  }
+  form li button {
+    float: inherit;
   }
 }

@@ -5,10 +5,35 @@
             display block
     nav
         background #B5C6D0
-@media (max-width 990px)
-    section, #quicklinks
-        width 90%
-        float none
-        position inherit
+        height 95%
+        padding-left 0
     .section-description
         width 85%
+    .section-title
+        overflow auto
+        text-align right
+@media (max-width 990px)
+    dl
+        padding 0
+    .spacer
+        display block
+    #content
+        padding-top 350px
+        position inherit
+    section, #quicklinks
+        width 95%
+        float none
+        position inherit
+    .section-anchors li, footer li
+        padding 5px 0
+    form li
+        .question-num
+            float left
+        p.question-text
+            margin-left 10px
+            padding 0
+        > .input
+            width 100%
+            margin 10px auto
+        button
+            float inherit
