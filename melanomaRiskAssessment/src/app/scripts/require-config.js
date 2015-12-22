@@ -19,10 +19,7 @@ requirejs.config({
             deps: ["jqueryUI"],
         },
         navActions: {
-            deps: ["jquery"],
-        },
-        mrat: {
-            deps: ["jquery"],
+            deps: ["jqueryUI"],
         },
         definitions: {
             deps: ["globalGlossary"],

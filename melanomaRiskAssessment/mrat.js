@@ -9,7 +9,7 @@ window.onload = function() {
       return result;
     };
   }
-  if( typeof document.getElementsByClassName !== "function"){ 
+  if( typeof document.getElementsByClassName !== "function"){
     document.getElementsByClassName = function( className, nodeName ) {
       var result = [], tag = nodeName||'*', node, seek, i;
       if( document.evaluate ) {
