@@ -130,9 +130,8 @@ hr {
 #quicklinks {
   float: left;
   width: 10%;
-  position: absolute;
   font-size: 0.9em;
-  margin-right: 2%;
+  margin-top: 165px;
 }
 #quicklinks #quick-title {
   margin: 0 auto;
@@ -150,6 +149,13 @@ hr {
 }
 #quicklinks ul li {
   margin: 10px auto;
+}
+#quicklinks ul li a {
+  color: inherit;
+}
+#quicklinks ul li a:hover {
+  color: #bb0e3d;
+  text-decoration: none;
 }
 section {
   float: right;
