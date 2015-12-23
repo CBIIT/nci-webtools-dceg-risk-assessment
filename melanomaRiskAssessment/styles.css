@@ -123,6 +123,10 @@ dl {
 dl dt {
   font-weight: bold;
 }
+hr {
+  width: 50%;
+  margin: 2% auto;
+}
 #quicklinks {
   float: left;
   width: 10%;
@@ -280,6 +284,12 @@ section form em {
 }
 #reference {
   width: 300px;
+}
+#reference * {
+  font-size: 0.9em;
+}
+.hidden-anchor {
+  display: none;
 }
 .ui-helper-hidden-accessible {
   border: 0;
