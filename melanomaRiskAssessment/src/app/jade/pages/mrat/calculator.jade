@@ -38,17 +38,17 @@ section#risk-calculator
     .section-title
       span Questions
     .section-content
-      form#survey(action="/calculate/",method="POST")
+      form#survey(action="mratRest/calculate/",method="POST")
         ul
           li
             label 1
             p Does the patient live in the Northern, Central, or Southern United States?
             .input
-              select
+              select#region(name='region')
                 option Select
-                option North
-                option Central
-                option South
+                option(value=0) North
+                option(value=1) Central
+                option(value=2) South
           li
             label 2
             p
@@ -67,9 +67,9 @@ section#risk-calculator
           li
             label 3
             p
-              | What is the patient's gender race?
+              | What is the patient's race?
             .input
-              select
+              select#race(name='race')
                 option Select
                 option Non-White Hispanic
                 option Other
@@ -78,7 +78,7 @@ section#risk-calculator
             p
               | What is the patient's age?
             .input
-              select
+              select#age(name='age')
                 option Select
                 option(value=19) 19 or younger
                 - var n = 20
@@ -91,10 +91,10 @@ section#risk-calculator
               b.no-css &nbsp;Males only
             p Ask the patient: Did you ever get a blistering sunburn?
             .input
-              select
+              select#blistered(name='blistered')
                 option Select
-                option Yes
-                option No
+                option(value='0') Yes
+                option(value='1') No
           li.male.female
             label
               span.female 5
@@ -102,11 +102,11 @@ section#risk-calculator
               span.male 6
             p Ask the patient: Is your complexion light, medium, or dark?
             .input
-              select
+              select#complexion(name='complexion')
                 option Select
-                option Light
-                option Medium
-                option Dark
+                option(value='0') Light
+                option(value='1') Medium
+                option(value='2') Dark
           li.female
             label
               span 6
@@ -115,12 +115,12 @@ section#risk-calculator
               | Ask the patient: After repeated and prolonged exposure to sunlight, at the age you are now, would your skin become
               | very brown and deeply tanned, moderately tanned, lightly tanned, or not tanned at all?
             .input
-              select
+              select#tan-level(name='tan-level')
                 option Select
-                option Very brown and deeply tanned
-                option Moderately tanned
-                option Lightly tanned
-                option No tan at all
+                option(value='0') Very brown and deeply tanned
+                option(value='1') Moderately tanned
+                option(value='2') Lightly tanned
+                option(value='3') No tan at all
           li.male
             label
               span 7
@@ -128,10 +128,10 @@ section#risk-calculator
             p
               | How many moles larger than 5mm in diameter are on the patient's back?
             .input
-              select
+              select#big-moles(name='big-moles')
                 option Select
-                option Less than two
-                option Two or more
+                option(value='0') Less than two
+                option(value='1') Two or more
           li.male.female
             label
               span.female 7
@@ -141,11 +141,11 @@ section#risk-calculator
               span
                 | How many moles less than or equal to 5mm in diameter are on the patient's back?
             .input
-              select
+              select#small-moles(name='small-moles')
                 option Select
-                option Less than seven
-                option Seven to seventeen
-                option More than seventeen
+                option(value='0') Less than seven
+                option(value='1') Seven to seventeen
+                option(value='2') More than seventeen
           li.male.female
             label
               span.female 8
@@ -154,20 +154,20 @@ section#risk-calculator
             p
               | How extensive is the freckling on the patient's back and shoulders?
             .input
-              select
+              select#freckling(name='freckling')
                 option Select
-                option Absent
-                option Mild
-                option Moderate
-                option Severe
+                option(value='0') Absent
+                option(value='1') Mild
+                option(value='2') Moderate
+                option(value='3') Severe
           li.male
             label
               span 10
               b.no-css &nbsp;Males only
             p Does the patient have severe solar damage on the shoulders?
             .input
-              select
+              select#solar-damage(name='solar-damage')
                 option Select
-                option Yes
-                option No
+                option(value='0') Yes
+                option(value='1') No
         button Calculate Risk
