@@ -28,6 +28,6 @@ requirejs.config({
 });
 
 // load scripts for additional tools by defining in paths and adding to array
-require(['definitions','navActions', 'mrat'], function() {
+require(['mrat', 'definitions', 'navActions'], function() {
 
 });

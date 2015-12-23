@@ -21,7 +21,7 @@ header img#nci-banner {
 header #toolTitle {
   background: #2a71a5;
   color: #fff;
-  padding: 10px 5px 10px 110px;
+  padding: 10px 5px 15px 110px;
 }
 header #toolTitle #toolName {
   font-weight: bold;
@@ -46,7 +46,7 @@ ul.nav {
   border-top: 2px solid #bb0e3d;
   height: 35px;
   position: fixed;
-  top: 115px;
+  top: 120px;
   left: 0;
   width: 100%;
 }
@@ -99,22 +99,22 @@ ul.nav.horizontal-nav ul ul {
   padding-left: 6%;
   padding-right: 6%;
 }
-#content footer {
+footer {
   color: #000;
-  padding: 2% 0;
+  padding: 1% 0;
   clear: both;
   text-align: center;
   font-size: 0.9em;
 }
-#content footer ul li {
+footer ul li {
   list-style: none;
   display: inline-block;
   margin: 0 5px;
 }
-#content footer ul li a {
+footer ul li a {
   color: #000;
 }
-#content footer ul li a :hover {
+footer ul li a :hover {
   text-decoration: none;
 }
 dl {
@@ -291,10 +291,25 @@ section form em {
   position: absolute;
   width: 1px;
 }
+.default-tooltip-title {
+  font-size: 0.8em;
+  background: #8c9c9a;
+  font-weight: bold;
+  color: #fff;
+  -webkit-border-radius: 10px 10px 0 0;
+  border-radius: 10px 10px 0 0;
+}
+.default-tooltip-content {
+  background: #d6e4e1;
+  font-size: 0.9em;
+  line-height: 1.4;
+  -webkit-border-radius: 0px 0px 10px 10px;
+  border-radius: 0px 0px 10px 10px;
+}
 
 @media (max-width: 768px) {
   ul.nav {
-    top: 115px;
+    top: 120px;
     padding-left: 0;
   }
   ul.nav.horizontal-nav li {
@@ -312,11 +327,11 @@ section form em {
     overflow: auto;
     text-align: right;
   }
+  section {
+    margin-top: 0;
+  }
 }
 @media (max-width: 990px) {
-  ul.nav {
-    top: 125px;
-  }
   #nci-banner {
     margin-left: -10px;
   }
@@ -330,7 +345,7 @@ section form em {
     display: block;
   }
   #content {
-    padding-top: 350px;
+    padding-top: 300px;
     position: inherit;
   }
   section,

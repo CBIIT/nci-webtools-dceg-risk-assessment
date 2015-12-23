@@ -4,7 +4,7 @@ var terms = {
         definition: "A benign (noncancerous) condition in which cells look abnormal under a microscope and are increased in number."
     },
     ar: {
-        fullName:"absolute risk listen (AB-soh-loot risk)",
+        fullName:"absolute risk (AB-soh-loot risk)",
         definition:"A measure of the risk of a certain event happening. In cancer research, it is the likelihood that a person who is free of a specific type of cancer at a given age will develop that cancer over a certain period of time. For example, a woman 35 years of age, with no known risk factors for breast cancer, has an absolute risk of getting breast cancer over a lifetime of 90 years of about 13.5%, meaning one out of every seven women will develop breast cancer."
     },
     bcc: {
