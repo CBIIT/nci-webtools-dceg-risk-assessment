@@ -13,4 +13,16 @@ $(function(){
         var ind = $(".nav li").index( $("li a[href='" + this.name + "']").parent() );
         $("#content").tabs({active: ind});
     });
+
+    $("#quick-title > .minimize, .maximize").on("click", function () {
+        var nextElm = $("#quick-title").next();
+        if($(this).hasClass("minimize")){
+            $(nextElm).slideUp();
+            $(this).addClass("maximize").removeClass("minimize").html("&nbsp;[+]");
+        }
+        else{
+            $(nextElm).slideDown();
+            $(this).addClass("minimize").removeClass("maximize").html("&nbsp;[-]");
+        }
+    });
 });

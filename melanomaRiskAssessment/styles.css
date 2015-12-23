@@ -131,7 +131,7 @@ hr {
   float: left;
   width: 10%;
   font-size: 0.9em;
-  margin-top: 165px;
+  margin-top: 205px;
 }
 #quicklinks #quick-title {
   margin: 0 auto;
@@ -140,6 +140,11 @@ hr {
   background: #606060;
   color: #fff;
   border: 1px ridge #606060;
+}
+#quicklinks #quick-title .minimize,
+#quicklinks #quick-title .maximize {
+  display: none;
+  color: inherit;
 }
 #quicklinks ul {
   list-style: none;
@@ -160,7 +165,7 @@ hr {
 section {
   float: right;
   width: 85%;
-  margin-top: 150px;
+  margin-top: 200px;
 }
 section form {
   display: block;
@@ -394,5 +399,21 @@ section form em {
   }
   form li button {
     float: inherit;
+  }
+}
+@media (max-width: 1200px) {
+  #quicklinks {
+    width: 75%;
+    float: none;
+    position: inherit;
+    margin: 0 auto;
+    margin-top: 100px;
+  }
+  section {
+    margin-top: 30px;
+  }
+  .minimize,
+  .maximize {
+    display: inline-block !important;
   }
 }
