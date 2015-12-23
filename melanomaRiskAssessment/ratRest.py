@@ -73,6 +73,7 @@ class RiskAssessmentTools:
         parameters[field] = parameters[field][0]
       requiredParameters = ['region','race','age']
       missingParameters = []
+      nonnumericParameters = []
       if (parameters['gender'] == 'Male'):
         sex = 0
         requiredParameters += ['blistered','complexion','big-moles','small-moles','freckling','solar-damage']
@@ -84,8 +85,20 @@ class RiskAssessmentTools:
       for required in requiredParameters:
         if required not in parameters or parameters[required] == "Select":
           missingParameters.add(required)
+        elif !isnumeric(parameters[required]):
+          nonnumericParameters.add(required)
       if len(missingParameters) > 0:
         return RiskAssessmentTools.buildFailure(str(missingParameters))
+      if len(nonnumericParameters) > 0:
+        return RiskAssessmentTools.buildFailure(str(nonnumericParameters))
+      age = int(parameters['age'])
+      if (!isnumeric(age)):
+        return RiskAssessmentTools.buildFailure("You have sent a non-numeric value for your age. That shouldn't be possible.")
+      if (age < 20 || age > 70):
+        return RiskAssessmentTools.buildFailure("This tool cannot be used to assess risk for those under the age of 20 or over the age of 70.")
+      region = int(parameters['region'])
+      if (!isnumeric(region)):
+        return RiskAssessmentTools.buildFailure("You have sent a non-numeric value for your region. That shouldn't be possible.")
       r = 1
       if sex == 0:
         r *= RiskAssessmentTools.MRAT_BLISTERING[int(parameters['blistered'])]
@@ -99,8 +112,6 @@ class RiskAssessmentTools:
         r *= RiskAssessmentTools.MRAT_FEMALE_COMPLEXION[int(parameters['complexion'])]
         r *= RiskAssessmentTools.MRAT_FEMALE_SMALL_MOLES[int(parameters['small-moles'])]
         r *= RiskAssessmentTools.MRAT_FEMALE_FRECKLING[int(parameters['freckling'])]
-      age = int(parameters['age'])
-      region = int(parameters['region'])
       ageIndex = int((age-20)/5)
       t1 = ageIndex*5+20
       t2 = t1+5
