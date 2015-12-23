@@ -194,17 +194,17 @@
         </div>
         <div class="section-title"><span>Questions</span></div>
         <div class="section-content">
-          <form id="survey" action="/calculate/" method="POST">
+          <form id="survey" action="mratRest/calculate/" method="POST">
             <ul>
               <li>
                 <label for="region" class="question-num">1</label>
                 <p class="question-text">Does the patient live in the Northern, Central, or Southern United States?</p>
                 <div class="input">
-                  <select id="region">
+                  <select id="region" name="region">
                     <option>Select</option>
-                    <option>North</option>
-                    <option>Central</option>
-                    <option>South</option>
+                    <option value="0">North</option>
+                    <option value="1">Central</option>
+                    <option value="2">South</option>
                   </select>
                 </div>
               </li>
@@ -226,10 +226,10 @@
                 <label for="race" class="question-num">3</label>
                 <p class="question-text">What is the patient's gender race?</p>
                 <div class="input">
-                  <select id="race">
+                  <select id="race" name="race">
                     <option>Select</option>
-                    <option>Non-White Hispanic</option>
-                    <option>Other</option>
+                    <option value="0">Non-White Hispanic</option>
+                    <option value="1">Other</option>
                   </select>
                 </div>
               </li>
@@ -237,7 +237,7 @@
                 <label for="age" class="question-num">4</label>
                 <p class="question-text">What is the patient's age?</p>
                 <div class="input">
-                  <select id="age">
+                  <select id="age" name="age">
                     <option>Select</option>
                     <option value="19">19 or younger</option>
                     <option>20</option>
@@ -299,10 +299,10 @@
                 <label for="sunburn" class="question-num"><span>5</span><b class="no-css">&nbsp;Males only</b></label>
                 <p class="question-text">Ask the patient: Did you ever get a blistering sunburn?</p>
                 <div class="input">
-                  <select id="sunburn">
+                  <select id="sunburn" name="sunburn">
                     <option>Select</option>
-                    <option>Yes</option>
-                    <option>No</option>
+                    <option value="0">Yes</option>
+                    <option value="1">No</option>
                   </select>
                 </div>
               </li>
@@ -310,11 +310,11 @@
                 <label for="complexion" class="question-num"><span class="female">5</span><span class="no-css">&nbsp;or&nbsp;</span><span class="male">6</span></label>
                 <p class="question-text">Ask the patient: Is your complexion light, medium, or dark?</p>
                 <div class="input">
-                  <select id="complexion">
+                  <select id="complexion" name="complexion">
                     <option>Select</option>
-                    <option>Light</option>
-                    <option>Medium</option>
-                    <option>Dark</option>
+                    <option value="0">Light</option>
+                    <option value="1">Medium</option>
+                    <option value="2">Dark</option>
                   </select>
                 </div>
               </li>
@@ -325,35 +325,35 @@
                   very brown and deeply tanned, moderately tanned, lightly tanned, or not tanned at all?
                 </p>
                 <div class="input">
-                  <select id="tan">
+                  <select id="tan" name="tan">
                     <option>Select</option>
-                    <option>Very brown and deeply tanned</option>
-                    <option>Moderately tanned</option>
-                    <option>Lightly tanned</option>
-                    <option>No tan at all</option>
+                    <option value="0">Very brown and deeply tanned</option>
+                    <option value="1">Moderately tanned</option>
+                    <option value="2">Lightly tanned</option>
+                    <option value="3">No tan at all</option>
                   </select>
                 </div>
               </li>
               <li class="male">
-                <label for="moles_size" class="question-num"><span>7</span><b class="no-css">&nbsp;Males only</b></label>
+                <label for="big-moles" class="question-num"><span>7</span><b class="no-css">&nbsp;Males only</b></label>
                 <p class="question-text">How many moles larger than 5mm in diameter are on the patient's back?</p>
                 <div class="input">
-                  <select id="moles_size">
+                  <select id="big-moles" name="big-moles">
                     <option>Select</option>
-                    <option>Less than two</option>
-                    <option>Two or more</option>
+                    <option value="0">Less than two</option>
+                    <option value="1">Two or more</option>
                   </select>
                 </div>
               </li>
               <li class="male female">
-                <label for="num_moles" class="question-num"><span class="female">7</span><span class="no-css">&nbsp;or&nbsp;</span><span class="male">8</span></label>
+                <label for="small-moles" class="question-num"><span class="female">7</span><span class="no-css">&nbsp;or&nbsp;</span><span class="male">8</span></label>
                 <p class="question-text"><span>How many moles less than or equal to 5mm in diameter are on the patient's back?</span></p>
                 <div class="input">
-                  <select id="num_moles">
+                  <select id="small-moles" name="small-moles">
                     <option>Select</option>
-                    <option>Less than seven</option>
-                    <option>Seven to seventeen</option>
-                    <option>More than seventeen</option>
+                    <option value="0">Less than seven</option>
+                    <option value="1">Seven to seventeen</option>
+                    <option value="2">More than seventeen</option>
                   </select>
                 </div>
               </li>
@@ -361,12 +361,12 @@
                 <label for="freckling" class="question-num"><span class="female">8</span><span class="no-css">&nbsp;or&nbsp;</span><span class="male">9</span></label>
                 <p class="question-text">How extensive is the freckling on the patient's back and shoulders?</p>
                 <div class="input">
-                  <select id="freckling">
+                  <select id="freckling" name="freckling">
                     <option>Select</option>
-                    <option>Absent</option>
-                    <option>Mild</option>
-                    <option>Moderate</option>
-                    <option>Severe</option>
+                    <option value="0">Absent</option>
+                    <option value="1">Mild</option>
+                    <option value="2">Moderate</option>
+                    <option value="3">Severe</option>
                   </select>
                 </div>
               </li>
@@ -374,10 +374,10 @@
                 <label for="damage" class="question-num"><span>10</span><b class="no-css">&nbsp;Males only</b></label>
                 <p class="question-text">Does the patient have severe solar damage on the shoulders?</p>
                 <div class="input">
-                  <select id="damage">
+                  <select id="damage" name="damage">
                     <option>Select</option>
-                    <option>Yes</option>
-                    <option>No</option>
+                    <option value="0">Yes</option>
+                    <option value="1">No</option>
                   </select>
                 </div>
               </li>
