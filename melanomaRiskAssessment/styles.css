@@ -307,9 +307,13 @@ section form em {
   border-radius: 0px 0px 10px 10px;
 }
 
+@media (max-width: 515px) {
+  ul.nav {
+    top: 125px;
+  }
+}
 @media (max-width: 768px) {
   ul.nav {
-    top: 120px;
     padding-left: 0;
   }
   ul.nav.horizontal-nav li {
@@ -332,6 +336,9 @@ section form em {
   }
 }
 @media (max-width: 990px) {
+  #toolTitle {
+    padding-left: 35px !important;
+  }
   #nci-banner {
     margin-left: -10px;
   }
