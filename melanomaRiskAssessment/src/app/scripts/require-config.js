@@ -23,6 +23,9 @@ requirejs.config({
         },
         definitions: {
             deps: ["globalGlossary"],
+        },
+        mrat: {
+            deps: ["jquery"],
         }
     }
 });
