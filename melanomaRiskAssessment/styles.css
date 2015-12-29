@@ -18,24 +18,23 @@ header #toolTitle {
   background: #2a71a5;
   color: #fff;
   padding: 10px 160px;
+  font-size: 0.9em;
 }
 header #toolTitle #toolName {
   font-weight: bold;
-  font-size: 0.9em;
 }
 header #toolTitle #toolDescription {
-  font-size: 0.8em;
   font-style: italic;
 }
 ul.nav {
   width: inherit;
   margin: 0 0 40px 0;
-  background: #b5c6d0;
-  background: -webkit-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #d8e1e7 8%, #b5c6d0 7%, #e0eff9 100%);
-  background: -moz-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #d8e1e7 8%, #b5c6d0 7%, #e0eff9 100%);
-  background: -o-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #d8e1e7 8%, #b5c6d0 7%, #e0eff9 100%);
-  background: -ms-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #d8e1e7 8%, #b5c6d0 7%, #e0eff9 100%);
-  background: linear-gradient(135deg, #fff 0%, #f2f6f8 7%, #d8e1e7 8%, #b5c6d0 7%, #e0eff9 100%);
+  background: #d8e1e7;
+  background: -webkit-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #d8e1e7 8%, #dbdee0 7%, rgba(255,255,255,0) 100%);
+  background: -moz-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #d8e1e7 8%, #dbdee0 7%, rgba(255,255,255,0) 100%);
+  background: -o-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #d8e1e7 8%, #dbdee0 7%, rgba(255,255,255,0) 100%);
+  background: -ms-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #d8e1e7 8%, #dbdee0 7%, rgba(255,255,255,0) 100%);
+  background: linear-gradient(135deg, #fff 0%, #f2f6f8 7%, #d8e1e7 8%, #dbdee0 7%, rgba(255,255,255,0) 100%);
   font-size: 0.9em;
   border-top: 2px solid #bb0e3d;
   padding-left: 160px;
@@ -91,7 +90,7 @@ ul.nav.stick-nav-top {
   z-index: 10000;
 }
 #content {
-  font-size: 11pt;
+  margin: 0;
 }
 footer {
   color: #000;
@@ -225,14 +224,19 @@ section form em {
   font-size: 0.9em;
 }
 section form .question-illustrations {
-  margin: 0 auto;
-  display: table;
+  padding-left: 150px;
+  margin: 1% auto;
+}
+section form .question-illustrations img {
+  width: 20em;
+  height: 40%;
+  margin: auto 1%;
 }
 section form #region_subquestion {
   display: none;
 }
 .section-content {
-  padding: 0 20px;
+  padding: 0;
 }
 .section-title {
   margin: 1% auto;
@@ -335,8 +339,9 @@ section form #region_subquestion {
 @media (max-width: 768px) {
   img#nci-banner {
     width: 90%;
-    padding-left: 0 !important;
     height: 55px !important;
+    padding-left: 5% !important;
+    height: 90px !important;
   }
   #toolTitle,
   #quick-title,
@@ -383,6 +388,9 @@ section form #region_subquestion {
   .minimize,
   .maximize {
     display: inline-block !important;
+  }
+  .question-illustration {
+    padding-left: 0;
   }
 }
 @media (max-width: 990px) {
