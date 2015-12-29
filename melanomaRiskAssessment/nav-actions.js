@@ -14,17 +14,17 @@ $(function(){
         $("#content").tabs({active: ind});
     });
 
-
-
-
-
-
-
-
-
-
-
-
+    $("#quick-title, .menu-title > .minimize, .maximize").on("click", function (e) {
+        var nextElm = $(this).next();
+        if($(e.target).hasClass("minimize")){
+            $(nextElm).slideUp();
+            $(e.target).addClass("maximize").removeClass("minimize").text("  [ + ]");
+        }
+        else{
+            $(nextElm).slideDown();
+            $(e.target).addClass("minimize").removeClass("maximize").text("  [ - ]");
+        }
+    });
 
     $(window).scroll(fixedToTop);
     fixedToTop();
