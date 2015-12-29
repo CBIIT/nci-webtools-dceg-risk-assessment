@@ -354,7 +354,7 @@ section form #region_subquestion {
   .menu-title {
     padding: 1% 0;
     display: block;
-    background-color: #bb0e3d;
+    background-color: rgba(216,225,231,0.52);
     color: #fff;
     padding-left: 0;
   }
