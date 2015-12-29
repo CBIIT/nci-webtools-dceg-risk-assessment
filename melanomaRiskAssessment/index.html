@@ -3,23 +3,27 @@
   <head>
     <title>Melanoma Risk Assessment Tool (MRAT)</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/common/css/style.css" rel="stylesheet" type="text/css">
     <link href="styles.css" rel="stylesheet" type="text/css">
   </head>
   <body>
-    <header><a href="http://cancer.gov/" target="_blank"><img id="nci-banner" src="/common/images/nci-logo-full.svg" alt="National Cancer Institute"></a>
+    <header><a href="http://cancer.gov/" target="_blank"><img id="nci-banner" src="images/mrat-logo-color.svg" alt="National Cancer Institute"></a>
       <div id="toolTitle">
-        <div id="toolName">Melanoma Risk Assessment Tool</div>
         <div id="toolDescription">An interactive tool to help estimate a person's risk of developing invasive melanoma</div>
       </div>
     </header>
-    <div id="content">
+    <div id="content"><span id="top"></span>
       <ul class="nav horizontal-nav">
-        <li><a href="#about">About the Tool</a></li>
-        <li><a href="#risk-calculator">Risk Calculator</a></li>
-        <li><a href="#cancer-risk">Melanoma Cancer Risk</a></li>
-        <li><a href="#source-code">Download Source Code</a></li>
-      </ul><span id="top"></span>
+        <li><a href="#about">
+            <div class="link-text">About</div></a></li>
+        <li><a href="#risk-calculator">
+            <div class="link-text">Risk Calculator</div></a></li>
+        <li><a href="#cancer-risk">
+            <div class="link-text">Melanoma Cancer Risk</div></a></li>
+        <li><a href="#source-code">
+            <div class="link-text">Source Code</div></a></li>
+      </ul>
       <div id="quicklinks">
         <div id="quick-title">Quick Links<a class="minimize">&nbsp;[ - ]</a></div>
         <ul>
@@ -53,7 +57,7 @@
             <li><a title="go to references" name="#reference" class="goTo">Reference</a></li>
           </ul>
           <div id="questions-exp">
-            <div class="about-question-title"><strong>Question 1:&nbsp;</strong><em>Does the patient live in the Northern, Central, or Southern United States?</em></div>
+            <div class="about-question-title"><strong>Question 1:&nbsp;</strong><em>In what state does the patient reside?</em></div>
             <div class="about-question-explanation"><strong>Explanation</strong><br>Melanoma is more common in people who live in areas that get large amounts of UV
               radiation from the sun. For example, melanoma is more common in California than
               in Minnesota, where the sun is not as strong.
@@ -198,13 +202,128 @@
             <ul>
               <li>
                 <label for="region" class="question-num">1</label>
-                <p class="question-text">Does the patient live in the Northern, Central, or Southern United States?</p>
+                <p class="question-text">In what state does the patient reside?</p>
                 <div class="input">
-                  <select id="region">
-                    <option>Select</option>
-                    <option>North</option>
-                    <option>Central</option>
-                    <option>South</option>
+                  <select id="state">
+                    <option value="">Choose a State</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                    <option value="CT">Connecticut</option>
+                    <option value="DE">Delaware</option>
+                    <option value="DC">District Of Columbia</option>
+                    <option value="FL">Florida</option>
+                    <option value="GA">Georgia</option>
+                    <option value="HI">Hawaii</option>
+                    <option value="ID">Idaho</option>
+                    <option value="IL">Illinois</option>
+                    <option value="IN">Indiana</option>
+                    <option value="IA">Iowa</option>
+                    <option value="KS">Kansas</option>
+                    <option value="KY">Kentucky</option>
+                    <option value="LA">Louisiana</option>
+                    <option value="ME">Maine</option>
+                    <option value="MD">Maryland</option>
+                    <option value="MA">Massachusetts</option>
+                    <option value="MI">Michigan</option>
+                    <option value="MN">Minnesota</option>
+                    <option value="MS">Mississippi</option>
+                    <option value="MO">Missouri</option>
+                    <option value="MT">Montana</option>
+                    <option value="NE">Nebraska</option>
+                    <option value="NV">Nevada</option>
+                    <option value="NH">New Hampshire</option>
+                    <option value="NJ">New Jersey</option>
+                    <option value="NM">New Mexico</option>
+                    <option value="NY">New York</option>
+                    <option value="NC">North Carolina</option>
+                    <option value="ND">North Dakota</option>
+                    <option value="OH">Ohio</option>
+                    <option value="OK">Oklahoma</option>
+                    <option value="OR">Oregon</option>
+                    <option value="PA">Pennsylvania</option>
+                    <option value="RI">Rhode Island</option>
+                    <option value="SC">South Carolina</option>
+                    <option value="SD">South Dakota</option>
+                    <option value="TN">Tennessee</option>
+                    <option value="TX">Texas</option>
+                    <option value="UT">Utah</option>
+                    <option value="VT">Vermont</option>
+                    <option value="VA">Virginia</option>
+                    <option value="WA">Washington</option>
+                    <option value="WV">West Virginia</option>
+                    <option value="WI">Wisconsin</option>
+                    <option value="WY">Wyoming</option>
+                  </select>
+                </div>
+              </li>
+              <li id="region_subquestion">
+                <label for="region" class="question-num">1a</label>
+                <p class="question-text">In what county in California does the patient reside?</p>
+                <div class="input">
+                  <select id="county">
+                    <option value="">Select a County</option>
+                    <option value="Alameda">Alameda</option>
+                    <option value="Alpine">Alpine</option>
+                    <option value="Amador">Amador</option>
+                    <option value="Butte">Butte</option>
+                    <option value="Calaveras">Calaveras</option>
+                    <option value="Colusa">Colusa</option>
+                    <option value="Contra Costa">Contra Costa</option>
+                    <option value="Del Norte">Del Norte</option>
+                    <option value="El Dorado">El Dorado</option>
+                    <option value="Fresno">Fresno</option>
+                    <option value="Glenn">Glenn</option>
+                    <option value="Humboldt">Humboldt</option>
+                    <option value="Imperial">Imperial</option>
+                    <option value="Inyo">Inyo</option>
+                    <option value="Kern">Kern</option>
+                    <option value="Kings">Kings</option>
+                    <option value="Lake">Lake</option>
+                    <option value="Lassen">Lassen</option>
+                    <option value="Los Angeles">Los Angeles</option>
+                    <option value="Madera">Madera</option>
+                    <option value="Marin">Marin</option>
+                    <option value="Mariposa">Mariposa</option>
+                    <option value="Mendocino">Mendocino</option>
+                    <option value="Merced">Merced</option>
+                    <option value="Modoc">Modoc</option>
+                    <option value="Mono">Mono</option>
+                    <option value="Monterey">Monterey</option>
+                    <option value="Napa">Napa</option>
+                    <option value="Nevada">Nevada</option>
+                    <option value="Orange">Orange</option>
+                    <option value="Placer">Placer</option>
+                    <option value="Plumas">Plumas</option>
+                    <option value="Riverside">Riverside</option>
+                    <option value="Sacramento">Sacramento</option>
+                    <option value="San Benito">San Benito</option>
+                    <option value="San Bernardino">San Bernardino</option>
+                    <option value="San Diego">San Diego</option>
+                    <option value="San Francisco">San Francisco</option>
+                    <option value="San Joaquin">San Joaquin</option>
+                    <option value="San Luis Obispo">San Luis Obispo</option>
+                    <option value="San Mateo">San Mateo</option>
+                    <option value="Santa Barbara">Santa Barbara</option>
+                    <option value="Santa Clara">Santa Clara</option>
+                    <option value="Santa Cruz">Santa Cruz</option>
+                    <option value="Shasta">Shasta</option>
+                    <option value="Sierra">Sierra</option>
+                    <option value="Siskiyou">Siskiyou</option>
+                    <option value="Solano">Solano</option>
+                    <option value="Sonoma">Sonoma</option>
+                    <option value="Stanislaus">Stanislaus</option>
+                    <option value="Sutter">Sutter</option>
+                    <option value="Tehama">Tehama</option>
+                    <option value="Trinity">Trinity</option>
+                    <option value="Tulare">Tulare</option>
+                    <option value="Tuolumne">Tuolumne</option>
+                    <option value="Ventura">Ventura</option>
+                    <option value="Yolo">Yolo</option>
+                    <option value="Yuba">Yuba</option>
                   </select>
                 </div>
               </li>
@@ -369,6 +488,7 @@
                     <option>Severe</option>
                   </select>
                 </div>
+                <div class="question-illustrations"><img src="images/mratMildLrg.jpg" title="Mild Freckling" class="thumbnail"><img src="images/mratModLrg.jpg" title="Moderate Freckling" class="thumbnail"><img src="images/mratSevereLrg.jpg" title="Severe Freckling" class="thumbnail"></div>
               </li>
               <li class="male">
                 <label for="damage" class="question-num"><span>10</span><b class="no-css">&nbsp;Males only</b></label>

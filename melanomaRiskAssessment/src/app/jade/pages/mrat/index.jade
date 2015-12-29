@@ -5,13 +5,15 @@ html(lang="en")
         block page-title
             title Melanoma Risk Assessment Tool (MRAT)
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1")
         include ../../templates/stylesheets
         block stylesheet
     body
         include ../../templates/header
         #content
-            include ../../templates/navigation
             span#top
+            ul.nav.horizontal-nav
+                include ../../templates/navigation
             include ../../templates/quick-links
             include about
             include calculator

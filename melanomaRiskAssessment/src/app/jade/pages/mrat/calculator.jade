@@ -31,13 +31,125 @@ section#risk-calculator
         ul
           li
             label.question-num(for="region") 1
-            p.question-text Does the patient live in the Northern, Central, or Southern United States?
+            p.question-text In what state does the patient reside?
             .input
-              select#region
-                option Select
-                option North
-                option Central
-                option South
+                select#state
+                    option(value='') Choose a State
+                    option(value='AL') Alabama
+                    option(value='AK') Alaska
+                    option(value='AZ') Arizona
+                    option(value='AR') Arkansas
+                    option(value='CA') California
+                    option(value='CO') Colorado
+                    option(value='CT') Connecticut
+                    option(value='DE') Delaware
+                    option(value='DC') District Of Columbia
+                    option(value='FL') Florida
+                    option(value='GA') Georgia
+                    option(value='HI') Hawaii
+                    option(value='ID') Idaho
+                    option(value='IL') Illinois
+                    option(value='IN') Indiana
+                    option(value='IA') Iowa
+                    option(value='KS') Kansas
+                    option(value='KY') Kentucky
+                    option(value='LA') Louisiana
+                    option(value='ME') Maine
+                    option(value='MD') Maryland
+                    option(value='MA') Massachusetts
+                    option(value='MI') Michigan
+                    option(value='MN') Minnesota
+                    option(value='MS') Mississippi
+                    option(value='MO') Missouri
+                    option(value='MT') Montana
+                    option(value='NE') Nebraska
+                    option(value='NV') Nevada
+                    option(value='NH') New Hampshire
+                    option(value='NJ') New Jersey
+                    option(value='NM') New Mexico
+                    option(value='NY') New York
+                    option(value='NC') North Carolina
+                    option(value='ND') North Dakota
+                    option(value='OH') Ohio
+                    option(value='OK') Oklahoma
+                    option(value='OR') Oregon
+                    option(value='PA') Pennsylvania
+                    option(value='RI') Rhode Island
+                    option(value='SC') South Carolina
+                    option(value='SD') South Dakota
+                    option(value='TN') Tennessee
+                    option(value='TX') Texas
+                    option(value='UT') Utah
+                    option(value='VT') Vermont
+                    option(value='VA') Virginia
+                    option(value='WA') Washington
+                    option(value='WV') West Virginia
+                    option(value='WI') Wisconsin
+                    option(value='WY') Wyoming
+          li#region_subquestion
+            label.question-num(for="region") 1a
+            p.question-text In what county in California does the patient reside?
+            .input
+                select#county
+                    option(value="") Select a County
+                    option(value="Alameda") Alameda
+                    option(value="Alpine") Alpine
+                    option(value="Amador") Amador
+                    option(value="Butte") Butte
+                    option(value="Calaveras") Calaveras
+                    option(value="Colusa") Colusa
+                    option(value="Contra Costa") Contra Costa
+                    option(value="Del Norte") Del Norte
+                    option(value="El Dorado") El Dorado
+                    option(value="Fresno") Fresno
+                    option(value="Glenn") Glenn
+                    option(value="Humboldt") Humboldt
+                    option(value="Imperial") Imperial
+                    option(value="Inyo") Inyo
+                    option(value="Kern") Kern
+                    option(value="Kings") Kings
+                    option(value="Lake") Lake
+                    option(value="Lassen") Lassen
+                    option(value="Los Angeles") Los Angeles
+                    option(value="Madera") Madera
+                    option(value="Marin") Marin
+                    option(value="Mariposa") Mariposa
+                    option(value="Mendocino") Mendocino
+                    option(value="Merced") Merced
+                    option(value="Modoc") Modoc
+                    option(value="Mono") Mono
+                    option(value="Monterey") Monterey
+                    option(value="Napa") Napa
+                    option(value="Nevada") Nevada
+                    option(value="Orange") Orange
+                    option(value="Placer") Placer
+                    option(value="Plumas") Plumas
+                    option(value="Riverside") Riverside
+                    option(value="Sacramento") Sacramento
+                    option(value="San Benito") San Benito
+                    option(value="San Bernardino") San Bernardino
+                    option(value="San Diego") San Diego
+                    option(value="San Francisco") San Francisco
+                    option(value="San Joaquin") San Joaquin
+                    option(value="San Luis Obispo") San Luis Obispo
+                    option(value="San Mateo") San Mateo
+                    option(value="Santa Barbara") Santa Barbara
+                    option(value="Santa Clara") Santa Clara
+                    option(value="Santa Cruz") Santa Cruz
+                    option(value="Shasta") Shasta
+                    option(value="Sierra") Sierra
+                    option(value="Siskiyou") Siskiyou
+                    option(value="Solano") Solano
+                    option(value="Sonoma") Sonoma
+                    option(value="Stanislaus") Stanislaus
+                    option(value="Sutter") Sutter
+                    option(value="Tehama") Tehama
+                    option(value="Trinity") Trinity
+                    option(value="Tulare") Tulare
+                    option(value="Tuolumne") Tuolumne
+                    option(value="Ventura") Ventura
+                    option(value="Yolo") Yolo
+                    option(value="Yuba") Yuba
           li
             label.question-num(for="gender") 2
             p.question-text
@@ -149,6 +261,11 @@ section#risk-calculator
                 option Mild
                 option Moderate
                 option Severe
+            .question-illustrations
+                img.thumbnail(src="images/mratMildLrg.jpg", title="Mild Freckling")
+                img.thumbnail(src="images/mratModLrg.jpg", title="Moderate Freckling")
+                img.thumbnail(src="images/mratSevereLrg.jpg", title="Severe Freckling")
+
           li.male
             label.question-num(for="damage")
               span 10

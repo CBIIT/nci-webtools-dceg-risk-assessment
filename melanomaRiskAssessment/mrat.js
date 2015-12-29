@@ -59,3 +59,16 @@ function genderChange() {
 
 window.onload = genderChange();
 $(genderChange());
+
+
+$("#state").on("change", regionFilter);
+
+function regionFilter() {
+    if(document.getElementById("state").value == "CA") {
+        $("#region_subquestion").show();
+    }
+    else {
+        $("#region_subquestion").hide();
+        $("#county").val("");
+    }
+}

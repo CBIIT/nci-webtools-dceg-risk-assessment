@@ -14,15 +14,28 @@ $(function(){
         $("#content").tabs({active: ind});
     });
 
-    $("#quick-title > .minimize, .maximize").on("click", function () {
-        var nextElm = $("#quick-title").next();
-        if($(this).hasClass("minimize")){
-            $(nextElm).slideUp();
-            $(this).addClass("maximize").removeClass("minimize").html("&nbsp;[+]");
-        }
-        else{
-            $(nextElm).slideDown();
-            $(this).addClass("minimize").removeClass("maximize").html("&nbsp;[-]");
-        }
-    });
+//    $("#quick-title, .menu-title > .minimize, .maximize").on("click", function () {
+//        var nextElm = $("#quick-title").next();
+//        if($(this).hasClass("minimize")){
+//            $(nextElm).slideUp();
+//            $(this).addClass("maximize").removeClass("minimize").html("&nbsp;[+]");
+//        }
+//        else{
+//            $(nextElm).slideDown();
+//            $(this).addClass("minimize").removeClass("maximize").html("&nbsp;[-]");
+//        }
+//    });
+
+    $(window).scroll(fixedToTop);
+    fixedToTop();
 });
+
+function fixedToTop() {
+    var window_top = $(window).scrollTop();
+    var div_top = $('#content').offset().top;
+    if (window_top >= div_top) {
+        $('.nav').addClass('stick-nav-top');
+    } else {
+        $('.nav').removeClass('stick-nav-top');
+    }
+}
