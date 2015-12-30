@@ -23,7 +23,9 @@ function fixedToTop() {
     var div_top = $('#content').offset().top;
     if (window_top >= div_top) {
         $('.nav').addClass('stick-nav-top');
+        $("#topButton").css("display","block");
     } else {
         $('.nav').removeClass('stick-nav-top');
+        $("#topButton").css("display","none");
     }
 }

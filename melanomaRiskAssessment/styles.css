@@ -335,6 +335,20 @@ section form #region_subquestion {
 .link-icons {
   display: none;
 }
+#topButton {
+  display: none;
+  font-size: 2em;
+  background: #2a71a5;
+  width: 45px;
+  color: #fff;
+  -webkit-border-radius: 25px;
+  border-radius: 25px;
+  text-align: center;
+  padding: 5px 0;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
 
 @media (max-width: 768px) {
   img#nci-banner {
@@ -359,8 +373,9 @@ section form #region_subquestion {
     padding-left: 0;
   }
   ul.nav {
-    background: #b5c6d0;
-    padding: 0 1% !important;
+    background: #f2f6f8;
+    padding: 0 !important;
+    text-align: center;
   }
   ul.nav.stick-nav-top {
     position: inherit;
