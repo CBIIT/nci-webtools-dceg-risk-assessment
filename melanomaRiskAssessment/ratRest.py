@@ -37,8 +37,17 @@ class RiskAssessmentTools:
       parameters = dict(request.form)
       for field in parameters:
         parameters[field] = parameters[field][0]
-      requiredParameters = ['region','race','age']
+      requiredParameters = ['race','age']
       errorObject = {'missing':[],'nonnumeric':[]}
+      if parameters['state'] == '':
+        errorObject['missing'] += ['state']
+      elif isinstance(MratConstants.RegionIndex[parameters['state']],list):
+        if parameters['county'] == '':
+          errorObject['missing'] += ['county']
+        else:
+          region = MratConstants.RegionIndex[parameters['state']][parameters['county']]
+      else:
+        region = MratConstants.RegionIndex[parameters['state']]
       if (parameters['gender'] == 'Male'):
         sex = 0
         requiredParameters += ['sunburn','complexion','big-moles','small-moles','freckling','damage']
@@ -48,7 +57,7 @@ class RiskAssessmentTools:
       else:
         errorObject['missing'] += ['gender']
       for required in requiredParameters:
-        if required not in parameters or parameters[required] == "Select":
+        if required not in parameters or parameters[required] == "":
           errorObject['missing'].append(required)
         elif not parameters[required].isnumeric():
           errorObject['nonnumeric'].append(required)
@@ -59,7 +68,6 @@ class RiskAssessmentTools:
           return RiskAssessmentTools.buildFailure(errorObject)
       if len(errorObject['missing']) > 0 or len(errorObject['nonnumeric']) > 0:
         return RiskAssessmentTools.buildFailure(errorObject);
-      region = int(parameters['region'])
       r = 1
       if sex == 0:
         r *= MratConstants.SUNBURN[int(parameters['sunburn'])]

@@ -5,47 +5,36 @@ body
 header
     margin 0
     background #f7f8f3
-    position fixed
-    top 0
     width 100%
-    height 150px
-    padding-top 0
     img#nci-banner
-        width 95% !important
-        max-width 500px
+        max-width 450px
         min-width 30px
-        height 60px !important
-        padding 0 10px 0 20px
+        height 90px !important
+        margin-bottom -10px
+        padding-left 60px
     #toolTitle
         background #2A71A5
         color white
-        padding 10px 5px 15px 110px
+        padding 10px 160px
+        font-size .9em
         #toolName
             font-weight bold
-            font-size .9em
         #toolDescription
-            font-size .8em
             font-style italic
 
 ul.nav
-    padding 0
-    margin 0
-    padding-left 125px
-    background #B5C6D0
-    background linear-gradient(135deg, #ffffff 0%,#f2f6f8 5%, #d8e1e7 6%, #b5c6d0 5%, #e0eff9 100%)
+    width inherit
+    margin 0 0 40px 0
+    background #D8E1E7
+    background linear-gradient(135deg, #fff 0%, #f2f6f8 7%, #d8e1e7 8%, #DBDEE0 7%, rgba(255, 255, 255, 0) 100%)
     font-size .9em
-    font-family sans-serif !important
     border-top 2px solid #BB0E3D
-    height 35px
-    position fixed
-    top 120px
-    left 0
-    width 100%
+    padding-left 160px
     li
         &.ui-tabs-active
-            background-color #ffffff
+            background-color #ffffff !important
             a
-                color black
+                color black  !important
                 text-decoration none
                 font-weight bold
         &.ui-state-hover a
@@ -77,11 +66,14 @@ ul.nav
                     padding 15px
             ul
                 display none // hide for now
+    &.stick-nav-top
+        width 100%
+        position fixed
+        top 0
+        z-index 10000
 
 #content
-    font-size 11pt
-    padding-left 6%
-    padding-right 6%
+    margin 0
 
 footer
     color black
@@ -108,19 +100,16 @@ hr
 
 #quicklinks
     float left
-    width 10%
+    width 200px
     font-size 0.9em
-    margin-top 205px
+    margin 1% 0 0 5%
     #quick-title
-        margin 0 auto
-        padding 2%
+        padding 2% 0
         text-align center
         background #606060
         color #FFFFFF
         border 1px ridge #606060
-        .minimize,.maximize
-            display none
-            color inherit
+
     ul
         list-style none
         border 1px ridge #606060
@@ -134,21 +123,25 @@ hr
                     color #BB0E3D
                     text-decoration none
 
+.minimize,.maximize
+    display none
+    color inherit
+
 section
+    margin-right 6%
+    width 70%
     float right
-    width 85%
-    margin-top 200px
     form
         display block
         > ul
             list-style none
         li
-            margin 5px 0px
+            margin 5px 0
             overflow hidden
             > label
                 display inline-block
                 float left
-                width 5em
+                width 40px
             > p
                 box-sizing border-box
                 display inline-block
@@ -189,9 +182,17 @@ section
             font-size .9
         em
             font-size 0.9em
-
+        .question-illustrations
+            padding-left 150px
+            margin 1% auto
+            img
+                width 20em
+                height 40%
+                margin auto 1%
+        #region_subquestion
+            display none
 .section-content
-    padding 0 20px
+    padding 0
 
 .section-title
     margin 1% auto
@@ -292,9 +293,28 @@ section
     font-weight bold
     color white
     border-radius 10px 10px 0 0
+    text-decoration underline
 
 .default-tooltip-content
     background #D6E4E1
     font-size .9em
     line-height 1.4
     border-radius 0px 0px 10px 10px
+
+.link-icons
+    display none
+
+#topButton
+    display none
+    font-size 2em
+    background #2A71A5
+    width 45px
+    color white
+    border-radius 25px
+    text-align center
+    padding 5px 0
+    position fixed
+    bottom 20px
+    right 20px
+
+

@@ -3,14 +3,14 @@
 //-    title About the Tool - MRAT
 
 section#about
+    .section-description
+        include ../../templates/tool-description
+        p
+            a(href='http://www.ncbi.nlm.nih.gov/pubmed/16728488', target="_blank") JCO Publication
     .section-title
         span About the Tool
         a.goToTab(title='go to melanoma risk assessment', name='#risk-calculator') Calculate Risk for New Patients
     .section-content
-        .section-description
-            include ../../templates/tool-description
-            p
-                a(href='http://www.ncbi.nlm.nih.gov/pubmed/16728488', target="_blank") JCO Publication
         ul.section-anchors
             li
                 a.goTo(title='skip to explanations of the questions', name='#questions-exp') Explaining the Questions
@@ -26,7 +26,7 @@ section#about
         #questions-exp
             .about-question-title
                 strong Question 1:&nbsp;
-                em Does the patient live in the Northern, Central, or Southern United States?
+                em In what state does the patient reside?
             .about-question-explanation
                 strong Explanation
                 br
@@ -64,7 +64,6 @@ section#about
                 | The risk of developing melanoma increases with age. Most cancers develop slowly
                 | over time. For this reason, melanoma is more common among older individuals.
             p
-                a.top(href="#top") Back to Top
             hr
             p.about-question-title
                 strong Question 5:&nbsp;
@@ -74,7 +73,6 @@ section#about
                 br
                 | People who have had at least one severe, blistering sunburn are at increased risk
                 | of melanoma. Doctors advise protection from the sun to reduce the risk of melanoma.
-            a.top(href="#top") Back to Top
             hr
             p.about-question-title
                 strong Question 5 for females:
@@ -89,7 +87,6 @@ section#about
                 | people with dark skin, probably because light skin is more easily damaged by the
                 | sun.
             p
-                a.top(href="#top") Back to Top
             hr
             p.about-question-title
                 strong Question 6 (for females only):&nbsp;
@@ -104,7 +101,6 @@ section#about
                 | to the sun, has been associated with a lower risk of melanoma. People who tan well,
                 | however, are also at risk of melanoma and their risk is higher the more sun exposure
                 | that they have.
-            a.top(href="#top") Back to Top
             hr
             p.about-question-title
                 strong Question 7 (for males only):&nbsp;
@@ -116,7 +112,6 @@ section#about
                 | larger moles that are more likely than ordinary moles to become cancerous. The back
                 | and shoulders are commonly and readily examined and the evaluation is easier than
                 | on chronically exposed areas.
-            a.top(href="#top") Back to Top
             hr
             p.about-question-title
                 strong Question 7 for females:
@@ -130,7 +125,6 @@ section#about
                 | The back and shoulders are commonly and readily examined and the evaluation is easier
                 | than on chronically exposed areas. Characteristics of the back are highly correlated
                 | with total body characteristics.
-            a.top(href="#top") Back to Top
             hr
             p.about-question-title
                 strong Question 8 for females:
@@ -143,7 +137,7 @@ section#about
                 | Melanoma occurs more frequently in people who have fair skin that freckles easily.
                 | The back and shoulders are commonly and readily examined and the evaluation is easier
                 | than on chronically exposed areas.
-            a.top(href="#top") Back to Top
+
             p.about-question-title
                 strong Question 10 (for males only):&nbsp;
                 em Does the patient have severe solar damage on the shoulders?
@@ -152,7 +146,6 @@ section#about
                 br
                 | UV radiation from the sun causes premature aging of the skin and skin damage that
                 | can lead to melanoma.
-            a.top(href="#top") Back to Top
         hr
         #results-exp
             strong Explaining the Results
@@ -167,7 +160,6 @@ section#about
             p
                 | The MRAT risk calculator may be updated periodically as new data or research becomes
                 | available.
-            a.top(href="#top") Back to Top
         hr
         #model-exp
             strong About the Model
@@ -182,7 +174,6 @@ section#about
             p
                 | The MRAT risk calculator may be updated periodically as new data or research becomes
                 | available. The system is currently on statistical model version 1 and software version
-            a.top(href="#top") Back to Top
         hr
         em#reference
             strong Reference

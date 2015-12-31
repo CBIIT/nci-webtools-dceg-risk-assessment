@@ -1,5 +1,5 @@
 {
-  "name": "risk-assessment-suite",
+  "name": "melanoma-risk-assessment-tool",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -9,6 +9,7 @@
   "dependencies": {
     "jquery": "^1.11.3",
     "jquery-ui": "^1.10.5",
+    "jquery-validation": "^1.14.0",
     "requirejs": "^2.1.22"
   },
   "devDependencies": {

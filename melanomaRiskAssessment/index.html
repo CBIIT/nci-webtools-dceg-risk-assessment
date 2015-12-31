@@ -3,25 +3,31 @@
   <head>
     <title>Melanoma Risk Assessment Tool (MRAT)</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="/common/css/style.css" rel="stylesheet" type="text/css">
     <link href="styles.css" rel="stylesheet" type="text/css">
   </head>
   <body>
-    <header><a href="http://cancer.gov/" target="_blank"><img id="nci-banner" src="/common/images/nci-logo-full.svg" alt="National Cancer Institute"></a>
+    <header><a href="http://cancer.gov/" target="_blank"><img id="nci-banner" src="images/mrat-logo-color.svg" alt="National Cancer Institute"></a>
       <div id="toolTitle">
-        <div id="toolName">Melanoma Risk Assessment Tool</div>
         <div id="toolDescription">An interactive tool to help estimate a person's risk of developing invasive melanoma</div>
       </div>
     </header>
-    <div id="content">
+    <div id="content"><span id="top"></span>
       <ul class="nav horizontal-nav">
-        <li><a href="#about">About the Tool</a></li>
-        <li><a href="#risk-calculator">Risk Calculator</a></li>
-        <li><a href="#cancer-risk">Melanoma Cancer Risk</a></li>
-        <li><a href="#source-code">Download Source Code</a></li>
-      </ul><span id="top"></span>
+        <li><a href="#about">
+            <div class="link-text">About</div></a></li>
+        <li><a href="#risk-calculator">
+            <div class="link-text">Risk Calculator</div></a></li>
+        <li><a href="#cancer-risk">
+            <div class="link-text">Melanoma Cancer Risk</div></a></li>
+        <li><a href="#source-code">
+            <div class="link-text">Source Code</div></a></li>
+      </ul>
       <div id="quicklinks">
-        <div id="quick-title">Quick Links<a class="minimize">&nbsp;[ - ]</a></div>
+        <div id="quick-title">Quick Links
+        </div>
         <ul>
           <li><a target="_blank" href="http://www.cancer.gov/cancertopics/types/melanoma">Melanoma home page</a></li>
           <li><a target="_blank" href="http://www.cancer.gov/cancertopics/wyntk/skin">What You Need To Know About Melanoma and Other Skin Cancers</a></li>
@@ -31,18 +37,18 @@
         </ul>
       </div>
       <section id="about">
+        <div class="section-description">
+          <p>
+            The Melanoma Risk Assessment is an interactive tool designed by scientists at the National Cancer Institute (NCI),
+            the University of Pennsylvania, and the University of California, San Francisco,
+            to estimate a person's &nbsp;<a data-term="ar" class="termToDefine">absolute risk</a> of developing invasive melanoma. The tool helps clinicians identify
+            individuals at increased risk of melanoma in order to plan
+            appropriate screening interventions with them.
+          </p>
+          <p><a href="http://www.ncbi.nlm.nih.gov/pubmed/16728488" target="_blank">JCO Publication</a></p>
+        </div>
         <div class="section-title"><span>About the Tool</span><a title="go to melanoma risk assessment" name="#risk-calculator" class="goToTab">Calculate Risk for New Patients</a></div>
         <div class="section-content">
-          <div class="section-description">
-            <p>
-              An interactive tool designed by scientists at the National Cancer Institute (NCI),
-              the University of Pennsylvania, and the University of California, San Francisco,
-              to estimate a person's &nbsp;<a data-term="ar" class="termToDefine">absolute risk</a> of developing invasive melanoma. The tool helps clinicians identify
-              individuals at increased risk of melanoma in order to plan
-              appropriate screening interventions with them.
-            </p>
-            <p><a href="http://www.ncbi.nlm.nih.gov/pubmed/16728488" target="_blank">JCO Publication</a></p>
-          </div>
           <ul class="section-anchors">
             <li><a title="skip to explanations of the questions" name="#questions-exp" class="goTo">Explaining the Questions</a></li>
             <div class="spacer"></div>
@@ -53,7 +59,7 @@
             <li><a title="go to references" name="#reference" class="goTo">Reference</a></li>
           </ul>
           <div id="questions-exp">
-            <div class="about-question-title"><strong>Question 1:&nbsp;</strong><em>Does the patient live in the Northern, Central, or Southern United States?</em></div>
+            <div class="about-question-title"><strong>Question 1:&nbsp;</strong><em>In what state does the patient reside?</em></div>
             <div class="about-question-explanation"><strong>Explanation</strong><br>Melanoma is more common in people who live in areas that get large amounts of UV
               radiation from the sun. For example, melanoma is more common in California than
               in Minnesota, where the sun is not as strong.
@@ -76,12 +82,12 @@
             <p class="about-question-explanation"><strong>Explanation</strong><br>The risk of developing melanoma increases with age. Most cancers develop slowly
               over time. For this reason, melanoma is more common among older individuals.
             </p>
-            <p><a href="#top" class="top">Back to Top</a></p>
+            <p></p>
             <hr>
             <p class="about-question-title"><strong>Question 5:&nbsp;</strong><em>Has the patient ever had a blistering sunburn?</em></p>
             <p class="about-question-explanation"><strong>Explanation</strong><br>People who have had at least one severe, blistering sunburn are at increased risk
               of melanoma. Doctors advise protection from the sun to reduce the risk of melanoma.
-            </p><a href="#top" class="top">Back to Top</a>
+            </p>
             <hr>
             <p class="about-question-title"><strong>Question 5 for females:</strong><br><strong>Question 6 for males:&nbsp;</strong><em>Is the patient's complexion light, medium, or dark?</em></p>
             <p class="about-question-explanation"><strong>Explanation</strong><br>Melanoma occurs more frequently in people who have fair skin that burns or freckles
@@ -89,7 +95,7 @@
               people with dark skin, probably because light skin is more easily damaged by the
               sun.
             </p>
-            <p><a href="#top" class="top">Back to Top</a></p>
+            <p></p>
             <hr>
             <p class="about-question-title"><strong>Question 6 (for females only):&nbsp;</strong><em>
                 After repeated and prolonged exposure to sunlight, at the age the patient is now,
@@ -99,31 +105,31 @@
               to the sun, has been associated with a lower risk of melanoma. People who tan well,
               however, are also at risk of melanoma and their risk is higher the more sun exposure
               that they have.
-            </p><a href="#top" class="top">Back to Top</a>
+            </p>
             <hr>
             <p class="about-question-title"><strong>Question 7 (for males only):&nbsp;</strong><em>How many moles larger than 5mm in diameter are on the patient's back?</em></p>
             <p class="about-question-explanation"><strong>Explanation</strong><br>Having many moles increases the risk of developing melanoma. Dysplastic nevi are
               larger moles that are more likely than ordinary moles to become cancerous. The back
               and shoulders are commonly and readily examined and the evaluation is easier than
               on chronically exposed areas.
-            </p><a href="#top" class="top">Back to Top</a>
+            </p>
             <hr>
             <p class="about-question-title"><strong>Question 7 for females:</strong><br><strong>Question 8 for males:&nbsp;</strong><em>How many moles less than or equal to 5mm in diameter are on the patient's back?</em></p>
             <p class="about-question-explanation"><strong>Explanation</strong><br>Having many moles, particularly larger moles, increases the risk of developing melanoma.
               The back and shoulders are commonly and readily examined and the evaluation is easier
               than on chronically exposed areas. Characteristics of the back are highly correlated
               with total body characteristics.
-            </p><a href="#top" class="top">Back to Top</a>
+            </p>
             <hr>
             <p class="about-question-title"><strong>Question 8 for females:</strong><br><strong>Question 9 for males:&nbsp;</strong><em>How extensive is the freckling on the patient's back and shoulders?</em></p>
             <p class="about-question-explanation"><strong>Explanation</strong><br>Melanoma occurs more frequently in people who have fair skin that freckles easily.
               The back and shoulders are commonly and readily examined and the evaluation is easier
               than on chronically exposed areas.
-            </p><a href="#top" class="top">Back to Top</a>
+            </p>
             <p class="about-question-title"><strong>Question 10 (for males only):&nbsp;</strong><em>Does the patient have severe solar damage on the shoulders?</em></p>
             <p class="about-question-explanation"><strong>Explanation</strong><br>UV radiation from the sun causes premature aging of the skin and skin damage that
               can lead to melanoma.
-            </p><a href="#top" class="top">Back to Top</a>
+            </p>
           </div>
           <hr>
           <div id="results-exp"><strong>Explaining the Results</strong>
@@ -139,7 +145,7 @@
             <p>
               The MRAT risk calculator may be updated periodically as new data or research becomes
               available.
-            </p><a href="#top" class="top">Back to Top</a>
+            </p>
           </div>
           <hr>
           <div id="model-exp"><strong>About the Model</strong>
@@ -155,7 +161,7 @@
             <p>
               The MRAT risk calculator may be updated periodically as new data or research becomes
               available. The system is currently on statistical model version 1 and software version
-            </p><a href="#top" class="top">Back to Top</a>
+            </p>
           </div>
           <hr><em id="reference"><strong>Reference</strong>&nbsp;<a target="_blank" href="http://www.ncbi.nlm.nih.gov/pubmed/16728488" class="references">
               Fears TR, Guerry D IV, Pfeiffer
@@ -194,19 +200,134 @@
         </div>
         <div class="section-title"><span>Questions</span></div>
         <div class="section-content">
-          <div id="error" class="hide"></div>
+          <div id="error" style="display:none;"></div>
           <div id="result" class="hide"></div>
           <form id="survey" action="mratRest/calculate/" method="POST">
             <ul>
               <li>
-                <label for="region" class="question-num">1</label>
-                <p class="question-text">Does the patient live in the Northern, Central, or Southern United States?</p>
+                <label for="state" class="question-num">1</label>
+                <p class="question-text">In what state does the patient reside?</p>
                 <div class="input">
-                  <select id="region" name="region">
-                    <option>Select</option>
-                    <option value="0">North</option>
-                    <option value="1">Central</option>
-                    <option value="2">South</option>
+                  <select id="state" name="state">
+                    <option value="">Choose a State</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                    <option value="CT">Connecticut</option>
+                    <option value="DE">Delaware</option>
+                    <option value="DC">District Of Columbia</option>
+                    <option value="FL">Florida</option>
+                    <option value="GA">Georgia</option>
+                    <option value="HI">Hawaii</option>
+                    <option value="ID">Idaho</option>
+                    <option value="IL">Illinois</option>
+                    <option value="IN">Indiana</option>
+                    <option value="IA">Iowa</option>
+                    <option value="KS">Kansas</option>
+                    <option value="KY">Kentucky</option>
+                    <option value="LA">Louisiana</option>
+                    <option value="ME">Maine</option>
+                    <option value="MD">Maryland</option>
+                    <option value="MA">Massachusetts</option>
+                    <option value="MI">Michigan</option>
+                    <option value="MN">Minnesota</option>
+                    <option value="MS">Mississippi</option>
+                    <option value="MO">Missouri</option>
+                    <option value="MT">Montana</option>
+                    <option value="NE">Nebraska</option>
+                    <option value="NV">Nevada</option>
+                    <option value="NH">New Hampshire</option>
+                    <option value="NJ">New Jersey</option>
+                    <option value="NM">New Mexico</option>
+                    <option value="NY">New York</option>
+                    <option value="NC">North Carolina</option>
+                    <option value="ND">North Dakota</option>
+                    <option value="OH">Ohio</option>
+                    <option value="OK">Oklahoma</option>
+                    <option value="OR">Oregon</option>
+                    <option value="PA">Pennsylvania</option>
+                    <option value="RI">Rhode Island</option>
+                    <option value="SC">South Carolina</option>
+                    <option value="SD">South Dakota</option>
+                    <option value="TN">Tennessee</option>
+                    <option value="TX">Texas</option>
+                    <option value="UT">Utah</option>
+                    <option value="VT">Vermont</option>
+                    <option value="VA">Virginia</option>
+                    <option value="WA">Washington</option>
+                    <option value="WV">West Virginia</option>
+                    <option value="WI">Wisconsin</option>
+                    <option value="WY">Wyoming</option>
+                  </select>
+                </div>
+              </li>
+              <li id="region_subquestion">
+                <label for="county" class="question-num">1a</label>
+                <p class="question-text">In what county in California does the patient reside?</p>
+                <div class="input">
+                  <select id="county" name="county">
+                    <option value="">Select a County</option>
+                    <option value="Alameda">Alameda</option>
+                    <option value="Alpine">Alpine</option>
+                    <option value="Amador">Amador</option>
+                    <option value="Butte">Butte</option>
+                    <option value="Calaveras">Calaveras</option>
+                    <option value="Colusa">Colusa</option>
+                    <option value="Contra Costa">Contra Costa</option>
+                    <option value="Del Norte">Del Norte</option>
+                    <option value="El Dorado">El Dorado</option>
+                    <option value="Fresno">Fresno</option>
+                    <option value="Glenn">Glenn</option>
+                    <option value="Humboldt">Humboldt</option>
+                    <option value="Imperial">Imperial</option>
+                    <option value="Inyo">Inyo</option>
+                    <option value="Kern">Kern</option>
+                    <option value="Kings">Kings</option>
+                    <option value="Lake">Lake</option>
+                    <option value="Lassen">Lassen</option>
+                    <option value="Los Angeles">Los Angeles</option>
+                    <option value="Madera">Madera</option>
+                    <option value="Marin">Marin</option>
+                    <option value="Mariposa">Mariposa</option>
+                    <option value="Mendocino">Mendocino</option>
+                    <option value="Merced">Merced</option>
+                    <option value="Modoc">Modoc</option>
+                    <option value="Mono">Mono</option>
+                    <option value="Monterey">Monterey</option>
+                    <option value="Napa">Napa</option>
+                    <option value="Nevada">Nevada</option>
+                    <option value="Orange">Orange</option>
+                    <option value="Placer">Placer</option>
+                    <option value="Plumas">Plumas</option>
+                    <option value="Riverside">Riverside</option>
+                    <option value="Sacramento">Sacramento</option>
+                    <option value="San Benito">San Benito</option>
+                    <option value="San Bernardino">San Bernardino</option>
+                    <option value="San Diego">San Diego</option>
+                    <option value="San Francisco">San Francisco</option>
+                    <option value="San Joaquin">San Joaquin</option>
+                    <option value="San Luis Obispo">San Luis Obispo</option>
+                    <option value="San Mateo">San Mateo</option>
+                    <option value="Santa Barbara">Santa Barbara</option>
+                    <option value="Santa Clara">Santa Clara</option>
+                    <option value="Santa Cruz">Santa Cruz</option>
+                    <option value="Shasta">Shasta</option>
+                    <option value="Sierra">Sierra</option>
+                    <option value="Siskiyou">Siskiyou</option>
+                    <option value="Solano">Solano</option>
+                    <option value="Sonoma">Sonoma</option>
+                    <option value="Stanislaus">Stanislaus</option>
+                    <option value="Sutter">Sutter</option>
+                    <option value="Tehama">Tehama</option>
+                    <option value="Trinity">Trinity</option>
+                    <option value="Tulare">Tulare</option>
+                    <option value="Tuolumne">Tuolumne</option>
+                    <option value="Ventura">Ventura</option>
+                    <option value="Yolo">Yolo</option>
+                    <option value="Yuba">Yuba</option>
                   </select>
                 </div>
               </li>
@@ -218,9 +339,9 @@
                     The answer to this question will determine what other questions are asked below.</em></p>
                 <div class="input">
                   <select id="gender" name="gender">
-                    <option>Select</option>
-                    <option>Male</option>
-                    <option>Female</option>
+                    <option value="">Select</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
                   </select>
                 </div>
               </li>
@@ -229,7 +350,7 @@
                 <p class="question-text">What is the patient's race?</p>
                 <div class="input">
                   <select id="race" name="race">
-                    <option>Select</option>
+                    <option value="">Select</option>
                     <option value="0">Non-Hispanic White</option>
                     <option value="1">Other</option>
                   </select>
@@ -240,7 +361,7 @@
                 <p class="question-text">What is the patient's age?</p>
                 <div class="input">
                   <select id="age" name="age">
-                    <option>Select</option>
+                    <option value="">Select</option>
                     <option value="19">19 or younger</option>
                     <option>20</option>
                     <option>21</option>
@@ -302,7 +423,7 @@
                 <p class="question-text">Ask the patient: Did you ever get a blistering sunburn?</p>
                 <div class="input">
                   <select id="sunburn" name="sunburn">
-                    <option>Select</option>
+                    <option value="">Select</option>
                     <option value="0">Yes</option>
                     <option value="1">No</option>
                   </select>
@@ -313,7 +434,7 @@
                 <p class="question-text">Ask the patient: Is your complexion light, medium, or dark?</p>
                 <div class="input">
                   <select id="complexion" name="complexion">
-                    <option>Select</option>
+                    <option value="">Select</option>
                     <option value="0">Light</option>
                     <option value="1">Medium</option>
                     <option value="2">Dark</option>
@@ -328,7 +449,7 @@
                 </p>
                 <div class="input">
                   <select id="tan" name="tan">
-                    <option>Select</option>
+                    <option value="">Select</option>
                     <option value="0">Very brown and deeply tanned</option>
                     <option value="1">Moderately tanned</option>
                     <option value="2">Lightly tanned</option>
@@ -341,7 +462,7 @@
                 <p class="question-text">How many moles larger than 5mm in diameter are on the patient's back?</p>
                 <div class="input">
                   <select id="big-moles" name="big-moles">
-                    <option>Select</option>
+                    <option value="">Select</option>
                     <option value="0">Less than two</option>
                     <option value="1">Two or more</option>
                   </select>
@@ -352,7 +473,7 @@
                 <p class="question-text"><span>How many moles less than or equal to 5mm in diameter are on the patient's back?</span></p>
                 <div class="input">
                   <select id="small-moles" name="small-moles">
-                    <option>Select</option>
+                    <option value="">Select</option>
                     <option value="0">Less than seven</option>
                     <option value="1">Seven to seventeen</option>
                     <option value="2">More than seventeen</option>
@@ -364,27 +485,29 @@
                 <p class="question-text">How extensive is the freckling on the patient's back and shoulders?</p>
                 <div class="input">
                   <select id="freckling" name="freckling">
-                    <option>Select</option>
+                    <option value="">Select</option>
                     <option value="0">Absent</option>
                     <option value="1">Mild</option>
                     <option value="2">Moderate</option>
                     <option value="3">Severe</option>
                   </select>
                 </div>
+                <div class="question-illustrations"><img src="images/mratMildLrg.jpg" title="Mild Freckling" class="thumbnail"><img src="images/mratModLrg.jpg" title="Moderate Freckling" class="thumbnail"><img src="images/mratSevereLrg.jpg" title="Severe Freckling" class="thumbnail"></div>
               </li>
               <li class="male">
                 <label for="damage" class="question-num"><span>10</span><b class="no-css">&nbsp;Males only</b></label>
                 <p class="question-text">Does the patient have severe solar damage on the shoulders?</p>
                 <div class="input">
                   <select id="damage" name="damage">
-                    <option>Select</option>
+                    <option value="">Select</option>
                     <option value="0">Yes</option>
                     <option value="1">No</option>
                   </select>
                 </div>
+                <div class="question-illustrations"><img src="images/mratSevereLrg2.jpg" title="Severe solar damage"></div>
               </li>
             </ul>
-            <button>Calculate Risk</button>
+            <button id="calculate" type="submit">Calculate Risk</button>
           </form>
         </div>
       </section>
@@ -508,13 +631,13 @@
                 &nbsp;<a data-term="uvb" class="termToDefine">UVB</a> radiation. Sunglasses can protect both the eyes and the skin around the eyes.
               </li>
             </ul>
-          </p><a name="#top" class="goTo">Back to Top</a>
+          </p>
         </div>
       </section>
       <section id="source-code">
         <div class="section-description">
           <p>
-            An interactive tool designed by scientists at the National Cancer Institute (NCI),
+            The Melanoma Risk Assessment is an interactive tool designed by scientists at the National Cancer Institute (NCI),
             the University of Pennsylvania, and the University of California, San Francisco,
             to estimate a person's &nbsp;<a data-term="ar" class="termToDefine">absolute risk</a> of developing invasive melanoma. The tool helps clinicians identify
             individuals at increased risk of melanoma in order to plan
@@ -625,7 +748,7 @@
           <li><a target="_blank" href="http://www.usa.gov/">USA.gov</a></li>
         </ul><strong>NIH...Turning Discovery Into Health</strong><sup>&reg;</sup>
       </footer>
-    </div>
+    </div><a id="topButton" name="#top" title="back to top" class="goTo"><span class="fa fa-arrow-circle-up"></span></a>
     <script type="application/javascript" src="src/node_modules/requirejs/require.js" data-main="require-config"></script>
   </body>
 </html>

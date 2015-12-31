@@ -5,17 +5,21 @@ html(lang="en")
         block page-title
             title Melanoma Risk Assessment Tool (MRAT)
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1")
         include ../../templates/stylesheets
         block stylesheet
     body
         include ../../templates/header
         #content
-            include ../../templates/navigation
             span#top
+            ul.nav.horizontal-nav
+                include ../../templates/navigation
             include ../../templates/quick-links
             include about
             include calculator
             include cancer-risk
             include source-code
             include ../../templates/footer
+        a#topButton.goTo(name="#top", title="back to top")
+            span.fa.fa-arrow-circle-up
         script(type="application/javascript", src="src/node_modules/requirejs/require.js", data-main="require-config")
