@@ -70,7 +70,7 @@ gulp.task('js:copy', function(){
 
 gulp.task('css', function(){
     var styl, s;
-    styl = gulp.src(['app/stylus/**/base-styles.styl', 'app/stylus/**/mobile-styles.styl']).pipe(gulpFilter(function(it) {
+    styl = gulp.src(['app/stylus/base-styles.styl', 'app/stylus/mobile-styles.styl']).pipe(gulpFilter(function(it) {
         return !/\/_[^/]+\.styl$/.test(it.path);
     })).pipe(gulpStylus({
         use: [nib()],

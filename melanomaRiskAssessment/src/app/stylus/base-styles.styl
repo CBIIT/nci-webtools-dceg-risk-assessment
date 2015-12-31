@@ -25,8 +25,10 @@ header
 ul.nav
     width inherit
     margin 0 0 40px 0
-    background #D8E1E7
-    background linear-gradient(135deg, #fff 0%, #f2f6f8 7%, #d8e1e7 8%, #DBDEE0 7%, rgba(255, 255, 255, 0) 100%)
+    //    background #D8E1E7
+    //    background linear-gradient(135deg, #fff 0%, #f2f6f8 7%, #d8e1e7 8%, #DBDEE0 7%, rgba(255, 255, 255, 0) 100%)
+    background #636363
+    background linear-gradient(135deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%)
     font-size .9em
     border-top 2px solid #BB0E3D
     padding-left 160px
@@ -41,7 +43,7 @@ ul.nav
                 text-decoration none
         > a
             padding 10px 15px !important
-            color #BB0E3D
+            color white
             &:hover
                 text-decoration underline
 
@@ -74,6 +76,7 @@ ul.nav
 
 #content
     margin 0
+    background #F7F8F3
 
 footer
     color black
@@ -128,7 +131,7 @@ hr
     color inherit
 
 section
-    margin-right 6%
+    margin 0 6% 6% 0
     width 70%
     float right
     form
@@ -181,14 +184,17 @@ section
             padding 8px 60px
             font-size .9
         em
-            font-size 0.9em
+            font-size 0.8em
         .question-illustrations
             padding-left 150px
             margin 1% auto
+            height 270px
             img
-                width 20em
-                height 40%
-                margin auto 1%
+                width 250px
+                height 270px
+                margin 1%
+                &:hover
+                    transform scale(1.6)
         #region_subquestion
             display none
 .section-content
@@ -219,7 +225,7 @@ section
     margin 1% auto
     padding 10px
     border 1px solid
-    width 50%
+    font-size .9em
 
 .about-question-title
     border-left 2px solid #2A71A5
@@ -307,7 +313,7 @@ section
 #topButton
     display none
     font-size 2em
-    background #2A71A5
+    background rgba(42,113,165,.7)
     width 45px
     color white
     border-radius 25px
