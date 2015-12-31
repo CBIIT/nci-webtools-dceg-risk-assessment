@@ -29,12 +29,12 @@ header #toolTitle #toolDescription {
 ul.nav {
   width: inherit;
   margin: 0 0 40px 0;
-  background: #d8e1e7;
-  background: -webkit-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #d8e1e7 8%, #dbdee0 7%, rgba(255,255,255,0) 100%);
-  background: -moz-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #d8e1e7 8%, #dbdee0 7%, rgba(255,255,255,0) 100%);
-  background: -o-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #d8e1e7 8%, #dbdee0 7%, rgba(255,255,255,0) 100%);
-  background: -ms-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #d8e1e7 8%, #dbdee0 7%, rgba(255,255,255,0) 100%);
-  background: linear-gradient(135deg, #fff 0%, #f2f6f8 7%, #d8e1e7 8%, #dbdee0 7%, rgba(255,255,255,0) 100%);
+  background: #636363;
+  background: -webkit-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
+  background: -moz-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
+  background: -o-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
+  background: -ms-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
+  background: linear-gradient(135deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
   font-size: 0.9em;
   border-top: 2px solid #bb0e3d;
   padding-left: 160px;
@@ -52,7 +52,7 @@ ul.nav li.ui-state-hover a {
 }
 ul.nav li > a {
   padding: 10px 15px !important;
-  color: #bb0e3d;
+  color: #fff;
 }
 ul.nav li > a:hover {
   text-decoration: underline;
@@ -91,6 +91,7 @@ ul.nav.stick-nav-top {
 }
 #content {
   margin: 0;
+  background: #f7f8f3;
 }
 footer {
   color: #000;
@@ -221,16 +222,24 @@ section form button {
   font-size: 0.9;
 }
 section form em {
-  font-size: 0.9em;
+  font-size: 0.8em;
 }
 section form .question-illustrations {
   padding-left: 150px;
   margin: 1% auto;
+  height: 270px;
 }
 section form .question-illustrations img {
-  width: 20em;
-  height: 40%;
-  margin: auto 1%;
+  width: 250px;
+  height: 270px;
+  margin: 1%;
+}
+section form .question-illustrations img:hover {
+  -webkit-transform: scale(1.6);
+  -moz-transform: scale(1.6);
+  -o-transform: scale(1.6);
+  -ms-transform: scale(1.6);
+  transform: scale(1.6);
 }
 section form #region_subquestion {
   display: none;
@@ -266,7 +275,7 @@ section form #region_subquestion {
   margin: 1% auto;
   padding: 10px;
   border: 1px solid;
-  width: 50%;
+  font-size: 0.9em;
 }
 .about-question-title {
   border-left: 2px solid #2a71a5;
@@ -338,7 +347,7 @@ section form #region_subquestion {
 #topButton {
   display: none;
   font-size: 2em;
-  background: #2a71a5;
+  background: rgba(42,113,165,0.7);
   width: 45px;
   color: #fff;
   -webkit-border-radius: 25px;
@@ -373,7 +382,7 @@ section form #region_subquestion {
     padding-left: 0;
   }
   ul.nav {
-    background: #f2f6f8;
+    background: transparent;
     padding: 0 !important;
     text-align: center;
   }
@@ -385,6 +394,7 @@ section form #region_subquestion {
   }
   ul.nav li a {
     padding: 8px !important;
+    color: #bb0e3d;
   }
   .section-description {
     width: 85%;
