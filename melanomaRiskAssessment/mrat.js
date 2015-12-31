@@ -57,5 +57,54 @@ function genderChange() {
   }
 }
 
+function displayResult(result) {
+  var matches = Number(result).toExponential().toString().match(/(\d+)e([-+]?\d+)/i);
+  var estimate = matches[1];
+  var outOf = Number('1e'+(2-Number(matches[2])));
+  $('#result').append('<h2>'+result+'%</h2><p>Your risk of developing cancer in the next 5 years is '+result+'%. This means that roughly '+estimate+' in '+outOf+' people like you are likely to develop cancer in the next 5 years.').removeClass('hide');
+  graphResult(result);
+}
+
+function graphResult(result) {
+  
+}
+
 window.onload = genderChange();
 $(genderChange());
+
+$(document.forms[0]).on('submit', function(e) {
+  e.preventDefault();
+  $('#error').addClass('hide').empty();
+  $('#result').addClass('hide').empty();
+  $('.error').removeClass('error');
+  var formData = new FormData(document.forms[0]);
+  $.ajax({
+    url: document.forms[0].action,
+    type: document.forms[0].method,
+    data: formData,
+    processData: false,
+    contentType: false,
+    dataType: 'json'
+  }).done(function(data) {
+    if (data.success) {
+      displayResult(data.message);
+    } else {
+      var message = "";
+      if (data.message) {
+        message += "<p>" + data.message + "</p>";
+      }
+      var index;
+      for (index in data.missing) {
+        $('#'+data.missing[index]).addClass('error');
+        message += "<p>The " + data.missing[index] + " question was not answered.</p>";
+      }
+      for (index in data.nonnumeric) {
+        $('#'+data.nonnumeric[index]).addClass('error');
+        message += "<p>The " + data.missing[index] + " question contained a nonnumeric answer.</p>";
+      }
+      $('#error').append(message).removeClass('hide');
+    }
+  }).fail(function(data) {
+    $('#error').append("An unknown error occurred. Please consult the administrator.");
+  });
+});

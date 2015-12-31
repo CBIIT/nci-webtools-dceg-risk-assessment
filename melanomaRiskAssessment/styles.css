@@ -208,6 +208,10 @@ section form select {
   width: 300px;
   padding: 10px;
 }
+section form input.error,
+section form select.error {
+  background: #f00;
+}
 section form .no-css {
   display: none;
 }
@@ -298,6 +302,29 @@ section form em {
 }
 #reference * {
   font-size: 0.9em;
+}
+#error {
+  background: #f00;
+  border: 5px solid #900;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  padding: 30px;
+}
+#result {
+  border: 5px solid #000;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  margin: 0px auto;
+  max-width: 600px;
+  padding: 30px;
+}
+#result h2 {
+  font-size: 48px;
+  margin: 0px;
+  text-align: center;
+}
+.hide {
+  display: none;
 }
 .hidden-anchor {
   display: none;

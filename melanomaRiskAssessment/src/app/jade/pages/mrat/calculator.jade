@@ -27,6 +27,8 @@ section#risk-calculator
     .section-title
       span Questions
     .section-content
+      #error.hide
+      #result.hide
       form#survey(action="mratRest/calculate/",method="POST")
         ul
           li
@@ -56,11 +58,11 @@ section#risk-calculator
           li
             label.question-num(for="race") 3
             p.question-text
-              | What is the patient's gender race?
+              | What is the patient's race?
             .input
               select#race(name='race')
                 option Select
-                option(value='0') Non-White Hispanic
+                option(value='0') Non-Hispanic White
                 option(value='1') Other
           li
             label.question-num(for="age") 4

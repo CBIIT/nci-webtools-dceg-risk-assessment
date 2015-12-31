@@ -194,6 +194,8 @@
         </div>
         <div class="section-title"><span>Questions</span></div>
         <div class="section-content">
+          <div id="error" class="hide"></div>
+          <div id="result" class="hide"></div>
           <form id="survey" action="mratRest/calculate/" method="POST">
             <ul>
               <li>
@@ -224,11 +226,11 @@
               </li>
               <li>
                 <label for="race" class="question-num">3</label>
-                <p class="question-text">What is the patient's gender race?</p>
+                <p class="question-text">What is the patient's race?</p>
                 <div class="input">
                   <select id="race" name="race">
                     <option>Select</option>
-                    <option value="0">Non-White Hispanic</option>
+                    <option value="0">Non-Hispanic White</option>
                     <option value="1">Other</option>
                   </select>
                 </div>
