@@ -58,9 +58,14 @@ function genderChange() {
 }
 
 function displayResult(result) {
-  var matches = Number(result).toExponential().toString().match(/(\d+)e([-+]?\d+)/i);
+  var matches = Number(result).toExponential().toString().match(/(\d+)(?:.(\d+))?e([-+]?\d+)/i);
   var estimate = matches[1];
-  var outOf = Number('1e'+(2-Number(matches[2])));
+  var outOf = 2-Number(matches[3]);
+  if (matches[2] !== undefined) {
+    estimate += matches[2];
+    outOf += matches[2].length;
+  }
+  outOf = Number('1e'+outOf);
   $('#result').append('<h2>'+result+'%</h2><p>Your risk of developing cancer in the next 5 years is '+result+'%. This means that roughly '+estimate+' in '+outOf+' people like you are likely to develop cancer in the next 5 years.').removeClass('hide');
   graphResult(result);
 }
