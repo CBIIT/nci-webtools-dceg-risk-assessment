@@ -38,6 +38,10 @@ ul.nav {
   font-size: 0.9em;
   border-top: 2px solid #bb0e3d;
   padding-left: 160px;
+  position: relative;
+}
+ul.nav li {
+  padding: 10px 15px !important;
 }
 ul.nav li.ui-tabs-active {
   background-color: #fff !important;
@@ -51,11 +55,21 @@ ul.nav li.ui-state-hover a {
   text-decoration: none;
 }
 ul.nav li > a {
-  padding: 10px 15px !important;
   color: #fff;
 }
 ul.nav li > a:hover {
   text-decoration: underline;
+}
+ul.nav li .link-text + ul {
+  background: #000;
+  left: 0px;
+  padding-left: 160px;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+}
+ul.nav li:not(:hover) > ul {
+  display: none;
 }
 ul.nav.horizontal-nav li {
   display: inline-block;
