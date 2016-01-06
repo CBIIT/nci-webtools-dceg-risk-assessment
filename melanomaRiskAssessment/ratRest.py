@@ -41,7 +41,7 @@ class RiskAssessmentTools:
       errorObject = {'missing':[],'nonnumeric':[]}
       if parameters['state'] == '':
         errorObject['missing'] += ['state']
-      elif isinstance(MratConstants.RegionIndex[parameters['state']],list):
+      elif isinstance(MratConstants.RegionIndex[parameters['state']],dict):
         if parameters['county'] == '':
           errorObject['missing'] += ['county']
         else:
