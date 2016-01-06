@@ -32,7 +32,9 @@ ul.nav
     font-size .9em
     border-top 2px solid #BB0E3D
     padding-left 160px
+    position relative
     li
+        padding 10px 15px !important
         &.ui-tabs-active
             background-color #ffffff !important
             a
@@ -42,10 +44,18 @@ ul.nav
         &.ui-state-hover a
                 text-decoration none
         > a
-            padding 10px 15px !important
             color white
             &:hover
                 text-decoration underline
+        .link-text + ul
+            background #000
+            left 0px
+            padding-left 160px
+            position absolute
+            top 100%
+            width 100%
+        &:not(:hover) > ul
+            display none
 
     &.horizontal-nav
         li
