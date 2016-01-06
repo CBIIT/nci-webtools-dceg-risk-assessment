@@ -67,11 +67,23 @@ function displayResult(result) {
   }
   outOf = Number('1e'+outOf);
   $('#result').append('<h2>'+result+'%</h2><p>Your risk of developing cancer in the next 5 years is '+result+'%. This means that roughly '+estimate+' in '+outOf+' people like you are likely to develop cancer in the next 5 years.').removeClass('hide');
-  graphResult(result);
+  graphResult($('#result').append('<div class="chart"></div>').children('.chart'),Number(result));
 }
 
-function graphResult(result) {
-  
+function graphResult(element,result) {
+  for (var i = 0; i < 100; i++) {
+    $(element).append('<img src="images/person.svg"/>');
+  }
+  var fullBars = Math.floor(result/20);
+  var partialBar = (result-(20*fullBars))*5;
+  var top = 0;
+  for (var j = 0; j < fullBars; i++) {
+    $(element).prepend('<div class="bar yours" style="top:'+top+'%;width:100%;"></div>');
+    top += 20;
+  }
+  if (partialBar > 0) {
+    $(element).prepend('<div class="bar yours" style="top:'+top+'%;width:'+partialBar+'%;"></div>');
+  }
 }
 
 

@@ -336,6 +336,28 @@ section form #region_subquestion {
   margin: 0px;
   text-align: center;
 }
+#result .chart {
+  background: #69f;
+  font-size: 0px;
+  position: relative;
+  z-index: 0;
+}
+#result .chart .bar {
+  height: 20%;
+  left: 0px;
+  top: 0px;
+  position: absolute;
+  z-index: -1;
+}
+#result .chart .bar.yours {
+  background: #300828;
+}
+#result .chart .bar.average {
+  background: #f00;
+}
+#result .chart img {
+  width: 5%;
+}
 .hide {
   display: none;
 }

@@ -276,6 +276,23 @@ section
         font-size 48px
         margin 0px
         text-align center
+    .chart
+        background #69F
+        font-size 0px
+        position relative
+        z-index 0
+        .bar
+            height 20%
+            left 0px
+            top 0px
+            position absolute
+            z-index -1
+            &.yours
+                background #300828
+            &.average
+                background red
+        img
+            width 5%
 .hide
     display none
         
