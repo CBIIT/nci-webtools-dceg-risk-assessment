@@ -20,11 +20,15 @@
         text-align center
         &.stick-nav-top
             position inherit
-        li:first-child
-            margin 0
-        li a
-            padding 8px !important
-            color #bb0e3d
+        li
+            display block
+            &:first-child
+                margin 0
+            a
+                padding 8px !important
+                color #bb0e3d
+            ul
+                position static
     .section-description
         width 85%
     .section-title
