@@ -22,10 +22,10 @@ function fixedToTop() {
     var window_top = $(window).scrollTop();
     var div_top = $('#content').offset().top;
     if (window_top > div_top) {
-        $('.nav').addClass('stick-nav-top');
+        $('#main-nav').addClass('stick-nav-top');
         $("#topButton").css("display","block");
     } else {
-        $('.nav').removeClass('stick-nav-top');
+        $('#main-nav').removeClass('stick-nav-top');
         $("#topButton").css("display","none");
     }
 }

@@ -31,6 +31,11 @@ header #toolTitle #toolName {
 header #toolTitle #toolDescription {
   font-style: italic;
 }
+#top {
+  display: block;
+  margin: 0 0 40px 0;
+  min-height: 40px;
+}
 ul.nav {
   background: #636363;
   background: -webkit-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
@@ -40,9 +45,11 @@ ul.nav {
   background: linear-gradient(135deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
   border-top: 2px solid #bb0e3d;
   font-size: 0.9em;
-  margin: 0 0 40px 0;
+  margin: 0px;
   padding-left: 160px;
   position: relative;
+  top: 0;
+  width: 100%;
 }
 ul.nav li {
   display: inline-block;
@@ -71,15 +78,12 @@ ul.nav li ul {
   padding-left: 160px;
   position: absolute;
   top: 100%;
-  width: 100%;
 }
 ul.nav li:not(:hover) > ul {
   display: none;
 }
 ul.nav.stick-nav-top {
-  width: 100%;
   position: fixed;
-  top: 0;
   z-index: 10000;
 }
 #content {
