@@ -30,13 +30,15 @@ section#risk-calculator
     .section-title
       span Questions
     .section-content
+      #error(style="display:none;")
+      #result.hide
       form#survey(action="mratRest/calculate/",method="POST")
         ul
           li
-            label.question-num(for="region") 1
+            label.question-num(for="state") 1
             p.question-text In what state does the patient reside?
             .input
-                select#state
+                select#state(name="state")
                     option(value='') Choose a State
                     option(value='AL') Alabama
                     option(value='AK') Alaska
@@ -90,10 +92,10 @@ section#risk-calculator
                     option(value='WI') Wisconsin
                     option(value='WY') Wyoming
           li#region_subquestion
-            label.question-num(for="region") 1a
+            label.question-num(for="county") 1a
             p.question-text In what county in California does the patient reside?
             .input
-                select#county
+                select#county(name="county")
                     option(value="") Select a County
                     option(value="Alameda") Alameda
                     option(value="Alpine") Alpine
@@ -165,17 +167,17 @@ section#risk-calculator
                 | The answer to this question will determine what other questions are asked below.
             .input
               select#gender(name='gender')
-                option Select
-                option Male
-                option Female
+                option(value='') Select
+                option(value='Male') Male
+                option(value='Female') Female
           li
             label.question-num(for="race") 3
             p.question-text
-              | What is the patient's gender race?
+              | What is the patient's race?
             .input
               select#race(name='race')
-                option Select
-                option(value='0') Non-White Hispanic
+                option(value='') Select
+                option(value='0') Non-Hispanic White
                 option(value='1') Other
           li
             label.question-num(for="age") 4
@@ -183,7 +185,7 @@ section#risk-calculator
               | What is the patient's age?
             .input
               select#age(name='age')
-                option Select
+                option(value='') Select
                 option(value=19) 19 or younger
                 - var n = 20
                 while n < 71
@@ -196,7 +198,7 @@ section#risk-calculator
             p.question-text Ask the patient: Did you ever get a blistering sunburn?
             .input
               select#sunburn(name='sunburn')
-                option Select
+                option(value='') Select
                 option(value='0') Yes
                 option(value='1') No
           li.male.female
@@ -207,7 +209,7 @@ section#risk-calculator
             p.question-text Ask the patient: Is your complexion light, medium, or dark?
             .input
               select#complexion(name='complexion')
-                option Select
+                option(value='') Select
                 option(value='0') Light
                 option(value='1') Medium
                 option(value='2') Dark
@@ -220,7 +222,7 @@ section#risk-calculator
               | very brown and deeply tanned, moderately tanned, lightly tanned, or not tanned at all?
             .input
               select#tan(name='tan')
-                option Select
+                option(value='') Select
                 option(value='0') Very brown and deeply tanned
                 option(value='1') Moderately tanned
                 option(value='2') Lightly tanned
@@ -233,7 +235,7 @@ section#risk-calculator
               | How many moles larger than 5mm in diameter are on the patient's back?
             .input
               select#big-moles(name='big-moles')
-                option Select
+                option(value='') Select
                 option(value='0') Less than two
                 option(value='1') Two or more
           li.male.female
@@ -246,7 +248,7 @@ section#risk-calculator
                 | How many moles less than or equal to 5mm in diameter are on the patient's back?
             .input
               select#small-moles(name='small-moles')
-                option Select
+                option(value='') Select
                 option(value='0') Less than seven
                 option(value='1') Seven to seventeen
                 option(value='2') More than seventeen
@@ -259,7 +261,7 @@ section#risk-calculator
               | How extensive is the freckling on the patient's back and shoulders?
             .input
               select#freckling(name='freckling')
-                option Select
+                option(value='') Select
                 option(value='0') Absent
                 option(value='1') Mild
                 option(value='2') Moderate
@@ -275,7 +277,7 @@ section#risk-calculator
             p.question-text Does the patient have severe solar damage on the shoulders?
             .input
               select#damage(name='damage')
-                option Select
+                option(value='') Select
                 option(value='0') Yes
                 option(value='1') No
             .question-illustrations

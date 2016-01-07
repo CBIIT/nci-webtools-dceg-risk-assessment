@@ -33,7 +33,11 @@ ul.nav
     font-size .9em
     border-top 2px solid #BB0E3D
     padding-left 160px
+    // submenu's absolute positioning is now relative to the submenu allowing us to remove it from the flow without worrying about calculating its position on display
+    position relative
     li
+        // padding needs to happen on the header element to ensure we don't lose the submenu before we reach it0
+        padding 10px 15px !important
         &.ui-tabs-active
             background-color #ffffff !important
             a
@@ -41,12 +45,22 @@ ul.nav
                 text-decoration none
                 font-weight bold
         &.ui-state-hover a
-                text-decoration none
+            text-decoration none
         > a
-            padding 10px 15px !important
             color white
             &:hover
                 text-decoration underline
+        // reposition the subelement underneath the larger header. This breaks down literally as soon as there is a second line of headers, so mobile nav needs to start right around that point.
+        .link-text + ul
+            background #000
+            left 0px
+            padding-left 160px
+            position absolute
+            top 100%
+            width 100%
+        // by using :not we don't have to worry about what the original display value of the element is
+        &:not(:hover) > ul
+            display none
 
     &.horizontal-nav
         li
@@ -187,8 +201,10 @@ section
         input, select
             width 300px
             padding 10px
+            &.error
+              background #F00
         .no-css
-          display none
+            display none
 
         .question-num
             border-right 4px #606060 solid
@@ -283,6 +299,41 @@ section
     *
         font-size .9em
 
+#error
+    background #F00
+    border 5px solid #900
+    border-radius 10px
+    padding 30px
+#result
+    border 5px solid black
+    border-radius 10px
+    margin 0px auto
+    max-width 600px
+    padding 30px
+    h2
+        font-size 48px
+        margin 0px
+        text-align center
+    .chart
+        background #69F
+        font-size 0px
+        position relative
+        z-index 0
+        .bar
+            height 20%
+            left 0px
+            top 0px
+            position absolute
+            z-index -1
+            &.yours
+                background #300828
+            &.average
+                background red
+        img
+            width 5%
+.hide
+    display none
+        
 .hidden-anchor
     display none
 

@@ -16,12 +16,22 @@
     </header>
     <div id="content"><span id="top"></span>
       <ul class="nav horizontal-nav">
-        <li><a href="#about">
-            <div class="link-text">About</div></a></li>
         <li><a href="#risk-calculator">
             <div class="link-text">Risk Calculator</div></a></li>
         <li><a href="#cancer-risk">
             <div class="link-text">Melanoma Cancer Risk</div></a></li>
+        <li><a href="#about">
+            <div class="link-text">About</div></a></li>
+        <li>
+          <div class="link-text">Quick Links</div>
+          <ul>
+            <li><a target="_blank" href="http://www.cancer.gov/cancertopics/types/melanoma">Melanoma home page</a></li>
+            <li><a target="_blank" href="http://www.cancer.gov/cancertopics/wyntk/skin">What You Need To Know About Melanoma and Other Skin Cancers</a></li>
+            <li><a target="_blank" href="http://www.cancer.gov/cancertopics/factsheet/Risk/moles">Common Moles, Dysplastic Nevi, and Risk of Melanoma</a></li>
+            <li><a target="_blank" href="http://www.cancer.gov/Search/ClinicalTrialsLink.aspx?diagnosis=38833&amp;tt=4&amp;format=2">Current Clinical Trials: Melanoma Prevention</a></li>
+            <li><a target="_blank" href="http://www.cancer.gov/Search/ClinicalTrialslink.aspx?diagnosis=38833&amp;tt=1&amp;format=2">Current Clinical Trials: Melanoma Treatment</a></li>
+          </ul>
+        </li>
         <li><a href="#source-code">
             <div class="link-text">Source Code</div></a></li>
       </ul>
@@ -196,13 +206,15 @@
         </div>
         <div class="section-title"><span>Questions</span></div>
         <div class="section-content">
+          <div id="error" style="display:none;"></div>
+          <div id="result" class="hide"></div>
           <form id="survey" action="mratRest/calculate/" method="POST">
             <ul>
               <li>
-                <label for="region" class="question-num">1</label>
+                <label for="state" class="question-num">1</label>
                 <p class="question-text">In what state does the patient reside?</p>
                 <div class="input">
-                  <select id="state">
+                  <select id="state" name="state">
                     <option value="">Choose a State</option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
@@ -259,10 +271,10 @@
                 </div>
               </li>
               <li id="region_subquestion">
-                <label for="region" class="question-num">1a</label>
+                <label for="county" class="question-num">1a</label>
                 <p class="question-text">In what county in California does the patient reside?</p>
                 <div class="input">
-                  <select id="county">
+                  <select id="county" name="county">
                     <option value="">Select a County</option>
                     <option value="Alameda">Alameda</option>
                     <option value="Alpine">Alpine</option>
@@ -333,19 +345,19 @@
                     The answer to this question will determine what other questions are asked below.</em></p>
                 <div class="input">
                   <select id="gender" name="gender">
-                    <option>Select</option>
-                    <option>Male</option>
-                    <option>Female</option>
+                    <option value="">Select</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
                   </select>
                 </div>
               </li>
               <li>
                 <label for="race" class="question-num">3</label>
-                <p class="question-text">What is the patient's gender race?</p>
+                <p class="question-text">What is the patient's race?</p>
                 <div class="input">
                   <select id="race" name="race">
-                    <option>Select</option>
-                    <option value="0">Non-White Hispanic</option>
+                    <option value="">Select</option>
+                    <option value="0">Non-Hispanic White</option>
                     <option value="1">Other</option>
                   </select>
                 </div>
@@ -355,7 +367,7 @@
                 <p class="question-text">What is the patient's age?</p>
                 <div class="input">
                   <select id="age" name="age">
-                    <option>Select</option>
+                    <option value="">Select</option>
                     <option value="19">19 or younger</option>
                     <option>20</option>
                     <option>21</option>
@@ -417,7 +429,7 @@
                 <p class="question-text">Ask the patient: Did you ever get a blistering sunburn?</p>
                 <div class="input">
                   <select id="sunburn" name="sunburn">
-                    <option>Select</option>
+                    <option value="">Select</option>
                     <option value="0">Yes</option>
                     <option value="1">No</option>
                   </select>
@@ -428,7 +440,7 @@
                 <p class="question-text">Ask the patient: Is your complexion light, medium, or dark?</p>
                 <div class="input">
                   <select id="complexion" name="complexion">
-                    <option>Select</option>
+                    <option value="">Select</option>
                     <option value="0">Light</option>
                     <option value="1">Medium</option>
                     <option value="2">Dark</option>
@@ -443,7 +455,7 @@
                 </p>
                 <div class="input">
                   <select id="tan" name="tan">
-                    <option>Select</option>
+                    <option value="">Select</option>
                     <option value="0">Very brown and deeply tanned</option>
                     <option value="1">Moderately tanned</option>
                     <option value="2">Lightly tanned</option>
@@ -456,7 +468,7 @@
                 <p class="question-text">How many moles larger than 5mm in diameter are on the patient's back?</p>
                 <div class="input">
                   <select id="big-moles" name="big-moles">
-                    <option>Select</option>
+                    <option value="">Select</option>
                     <option value="0">Less than two</option>
                     <option value="1">Two or more</option>
                   </select>
@@ -467,7 +479,7 @@
                 <p class="question-text"><span>How many moles less than or equal to 5mm in diameter are on the patient's back?</span></p>
                 <div class="input">
                   <select id="small-moles" name="small-moles">
-                    <option>Select</option>
+                    <option value="">Select</option>
                     <option value="0">Less than seven</option>
                     <option value="1">Seven to seventeen</option>
                     <option value="2">More than seventeen</option>
@@ -479,7 +491,7 @@
                 <p class="question-text">How extensive is the freckling on the patient's back and shoulders?</p>
                 <div class="input">
                   <select id="freckling" name="freckling">
-                    <option>Select</option>
+                    <option value="">Select</option>
                     <option value="0">Absent</option>
                     <option value="1">Mild</option>
                     <option value="2">Moderate</option>
@@ -493,7 +505,7 @@
                 <p class="question-text">Does the patient have severe solar damage on the shoulders?</p>
                 <div class="input">
                   <select id="damage" name="damage">
-                    <option>Select</option>
+                    <option value="">Select</option>
                     <option value="0">Yes</option>
                     <option value="1">No</option>
                   </select>

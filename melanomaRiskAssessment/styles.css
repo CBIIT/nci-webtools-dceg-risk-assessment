@@ -39,6 +39,10 @@ ul.nav {
   font-size: 0.9em;
   border-top: 2px solid #bb0e3d;
   padding-left: 160px;
+  position: relative;
+}
+ul.nav li {
+  padding: 10px 15px !important;
 }
 ul.nav li.ui-tabs-active {
   background-color: #fff !important;
@@ -52,11 +56,21 @@ ul.nav li.ui-state-hover a {
   text-decoration: none;
 }
 ul.nav li > a {
-  padding: 10px 15px !important;
   color: #fff;
 }
 ul.nav li > a:hover {
   text-decoration: underline;
+}
+ul.nav li .link-text + ul {
+  background: #000;
+  left: 0px;
+  padding-left: 160px;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+}
+ul.nav li:not(:hover) > ul {
+  display: none;
 }
 ul.nav.horizontal-nav li {
   display: inline-block;
@@ -205,6 +219,10 @@ section form select {
   width: 300px;
   padding: 10px;
 }
+section form input.error,
+section form select.error {
+  background: #f00;
+}
 section form .no-css {
   display: none;
 }
@@ -315,6 +333,51 @@ section form #region_subquestion {
 }
 #reference * {
   font-size: 0.9em;
+}
+#error {
+  background: #f00;
+  border: 5px solid #900;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  padding: 30px;
+}
+#result {
+  border: 5px solid #000;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  margin: 0px auto;
+  max-width: 600px;
+  padding: 30px;
+}
+#result h2 {
+  font-size: 48px;
+  margin: 0px;
+  text-align: center;
+}
+#result .chart {
+  background: #69f;
+  font-size: 0px;
+  position: relative;
+  z-index: 0;
+}
+#result .chart .bar {
+  height: 20%;
+  left: 0px;
+  top: 0px;
+  position: absolute;
+  z-index: -1;
+}
+#result .chart .bar.yours {
+  background: #300828;
+}
+#result .chart .bar.average {
+  background: #f00;
+}
+#result .chart img {
+  width: 5%;
+}
+.hide {
+  display: none;
 }
 .hidden-anchor {
   display: none;

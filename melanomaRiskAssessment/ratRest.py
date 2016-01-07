@@ -1,65 +1,31 @@
 import math
 import os
 import sys
+
 from flask import Flask, Response, request, jsonify, send_from_directory
+from MratConstants import MratConstants
 
 app = Flask(__name__, static_folder="", static_url_path="")
 
 class RiskAssessmentTools:
-  # 1-Attribute
-  MRAT_SEX = [0.144,0.106]
-  MRAT_SUNBURN = [1.437,1]
-  MRAT_FEMALE_COMPLEXION = [1.802,1,1]
-  MRAT_MALE_COMPLEXION = [1.767,1,1]
-  MRAT_TAN = [1,1,1.926,1.926]
-  MRAT_BIG_MOLES = [1,2.412]
-  MRAT_FEMALE_SMALL_MOLES = [1,2.512,5.154]
-  MRAT_MALE_SMALL_MOLES = [1,1.935,4.630]
-  MRAT_FEMALE_FRECKLING = [2.174,3.856,3.856]
-  MRAT_MALE_FRECKLING = [1,1.830,1.830]
-  MRAT_DAMAGE = [2.803,1]
-  MRAT_INCIDENCE = [
-    [
-      [.0000360,.0000412,.0000449],
-      [.0000630,.0000719,.0000785],
-      [.0000996,.0001138,.0001242],
-      [.0001470,.0001679,.0001832],
-      [.0002057,.0002350,.0002564],
-      [.0002765,.0003158,.0003446],
-      [.0003597,.0004110,.0004484],
-      [.0004559,.0005208,.0005682],
-      [.0005651,.0006455,.0007043],
-      [.0006876,.0007855,.0008570],
-      [.0008235,.0009407,.0010264]
-    ], [
-      [.0000812,.0000884,.0000935],
-      [.0001145,.0001247,.0001318],
-      [.0001491,.0001623,.0001716],
-      [.0001835,.0001998,.0002112],
-      [.0002166,.0002358,.0002493],
-      [.0002475,.0002694,.0002848],
-      [.0002755,.0003000,.0003171],
-      [.0003004,.0003270,.0003457],
-      [.0003217,.0003502,.0003703],
-      [.0003395,.0003696,.0003908],
-      [.0003538,.0003851,.0004072]
-    ]
-  ]
-  MRAT_MORTALITY = [
-    [.0012286, .0012725, .0016132, .0020935, .0028355, .0040472, .0060814, .0097982, .0160096, .0249023, .0382402],
-    [.0004313, .0004940, .0006613, .0009686, .0014286, .0022175, .0035932, .0058877, .0095541, .0147873, .0231632]
-  ]
-
   @staticmethod
   def buildFailure(message):
-    response = jsonify(message=message, success=False)
+    if (isinstance(message,str)):
+      response = jsonify(message=message, errorType="message", success=False)
+    else:
+      message['success'] = False
+      response = jsonify(message)
     response.mimetype = 'application/json'
     response.status_code = 400
     return response
 
   @staticmethod
   def buildSuccess(message):
-    response = jsonify(message=message, success=True)
+    if (isinstance(message,str)):
+      response = jsonify(message=message, success=True)
+    else:
+      message['success'] = True
+      response = jsonify(message)
     response.mimetype = 'application/json'
     response.status_code = 200
     return response
@@ -71,9 +37,17 @@ class RiskAssessmentTools:
       parameters = dict(request.form)
       for field in parameters:
         parameters[field] = parameters[field][0]
-      requiredParameters = ['region','race','age']
-      missingParameters = []
-      nonnumericParameters = []
+      requiredParameters = ['race','age']
+      errorObject = {'missing':[],'nonnumeric':[]}
+      if parameters['state'] == '':
+        errorObject['missing'] += ['state']
+      elif isinstance(MratConstants.RegionIndex[parameters['state']],dict):
+        if parameters['county'] == '':
+          errorObject['missing'] += ['county']
+        else:
+          region = MratConstants.RegionIndex[parameters['state']][parameters['county']]
+      else:
+        region = MratConstants.RegionIndex[parameters['state']]
       if (parameters['gender'] == 'Male'):
         sex = 0
         requiredParameters += ['sunburn','complexion','big-moles','small-moles','freckling','damage']
@@ -81,46 +55,41 @@ class RiskAssessmentTools:
         sex = 1
         requiredParameters += ['complexion','tan','small-moles','freckling']
       else:
-        missingParameters += ['gender']
+        errorObject['missing'] += ['gender']
       for required in requiredParameters:
-        if required not in parameters or parameters[required] == "Select":
-          missingParameters.append(required)
+        if required not in parameters or parameters[required] == "":
+          errorObject['missing'].append(required)
         elif not parameters[required].isnumeric():
-          nonnumericParameters.append(required)
-      if len(missingParameters) > 0:
-        return RiskAssessmentTools.buildFailure(str(missingParameters))
-      if len(nonnumericParameters) > 0:
-        return RiskAssessmentTools.buildFailure(str(nonnumericParameters))
-      if not parameters['age'].isnumeric():
-        return RiskAssessmentTools.buildFailure("You have sent a non-numeric value for your age. That shouldn't be possible.")
-      age = int(parameters['age'])
-      if (age < 20 or age > 70):
-        return RiskAssessmentTools.buildFailure("This tool cannot be used to assess risk for those under the age of 20 or over the age of 70.")
-      if not parameters['region'].isnumeric():
-        return RiskAssessmentTools.buildFailure("You have sent a non-numeric value for your region. That shouldn't be possible.")
-      region = int(parameters['region'])
+          errorObject['nonnumeric'].append(required)
+      if 'age' not in errorObject['missing'] and 'age' not in errorObject['nonnumeric']:
+        age = int(parameters['age'])
+        if (age < 20 or age > 70):
+          errorObject['message'] = "This tool cannot be used to assess risk for those under the age of 20 or over the age of 70.";
+          return RiskAssessmentTools.buildFailure(errorObject)
+      if len(errorObject['missing']) > 0 or len(errorObject['nonnumeric']) > 0:
+        return RiskAssessmentTools.buildFailure(errorObject);
       r = 1
       if sex == 0:
-        r *= RiskAssessmentTools.MRAT_SUNBURN[int(parameters['sunburn'])]
-        r *= RiskAssessmentTools.MRAT_MALE_COMPLEXION[int(parameters['complexion'])]
-        r *= RiskAssessmentTools.MRAT_BIG_MOLES[int(parameters['big-moles'])]
-        r *= RiskAssessmentTools.MRAT_MALE_SMALL_MOLES[int(parameters['small-moles'])]
-        r *= RiskAssessmentTools.MRAT_MALE_FRECKLING[int(parameters['freckling'])]
-        r *= RiskAssessmentTools.MRAT_DAMAGE[int(parameters['damage'])]
+        r *= MratConstants.SUNBURN[int(parameters['sunburn'])]
+        r *= MratConstants.MALE_COMPLEXION[int(parameters['complexion'])]
+        r *= MratConstants.BIG_MOLES[int(parameters['big-moles'])]
+        r *= MratConstants.MALE_SMALL_MOLES[int(parameters['small-moles'])]
+        r *= MratConstants.MALE_FRECKLING[int(parameters['freckling'])]
+        r *= MratConstants.DAMAGE[int(parameters['damage'])]
       else:
-        r *= RiskAssessmentTools.MRAT_TAN[int(parameters['tan'])]
-        r *= RiskAssessmentTools.MRAT_FEMALE_COMPLEXION[int(parameters['complexion'])]
-        r *= RiskAssessmentTools.MRAT_FEMALE_SMALL_MOLES[int(parameters['small-moles'])]
-        r *= RiskAssessmentTools.MRAT_FEMALE_FRECKLING[int(parameters['freckling'])]
+        r *= MratConstants.TAN[int(parameters['tan'])]
+        r *= MratConstants.FEMALE_COMPLEXION[int(parameters['complexion'])]
+        r *= MratConstants.FEMALE_SMALL_MOLES[int(parameters['small-moles'])]
+        r *= MratConstants.FEMALE_FRECKLING[int(parameters['freckling'])]
       ageIndex = int((age-20)/5)
       t1 = ageIndex*5+20
       t2 = t1+5
-      h11 = RiskAssessmentTools.MRAT_SEX[sex]*RiskAssessmentTools.MRAT_INCIDENCE[sex][ageIndex][region]
-      h21 = RiskAssessmentTools.MRAT_MORTALITY[sex][ageIndex]
+      h11 = MratConstants.SEX[sex]*MratConstants.INCIDENCE[sex][ageIndex][region]
+      h21 = MratConstants.MORTALITY[sex][ageIndex]
       risk = h11*r*(1-math.exp((age-t2)*(h11*r+h21)))/(h11*r+h21)
       if age != t1:
-        h12 = RiskAssessmentTools.MRAT_SEX[sex]*RiskAssessmentTools.MRAT_INCIDENCE[sex][ageIndex+1][region]
-        h22 = RiskAssessmentTools.MRAT_MORTALITY[sex][ageIndex+1]
+        h12 = MratConstants.SEX[sex]*MratConstants.INCIDENCE[sex][ageIndex+1][region]
+        h22 = MratConstants.MORTALITY[sex][ageIndex+1]
         risk += h12*r*math.exp((age-t2)*(h11*r+h21))*(1-math.exp((t1-age)*(h12*r+h22)))/(h12*r+h22)
       risk = round(risk*10000)/100
       return RiskAssessmentTools.buildSuccess(str(risk))

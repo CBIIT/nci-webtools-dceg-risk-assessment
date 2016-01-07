@@ -57,10 +57,34 @@ function genderChange() {
     }
 }
 
-window.onload = genderChange();
-$(genderChange());
+function displayResult(result) {
+  var matches = Number(result).toExponential().toString().match(/(\d+)(?:.(\d+))?e([-+]?\d+)/i);
+  var estimate = matches[1];
+  var outOf = 2-Number(matches[3]);
+  if (matches[2] !== undefined) {
+    estimate += matches[2];
+    outOf += matches[2].length;
+  }
+  outOf = Number('1e'+outOf);
+  $('#result').append('<h2>'+result+'%</h2><p>Your risk of developing cancer in the next 5 years is '+result+'%. This means that roughly '+estimate+' in '+outOf+' people like you are likely to develop cancer in the next 5 years.').removeClass('hide');
+  graphResult($('#result').append('<div class="chart"></div>').children('.chart'),Number(result));
+}
 
-window.onsubmit = validate();
+function graphResult(element,result) {
+  for (var i = 0; i < 100; i++) {
+    $(element).append('<img src="images/person.svg"/>');
+  }
+  var fullBars = Math.floor(result/20);
+  var partialBar = (result-(20*fullBars))*5;
+  var top = 0;
+  for (var j = 0; j < fullBars; i++) {
+    $(element).prepend('<div class="bar yours" style="top:'+top+'%;width:100%;"></div>');
+    top += 20;
+  }
+  if (partialBar > 0) {
+    $(element).prepend('<div class="bar yours" style="top:'+top+'%;width:'+partialBar+'%;"></div>');
+  }
+}
 
 
 var validationRules = {
@@ -70,7 +94,7 @@ var validationRules = {
     county: {
         required: {
             depends: function(el) {
-
+                return $('#state').val() == 'CA';
             }
         }
     },
@@ -84,107 +108,120 @@ var validationRules = {
         required: true
     },
     sunburn: {
-        required:{
+        required: {
             depends: function(el) {
-
+                return $('#gender').val() == 'Male';
             }
         }
     },
     complexion: {
-        required:{
-            depends: function(el) {
-
-            }
-        }
-    },
-    tan: {
-        required:{
-            depends: function(el) {
-
-            }
-        }
+        required: true
     },
     "big-moles": {
-        required:{
+        required: {
             depends: function(el) {
-
+                return $('#gender').val() == 'Male';
             }
         }
     },
     "small-moles": {
-        required:{
+        required: true
+    },
+    tan: {
+        required: {
             depends: function(el) {
-
+                return $('#gender').val() == 'Female';
             }
         }
     },
     freckling: {
-        required:{
-            depends: function(el) {
-
-            }
-        }
+        required: true
     },
     damage: {
-        required:{
+        required: {
             depends: function(el) {
-
+                return $('#gender').val() == 'Male';
             }
         }
     }
-
 };
 var validationMessages = {
     state: {
-        required: "State is required"
+        required: "The state in which the patient resides must be selected."
     },
     county: {
-        required: "County is required"
+        required: "The county in which the patient resides must also be selected."
     },
     gender: {
-        required: "The patient's Gender is required"
+        required: "The patient's gender must be selected."
     },
     race: {
-        required: "The patient's Race is required"
+        required: "The patient's race must be selected."
     },
     age: {
-        required: "The patient's Age is required"
+        required: "The patient's age must be selected."
     },
     sunburn: {
-        required: "You must provide an answer to the sunburn question"
+        required: "Whether the patient has ever received a sunburn must be recorded."
     },
     complexion: {
-        required: "You must provide an answer to the complexion question"
-    },
-    tan: {
-        required: "You must provide an answer to the tanning question"
+        required: "The patient's complexion must be selected."
     },
     "big-moles": {
-        required: "You must answer question 'How many moles larger than 5mm in diameter are on the patient's back?'"
+        required: "The number of moles greater than 5mm in diameter on the patient's back must be selected."
     },
     "small-moles": {
-        required: "You must answer question 'How many moles less than or equal to 5mm in diameter are on the patient's back?'"
+        required: "The number of moles less than or equal to 5mm in diameter on the patient's back must be selected."
+    },
+    tan: {
+        required: "The level to which the patient presents a tan must be selected."
     },
     freckling: {
-        required: "You must answer question 'How extensive is the freckling on the patient's back and shoulders?'"
+        required: "The extent of the freckling on the patient's back must be selected."
     },
     damage: {
-        required: "You must answer question 'Does the patient have severe solar damage on the shoulders?'"
+        required: "Whether the patient has severe solar damage on their next and shoulders must be selected."
     }
-
 };
 function validate(){
     $(document.forms.survey).validate({
         rules: validationRules,
         messages: validationMessages,
-        errorPlacement: function(error, element) {
-        },
-        success: function(label) {
-        },
-        highlight: function(element, errorClass) {
-        },
+        errorLabelContainer: '#error',
+        wrapper: 'p',
         submitHandler: function(form) {
-            $(form).submit();
+            $('#error').empty().css('display','none');
+            $('#result').addClass('hide').empty();
+            $('.error').removeClass('error');
+            $.ajax({
+              url: form.action,
+              type: form.method,
+              data: new FormData(form),
+              processData: false,
+              contentType: false,
+              dataType: 'json'
+            }).done(function(data) {
+              if (data.success) {
+                displayResult(data.message);
+              } else {
+                var message = "";
+                if (data.message) {
+                  message += "<p>" + data.message + "</p>";
+                }
+                var index;
+                for (index in data.missing) {
+                  $('#'+data.missing[index]).addClass('error');
+                  message += "<p>The " + data.missing[index] + " question was not answered.</p>";
+                }
+                for (index in data.nonnumeric) {
+                  $('#'+data.nonnumeric[index]).addClass('error');
+                  message += "<p>The " + data.missing[index] + " question contained a nonnumeric answer.</p>";
+                }
+                $('#error').append(message).css('display','block');
+              }
+            }).fail(function(data) {
+              $('#error').append("<p>An unknown error occurred. Please consult the administrator.</p>");
+            });
         }
     });
 }
@@ -199,3 +236,7 @@ function regionFilter() {
         $("#county").val("");
     }
 }
+
+window.onload = genderChange();
+$(genderChange);
+$(validate);
