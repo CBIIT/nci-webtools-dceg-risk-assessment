@@ -26,10 +26,7 @@ header
 ul.nav
     width inherit
     margin 0 0 40px 0
-    //    background #D8E1E7
-    //    background linear-gradient(135deg, #fff 0%, #f2f6f8 7%, #d8e1e7 8%, #DBDEE0 7%, rgba(255, 255, 255, 0) 100%)
     background #636363
-    background linear-gradient(135deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%)
     font-size .9em
     border-top 2px solid #BB0E3D
     padding-left 160px
@@ -46,7 +43,7 @@ ul.nav
                 font-weight bold
         &.ui-state-hover a
             text-decoration none
-        > a
+        > a,.nav-link
             color white
             &:hover
                 text-decoration underline
@@ -207,7 +204,6 @@ section
             display none
 
         .question-num
-            border-right 4px #606060 solid
             color #606060
             padding 5px 0
             font-weight bold
@@ -226,13 +222,10 @@ section
         .question-illustrations
             padding-left 150px
             margin 1% auto
-            height 270px
             img
                 width 250px
                 height 270px
                 margin 1%
-                &:hover
-                    transform scale(1.6)
         #region_subquestion
             display none
 .section-content
@@ -333,7 +326,7 @@ section
             width 5%
 .hide
     display none
-        
+
 .hidden-anchor
     display none
 
@@ -377,5 +370,4 @@ section
     position fixed
     bottom 20px
     right 20px
-
 

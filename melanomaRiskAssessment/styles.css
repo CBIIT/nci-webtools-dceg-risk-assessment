@@ -31,11 +31,6 @@ ul.nav {
   width: inherit;
   margin: 0 0 40px 0;
   background: #636363;
-  background: -webkit-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
-  background: -moz-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
-  background: -o-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
-  background: -ms-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
-  background: linear-gradient(135deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
   font-size: 0.9em;
   border-top: 2px solid #bb0e3d;
   padding-left: 160px;
@@ -55,10 +50,12 @@ ul.nav li.ui-tabs-active a {
 ul.nav li.ui-state-hover a {
   text-decoration: none;
 }
-ul.nav li > a {
+ul.nav li > a,
+ul.nav li .nav-link {
   color: #fff;
 }
-ul.nav li > a:hover {
+ul.nav li > a:hover,
+ul.nav li .nav-link:hover {
   text-decoration: underline;
 }
 ul.nav li .link-text + ul {
@@ -149,9 +146,6 @@ hr {
   list-style: none;
   background: #fff;
 }
-#quicklinks ul li {
-  padding: 10px 0;
-}
 #quicklinks:hover {
   text-decoration: underline;
 }
@@ -227,7 +221,6 @@ section form .no-css {
   display: none;
 }
 section form .question-num {
-  border-right: 4px #606060 solid;
   color: #606060;
   padding: 5px 0;
   font-weight: bold;
@@ -249,19 +242,11 @@ section form em {
 section form .question-illustrations {
   padding-left: 150px;
   margin: 1% auto;
-  height: 270px;
 }
 section form .question-illustrations img {
   width: 250px;
   height: 270px;
   margin: 1%;
-}
-section form .question-illustrations img:hover {
-  -webkit-transform: scale(1.6);
-  -moz-transform: scale(1.6);
-  -o-transform: scale(1.6);
-  -ms-transform: scale(1.6);
-  transform: scale(1.6);
 }
 section form #region_subquestion {
   display: none;
@@ -449,7 +434,6 @@ section form #region_subquestion {
     padding-left: 0;
   }
   ul.nav {
-    background: transparent;
     padding: 0 !important;
     text-align: center;
   }
@@ -461,7 +445,6 @@ section form #region_subquestion {
   }
   ul.nav li a {
     padding: 8px !important;
-    color: #bb0e3d;
   }
   .section-description {
     width: 85%;
