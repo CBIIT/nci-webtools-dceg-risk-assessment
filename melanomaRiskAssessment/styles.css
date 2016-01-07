@@ -10,14 +10,21 @@ body {
 header {
   margin: 0;
   background: #f7f8f3;
+  min-width: 320px;
   width: 100%;
 }
-header img#nci-banner {
+header #nci-banner {
+  display: block;
+  max-height: 90px;
   max-width: 450px;
+  min-height: 52px;
   min-width: 30px;
-  height: 90px !important;
-  margin-bottom: -10px;
+  overflow: auto;
   padding-left: 60px;
+}
+header #nci-banner img {
+  position: relative;
+  top: 50%;
 }
 header #toolTitle {
   background: #2a71a5;
@@ -35,6 +42,14 @@ header #toolTitle #toolDescription {
   display: block;
   margin: 0 0 40px 0;
   min-height: 40px;
+}
+#menu-button {
+  display: none;
+  float: right;
+  height: 52px;
+  padding: 5px;
+  position: relative;
+  width: 60px;
 }
 [tab]:not(.active) {
   display: none;
@@ -56,13 +71,13 @@ ul.nav {
 }
 ul.nav li {
   display: inline-block;
-  padding: 10px 15px !important;
+  padding: 10px 15px;
 }
 ul.nav li.active {
-  background-color: #fff !important;
+  background-color: #fff;
 }
 ul.nav li.active a {
-  color: #000 !important;
+  color: #000;
   font-weight: bold;
 }
 ul.nav li a {
@@ -78,7 +93,6 @@ ul.nav li ul {
   background: #000;
   border: 0px;
   left: 0px;
-  padding-left: 160px;
   position: absolute;
   top: 100%;
 }
@@ -90,12 +104,12 @@ ul.nav.stick-nav-top {
   z-index: 10000;
 }
 #content {
-  margin: 0;
+  margin: 0px;
   background: #f7f8f3;
 }
 footer {
   color: #000;
-  padding: 1% 0;
+  padding: 5px 0px;
   clear: both;
   text-align: center;
   font-size: 0.9em;
@@ -103,7 +117,7 @@ footer {
 footer ul li {
   list-style: none;
   display: inline-block;
-  margin: 0 5px;
+  margin: 0px 5px;
 }
 footer ul li a {
   color: #000;
@@ -112,43 +126,14 @@ footer ul li a :hover {
   text-decoration: none;
 }
 dl {
-  padding: 0 60px;
+  padding: 0px 60px;
 }
 dl dt {
   font-weight: bold;
 }
 hr {
   width: 50%;
-  margin: 2% auto;
-}
-#quicklinks {
-  float: left;
-  width: 200px;
-  font-size: 0.9em;
-  margin: 1% 0 0 5%;
-}
-#quicklinks #quick-title {
-  padding: 2% 0;
-  text-align: center;
-  background: #606060;
-  color: #fff;
-  border: 1px ridge #606060;
-}
-#quicklinks ul {
-  list-style: none;
-  border: 1px ridge #606060;
-  margin: 0;
-  padding: 5px;
-}
-#quicklinks ul li {
   margin: 10px auto;
-}
-#quicklinks ul li a {
-  color: inherit;
-}
-#quicklinks ul li a:hover {
-  color: #bb0e3d;
-  text-decoration: none;
 }
 .minimize,
 .maximize {
@@ -156,8 +141,7 @@ hr {
   color: inherit;
 }
 section {
-  margin: 0 6% 6% 0;
-  width: 70%;
+  margin: 0px 0px 30px;
   float: right;
 }
 section form {
@@ -167,7 +151,7 @@ section form > ul {
   list-style: none;
 }
 section form li {
-  margin: 5px 0;
+  margin: 5px 0px;
   overflow: hidden;
 }
 section form li > label {
@@ -230,13 +214,13 @@ section form em {
 }
 section form .question-illustrations {
   padding-left: 150px;
-  margin: 1% auto;
+  margin: 5px auto;
   height: 270px;
 }
 section form .question-illustrations img {
   width: 250px;
   height: 270px;
-  margin: 1%;
+  margin: 5px;
 }
 section form .question-illustrations img:hover {
   -webkit-transform: scale(1.6);
@@ -252,7 +236,7 @@ section form #region_subquestion {
   padding: 0;
 }
 .section-title {
-  margin: 1% auto;
+  margin: 5px auto;
   font-weight: bold;
   padding: 5px 20px;
   background: #bb0e3d;
@@ -276,7 +260,7 @@ section form #region_subquestion {
 }
 .section-description {
   background: #f0ffff;
-  margin: 1% auto;
+  margin: 5px auto;
   padding: 10px;
   border: 1px solid;
   font-size: 0.9em;
@@ -284,7 +268,7 @@ section form #region_subquestion {
 .about-question-title {
   border-left: 2px solid #2a71a5;
   padding-left: 5px;
-  margin: 1% auto;
+  margin: 5px auto;
 }
 .termToDefine {
   font-style: italic;
@@ -294,21 +278,21 @@ section form #region_subquestion {
   font-size: initial;
 }
 .section-anchors {
-  margin: 0 auto;
-  padding: 0;
+  margin: 0px auto;
+  padding: 0px;
   text-align: center;
 }
 .section-anchors li {
   display: inline;
   list-style: none;
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
 }
 .spacer {
   border-left: 2px solid;
   border-color: inherit;
   display: inline;
-  margin: 0 10px;
+  margin: 0px 10px;
 }
 #reference {
   width: 300px;
@@ -365,12 +349,12 @@ section form #region_subquestion {
   display: none;
 }
 .ui-helper-hidden-accessible {
-  border: 0;
+  border: 0px;
   clip: rect(0 0 0 0);
   height: 1px;
   margin: -1px;
   overflow: hidden;
-  padding: 0;
+  padding: 0px;
   position: absolute;
   width: 1px;
 }
@@ -379,8 +363,8 @@ section form #region_subquestion {
   background: #8c9c9a;
   font-weight: bold;
   color: #fff;
-  -webkit-border-radius: 10px 10px 0 0;
-  border-radius: 10px 10px 0 0;
+  -webkit-border-radius: 10px 10px 0px 0px;
+  border-radius: 10px 10px 0px 0px;
   text-decoration: underline;
 }
 .default-tooltip-content {
@@ -402,18 +386,15 @@ section form #region_subquestion {
   -webkit-border-radius: 25px;
   border-radius: 25px;
   text-align: center;
-  padding: 5px 0;
+  padding: 5px 0px;
   position: fixed;
   bottom: 20px;
   right: 20px;
 }
 
 @media (max-width: 768px) {
-  img#nci-banner {
-    width: 90%;
-    height: 55px !important;
-    padding-left: 5% !important;
-    height: 90px !important;
+  #nci-banner {
+    padding-left: 25px;
   }
   #toolTitle,
   #quick-title,
@@ -424,32 +405,48 @@ section form #region_subquestion {
     display: inline-block;
   }
   .menu-title {
-    padding: 1% 0;
+    padding: 5px 0px;
     display: block;
     background-color: rgba(220,222,224,0.5);
     color: #fff;
     padding-left: 0;
   }
+  #top {
+    margin: 0px;
+    min-height: 0px;
+  }
+  #menu-button {
+    display: block;
+  }
   ul.nav {
     background: transparent;
-    padding: 0 !important;
+    padding: 0px;
     text-align: center;
+  }
+  ul.nav:not(.show) {
+    display: none;
   }
   ul.nav.stick-nav-top {
     position: inherit;
   }
   ul.nav li {
     display: block;
+    padding: 8px;
   }
   ul.nav li:first-child {
-    margin: 0;
+    margin: 0px;
   }
   ul.nav li a {
-    padding: 8px !important;
     color: #bb0e3d;
+  }
+  ul.nav li:not(:hover) > ul {
+    display: block;
   }
   ul.nav li ul {
     position: static;
+  }
+  ul.nav li ul:not(.show) {
+    display: none;
   }
   .section-description {
     width: 85%;
@@ -457,29 +454,27 @@ section form #region_subquestion {
   .section-title {
     overflow: auto;
   }
-  section,
-  #quicklinks {
-    margin: 0;
-    width: 100% !important;
+  section {
+    margin: 0px;
   }
   footer {
-    margin: 5% 0 !important;
+    margin: 25px 0px;
   }
   .minimize,
   .maximize {
-    display: inline-block !important;
+    display: inline-block;
   }
   .question-illustration {
-    padding-left: 0;
+    padding-left: 0px;
   }
 }
-@media (max-width: 990px) {
+@media (min-width: 769px) and (max-width: 990px) {
   header {
     position: relative;
   }
   #toolTitle {
     text-align: center;
-    padding: 1% !important;
+    padding: 5px;
   }
   dl {
     padding: 0;
@@ -487,21 +482,15 @@ section form #region_subquestion {
   .spacer {
     display: block;
   }
-  #quicklinks {
-    width: 25%;
-  }
-  section {
-    width: 65%;
-  }
   .section-anchors li,
   footer li {
     padding: 5px 0;
   }
   form li {
-    margin: 2% auto;
+    margin: 10px auto;
   }
   form li .input {
-    width: 100% !important;
+    width: 100%;
     margin: 10px auto;
   }
   form .question-text {
@@ -512,21 +501,15 @@ section form #region_subquestion {
     display: inherit;
     margin: 0 auto;
     width: 50%;
-    float: none !important;
+    float: none;
   }
 }
-@media (max-width: 1300px) {
+@media (min-width: 991px) and (max-width: 1300px) {
   .nav {
-    margin: 0 !important;
+    margin: 0;
   }
-  .nav li a {
-    padding: 5px !important;
-  }
-  #quicklinks {
-    width: 20%;
-  }
-  section {
-    width: 65%;
+  .nav li {
+    padding: 5px;
   }
   .section-title * {
     width: 45%;

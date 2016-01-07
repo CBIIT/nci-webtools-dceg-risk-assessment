@@ -19,6 +19,17 @@ $(function(){
         $('[tabTo="'+this.name+'"]').trigger('click');
     });
 
+    $('#menu-button').on('click',function() {
+        $('#main-nav').toggleClass('show');
+    });
+    
+    $('#main-nav a').on('click',function() {
+        var naxtNav = $(this).next('ul.nav');
+        if (naxtNav.length > 0) {
+            naxtNav.toggleClass('show');
+        }
+    });
+
     var currentHash = window.location.hash;
     if (currentHash.length > 0) {
       $('[tabTo] a[href="'+window.location.hash+'"]').parent().click();
