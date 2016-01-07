@@ -1,6 +1,7 @@
 body {
   margin: 0;
   font-family: sans-serif, Helvetica, Calibri, Arial Rounded MT Bold;
+  background: #f7f8f3;
 }
 header {
   margin: 0;
@@ -91,7 +92,6 @@ ul.nav.stick-nav-top {
 }
 #content {
   margin: 0;
-  background: #f7f8f3;
 }
 footer {
   color: #000;
@@ -122,32 +122,36 @@ hr {
   margin: 2% auto;
 }
 #quicklinks {
-  float: left;
-  width: 200px;
   font-size: 0.9em;
-  margin: 1% 0 0 5%;
-}
-#quicklinks #quick-title {
-  padding: 2% 0;
-  text-align: center;
-  background: #606060;
   color: #fff;
-  border: 1px ridge #606060;
+  position: absolute;
+  left: 670px;
+  top: 132px;
 }
 #quicklinks ul {
-  list-style: none;
-  border: 1px ridge #606060;
   margin: 0;
-  padding: 5px;
+  padding: 10px 0;
+  display: none;
+  list-style: none;
+  background: #fff;
 }
 #quicklinks ul li {
-  margin: 10px auto;
+  padding: 10px 0;
 }
-#quicklinks ul li a {
+#quicklinks:hover {
+  text-decoration: underline;
+}
+#quicklinks:hover ul {
+  font-size: 0.9em;
+  font-weight: normal;
+  display: block;
+  background: #fff;
+  color: #000;
+}
+#quicklinks:hover ul li a {
   color: inherit;
 }
-#quicklinks ul li a:hover {
-  color: #bb0e3d;
+#quicklinks:hover ul li a:hover {
   text-decoration: none;
 }
 .minimize,

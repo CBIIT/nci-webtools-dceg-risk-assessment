@@ -1,6 +1,7 @@
 body
     margin 0
     font-family sans-serif,  Helvetica, Calibri, Arial Rounded MT Bold
+    background #F7F8F3
 
 header
     margin 0
@@ -76,7 +77,6 @@ ul.nav
 
 #content
     margin 0
-    background #F7F8F3
 
 footer
     color black
@@ -102,29 +102,53 @@ hr
     margin 2% auto
 
 #quicklinks
-    float left
-    width 200px
     font-size 0.9em
-    margin 1% 0 0 5%
-    #quick-title
-        padding 2% 0
-        text-align center
-        background #606060
-        color #FFFFFF
-        border 1px ridge #606060
-
+    color white
+    position absolute
+    left 670px
+    top 132px
     ul
-        list-style none
-        border 1px ridge #606060
         margin 0
-        padding 5px
-        li
-            margin 10px auto
-            a
+        padding 10px 0
+        display none
+        list-style none
+        background white
+    &:hover
+        text-decoration underline
+        ul
+            font-size 0.9em
+            font-weight normal
+            display block
+            background white
+            color black
+            li a
                 color inherit
                 &:hover
-                    color #BB0E3D
                     text-decoration none
+//#quicklinks
+//    float left
+//    width 200px
+//    font-size 0.9em
+//    margin 1% 0 0 5%
+//    #quick-title
+//        padding 2% 0
+//        text-align center
+//        background #606060
+//        color #FFFFFF
+//        border 1px ridge #606060
+//
+//    ul
+//        list-style none
+//        border 1px ridge #606060
+//        margin 0
+//        padding 5px
+//        li
+//            margin 10px auto
+//            a
+//                color inherit
+//                &:hover
+//                    color #BB0E3D
+//                    text-decoration none
 
 .minimize,.maximize
     display none
