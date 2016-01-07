@@ -22,7 +22,8 @@ header
             font-weight bold
         #toolDescription
             font-style italic
-
+[tab]:not(.active)
+    display none
 ul.nav
     background #636363
     background linear-gradient(135deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%)
@@ -36,7 +37,7 @@ ul.nav
         display inline-block
         // padding needs to happen on the header element to ensure we don't lose the submenu before we reach it0
         padding 10px 15px !important
-        &.ui-tabs-active
+        &.active
             background-color #ffffff !important
             a
                 color black !important
