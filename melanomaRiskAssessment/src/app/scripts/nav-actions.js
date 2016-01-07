@@ -19,7 +19,12 @@ $(function(){
         $('[tabTo="'+this.name+'"]').trigger('click');
     });
 
-    $('[tabTo] a[href="'+window.location.hash+'"]').parent().click();
+    var currentHash = window.location.hash;
+    if (currentHash.length > 0) {
+      $('[tabTo] a[href="'+window.location.hash+'"]').parent().click();
+    } else {
+      $('[tabTo]:first-child').first().click();
+    }
 
     $(window).scroll(fixedToTop);
     fixedToTop();
