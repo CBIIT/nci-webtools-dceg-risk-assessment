@@ -36,6 +36,9 @@ header #toolTitle #toolDescription {
   margin: 0 0 40px 0;
   min-height: 40px;
 }
+[tab]:not(.active) {
+  display: none;
+}
 ul.nav {
   background: #636363;
   background: -webkit-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
@@ -55,10 +58,10 @@ ul.nav li {
   display: inline-block;
   padding: 10px 15px !important;
 }
-ul.nav li.ui-tabs-active {
+ul.nav li.active {
   background-color: #fff !important;
 }
-ul.nav li.ui-tabs-active a {
+ul.nav li.active a {
   color: #000 !important;
   font-weight: bold;
 }
