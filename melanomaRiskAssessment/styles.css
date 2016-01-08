@@ -23,8 +23,7 @@ header #nci-banner {
   padding-left: 60px;
 }
 header #nci-banner img {
-  position: relative;
-  top: 50%;
+  display: block;
 }
 header #toolTitle {
   background: #2a71a5;
@@ -443,6 +442,8 @@ section form #region_subquestion {
     display: block;
   }
   ul.nav li ul {
+    background: transparent;
+    margin: 10px 0px -5px;
     position: static;
   }
   ul.nav li ul:not(.show) {
