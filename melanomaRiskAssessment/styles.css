@@ -6,12 +6,15 @@
 body {
   margin: 0;
   font-family: sans-serif, Helvetica, Calibri, Arial Rounded MT Bold;
+  background: #f7f8f3;
 }
 header {
   margin: 0;
-  background: #f7f8f3;
   min-width: 320px;
   width: 100%;
+}
+header img {
+  width: auto;
 }
 header #nci-banner {
   display: block;
@@ -146,33 +149,31 @@ section {
 section form {
   display: block;
 }
-section form > ul {
-  list-style: none;
+section form ol {
+  list-style: decimal;
+  padding: 0;
 }
-section form li {
-  margin: 5px 0px;
-  overflow: hidden;
-}
-section form li > label {
+section form ol li {
   display: inline-block;
-  float: left;
-  width: 40px;
+  margin: 5px;
+  padding: 1%;
+  width: 45%;
+  max-width: 100%;
+  vertical-align: top;
+  border: 2px solid #2a71a5;
+  background: #fff;
 }
-section form li > p {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+section form ol li ol {
+  list-style: lower-alpha;
+}
+section form ol li .question > label {
   display: inline-block;
-  float: left;
-  margin: 0px -13em 0px -5em;
-  padding: 5px 13em 5px 5em;
-  width: 100%;
 }
-section form li > .input {
+section form ol li .question > p {
   display: inline-block;
-  width: 13em;
 }
-section form li > .input select {
+section form ol li .question select,
+section form ol li .question input {
   width: 100%;
 }
 section form .female:not(.show),
@@ -181,12 +182,11 @@ section form .male:not(.show) {
 }
 section form input,
 section form select {
-  width: 300px;
   padding: 10px;
 }
 section form input.error,
 section form select.error {
-  background: #f00;
+  border: 2px solid #fc7878;
 }
 section form .no-css {
   display: none;
@@ -194,14 +194,11 @@ section form .no-css {
 section form .question-num {
   border-right: 4px #606060 solid;
   color: #606060;
-  padding: 5px 0;
   font-weight: bold;
   text-align: center;
 }
 section form .question-text {
-  font-size: 1.1em;
   font-family: "Calibri", "sans-serif", "Arial";
-  text-indent: 15px;
 }
 section form button {
   float: right;
@@ -212,24 +209,30 @@ section form em {
   font-size: 0.8em;
 }
 section form .question-illustrations {
-  padding-left: 150px;
-  margin: 5px auto;
-  height: 270px;
+  width: 100%;
+  margin: 0 auto;
+  background: #fff;
+  text-align: center;
 }
 section form .question-illustrations img {
-  width: 250px;
-  height: 270px;
-  margin: 5px;
+  width: 30%;
+  margin: 10px 0;
+  vertical-align: top;
 }
 section form .question-illustrations img:hover {
-  -webkit-transform: scale(1.6);
-  -moz-transform: scale(1.6);
-  -o-transform: scale(1.6);
-  -ms-transform: scale(1.6);
-  transform: scale(1.6);
+  -webkit-transform: scale(2.5);
+  -moz-transform: scale(2.5);
+  -o-transform: scale(2.5);
+  -ms-transform: scale(2.5);
+  transform: scale(2.5);
 }
 section form #region_subquestion {
   display: none;
+  border: none;
+  list-style: none;
+  width: inherit;
+  padding: 0;
+  margin: 0;
 }
 .section-content {
   padding: 0;
@@ -300,8 +303,8 @@ section form #region_subquestion {
   font-size: 0.9em;
 }
 #error {
-  background: #f00;
-  border: 5px solid #900;
+  background: #fc7878;
+  border: 5px solid #a95f5f;
   -webkit-border-radius: 10px;
   border-radius: 10px;
   padding: 30px;

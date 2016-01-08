@@ -3,11 +3,13 @@
 body
     margin 0
     font-family sans-serif,  Helvetica, Calibri, Arial Rounded MT Bold
+    background #f7f8f3
 header
     margin 0
-    background #f7f8f3
     min-width 320px
     width 100%
+    img
+        width auto
     #nci-banner
         display block
         max-height 90px
@@ -117,49 +119,46 @@ section
     float right
     form
         display block
-        > ul
-            list-style none
-        li
-            margin 5px 0px
-            overflow hidden
-            > label
+        ol
+            list-style decimal
+            padding 0
+            li
                 display inline-block
-                float left
-                width 40px
-            > p
-                box-sizing border-box
-                display inline-block
-                float left
-                margin 0px -13em 0px -5em
-                padding 5px 13em 5px 5em
-                width 100%
-            > .input
-                display inline-block
-                width 13em
-                select
-                    width 100%
+                margin 5px
+                padding 1%
+                width 45%
+                max-width 100%
+                vertical-align top
+                border 2px solid #2A71A5
+                background #fff
+                ol
+                    list-style lower-alpha
+                .question
+                    > label
+                        display inline-block
+                    > p
+                        display inline-block
+                    select, input
+                        width 100%
         .female, .male
             &:not(.show)
                 display none
+
         input, select
-            width 300px
             padding 10px
             &.error
-              background #F00
+                border 2px solid #FC7878
         .no-css
             display none
 
         .question-num
             border-right 4px #606060 solid
             color #606060
-            padding 5px 0
             font-weight bold
             text-align center
 
         .question-text
-            font-size 1.1em
             font-family "Calibri", "sans-serif", "Arial"
-            text-indent 15px
         button
             float right
             padding 8px 60px
@@ -167,17 +166,23 @@ section
         em
             font-size 0.8em
         .question-illustrations
-            padding-left 150px
-            margin 5px auto
-            height 270px
+            width 100%
+            margin 0 auto
+            background #fff
+            text-align center
             img
-                width 250px
-                height 270px
-                margin 5px
+                width 30%
+                margin 10px 0
+                vertical-align top
                 &:hover
-                    transform scale(1.6)
+                    transform scale(2.5)
         #region_subquestion
             display none
+            border none
+            list-style none
+            width inherit
+            padding 0
+            margin 0
 .section-content
     padding 0
 
@@ -243,8 +248,8 @@ section
         font-size .9em
 
 #error
-    background #F00
-    border 5px solid #900
+    background #FC7878
+    border 5px solid #A95F5F
     border-radius 10px
     padding 30px
 #result
