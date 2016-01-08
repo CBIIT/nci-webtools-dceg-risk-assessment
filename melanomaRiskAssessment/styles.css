@@ -1,19 +1,30 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 body {
   margin: 0;
   font-family: sans-serif, Helvetica, Calibri, Arial Rounded MT Bold;
-  background: #f7f8f3;
 }
 header {
   margin: 0;
   background: #f7f8f3;
+  min-width: 320px;
   width: 100%;
 }
-header img#nci-banner {
+header #nci-banner {
+  display: block;
+  max-height: 90px;
   max-width: 450px;
+  min-height: 52px;
   min-width: 30px;
-  height: 90px !important;
-  margin-bottom: -10px;
+  overflow: auto;
   padding-left: 60px;
+}
+header #nci-banner img {
+  position: relative;
+  top: 50%;
 }
 header #toolTitle {
   background: #2a71a5;
@@ -27,86 +38,78 @@ header #toolTitle #toolName {
 header #toolTitle #toolDescription {
   font-style: italic;
 }
-ul.nav {
-  width: inherit;
+#top {
+  display: block;
   margin: 0 0 40px 0;
+  min-height: 40px;
+}
+#menu-button {
+  display: none;
+  float: right;
+  height: 52px;
+  padding: 5px;
+  position: relative;
+  width: 60px;
+}
+[tab]:not(.active) {
+  display: none;
+}
+ul.nav {
   background: #636363;
-  font-size: 0.9em;
+  background: -webkit-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
+  background: -moz-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
+  background: -o-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
+  background: -ms-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
+  background: linear-gradient(135deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
   border-top: 2px solid #bb0e3d;
+  font-size: 0.9em;
+  margin: 0px;
   padding-left: 160px;
   position: relative;
+  top: 0;
+  width: 100%;
 }
 ul.nav li {
-  padding: 10px 15px !important;
+  display: inline-block;
+  padding: 10px 15px;
 }
-ul.nav li.ui-tabs-active {
-  background-color: #fff !important;
+ul.nav li.active {
+  background-color: #fff;
 }
-ul.nav li.ui-tabs-active a {
-  color: #000 !important;
-  text-decoration: none;
+ul.nav li.active a {
+  color: #000;
   font-weight: bold;
 }
-ul.nav li.ui-state-hover a {
+ul.nav li a {
+  color: #fff;
+  display: inline-block;
+  text-align: center;
   text-decoration: none;
 }
-ul.nav li > a,
-ul.nav li .nav-link {
-  color: #fff;
-}
-ul.nav li > a:hover,
-ul.nav li .nav-link:hover {
+ul.nav li a:hover {
   text-decoration: underline;
 }
-ul.nav li .link-text + ul {
+ul.nav li ul {
   background: #000;
+  border: 0px;
   left: 0px;
-  padding-left: 160px;
   position: absolute;
   top: 100%;
-  width: 100%;
 }
 ul.nav li:not(:hover) > ul {
   display: none;
 }
-ul.nav.horizontal-nav li {
-  display: inline-block;
-}
-ul.nav.horizontal-nav a {
-  text-decoration: none;
-  display: inline-block;
-  text-align: center;
-}
-ul.nav.horizontal-nav ul {
-  list-style-type: none;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-}
-ul.nav.horizontal-nav ul li {
-  float: left;
-}
-ul.nav.horizontal-nav ul li :hover > ul {
-  display: block;
-}
-ul.nav.horizontal-nav ul li a {
-  padding: 15px;
-}
-ul.nav.horizontal-nav ul ul {
-  display: none;
-}
 ul.nav.stick-nav-top {
-  width: 100%;
   position: fixed;
-  top: 0;
   z-index: 10000;
 }
 #content {
-  margin: 0;
+  margin: 0px;
+  background: #f7f8f3;
 }
 footer {
   color: #000;
-  padding: 1% 0;
+  padding: 5px 0px;
   clear: both;
   text-align: center;
   font-size: 0.9em;
@@ -114,7 +117,7 @@ footer {
 footer ul li {
   list-style: none;
   display: inline-block;
-  margin: 0 5px;
+  margin: 0px 5px;
 }
 footer ul li a {
   color: #000;
@@ -123,44 +126,14 @@ footer ul li a :hover {
   text-decoration: none;
 }
 dl {
-  padding: 0 60px;
+  padding: 0px 60px;
 }
 dl dt {
   font-weight: bold;
 }
 hr {
   width: 50%;
-  margin: 2% auto;
-}
-#quicklinks {
-  font-size: 0.9em;
-  color: #fff;
-  position: absolute;
-  left: 670px;
-  top: 132px;
-}
-#quicklinks ul {
-  margin: 0;
-  padding: 10px 0;
-  display: none;
-  list-style: none;
-  background: #fff;
-}
-#quicklinks:hover {
-  text-decoration: underline;
-}
-#quicklinks:hover ul {
-  font-size: 0.9em;
-  font-weight: normal;
-  display: block;
-  background: #fff;
-  color: #000;
-}
-#quicklinks:hover ul li a {
-  color: inherit;
-}
-#quicklinks:hover ul li a:hover {
-  text-decoration: none;
+  margin: 10px auto;
 }
 .minimize,
 .maximize {
@@ -168,8 +141,7 @@ hr {
   color: inherit;
 }
 section {
-  margin: 0 6% 6% 0;
-  width: 70%;
+  margin: 0px 0px 30px;
   float: right;
 }
 section form {
@@ -179,7 +151,7 @@ section form > ul {
   list-style: none;
 }
 section form li {
-  margin: 5px 0;
+  margin: 5px 0px;
   overflow: hidden;
 }
 section form li > label {
@@ -221,6 +193,7 @@ section form .no-css {
   display: none;
 }
 section form .question-num {
+  border-right: 4px #606060 solid;
   color: #606060;
   padding: 5px 0;
   font-weight: bold;
@@ -241,12 +214,20 @@ section form em {
 }
 section form .question-illustrations {
   padding-left: 150px;
-  margin: 1% auto;
+  margin: 5px auto;
+  height: 270px;
 }
 section form .question-illustrations img {
   width: 250px;
   height: 270px;
-  margin: 1%;
+  margin: 5px;
+}
+section form .question-illustrations img:hover {
+  -webkit-transform: scale(1.6);
+  -moz-transform: scale(1.6);
+  -o-transform: scale(1.6);
+  -ms-transform: scale(1.6);
+  transform: scale(1.6);
 }
 section form #region_subquestion {
   display: none;
@@ -255,7 +236,7 @@ section form #region_subquestion {
   padding: 0;
 }
 .section-title {
-  margin: 1% auto;
+  margin: 5px auto;
   font-weight: bold;
   padding: 5px 20px;
   background: #bb0e3d;
@@ -279,7 +260,7 @@ section form #region_subquestion {
 }
 .section-description {
   background: #f0ffff;
-  margin: 1% auto;
+  margin: 5px auto;
   padding: 10px;
   border: 1px solid;
   font-size: 0.9em;
@@ -287,7 +268,7 @@ section form #region_subquestion {
 .about-question-title {
   border-left: 2px solid #2a71a5;
   padding-left: 5px;
-  margin: 1% auto;
+  margin: 5px auto;
 }
 .termToDefine {
   font-style: italic;
@@ -297,21 +278,21 @@ section form #region_subquestion {
   font-size: initial;
 }
 .section-anchors {
-  margin: 0 auto;
-  padding: 0;
+  margin: 0px auto;
+  padding: 0px;
   text-align: center;
 }
 .section-anchors li {
   display: inline;
   list-style: none;
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
 }
 .spacer {
   border-left: 2px solid;
   border-color: inherit;
   display: inline;
-  margin: 0 10px;
+  margin: 0px 10px;
 }
 #reference {
   width: 300px;
@@ -368,12 +349,12 @@ section form #region_subquestion {
   display: none;
 }
 .ui-helper-hidden-accessible {
-  border: 0;
+  border: 0px;
   clip: rect(0 0 0 0);
   height: 1px;
   margin: -1px;
   overflow: hidden;
-  padding: 0;
+  padding: 0px;
   position: absolute;
   width: 1px;
 }
@@ -382,8 +363,8 @@ section form #region_subquestion {
   background: #8c9c9a;
   font-weight: bold;
   color: #fff;
-  -webkit-border-radius: 10px 10px 0 0;
-  border-radius: 10px 10px 0 0;
+  -webkit-border-radius: 10px 10px 0px 0px;
+  border-radius: 10px 10px 0px 0px;
   text-decoration: underline;
 }
 .default-tooltip-content {
@@ -405,18 +386,15 @@ section form #region_subquestion {
   -webkit-border-radius: 25px;
   border-radius: 25px;
   text-align: center;
-  padding: 5px 0;
+  padding: 5px 0px;
   position: fixed;
   bottom: 20px;
   right: 20px;
 }
 
 @media (max-width: 768px) {
-  img#nci-banner {
-    width: 90%;
-    height: 55px !important;
-    padding-left: 5% !important;
-    height: 90px !important;
+  #nci-banner {
+    padding-left: 25px;
   }
   #toolTitle,
   #quick-title,
@@ -427,24 +405,48 @@ section form #region_subquestion {
     display: inline-block;
   }
   .menu-title {
-    padding: 1% 0;
+    padding: 5px 0px;
     display: block;
     background-color: rgba(220,222,224,0.5);
     color: #fff;
     padding-left: 0;
   }
+  #top {
+    margin: 0px;
+    min-height: 0px;
+  }
+  #menu-button {
+    display: block;
+  }
   ul.nav {
-    padding: 0 !important;
+    background: transparent;
+    padding: 0px;
     text-align: center;
+  }
+  ul.nav:not(.show) {
+    display: none;
   }
   ul.nav.stick-nav-top {
     position: inherit;
   }
+  ul.nav li {
+    display: block;
+    padding: 8px;
+  }
   ul.nav li:first-child {
-    margin: 0;
+    margin: 0px;
   }
   ul.nav li a {
-    padding: 8px !important;
+    color: #bb0e3d;
+  }
+  ul.nav li:not(:hover) > ul {
+    display: block;
+  }
+  ul.nav li ul {
+    position: static;
+  }
+  ul.nav li ul:not(.show) {
+    display: none;
   }
   .section-description {
     width: 85%;
@@ -452,29 +454,27 @@ section form #region_subquestion {
   .section-title {
     overflow: auto;
   }
-  section,
-  #quicklinks {
-    margin: 0;
-    width: 100% !important;
+  section {
+    margin: 0px;
   }
   footer {
-    margin: 5% 0 !important;
+    margin: 25px 0px;
   }
   .minimize,
   .maximize {
-    display: inline-block !important;
+    display: inline-block;
   }
   .question-illustration {
-    padding-left: 0;
+    padding-left: 0px;
   }
 }
-@media (max-width: 990px) {
+@media (min-width: 769px) and (max-width: 990px) {
   header {
     position: relative;
   }
   #toolTitle {
     text-align: center;
-    padding: 1% !important;
+    padding: 5px;
   }
   dl {
     padding: 0;
@@ -482,21 +482,15 @@ section form #region_subquestion {
   .spacer {
     display: block;
   }
-  #quicklinks {
-    width: 25%;
-  }
-  section {
-    width: 65%;
-  }
   .section-anchors li,
   footer li {
     padding: 5px 0;
   }
   form li {
-    margin: 2% auto;
+    margin: 10px auto;
   }
   form li .input {
-    width: 100% !important;
+    width: 100%;
     margin: 10px auto;
   }
   form .question-text {
@@ -507,21 +501,15 @@ section form #region_subquestion {
     display: inherit;
     margin: 0 auto;
     width: 50%;
-    float: none !important;
+    float: none;
   }
 }
-@media (max-width: 1300px) {
+@media (min-width: 991px) and (max-width: 1300px) {
   .nav {
-    margin: 0 !important;
+    margin: 0;
   }
-  .nav li a {
-    padding: 5px !important;
-  }
-  #quicklinks {
-    width: 20%;
-  }
-  section {
-    width: 65%;
+  .nav li {
+    padding: 5px;
   }
   .section-title * {
     width: 45%;

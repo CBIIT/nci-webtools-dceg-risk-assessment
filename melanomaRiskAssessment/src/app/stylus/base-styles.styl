@@ -1,18 +1,24 @@
+*
+  box-sizing border-box
 body
     margin 0
     font-family sans-serif,  Helvetica, Calibri, Arial Rounded MT Bold
-    background #F7F8F3
-
 header
     margin 0
     background #f7f8f3
+    min-width 320px
     width 100%
-    img#nci-banner
+    #nci-banner
+        display block
+        max-height 90px
         max-width 450px
+        min-height 52px
         min-width 30px
-        height 90px !important
-        margin-bottom -10px
+        overflow auto
         padding-left 60px
+        img
+            position relative
+            top 50%
     #toolTitle
         background #2A71A5
         color white
@@ -22,159 +28,100 @@ header
             font-weight bold
         #toolDescription
             font-style italic
-
-ul.nav
-    width inherit
+#top
+    display block
     margin 0 0 40px 0
+    min-height 40px
+#menu-button
+    display none
+    float right
+    height 52px
+    padding 5px
+    position relative
+    width 60px
+[tab]:not(.active)
+    display none
+ul.nav
     background #636363
-    font-size .9em
+    background linear-gradient(135deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%)
     border-top 2px solid #BB0E3D
+    font-size .9em
+    margin 0px
     padding-left 160px
     // submenu's absolute positioning is now relative to the submenu allowing us to remove it from the flow without worrying about calculating its position on display
     position relative
+    top 0
+    width 100%
     li
-        // padding needs to happen on the header element to ensure we don't lose the submenu before we reach it0
-        padding 10px 15px !important
-        &.ui-tabs-active
-            background-color #ffffff !important
+        display inline-block
+        // padding needs to happen on the header element to ensure we don't lose the submenu before we reach it
+        padding 10px 15px
+        &.active
+            background-color #ffffff
             a
-                color black  !important
-                text-decoration none
+                color black
                 font-weight bold
-        &.ui-state-hover a
-            text-decoration none
-        > a,.nav-link
+        a
             color white
+            display inline-block
+            text-align center
+            text-decoration none
             &:hover
                 text-decoration underline
         // reposition the subelement underneath the larger header. This breaks down literally as soon as there is a second line of headers, so mobile nav needs to start right around that point.
-        .link-text + ul
+        ul
             background #000
+            border 0px
             left 0px
-            padding-left 160px
             position absolute
             top 100%
-            width 100%
         // by using :not we don't have to worry about what the original display value of the element is
         &:not(:hover) > ul
             display none
-
-    &.horizontal-nav
-        li
-            display inline-block
-        a
-            text-decoration none
-            display inline-block
-            text-align center
-        ul
-            list-style-type none
-            overflow hidden
-            margin 0
-            padding 0
-            li
-                float left
-                :hover
-                    > ul
-                        display block
-                a
-                    padding 15px
-            ul
-                display none // hide for now
     &.stick-nav-top
-        width 100%
         position fixed
-        top 0
         z-index 10000
 
 #content
-    margin 0
+    margin 0px
+    background #F7F8F3
 
 footer
     color black
-    padding 1% 0
+    padding 5px 0px
     clear both
     text-align center
     font-size .9em
     ul li
         list-style none
         display inline-block
-        margin 0 5px
+        margin 0px 5px
         a
           color black
           :hover
               text-decoration none
 
 dl
-    padding 0 60px
+    padding 0px 60px
     dt
         font-weight bold
 hr
     width 50%
-    margin 2% auto
-
-#quicklinks
-    font-size 0.9em
-    color white
-    position absolute
-    left 670px
-    top 132px
-    ul
-        margin 0
-        padding 10px 0
-        display none
-        list-style none
-        background white
-    &:hover
-        text-decoration underline
-        ul
-            font-size 0.9em
-            font-weight normal
-            display block
-            background white
-            color black
-            li a
-                color inherit
-                &:hover
-                    text-decoration none
-//#quicklinks
-//    float left
-//    width 200px
-//    font-size 0.9em
-//    margin 1% 0 0 5%
-//    #quick-title
-//        padding 2% 0
-//        text-align center
-//        background #606060
-//        color #FFFFFF
-//        border 1px ridge #606060
-//
-//    ul
-//        list-style none
-//        border 1px ridge #606060
-//        margin 0
-//        padding 5px
-//        li
-//            margin 10px auto
-//            a
-//                color inherit
-//                &:hover
-//                    color #BB0E3D
-//                    text-decoration none
+    margin 10px auto
 
 .minimize,.maximize
     display none
     color inherit
 
 section
-    margin 0 6% 6% 0
-    width 70%
+    margin 0px 0px 30px
     float right
     form
         display block
         > ul
             list-style none
         li
-            margin 5px 0
+            margin 5px 0px
             overflow hidden
             > label
                 display inline-block
@@ -204,6 +151,7 @@ section
             display none
 
         .question-num
+            border-right 4px #606060 solid
             color #606060
             padding 5px 0
             font-weight bold
@@ -221,18 +169,21 @@ section
             font-size 0.8em
         .question-illustrations
             padding-left 150px
-            margin 1% auto
+            margin 5px auto
+            height 270px
             img
                 width 250px
                 height 270px
-                margin 1%
+                margin 5px
+                &:hover
+                    transform scale(1.6)
         #region_subquestion
             display none
 .section-content
     padding 0
 
 .section-title
-    margin 1% auto
+    margin 5px auto
     font-weight bold
     padding 5px 20px
     background #BB0E3D
@@ -253,7 +204,7 @@ section
 
 .section-description
     background #F0FFFF
-    margin 1% auto
+    margin 5px auto
     padding 10px
     border 1px solid
     font-size .9em
@@ -261,7 +212,7 @@ section
 .about-question-title
     border-left 2px solid #2A71A5
     padding-left 5px
-    margin 1% auto
+    margin 5px auto
 
 .termToDefine
     font-style italic
@@ -271,20 +222,20 @@ section
     font-size initial
 
 .section-anchors
-    margin 0 auto
-    padding 0
+    margin 0px auto
+    padding 0px
     text-align center
     li
         display inline
         list-style none
-        margin 0
-        padding 0
+        margin 0px
+        padding 0px
 
 .spacer
     border-left 2px solid
     border-color inherit
     display inline
-    margin 0 10px
+    margin 0px 10px
 
 
 #reference
@@ -331,12 +282,12 @@ section
     display none
 
 .ui-helper-hidden-accessible
-    border 0
+    border 0px
     clip rect(0 0 0 0)
     height 1px
     margin -1px
     overflow hidden
-    padding 0
+    padding 0px
     position absolute
     width 1px
 
@@ -346,7 +297,7 @@ section
     background #8C9C9A
     font-weight bold
     color white
-    border-radius 10px 10px 0 0
+    border-radius 10px 10px 0px 0px
     text-decoration underline
 
 .default-tooltip-content
@@ -366,7 +317,7 @@ section
     color white
     border-radius 25px
     text-align center
-    padding 5px 0
+    padding 5px 0px
     position fixed
     bottom 20px
     right 20px

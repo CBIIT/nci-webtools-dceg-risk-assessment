@@ -1,25 +1,16 @@
-li
+li(tabTo="risk-calculator")
     a(href="#risk-calculator")
         .link-text Risk Calculator
-li
+li(tabTo="cancer-risk")
     a(href="#cancer-risk")
         .link-text Melanoma Cancer Risk
-li
+li(tabTo="about")
     a(href="#about")
         .link-text About
 li
-    .nav-link.link-text Quick Links
-    ul
-        li
-            a(target="_blank",href='http://www.cancer.gov/cancertopics/types/melanoma') Melanoma home page
-        li
-            a(target="_blank",href='http://www.cancer.gov/cancertopics/wyntk/skin') What You Need To Know About Melanoma and Other Skin Cancers
-        li
-            a(target="_blank",href='http://www.cancer.gov/cancertopics/factsheet/Risk/moles') Common Moles, Dysplastic Nevi, and Risk of Melanoma
-        li
-            a(target="_blank",href='http://www.cancer.gov/Search/ClinicalTrialsLink.aspx?diagnosis=38833&tt=4&format=2') Current Clinical Trials: Melanoma Prevention
-        li
-            a(target="_blank",href='http://www.cancer.gov/Search/ClinicalTrialslink.aspx?diagnosis=38833&tt=1&format=2') Current Clinical Trials: Melanoma Treatment
-li
+    a(href="javascript:void(0);")
+        .link-text Quick Links
+    include quick-links
+li(tabTo="source-code")
     a(href="#source-code")
         .link-text Source Code

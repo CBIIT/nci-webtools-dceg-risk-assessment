@@ -9,34 +9,39 @@
     <link href="styles.css" rel="stylesheet" type="text/css">
   </head>
   <body>
-    <header><a href="http://cancer.gov/" target="_blank"><img id="nci-banner" src="images/mrat-logo-color.svg" alt="National Cancer Institute"></a>
+    <header><img id="menu-button" src="images/menu.svg"><a id="nci-banner" href="http://cancer.gov/" target="_blank"><img src="images/mrat-logo-color.svg" alt="National Cancer Institute"></a>
       <div id="toolTitle">
         <div id="toolDescription">An interactive tool to help estimate a person's risk of developing invasive melanoma</div>
       </div>
     </header>
     <div id="content"><span id="top"></span>
-      <ul class="nav horizontal-nav">
-        <li><a href="#risk-calculator">
+      <ul id="main-nav" class="nav">
+        <li tabTo="risk-calculator"><a href="#risk-calculator">
             <div class="link-text">Risk Calculator</div></a></li>
-        <li><a href="#cancer-risk">
+        <li tabTo="cancer-risk"><a href="#cancer-risk">
             <div class="link-text">Melanoma Cancer Risk</div></a></li>
-        <li><a href="#about">
+        <li tabTo="about"><a href="#about">
             <div class="link-text">About</div></a></li>
-        <li>
-          <div class="nav-link link-text">Quick Links</div>
-          <ul>
-            <li><a target="_blank" href="http://www.cancer.gov/cancertopics/types/melanoma">Melanoma home page</a></li>
-            <li><a target="_blank" href="http://www.cancer.gov/cancertopics/wyntk/skin">What You Need To Know About Melanoma and Other Skin Cancers</a></li>
-            <li><a target="_blank" href="http://www.cancer.gov/cancertopics/factsheet/Risk/moles">Common Moles, Dysplastic Nevi, and Risk of Melanoma</a></li>
-            <li><a target="_blank" href="http://www.cancer.gov/Search/ClinicalTrialsLink.aspx?diagnosis=38833&amp;tt=4&amp;format=2">Current Clinical Trials: Melanoma Prevention</a></li>
-            <li><a target="_blank" href="http://www.cancer.gov/Search/ClinicalTrialslink.aspx?diagnosis=38833&amp;tt=1&amp;format=2">Current Clinical Trials: Melanoma Treatment</a></li>
+        <li><a href="javascript:void(0);">
+            <div class="link-text">Quick Links</div></a>
+          <ul class="nav">
+            <li><a target="_blank" href="http://www.cancer.gov/cancertopics/types/melanoma">
+                <div class="link-text">Melanoma home page</div></a></li>
+            <li><a target="_blank" href="http://www.cancer.gov/cancertopics/wyntk/skin">
+                <div class="link-text">What You Need To Know About Melanoma and Other Skin Cancers</div></a></li>
+            <li><a target="_blank" href="http://www.cancer.gov/cancertopics/factsheet/Risk/moles">
+                <div class="link-text">Common Moles, Dysplastic Nevi, and Risk of Melanoma</div></a></li>
+            <li><a target="_blank" href="http://www.cancer.gov/Search/ClinicalTrialsLink.aspx?diagnosis=38833&amp;tt=4&amp;format=2">
+                <div class="link-text">Current Clinical Trials: Melanoma Prevention</div></a></li>
+            <li><a target="_blank" href="http://www.cancer.gov/Search/ClinicalTrialslink.aspx?diagnosis=38833&amp;tt=1&amp;format=2">
+                <div class="link-text">Current Clinical Trials: Melanoma Treatment</div></a></li>
           </ul>
         </li>
-        <li><a href="#source-code">
+        <li tabTo="source-code"><a href="#source-code">
             <div class="link-text">Source Code</div></a></li>
       </ul>
-      <section id="about">
-        <div class="section-title"><span>About the Tool</span><a title="go to melanoma risk assessment" name="#risk-calculator" class="goToTab">Calculate Risk for New Patients</a></div>
+      <section id="about" tab="about">
+        <div class="section-title"><span>About the Tool</span><a title="go to melanoma risk assessment" name="risk-calculator" class="goToTab">Calculate Risk for New Patients</a></div>
         <div class="section-content">
           <ul class="section-anchors">
             <li><a title="skip to explanations of the questions" name="#questions-exp" class="goTo">Explaining the Questions</a></li>
@@ -158,7 +163,7 @@
               of Absolute Risk. J Clin Oncol 24(22): pp-pp, 2006.</a></em>
         </div>
       </section>
-      <section id="risk-calculator">
+      <section id="risk-calculator" tab="risk-calculator">
         <div class="section-description"><span class="hidden-anchor"><a href="#survey">Skip to survey</a></span>
           <p>
             The Melanoma Risk Assessment is an interactive tool designed by scientists at the National Cancer Institute (NCI),
@@ -508,8 +513,8 @@
           </form>
         </div>
       </section>
-      <section id="cancer-risk">
-        <div class="section-title"><span>Melanoma Cancer Risk</span><a title="go to melanoma risk assessment" name="#risk-calculator" class="goToTab">Calculate Risk for New Patients</a></div>
+      <section id="cancer-risk" tab="cancer-risk">
+        <div class="section-title"><span>Melanoma Cancer Risk</span><a title="go to melanoma risk assessment" name="risk-calculator" class="goToTab">Calculate Risk for New Patients</a></div>
         <div class="section-content">
           <p>
             No one knows the exact causes of melanoma. Doctors can seldom explain why one person
@@ -631,7 +636,7 @@
           </p>
         </div>
       </section>
-      <section id="source-code">
+      <section id="source-code" tab="source-code">
         <div class="section-description">
           <p>
             The Melanoma Risk Assessment is an interactive tool designed by scientists at the National Cancer Institute (NCI),

@@ -1,63 +1,72 @@
 @media (max-width 768px)
-    img#nci-banner
-        width 90%
-        height 55px !important
-        padding-left 5% !important
-        height 90px !important
+    #nci-banner
+        padding-left 25px
     #toolTitle, #quick-title, .section-title
         padding 5px 0 !important
     .link-icons
         display inline-block
     .menu-title
-        padding 1% 0
+        padding 5px 0px
         display block
         background-color rgba(220, 222, 224, 0.5)
         color white
         padding-left 0
+    #top
+        margin 0px
+        min-height 0px
+    #menu-button
+        display block
     ul.nav
-        padding 0 !important
+        background transparent
+        padding 0px
         text-align center
+        &:not(.show)
+            display none
         &.stick-nav-top
             position inherit
-        li:first-child
-            margin 0
-        li a
-            padding 8px !important
+        li
+            display block
+            padding 8px
+            &:first-child
+                margin 0px
+            a
+                color #bb0e3d
+            &:not(:hover) > ul
+                display block
+            ul
+                position static
+                &:not(.show)
+                    display none
     .section-description
         width 85%
     .section-title
         overflow auto
-    section, #quicklinks
-        margin 0
-        width 100% !important
+    section
+        margin 0px
     footer
-        margin 5% 0 !important
+        margin 25px 0px
     .minimize,.maximize
-        display inline-block !important
+        display inline-block
     .question-illustration
-        padding-left 0
+        padding-left 0px
 
-@media (max-width 990px)
+@media (min-width 769px) and (max-width 990px)
     header
         position relative
     #toolTitle
         text-align center
-        padding 1% !important
+        padding 5px
     dl
         padding 0
     .spacer
         display block
-    #quicklinks
-        width 25%
-    section
-        width 65%
     .section-anchors li, footer li
         padding 5px 0
     form
         li
-            margin 2% auto
+            margin 10px auto
             .input
-                width 100% !important
+                width 100%
                 margin 10px auto
         .question-text
             margin-left -4em
@@ -66,18 +75,13 @@
             display inherit
             margin 0 auto
             width 50%
-            float none !important
+            float none
 
 
-@media (max-width 1300px)
+@media (min-width 991px) and (max-width 1300px)
     .nav
-        margin 0 !important
-        li a
-            padding 5px !important
-    #quicklinks
-        width 20%
-    section
-        width 65%
+        margin 0
+        li
+            padding 5px
     .section-title *
         width 45%
-
