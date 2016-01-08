@@ -4,8 +4,9 @@
   box-sizing: border-box;
 }
 body {
-  margin: 0;
   font-family: sans-serif, Helvetica, Calibri, Arial Rounded MT Bold;
+  margin: 0;
+  min-width: 320px;
 }
 header {
   margin: 0;
@@ -391,14 +392,63 @@ section form #region_subquestion {
   right: 20px;
 }
 
+@media (max-width: 1300px) {
+  ul.nav {
+    margin: 0;
+  }
+  ul.nav li {
+    padding: 5px;
+  }
+}
+@media (max-width: 990px) {
+  header {
+    position: relative;
+  }
+  header #toolTitle {
+    text-align: center;
+    padding: 5px;
+  }
+  dl {
+    padding: 0;
+  }
+  .spacer {
+    display: block;
+  }
+  .section-anchors li,
+  footer li {
+    padding: 5px 0;
+  }
+  section form ul {
+    padding-right: 40px;
+  }
+  section form li {
+    margin: 10px auto;
+  }
+  section form li > p {
+    margin-right: 0px;
+  }
+  section form li > .input {
+    width: 100%;
+    margin: 10px auto;
+  }
+  section form .question-text {
+    margin-left: -4em;
+    padding: 0 0 0 5em;
+  }
+  section form button {
+    display: inherit;
+    margin: 0 auto;
+    width: 50%;
+    float: none;
+  }
+}
 @media (max-width: 768px) {
-  #nci-banner {
+  header #nci-banner {
     padding-left: 25px;
   }
-  #toolTitle,
-  #quick-title,
+  header #toolTitle,
   .section-title {
-    padding: 5px 0 !important;
+    padding: 5px 0px;
   }
   .link-icons {
     display: inline-block;
@@ -469,50 +519,15 @@ section form #region_subquestion {
     padding-left: 0px;
   }
 }
-@media (min-width: 769px) and (max-width: 990px) {
-  header {
-    position: relative;
-  }
-  #toolTitle {
-    text-align: center;
-    padding: 5px;
-  }
-  dl {
-    padding: 0;
-  }
-  .spacer {
-    display: block;
-  }
-  .section-anchors li,
-  footer li {
-    padding: 5px 0;
-  }
-  form li {
-    margin: 10px auto;
-  }
-  form li .input {
-    width: 100%;
-    margin: 10px auto;
-  }
-  form .question-text {
-    margin-left: -4em;
-    padding: 0 0 0 5em;
-  }
-  form button {
-    display: inherit;
-    margin: 0 auto;
-    width: 50%;
-    float: none;
-  }
-}
-@media (min-width: 991px) and (max-width: 1300px) {
-  .nav {
-    margin: 0;
-  }
-  .nav li {
-    padding: 5px;
+@media (max-width: 480px) {
+  header #nci-banner {
+    padding-left: 0px;
   }
   .section-title * {
-    width: 45%;
+    display: block;
+    text-align: center;
+  }
+  .section-title :nth-child(2) {
+    float: none;
   }
 }
