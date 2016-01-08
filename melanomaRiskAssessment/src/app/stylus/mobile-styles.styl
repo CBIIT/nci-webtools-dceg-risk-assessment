@@ -1,8 +1,45 @@
+@media (max-width 1300px)
+    ul.nav
+        margin 0
+        li
+            padding 5px
+
+@media (max-width 990px)
+    header
+        position relative
+        #toolTitle
+            text-align center
+            padding 5px
+    dl
+        padding 0
+    .spacer
+        display block
+    .section-anchors li, footer li
+        padding 5px 0
+    section form
+        ul
+            padding-right 40px
+        li
+            margin 10px auto
+            > p
+                margin-right 0px
+            > .input
+                width 100%
+                margin 10px auto
+        .question-text
+            margin-left -4em
+            padding 0 0 0 5em
+        button
+            display inherit
+            margin 0 auto
+            width 50%
+            float none
+
 @media (max-width 768px)
-    #nci-banner
+    header #nci-banner
         padding-left 25px
-    #toolTitle, #quick-title, .section-title
-        padding 5px 0 !important
+    header #toolTitle, .section-title
+        padding 5px 0px
     .link-icons
         display inline-block
     .menu-title
@@ -52,38 +89,12 @@
     .question-illustration
         padding-left 0px
 
-@media (min-width 769px) and (max-width 990px)
-    header
-        position relative
-    #toolTitle
-        text-align center
-        padding 5px
-    dl
-        padding 0
-    .spacer
-        display block
-    .section-anchors li, footer li
-        padding 5px 0
-    form
-        li
-            margin 10px auto
-            .input
-                width 100%
-                margin 10px auto
-        .question-text
-            margin-left -4em
-            padding 0 0 0 5em
-        button
-            display inherit
-            margin 0 auto
-            width 50%
+@media (max-width 480px)
+    header #nci-banner
+        padding-left 0px
+    .section-title
+        *
+            display block
+            text-align center
+        :nth-child(2)
             float none
-
-
-@media (min-width 991px) and (max-width 1300px)
-    .nav
-        margin 0
-        li
-            padding 5px
-    .section-title *
-        width 45%
