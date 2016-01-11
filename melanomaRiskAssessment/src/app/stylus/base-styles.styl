@@ -4,6 +4,9 @@ body
     font-family sans-serif,  Helvetica, Calibri, Arial Rounded MT Bold
     margin 0
     min-width 320px
+    background #f7f8f3
+a
+    color inherit
 header
     margin 0
     min-width 320px
@@ -58,7 +61,7 @@ ul.nav
         // padding needs to happen on the header element to ensure we don't lose the submenu before we reach it
         padding 10px 15px
         &.active
-            background-color #ffffff
+            background-color #F6F9FA
             a
                 color black
                 font-weight bold
@@ -79,13 +82,17 @@ ul.nav
         // by using :not we don't have to worry about what the original display value of the element is
         &:not(:hover) > ul
             display none
+        &#quick-link ul
+            background #F9FBFC
+            a
+                color #BB0E3D
     &.stick-nav-top
         position fixed
         z-index 10000
 
 #content
     margin 0px
-    background #F7F8F3
+    background #F6F9FA
 
 footer
     color black
@@ -124,7 +131,7 @@ section
             padding 0
             li
                 display inline-block
-                margin 5px
+                margin 5px 15px
                 padding 1%
                 width 45%
                 max-width 100%
@@ -184,7 +191,7 @@ section
             padding 0
             margin 0
 .section-content
-    padding 0
+    padding 0 1%
 
 .section-title
     margin 5px auto

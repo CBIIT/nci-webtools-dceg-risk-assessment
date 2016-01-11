@@ -7,6 +7,10 @@ body {
   font-family: sans-serif, Helvetica, Calibri, Arial Rounded MT Bold;
   margin: 0;
   min-width: 320px;
+  background: #f7f8f3;
+}
+a {
+  color: inherit;
 }
 header {
   margin: 0;
@@ -76,7 +80,7 @@ ul.nav li {
   padding: 10px 15px;
 }
 ul.nav li.active {
-  background-color: #fff;
+  background-color: #f6f9fa;
 }
 ul.nav li.active a {
   color: #000;
@@ -101,13 +105,19 @@ ul.nav li ul {
 ul.nav li:not(:hover) > ul {
   display: none;
 }
+ul.nav li#quick-link ul {
+  background: #f9fbfc;
+}
+ul.nav li#quick-link ul a {
+  color: #bb0e3d;
+}
 ul.nav.stick-nav-top {
   position: fixed;
   z-index: 10000;
 }
 #content {
   margin: 0px;
-  background: #f7f8f3;
+  background: #f6f9fa;
 }
 footer {
   color: #000;
@@ -155,7 +165,7 @@ section form ol {
 }
 section form ol li {
   display: inline-block;
-  margin: 5px;
+  margin: 5px 15px;
   padding: 1%;
   width: 45%;
   max-width: 100%;
@@ -235,7 +245,7 @@ section form #region_subquestion {
   margin: 0;
 }
 .section-content {
-  padding: 0;
+  padding: 0 1%;
 }
 .section-title {
   margin: 5px auto;
@@ -420,22 +430,30 @@ section form #region_subquestion {
   footer li {
     padding: 5px 0;
   }
-  section form ul {
-    padding-right: 40px;
-  }
-  section form li {
+  section form ol li {
     margin: 10px auto;
+    width: 95%;
   }
-  section form li > p {
+  section form ol li > p {
     margin-right: 0px;
   }
-  section form li > .input {
+  section form ol li > .input {
     width: 100%;
     margin: 10px auto;
   }
   section form .question-text {
-    margin-left: -4em;
-    padding: 0 0 0 5em;
+    margin: 0;
+    padding: 1%;
+  }
+  section form .question-illustrations img {
+    width: 60%;
+  }
+  section form .question-illustrations img :hover {
+    -webkit-transform: scale(1.5);
+    -moz-transform: scale(1.5);
+    -o-transform: scale(1.5);
+    -ms-transform: scale(1.5);
+    transform: scale(1.5);
   }
   section form button {
     display: inherit;
