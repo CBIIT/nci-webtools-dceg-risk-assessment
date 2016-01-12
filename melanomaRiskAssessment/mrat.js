@@ -68,6 +68,7 @@ function displayResult(result) {
     outOf = Number('1e'+outOf);
     $('#result').append('<h2>'+result+'%</h2><p>Your risk of developing cancer in the next 5 years is '+result+'%. This means that roughly '+estimate+' in '+outOf+' people like you are likely to develop cancer in the next 5 years.').removeClass('hide');
     graphResult($('#result').append('<div class="chart"></div>').children('.chart'),Number(result));
+    document.getElementById("top").scrollIntoView();
 }
 
 function graphResult(element,result) {
@@ -218,9 +219,13 @@ function validate(){
                         message += "<p>The " + data.missing[index] + " question contained a nonnumeric answer.</p>";
                     }
                     $('#error').append(message).css('display','block');
+                    document.getElementById("top").scrollIntoView();
                 }
             }).fail(function(data) {
-                $('#error').append("<p>An unknown error occurred. Please consult the administrator.</p>");
+
+                if(data.responseJSON.message)
+                    $('#error').append("<p>"+data.responseJSON.message+"</p>").css('display','block');
+                    document.getElementById("top").scrollIntoView();
             });
         }
     });
