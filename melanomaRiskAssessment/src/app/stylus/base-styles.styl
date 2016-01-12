@@ -46,7 +46,7 @@ header
     display none
 ul.nav
     background #636363
-    background linear-gradient(135deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%)
+    background linear-gradient(135deg, #f7f8f3 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%)
     border-top 2px solid #BB0E3D
     font-size .9em
     margin 0px
@@ -60,7 +60,7 @@ ul.nav
         // padding needs to happen on the header element to ensure we don't lose the submenu before we reach it
         padding 10px 15px
         &.active
-            background-color #F6F9FA
+            background-color #f7f8f3
             a
                 color black
                 font-weight bold
@@ -82,7 +82,7 @@ ul.nav
         &:not(:hover) > ul
             display none
         &#quick-link ul
-            background #F9FBFC
+            background #f7f8f3
             a
                 color #BB0E3D
     &.stick-nav-top
@@ -91,7 +91,7 @@ ul.nav
 
 #content
     margin 0px
-    background #F6F9FA
+    background transparent
 
 footer
     color black
@@ -121,7 +121,7 @@ hr
     color inherit
 
 section
-    margin 0px 0px 30px
+    margin 0px 130px
     float right
     form
         display block
@@ -137,11 +137,14 @@ section
                 height 250px
                 vertical-align top
                 border 2px solid #2A71A5
+                border-radius 10px
                 background #fff
                 overflow auto
                 ol
                     list-style lower-alpha
+                    padding 0
                 .question
+                    padding 10px 0
                     > label
                         display inline-block
                     > p
@@ -200,6 +203,7 @@ section
     font-weight bold
     padding 5px 20px
     background #BB0E3D
+    border-radius 10px
     color white
     :nth-child(2)
         float right
@@ -220,6 +224,7 @@ section
     margin 10px
     padding 10px
     border 1px solid
+    border-radius 10px
     font-size .9em
 
 .about-question-title
@@ -251,10 +256,8 @@ section
     margin 0px 10px
 
 
-#reference
-    width 300px
-    *
-        font-size .9em
+#reference *
+    font-size .9em
 
 #error
     background #FC7878

@@ -2,10 +2,15 @@
     ul.nav
         margin 0
         li
-            padding 5px
-    section form
-        > ol > li
-            width 30%
+            padding 7px
+    section
+        margin 0 50px
+        form > ol > li
+            margin 10px auto
+            width 45%
+            min-height 150px
+            max-height 600px
+
 @media (max-width 990px)
     header
         position relative
@@ -18,27 +23,26 @@
         display block
     .section-anchors li, footer li
         padding 5px 0
-    section form
-        > ol > li
-            margin 10px auto
-            width 45%
-            > p
-                margin-right 0
-            > .input
-                width 100%
-                margin 10px auto
-        .question-text
-            margin 0
-            padding 1%
-        .question-illustrations img
-            width 60%
-            :hover
-                transform scale(1.5)
-        button
-            display inherit
-            margin 0 auto
-            width 50%
-            float none
+    section
+        margin 0 25px
+        form
+            > ol
+                padding 0
+                > li > p
+                    margin-right 0
+                    > .input
+                        width 100%
+                        margin 10px auto
+            .question-text
+                margin 0
+                padding 1%
+            .question-illustrations img
+                width 80%
+            button
+                display inherit
+                margin 0 auto
+                width 50%
+                float none
 
 @media (max-width 768px)
     header #nci-banner
@@ -69,8 +73,6 @@
         > li
             display block
             padding 8px
-            //            &:first-child
-            //                margin 0
             a
                 color #bb0e3d
             &:not(:hover) > ul
@@ -81,14 +83,15 @@
                 position static
                 &:not(.show)
                     display none
-    .section-description
-        width 85%
     .section-title
         overflow auto
     section
-        margin 0
+        margin 10px
         form > ol > li
-            width 95%
+            width 100%
+            height auto
+            max-height 350px
+            min-height 130px
     footer
         margin 25px 0
     .minimize,.maximize

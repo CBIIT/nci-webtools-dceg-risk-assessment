@@ -30,9 +30,9 @@ section#risk-calculator(tab='risk-calculator')
     .section-title
       span Questions
     .section-content
-      #error(style="display:none;")
       #result.hide
-      form#survey(action="mratRest/calculate/",method="POST")
+      #error(style="display:none;")
+      form#survey(action="/mratRest/calculate/",method="POST")
         ol
             li
                 .question
@@ -251,9 +251,9 @@ section#risk-calculator(tab='risk-calculator')
                 .question-illustrations
                     small (click image to view full size)
                     br
-                    img.thumbnail(src="images/mratMildLrg.jpg", title="Mild Freckling")
-                    img.thumbnail(src="images/mratModLrg.jpg", title="Moderate Freckling")
-                    img.thumbnail(src="images/mratSevereLrg.jpg", title="Severe Freckling")
+                    img.thumbnail(src="images/mratMildLrg.jpg", title="Mild Freckling", alt="Mild Freckling")
+                    img.thumbnail(src="images/mratModLrg.jpg", title="Moderate Freckling", alt="Moderate Freckling")
+                    img.thumbnail(src="images/mratSevereLrg.jpg", title="Severe Freckling", alt="Severe Freckling")
             li.male
                 .question
                     label.question-text(for="damage")
@@ -267,5 +267,5 @@ section#risk-calculator(tab='risk-calculator')
                 .question-illustrations
                     small (click image to view full size)
                     br
-                    img.thumbnail(src="images/mratSevereLrg2.jpg", title="Severe solar damage")
+                    img.thumbnail(src="images/mratSevereLrg2.jpg", title="Severe solar damage", alt="Severe solar damage")
         button#calculate(type="submit") Calculate Risk

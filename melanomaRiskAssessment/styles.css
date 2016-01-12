@@ -61,11 +61,11 @@ header #toolTitle #toolDescription {
 }
 ul.nav {
   background: #636363;
-  background: -webkit-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
-  background: -moz-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
-  background: -o-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
-  background: -ms-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
-  background: linear-gradient(135deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
+  background: -webkit-linear-gradient(315deg, #f7f8f3 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
+  background: -moz-linear-gradient(315deg, #f7f8f3 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
+  background: -o-linear-gradient(315deg, #f7f8f3 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
+  background: -ms-linear-gradient(315deg, #f7f8f3 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
+  background: linear-gradient(135deg, #f7f8f3 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
   border-top: 2px solid #bb0e3d;
   font-size: 0.9em;
   margin: 0px;
@@ -79,7 +79,7 @@ ul.nav li {
   padding: 10px 15px;
 }
 ul.nav li.active {
-  background-color: #f6f9fa;
+  background-color: #f7f8f3;
 }
 ul.nav li.active a {
   color: #000;
@@ -105,7 +105,7 @@ ul.nav li:not(:hover) > ul {
   display: none;
 }
 ul.nav li#quick-link ul {
-  background: #f9fbfc;
+  background: #f7f8f3;
 }
 ul.nav li#quick-link ul a {
   color: #bb0e3d;
@@ -116,7 +116,7 @@ ul.nav.stick-nav-top {
 }
 #content {
   margin: 0px;
-  background: #f6f9fa;
+  background: transparent;
 }
 footer {
   color: #000;
@@ -152,7 +152,7 @@ hr {
   color: inherit;
 }
 section {
-  margin: 0px 0px 30px;
+  margin: 0px 130px;
   float: right;
 }
 section form {
@@ -170,11 +170,17 @@ section form > ol > li {
   height: 250px;
   vertical-align: top;
   border: 2px solid #2a71a5;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
   background: #fff;
   overflow: auto;
 }
 section form > ol > li ol {
   list-style: lower-alpha;
+  padding: 0;
+}
+section form > ol > li .question {
+  padding: 10px 0;
 }
 section form > ol > li .question > label {
   display: inline-block;
@@ -250,6 +256,8 @@ section form #region_subquestion {
   font-weight: bold;
   padding: 5px 20px;
   background: #bb0e3d;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
   color: #fff;
 }
 .section-title :nth-child(2) {
@@ -273,6 +281,8 @@ section form #region_subquestion {
   margin: 10px;
   padding: 10px;
   border: 1px solid;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
   font-size: 0.9em;
 }
 .about-question-title {
@@ -303,9 +313,6 @@ section form #region_subquestion {
   border-color: inherit;
   display: inline;
   margin: 0px 10px;
-}
-#reference {
-  width: 300px;
 }
 #reference * {
   font-size: 0.9em;
@@ -407,10 +414,16 @@ section form #region_subquestion {
     margin: 0;
   }
   ul.nav li {
-    padding: 5px;
+    padding: 7px;
+  }
+  section {
+    margin: 0 50px;
   }
   section form > ol > li {
-    width: 30%;
+    margin: 10px auto;
+    width: 45%;
+    min-height: 150px;
+    max-height: 600px;
   }
 }
 @media (max-width: 990px) {
@@ -431,14 +444,16 @@ section form #region_subquestion {
   footer li {
     padding: 5px 0;
   }
-  section form > ol > li {
-    margin: 10px auto;
-    width: 45%;
+  section {
+    margin: 0 25px;
+  }
+  section form > ol {
+    padding: 0;
   }
   section form > ol > li > p {
     margin-right: 0;
   }
-  section form > ol > li > .input {
+  section form > ol > li > p > .input {
     width: 100%;
     margin: 10px auto;
   }
@@ -447,14 +462,7 @@ section form #region_subquestion {
     padding: 1%;
   }
   section form .question-illustrations img {
-    width: 60%;
-  }
-  section form .question-illustrations img :hover {
-    -webkit-transform: scale(1.5);
-    -moz-transform: scale(1.5);
-    -o-transform: scale(1.5);
-    -ms-transform: scale(1.5);
-    transform: scale(1.5);
+    width: 80%;
   }
   section form button {
     display: inherit;
@@ -517,17 +525,17 @@ section form #region_subquestion {
   ul.nav > li > ul:not(.show) {
     display: none;
   }
-  .section-description {
-    width: 85%;
-  }
   .section-title {
     overflow: auto;
   }
   section {
-    margin: 0;
+    margin: 10px;
   }
   section form > ol > li {
-    width: 95%;
+    width: 100%;
+    height: auto;
+    max-height: 350px;
+    min-height: 130px;
   }
   footer {
     margin: 25px 0;
