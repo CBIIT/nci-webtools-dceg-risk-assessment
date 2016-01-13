@@ -28,9 +28,11 @@ app.config['rdata_upload_folder'] = UPLOAD_RDATA_FOLDER
 app.config['results_folder'] = RESULTS_FOLDER
 app.config['examples_folder'] = EXAMPLES_FOLDER
 
-with open ('rfiles/absoluteRiskWrapper.R') as fh:
-    rcode = os.linesep.join(line.strip() for line in fh)
-    arc_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
+#with open ('rfiles/absoluteRiskWrapper.R') as fh:
+#    rcode = os.linesep.join(line.strip() for line in fh)
+
+rcode = open('rfiles/absoluteRiskWrapper.R').read()
+arc_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
 
 @app.route('/')
 def index():
@@ -555,7 +557,7 @@ def saveSession():
             raise InvalidUsage('KeyError: ' + e.args[0], status_code = 500)
 
         try:
-            results_path = app.config['results_folder'] + '/' + time.strftime("%Y%m%d-%H%M%S")
+            results_path = app.config['results_folder'] + '/' + time.strftime("%Y%m%d-%H%M%S") + '.rdata'
             results = arc_wrapper.saveAllFiles(results_path, list_of_variables_RData, model_predictor_RData, ref_dataset_RData, log_odds_RData, disease_rates_RData, competing_rates_RData, snp_info_RData, fam_hist_RData)
 
             return results[0]
