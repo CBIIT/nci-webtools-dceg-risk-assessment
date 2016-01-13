@@ -1,271 +1,285 @@
 section#risk-calculator(tab='risk-calculator')
-    .section-description
-        span.hidden-anchor
-          a(href='#survey') Skip to survey
-        include ../../templates/tool-description
-        p
-            a(href='http://www.ncbi.nlm.nih.gov/pubmed/16728488', target="_blank") JCO Publication
-        p
-          strong Before using the tool, please note the following:
-        ul.red-arrow
-          li
-            | The melanoma risk calculator was designed for use by health professionals during
-            | a routine physical examination that includes recording of information about the
-            | patient's personal and family medical history and an examination of the skin on
-            | the patient's back and shoulders. If you are not a health professional, you are
-            | strongly encouraged to discuss the results obtained with this tool and your personal
-            | risk of melanoma with your doctor.
-          li
-            | The MRAT risk calculator may be updated periodically as new data or research becomes
-            | available.
-          li
-            | This tool should not be used to estimate melanoma risk for people who have already
-            | had a diagnosis of melanoma, melanoma-in-situ, non-melanoma skin cancer, or a family
-            | history of melanoma. These individuals should be in screening and surveillance programs.
-          li
-            | The melanoma risk calculator was developed using data from a large case-control
-            | study in the United States. Risks are estimated for non-Hispanic whites only; data
-            | for other races/ethnicities are too limited to accurately estimate risk.
-          li A recent version of Internet Explorer, Firefox, or Chrome is recommended.
-    .section-title
-      span Questions
+
     .section-content
-      #result.hide
-      #error(style="display:none;")
-      form#survey(action="/mratRest/calculate/",method="POST")
-        ol
-            li
-                .question
-                    label.question-text(for="state") In what state does the patient reside?
-                    .input
-                        select#state(name="state")
-                            option(value='') Choose a State
-                            option(value='AL') Alabama
-                            option(value='AK') Alaska
-                            option(value='AZ') Arizona
-                            option(value='AR') Arkansas
-                            option(value='CA') California
-                            option(value='CO') Colorado
-                            option(value='CT') Connecticut
-                            option(value='DE') Delaware
-                            option(value='DC') District Of Columbia
-                            option(value='FL') Florida
-                            option(value='GA') Georgia
-                            option(value='HI') Hawaii
-                            option(value='ID') Idaho
-                            option(value='IL') Illinois
-                            option(value='IN') Indiana
-                            option(value='IA') Iowa
-                            option(value='KS') Kansas
-                            option(value='KY') Kentucky
-                            option(value='LA') Louisiana
-                            option(value='ME') Maine
-                            option(value='MD') Maryland
-                            option(value='MA') Massachusetts
-                            option(value='MI') Michigan
-                            option(value='MN') Minnesota
-                            option(value='MS') Mississippi
-                            option(value='MO') Missouri
-                            option(value='MT') Montana
-                            option(value='NE') Nebraska
-                            option(value='NV') Nevada
-                            option(value='NH') New Hampshire
-                            option(value='NJ') New Jersey
-                            option(value='NM') New Mexico
-                            option(value='NY') New York
-                            option(value='NC') North Carolina
-                            option(value='ND') North Dakota
-                            option(value='OH') Ohio
-                            option(value='OK') Oklahoma
-                            option(value='OR') Oregon
-                            option(value='PA') Pennsylvania
-                            option(value='RI') Rhode Island
-                            option(value='SC') South Carolina
-                            option(value='SD') South Dakota
-                            option(value='TN') Tennessee
-                            option(value='TX') Texas
-                            option(value='UT') Utah
-                            option(value='VT') Vermont
-                            option(value='VA') Virginia
-                            option(value='WA') Washington
-                            option(value='WV') West Virginia
-                            option(value='WI') Wisconsin
-                            option(value='WY') Wyoming
-                ol
-                    li#region_subquestion
-                        .question
-                            label.question-text(for="county") In what county in California does the patient reside?
-                            .input
-                                select#county(name="county")
-                                    option(value="") Select a County
-                                    option(value="Alameda") Alameda
-                                    option(value="Alpine") Alpine
-                                    option(value="Amador") Amador
-                                    option(value="Butte") Butte
-                                    option(value="Calaveras") Calaveras
-                                    option(value="Colusa") Colusa
-                                    option(value="Contra Costa") Contra Costa
-                                    option(value="Del Norte") Del Norte
-                                    option(value="El Dorado") El Dorado
-                                    option(value="Fresno") Fresno
-                                    option(value="Glenn") Glenn
-                                    option(value="Humboldt") Humboldt
-                                    option(value="Imperial") Imperial
-                                    option(value="Inyo") Inyo
-                                    option(value="Kern") Kern
-                                    option(value="Kings") Kings
-                                    option(value="Lake") Lake
-                                    option(value="Lassen") Lassen
-                                    option(value="Los Angeles") Los Angeles
-                                    option(value="Madera") Madera
-                                    option(value="Marin") Marin
-                                    option(value="Mariposa") Mariposa
-                                    option(value="Mendocino") Mendocino
-                                    option(value="Merced") Merced
-                                    option(value="Modoc") Modoc
-                                    option(value="Mono") Mono
-                                    option(value="Monterey") Monterey
-                                    option(value="Napa") Napa
-                                    option(value="Nevada") Nevada
-                                    option(value="Orange") Orange
-                                    option(value="Placer") Placer
-                                    option(value="Plumas") Plumas
-                                    option(value="Riverside") Riverside
-                                    option(value="Sacramento") Sacramento
-                                    option(value="San Benito") San Benito
-                                    option(value="San Bernardino") San Bernardino
-                                    option(value="San Diego") San Diego
-                                    option(value="San Francisco") San Francisco
-                                    option(value="San Joaquin") San Joaquin
-                                    option(value="San Luis Obispo") San Luis Obispo
-                                    option(value="San Mateo") San Mateo
-                                    option(value="Santa Barbara") Santa Barbara
-                                    option(value="Santa Clara") Santa Clara
-                                    option(value="Santa Cruz") Santa Cruz
-                                    option(value="Shasta") Shasta
-                                    option(value="Sierra") Sierra
-                                    option(value="Siskiyou") Siskiyou
-                                    option(value="Solano") Solano
-                                    option(value="Sonoma") Sonoma
-                                    option(value="Stanislaus") Stanislaus
-                                    option(value="Sutter") Sutter
-                                    option(value="Tehama") Tehama
-                                    option(value="Trinity") Trinity
-                                    option(value="Tulare") Tulare
-                                    option(value="Tuolumne") Tuolumne
-                                    option(value="Ventura") Ventura
-                                    option(value="Yolo") Yolo
-                                    option(value="Yuba") Yuba
-            li
-                .question
-                    label.question-text(for="gender") What is the patient's gender?
-                    .input
-                      select#gender(name='gender')
-                        option(value='') Select
-                        option(value='Male') Male
-                        option(value='Female') Female
-                    em
-                        | Please note: This tool uses gender-specific risk models.
-                        | It requries different information of male patients than female patients.
-                        | The answer to this question will determine what other questions are asked below.
-            li
-                .question
-                    label.question-text(for="race") What is the patient's race?
-                    .input
-                      select#race(name='race')
-                        option(value='') Select
-                        option(value='0') Non-Hispanic White
-                        option(value='1') Other
-            li
-                .question
-                    label.question-text(for="age") What is the patient's age?
-                    .input
-                      input#age(name='age', type="number", min="1", max="120", placeholder="Enter patient's age")
-            li.male
-                .question
-                    label.question-text(for="sunburn")
-                      b.no-css &nbsp;Males only
-                      i Ask the patient:
-                      |  Did you ever get a blistering sunburn?
-                    .input
-                      select#sunburn(name='sunburn')
-                        option(value='') Select
-                        option(value='0') Yes
-                        option(value='1') No
-            li.male.female
-                .question
-                    label.question-text(for="complexion")
-                      i Ask the patient:
-                      |  Is your complexion light, medium, or dark?
-                    .input
-                      select#complexion(name='complexion')
-                        option(value='') Select
-                        option(value='0') Light
-                        option(value='1') Medium
-                        option(value='2') Dark
-            li.female
-                .question
-                    label.question-text(for="tan")
-                      b.no-css &nbsp;Females only
-                      i Ask the patient:
-                      |  After repeated and prolonged exposure to sunlight, at the age you are now, would your skin become
-                      | very brown and deeply tanned, moderately tanned, lightly tanned, or not tanned at all?
-                    .input
-                      select#tan(name='tan')
-                        option(value='') Select
-                        option(value='0') Very brown and deeply tanned
-                        option(value='1') Moderately tanned
-                        option(value='2') Lightly tanned
-                        option(value='3') No tan at all
-            li.male
-                .question
-                    label.question-text(for="big-moles")
-                      b.no-css &nbsp;Males only
-                      | How many moles larger than 5mm in diameter are on the patient's back?
-                    .input
-                      select#big-moles(name='big-moles')
-                        option(value='') Select
-                        option(value='0') Less than two
-                        option(value='1') Two or more
-            li.male.female
-                .question
-                    label.question-text(for="small-moles")
-                      | How many moles less than or equal to 5mm in diameter are on the patient's back?
-                    .input
-                      select#small-moles(name='small-moles')
-                        option(value='') Select
-                        option(value='0') Less than seven
-                        option(value='1') Seven to seventeen
-                        option(value='2') More than seventeen
-            li.male.female
-                .question
-                    label.question-text(for="freckling")
-                      | How extensive is the freckling on the patient's back and shoulders?
-                    .input
-                      select#freckling(name='freckling')
-                        option(value='') Select
-                        option(value='0') Absent
-                        option(value='1') Mild
-                        option(value='2') Moderate
-                        option(value='3') Severe
-                .question-illustrations
-                    small (click image to view full size)
-                    br
-                    img.thumbnail(src="images/mratMildLrg.jpg", title="Mild Freckling", alt="Mild Freckling")
-                    img.thumbnail(src="images/mratModLrg.jpg", title="Moderate Freckling", alt="Moderate Freckling")
-                    img.thumbnail(src="images/mratSevereLrg.jpg", title="Severe Freckling", alt="Severe Freckling")
-            li.male
-                .question
-                    label.question-text(for="damage")
-                      b.no-css &nbsp;Males only
-                      | Does the patient have severe solar damage on the shoulders?
-                    .input
-                      select#damage(name='damage')
-                        option(value='') Select
-                        option(value='0') Yes
-                        option(value='1') No
-                .question-illustrations
-                    small (click image to view full size)
-                    br
-                    img.thumbnail(src="images/mratSevereLrg2.jpg", title="Severe solar damage", alt="Severe solar damage")
-        button#calculate(type="submit") Calculate Risk
+        .section-description
+            span.hidden-anchor
+                a(href='#survey') Skip to survey
+            include ../../templates/tool-description
+            p
+                a(href='http://www.ncbi.nlm.nih.gov/pubmed/16728488', target="_blank") JCO Publication
+            p
+                strong Before using the tool, please note the following:
+            ul
+                li
+                    | The melanoma risk calculator was designed for use by health professionals during
+                    | a routine physical examination that includes recording of information about the
+                    | patient's personal and family medical history and an examination of the skin on
+                    | the patient's back and shoulders. If you are not a health professional, you are
+                    | strongly encouraged to discuss the results obtained with this tool and your personal
+                    | risk of melanoma with your doctor.
+                li
+                    | The MRAT risk calculator may be updated periodically as new data or research becomes
+                    | available.
+                li
+                    | This tool should not be used to estimate melanoma risk for people who have already
+                    | had a diagnosis of melanoma, melanoma-in-situ, non-melanoma skin cancer, or a family
+                    | history of melanoma. These individuals should be in screening and surveillance programs.
+                li
+                    | The melanoma risk calculator was developed using data from a large case-control
+                    | study in the United States. Risks are estimated for non-Hispanic whites only; data
+                    | for other races/ethnicities are too limited to accurately estimate risk.
+                li
+                    | A recent version of Internet Explorer, Firefox, or Chrome is recommended.
+        a.show-more
+            span.fa.fa-plus-circle
+            | Show More
+        .section-title
+            span Questions
+        #result.hide
+        #error(style="display:none;")
+        form#survey(action="/mratRest/calculate/",method="POST")
+            ol
+                li.rounded
+                    .question
+                        label.question-text(for="state") In what state does the patient reside?
+                        .input
+                            select#state(name="state")
+                                option(value='') Choose a State
+                                option(value='AL') Alabama
+                                option(value='AK') Alaska
+                                option(value='AZ') Arizona
+                                option(value='AR') Arkansas
+                                option(value='CA') California
+                                option(value='CO') Colorado
+                                option(value='CT') Connecticut
+                                option(value='DE') Delaware
+                                option(value='DC') District Of Columbia
+                                option(value='FL') Florida
+                                option(value='GA') Georgia
+                                option(value='HI') Hawaii
+                                option(value='ID') Idaho
+                                option(value='IL') Illinois
+                                option(value='IN') Indiana
+                                option(value='IA') Iowa
+                                option(value='KS') Kansas
+                                option(value='KY') Kentucky
+                                option(value='LA') Louisiana
+                                option(value='ME') Maine
+                                option(value='MD') Maryland
+                                option(value='MA') Massachusetts
+                                option(value='MI') Michigan
+                                option(value='MN') Minnesota
+                                option(value='MS') Mississippi
+                                option(value='MO') Missouri
+                                option(value='MT') Montana
+                                option(value='NE') Nebraska
+                                option(value='NV') Nevada
+                                option(value='NH') New Hampshire
+                                option(value='NJ') New Jersey
+                                option(value='NM') New Mexico
+                                option(value='NY') New York
+                                option(value='NC') North Carolina
+                                option(value='ND') North Dakota
+                                option(value='OH') Ohio
+                                option(value='OK') Oklahoma
+                                option(value='OR') Oregon
+                                option(value='PA') Pennsylvania
+                                option(value='RI') Rhode Island
+                                option(value='SC') South Carolina
+                                option(value='SD') South Dakota
+                                option(value='TN') Tennessee
+                                option(value='TX') Texas
+                                option(value='UT') Utah
+                                option(value='VT') Vermont
+                                option(value='VA') Virginia
+                                option(value='WA') Washington
+                                option(value='WV') West Virginia
+                                option(value='WI') Wisconsin
+                                option(value='WY') Wyoming
+                    ol
+                        li#region_subquestion.counties
+                            .question
+                                label.question-text(for="county") In what county in California does the patient reside?
+                                .input
+                                    select#county(name="county")
+                                        option(value="") Select a County
+                                        option(value="Alameda") Alameda
+                                        option(value="Alpine") Alpine
+                                        option(value="Amador") Amador
+                                        option(value="Butte") Butte
+                                        option(value="Calaveras") Calaveras
+                                        option(value="Colusa") Colusa
+                                        option(value="Contra Costa") Contra Costa
+                                        option(value="Del Norte") Del Norte
+                                        option(value="El Dorado") El Dorado
+                                        option(value="Fresno") Fresno
+                                        option(value="Glenn") Glenn
+                                        option(value="Humboldt") Humboldt
+                                        option(value="Imperial") Imperial
+                                        option(value="Inyo") Inyo
+                                        option(value="Kern") Kern
+                                        option(value="Kings") Kings
+                                        option(value="Lake") Lake
+                                        option(value="Lassen") Lassen
+                                        option(value="Los Angeles") Los Angeles
+                                        option(value="Madera") Madera
+                                        option(value="Marin") Marin
+                                        option(value="Mariposa") Mariposa
+                                        option(value="Mendocino") Mendocino
+                                        option(value="Merced") Merced
+                                        option(value="Modoc") Modoc
+                                        option(value="Mono") Mono
+                                        option(value="Monterey") Monterey
+                                        option(value="Napa") Napa
+                                        option(value="Nevada") Nevada
+                                        option(value="Orange") Orange
+                                        option(value="Placer") Placer
+                                        option(value="Plumas") Plumas
+                                        option(value="Riverside") Riverside
+                                        option(value="Sacramento") Sacramento
+                                        option(value="San Benito") San Benito
+                                        option(value="San Bernardino") San Bernardino
+                                        option(value="San Diego") San Diego
+                                        option(value="San Francisco") San Francisco
+                                        option(value="San Joaquin") San Joaquin
+                                        option(value="San Luis Obispo") San Luis Obispo
+                                        option(value="San Mateo") San Mateo
+                                        option(value="Santa Barbara") Santa Barbara
+                                        option(value="Santa Clara") Santa Clara
+                                        option(value="Santa Cruz") Santa Cruz
+                                        option(value="Shasta") Shasta
+                                        option(value="Sierra") Sierra
+                                        option(value="Siskiyou") Siskiyou
+                                        option(value="Solano") Solano
+                                        option(value="Sonoma") Sonoma
+                                        option(value="Stanislaus") Stanislaus
+                                        option(value="Sutter") Sutter
+                                        option(value="Tehama") Tehama
+                                        option(value="Trinity") Trinity
+                                        option(value="Tulare") Tulare
+                                        option(value="Tuolumne") Tuolumne
+                                        option(value="Ventura") Ventura
+                                        option(value="Yolo") Yolo
+                                        option(value="Yuba") Yuba
+                    .question-illustrations
+                        img.stock-images(src="images/states.svg")
+                        img.stock-images.counties(src="images/cali_map.svg")
+                li.rounded
+                    .question
+                        label.question-text(for="gender") What is the patient's gender?
+                        .input
+                          select#gender(name='gender')
+                            option(value='') Select
+                            option(value='Male') Male
+                            option(value='Female') Female
+                        em
+                            | Please note: This tool uses gender-specific risk models.
+                            | It requries different information of male patients than female patients.
+                            | The answer to this question will determine what other questions are asked below.
+                        .question-illustrations
+                            img.stock-images(src="images/man-woman.jpg")
+                li.rounded
+                    .question
+                        label.question-text(for="race") What is the patient's race?
+                        .input
+                          select#race(name='race')
+                            option(value='') Select
+                            option(value='0') Non-Hispanic White
+                            option(value='1') Other
+                    .question-illustrations
+                        img.stock-images(src="images/diversity.jpg")
+                li.rounded
+                    .question
+                        label.question-text(for="age") What is the patient's age?
+                        .input
+                          input#age(name='age', type="number", min="1", max="120", placeholder="Enter patient's age")
+                li.male.rounded
+                    .question
+                        label.question-text(for="sunburn")
+                          b.no-css &nbsp;Males only
+                          i Ask the patient:
+                          |  Did you ever get a blistering sunburn?
+                        .input
+                          select#sunburn(name='sunburn')
+                            option(value='') Select
+                            option(value='0') Yes
+                            option(value='1') No
+                li.male.female.rounded
+                    .question
+                        label.question-text(for="complexion")
+                          i Ask the patient:
+                          |  Is your complexion light, medium, or dark?
+                        .input
+                          select#complexion(name='complexion')
+                            option(value='') Select
+                            option(value='0') Light
+                            option(value='1') Medium
+                            option(value='2') Dark
+                    .question-illustrations
+                        img.stock-images(src="images/hand-circle.png")
+                li.female.rounded
+                    .question
+                        label.question-text(for="tan")
+                          b.no-css &nbsp;Females only
+                          i Ask the patient:
+                          |  After repeated and prolonged exposure to sunlight, at the age you are now, would your skin become
+                          | very brown and deeply tanned, moderately tanned, lightly tanned, or not tanned at all?
+                        .input
+                          select#tan(name='tan')
+                            option(value='') Select
+                            option(value='0') Very brown and deeply tanned
+                            option(value='1') Moderately tanned
+                            option(value='2') Lightly tanned
+                            option(value='3') No tan at all
+                li.male.rounded
+                    .question
+                        label.question-text(for="big-moles")
+                          b.no-css &nbsp;Males only
+                          | How many moles larger than 5mm in diameter are on the patient's back?
+                        .input
+                          select#big-moles(name='big-moles')
+                            option(value='') Select
+                            option(value='0') Less than two
+                            option(value='1') Two or more
+                li.male.female.rounded
+                    .question
+                        label.question-text(for="small-moles")
+                          | How many moles less than or equal to 5mm in diameter are on the patient's back?
+                        .input
+                          select#small-moles(name='small-moles')
+                            option(value='') Select
+                            option(value='0') Less than seven
+                            option(value='1') Seven to seventeen
+                            option(value='2') More than seventeen
+                li.male.female.rounded
+                    .question
+                        label.question-text(for="freckling")
+                          | How extensive is the freckling on the patient's back and shoulders?
+                        .input
+                          select#freckling(name='freckling')
+                            option(value='') Select
+                            option(value='0') Absent
+                            option(value='1') Mild
+                            option(value='2') Moderate
+                            option(value='3') Severe
+                    .question-illustrations
+                        small (click image to view full size)
+                        br
+                        img.thumbnail(src="images/mratMildLrg.jpg", title="Mild Freckling", alt="Mild Freckling")
+                        img.thumbnail(src="images/mratModLrg.jpg", title="Moderate Freckling", alt="Moderate Freckling")
+                        img.thumbnail(src="images/mratSevereLrg.jpg", title="Severe Freckling", alt="Severe Freckling")
+                li.male.rounded
+                    .question
+                        label.question-text(for="damage")
+                          b.no-css &nbsp;Males only
+                          | Does the patient have severe solar damage on the shoulders?
+                        .input
+                          select#damage(name='damage')
+                            option(value='') Select
+                            option(value='0') Yes
+                            option(value='1') No
+                    .question-illustrations
+                        small (click image to view full size)
+                        br
+                        img.thumbnail(src="images/mratSevereLrg2.jpg", title="Severe solar damage", alt="Severe solar damage")
+            button#calculate(type="submit") Calculate Risk

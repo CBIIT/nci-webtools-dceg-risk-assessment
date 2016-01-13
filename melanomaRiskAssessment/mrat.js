@@ -234,10 +234,10 @@ $("#state").on("change", regionFilter);
 
 function regionFilter() {
     if(document.getElementById("state").value == "CA") {
-        $("#region_subquestion").show();
+        $(".counties").show();
     }
     else {
-        $("#region_subquestion").hide();
+        $(".counties").hide();
         $("#county").val("");
     }
 }

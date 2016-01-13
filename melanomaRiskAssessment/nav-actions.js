@@ -22,7 +22,7 @@ $(function(){
     $('#menu-button').on('click',function() {
         $('#main-nav').toggleClass('show');
     });
-    
+
     $('#main-nav a').on('click',function() {
         var naxtNav = $(this).next('ul.nav');
         if (naxtNav.length > 0) {
@@ -39,6 +39,14 @@ $(function(){
 
     $(window).scroll(fixedToTop);
     fixedToTop();
+
+    $(".show-more").on("click", function() {
+        $(this).prev().toggleClass("more");
+        if($(this).prev().hasClass("more"))
+            $(this).html("<span class='fa fa-minus-circle'></span>Show Less");
+        else
+            $(this).html("<span class='fa fa-plus-circle'></span>Show More");
+    });
 });
 
 function fixedToTop() {

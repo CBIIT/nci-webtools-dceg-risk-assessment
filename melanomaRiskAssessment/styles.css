@@ -37,9 +37,6 @@ header #toolTitle {
   padding: 10px 160px;
   font-size: 0.9em;
 }
-header #toolTitle #toolName {
-  font-weight: bold;
-}
 header #toolTitle #toolDescription {
   font-style: italic;
 }
@@ -61,14 +58,14 @@ header #toolTitle #toolDescription {
 }
 ul.nav {
   background: #636363;
-  background: -webkit-linear-gradient(315deg, #f7f8f3 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
-  background: -moz-linear-gradient(315deg, #f7f8f3 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
-  background: -o-linear-gradient(315deg, #f7f8f3 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
-  background: -ms-linear-gradient(315deg, #f7f8f3 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
-  background: linear-gradient(135deg, #f7f8f3 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
+  background: -webkit-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
+  background: -moz-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
+  background: -o-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
+  background: -ms-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
+  background: linear-gradient(135deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
   border-top: 2px solid #bb0e3d;
   font-size: 0.9em;
-  margin: 0px;
+  margin: 0;
   padding-left: 160px;
   position: relative;
   top: 0;
@@ -96,8 +93,8 @@ ul.nav li a:hover {
 }
 ul.nav li ul {
   background: #000;
-  border: 0px;
-  left: 0px;
+  border: 0;
+  left: 0;
   position: absolute;
   top: 100%;
 }
@@ -115,12 +112,12 @@ ul.nav.stick-nav-top {
   z-index: 10000;
 }
 #content {
-  margin: 0px;
+  margin: 0;
   background: transparent;
 }
 footer {
   color: #000;
-  padding: 5px 0px;
+  padding: 5px 0;
   clear: both;
   text-align: center;
   font-size: 0.9em;
@@ -128,7 +125,7 @@ footer {
 footer ul li {
   list-style: none;
   display: inline-block;
-  margin: 0px 5px;
+  margin: 0 5px;
 }
 footer ul li a {
   color: #000;
@@ -137,23 +134,18 @@ footer ul li a :hover {
   text-decoration: none;
 }
 dl {
-  padding: 0px 60px;
+  padding: 0 60px;
 }
 dl dt {
   font-weight: bold;
 }
-hr {
-  width: 50%;
-  margin: 10px auto;
-}
-.minimize,
-.maximize {
-  display: none;
-  color: inherit;
+.rounded {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
 }
 section {
-  margin: 0px 130px;
-  float: right;
+  margin: 0 auto;
+  padding: 0 200px;
 }
 section form {
   display: block;
@@ -161,35 +153,41 @@ section form {
 section form > ol {
   list-style: decimal;
 }
-section form > ol > li {
+section form > ol li {
   display: inline-block;
   margin: 5px;
   padding: 25px;
-  width: 30%;
+  width: 43%;
   max-width: 100%;
-  height: 250px;
+  height: 350px;
   vertical-align: top;
-  border: 2px solid #2a71a5;
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  background: #fff;
   overflow: auto;
+  border: 2px solid #2a71a5;
 }
-section form > ol > li ol {
+section form > ol li:nth-child(even) {
+  background: #fff;
+}
+section form > ol li:nth-child(odd) {
+  background-color: transparent;
+}
+section form > ol li:nth-child(odd) > .question-illustrations {
+  background-color: inherit;
+}
+section form > ol li ol {
   list-style: lower-alpha;
   padding: 0;
 }
-section form > ol > li .question {
+section form > ol li .question {
   padding: 10px 0;
 }
-section form > ol > li .question > label {
+section form > ol li .question > label {
   display: inline-block;
 }
-section form > ol > li .question > p {
+section form > ol li .question > p {
   display: inline-block;
 }
-section form > ol > li .question select,
-section form > ol > li .question input {
+section form > ol li .question select,
+section form > ol li .question input {
   width: 100%;
 }
 section form .female:not(.show),
@@ -230,6 +228,13 @@ section form .question-illustrations {
   background: #fff;
   text-align: center;
 }
+section form .question-illustrations .stock-images {
+  margin: 0 10px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  width: 200px;
+  height: 140px;
+}
 section form .question-illustrations .expand {
   width: 100%;
   -webkit-box-shadow: 3px 3px 10px #000;
@@ -240,13 +245,16 @@ section form .question-illustrations img {
   margin: 10px 0;
   vertical-align: top;
 }
-section form #region_subquestion {
+section form .counties {
   display: none;
+}
+section form #region_subquestion {
   border: none;
   list-style: none;
   width: inherit;
   padding: 0;
   margin: 0;
+  height: auto;
 }
 .section-content {
   padding: 0 1%;
@@ -284,11 +292,23 @@ section form #region_subquestion {
   -webkit-border-radius: 10px;
   border-radius: 10px;
   font-size: 0.9em;
+  height: 100px;
+  overflow: hidden;
 }
 .about-question-title {
   border-left: 2px solid #2a71a5;
   padding-left: 5px;
   margin: 5px auto;
+}
+.about-question-explanation {
+  margin: 5px auto;
+  padding: 15px;
+}
+.content-details {
+  padding: 10px 15px;
+  margin: 10px auto;
+  border: 2px solid #2a71a5;
+  background: #fff;
 }
 .termToDefine {
   font-style: italic;
@@ -298,24 +318,21 @@ section form #region_subquestion {
   font-size: initial;
 }
 .section-anchors {
-  margin: 0px auto;
-  padding: 0px;
+  margin: 10px auto;
+  padding: 0;
   text-align: center;
 }
 .section-anchors li {
   display: inline;
   list-style: none;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
 }
 .spacer {
   border-left: 2px solid;
   border-color: inherit;
   display: inline;
-  margin: 0px 10px;
-}
-#reference * {
-  font-size: 0.9em;
+  margin: 0 10px;
 }
 #error {
   background: #fc7878;
@@ -328,25 +345,25 @@ section form #region_subquestion {
   border: 5px solid #000;
   -webkit-border-radius: 10px;
   border-radius: 10px;
-  margin: 0px auto;
+  margin: 0 auto;
   max-width: 600px;
   padding: 30px;
 }
 #result h2 {
   font-size: 48px;
-  margin: 0px;
+  margin: 0;
   text-align: center;
 }
 #result .chart {
   background: #69f;
-  font-size: 0px;
+  font-size: 0;
   position: relative;
   z-index: 0;
 }
 #result .chart .bar {
   height: 20%;
-  left: 0px;
-  top: 0px;
+  left: 0;
+  top: 0;
   position: absolute;
   z-index: -1;
 }
@@ -366,33 +383,34 @@ section form #region_subquestion {
   display: none;
 }
 .ui-helper-hidden-accessible {
-  border: 0px;
+  border: 0;
   clip: rect(0 0 0 0);
   height: 1px;
   margin: -1px;
   overflow: hidden;
-  padding: 0px;
+  padding: 0;
   position: absolute;
   width: 1px;
 }
 .default-tooltip-title {
   font-size: 0.8em;
-  background: #8c9c9a;
+  background: #0c5c97;
   font-weight: bold;
   color: #fff;
-  -webkit-border-radius: 10px 10px 0px 0px;
-  border-radius: 10px 10px 0px 0px;
+  -webkit-border-radius: 10px 10px 0 0;
+  border-radius: 10px 10px 0 0;
   text-decoration: underline;
 }
 .default-tooltip-content {
-  background: #d6e4e1;
+  background: #fff;
   font-size: 0.9em;
   line-height: 1.4;
-  -webkit-border-radius: 0px 0px 10px 10px;
-  border-radius: 0px 0px 10px 10px;
+  -webkit-border-radius: 0 0 10px 10px;
+  border-radius: 0 0 10px 10px;
+  border: 1px solid #000;
 }
-.link-icons {
-  display: none;
+.more {
+  height: auto;
 }
 #topButton {
   display: none;
@@ -403,7 +421,7 @@ section form #region_subquestion {
   -webkit-border-radius: 25px;
   border-radius: 25px;
   text-align: center;
-  padding: 5px 0px;
+  padding: 5px 0;
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -418,6 +436,7 @@ section form #region_subquestion {
   }
   section {
     margin: 0 50px;
+    padding: 0 20px;
   }
   section form > ol > li {
     margin: 10px auto;
@@ -479,9 +498,6 @@ section form #region_subquestion {
   .section-title {
     padding: 5px 0;
   }
-  .link-icons {
-    display: inline-block;
-  }
   .menu-title {
     padding: 5px 0;
     display: block;
@@ -530,22 +546,23 @@ section form #region_subquestion {
   }
   section {
     margin: 10px;
+    padding: 0;
   }
   section form > ol > li {
     width: 100%;
     height: auto;
     max-height: 350px;
     min-height: 130px;
+    padding: 5px 10px;
   }
   footer {
     margin: 25px 0;
   }
-  .minimize,
-  .maximize {
-    display: inline-block;
-  }
   .question-illustration {
     padding-left: 0;
+  }
+  .question-illustration .stock-images {
+    width: 180px;
   }
 }
 @media (max-width: 480px) {

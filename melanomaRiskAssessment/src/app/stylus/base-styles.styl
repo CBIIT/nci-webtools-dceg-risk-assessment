@@ -27,8 +27,6 @@ header
         color white
         padding 10px 160px
         font-size .9em
-        #toolName
-            font-weight bold
         #toolDescription
             font-style italic
 #top
@@ -46,10 +44,10 @@ header
     display none
 ul.nav
     background #636363
-    background linear-gradient(135deg, #f7f8f3 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%)
+    background linear-gradient(135deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
     border-top 2px solid #BB0E3D
     font-size .9em
-    margin 0px
+    margin 0
     padding-left 160px
     // submenu's absolute positioning is now relative to the submenu allowing us to remove it from the flow without worrying about calculating its position on display
     position relative
@@ -74,8 +72,8 @@ ul.nav
         // reposition the subelement underneath the larger header. This breaks down literally as soon as there is a second line of headers, so mobile nav needs to start right around that point.
         ul
             background #000
-            border 0px
-            left 0px
+            border 0
+            left 0
             position absolute
             top 100%
         // by using :not we don't have to worry about what the original display value of the element is
@@ -90,56 +88,55 @@ ul.nav
         z-index 10000
 
 #content
-    margin 0px
+    margin 0
     background transparent
 
 footer
     color black
-    padding 5px 0px
+    padding 5px 0
     clear both
     text-align center
     font-size .9em
     ul li
         list-style none
         display inline-block
-        margin 0px 5px
+        margin 0 5px
         a
           color black
           :hover
               text-decoration none
 
 dl
-    padding 0px 60px
+    padding 0 60px
     dt
         font-weight bold
-hr
-    width 50%
-    margin 10px auto
 
-.minimize,.maximize
-    display none
-    color inherit
+.rounded
+    border-radius 10px
 
 section
-    margin 0px 130px
-    float right
+    margin 0 auto
+    padding 0 200px
     form
         display block
         > ol
             list-style decimal
-            //            padding 0
-            > li
+            li
                 display inline-block
                 margin 5px
                 padding 25px
-                width 30%
+                width 43%
                 max-width 100%
-                height 250px
+                height 350px
                 vertical-align top
-                border 2px solid #2A71A5
-                border-radius 10px
-                background #fff
                 overflow auto
+                border 2px solid #2A71A5
+                &:nth-child(even)
+                    background #fff
+                &:nth-child(odd)
+                    background-color transparent
+                    > .question-illustrations
+                        background-color inherit
                 ol
                     list-style lower-alpha
                     padding 0
@@ -181,6 +178,11 @@ section
             margin 0 auto
             background #fff
             text-align center
+            .stock-images
+                margin 0 10px
+                border-radius 5px
+                width 200px
+                height 140px
             .expand
                 width 100%
                 box-shadow 3px 3px 10px #000
@@ -188,13 +190,16 @@ section
                 width 30%
                 margin 10px 0
                 vertical-align top
-        #region_subquestion
+        .counties
             display none
+        #region_subquestion
             border none
             list-style none
             width inherit
             padding 0
             margin 0
+            height auto
+
 .section-content
     padding 0 1%
 
@@ -211,7 +216,6 @@ section
         font-size .9em
         color inherit !important
 
-
 .section-title, .section-content
     a
         text-decoration underline
@@ -226,11 +230,23 @@ section
     border 1px solid
     border-radius 10px
     font-size .9em
+    height 100px
+    overflow hidden
 
 .about-question-title
     border-left 2px solid #2A71A5
     padding-left 5px
     margin 5px auto
+
+.about-question-explanation
+    margin 5px auto
+    padding 15px
+
+.content-details
+    padding 10px 15px
+    margin 10px auto
+    border 2px solid #2A71A5
+    background white
 
 .termToDefine
     font-style italic
@@ -240,24 +256,20 @@ section
     font-size initial
 
 .section-anchors
-    margin 0px auto
-    padding 0px
+    margin 10px auto
+    padding 0
     text-align center
     li
         display inline
         list-style none
-        margin 0px
-        padding 0px
+        margin 0
+        padding 0
 
 .spacer
     border-left 2px solid
     border-color inherit
     display inline
-    margin 0px 10px
-
-
-#reference *
-    font-size .9em
+    margin 0 10px
 
 #error
     background #FC7878
@@ -267,22 +279,22 @@ section
 #result
     border 5px solid black
     border-radius 10px
-    margin 0px auto
+    margin 0 auto
     max-width 600px
     padding 30px
     h2
         font-size 48px
-        margin 0px
+        margin 0
         text-align center
     .chart
         background #69F
-        font-size 0px
+        font-size 0
         position relative
         z-index 0
         .bar
             height 20%
-            left 0px
-            top 0px
+            left 0
+            top 0
             position absolute
             z-index -1
             &.yours
@@ -298,31 +310,32 @@ section
     display none
 
 .ui-helper-hidden-accessible
-    border 0px
+    border 0
     clip rect(0 0 0 0)
     height 1px
     margin -1px
     overflow hidden
-    padding 0px
+    padding 0
     position absolute
     width 1px
 
 .default-tooltip-title
     font-size .8em
-    background #8C9C9A
+    background #0C5C97
     font-weight bold
     color white
-    border-radius 10px 10px 0px 0px
+    border-radius 10px 10px 0 0
     text-decoration underline
 
 .default-tooltip-content
-    background #D6E4E1
+    background #FFFFFF
     font-size .9em
     line-height 1.4
-    border-radius 0px 0px 10px 10px
+    border-radius 0 0 10px 10px
+    border 1px solid black
 
-.link-icons
-    display none
+.more
+    height auto
 
 #topButton
     display none
@@ -332,7 +345,7 @@ section
     color white
     border-radius 25px
     text-align center
-    padding 5px 0px
+    padding 5px 0
     position fixed
     bottom 20px
     right 20px
