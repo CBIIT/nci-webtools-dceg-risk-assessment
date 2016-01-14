@@ -225,13 +225,16 @@ section
 
 .section-description
     background #F0FFFF
-    margin 10px
+    margin 10px auto
     padding 10px
     border 1px solid
     border-radius 10px
-    font-size .9em
-    height 100px
-    overflow hidden
+    > .more
+        height 100px
+        overflow hidden
+    > button.show-more
+        margin 5px 0
+        padding 5px 20px
 
 .about-question-title
     border-left 2px solid #2A71A5
@@ -320,7 +323,6 @@ section
     width 1px
 
 .default-tooltip-title
-    font-size .8em
     background #0C5C97
     font-weight bold
     color white
@@ -329,7 +331,6 @@ section
 
 .default-tooltip-content
     background #FFFFFF
-    font-size .9em
     line-height 1.4
     border-radius 0 0 10px 10px
     border 1px solid black

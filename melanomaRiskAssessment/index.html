@@ -188,7 +188,7 @@
               </li>
               <li>A recent version of Internet Explorer, Firefox, or Chrome is recommended.</li>
             </ul>
-          </div><a class="show-more"><span class="fa fa-plus-circle"></span>Show More</a>
+          </div>
           <div class="section-title"><span>Questions</span></div>
           <div id="result" class="hide"></div>
           <div id="error" style="display:none;"></div>
@@ -324,7 +324,7 @@
                     </div>
                   </li>
                 </ol>
-                <div class="question-illustrations"><img src="images/states.svg" class="stock-images"><img src="images/cali_map.svg" class="stock-images counties"></div>
+                <div class="question-illustrations"><img alt="map of the United States" src="images/states.svg" class="stock-images"><img alt="map of the counties in california" src="images/cali_map.svg" class="stock-images counties"></div>
               </li>
               <li class="rounded">
                 <div class="question">
@@ -339,7 +339,7 @@
                     Please note: This tool uses gender-specific risk models.
                     It requries different information of male patients than female patients.
                     The answer to this question will determine what other questions are asked below.</em>
-                  <div class="question-illustrations"><img src="images/man-woman.jpg" class="stock-images"></div>
+                  <div class="question-illustrations"><img alt="image of a man and woman" src="images/man-woman.jpg" class="stock-images"></div>
                 </div>
               </li>
               <li class="rounded">
@@ -353,7 +353,7 @@
                     </select>
                   </div>
                 </div>
-                <div class="question-illustrations"><img src="images/diversity.jpg" class="stock-images"></div>
+                <div class="question-illustrations"><img alt="diverse group of people" src="images/diversity.jpg" class="stock-images"></div>
               </li>
               <li class="rounded">
                 <div class="question">
@@ -387,7 +387,7 @@
                     </select>
                   </div>
                 </div>
-                <div class="question-illustrations"><img src="images/hand-circle.png" class="stock-images"></div>
+                <div class="question-illustrations"><img alt="hands of different skin complexions" src="images/hand-circle.png" class="stock-images"></div>
               </li>
               <li class="female rounded">
                 <div class="question">
@@ -466,7 +466,7 @@
       <section id="cancer-risk" tab="cancer-risk">
         <div class="section-title"><span>Melanoma Cancer Risk</span><a title="go to melanoma risk assessment" name="risk-calculator" class="goToTab">Calculate Risk for New Patients</a></div>
         <div class="section-content">
-          <div class="rounded">
+          <div class="content-details rounded">
             <dl>
               <p>
                 No one knows the exact causes of melanoma. Doctors can seldom explain why one person
@@ -587,7 +587,7 @@
                 </li>
               </ul>
             </p>
-          </div><a class="show-more"><span class="fa fa-plus-circle"></span>Show More</a>
+          </div>
         </div>
       </section>
       <section id="source-code" tab="source-code">
@@ -602,82 +602,86 @@
         </div>
         <div class="section-title">Download Source Code for the Melanoma Risk Calculation Engine</div>
         <div class="section-content">
-          <p>
-            The MRAT risk calculator may be updated periodically as new data or research becomes
-            available. The system is currently on statistical model version 1 and software version 2.0
-          </p>
-          <p>The source code for the MRAT risk calculator can be accessed via the &nbsp;<a href="https://github.com/CBIIT/nci-webtools-dceg-risk-assessment/tree/master/melanomaRiskAssessment" target="_blank">GitHub Repository</a>.</p>
-          <p>By downloading, you accept our Terms & Conditions below.</p>
-          <div id="documentation">
-            <div class="section-subheading">
-              <Documentation></Documentation>
-            </div><strong>Non-Proprietary Software Transfer Agreement</strong>
-            <p>
-              Provider: National Institutes of Health (NIH), National Cancer Institute
-              (hereinafter "NCI")
-            </p>
-            <p>By accepting Software, Recipient agrees to the terms of this Agreement.</p>
-            <p>
-              The Software transferred under this agreement was created by Federal Government
-              employees in the course of official duties. Transfer of Software to Recipient does
-              not constitute endorsement by the NCI of the Recipient or any product, service or
-              company and no endorsement should be inferred. SOFTWARE IS NOT INTENDED FOR TREATING
-              OR DIAGNOSING HUMAN SUBJECTS.
-            </p>
+          <div class="content-details rounded">
             <p>
               The MRAT risk calculator may be updated periodically as new data or research becomes
-              available.
+              available. The system is currently on statistical model version 1 and software version 2.0
             </p>
-            <p>
-              Software is supplied AS IS, without any accompanying services or improvements from
-              NIH. SOFTWARE IS SUPPLIED TO RECIPIENT WITH NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
-              ANY WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. NCI makes no
-              representations that the use of Software will not infringe any patent or proprietary
-              rights of third parties.
-            </p>
-            <p>
-              All risk as to quality and performance of Software is with Recipient. In no event
-              will the United States Government or NCI be liable to Recipient for damages arising
-              out of the use or inability to use Software, including but not limited to loss of
-              data or data being rendered inaccurate or losses sustained by Recipient or third
-              parties.
-            </p>
+            <p>The source code for the MRAT risk calculator can be accessed via the &nbsp;<a href="https://github.com/CBIIT/nci-webtools-dceg-risk-assessment/tree/master/melanomaRiskAssessment" target="_blank">GitHub Repository</a>.</p>
+            <p>By downloading, you accept our Terms & Conditions below.</p>
+            <div id="documentation">
+              <div class="section-subheading">
+                <Documentation></Documentation>
+              </div><strong>Non-Proprietary Software Transfer Agreement</strong>
+              <p>
+                Provider: National Institutes of Health (NIH), National Cancer Institute
+                (hereinafter "NCI")
+              </p>
+              <p>By accepting Software, Recipient agrees to the terms of this Agreement.</p>
+              <p>
+                The Software transferred under this agreement was created by Federal Government
+                employees in the course of official duties. Transfer of Software to Recipient does
+                not constitute endorsement by the NCI of the Recipient or any product, service or
+                company and no endorsement should be inferred. SOFTWARE IS NOT INTENDED FOR TREATING
+                OR DIAGNOSING HUMAN SUBJECTS.
+              </p>
+              <p>
+                The MRAT risk calculator may be updated periodically as new data or research becomes
+                available.
+              </p>
+              <p>
+                Software is supplied AS IS, without any accompanying services or improvements from
+                NIH. SOFTWARE IS SUPPLIED TO RECIPIENT WITH NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
+                ANY WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. NCI makes no
+                representations that the use of Software will not infringe any patent or proprietary
+                rights of third parties.
+              </p>
+              <p>
+                All risk as to quality and performance of Software is with Recipient. In no event
+                will the United States Government or NCI be liable to Recipient for damages arising
+                out of the use or inability to use Software, including but not limited to loss of
+                data or data being rendered inaccurate or losses sustained by Recipient or third
+                parties.
+              </p>
+            </div>
           </div>
           <div id="terms-conditions">
             <div class="section-title">
               Terms & Conditions
               Source Code for Melanoma Risk Calculation Engine
-            </div><strong>Non-Proprietary Software Transfer Agreement</strong>
-            <p>
-               Provider: National Institutes of Health (NIH)
-              , National Cancer Institute(hereinafter "NCI")
-            </p>
-            <p>By accepting Software, Recipient agrees to the terms of this Agreement.</p>
-            <p>
-              The Software transferred under this agreement was created by Federal Government
-              employees in the course of official duties. Transfer of Software to Recipient does
-              not constitute endorsement by the NCI of the Recipient or any product, service or
-              company and no endorsement should be inferred. SOFTWARE IS NOT INTENDED FOR TREATING
-              OR DIAGNOSING HUMAN SUBJECTS.
-            </p>
-            <p>
-              The MRAT risk calculator may be updated periodically as new data or research becomes
-              available.
-            </p>
-            <p>
-              Software is supplied AS IS, without any accompanying services or improvements from
-              NIH. SOFTWARE IS SUPPLIED TO RECIPIENT WITH NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
-              ANY WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. NCI makes no
-              representations that the use of Software will not infringe any patent or proprietary
-              rights of third parties.
-            </p>
-            <p>
-              All risk as to quality and performance of Software is with Recipient. In no event
-              will the United States Government or NCI be liable to Recipient for damages arising
-              out of the use or inability to use Software, including but not limited to loss of
-              data or data being rendered inaccurate or losses sustained by Recipient or third
-              parties
-            </p>
+            </div>
+            <div class="content-details rounded"><strong>Non-Proprietary Software Transfer Agreement</strong>
+              <p>
+                 Provider: National Institutes of Health (NIH)
+                , National Cancer Institute(hereinafter "NCI")
+              </p>
+              <p>By accepting Software, Recipient agrees to the terms of this Agreement.</p>
+              <p>
+                The Software transferred under this agreement was created by Federal Government
+                employees in the course of official duties. Transfer of Software to Recipient does
+                not constitute endorsement by the NCI of the Recipient or any product, service or
+                company and no endorsement should be inferred. SOFTWARE IS NOT INTENDED FOR TREATING
+                OR DIAGNOSING HUMAN SUBJECTS.
+              </p>
+              <p>
+                The MRAT risk calculator may be updated periodically as new data or research becomes
+                available.
+              </p>
+              <p>
+                Software is supplied AS IS, without any accompanying services or improvements from
+                NIH. SOFTWARE IS SUPPLIED TO RECIPIENT WITH NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
+                ANY WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. NCI makes no
+                representations that the use of Software will not infringe any patent or proprietary
+                rights of third parties.
+              </p>
+              <p>
+                All risk as to quality and performance of Software is with Recipient. In no event
+                will the United States Government or NCI be liable to Recipient for damages arising
+                out of the use or inability to use Software, including but not limited to loss of
+                data or data being rendered inaccurate or losses sustained by Recipient or third
+                parties
+              </p>
+            </div>
           </div>
         </div>
       </section>

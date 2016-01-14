@@ -40,12 +40,21 @@ $(function(){
     $(window).scroll(fixedToTop);
     fixedToTop();
 
+    $(".section-description").each(function() {
+
+        if(this.innerText.length > 500) {
+            var text = "<div class='more'>"+ this.innerHTML +"</div><button class='show-more'><span class='fa fa-plus-circle'></span>Show More</button>";
+            this.innerHTML = text;
+        }
+    });
+
     $(".show-more").on("click", function() {
-        $(this).prev().toggleClass("more");
-        if($(this).prev().hasClass("more"))
-            $(this).html("<span class='fa fa-minus-circle'></span>Show Less");
+        if(!$(this).prev().hasClass("more"))
+            this.innerHTML = "<span class='fa fa-plus-circle'></span>Show More";
         else
-            $(this).html("<span class='fa fa-plus-circle'></span>Show More");
+            this.innerHTML = "<span class='fa fa-minus-circle'></span>Show Less";
+
+        $(this).prev().toggleClass("more");
     });
 });
 

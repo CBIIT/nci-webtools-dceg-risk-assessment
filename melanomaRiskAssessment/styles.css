@@ -286,14 +286,19 @@ section form #region_subquestion {
 }
 .section-description {
   background: #f0ffff;
-  margin: 10px;
+  margin: 10px auto;
   padding: 10px;
   border: 1px solid;
   -webkit-border-radius: 10px;
   border-radius: 10px;
-  font-size: 0.9em;
+}
+.section-description > .more {
   height: 100px;
   overflow: hidden;
+}
+.section-description > button.show-more {
+  margin: 5px 0;
+  padding: 5px 20px;
 }
 .about-question-title {
   border-left: 2px solid #2a71a5;
@@ -393,7 +398,6 @@ section form #region_subquestion {
   width: 1px;
 }
 .default-tooltip-title {
-  font-size: 0.8em;
   background: #0c5c97;
   font-weight: bold;
   color: #fff;
@@ -403,7 +407,6 @@ section form #region_subquestion {
 }
 .default-tooltip-content {
   background: #fff;
-  font-size: 0.9em;
   line-height: 1.4;
   -webkit-border-radius: 0 0 10px 10px;
   border-radius: 0 0 10px 10px;
