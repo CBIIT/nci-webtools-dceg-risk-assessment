@@ -497,8 +497,7 @@ section form #region_subquestion {
   header #nci-banner {
     padding-left: 25px;
   }
-  header #toolTitle,
-  .section-title {
+  header #toolTitle {
     padding: 5px 0;
   }
   .menu-title {
@@ -546,6 +545,7 @@ section form #region_subquestion {
   }
   .section-title {
     overflow: auto;
+    padding: 5px 10px;
   }
   section {
     margin: 10px;
