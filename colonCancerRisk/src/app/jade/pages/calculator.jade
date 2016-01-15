@@ -1,0 +1,53 @@
+section#risk-calculator(tab='risk-calculator')
+    .section-description
+        span.hidden-anchor
+          a(href='#survey') Skip to survey
+        p
+            strong Update November 2014:
+            |  NCI corrected risk estimates for men corresponding to answers "polyps unknown" (page 3 of 7) and
+            | for men and women corresponding to answers "medications that do not contain aspirin unknown" (page 4 of 7).
+        p
+            strong Things to know before using this tool:
+            ul
+                li The Colorectal Cancer Risk Assessment Tool was designed for use by doctors and other health providers with their patients.
+                    | If you are not a health provider, take these results to your doctor or other health provider to discuss your personal
+                    | risk of colorectal cancer. (Colorectal cancer is another way to say colon and rectal cancer).
+                li This tool can estimate the risk of colorectal cancer for men and women who are:
+                    ul
+                        li Between the ages of 50 and 85
+                        li African American
+                        li Asian American/Pacific Islander
+                        li Hispanic/Latino
+                        li White
+                    p
+                        | This tool does not yet apply to American Indians and Alaska Natives,
+                        | but we are working to improve the tool for use by these groups of people.
+                    p
+                        | If you are African American, Asian American/Pacific Islander,
+                        | or Hispanic/Latino, please &nbsp;
+                        a.termToDefine(data-term="race_info") click here
+                        | &nbsp; for more information about race, ethnicity, and how we developed this tool.
+                li This tool cannot accurately estimate risk of colorectal cancer for people who have the following problems:
+                    ul
+                        li Ulcerative colitis
+                        li Crohn disease
+                        li Familial adenomatous polyposis (FAP)
+                        li Hereditary Nonpolyposis Colorectal Cancer (HNPCC),
+                            | also known as Lynch Syndrome
+                        li Personal history of colorectal cancer
+                li It will take about 5 to 8 minutes to answer all the questions and obtain your risk estimate.
+
+    .section-title
+      span Questions
+    .section-content
+      #result.hide
+      #error(style="display:none;")
+      form#survey(action="/ccratRest/calculate/",method="POST")
+        ol
+            include sections/demographics
+            include sections/diet
+            include sections/medical
+            include sections/activity
+            include sections/gender-based
+            include sections/family
+//-        button#calculate(type="submit") Calculate Risk

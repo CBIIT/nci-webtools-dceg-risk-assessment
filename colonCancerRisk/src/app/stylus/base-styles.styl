@@ -1,0 +1,363 @@
+*
+  box-sizing border-box
+body
+    font-family sans-serif,  Helvetica, Calibri, Arial Rounded MT Bold
+    margin 0
+    min-width 320px
+    background #f7f8f3
+a
+    color inherit
+header
+    margin 0
+    min-width 320px
+    width 100%
+    img
+        width auto
+    #nci-banner
+        display block
+        overflow auto
+        img
+            display block
+            max-height 90px
+            max-width 450px
+            min-height 52px
+            min-width 30px
+    #toolTitle
+        background #2A71A5
+        color white
+        padding 10px 160px
+        font-size .9em
+        #toolDescription
+            font-style italic
+#top
+    display block
+    margin 0 0 40px 0
+    min-height 40px
+#menu-button
+    display none
+    float right
+    height 52px
+    padding 5px
+    position relative
+    width 60px
+[tab]:not(.active)
+    display none
+ul.nav
+    background #636363
+    background linear-gradient(135deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
+    border-top 2px solid #BB0E3D
+    font-size .9em
+    margin 0
+    padding-left 160px
+    // submenu's absolute positioning is now relative to the submenu allowing us to remove it from the flow without worrying about calculating its position on display
+    position relative
+    top 0
+    width 100%
+    li
+        display inline-block
+        // padding needs to happen on the header element to ensure we don't lose the submenu before we reach it
+        padding 10px 15px
+        &.active
+            background-color #f7f8f3
+            a
+                color black
+                font-weight bold
+        a
+            color white
+            display inline-block
+            text-align center
+            text-decoration none
+            &:hover
+                text-decoration underline
+        // reposition the subelement underneath the larger header. This breaks down literally as soon as there is a second line of headers, so mobile nav needs to start right around that point.
+        ul
+            background #000
+            border 0
+            left 0
+            position absolute
+            top 100%
+        // by using :not we don't have to worry about what the original display value of the element is
+        &:not(:hover) > ul
+            display none
+        &#quick-link ul
+            background #f7f8f3
+            a
+                color #BB0E3D
+    &.stick-nav-top
+        position fixed
+        z-index 10000
+
+#content
+    margin 0
+    background transparent
+
+footer
+    color black
+    padding 5px 0
+    clear both
+    text-align center
+    font-size .9em
+    ul li
+        list-style none
+        display inline-block
+        margin 0 5px
+        a
+          color black
+          :hover
+              text-decoration none
+
+dl
+    padding 0 60px
+    dt
+        font-weight bold
+
+.rounded
+    border-radius 10px
+
+section
+    margin 0 auto
+    padding 0 200px
+    form
+        display block
+        > ol
+            list-style decimal
+            > li
+                display inline-block
+                margin 5px
+                padding 25px
+                width 30%
+                max-width 100%
+                height 350px
+                vertical-align top
+                overflow auto
+                border 2px solid #2A71A5
+                &:nth-child(even)
+                    background #fff
+                &:nth-child(odd)
+                    background-color transparent
+                    > .question-illustrations
+                        background-color inherit
+                ol
+                    list-style none
+                    padding 0
+                .question
+                    > *
+                        padding 10px 0
+                    > .notice
+                        border 1px solid
+                        padding 10px
+                        margin 5px auto
+                        max-width 400px
+                        font-size 10pt
+                        display none
+                    > label
+                        display inline-block
+                        > *
+                            vertical-align top
+                        > a.notice-show
+                            font-weight normal
+                            font-size .9em
+                    > p
+                        display inline-block
+                    select, input
+                        width 100%
+                    &#weight-question, &#height-question
+                        .input
+                            width 100%
+                            > select, input
+                                width 30%
+        .female, .male, .subquestion
+            &:not(.show)
+                display none
+
+        input, select
+            padding 10px
+            &.error
+                border 2px solid #FC7878
+        .no-css
+            display none
+
+        .question-num
+            border-right 4px #606060 solid
+            color #606060
+            font-weight bold
+            text-align center
+
+        .question-text
+            font-weight bold
+        button
+            float right
+            padding 8px 60px
+            font-size .9
+        em
+            font-size 0.8em
+        .question-illustrations
+            width 100%
+            margin 0 auto
+            background #fff
+            text-align center
+            .stock-images
+                margin 0 10px
+                border-radius 5px
+                width 200px
+                height 140px
+            .expand
+                width 100%
+                box-shadow 3px 3px 10px #000
+            img
+                width 30%
+                margin 10px 0
+                vertical-align top
+
+.section-content
+    padding 0 1%
+    ul li
+        list-style-image url("images/red-arrow.gif")
+
+.section-title
+    margin 5px auto
+    font-weight bold
+    padding 5px 20px
+    background #BB0E3D
+    border-radius 10px
+    color white
+    :nth-child(2)
+        float right
+    a
+        font-size .9em
+        color inherit !important
+
+.section-title, .section-content
+    a
+        text-decoration underline
+        color #BB0E3D
+        :hover
+            text-decoration none
+
+.section-description
+    background #F0FFFF
+    margin 10px auto
+    padding 10px
+    border 1px solid
+    border-radius 10px
+    > .more
+        height 100px
+        overflow hidden
+    > button.show-more
+        margin 5px 0
+        padding 5px 20px
+
+.about-question-title
+    border-left 2px solid #2A71A5
+    padding-left 5px
+    margin 5px auto
+
+.about-question-explanation
+    margin 5px auto
+    padding 15px
+
+.content-details
+    padding 10px 15px
+    margin 10px auto
+    border 2px solid #2A71A5
+    background white
+
+.termToDefine
+    font-style italic
+
+.references
+    font-style italic
+    font-size initial
+
+.section-anchors
+    margin 10px auto
+    padding 0
+    text-align center
+    li
+        display inline
+        list-style none
+        margin 0
+        padding 0
+
+.spacer
+    border-left 2px solid
+    border-color inherit
+    display inline
+    margin 0 10px
+
+#error
+    background #FC7878
+    border 5px solid #A95F5F
+    border-radius 10px
+    padding 30px
+#result
+    border 5px solid black
+    border-radius 10px
+    margin 0 auto
+    max-width 600px
+    padding 30px
+    h2
+        font-size 48px
+        margin 0
+        text-align center
+    .chart
+        background #69F
+        font-size 0
+        position relative
+        z-index 0
+        .bar
+            height 20%
+            left 0
+            top 0
+            position absolute
+            z-index -1
+            &.yours
+                background #300828
+            &.average
+                background red
+        img
+            width 5%
+.hide
+    display none
+
+.hidden-anchor
+    display none
+
+.ui-helper-hidden-accessible
+    border 0
+    clip rect(0 0 0 0)
+    height 1px
+    margin -1px
+    overflow hidden
+    padding 0
+    position absolute
+    width 1px
+
+.default-tooltip-title
+    background #0C5C97
+    font-weight bold
+    color white
+    border-radius 10px 10px 0 0
+    text-decoration underline
+
+.default-tooltip-content
+    background #FFFFFF
+    line-height 1.4
+    border-radius 0 0 10px 10px
+    border 1px solid black
+
+.more
+    height auto
+
+#topButton
+    display none
+    font-size 2em
+    background rgba(42,113,165,.7)
+    width 45px
+    color white
+    border-radius 25px
+    text-align center
+    padding 5px 0
+    position fixed
+    bottom 20px
+    right 20px

@@ -1,0 +1,77 @@
+li.female
+    .question
+        .notice
+            | Studies show that women who still have periods,
+            |  stopped having their periods in the past 2 years,
+            |  or have used hormone replacement therapy (HRT) in
+            |  the past 2 years may be at lower risk for colorectal
+            |  cancer than other women.
+        label.question-text(for="period") Do you still have periods?
+            include ../../templates/notice-anchor
+        .input
+            label
+                | Yes
+                input(type="radio", name="period", value='1')
+            label
+                | No
+                input(type="radio", name="period", value='0')
+
+    ol
+        li#subquestion-period.subquestion
+            .question
+                label.question-text(for="last_period")
+                    | When did you have your last period?
+                .input
+                    select#last_period(name='last_period')
+                        option(value='NAN') -select-
+                        option(value='0') Within the last year
+                        option(value='1') Between 1 and 2 years ago
+                        option(value='2') 2 or more years ago
+        li#subquestion-hormones.subquestion
+            .question
+                label.question-text(for="hormones")
+                    | During the past 2 years, have you used estrogen,
+                    |  progestin, or other female hormones?
+                | These hormones may be given as hormone pills, oral
+                |  contraceptives, shots, skin patches, vaginal creams,
+                |  or as vaginal suppositories.
+                .input
+                    label
+                        | Yes
+                        input(type="radio", name="hormones", value='1')
+                    label
+                        | No
+                        input(type="radio", name="hormones", value='0')
+li.male
+    .question
+        .notice
+            | Studies suggest that men who are current or former smokers
+            |  of cigarettes may be at increased risk for polyps and
+            |  colorectal cancer. At this time, studies show that smoking
+            |  does not increase risk of colorectal cancer among women.
+            |  As time goes on and other studies are completed, that may change.
+        label.question-text(for="cigarettes") In your
+            u  entire lifetime,
+            |  altogether, have you smoked 100 or more cigarettes?
+            include ../../templates/notice-anchor
+        .input
+            select#cigarettes(name='cigarettes')
+                option(value='NAN') -select-
+                option(value='0') Yes
+                option(value='1') No
+                option(value='2') I don't know
+    ol
+        li#subquestion-smoke-age.subquestion
+            .question
+                label.question-text(for="smoke_age")
+                    | How old were you when you started smoking cigarettes
+                    u on a regular basis
+                    | , that is, at least
+                    u  one cigarette a day for six months or longer?
+                .input
+                    select#smoke_age(name='smoke_age')
+                        option(value='NAN') -select-
+                        option(value='0') I have never smoked cigarettes regularly
+                        - var n = 6
+                        while n >= 54
+                        option(value=n)= n++

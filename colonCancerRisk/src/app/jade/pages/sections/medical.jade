@@ -1,0 +1,118 @@
+li
+    .question
+        .notice
+            | In a sigmoidoscopy, your doctor looks inside your rectum
+            |  and the lower part of the colon with a lighted tube
+            |  called a sigmoidoscope. If anything unusual is in the
+            |  rectum or colon, like a small polyp or inflamed tissue,
+            |  your doctor can remove it using the sigmoidoscope. Then,
+            |  he or she will send that piece of tissue to the lab for
+            |  testing. In a colonoscopy, your doctor looks inside the
+            |  rectum and entire colon using a long, lighted tube called
+            |  a colonoscope. Using a colonoscope, your doctor can remove
+            |  any polyps he or she sees. The procedure to remove polyps
+            |  is called a polypectomy. Having this procedure will reduce
+            |  your risk of colorectal cancer because polyps that can grow
+            |  into cancer are removed.
+        label.question-text(for="exam") In
+            u  the past 10 years
+            |  did you have a colonoscopy, sigmoidoscopy, or both?
+            include ../../templates/notice-anchor
+        .input
+            select#exam(name='exam')
+                option(value='NAN') -select-
+                option(value='0') Colonoscopy Only
+                option(value='1') Sigmoidoscopy Only
+                option(value='2') Both
+    ol
+        li#subquestion-exam.subquestion
+            .question
+                .notice
+                    | Polyps are growths on the inner wall of the colon
+                    |  or rectum. They are common in people over age 50.
+                    |  Most polyps are not cancer, but some can become cancer.
+                    |  Finding and removing polyps may reduce the risk of colorectal cancer.
+                label.question-text(for="polyp") In
+                    u the past 10 years
+                    | , did a healthcare provider tell you that you had
+                    u   a colon or rectal polyp
+                    |?
+                    include ../../templates/notice-anchor
+                .input
+                    select#polyp(name='polyp')
+                        option(value='NAN') -select-
+                        option(value='0') Yes
+                        option(value='1') No
+                        option(value='2') I don't know
+li
+    .question
+        .notice
+            | Studies have shown that aspirin and drugs called NSAIDs
+            |  can lower the risk of colorectal adenomas (tumors that
+            |  are not cancer), and may lower the risk of colorectal
+            |  cancer. (NSAID stands for nonsteroidal anti-inflammatory drug.)
+        label.question-text(for="medications") During
+            u  the past 30 days,
+            |  have you taken
+            u any
+            |  medications?
+            include ../../templates/notice-anchor
+        br
+        | NOTE: Do NOT include TYLENOL
+        .input
+            select#medications(name='medications')
+                option(value='NAN') -select-
+                option(value='0') Yes
+                option(value='1') No
+                option(value='2') I don't know
+    ol
+        li#subquestion-medications.subquestion
+            .question
+                label.question-text(for="asprin") During
+                    u  the past 30 days,
+                    |  have you taken medications
+                    u  that contain aspirin
+                    |  at least 3 times a week, such as:
+                    include ../../templates/notice-anchor
+                    br
+                    |  - Bufferin
+                    br
+                    |  - Bayer
+                    br
+                    |  - Excedrin
+                    br
+                    |  - Other generic form
+                | NOTE: Do NOT include TYLENOL
+                .input
+                    select#asprin(name='asprin')
+                        option(value='NAN') -select-
+                        option(value='0') Yes
+                        option(value='1') No
+                        option(value='2') I don't know
+            .question
+                label.question-text(for="non-asprin") During
+                    u  the past 30 days,
+                    |  have you taken medications that
+                    u DO NOT contain aspirin
+                    |  at least 3 times a week, such as:
+                    br
+                    | - Advil
+                    br
+                    | - Aleve
+                    br
+                    | - Celebrex
+                    br
+                    | - Ibuprofen
+                    br
+                    | - Motrin
+                    br
+                    | - Naproxen
+                    br
+                    | - Nuprin
+                | NOTE: Do NOT include TYLENOL
+                .input
+                    select#non-asprin(name='non-asprin')
+                        option(value='NAN') -select-
+                        option(value='0') Yes
+                        option(value='1') No
+                        option(value='2') I don't know

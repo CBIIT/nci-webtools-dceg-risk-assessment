@@ -1,0 +1,67 @@
+li
+    .question
+        .notice
+            | Studies suggest that not being active may
+            |  increase your risk of colorectal cancer.
+            |  On the other hand, if you exercise often,
+            |  you may reduce your risk of colorectal cancer.
+        label.question-text(for="activity") Over the
+            u past 12 months,
+            |  have you participated in any  physical activity?
+            include ../../templates/notice-anchor
+        .input
+            label
+                | No
+                input(type="radio", name="activity", value='0')
+
+            label
+                | Yes
+                input(type="radio", name="activity", value='1')
+    ol
+        li#subquestion-activity.subquestion
+            .question
+                label.question-text(for="active-months") Over the
+                    u past 12 months,
+                    |  in how many months, if any, did you do any kind of &nbsp;
+                    a moderate
+                    |  physical activity?
+                .input
+                    input#active-months(type="number", name='active-months',min="0", max="12", placeholder="Enter number of months (0-12)")
+            #subquestion-active-months.question.subquestion
+                label.question-text(for="active-hours") During those months,
+                    u  on average
+                    | , about how many
+                    u  hours per week
+                    |  did you do &nbsp;
+                    a moderate
+                    |  physical activities?
+                .input
+                    select#active-hours(name='active-hours')
+                        option(value='NAN') -select-
+                        option(value='0') Yes
+                        option(value='1') No
+                        option(value='2') I don't know
+            .question
+                label.question-text(for="active-months") Over the
+                    u past 12 months,
+                    |  in how many months, if any, did you do any kind of &nbsp;
+                    a vigorous
+                    |  physical activity?
+                .input
+                    input#vigorous-months(type="number", name='vigorous-months',min="0", max="12", placeholder="Enter number of months (0-12)")
+                ol
+                    li#subquestion-vigorous-months.subquestion
+                        .question
+                            label.question-text(for="vigorous-hours") During those months,
+                                u  on average
+                                | , about how many
+                                u  hours per week
+                                |  did you do &nbsp;
+                                a vigorous
+                                |  physical activities?
+                            .input
+                                select#vigorous-hours(name='vigorous-hours')
+                                    option(value='NAN') -select-
+                                    option(value='0') Yes
+                                    option(value='1') No
+                                    option(value='2') I don't know
