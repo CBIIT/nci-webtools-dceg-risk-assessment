@@ -3,8 +3,10 @@ li.female
         .notice
             | Studies show that women who still have periods,
             |  stopped having their periods in the past 2 years,
-            |  or have used hormone replacement therapy (HRT) in
-            |  the past 2 years may be at lower risk for colorectal
+            |  or have used &nbsp;
+            a.termToDefine(data-term="hrt") hormone replacement therapy
+            | (HRT) &nbsp;
+            | in the past 2 years may be at lower risk for colorectal
             |  cancer than other women.
         label.question-text(for="period") Do you still have periods?
             include ../../templates/notice-anchor
@@ -51,7 +53,7 @@ li.male
             |  does not increase risk of colorectal cancer among women.
             |  As time goes on and other studies are completed, that may change.
         label.question-text(for="cigarettes") In your
-            u  entire lifetime,
+            i  entire lifetime,
             |  altogether, have you smoked 100 or more cigarettes?
             include ../../templates/notice-anchor
         .input
@@ -65,13 +67,48 @@ li.male
             .question
                 label.question-text(for="smoke_age")
                     | How old were you when you started smoking cigarettes
-                    u on a regular basis
+                    i on a regular basis
                     | , that is, at least
-                    u  one cigarette a day for six months or longer?
+                    i  one cigarette a day for six months or longer?
                 .input
                     select#smoke_age(name='smoke_age')
                         option(value='NAN') -select-
                         option(value='0') I have never smoked cigarettes regularly
                         - var n = 6
-                        while n >= 54
-                        option(value=n)= n++
+                        while n <= 54
+                            option(value=n)= n++
+            .question
+                label.question-text(for="cigarettes-num")
+                    | Thinking back over the years you have smoked regularly, about
+                    | &nbsp;
+                    i how many cigarettes have you usually smoked a day?
+                .input
+                    select#cigarettes_num(name='cigarettes_num')
+                        option(value='NAN') -select-
+                        - var n = 16
+                        while n <= 54
+                            option(value=n)= n++
+        li#subquestion-smoke-now.subquestion
+            .question
+                label.question-text(for="smoke_now")
+                    | Do you currently smoke cigarettes?
+                .input
+                    label
+                        | Yes
+                        input(type="radio", name="smoke_now", value='1')
+                    label
+                        | No
+                        input(type="radio", name="smoke_now", value='0')
+        li#subquestion-smoke-quit.subquestion
+            .question
+                label.question-text(for="smoke_quit")
+                    | How old were you when you quit smoking cigarettes completely?
+                    em NOTE: If you quit smoking cigarettes completely more
+                        |  than one time, please tell us how old you were
+                        |  the last time you quit smoking completely.
+                .input
+                    select#smoke_quit(name='smoke_quit')
+                        option(value='NAN') -select-
+                        - var n = 16
+                        while n <= 54
+                            option(value=n)= n++

@@ -87,6 +87,29 @@ $("select[name='exam']").on("change", function(){
     }
 });
 
+$("select[name='cigarettes']").on("change", function() {
+    $("#subquestion-smoke-age").find("select").val("");
+    if(this.value === "0")
+        $("#subquestion-smoke-age").addClass("show").effect("highlight", 500);
+    else
+        $("#subquestion-smoke-age").removeClass("show");
+});
+
+$("select[name='smoke_age']").on("change", function() {
+    if(this.value >= 6)
+        $("#subquestion-smoke-now").addClass("show").effect("highlight", 500);
+    else
+        $("#subquestion-smoke-now").removeClass("show");
+});
+
+$("input[name='smoke_now']").on("change", function() {
+    $("#subquestion-smoke-quit").find("select").val("");
+    if(this.value === "0")
+        $("#subquestion-smoke-quit").addClass("show").effect("highlight", 500);
+    else
+        $("#subquestion-smoke-quit").removeClass("show");
+});
+
 $("input[name='period']").on("change", function() {
     $("#subquestion-period, #subquestion-hormones").find("input, select").val("");
     if(this.value === "1")
@@ -96,7 +119,7 @@ $("input[name='period']").on("change", function() {
 });
 
 $("select[name='last_period']").on("change", function() {
-    $("#subquestion-hormones").find("input, select").val("");
+    $("#subquestion-hormones").find("select").val("");
     if(this.value == "2")
         $("#subquestion-hormones").addClass("show").effect("highlight", 500);
     else
