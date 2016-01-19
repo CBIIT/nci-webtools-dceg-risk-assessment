@@ -20,8 +20,10 @@ $("input[name='hispanic']").on("change", function(){
     }
 });
 
-$("input[name='gender']").on("change", function(){
-    $(".male,.female").find("input, select").val("");
+$("input[name='gender']").on("change", function() {
+    $(".male,.female").find("input[type='radio']").attr("checked", false);
+    $(".male,.female").find("select").val("");
+
     if(this.value === "Male"){
         $(".male").addClass("show").effect("highlight", 500);
         $(".female").removeClass("show");
@@ -85,16 +87,22 @@ $("select[name='exam']").on("change", function(){
     }
 });
 
-$("input[name='period']").on("change", function(){
+$("input[name='period']").on("change", function() {
     $("#subquestion-period, #subquestion-hormones").find("input, select").val("");
-    if(this.value === "0"){
+    if(this.value === "1")
+        $("#subquestion-period, #subquestion-hormones").removeClass("show");
+    else
         $("#subquestion-period").addClass("show").effect("highlight", 500);
-    }
-    else if (this.value == "2")
+});
+
+$("select[name='last_period']").on("change", function() {
+    $("#subquestion-hormones").find("input, select").val("");
+    if(this.value == "2")
         $("#subquestion-hormones").addClass("show").effect("highlight", 500);
     else
-        $("#subquestion-hormones, #subquestion-period").removeClass("show");
+        $("#subquestion-hormones").removeClass("show");
 });
+
 
 
 $("select[name='family-cancer']").on("change", function(){
