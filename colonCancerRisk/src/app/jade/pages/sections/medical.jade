@@ -16,7 +16,12 @@ li
             |  into cancer are removed.
         label.question-text(for="exam") In
             u  the past 10 years
-            |  did you have a colonoscopy, sigmoidoscopy, or both?
+            |  did you have a
+            | &nbsp;
+            a.termToDefine(data-term="colon") colonoscopy
+            | ,
+            a.termToDefine(data-term="sig") sigmoidoscopy
+            | , or both?
             include ../../templates/notice-anchor
         .input
             select#exam(name='exam')
@@ -35,7 +40,8 @@ li
                 label.question-text(for="polyp") In
                     u the past 10 years
                     | , did a healthcare provider tell you that you had
-                    u   a colon or rectal polyp
+                    u   a colon or rectal &nbsp;
+                    a.termToDefine(data-term="polyp") polyp
                     |?
                     include ../../templates/notice-anchor
                 .input
@@ -71,17 +77,10 @@ li
                 label.question-text(for="asprin") During
                     u  the past 30 days,
                     |  have you taken medications
-                    u  that contain aspirin
-                    |  at least 3 times a week, such as:
-                    include ../../templates/notice-anchor
-                    br
-                    |  - Bufferin
-                    br
-                    |  - Bayer
-                    br
-                    |  - Excedrin
-                    br
-                    |  - Other generic form
+                    | &nbsp;
+                    a.termToDefine(data-term="asprin") that contain aspirin
+                    | &nbsp;
+                    | at least 3 times a week :
                 | NOTE: Do NOT include TYLENOL
                 .input
                     select#asprin(name='asprin')
@@ -93,22 +92,9 @@ li
                 label.question-text(for="non-asprin") During
                     u  the past 30 days,
                     |  have you taken medications that
-                    u DO NOT contain aspirin
-                    |  at least 3 times a week, such as:
-                    br
-                    | - Advil
-                    br
-                    | - Aleve
-                    br
-                    | - Celebrex
-                    br
-                    | - Ibuprofen
-                    br
-                    | - Motrin
-                    br
-                    | - Naproxen
-                    br
-                    | - Nuprin
+                    | &nbsp;
+                    a.termToDefine(data-term="non-asprin") DO NOT contain aspirin
+                    |  at least 3 times a week :
                 | NOTE: Do NOT include TYLENOL
                 .input
                     select#non-asprin(name='non-asprin')

@@ -5,7 +5,8 @@ li
                 | very low in vegetables may have a higher risk of colorectal cancer.
         label.question-text(for="veg_servings") In
             u the past 30 days
-            | , about how many servings per week of vegetables
+            | , about how many servings per week of &nbsp;
+            a.termToDefine(data-term="vegetable") vegetables
             |  or leafy green salads did you eat?
             include ../../templates/notice-anchor
         | NOTE: If you have eaten vegetables in the past 30 days, you will define serving size in the next question.
@@ -25,7 +26,9 @@ li
                 label.question-text(for="veg_amount") In
                     u the past 30 days
                     | , how much did you usually eat in each serving
-                    | of vegetables or leafy green salads?
+                    | of &nbsp;
+                    a.termToDefine(data-term="vegetable") vegetables
+                    | &nbsp; or leafy green salads?
                     include ../../templates/notice-anchor
                 .input
                     select#veg_amount(name='veg_amount')

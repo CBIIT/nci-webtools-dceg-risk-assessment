@@ -9,7 +9,7 @@
     <link href="styles.css" rel="stylesheet" type="text/css">
   </head>
   <body>
-    <header><img id="menu-button" src="images/menu.svg" alt="mobile menu access button"><a id="nci-banner" href="http://cancer.gov/" target="_blank"><img src="" alt="National Cancer Institute"></a>
+    <header><img id="menu-button" src="images/menu.svg" alt="mobile menu access button"><a id="nci-banner" href="http://cancer.gov/" target="_blank"><img src="/common/images/nci-logo-full.svg" alt="National Cancer Institute"></a>
       <div id="toolTitle">
         <div id="toolDescription">An interactive tool to help estimate a person's risk of developing colorectal cancer</div>
       </div>
@@ -369,7 +369,7 @@
                       and your doctor better understand your risk of colorectal cancer.
                     </p>
                   </div>
-                  <label for="hispanic" class="question-text">Do you consider yourself to be Hispanic or Latino?<a class="notice-show">[More]</a></label>
+                  <label for="hispanic" class="question-text">Do you consider yourself to be Hispanic or Latino?&nbsp;<a class="notice-show">[More]</a></label>
                   <div class="input">
                     <label>
                       <input type="radio" name="hispanic" value="0">No
@@ -382,7 +382,7 @@
                 <ol>
                   <li id="subquestion-race" class="subquestion">
                     <div class="question">
-                      <label for="race" class="question-text">Which of the following do you consider yourself to be?<a class="notice-show">[More]</a></label>
+                      <label for="race" class="question-text">Which of the following do you consider yourself to be?&nbsp;<a class="notice-show">[More]</a></label>
                       <div class="input">
                         <label>
                           <input type="radio" name="race" value="0">White
@@ -406,7 +406,7 @@
                     this disease are diagnosed after age 50. The
                     average age at diagnosis is 72.
                   </div>
-                  <label for="age" class="question-text">What is your age?<a class="notice-show">[More]</a></label>
+                  <label for="age" class="question-text">What is your age?&nbsp;<a class="notice-show">[More]</a></label>
                   <div class="input">
                     <input id="age" name="age" type="number" min="50" max="85" placeholder="Enter your age">
                   </div>
@@ -417,7 +417,7 @@
                     cancer or cause you to be at higher risk are
                     different for men and women.
                   </div>
-                  <label for="gender" class="question-text">What is the your sex?<a class="notice-show">[More]</a></label>
+                  <label for="gender" class="question-text">What is the your sex?&nbsp;<a class="notice-show">[More]</a></label>
                   <div class="input">
                     <label>
                       <input name="gender" type="radio" value="Male">Male
@@ -438,7 +438,7 @@
                     people have too much body fat) has been linked
                     to a higher risk of colorectal cancer.
                   </div>
-                  <label for="height" class="question-text">What is your height without shoes?<a class="notice-show">[More]</a></label>
+                  <label for="height" class="question-text">What is your height without shoes?&nbsp;<a class="notice-show">[More]</a></label>
                   <div class="input"><strong>
                       <input type="number" name="height-feet" min="2" max="8" placeholder="feet (ft)">
                       <input type="number" name="height-inches" min="1" max="11" placeholder="inches (inch)"></strong></div>
@@ -458,8 +458,7 @@
                     </p>
                   </div>
                   <label for="veg_servings" class="question-text">In
-                    <u>the past 30 days</u>, about how many servings per week of vegetables
-                     or leafy green salads did you eat?<a class="notice-show">[More]</a>
+                    <u>the past 30 days</u>, about how many servings per week of &nbsp;<a data-term="vegetable" class="termToDefine">vegetables</a> or leafy green salads did you eat?&nbsp;<a class="notice-show">[More]</a>
                   </label>NOTE: If you have eaten vegetables in the past 30 days, you will define serving size in the next question.
                   <div class="input">
                     <select id="veg_servings" name="veg_servings">
@@ -479,7 +478,7 @@
                     <div class="question">
                       <label for="veg_amount" class="question-text">In
                         <u>the past 30 days</u>, how much did you usually eat in each serving
-                        of vegetables or leafy green salads?<a class="notice-show">[More]</a>
+                        of &nbsp;<a data-term="vegetable" class="termToDefine">vegetables</a>&nbsp; or leafy green salads?&nbsp;<a class="notice-show">[More]</a>
                       </label>
                       <div class="input">
                         <select id="veg_amount" name="veg_amount">
@@ -513,7 +512,8 @@
                      into cancer are removed.
                   </div>
                   <label for="exam" class="question-text">In
-                    <u> the past 10 years</u> did you have a colonoscopy, sigmoidoscopy, or both?<a class="notice-show">[More]</a>
+                    <u> the past 10 years</u> did you have a
+                    &nbsp;<a data-term="colon" class="termToDefine">colonoscopy</a>,<a data-term="sig" class="termToDefine">sigmoidoscopy</a>, or both?&nbsp;<a class="notice-show">[More]</a>
                   </label>
                   <div class="input">
                     <select id="exam" name="exam">
@@ -535,7 +535,7 @@
                       </div>
                       <label for="polyp" class="question-text">In
                         <u>the past 10 years</u>, did a healthcare provider tell you that you had
-                        <u>  a colon or rectal polyp</u>?<a class="notice-show">[More]</a>
+                        <u>  a colon or rectal &nbsp;</u><a data-term="polyp" class="termToDefine">polyp</a>?&nbsp;<a class="notice-show">[More]</a>
                       </label>
                       <div class="input">
                         <select id="polyp" name="polyp">
@@ -559,7 +559,7 @@
                   </div>
                   <label for="medications" class="question-text">During
                     <u> the past 30 days,</u> have you taken
-                    <u>any</u> medications?<a class="notice-show">[More]</a>
+                    <u>any</u> medications?&nbsp;<a class="notice-show">[More]</a>
                   </label><br>NOTE: Do NOT include TYLENOL
                   <div class="input">
                     <select id="medications" name="medications">
@@ -575,7 +575,8 @@
                     <div class="question">
                       <label for="asprin" class="question-text">During
                         <u> the past 30 days,</u> have you taken medications
-                        <u> that contain aspirin</u> at least 3 times a week, such as:<a class="notice-show">[More]</a><br> - Bufferin<br> - Bayer<br> - Excedrin<br> - Other generic form
+                        &nbsp;<a data-term="asprin" class="termToDefine">that contain aspirin</a>&nbsp;
+                        at least 3 times a week :
                       </label>NOTE: Do NOT include TYLENOL
                       <div class="input">
                         <select id="asprin" name="asprin">
@@ -589,7 +590,7 @@
                     <div class="question">
                       <label for="non-asprin" class="question-text">During
                         <u> the past 30 days,</u> have you taken medications that
-                        <u>DO NOT contain aspirin</u> at least 3 times a week, such as:<br>- Advil<br>- Aleve<br>- Celebrex<br>- Ibuprofen<br>- Motrin<br>- Naproxen<br>- Nuprin
+                        &nbsp;<a data-term="non-asprin" class="termToDefine">DO NOT contain aspirin</a> at least 3 times a week :
                       </label>NOTE: Do NOT include TYLENOL
                       <div class="input">
                         <select id="non-asprin" name="non-asprin">
@@ -612,7 +613,7 @@
                      you may reduce your risk of colorectal cancer.
                   </div>
                   <label for="activity" class="question-text">Over the
-                    <u>past 12 months,</u> have you participated in any  physical activity?<a class="notice-show">[More]</a>
+                    <u>past 12 months,</u> have you participated in any  physical activity?&nbsp;<a class="notice-show">[More]</a>
                   </label>
                   <div class="input">
                     <label>No
@@ -627,7 +628,7 @@
                   <li id="subquestion-activity" class="subquestion">
                     <div class="question">
                       <label for="active-months" class="question-text">Over the
-                        <u>past 12 months,</u> in how many months, if any, did you do any kind of &nbsp;<a>moderate</a> physical activity?
+                        <u>past 12 months,</u> in how many months, if any, did you do any kind of &nbsp;<a data-term="moderate" class="termToDefine">moderate</a> physical activity?
                       </label>
                       <div class="input">
                         <input id="active-months" type="number" name="active-months" min="0" max="12" placeholder="Enter number of months (0-12)">
@@ -636,7 +637,7 @@
                     <div id="subquestion-active-months" class="question subquestion">
                       <label for="active-hours" class="question-text">During those months,
                         <u> on average</u>, about how many
-                        <u> hours per week</u> did you do &nbsp;<a>moderate</a> physical activities?
+                        <u> hours per week</u> did you do &nbsp;<a data-term="moderate" class="termToDefine">moderate</a> physical activities?
                       </label>
                       <div class="input">
                         <select id="active-hours" name="active-hours">
@@ -649,7 +650,7 @@
                     </div>
                     <div class="question">
                       <label for="active-months" class="question-text">Over the
-                        <u>past 12 months,</u> in how many months, if any, did you do any kind of &nbsp;<a>vigorous</a> physical activity?
+                        <u>past 12 months,</u> in how many months, if any, did you do any kind of &nbsp;<a data-term="vigorous" class="termToDefine">vigorous</a> physical activity?
                       </label>
                       <div class="input">
                         <input id="vigorous-months" type="number" name="vigorous-months" min="0" max="12" placeholder="Enter number of months (0-12)">
@@ -659,7 +660,7 @@
                           <div class="question">
                             <label for="vigorous-hours" class="question-text">During those months,
                               <u> on average</u>, about how many
-                              <u> hours per week</u> did you do &nbsp;<a>vigorous</a> physical activities?
+                              <u> hours per week</u> did you do &nbsp;<a data-term="vigorous" class="termToDefine">vigorous</a> physical activities?
                             </label>
                             <div class="input">
                               <select id="vigorous-hours" name="vigorous-hours">
@@ -685,7 +686,7 @@
                      the past 2 years may be at lower risk for colorectal
                      cancer than other women.
                   </div>
-                  <label for="period" class="question-text">Do you still have periods?<a class="notice-show">[More]</a></label>
+                  <label for="period" class="question-text">Do you still have periods?&nbsp;<a class="notice-show">[More]</a></label>
                   <div class="input">
                     <label>Yes
                       <input type="radio" name="period" value="1">
@@ -739,7 +740,7 @@
                      As time goes on and other studies are completed, that may change.
                   </div>
                   <label for="cigarettes" class="question-text">In your
-                    <u> entire lifetime,</u> altogether, have you smoked 100 or more cigarettes?<a class="notice-show">[More]</a>
+                    <u> entire lifetime,</u> altogether, have you smoked 100 or more cigarettes?&nbsp;<a class="notice-show">[More]</a>
                   </label>
                   <div class="input">
                     <select id="cigarettes" name="cigarettes">
@@ -785,7 +786,7 @@
                     </u>At
                     <u> any time in their lives</u> , did any of these relatives ever
                      have
-                    <u> cancer of the colon or rectum</u> (cancer of the lower intestine)?<a class="notice-show">[More]</a>
+                    <u> cancer of the colon or rectum</u> (cancer of the lower intestine)?&nbsp;<a class="notice-show">[More]</a>
                   </label>
                   <div class="input">
                     <select id="family-cancer" name="family-cancer">

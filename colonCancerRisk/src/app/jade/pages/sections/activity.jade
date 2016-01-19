@@ -23,7 +23,7 @@ li
                 label.question-text(for="active-months") Over the
                     u past 12 months,
                     |  in how many months, if any, did you do any kind of &nbsp;
-                    a moderate
+                    a.termToDefine(data-term="moderate") moderate
                     |  physical activity?
                 .input
                     input#active-months(type="number", name='active-months',min="0", max="12", placeholder="Enter number of months (0-12)")
@@ -33,7 +33,7 @@ li
                     | , about how many
                     u  hours per week
                     |  did you do &nbsp;
-                    a moderate
+                    a.termToDefine(data-term="moderate") moderate
                     |  physical activities?
                 .input
                     select#active-hours(name='active-hours')
@@ -45,7 +45,7 @@ li
                 label.question-text(for="active-months") Over the
                     u past 12 months,
                     |  in how many months, if any, did you do any kind of &nbsp;
-                    a vigorous
+                    a.termToDefine(data-term="vigorous") vigorous
                     |  physical activity?
                 .input
                     input#vigorous-months(type="number", name='vigorous-months',min="0", max="12", placeholder="Enter number of months (0-12)")
@@ -57,7 +57,7 @@ li
                                 | , about how many
                                 u  hours per week
                                 |  did you do &nbsp;
-                                a vigorous
+                                a.termToDefine(data-term="vigorous") vigorous
                                 |  physical activities?
                             .input
                                 select#vigorous-hours(name='vigorous-hours')
