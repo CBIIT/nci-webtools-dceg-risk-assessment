@@ -25,10 +25,6 @@ section#risk-calculator(tab='risk-calculator')
                     | had a diagnosis of melanoma, melanoma-in-situ, non-melanoma skin cancer, or a family
                     | history of melanoma. These individuals should be in screening and surveillance programs.
                 li
-                    | The melanoma risk calculator was developed using data from a large case-control
-                    | study in the United States. Risks are estimated for non-Hispanic whites only; data
-                    | for other races/ethnicities are too limited to accurately estimate risk.
-                li
                     | A recent version of Internet Explorer, Firefox, or Chrome is recommended.
         .section-title
             span Questions
@@ -43,7 +39,6 @@ section#risk-calculator(tab='risk-calculator')
                             select#state(name="state")
                                 option(value='') Choose a State
                                 option(value='AL') Alabama
-                                option(value='AK') Alaska
                                 option(value='AZ') Arizona
                                 option(value='AR') Arkansas
                                 option(value='CA') California
@@ -53,7 +48,6 @@ section#risk-calculator(tab='risk-calculator')
                                 option(value='DC') District Of Columbia
                                 option(value='FL') Florida
                                 option(value='GA') Georgia
-                                option(value='HI') Hawaii
                                 option(value='ID') Idaho
                                 option(value='IL') Illinois
                                 option(value='IN') Indiana
@@ -190,6 +184,8 @@ section#risk-calculator(tab='risk-calculator')
                         label.question-text(for="age") What is the patient's age?
                         .input
                           input#age(name='age', type="number", min="1", max="120", placeholder="Enter patient's age")
+                    .question-illustrations
+                        img.stock-images(alt="woman and girl",src="images/age.jpg")
                 li.male.rounded
                     .question
                         label.question-text(for="sunburn")

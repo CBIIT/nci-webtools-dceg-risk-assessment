@@ -145,7 +145,7 @@ dl dt {
 }
 section {
   margin: 0 auto;
-  padding: 0 200px;
+  padding: 0 150px;
 }
 section form {
   display: block;
@@ -156,7 +156,7 @@ section form > ol {
 section form > ol li {
   display: inline-block;
   margin: 5px;
-  padding: 25px;
+  padding: 15px;
   width: 43%;
   max-width: 100%;
   height: 350px;
@@ -299,6 +299,14 @@ section form #region_subquestion {
 .section-description > button.show-more {
   margin: 5px 0;
   padding: 5px 20px;
+  background: none;
+  border: none;
+  width: 100%;
+  font-weight: bold;
+  text-decoration: underline;
+}
+.section-description > button.show-more:hover {
+  text-decoration: none;
 }
 .about-question-title {
   border-left: 2px solid #2a71a5;

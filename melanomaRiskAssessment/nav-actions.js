@@ -43,16 +43,16 @@ $(function(){
     $(".section-description").each(function() {
 
         if(this.innerText.length > 500) {
-            var text = "<div class='more'>"+ this.innerHTML +"</div><button class='show-more'><span class='fa fa-plus-circle'></span>Show More</button>";
+            var text = "<div class='more'>"+ this.innerHTML +"</div><button class='show-more'>Show More <span class='fa fa-plus-circle'></span></button>";
             this.innerHTML = text;
         }
     });
 
     $(".show-more").on("click", function() {
         if(!$(this).prev().hasClass("more"))
-            this.innerHTML = "<span class='fa fa-plus-circle'></span>Show More";
+            this.innerHTML = "Show More<span class='fa fa-plus-circle'></span>";
         else
-            this.innerHTML = "<span class='fa fa-minus-circle'></span>Show Less";
+            this.innerHTML = "Show Less <span class='fa fa-minus-circle'></span>";
 
         $(this).prev().toggleClass("more");
     });

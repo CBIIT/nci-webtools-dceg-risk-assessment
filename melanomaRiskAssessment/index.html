@@ -161,6 +161,11 @@
               individuals at increased risk of melanoma in order to plan
               appropriate screening interventions with them.
             </p>
+            <p>
+              The melanoma risk calculator was developed using data from a large case-control
+              study in the United States. Risks are estimated for non-Hispanic whites only; data
+              for other races/ethnicities are too limited to accurately estimate risk.
+            </p>
             <p><a href="http://www.ncbi.nlm.nih.gov/pubmed/16728488" target="_blank">JCO Publication</a></p>
             <p><strong>Before using the tool, please note the following:</strong></p>
             <ul>
@@ -181,11 +186,6 @@
                 had a diagnosis of melanoma, melanoma-in-situ, non-melanoma skin cancer, or a family
                 history of melanoma. These individuals should be in screening and surveillance programs.
               </li>
-              <li>
-                The melanoma risk calculator was developed using data from a large case-control
-                study in the United States. Risks are estimated for non-Hispanic whites only; data
-                for other races/ethnicities are too limited to accurately estimate risk.
-              </li>
               <li>A recent version of Internet Explorer, Firefox, or Chrome is recommended.</li>
             </ul>
           </div>
@@ -201,7 +201,6 @@
                     <select id="state" name="state">
                       <option value="">Choose a State</option>
                       <option value="AL">Alabama</option>
-                      <option value="AK">Alaska</option>
                       <option value="AZ">Arizona</option>
                       <option value="AR">Arkansas</option>
                       <option value="CA">California</option>
@@ -211,7 +210,6 @@
                       <option value="DC">District Of Columbia</option>
                       <option value="FL">Florida</option>
                       <option value="GA">Georgia</option>
-                      <option value="HI">Hawaii</option>
                       <option value="ID">Idaho</option>
                       <option value="IL">Illinois</option>
                       <option value="IN">Indiana</option>
@@ -362,6 +360,7 @@
                     <input id="age" name="age" type="number" min="1" max="120" placeholder="Enter patient's age">
                   </div>
                 </div>
+                <div class="question-illustrations"><img alt="woman and girl" src="images/age.jpg" class="stock-images"></div>
               </li>
               <li class="male rounded">
                 <div class="question">
@@ -599,6 +598,11 @@
             individuals at increased risk of melanoma in order to plan
             appropriate screening interventions with them.
           </p>
+          <p>
+            The melanoma risk calculator was developed using data from a large case-control
+            study in the United States. Risks are estimated for non-Hispanic whites only; data
+            for other races/ethnicities are too limited to accurately estimate risk.
+          </p>
         </div>
         <div class="section-title">Download Source Code for the Melanoma Risk Calculation Engine</div>
         <div class="section-content">
@@ -706,6 +710,6 @@
         </ul><strong>NIH...Turning Discovery Into Health</strong><sup>&reg;</sup>
       </footer>
     </div><a id="topButton" name="#top" title="back to top" class="goTo"><span class="fa fa-arrow-circle-up"></span></a>
-    <script type="application/javascript" src="src/node_modules/requirejs/require.js" data-main="require-config"></script>
+    <script type="application/javascript" src="require.js" data-main="require-config"></script>
   </body>
 </html>
