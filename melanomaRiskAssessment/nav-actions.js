@@ -32,9 +32,9 @@ $(function(){
 
     var currentHash = window.location.hash;
     if (currentHash.length > 0) {
-      $('[tabTo] a[href="'+window.location.hash+'"]').parent().click();
+        $('[tabTo] a[href="'+window.location.hash+'"]').parent().click();
     } else {
-      $('[tabTo]:first-child').first().click();
+        $('[tabTo]:first-child').first().click();
     }
 
     $(window).scroll(fixedToTop);
@@ -42,17 +42,21 @@ $(function(){
 
     $(".section-description").each(function() {
 
-        if(this.innerText.length > 500) {
-            var text = "<div class='more'>"+ this.innerHTML +"</div><button class='show-more'>Show More <span class='fa fa-plus-circle'></span></button>";
+        if(this.innerText.length > 600) {
+            var text = "<div class='more'>"+ this.innerHTML +"</div><button class='show-more'><span class='fa fa-arrow-down'></span> More</button>";
             this.innerHTML = text;
         }
     });
 
     $(".show-more").on("click", function() {
-        if(!$(this).prev().hasClass("more"))
-            this.innerHTML = "Show More<span class='fa fa-plus-circle'></span>";
-        else
-            this.innerHTML = "Show Less <span class='fa fa-minus-circle'></span>";
+        if(!$(this).prev().hasClass("more")){
+            this.innerHTML = "<span class='fa fa-arrow-down'></span> More";
+            $(this).attr("title","Show More");
+        }
+        else{
+            this.innerHTML = "<span class='fa fa-arrow-up'></span> Less";
+            $(this).attr("title","Show Less");
+        }
 
         $(this).prev().toggleClass("more");
     });

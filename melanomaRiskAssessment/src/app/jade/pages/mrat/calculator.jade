@@ -1,10 +1,21 @@
 section#risk-calculator(tab='risk-calculator')
-
     .section-content
         .section-description
             span.hidden-anchor
                 a(href='#survey') Skip to survey
-            include ../../templates/tool-description
+            p
+                | The Melanoma Risk Assessment is an interactive tool designed by scientists at the National Cancer Institute (NCI),
+                | the University of Pennsylvania, and the University of California, San Francisco,
+                | to estimate a person's &nbsp;
+                a.termToDefine(data-term='ar') absolute risk
+                |  of developing invasive melanoma. The tool helps clinicians identify
+                | individuals at increased risk of melanoma in order to plan
+                | appropriate screening interventions with them.
+            strong Race and Risk Accuracy
+            p
+                | The melanoma risk calculator was developed using data from a large case-control
+                | study in the United States. Risks are estimated for non-Hispanic whites only; data
+                | for other races/ethnicities are too limited to accurately estimate risk.
             p
                 a(href='http://www.ncbi.nlm.nih.gov/pubmed/16728488', target="_blank") JCO Publication
             p
@@ -154,7 +165,6 @@ section#risk-calculator(tab='risk-calculator')
                                         option(value="Yuba") Yuba
                     .question-illustrations
                         img.stock-images(alt="map of the United States", src="images/states.svg")
-                        img.stock-images.counties(alt="map of the counties in california", src="images/cali_map.svg")
                 li.rounded
                     .question
                         label.question-text(for="gender") What is the patient's gender?

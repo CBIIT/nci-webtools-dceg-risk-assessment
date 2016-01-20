@@ -223,26 +223,42 @@ section
         :hover
             text-decoration none
 
+.info
+    width 25px
+    text-align center
+    float left
+    margin 0 10px
+
 .section-description
-    background #F0FFFF
     margin 10px auto
-    padding 10px
-    border 1px solid
+    padding 5px
+    border 2px solid #363660
     border-radius 10px
+    box-shadow 3px 2px 5px
+    background #8DAECB
+    color #143954
+    a
+        color white
+        &:hover
+            text-decoration none
+    p
+        margin 10px 0
     > .more
         height 100px
         overflow hidden
-    > button.show-more
-        margin 5px 0
-        padding 5px 20px
-        background none
-        border none
-        width 100%
-        font-weight bold
+    > .show-more
+        height 25px
+        margin 10px 0
+        font-size .9em
+        color white
+        background rgba(0, 0, 0, 0.30)
+        border 2px solid #fff
+        border-radius 5px
         text-decoration underline
+        font-family "Tahoma", "Geneva", "sans-serif"
         &:hover
             text-decoration none
-
+            background none
 
 .about-question-title
     border-left 2px solid #2A71A5

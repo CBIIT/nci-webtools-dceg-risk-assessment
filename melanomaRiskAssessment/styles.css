@@ -284,29 +284,51 @@ section form #region_subquestion {
 .section-content a :hover {
   text-decoration: none;
 }
+.info {
+  width: 25px;
+  text-align: center;
+  float: left;
+  margin: 0 10px;
+}
 .section-description {
-  background: #f0ffff;
   margin: 10px auto;
-  padding: 10px;
-  border: 1px solid;
+  padding: 5px;
+  border: 2px solid #363660;
   -webkit-border-radius: 10px;
   border-radius: 10px;
+  -webkit-box-shadow: 3px 2px 5px;
+  box-shadow: 3px 2px 5px;
+  background: #8daecb;
+  color: #143954;
+}
+.section-description a {
+  color: #fff;
+}
+.section-description a:hover {
+  text-decoration: none;
+}
+.section-description p {
+  margin: 10px 0;
 }
 .section-description > .more {
   height: 100px;
   overflow: hidden;
 }
-.section-description > button.show-more {
-  margin: 5px 0;
-  padding: 5px 20px;
-  background: none;
-  border: none;
-  width: 100%;
-  font-weight: bold;
+.section-description > .show-more {
+  height: 25px;
+  margin: 10px 0;
+  font-size: 0.9em;
+  color: #fff;
+  background: rgba(0,0,0,0.3);
+  border: 2px solid #fff;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
   text-decoration: underline;
+  font-family: "Tahoma", "Geneva", "sans-serif";
 }
-.section-description > button.show-more:hover {
+.section-description > .show-more:hover {
   text-decoration: none;
+  background: none;
 }
 .about-question-title {
   border-left: 2px solid #2a71a5;
