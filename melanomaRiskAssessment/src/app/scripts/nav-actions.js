@@ -43,18 +43,18 @@ $(function(){
     $(".section-description").each(function() {
 
         if(this.innerText.length > 600) {
-            var text = "<div class='more'>"+ this.innerHTML +"</div><button class='show-more'><span class='fa fa-arrow-down'></span> More</button>";
+            var text = "<div class='more'>"+ this.innerHTML +"</div><button class='show-more'><span class='fa fa-arrow-down'></span> Show More</button>";
             this.innerHTML = text;
         }
     });
 
     $(".show-more").on("click", function() {
         if(!$(this).prev().hasClass("more")){
-            this.innerHTML = "<span class='fa fa-arrow-down'></span> More";
+            this.innerHTML = "<span class='fa fa-arrow-down'></span> Show More";
             $(this).attr("title","Show More");
         }
         else{
-            this.innerHTML = "<span class='fa fa-arrow-up'></span> Less";
+            this.innerHTML = "<span class='fa fa-arrow-up'></span> Show Less";
             $(this).attr("title","Show Less");
         }
 
