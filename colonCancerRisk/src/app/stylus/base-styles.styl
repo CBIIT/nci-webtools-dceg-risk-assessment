@@ -114,7 +114,7 @@ dl
 
 section
     margin 0 auto
-    padding 0 200px
+    padding 0 150px
     form
         display block
         > ol
@@ -147,8 +147,10 @@ section
                         margin 5px auto
                         max-width 400px
                         display none
-                        background #778899
-                        color white
+                        background rgb(119, 136, 153)
+                        color #FFF
+                        border-radius 5px
+                        box-shadow 3px 2px 7px black
                     > label
                         display inline-block
                         > *
@@ -204,9 +206,9 @@ section
                 margin 10px 0
                 vertical-align top
 
-.section-content
+.section-content,.section-description
     padding 0 1%
-    ul li
+    ul.red-arrow li
         list-style-image url("images/red-arrow.gif")
 
 .section-title
@@ -229,17 +231,35 @@ section
             text-decoration none
 
 .section-description
-    background #F0FFFF
     margin 10px auto
-    padding 10px
-    border 1px solid
+    padding 5px
+    border 2px solid #363660
     border-radius 10px
+    box-shadow 3px 2px 5px
+    background #8DAECB
+    color #143954
+    a
+        color white
+        &:hover
+            text-decoration none
+    p
+        margin 10px 0
     > .more
         height 100px
         overflow hidden
-    > button.show-more
-        margin 5px 0
-        padding 5px 20px
+    > .show-more
+        height 25px
+        margin 10px 0
+        font-size .9em
+        color white
+        background rgba(0, 0, 0, 0.30)
+        border 2px solid #fff
+        border-radius 5px
+        text-decoration underline
+        font-family "Tahoma", "Geneva", "sans-serif"
+        &:hover
+            text-decoration none
+            background none
 
 .about-question-title
     border-left 2px solid #2A71A5

@@ -52,16 +52,16 @@ $(function(){
 
     $(".section-description").each(function() {
         if(this.innerText.length > 500) {
-            var text = "<div class='more'>"+ this.innerHTML +"</div><button class='show-more'>Show More <span class='fa fa-plus-circle'></span></button>";
+            var text = "<div class='more'>"+ this.innerHTML +"</div><button class='show-more'>Show More <span class='fa fa-arrow-down'></span></button>";
             this.innerHTML = text;
         }
     });
 
     $(".show-more").on("click", function() {
         if(!$(this).prev().hasClass("more"))
-            this.innerHTML = "Show More<span class='fa fa-plus-circle'></span>";
+            this.innerHTML = "Show More<span class='fa fa-arrow-down'></span>";
         else
-            this.innerHTML = "Show Less <span class='fa fa-minus-circle'></span>";
+            this.innerHTML = "Show Less <span class='fa fa-arrow-up'></span>";
 
         $(this).prev().toggleClass("more");
     });

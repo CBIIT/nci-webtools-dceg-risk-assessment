@@ -369,10 +369,10 @@
                   <label for="hispanic" class="question-text">Do you consider yourself to be Hispanic or Latino?&nbsp;<a class="notice-show">[More]</a></label>
                   <div class="input">
                     <label>
-                      <input type="radio" name="hispanic" value="1">No
+                      <input type="radio" name="hispanic" value="0">Yes
                     </label>
                     <label>
-                      <input type="radio" name="hispanic" value="0">Yes
+                      <input type="radio" name="hispanic" value="1">No
                     </label>
                   </div>
                 </div>
@@ -610,18 +610,21 @@
                     &nbsp;<i>past 12 months,</i> have you participated in any  physical activity?&nbsp;<a class="notice-show">[More]</a>
                   </label>
                   <div class="input">
-                    <label>No
-                      <input type="radio" name="activity" value="1">
-                    </label>
                     <label>Yes
                       <input type="radio" name="activity" value="0">
+                    </label>
+                    <label>No
+                      <input type="radio" name="activity" value="1">
                     </label>
                   </div>
                 </div>
                 <ol>
                   <li id="subquestion-activity" class="subquestion">
                     <div class="question">
-                      <label for="active-months" class="question-text">Over the<i>past 12 months,</i> in how many months, if any, did you do any kind of &nbsp;<a data-term="moderate" class="termToDefine">moderate</a> physical activity?</label>
+                      <label for="active-months" class="question-text">
+                        Over the
+                        &nbsp;<i>past 12 months,</i> in how many months, if any, did you do any kind of &nbsp;<a data-term="moderate" class="termToDefine">moderate</a> physical activity?
+                      </label>
                       <div class="input">
                         <input id="active-months" type="number" name="active-months" min="0" max="12" placeholder="Enter number of months (0-12)">
                       </div>
@@ -631,14 +634,19 @@
                       <div class="input">
                         <select id="active-hours" name="active-hours">
                           <option value="NAN">-select-</option>
-                          <option value="0">Yes</option>
-                          <option value="1">No</option>
-                          <option value="2">I don't know</option>
+                          <option value=".5">Up to 1 hour per week</option>
+                          <option value="1.5">Between 1-2 hours per week</option>
+                          <option value="2.5">Between 2-3 hours per week</option>
+                          <option value="3.5">Between 3-4 hours per week</option>
+                          <option value="5">More than 4 hours per week</option>
                         </select>
                       </div>
                     </div>
                     <div class="question">
-                      <label for="active-months" class="question-text">Over the<i>past 12 months,</i> in how many months, if any, did you do any kind of &nbsp;<a data-term="vigorous" class="termToDefine">vigorous</a> physical activity?</label>
+                      <label for="active-months" class="question-text">
+                        Over the
+                        &nbsp;<i>past 12 months,</i> in how many months, if any, did you do any kind of &nbsp;<a data-term="vigorous" class="termToDefine">vigorous</a> physical activity?
+                      </label>
                       <div class="input">
                         <input id="vigorous-months" type="number" name="vigorous-months" min="0" max="12" placeholder="Enter number of months (0-12)">
                       </div>
@@ -649,9 +657,11 @@
                             <div class="input">
                               <select id="vigorous-hours" name="vigorous-hours">
                                 <option value="NAN">-select-</option>
-                                <option value="0">Yes</option>
-                                <option value="1">No</option>
-                                <option value="2">I don't know</option>
+                                <option value=".5">Up to 1 hour per week</option>
+                                <option value="1.5">Between 1-2 hours per week</option>
+                                <option value="2.5">Between 2-3 hours per week</option>
+                                <option value="3.5">Between 3-4 hours per week</option>
+                                <option value="5">More than 4 hours per week</option>
                               </select>
                             </div>
                           </div>

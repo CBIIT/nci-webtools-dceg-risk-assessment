@@ -143,7 +143,7 @@ dl dt {
 }
 section {
   margin: 0 auto;
-  padding: 0 200px;
+  padding: 0 150px;
 }
 section form {
   display: block;
@@ -186,6 +186,10 @@ section form > ol > li .question > .notice {
   display: none;
   background: #789;
   color: #fff;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 3px 2px 7px #000;
+  box-shadow: 3px 2px 7px #000;
 }
 section form > ol > li .question > label {
   display: inline-block;
@@ -265,10 +269,12 @@ section form .question-illustrations img {
   margin: 10px 0;
   vertical-align: top;
 }
-.section-content {
+.section-content,
+.section-description {
   padding: 0 1%;
 }
-.section-content ul li {
+.section-content ul.red-arrow li,
+.section-description ul.red-arrow li {
   list-style-image: url("images/red-arrow.gif");
 }
 .section-title {
@@ -296,20 +302,44 @@ section form .question-illustrations img {
   text-decoration: none;
 }
 .section-description {
-  background: #f0ffff;
   margin: 10px auto;
-  padding: 10px;
-  border: 1px solid;
+  padding: 5px;
+  border: 2px solid #363660;
   -webkit-border-radius: 10px;
   border-radius: 10px;
+  -webkit-box-shadow: 3px 2px 5px;
+  box-shadow: 3px 2px 5px;
+  background: #8daecb;
+  color: #143954;
+}
+.section-description a {
+  color: #fff;
+}
+.section-description a:hover {
+  text-decoration: none;
+}
+.section-description p {
+  margin: 10px 0;
 }
 .section-description > .more {
   height: 100px;
   overflow: hidden;
 }
-.section-description > button.show-more {
-  margin: 5px 0;
-  padding: 5px 20px;
+.section-description > .show-more {
+  height: 25px;
+  margin: 10px 0;
+  font-size: 0.9em;
+  color: #fff;
+  background: rgba(0,0,0,0.3);
+  border: 2px solid #fff;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  text-decoration: underline;
+  font-family: "Tahoma", "Geneva", "sans-serif";
+}
+.section-description > .show-more:hover {
+  text-decoration: none;
+  background: none;
 }
 .about-question-title {
   border-left: 2px solid #2a71a5;

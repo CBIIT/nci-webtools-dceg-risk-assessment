@@ -12,16 +12,16 @@ li
             include ../../templates/notice-anchor
         .input
             label
-                | No
-                input(type="radio", name="activity", value='1')
-
-            label
                 | Yes
                 input(type="radio", name="activity", value='0')
+            label
+                | No
+                input(type="radio", name="activity", value='1')
     ol
         li#subquestion-activity.subquestion
             .question
                 label.question-text(for="active-months") Over the
+                    | &nbsp;
                     i past 12 months,
                     |  in how many months, if any, did you do any kind of &nbsp;
                     a.termToDefine(data-term="moderate") moderate
@@ -39,11 +39,15 @@ li
                 .input
                     select#active-hours(name='active-hours')
                         option(value='NAN') -select-
-                        option(value='0') Yes
-                        option(value='1') No
-                        option(value='2') I don't know
+                        option(value='.5') Up to 1 hour per week
+                        option(value='1.5') Between 1-2 hours per week
+                        option(value='2.5') Between 2-3 hours per week
+                        option(value='3.5') Between 3-4 hours per week
+                        option(value='5') More than 4 hours per week
+
             .question
                 label.question-text(for="active-months") Over the
+                    | &nbsp;
                     i past 12 months,
                     |  in how many months, if any, did you do any kind of &nbsp;
                     a.termToDefine(data-term="vigorous") vigorous
@@ -63,6 +67,8 @@ li
                             .input
                                 select#vigorous-hours(name='vigorous-hours')
                                     option(value='NAN') -select-
-                                    option(value='0') Yes
-                                    option(value='1') No
-                                    option(value='2') I don't know
+                                    option(value='.5') Up to 1 hour per week
+                                    option(value='1.5') Between 1-2 hours per week
+                                    option(value='2.5') Between 2-3 hours per week
+                                    option(value='3.5') Between 3-4 hours per week
+                                    option(value='5') More than 4 hours per week

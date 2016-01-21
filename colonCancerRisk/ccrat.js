@@ -136,8 +136,6 @@ $("select[name='last_period']").on("change", function() {
         $("#subquestion-hormones").removeClass("show");
 });
 
-
-
 $("select[name='family-cancer']").on("change", function(){
     $("#subquestion-family-cancer").find("input, select").val("");
     if(this.value === "0"){

@@ -1,8 +1,6 @@
 requirejs.config({
-    // Wait time before using fallback script
-    waitSeconds: 2,
+
     paths:{
-        // pass array to define fallback local script location in case cdn can't be reached
         jquery: "https://code.jquery.com/jquery-1.11.3",
         jqueryUI: "https://code.jquery.com/ui/1.11.4/jquery-ui",
         "jquery.validate" : "https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate" ,

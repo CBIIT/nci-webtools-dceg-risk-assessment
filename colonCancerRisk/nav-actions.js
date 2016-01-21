@@ -1,4 +1,12 @@
 $(function(){
+
+    var titles = {
+        "risk-calculator": "Risk Calculator",
+        "about": "About",
+        "risk-factors": "Colorectal Cancer Risk Factors",
+        "source-code": "Access Source Code"
+    };
+
     $('.goTo').on('click', function() {
         $("html, body").animate({
             scrollTop: $(this.name).offset().top - $("header")[0].clientHeight
@@ -13,6 +21,8 @@ $(function(){
         $('[tabTo],[tab]').removeClass('active');
         $(this).addClass('active');
         $('[tab="'+$(this).attr('tabTo')+'"]').addClass('active');
+
+        document.title  =  "Colorectal Cancer Risk Assessment Tool (CCRAT) | " + titles[$(this).attr('tabTo')];
     });
 
     $('.goToTab').on('click', function() {
@@ -22,7 +32,7 @@ $(function(){
     $('#menu-button').on('click',function() {
         $('#main-nav').toggleClass('show');
     });
-    
+
     $('#main-nav a').on('click',function() {
         var naxtNav = $(this).next('ul.nav');
         if (naxtNav.length > 0) {
@@ -32,13 +42,29 @@ $(function(){
 
     var currentHash = window.location.hash;
     if (currentHash.length > 0) {
-      $('[tabTo] a[href="'+window.location.hash+'"]').parent().click();
+        $('[tabTo] a[href="'+window.location.hash+'"]').parent().click();
     } else {
-      $('[tabTo]:first-child').first().click();
+        $('[tabTo]:first-child').first().click();
     }
 
     $(window).scroll(fixedToTop);
     fixedToTop();
+
+    $(".section-description").each(function() {
+        if(this.innerText.length > 500) {
+            var text = "<div class='more'>"+ this.innerHTML +"</div><button class='show-more'>Show More <span class='fa fa-arrow-down'></span></button>";
+            this.innerHTML = text;
+        }
+    });
+
+    $(".show-more").on("click", function() {
+        if(!$(this).prev().hasClass("more"))
+            this.innerHTML = "Show More<span class='fa fa-arrow-down'></span>";
+        else
+            this.innerHTML = "Show Less <span class='fa fa-arrow-up'></span>";
+
+        $(this).prev().toggleClass("more");
+    });
 });
 
 function fixedToTop() {
