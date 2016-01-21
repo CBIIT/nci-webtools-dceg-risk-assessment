@@ -31,7 +31,7 @@ var terms = {
         fullName: "Hormone Replacement Therapy (HRT)",
         definition: "Hormones (estrogen, progesterone, or both) given to women after menopause to replace the hormones no longer produced by the ovaries. Also called HRT and menopausal hormone therapy."
     },
-    infl: {
+    aid: {
         fullName: "anti-inflammatory",
         definition: "Having to do with reducing inflammation."
     }

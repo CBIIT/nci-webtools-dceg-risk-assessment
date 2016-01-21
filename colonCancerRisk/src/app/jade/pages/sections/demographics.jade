@@ -18,10 +18,10 @@ li
             include ../../templates/notice-anchor
         .input
             label
-                input(type="radio", name="hispanic", value='0')
+                input(type="radio", name="hispanic", value='1')
                 | No
             label
-                input(type="radio", name="hispanic", value='1')
+                input(type="radio", name="hispanic", value='0')
                 | Yes
     ol
         li#subquestion-race.subquestion
@@ -80,12 +80,16 @@ li
             | What is your height without shoes?
             include ../../templates/notice-anchor
         .input
-            strong
-                input(type="number", name="height-feet", min="2", max="8", placeholder="feet (ft)")
-                input(type="number", name="height-inches", min="1", max="11", placeholder="inches (inch)")
+            label(for="height-feet")
+                input(type="number", name="height-feet", min="2", max="8", placeholder="feet")
+                | ft
+            label(for="height-inches")
+                input(type="number", name="height-inches", min="1", max="11", placeholder="inches")
+                | inch
     #weight-question.question
-        label.question-text(for="weight")
+        label.question-text
             | What is your weight without shoes?
         .input
-            strong
-                input(type="number", name="weight", min="50", max="500", placeholder="in pounds (lbs)")
+            label(for="weight")
+                input(type="number", name="weight", min="50", max="500", placeholder="in pounds")
+                | lbs

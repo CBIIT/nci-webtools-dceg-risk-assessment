@@ -176,10 +176,7 @@
             </div>
             <div class="about-question-title"><strong>Questions for males:&nbsp;</strong>
               <ul>
-                <li>
-                  In your entire lifetime, altogether, have you smoked 100 or more
-                  &nbsp;<a data-term="cig" class="termToDefine">cigarettes</a>?
-                </li>
+                <li>In your entire lifetime, altogether, have you smoked 100 or more cigarettes?</li>
                 <li>
                   How old were you when you started smoking cigarettes on a regular basis,
                   that is, at least one cigarette a day for six months or longer?
@@ -372,10 +369,10 @@
                   <label for="hispanic" class="question-text">Do you consider yourself to be Hispanic or Latino?&nbsp;<a class="notice-show">[More]</a></label>
                   <div class="input">
                     <label>
-                      <input type="radio" name="hispanic" value="0">No
+                      <input type="radio" name="hispanic" value="1">No
                     </label>
                     <label>
-                      <input type="radio" name="hispanic" value="1">Yes
+                      <input type="radio" name="hispanic" value="0">Yes
                     </label>
                   </div>
                 </div>
@@ -439,14 +436,22 @@
                     to a higher risk of colorectal cancer.
                   </div>
                   <label for="height" class="question-text">What is your height without shoes?&nbsp;<a class="notice-show">[More]</a></label>
-                  <div class="input"><strong>
-                      <input type="number" name="height-feet" min="2" max="8" placeholder="feet (ft)">
-                      <input type="number" name="height-inches" min="1" max="11" placeholder="inches (inch)"></strong></div>
+                  <div class="input">
+                    <label for="height-feet">
+                      <input type="number" name="height-feet" min="2" max="8" placeholder="feet">ft
+                    </label>
+                    <label for="height-inches">
+                      <input type="number" name="height-inches" min="1" max="11" placeholder="inches">inch
+                    </label>
+                  </div>
                 </div>
                 <div id="weight-question" class="question">
-                  <label for="weight" class="question-text">What is your weight without shoes?</label>
-                  <div class="input"><strong>
-                      <input type="number" name="weight" min="50" max="500" placeholder="in pounds (lbs)"></strong></div>
+                  <label class="question-text">What is your weight without shoes?</label>
+                  <div class="input">
+                    <label for="weight">
+                      <input type="number" name="weight" min="50" max="500" placeholder="in pounds">lbs
+                    </label>
+                  </div>
                 </div>
               </li>
               <li>
@@ -457,7 +462,7 @@
                       very low in vegetables may have a higher risk of colorectal cancer.
                     </p>
                   </div>
-                  <label for="veg_servings" class="question-text">In<i>the past 30 days</i>, about how many servings per week of &nbsp;<a data-term="vegetable" class="termToDefine">vegetables</a> or leafy green salads did you eat?&nbsp;<a class="notice-show">[More]</a></label>NOTE: If you have eaten vegetables in the past 30 days, you will define serving size in the next question.
+                  <label for="veg_servings" class="question-text">In<i> the past 30 days</i>, about how many servings per week of &nbsp;<a data-term="vegetable" class="termToDefine">vegetables</a> or leafy green salads did you eat?&nbsp;<a class="notice-show">[More]</a></label>NOTE: If you have eaten vegetables in the past 30 days, you will define serving size in the next question.
                   <div class="input">
                     <select id="veg_servings" name="veg_servings">
                       <option value="NAN">-select-</option>
@@ -474,7 +479,7 @@
                 <ol>
                   <li id="subquestion-veg" class="subquestion">
                     <div class="question">
-                      <label for="veg_amount" class="question-text">In<i>the past 30 days</i>, how much did you usually eat in each serving
+                      <label for="veg_amount" class="question-text">In<i> the past 30 days</i>, how much did you usually eat in each serving
                         of &nbsp;<a data-term="vegetable" class="termToDefine">vegetables</a>&nbsp; or leafy green salads?&nbsp;<a class="notice-show">[More]</a>
                       </label>
                       <div class="input">
@@ -563,8 +568,8 @@
                 <ol>
                   <li id="subquestion-medications" class="subquestion">
                     <div class="question">
-                      <label for="asprin" class="question-text">During<i> the past 30 days,</i> have you taken medications
-                        &nbsp;<a data-term="asprin" class="termToDefine">that contain aspirin</a>&nbsp;
+                      <label for="asprin" class="question-text">During<i> the past 30 days,</i> have you taken medications that
+                        &nbsp;<a data-term="asprin" class="termToDefine">contain aspirin</a>&nbsp;
                         at least 3 times a week :
                       </label>NOTE: Do NOT include TYLENOL
                       <div class="input">
@@ -606,10 +611,10 @@
                   </label>
                   <div class="input">
                     <label>No
-                      <input type="radio" name="activity" value="0">
+                      <input type="radio" name="activity" value="1">
                     </label>
                     <label>Yes
-                      <input type="radio" name="activity" value="1">
+                      <input type="radio" name="activity" value="0">
                     </label>
                   </div>
                 </div>
@@ -668,10 +673,10 @@
                   <label for="period" class="question-text">Do you still have periods?&nbsp;<a class="notice-show">[More]</a></label>
                   <div class="input">
                     <label>Yes
-                      <input type="radio" name="period" value="1">
+                      <input type="radio" name="period" value="0">
                     </label>
                     <label>No
-                      <input type="radio" name="period" value="0">
+                      <input type="radio" name="period" value="1">
                     </label>
                   </div>
                 </div>
@@ -699,10 +704,10 @@
                        or as vaginal suppositories.
                       <div class="input">
                         <label>Yes
-                          <input type="radio" name="hormones" value="1">
+                          <input type="radio" name="hormones" value="0">
                         </label>
                         <label>No
-                          <input type="radio" name="hormones" value="0">
+                          <input type="radio" name="hormones" value="1">
                         </label>
                       </div>
                     </div>
@@ -1012,7 +1017,7 @@
             &nbsp;<a href="http://dceg.cancer.gov/bb/tools/ccratsasmacro/readme" target="_blank">documentation</a> for the colorectal cancer risk calculation engine. Separate
              downloads are available for male and female macros.
           </p>
-          <p>By downloading, you accept our</p><a href="http://dceg.cancer.gov/bb/tools/ccratsasmacro/license" target="_blank">Terms & Conditions</a>.
+          <p>By downloading, you accept our &nbsp;<a href="http://dceg.cancer.gov/bb/tools/ccratsasmacro/license" target="_blank">Terms & Conditions</a></p>.
           <!-- <p><a href="files/BCRA_Source_Code.zip"><img src="Images/btn-accept.gif" alt="Accept &amp; Download" width="139" height="25" border="0" /></a></p>-->
           <p><strong>SAS Macro Downloads</strong>
             <ul>

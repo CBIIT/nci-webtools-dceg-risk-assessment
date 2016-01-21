@@ -3,12 +3,12 @@ requirejs.config({
     waitSeconds: 2,
     paths:{
         // pass array to define fallback local script location in case cdn can't be reached
-        jquery: [ "https://code.jquery.com/jquery-1.11.3", "src/node_modules/jquery/dist/jquery" ],
-        jqueryUI: [ "https://code.jquery.com/ui/1.11.4/jquery-ui", "src/node_modules/jquery-ui/jquery-ui" ],
-        "jquery.validate" : ["https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate", "src/node_modules/jquery-validation/dist/jquery.validate"],
-        "jquery.validate.methods" : [ "https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods", "src/node_modules/jquery-validation/dist/additional-methods" ],
+        jquery: "https://code.jquery.com/jquery-1.11.3",
+        jqueryUI: "https://code.jquery.com/ui/1.11.4/jquery-ui",
+        "jquery.validate" : "https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate" ,
+        "jquery.validate.methods" : "https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods" ,
         globalGlossary:"/common/js/popover-functions",
-        ccrat: ["ccrat"],
+        ccrat: "ccrat",
         navActions: "nav-actions",
         definitions: "definitions"
     },

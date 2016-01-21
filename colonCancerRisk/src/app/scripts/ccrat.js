@@ -12,7 +12,7 @@ function showNotice(e){
 
 $("input[name='hispanic']").on("change", function(){
     $("#subquestion-race").find("input").val("");
-    if(this.value === "0"){
+    if(this.value == "1"){
         $("#subquestion-race").removeClass("show");
     }
     else {
@@ -48,12 +48,12 @@ $("select[name='medications']").on("change", function(){
 
 $("input[name='activity']").on("change", function(){
     $("#subquestion-activity").find("input").val("");
-    if(this.value <= "0"){
-        $("#subquestion-activity").removeClass("show");
-        $("#subquestion-activity").find("input").val(this.value);
+    if(this.value == "0") {
+        $("#subquestion-activity").addClass("show").effect("highlight", 500);
     }
     else {
-        $("#subquestion-activity").addClass("show").effect("highlight", 500);
+        $("#subquestion-activity").removeClass("show");
+        $("#subquestion-activity").find("input").val(this.value);
     }
 });
 
@@ -64,6 +64,16 @@ $("input[name='active-months']").on("change", function(){
     }
     else {
         $("#subquestion-active-months").addClass("show").effect("highlight", 500);
+    }
+});
+
+$("input[name='vigorous-months']").on("change", function(){
+    $("#subquestion-active-months").find("select").val("");
+    if(this.value <= "0"){
+        $("#subquestion-vigorous-months").removeClass("show");
+    }
+    else {
+        $("#subquestion-vigorous-months").addClass("show").effect("highlight", 500);
     }
 });
 
@@ -111,8 +121,8 @@ $("input[name='smoke_now']").on("change", function() {
 });
 
 $("input[name='period']").on("change", function() {
-    $("#subquestion-period, #subquestion-hormones").find("input, select").val("");
-    if(this.value === "1")
+    $("#subquestion-period").find("input, select").val("");
+    if(this.value == "0")
         $("#subquestion-period, #subquestion-hormones").removeClass("show");
     else
         $("#subquestion-period").addClass("show").effect("highlight", 500);
@@ -125,8 +135,6 @@ $("select[name='last_period']").on("change", function() {
     else
         $("#subquestion-hormones").removeClass("show");
 });
-
-
 
 $("select[name='family-cancer']").on("change", function(){
     $("#subquestion-family-cancer").find("input, select").val("");
