@@ -179,6 +179,7 @@ section form > ol > li .question > * {
   padding: 10px 0;
 }
 section form > ol > li .question > .notice {
+  font-size: 0.9em;
   border: 1px solid;
   padding: 10px;
   margin: 5px auto;
@@ -190,6 +191,9 @@ section form > ol > li .question > .notice {
   border-radius: 5px;
   -webkit-box-shadow: 3px 2px 7px #000;
   box-shadow: 3px 2px 7px #000;
+}
+section form > ol > li .question > .notice > p {
+  margin: 5px 0;
 }
 section form > ol > li .question > label {
   display: inline-block;
@@ -206,6 +210,10 @@ section form > ol > li .question > p {
 section form > ol > li .question select,
 section form > ol > li .question input {
   width: 100%;
+}
+section form > ol > li .question select[type="radio"],
+section form > ol > li .question input[type="radio"] {
+  width: 15px;
 }
 section form > ol > li .question#weight-question .input,
 section form > ol > li .question#height-question .input {
@@ -229,6 +237,7 @@ section form select {
 section form input.error,
 section form select.error {
   border: 2px solid #fc7878;
+  background: rgba(255,0,0,0.25);
 }
 section form .no-css {
   display: none;
@@ -241,6 +250,9 @@ section form .question-num {
 }
 section form .question-text {
   font-weight: bold;
+}
+section form .question-text.error {
+  color: #f00;
 }
 section form button {
   float: right;
@@ -384,7 +396,10 @@ section form .question-illustrations img {
   border: 5px solid #a95f5f;
   -webkit-border-radius: 10px;
   border-radius: 10px;
-  padding: 30px;
+  padding: 5px;
+}
+#error p {
+  margin: 10px 0;
 }
 #result {
   border: 5px solid #000;

@@ -7,7 +7,7 @@ li
             |  true if the relative had the cancer at a young age. If
             |  you have many close relatives who have had colorectal
             |  cancer, the risk can be even higher.
-        label.question-text(for="family-cancer") Think only about your
+        label.question-text(for="family_cancer") Think only about your
             u
                 | biological mother and father, full brothers and sisters,
                 |  and your biological sons or daughters
@@ -19,8 +19,8 @@ li
             |  (cancer of the lower intestine)?
             include ../../templates/notice-anchor
         .input
-            select#family-cancer(name='family-cancer')
-                option(value='NAN') -select-
+            select#family_cancer(name='family_cancer')
+                option(value='') -select-
                 option(value='0') Yes
                 option(value='1') No
                 option(value='2') I don't know
@@ -33,7 +33,7 @@ li
                     |  colon or rectum (cancer of the lower intestine)?
                 .input
                     select#family-count(name='family-count')
-                        option(value='NAN') -select-
+                        option(value='') -select-
                         option(value='0') 1
                         option(value='1') 2 or more
                         option(value='2') I don't know

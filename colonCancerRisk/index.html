@@ -294,9 +294,6 @@
       </section>
       <section id="risk-calculator" tab="risk-calculator">
         <div class="section-description"><span class="hidden-anchor"><a href="#survey">Skip to survey</a></span>
-          <p><strong>Update November 2014:</strong> NCI corrected risk estimates for men corresponding to answers "polyps unknown" (page 3 of 7) and
-            for men and women corresponding to answers "medications that do not contain aspirin unknown" (page 4 of 7).
-          </p>
           <p><strong>Things to know before using this tool:</strong>
             <ul>
               <li>
@@ -369,10 +366,10 @@
                   <label for="hispanic" class="question-text">Do you consider yourself to be Hispanic or Latino?&nbsp;<a class="notice-show">[More]</a></label>
                   <div class="input">
                     <label>
-                      <input type="radio" name="hispanic" value="0">Yes
+                      <input type="radio" name="hispanic" value="0" required>Yes
                     </label>
                     <label>
-                      <input type="radio" name="hispanic" value="1">No
+                      <input type="radio" name="hispanic" value="1" required>No
                     </label>
                   </div>
                 </div>
@@ -405,7 +402,7 @@
                   </div>
                   <label for="age" class="question-text">What is your age?&nbsp;<a class="notice-show">[More]</a></label>
                   <div class="input">
-                    <input id="age" name="age" type="number" min="50" max="85" placeholder="Enter your age">
+                    <input id="age" name="age" type="number" min="50" max="85" placeholder="Enter your age" required>
                   </div>
                 </div><em>NOTE: This tool calculates risk for men and women 50 to 85 years of age.</em>
                 <div class="question">
@@ -417,10 +414,10 @@
                   <label for="gender" class="question-text">What is the your sex?&nbsp;<a class="notice-show">[More]</a></label>
                   <div class="input">
                     <label>
-                      <input name="gender" type="radio" value="Male">Male
+                      <input name="gender" type="radio" value="Male" required>Male
                     </label>
                     <label>
-                      <input name="gender" type="radio" value="Female">Female
+                      <input name="gender" type="radio" value="Female" required>Female
                     </label>
                   </div>
                 </div>
@@ -438,18 +435,18 @@
                   <label for="height" class="question-text">What is your height without shoes?&nbsp;<a class="notice-show">[More]</a></label>
                   <div class="input">
                     <label for="height-feet">
-                      <input type="number" name="height-feet" min="2" max="8" placeholder="feet">ft
+                      <input id="height-feet" type="number" name="height-feet" min="2" max="8" placeholder="feet" required class="height-group">feet
                     </label>
                     <label for="height-inches">
-                      <input type="number" name="height-inches" min="1" max="11" placeholder="inches">inch
+                      <input id="height-inches" type="number" name="height-inches" min="1" max="11" placeholder="inches" required class="height-group">inches
                     </label>
                   </div>
                 </div>
                 <div id="weight-question" class="question">
-                  <label class="question-text">What is your weight without shoes?</label>
+                  <label for="weight" class="question-text">What is your weight without shoes?</label>
                   <div class="input">
-                    <label for="weight">
-                      <input type="number" name="weight" min="50" max="500" placeholder="in pounds">lbs
+                    <label>
+                      <input type="number" name="weight" min="50" max="500" placeholder="in pounds" required>lbs
                     </label>
                   </div>
                 </div>
@@ -465,7 +462,7 @@
                   <label for="veg_servings" class="question-text">In<i> the past 30 days</i>, about how many servings per week of &nbsp;<a data-term="vegetable" class="termToDefine">vegetables</a> or leafy green salads did you eat?&nbsp;<a class="notice-show">[More]</a></label>NOTE: If you have eaten vegetables in the past 30 days, you will define serving size in the next question.
                   <div class="input">
                     <select id="veg_servings" name="veg_servings">
-                      <option value="NAN">-select-</option>
+                      <option value="">-select-</option>
                       <option value="0">None</option>
                       <option value=".5">Less than 1 serving per week</option>
                       <option value="1.5">1-2 servings per week</option>
@@ -484,7 +481,7 @@
                       </label>
                       <div class="input">
                         <select id="veg_amount" name="veg_amount">
-                          <option value="NAN">-select-</option>
+                          <option value="">-select-</option>
                           <option value=".25">1/2 cup or less</option>
                           <option value="1">Between 1/2 cup and 1 1/2 cups</option>
                           <option value="2.25">Between 1 1/2 cups and 3 cups</option>
@@ -518,7 +515,7 @@
                   </label>
                   <div class="input">
                     <select id="exam" name="exam">
-                      <option value="NAN">-select-</option>
+                      <option value="">-select-</option>
                       <option value="0">Colonoscopy Only</option>
                       <option value="1">Sigmoidoscopy Only</option>
                       <option value="2">Both</option>
@@ -537,7 +534,7 @@
                       <label for="polyp" class="question-text">In<i>the past 10 years</i>, did a healthcare provider tell you that you had<i> a colon or rectal &nbsp;</i><a data-term="polyp" class="termToDefine">polyp</a>?&nbsp;<a class="notice-show">[More]</a></label>
                       <div class="input">
                         <select id="polyp" name="polyp">
-                          <option value="NAN">-select-</option>
+                          <option value="">-select-</option>
                           <option value="0">Yes</option>
                           <option value="1">No</option>
                           <option value="2">I don't know</option>
@@ -555,10 +552,12 @@
                      are not cancer), and may lower the risk of colorectal
                      cancer. (NSAID stands for nonsteroidal anti-inflammatory drug.)
                   </div>
-                  <label for="medications" class="question-text">During<i> the past 30 days,</i> have you taken &nbsp;<i>any</i> prescription or over the counter medications?&nbsp;<a class="notice-show">[More]</a></label><br>NOTE: Do NOT include TYLENOL
+                  <label for="medications" class="question-text">During<i> the past 30 days,</i> have you taken
+                    &nbsp;<i>any</i> prescription or over the counter medications?&nbsp;<a class="notice-show">[More]</a>
+                  </label><br>NOTE: Do NOT include TYLENOL
                   <div class="input">
                     <select id="medications" name="medications">
-                      <option value="NAN">-select-</option>
+                      <option value="">-select-</option>
                       <option value="0">Yes</option>
                       <option value="1">No</option>
                       <option value="2">I don't know</option>
@@ -574,7 +573,7 @@
                       </label>NOTE: Do NOT include TYLENOL
                       <div class="input">
                         <select id="asprin" name="asprin">
-                          <option value="NAN">-select-</option>
+                          <option value="">-select-</option>
                           <option value="0">Yes</option>
                           <option value="1">No</option>
                           <option value="2">I don't know</option>
@@ -587,7 +586,7 @@
                       </label>NOTE: Do NOT include TYLENOL
                       <div class="input">
                         <select id="non-asprin" name="non-asprin">
-                          <option value="NAN">-select-</option>
+                          <option value="">-select-</option>
                           <option value="0">Yes</option>
                           <option value="1">No</option>
                           <option value="2">I don't know</option>
@@ -610,11 +609,11 @@
                     &nbsp;<i>past 12 months,</i> have you participated in any  physical activity?&nbsp;<a class="notice-show">[More]</a>
                   </label>
                   <div class="input">
-                    <label>Yes
-                      <input type="radio" name="activity" value="0">
+                    <label>
+                      <input type="radio" name="activity" value="0">Yes
                     </label>
-                    <label>No
-                      <input type="radio" name="activity" value="1">
+                    <label>
+                      <input type="radio" name="activity" value="1">No
                     </label>
                   </div>
                 </div>
@@ -633,7 +632,7 @@
                       <label for="active-hours" class="question-text">During those months,<i> on average</i>, about how many<i> hours per week</i> did you do &nbsp;<a data-term="moderate" class="termToDefine">moderate</a> physical activities?</label>
                       <div class="input">
                         <select id="active-hours" name="active-hours">
-                          <option value="NAN">-select-</option>
+                          <option value="">-select-</option>
                           <option value=".5">Up to 1 hour per week</option>
                           <option value="1.5">Between 1-2 hours per week</option>
                           <option value="2.5">Between 2-3 hours per week</option>
@@ -656,7 +655,7 @@
                             <label for="vigorous-hours" class="question-text">During those months,<i> on average</i>, about how many<i> hours per week</i> did you do &nbsp;<a data-term="vigorous" class="termToDefine">vigorous</a> physical activities?</label>
                             <div class="input">
                               <select id="vigorous-hours" name="vigorous-hours">
-                                <option value="NAN">-select-</option>
+                                <option value="">-select-</option>
                                 <option value=".5">Up to 1 hour per week</option>
                                 <option value="1.5">Between 1-2 hours per week</option>
                                 <option value="2.5">Between 2-3 hours per week</option>
@@ -682,11 +681,11 @@
                   </div>
                   <label for="period" class="question-text">Do you still have periods?&nbsp;<a class="notice-show">[More]</a></label>
                   <div class="input">
-                    <label>Yes
-                      <input type="radio" name="period" value="0">
+                    <label>
+                      <input type="radio" name="period" value="0">Yes
                     </label>
-                    <label>No
-                      <input type="radio" name="period" value="1">
+                    <label>
+                      <input type="radio" name="period" value="1">No
                     </label>
                   </div>
                 </div>
@@ -696,7 +695,7 @@
                       <label for="last_period" class="question-text">When did you have your last period?</label>
                       <div class="input">
                         <select id="last_period" name="last_period">
-                          <option value="NAN">-select-</option>
+                          <option value="">-select-</option>
                           <option value="0">Within the last year</option>
                           <option value="1">Between 1 and 2 years ago</option>
                           <option value="2">2 or more years ago</option>
@@ -736,7 +735,7 @@
                   <label for="cigarettes" class="question-text">In your<i> entire lifetime,</i> altogether, have you smoked 100 or more cigarettes?&nbsp;<a class="notice-show">[More]</a></label>
                   <div class="input">
                     <select id="cigarettes" name="cigarettes">
-                      <option value="NAN">-select-</option>
+                      <option value="">-select-</option>
                       <option value="0">Yes</option>
                       <option value="1">No</option>
                       <option value="2">I don't know</option>
@@ -749,7 +748,7 @@
                       <label for="smoke_age" class="question-text">How old were you when you started smoking cigarettes<i>on a regular basis</i>, that is, at least<i> one cigarette a day for six months or longer?</i></label>
                       <div class="input">
                         <select id="smoke_age" name="smoke_age">
-                          <option value="NAN">-select-</option>
+                          <option value="">-select-</option>
                           <option value="0">I have never smoked cigarettes regularly</option>
                           <option value="6">6</option>
                           <option value="7">7</option>
@@ -810,7 +809,7 @@
                       </label>
                       <div class="input">
                         <select id="cigarettes_num" name="cigarettes_num">
-                          <option value="NAN">-select-</option>
+                          <option value="">-select-</option>
                           <option value="16">16</option>
                           <option value="17">17</option>
                           <option value="18">18</option>
@@ -875,7 +874,7 @@
                            the last time you quit smoking completely.</em></label>
                       <div class="input">
                         <select id="smoke_quit" name="smoke_quit">
-                          <option value="NAN">-select-</option>
+                          <option value="">-select-</option>
                           <option value="16">16</option>
                           <option value="17">17</option>
                           <option value="18">18</option>
@@ -931,7 +930,7 @@
                      you have many close relatives who have had colorectal
                      cancer, the risk can be even higher.
                   </div>
-                  <label for="family-cancer" class="question-text">Think only about your
+                  <label for="family_cancer" class="question-text">Think only about your
                     <u>
                       biological mother and father, full brothers and sisters,
                        and your biological sons or daughters
@@ -939,8 +938,8 @@
                      have<i> cancer of the colon or rectum</i> (cancer of the lower intestine)?&nbsp;<a class="notice-show">[More]</a>
                   </label>
                   <div class="input">
-                    <select id="family-cancer" name="family-cancer">
-                      <option value="NAN">-select-</option>
+                    <select id="family_cancer" name="family_cancer">
+                      <option value="">-select-</option>
                       <option value="0">Yes</option>
                       <option value="1">No</option>
                       <option value="2">I don't know</option>
@@ -955,7 +954,7 @@
                       </label>
                       <div class="input">
                         <select id="family-count" name="family-count">
-                          <option value="NAN">-select-</option>
+                          <option value="">-select-</option>
                           <option value="0">1</option>
                           <option value="1">2 or more</option>
                           <option value="2">I don't know</option>

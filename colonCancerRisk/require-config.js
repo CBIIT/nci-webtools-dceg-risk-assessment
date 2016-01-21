@@ -30,8 +30,11 @@ requirejs.config({
         definitions: {
             deps: ["globalGlossary"],
         },
-        ccrat: {
+        validation: {
             deps: ["jquery.validate.methods"],
+        },
+        ccrat:{
+            deps: ["validation"]
         }
     }
 });

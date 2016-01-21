@@ -12,11 +12,11 @@ li.female
             include ../../templates/notice-anchor
         .input
             label
-                | Yes
                 input(type="radio", name="period", value='0')
+                | Yes
             label
-                | No
                 input(type="radio", name="period", value='1')
+                | No
 
     ol
         li#subquestion-period.subquestion
@@ -25,7 +25,7 @@ li.female
                     | When did you have your last period?
                 .input
                     select#last_period(name='last_period')
-                        option(value='NAN') -select-
+                        option(value='') -select-
                         option(value='0') Within the last year
                         option(value='1') Between 1 and 2 years ago
                         option(value='2') 2 or more years ago
@@ -58,7 +58,7 @@ li.male
             include ../../templates/notice-anchor
         .input
             select#cigarettes(name='cigarettes')
-                option(value='NAN') -select-
+                option(value='') -select-
                 option(value='0') Yes
                 option(value='1') No
                 option(value='2') I don't know
@@ -72,7 +72,7 @@ li.male
                     i  one cigarette a day for six months or longer?
                 .input
                     select#smoke_age(name='smoke_age')
-                        option(value='NAN') -select-
+                        option(value='') -select-
                         option(value='0') I have never smoked cigarettes regularly
                         - var n = 6
                         while n <= 54
@@ -84,7 +84,7 @@ li.male
                     i how many cigarettes have you usually smoked a day?
                 .input
                     select#cigarettes_num(name='cigarettes_num')
-                        option(value='NAN') -select-
+                        option(value='') -select-
                         - var n = 16
                         while n <= 54
                             option(value=n)= n++
@@ -108,7 +108,7 @@ li.male
                         |  the last time you quit smoking completely.
                 .input
                     select#smoke_quit(name='smoke_quit')
-                        option(value='NAN') -select-
+                        option(value='') -select-
                         - var n = 16
                         while n <= 54
                             option(value=n)= n++

@@ -13,10 +13,10 @@ function showNotice(e){
 $("input[name='hispanic']").on("change", function(){
     $("#subquestion-race").find("input").val("");
     if(this.value == "1"){
-        $("#subquestion-race").removeClass("show");
+        $("#subquestion-race").addClass("show").effect("highlight", 500);
     }
     else {
-        $("#subquestion-race").addClass("show").effect("highlight", 500);
+        $("#subquestion-race").removeClass("show");
     }
 });
 
@@ -34,6 +34,37 @@ $("input[name='gender']").on("change", function() {
     }
 });
 
+$("input[name='activity']").on("change", function(){
+    $("#subquestion-activity").find("input").val("");
+    if(this.value == "0") {
+        $("#subquestion-activity").addClass("show").effect("highlight", 500);
+    }
+    else {
+        $("#subquestion-activity").removeClass("show");
+        $("#subquestion-activity").find("input").val(this.value);
+    }
+});
+
+$("input[name='active-months']").on("blur", function(){
+    $("#subquestion-active-months").find("select").val("");
+    if(this.value <= "0"){
+        $("#subquestion-active-months").removeClass("show");
+    }
+    else {
+        $("#subquestion-active-months").addClass("show").effect("highlight", 500);
+    }
+});
+
+$("input[name='vigorous-months']").on("blur", function(){
+    $("#subquestion-active-months").find("select").val("");
+    if(this.value <= "0"){
+        $("#subquestion-vigorous-months").removeClass("show");
+    }
+    else {
+        $("#subquestion-vigorous-months").addClass("show").effect("highlight", 500);
+    }
+});
+
 $("select[name='medications']").on("change", function(){
     $("#subquestion-medications").find("input, select").val("");
     if(this.value === "0"){
@@ -46,36 +77,6 @@ $("select[name='medications']").on("change", function(){
     }
 });
 
-$("input[name='activity']").on("change", function(){
-    $("#subquestion-activity").find("input").val("");
-    if(this.value == "0") {
-        $("#subquestion-activity").addClass("show").effect("highlight", 500);
-    }
-    else {
-        $("#subquestion-activity").removeClass("show");
-        $("#subquestion-activity").find("input").val(this.value);
-    }
-});
-
-$("input[name='active-months']").on("change", function(){
-    $("#subquestion-active-months").find("select").val("");
-    if(this.value <= "0"){
-        $("#subquestion-active-months").removeClass("show");
-    }
-    else {
-        $("#subquestion-active-months").addClass("show").effect("highlight", 500);
-    }
-});
-
-$("input[name='vigorous-months']").on("change", function(){
-    $("#subquestion-active-months").find("select").val("");
-    if(this.value <= "0"){
-        $("#subquestion-vigorous-months").removeClass("show");
-    }
-    else {
-        $("#subquestion-vigorous-months").addClass("show").effect("highlight", 500);
-    }
-});
 
 $("select[name='veg_servings']").on("change", function(){
     $("#subquestion-veg").find("input").val("");
@@ -136,7 +137,7 @@ $("select[name='last_period']").on("change", function() {
         $("#subquestion-hormones").removeClass("show");
 });
 
-$("select[name='family-cancer']").on("change", function(){
+$("select[name='family_cancer']").on("change", function(){
     $("#subquestion-family-cancer").find("input, select").val("");
     if(this.value === "0"){
         $("#subquestion-family-cancer").addClass("show").effect("highlight", 500);

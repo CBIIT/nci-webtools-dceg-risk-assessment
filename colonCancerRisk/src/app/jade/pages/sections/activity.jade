@@ -12,11 +12,11 @@ li
             include ../../templates/notice-anchor
         .input
             label
-                | Yes
                 input(type="radio", name="activity", value='0')
+                | Yes
             label
-                | No
                 input(type="radio", name="activity", value='1')
+                | No
     ol
         li#subquestion-activity.subquestion
             .question
@@ -38,7 +38,7 @@ li
                     |  physical activities?
                 .input
                     select#active-hours(name='active-hours')
-                        option(value='NAN') -select-
+                        option(value='') -select-
                         option(value='.5') Up to 1 hour per week
                         option(value='1.5') Between 1-2 hours per week
                         option(value='2.5') Between 2-3 hours per week
@@ -66,7 +66,7 @@ li
                                 |  physical activities?
                             .input
                                 select#vigorous-hours(name='vigorous-hours')
-                                    option(value='NAN') -select-
+                                    option(value='') -select-
                                     option(value='.5') Up to 1 hour per week
                                     option(value='1.5') Between 1-2 hours per week
                                     option(value='2.5') Between 2-3 hours per week

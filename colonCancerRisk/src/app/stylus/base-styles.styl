@@ -42,6 +42,7 @@ header
     width 60px
 [tab]:not(.active)
     display none
+
 ul.nav
     background #636363
     background linear-gradient(135deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
@@ -142,6 +143,7 @@ section
                     > *
                         padding 10px 0
                     > .notice
+                        font-size .9em
                         border 1px solid
                         padding 10px
                         margin 5px auto
@@ -151,6 +153,8 @@ section
                         color #FFF
                         border-radius 5px
                         box-shadow 3px 2px 7px black
+                        > p
+                            margin 5px 0
                     > label
                         display inline-block
                         > *
@@ -161,6 +165,9 @@ section
                         display inline-block
                     select, input
                         width 100%
+                        &[type="radio"]
+                            width 15px
+
                     &#weight-question, &#height-question
                         .input
                             width 100%
@@ -174,6 +181,7 @@ section
             padding 10px
             &.error
                 border 2px solid #FC7878
+                background rgba(255, 0, 0, 0.25)
         .no-css
             display none
 
@@ -185,6 +193,8 @@ section
 
         .question-text
             font-weight bold
+            &.error
+                color red
         button
             float right
             padding 8px 60px
@@ -302,7 +312,9 @@ section
     background #FC7878
     border 5px solid #A95F5F
     border-radius 10px
-    padding 30px
+    padding 5px
+    p
+        margin 10px 0
 #result
     border 5px solid black
     border-radius 10px

@@ -18,10 +18,10 @@ li
             include ../../templates/notice-anchor
         .input
             label
-                input(type="radio", name="hispanic", value='0')
+                input(type="radio", name="hispanic", value='0', required)
                 | Yes
             label
-                input(type="radio", name="hispanic", value='1')
+                input(type="radio", name="hispanic", value='1', required)
                 | No
     ol
         li#subquestion-race.subquestion
@@ -49,7 +49,7 @@ li
             | What is your age?
             include ../../templates/notice-anchor
         .input
-            input#age(name='age', type="number", min="50", max="85", placeholder="Enter your age")
+            input#age(name='age', type="number", min="50", max="85", placeholder="Enter your age", required)
     em NOTE: This tool calculates risk for men and women 50 to 85 years of age.
     .question
         .notice
@@ -62,10 +62,10 @@ li
             include ../../templates/notice-anchor
         .input
             label
-                input(name="gender", type="radio", value='Male')
+                input(name="gender", type="radio", value='Male', required)
                 | Male
             label
-                input(name="gender", type="radio", value='Female')
+                input(name="gender", type="radio", value='Female', required)
                 | Female
 li
     #height-question.question
@@ -81,15 +81,15 @@ li
             include ../../templates/notice-anchor
         .input
             label(for="height-feet")
-                input(type="number", name="height-feet", min="2", max="8", placeholder="feet")
-                | ft
+                input#height-feet.height-group(type="number", name="height-feet", min="2", max="8", placeholder="feet", required)
+                | feet
             label(for="height-inches")
-                input(type="number", name="height-inches", min="1", max="11", placeholder="inches")
-                | inch
+                input#height-inches.height-group(type="number", name="height-inches", min="1", max="11", placeholder="inches", required)
+                | inches
     #weight-question.question
-        label.question-text
+        label.question-text(for="weight")
             | What is your weight without shoes?
         .input
-            label(for="weight")
-                input(type="number", name="weight", min="50", max="500", placeholder="in pounds")
+            label
+                input(type="number", name="weight", min="50", max="500", placeholder="in pounds", required)
                 | lbs

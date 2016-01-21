@@ -25,7 +25,7 @@ li
             include ../../templates/notice-anchor
         .input
             select#exam(name='exam')
-                option(value='NAN') -select-
+                option(value='') -select-
                 option(value='0') Colonoscopy Only
                 option(value='1') Sigmoidoscopy Only
                 option(value='2') Both
@@ -46,7 +46,7 @@ li
                     include ../../templates/notice-anchor
                 .input
                     select#polyp(name='polyp')
-                        option(value='NAN') -select-
+                        option(value='') -select-
                         option(value='0') Yes
                         option(value='1') No
                         option(value='2') I don't know
@@ -59,7 +59,8 @@ li
             |  cancer. (NSAID stands for nonsteroidal anti-inflammatory drug.)
         label.question-text(for="medications") During
             i  the past 30 days,
-            |  have you taken &nbsp;
+            |  have you taken
+            | &nbsp;
             i any
             |  prescription or over the counter medications?
             include ../../templates/notice-anchor
@@ -67,7 +68,7 @@ li
         | NOTE: Do NOT include TYLENOL
         .input
             select#medications(name='medications')
-                option(value='NAN') -select-
+                option(value='') -select-
                 option(value='0') Yes
                 option(value='1') No
                 option(value='2') I don't know
@@ -84,7 +85,7 @@ li
                 | NOTE: Do NOT include TYLENOL
                 .input
                     select#asprin(name='asprin')
-                        option(value='NAN') -select-
+                        option(value='') -select-
                         option(value='0') Yes
                         option(value='1') No
                         option(value='2') I don't know
@@ -98,7 +99,7 @@ li
                 | NOTE: Do NOT include TYLENOL
                 .input
                     select#non-asprin(name='non-asprin')
-                        option(value='NAN') -select-
+                        option(value='') -select-
                         option(value='0') Yes
                         option(value='1') No
                         option(value='2') I don't know

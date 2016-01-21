@@ -12,7 +12,7 @@ li
         | NOTE: If you have eaten vegetables in the past 30 days, you will define serving size in the next question.
         .input
             select#veg_servings(name='veg_servings')
-                option(value='NAN') -select-
+                option(value='') -select-
                 option(value='0') None
                 option(value='.5') Less than 1 serving per week
                 option(value='1.5') 1-2 servings per week
@@ -32,7 +32,7 @@ li
                     include ../../templates/notice-anchor
                 .input
                     select#veg_amount(name='veg_amount')
-                        option(value='NAN') -select-
+                        option(value='') -select-
                         option(value='.25') 1/2 cup or less
                         option(value='1') Between 1/2 cup and 1 1/2 cups
                         option(value='2.25') Between 1 1/2 cups and 3 cups
