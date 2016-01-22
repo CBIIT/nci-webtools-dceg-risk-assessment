@@ -67,6 +67,7 @@ li.male
             .question
                 label.question-text(for="smoke_age")
                     | How old were you when you started smoking cigarettes
+                    | &nbsp;
                     i on a regular basis
                     | , that is, at least
                     i  one cigarette a day for six months or longer?
@@ -77,6 +78,7 @@ li.male
                         - var n = 6
                         while n <= 54
                             option(value=n)= n++
+        li#subquestion-smoke-now.subquestion
             .question
                 label.question-text(for="cigarettes-num")
                     | Thinking back over the years you have smoked regularly, about
@@ -88,7 +90,6 @@ li.male
                         - var n = 16
                         while n <= 54
                             option(value=n)= n++
-        li#subquestion-smoke-now.subquestion
             .question
                 label.question-text(for="smoke_now")
                     | Do you currently smoke cigarettes?

@@ -5,7 +5,7 @@
 }
 body {
   font-family: sans-serif, Helvetica, Calibri, Arial Rounded MT Bold;
-  font-size: 11pt;
+  font-size: 10pt;
   margin: 0;
   min-width: 320px;
   background: #f7f8f3;
@@ -397,9 +397,15 @@ section form .question-illustrations img {
   -webkit-border-radius: 10px;
   border-radius: 10px;
   padding: 5px;
+  font-weight: bold;
+  vertical-align: top;
+  text-align: left;
 }
 #error p {
-  margin: 10px 0;
+  vertical-align: text-top;
+  display: inline-block;
+  width: 40%;
+  margin: 5px 10px;
 }
 #result {
   border: 5px solid #000;
@@ -504,6 +510,11 @@ section form .question-illustrations img {
   }
 }
 @media (max-width: 990px) {
+  #error p {
+    display: block;
+    width: 100%;
+    margin: 5px;
+  }
   header {
     position: relative;
   }

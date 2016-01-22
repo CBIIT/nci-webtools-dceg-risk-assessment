@@ -2,16 +2,23 @@ var validationRules = {
     hispanic: {
         required: true
     },
+    race: {
+        required: {
+            depends: function(el){
+                return $("[name='hispanic']:checked").val() == 1;
+            }
+        }
+    },
     age: {
         required: true,
-        min: true,
-        max: true
+        min: 50,
+        max: 85
     },
     gender: {
         required: true
     },
     height: {
-        require_from_group: [2, 'height-group']
+        require_from_group: [2, '.height-group']
     },
     weight: {
         required: true
@@ -30,38 +37,50 @@ var validationRules = {
     },
     "family_cancer": {
         required: true
-    }
-    //    county: {
-    //        required: {
-    //            depends: function(el) {
-    //                return $('#state').val() == 'CA';
-    //            }
-    //        }
-    //    },
-    //    race: {
-    //        required: true
-    //    },
-    //    sunburn: {
-    //        required: {
-    //            depends: function(el) {
-    //                return $('#gender').val() == 'Male';
-    //            }
-    //        }
-    //    },
-    //    "big-moles": {
-    //        required: {
-    //            depends: function(el) {
-    //                return $('#gender').val() == 'Male';
-    //            }
-    //        }
-    //    },
-    //    tan: {
-    //        required: {
-    //            depends: function(el) {
-    //                return $('#gender').val() == 'Female';
-    //            }
-    //        }
-    //    },
+    },
+    cigarettes: {
+        required: {
+            depends: function(el) {
+                return $("[name='gender']:checked").val() == "Male";
+            }
+        }
+    },
+    smoke_age: {
+        required: {
+            depends: function(el) {
+                return $("[name='gender']:checked").val() == "Male" && $("#cigarettes").val() === "0";
+            }
+        }
+    },
+    cigarettes_num: {
+        required: {
+            depends: function(el) {
+                return $("#smoke_age").val() > 0;
+            }
+        }
+    },
+    smoke_now: {
+        required: {
+            depends: function(el) {
+                return $("#smoke_age").val() > 0;
+            }
+        }
+    },
+    smoke_quit: {
+        required: {
+            depends: function(el) {
+                return $("[name='smoke_now']:checked").val() == "0";
+            }
+        }
+    },
+    period: {
+        required: {
+            depends: function(el) {
+                return $("[name='gender']:checked").val() == "Female";
+            }
+        }
+    },
+
     //    freckling: {
     //        required: true
     //    },
@@ -77,16 +96,16 @@ var validationMessages = {
     hispanic: {
         required: "You must specify whether you consider yourself Hispanic or Latino"
     },
-    //    race: {
-    //        required: "The patient's race must be selected."
-    //    },
+    race: {
+        required: "Your race must be selected"
+    },
     age: {
         required: "Age is required",
         min: "This calculator can only be used by people between the ages 50 and 85",
         max: "This calculator can only be used by people between the ages 50 and 85"
     },
     gender: {
-        required: "Gender must be selected."
+        required: "Gender must be selected"
     },
     height: {
         require_from_group: "Enter both feet(ft) and inches(inch) for height"
@@ -95,7 +114,7 @@ var validationMessages = {
         required: "Weight is required"
     },
     veg_servings: {
-        required: "You must specify servings of vegetables"
+        required: "You must specify how many servings of vegetables you had in the past month"
     },
     exam: {
         required: "You must specify whether you had a colonoscopy or sigmoidoscopy exam in the last decade"
@@ -109,15 +128,24 @@ var validationMessages = {
     "family_cancer": {
         required: "You must specify whether any relatives had colon cancer"
     },
-    //    "big-moles": {
-    //        required: "The number of moles greater than 5mm in diameter on the patient's back must be selected."
-    //    },
-    //    "small-moles": {
-    //        required: "The number of moles less than or equal to 5mm in diameter on the patient's back must be selected."
-    //    },
-    //    tan: {
-    //        required: "The level to which the patient presents a tan must be selected."
-    //    },
+    cigarettes: {
+        required: "You must specify whether you have smoked cigarettes"
+    },
+    cigarettes_num: {
+        required: "You must specify the amount of cigarettes you have smoked regularly"
+    },
+    "smoke_age": {
+        required: "You must specify the age you began smoking",
+    },
+    "smoke_now": {
+        required: "You must specify whether you currently smoke",
+    },
+    smoke_quit: {
+        required: "You must specify the age at which you last quit smoking"
+    },
+    period: {
+        required: "You must specify whether you still have periods"
+    },
     //    freckling: {
     //        required: "The extent of the freckling on the patient's back must be selected."
     //    },
@@ -127,8 +155,10 @@ var validationMessages = {
 };
 function validate() {
     $(document.forms.survey).validate({
-
         debug: true,
+
+
+        igonore: ".ignore",
         highlight: function(element, errorClass, validClass) {
             if(element.type != "radio") {
                 $(element).addClass(errorClass).removeClass(validClass);

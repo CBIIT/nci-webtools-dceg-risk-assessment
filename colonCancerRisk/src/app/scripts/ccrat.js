@@ -11,7 +11,6 @@ function showNotice(e){
 }
 
 $("input[name='hispanic']").on("change", function(){
-    $("#subquestion-race").find("input").val("");
     if(this.value == "1"){
         $("#subquestion-race").addClass("show").effect("highlight", 500);
     }
