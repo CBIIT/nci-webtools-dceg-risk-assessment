@@ -363,36 +363,22 @@
                       and your doctor better understand your risk of colorectal cancer.
                     </p>
                   </div>
-                  <label for="hispanic" class="question-text">Do you consider yourself to be Hispanic or Latino?&nbsp;<a class="notice-show">[More]</a></label>
+                  <label for="race" class="question-text">Which of the following do you consider yourself to be?&nbsp;<a class="notice-show">[More]</a></label>
                   <div class="input">
                     <label>
-                      <input type="radio" name="hispanic" value="0" required>Yes
+                      <input type="radio" name="race" value="0">White
                     </label>
                     <label>
-                      <input type="radio" name="hispanic" value="1" required>No
+                      <input type="radio" name="race" value="1">Black or African-American
+                    </label>
+                    <label>
+                      <input type="radio" name="race" value="2">Asian or Pacific Islander
+                    </label>
+                    <label>
+                      <input type="radio" name="race" value="3">Hispanic or Latino
                     </label>
                   </div>
                 </div>
-                <ol>
-                  <li id="subquestion-race" class="subquestion">
-                    <div class="question">
-                      <label for="race" class="question-text">Which of the following do you consider yourself to be?</label>
-                      <div class="input">
-                        <label>
-                          <input type="radio" name="race" value="0">White
-                        </label>
-                        <label>
-                          <input type="radio" name="race" value="1">Black or African-American
-                        </label>
-                        <label>
-                          <input type="radio" name="race" value="2">Asian or Pacific Islander
-                        </label>
-                      </div>
-                    </div>
-                  </li>
-                </ol>
-              </li>
-              <li>
                 <div class="question">
                   <div class="notice">
                     As you get older, your risk of colorectal cancer
@@ -403,8 +389,8 @@
                   <label for="age" class="question-text">What is your age?&nbsp;<a class="notice-show">[More]</a></label>
                   <div class="input">
                     <input id="age" name="age" type="number" min="50" max="85" placeholder="Enter your age" required>
-                  </div>
-                </div><em>NOTE: This tool calculates risk for men and women 50 to 85 years of age.</em>
+                  </div><em>NOTE: This tool calculates risk for men and women 50 to 85 years of age.</em>
+                </div>
                 <div class="question">
                   <div class="notice">
                     The factors that can protect you from colorectal
@@ -423,7 +409,7 @@
                 </div>
               </li>
               <li>
-                <div id="height-question" class="question">
+                <div class="question">
                   <div class="notice">
                     Height and weight are used to determine your
                     body mass index (BMI). It can also be used to
@@ -432,21 +418,21 @@
                     people have too much body fat) has been linked
                     to a higher risk of colorectal cancer.
                   </div>
-                  <label for="height" class="question-text">What is your height without shoes?&nbsp;<a class="notice-show">[More]</a></label>
+                  <label for="height_feet" class="question-text">What is your height without shoes?&nbsp;<a class="notice-show">[More]</a></label>
                   <div class="input">
                     <label for="height_feet">
-                      <input id="height_feet" type="number" name="height_feet" min="2" max="8" placeholder="feet" required class="height-group">feet
+                      <input id="height_feet" type="number" name="height_feet" min="2" max="8" placeholder="feet" title="feet" required class="height-group">
                     </label>
                     <label for="height_inches">
-                      <input id="height_inches" type="number" name="height_inches" min="1" max="11" placeholder="inches" required class="height-group">inches
+                      <input id="height_inches" type="number" name="height_inches" min="0" max="11" placeholder="inches" title="inches" class="height-group">
                     </label>
                   </div>
                 </div>
-                <div id="weight-question" class="question">
+                <div class="question">
                   <label for="weight" class="question-text">What is your weight without shoes?</label>
                   <div class="input">
                     <label>
-                      <input type="number" name="weight" min="50" max="500" placeholder="in pounds" required>lbs
+                      <input type="number" name="weight" min="50" placeholder="in pounds (lbs)" required>
                     </label>
                   </div>
                 </div>
@@ -459,25 +445,37 @@
                       very low in vegetables may have a higher risk of colorectal cancer.
                     </p>
                   </div>
-                  <label for="veg_servings" class="question-text">In<i> the past 30 days</i>, about how many servings per week of &nbsp;<a data-term="vegetable" class="termToDefine">vegetables</a> or leafy green salads did you eat?&nbsp;<a class="notice-show">[More]</a></label>NOTE: If you have eaten vegetables in the past 30 days, you will define serving size in the next question.
+                  <label for="eaten_veg" class="question-text">In<i> the past 30 days</i>, have you eaten any &nbsp;<a data-term="vegetable" class="termToDefine">vegetables</a> or leafy green salads?&nbsp;<a class="notice-show">[More]</a></label>NOTE: If you have eaten vegetables in the past 30 days, you will define serving size in the next set of questions.
                   <div class="input">
-                    <select id="veg_servings" name="veg_servings">
-                      <option value="">-select-</option>
-                      <option value="0">None</option>
-                      <option value=".5">Less than 1 serving per week</option>
-                      <option value="1.5">1-2 servings per week</option>
-                      <option value="3.5">3-4 servings per week</option>
-                      <option value="5.5">5-6 servings per week</option>
-                      <option value="8.5">7-10 servings per week</option>
-                      <option value="11">More than 10 servings per week</option>
-                    </select>
+                    <label>
+                      <input type="radio" name="eaten_veg" value="0">Yes
+                    </label>
+                    <label>
+                      <input type="radio" name="eaten_veg" value="1">No
+                    </label>
                   </div>
                 </div>
-                <ol>
-                  <li id="subquestion-veg" class="subquestion">
+                <ol id="subquestion-veg" class="subquestion">
+                  <li>
+                    <div class="question">
+                      <label for="veg_servings" class="question-text">In<i> the past 30 days</i>, about how many servings per week of &nbsp;<a data-term="vegetable" class="termToDefine">vegetables</a> or leafy green salads did you eat?</label>
+                      <div class="input">
+                        <select id="veg_servings" name="veg_servings">
+                          <option value="">-select-</option>
+                          <option value=".5">Less than 1 serving per week</option>
+                          <option value="1.5">1-2 servings per week</option>
+                          <option value="3.5">3-4 servings per week</option>
+                          <option value="5.5">5-6 servings per week</option>
+                          <option value="8.5">7-10 servings per week</option>
+                          <option value="11">More than 10 servings per week</option>
+                        </select>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
                     <div class="question">
                       <label for="veg_amount" class="question-text">In<i> the past 30 days</i>, how much did you usually eat in each serving
-                        of &nbsp;<a data-term="vegetable" class="termToDefine">vegetables</a>&nbsp; or leafy green salads?&nbsp;<a class="notice-show">[More]</a>
+                        of &nbsp;<a data-term="vegetable" class="termToDefine">vegetables</a>&nbsp; or leafy green salads?
                       </label>
                       <div class="input">
                         <select id="veg_amount" name="veg_amount">
@@ -733,17 +731,28 @@
                      does not increase risk of colorectal cancer among women.
                      As time goes on and other studies are completed, that may change.
                   </div>
-                  <label for="cigarettes" class="question-text">In your<i> entire lifetime,</i> altogether, have you smoked 100 or more cigarettes?&nbsp;<a class="notice-show">[More]</a></label>
+                  <label for="smoked" class="question-text">Have you ever once smoked a cigarette?&nbsp;<a class="notice-show">[More]</a></label>
                   <div class="input">
-                    <select id="cigarettes" name="cigarettes">
-                      <option value="">-select-</option>
-                      <option value="0">Yes</option>
-                      <option value="1">No</option>
-                      <option value="2">I don't know</option>
-                    </select>
+                    <label>
+                      <input type="radio" name="smoked" value="0">Yes
+                    </label>
+                    <label>
+                      <input type="radio" name="smoked" value="1">No
+                    </label>
                   </div>
                 </div>
                 <ol>
+                  <div id="subquestion-smoke-age" class="subquestion">
+                    <label for="cigarettes" class="question-text">In your<i> entire lifetime,</i>altogether, have you smoked 100 or more cigarettes?&nbsp;<a class="notice-show">[More]</a></label>
+                    <div class="input">
+                      <select id="cigarettes" name="cigarettes">
+                        <option value="">-select-</option>
+                        <option value="0">Yes</option>
+                        <option value="1">No</option>
+                        <option value="2">I don't know</option>
+                      </select>
+                    </div>
+                  </div>
                   <li id="subquestion-smoke-age" class="subquestion">
                     <div class="question">
                       <label for="smoke_age" class="question-text">
@@ -861,11 +870,11 @@
                     <div class="question">
                       <label for="smoke_now" class="question-text">Do you currently smoke cigarettes?</label>
                       <div class="input">
-                        <label>Yes
-                          <input type="radio" name="smoke_now" value="1">
+                        <label>
+                          <input type="radio" name="smoke_now" value="1">Yes
                         </label>
-                        <label>No
-                          <input type="radio" name="smoke_now" value="0">
+                        <label>
+                          <input type="radio" name="smoke_now" value="0">No
                         </label>
                       </div>
                     </div>

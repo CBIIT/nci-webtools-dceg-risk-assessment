@@ -1,13 +1,6 @@
 var validationRules = {
-    hispanic: {
-        required: true
-    },
     race: {
-        required: {
-            depends: function (el) {
-                return $("[name='hispanic']:checked").val() == 1;
-            }
-        }
+        required: true
     },
     age: {
         required: true,
@@ -18,16 +11,23 @@ var validationRules = {
         required: true
     },
     height_feet: {
-        require_from_group: [2, '.height-group']
-    },
-    height_inches: {
-        require_from_group: [2, '.height-group']
+        required: true,
+        max: 9
     },
     weight: {
+        required: true,
+        min: 50,
+        max: 700
+    },
+    eaten_veg: {
         required: true
     },
     veg_servings: {
-        required: true
+        required: {
+            depends: function (el) {
+                return $("[name='eaten_veg']:checked").val() == "0";
+            }
+        }
     },
     exam: {
         required: true
@@ -148,9 +148,6 @@ var validationRules = {
     }
 };
 var validationMessages = {
-    hispanic: {
-        required: "You must specify whether you consider yourself Hispanic or Latino"
-    },
     race: {
         required: "Your race must be selected"
     },
@@ -163,13 +160,14 @@ var validationMessages = {
         required: "Gender must be selected"
     },
     height_feet: {
-        require_from_group: "Enter both feet(ft) and inches(inch) for height"
-    },
-    height_inches: {
-        require_from_group: "Enter both feet(ft) and inches(inch) for height"
+        required: "Enter height in feet and inches"
     },
     weight: {
-        required: "Weight is required"
+        required: "Weight is required",
+        min: "Weight must be greater than 50"
+    },
+    eaten_veg: {
+        required: "You must specify whether you have eaten vegetables in the last month"
     },
     veg_servings: {
         required: "You must specify how many servings of vegetables you had in the past month"
@@ -236,8 +234,7 @@ var validationMessages = {
 function validate() {
     $(document.forms.survey).validate({
         debug: true,
-
-
+        ignoreTitle: true,
         igonore: ".ignore",
         highlight: function (element, errorClass, validClass) {
             if (element.type != "radio") {
@@ -257,7 +254,7 @@ function validate() {
         rules: validationRules,
         messages: validationMessages,
         errorLabelContainer: '#error',
-//        wrapper: 'p',
+        wrapper: 'p',
         submitHandler: function (form) {
             $('#error').empty().css('display', 'none');
             $('#result').addClass('hide').empty();

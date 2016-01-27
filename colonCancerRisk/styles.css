@@ -9,6 +9,7 @@ body {
   margin: 0;
   min-width: 320px;
   background: #f7f8f3;
+  line-height: 1.5;
 }
 a {
   color: inherit;
@@ -157,7 +158,7 @@ section form > ol > li {
   padding: 15px;
   width: 32%;
   max-width: 100%;
-  height: 350px;
+  height: 400px;
   vertical-align: top;
   overflow: auto;
   border: 2px solid #2a71a5;
@@ -176,7 +177,7 @@ section form > ol > li ol {
   padding: 0;
 }
 section form > ol > li .question > * {
-  padding: 10px 0;
+  padding: 6px 0;
 }
 section form > ol > li .question > .notice {
   font-size: 0.9em;
@@ -185,8 +186,7 @@ section form > ol > li .question > .notice {
   margin: 5px auto;
   max-width: 400px;
   display: none;
-  background: #789;
-  color: #fff;
+  color: #000;
   -webkit-border-radius: 5px;
   border-radius: 5px;
   -webkit-box-shadow: 3px 2px 7px #000;
@@ -207,6 +207,9 @@ section form > ol > li .question > label > a.notice-show {
 section form > ol > li .question > p {
   display: inline-block;
 }
+section form > ol > li .question .input > label {
+  display: block;
+}
 section form > ol > li .question select,
 section form > ol > li .question input {
   width: 100%;
@@ -214,16 +217,6 @@ section form > ol > li .question input {
 section form > ol > li .question select[type="radio"],
 section form > ol > li .question input[type="radio"] {
   width: 15px;
-}
-section form > ol > li .question#weight-question .input,
-section form > ol > li .question#height-question .input {
-  width: 100%;
-}
-section form > ol > li .question#weight-question .input > select,
-section form > ol > li .question#height-question .input > select,
-section form > ol > li .question#weight-question .input input,
-section form > ol > li .question#height-question .input input {
-  width: 30%;
 }
 section form .female:not(.show),
 section form .male:not(.show),
@@ -313,19 +306,29 @@ section form .question-illustrations img {
 .section-content a :hover {
   text-decoration: none;
 }
+.section-title a.termToDefine,
+.section-content a.termToDefine {
+  font-style: italic;
+  text-decoration: none;
+  border-bottom: 1px dotted;
+}
+.section-title a.termToDefine:hover,
+.section-content a.termToDefine:hover {
+  border-bottom: none;
+}
 .section-description {
   margin: 10px auto;
   padding: 5px;
-  border: 2px solid #363660;
+  border: 2px solid #fff;
   -webkit-border-radius: 10px;
   border-radius: 10px;
-  -webkit-box-shadow: 3px 2px 5px;
-  box-shadow: 3px 2px 5px;
-  background: #c6d7e1;
-  color: #143954;
+  -webkit-box-shadow: 3px 2px 5px #000;
+  box-shadow: 3px 2px 5px #000;
+  background: #789;
+  color: #fff;
 }
 .section-description a {
-  color: #fff;
+  color: inherit;
 }
 .section-description a:hover {
   text-decoration: none;
@@ -338,11 +341,11 @@ section form .question-illustrations img {
   overflow: hidden;
 }
 .section-description > .show-more {
-  height: 25px;
+  height: 30px;
   margin: 10px 0;
   font-size: 0.9em;
   color: #fff;
-  background: rgba(0,0,0,0.3);
+  background: #4a4a4a;
   border: 2px solid #fff;
   -webkit-border-radius: 5px;
   border-radius: 5px;
@@ -351,6 +354,8 @@ section form .question-illustrations img {
 }
 .section-description > .show-more:hover {
   text-decoration: none;
+  color: #fff;
+  border-color: #fff;
   background: none;
 }
 .about-question-title {
@@ -367,9 +372,6 @@ section form .question-illustrations img {
   margin: 10px auto;
   border: 2px solid #2a71a5;
   background: #fff;
-}
-.termToDefine {
-  font-style: italic;
 }
 .references {
   font-style: italic;
@@ -479,16 +481,20 @@ section form .question-illustrations img {
 #topButton {
   font-size: 2em;
   display: none;
-  background: rgba(42,113,165,0.7);
-  width: 45px;
   color: #fff;
-  -webkit-border-radius: 25px;
-  border-radius: 25px;
   text-align: center;
   padding: 5px 0;
   position: fixed;
   bottom: 20px;
   right: 20px;
+}
+#topButton > .fa {
+  margin: 5px;
+  border: 4px solid #6699bc;
+  background: #6699bc;
+  background: rgba(42,113,165,0.7);
+  -webkit-border-radius: 20px;
+  border-radius: 20px;
 }
 
 @media (max-width: 1300px) {

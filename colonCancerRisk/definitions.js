@@ -34,8 +34,15 @@ var terms = {
     aid: {
         fullName: "anti-inflammatory",
         definition: "Having to do with reducing inflammation."
+    },
+    moderate: {
+        fullName: "Moderate Activity",
+        definition: "Moderate activities DO NOT cause you to sweat or breathe hard.\n Some examples include vacuuming, gardening, easy walking for exercise, and so on."
+    },
+    vigorous: {
+        fullName: "Vigorous Activity",
+        definition: "Vigorous activities include all activities that DO cause you to sweat or breathe hard.\n Some examples include racquet sports, basketball, running, fast biking, exercise class, weight lifting, backpacking, swimming, and heavy labor such as shoveling dirt."
     }
-
 };
 
 $(function(){

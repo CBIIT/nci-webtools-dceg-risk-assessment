@@ -6,6 +6,7 @@ body
     margin 0
     min-width 320px
     background #f7f8f3
+    line-height 1.5
 a
     color inherit
 header
@@ -126,7 +127,7 @@ section
                 padding 15px
                 width 32%
                 max-width 100%
-                height 350px
+                height 400px
                 vertical-align top
                 overflow auto
                 border 2px solid #2A71A5
@@ -141,7 +142,7 @@ section
                     padding 0
                 .question
                     > *
-                        padding 10px 0
+                        padding 6px 0
                     > .notice
                         font-size .9em
                         border 1px solid
@@ -149,8 +150,7 @@ section
                         margin 5px auto
                         max-width 400px
                         display none
-                        background rgb(119, 136, 153)
-                        color #FFF
+                        color #000
                         border-radius 5px
                         box-shadow 3px 2px 7px black
                         > p
@@ -163,16 +163,13 @@ section
                             font-weight normal
                     > p
                         display inline-block
+                    .input > label
+                        display block
                     select, input
                         width 100%
                         &[type="radio"]
                             width 15px
 
-                    &#weight-question, &#height-question
-                        .input
-                            width 100%
-                            > select, input
-                                width 30%
         .female, .male, .subquestion
             &:not(.show)
                 display none
@@ -239,17 +236,23 @@ section
         color #BB0E3D
         :hover
             text-decoration none
+        &.termToDefine
+            font-style italic
+            text-decoration none
+            border-bottom 1px dotted
+            &:hover
+                border-bottom none
 
 .section-description
     margin 10px auto
     padding 5px
-    border 2px solid #363660
+    border 2px solid #FFF
     border-radius 10px
-    box-shadow 3px 2px 5px
-    background #C6D7E1
-    color #143954
+    box-shadow 3px 2px 5px black
+    background rgb(119, 136, 153)
+    color #FFF
     a
-        color white
+        color inherit
         &:hover
             text-decoration none
     p
@@ -258,17 +261,19 @@ section
         height 100px
         overflow hidden
     > .show-more
-        height 25px
+        height 30px
         margin 10px 0
         font-size .9em
-        color white
-        background rgba(0, 0, 0, 0.30)
+        color #fff
+        background #4A4A4A
         border 2px solid #fff
         border-radius 5px
         text-decoration underline
         font-family "Tahoma", "Geneva", "sans-serif"
         &:hover
             text-decoration none
+            color #fff
+            border-color #fff
             background none
 
 .about-question-title
@@ -285,9 +290,6 @@ section
     margin 10px auto
     border 2px solid #2A71A5
     background white
-
-.termToDefine
-    font-style italic
 
 .references
     font-style italic
@@ -383,12 +385,15 @@ section
 #topButton
     font-size 2em
     display none
-    background rgba(42,113,165,.7)
-    width 45px
     color white
-    border-radius 25px
     text-align center
     padding 5px 0
     position fixed
     bottom 20px
     right 20px
+    > .fa
+        margin 5px
+        border 4px solid #6699BC
+        background #6699BC
+        background rgba(42,113,165,0.7)
+        border-radius 20px
