@@ -1,6 +1,4 @@
 * {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 body {
@@ -58,10 +56,6 @@ header #toolTitle #toolDescription {
 }
 ul.nav {
   background: #636363;
-  background: -webkit-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
-  background: -moz-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
-  background: -o-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
-  background: -ms-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
   background: linear-gradient(135deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
   border-top: 2px solid #bb0e3d;
   margin: 0;
@@ -138,7 +132,6 @@ dl dt {
   font-weight: bold;
 }
 .rounded {
-  -webkit-border-radius: 10px;
   border-radius: 10px;
 }
 section {
@@ -187,9 +180,7 @@ section form > ol > li .question > .notice {
   display: none;
   background: #789;
   color: #fff;
-  -webkit-border-radius: 5px;
   border-radius: 5px;
-  -webkit-box-shadow: 3px 2px 7px #000;
   box-shadow: 3px 2px 7px #000;
 }
 section form > ol > li .question > .notice > p {
@@ -266,14 +257,12 @@ section form .question-illustrations {
 }
 section form .question-illustrations .stock-images {
   margin: 0 10px;
-  -webkit-border-radius: 5px;
   border-radius: 5px;
   width: 200px;
   height: 140px;
 }
 section form .question-illustrations .expand {
   width: 100%;
-  -webkit-box-shadow: 3px 3px 10px #000;
   box-shadow: 3px 3px 10px #000;
 }
 section form .question-illustrations img {
@@ -294,7 +283,6 @@ section form .question-illustrations img {
   font-weight: bold;
   padding: 5px 20px;
   background: #bb0e3d;
-  -webkit-border-radius: 10px;
   border-radius: 10px;
   color: #fff;
 }
@@ -317,9 +305,7 @@ section form .question-illustrations img {
   margin: 10px auto;
   padding: 5px;
   border: 2px solid #363660;
-  -webkit-border-radius: 10px;
   border-radius: 10px;
-  -webkit-box-shadow: 3px 2px 5px;
   box-shadow: 3px 2px 5px;
   background: #c6d7e1;
   color: #143954;
@@ -344,7 +330,6 @@ section form .question-illustrations img {
   color: #fff;
   background: rgba(0,0,0,0.3);
   border: 2px solid #fff;
-  -webkit-border-radius: 5px;
   border-radius: 5px;
   text-decoration: underline;
   font-family: "Tahoma", "Geneva", "sans-serif";
@@ -394,7 +379,6 @@ section form .question-illustrations img {
 #error {
   background: #fc7878;
   border: 5px solid #a95f5f;
-  -webkit-border-radius: 10px;
   border-radius: 10px;
   padding: 5px;
   font-weight: bold;
@@ -409,7 +393,6 @@ section form .question-illustrations img {
 }
 #result {
   border: 5px solid #000;
-  -webkit-border-radius: 10px;
   border-radius: 10px;
   margin: 0 auto;
   max-width: 600px;
@@ -462,14 +445,12 @@ section form .question-illustrations img {
   background: #0c5c97;
   font-weight: bold;
   color: #fff;
-  -webkit-border-radius: 10px 10px 0 0;
   border-radius: 10px 10px 0 0;
   text-decoration: underline;
 }
 .default-tooltip-content {
   background: #fff;
   line-height: 1.4;
-  -webkit-border-radius: 0 0 10px 10px;
   border-radius: 0 0 10px 10px;
   border: 1px solid #000;
 }
@@ -482,167 +463,10 @@ section form .question-illustrations img {
   background: rgba(42,113,165,0.7);
   width: 45px;
   color: #fff;
-  -webkit-border-radius: 25px;
   border-radius: 25px;
   text-align: center;
   padding: 5px 0;
   position: fixed;
   bottom: 20px;
   right: 20px;
-}
-
-@media (max-width: 1300px) {
-  ul.nav {
-    margin: 0;
-  }
-  ul.nav li {
-    padding: 7px;
-  }
-  section {
-    margin: 0 50px;
-    padding: 0 20px;
-  }
-  section form > ol > li {
-    margin: 10px auto;
-    width: 45%;
-    min-height: 150px;
-    max-height: 600px;
-  }
-}
-@media (max-width: 990px) {
-  #error p {
-    display: block;
-    width: 100%;
-    margin: 5px;
-  }
-  header {
-    position: relative;
-  }
-  header #toolTitle {
-    text-align: center;
-    padding: 5px;
-  }
-  dl {
-    padding: 0;
-  }
-  .spacer {
-    display: block;
-  }
-  .section-anchors li,
-  footer li {
-    padding: 5px 0;
-  }
-  section {
-    margin: 0 25px;
-  }
-  section form > ol {
-    padding: 0;
-  }
-  section form > ol > li > p {
-    margin-right: 0;
-  }
-  section form > ol > li > p > .input {
-    width: 100%;
-    margin: 10px auto;
-  }
-  section form .question-text {
-    margin: 0;
-    padding: 1%;
-  }
-  section form .question-illustrations img {
-    width: 80%;
-  }
-  section form button {
-    display: inherit;
-    margin: 0 auto;
-    width: 50%;
-    float: none;
-  }
-}
-@media (max-width: 768px) {
-  header #nci-banner {
-    padding-left: 25px;
-  }
-  header #toolTitle {
-    padding: 5px 0;
-  }
-  .menu-title {
-    padding: 5px 0;
-    display: block;
-    background-color: rgba(220,222,224,0.5);
-    color: #fff;
-    padding-left: 0;
-  }
-  #top {
-    margin: 0;
-    min-height: 0;
-  }
-  #menu-button {
-    display: block;
-  }
-  ul.nav {
-    background: transparent;
-    padding: 0;
-    text-align: center;
-  }
-  ul.nav:not(.show) {
-    display: none;
-  }
-  ul.nav.stick-nav-top {
-    position: inherit;
-  }
-  ul.nav > li {
-    display: block;
-    padding: 8px;
-  }
-  ul.nav > li a {
-    color: #bb0e3d;
-  }
-  ul.nav > li:not(:hover) > ul {
-    display: block;
-  }
-  ul.nav > li > ul {
-    background: transparent;
-    margin: 10px 0 -5px;
-    position: static;
-  }
-  ul.nav > li > ul:not(.show) {
-    display: none;
-  }
-  .section-title {
-    overflow: auto;
-    padding: 5px 10px;
-  }
-  section {
-    margin: 10px;
-    padding: 0;
-  }
-  section form > ol > li {
-    width: 100%;
-    height: auto;
-    max-height: 350px;
-    min-height: 130px;
-    padding: 5px 10px;
-  }
-  footer {
-    margin: 25px 0;
-  }
-  .question-illustration {
-    padding-left: 0;
-  }
-  .question-illustration .stock-images {
-    width: 180px;
-  }
-}
-@media (max-width: 480px) {
-  header #nci-banner {
-    padding-left: 0;
-  }
-  .section-title * {
-    display: block;
-    text-align: center;
-  }
-  .section-title :nth-child(2) {
-    float: none;
-  }
 }

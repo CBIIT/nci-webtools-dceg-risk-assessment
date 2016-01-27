@@ -434,11 +434,11 @@
                   </div>
                   <label for="height" class="question-text">What is your height without shoes?&nbsp;<a class="notice-show">[More]</a></label>
                   <div class="input">
-                    <label for="height-feet">
-                      <input id="height-feet" type="number" name="height-feet" min="2" max="8" placeholder="feet" required class="height-group">feet
+                    <label for="height_feet">
+                      <input id="height_feet" type="number" name="height_feet" min="2" max="8" placeholder="feet" required class="height-group">feet
                     </label>
-                    <label for="height-inches">
-                      <input id="height-inches" type="number" name="height-inches" min="1" max="11" placeholder="inches" required class="height-group">inches
+                    <label for="height_inches">
+                      <input id="height_inches" type="number" name="height_inches" min="1" max="11" placeholder="inches" required class="height-group">inches
                     </label>
                   </div>
                 </div>
@@ -516,9 +516,10 @@
                   <div class="input">
                     <select id="exam" name="exam">
                       <option value="">-select-</option>
-                      <option value="0">Colonoscopy Only</option>
-                      <option value="1">Sigmoidoscopy Only</option>
-                      <option value="2">Both</option>
+                      <option value="0">Neither</option>
+                      <option value="1">Colonoscopy Only</option>
+                      <option value="2">Sigmoidoscopy Only</option>
+                      <option value="3">Both</option>
                     </select>
                   </div>
                 </div>
@@ -581,11 +582,11 @@
                       </div>
                     </div>
                     <div class="question">
-                      <label for="non-asprin" class="question-text">During<i> the past 30 days,</i> have you taken medications that
-                        &nbsp;<a data-term="non-asprin" class="termToDefine">DO NOT contain aspirin</a> at least 3 times a week :
+                      <label for="non_asprin" class="question-text">During<i> the past 30 days,</i> have you taken medications that
+                        &nbsp;<a data-term="non_asprin" class="termToDefine">DO NOT contain aspirin</a> at least 3 times a week :
                       </label>NOTE: Do NOT include TYLENOL
                       <div class="input">
-                        <select id="non-asprin" name="non-asprin">
+                        <select id="non_asprin" name="non_asprin">
                           <option value="">-select-</option>
                           <option value="0">Yes</option>
                           <option value="1">No</option>
@@ -620,15 +621,15 @@
                 <ol>
                   <li id="subquestion-activity" class="subquestion">
                     <div class="question">
-                      <label for="active-months" class="question-text">
+                      <label for="moderate_months" class="question-text">
                         Over the
                         &nbsp;<i>past 12 months,</i> in how many months, if any, did you do any kind of &nbsp;<a data-term="moderate" class="termToDefine">moderate</a> physical activity?
                       </label>
                       <div class="input">
-                        <input id="active-months" type="number" name="active-months" min="0" max="12" placeholder="Enter number of months (0-12)">
+                        <input id="moderate_months" type="number" name="moderate_months" min="0" max="12" placeholder="Enter number of months (0-12)">
                       </div>
                     </div>
-                    <div id="subquestion-active-months" class="question subquestion">
+                    <div id="subquestion-moderate_months" class="question subquestion">
                       <label for="active-hours" class="question-text">During those months,<i> on average</i>, about how many<i> hours per week</i> did you do &nbsp;<a data-term="moderate" class="termToDefine">moderate</a> physical activities?</label>
                       <div class="input">
                         <select id="active-hours" name="active-hours">
@@ -642,7 +643,7 @@
                       </div>
                     </div>
                     <div class="question">
-                      <label for="active-months" class="question-text">
+                      <label for="moderate_months" class="question-text">
                         Over the
                         &nbsp;<i>past 12 months,</i> in how many months, if any, did you do any kind of &nbsp;<a data-term="vigorous" class="termToDefine">vigorous</a> physical activity?
                       </label>
@@ -952,11 +953,11 @@
                 <ol>
                   <li id="subquestion-family-cancer" class="subquestion">
                     <div class="question">
-                      <label for="family-count" class="question-text"><i>How many</i> of these relatives had cancer of the
+                      <label for="family_count" class="question-text"><i>How many</i> of these relatives had cancer of the
                          colon or rectum (cancer of the lower intestine)?
                       </label>
                       <div class="input">
-                        <select id="family-count" name="family-count">
+                        <select id="family_count" name="family_count">
                           <option value="">-select-</option>
                           <option value="0">1</option>
                           <option value="1">2 or more</option>

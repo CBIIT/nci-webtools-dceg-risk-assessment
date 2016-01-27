@@ -4,7 +4,7 @@ var validationRules = {
     },
     race: {
         required: {
-            depends: function(el){
+            depends: function (el) {
                 return $("[name='hispanic']:checked").val() == 1;
             }
         }
@@ -17,7 +17,10 @@ var validationRules = {
     gender: {
         required: true
     },
-    height: {
+    height_feet: {
+        require_from_group: [2, '.height-group']
+    },
+    height_inches: {
         require_from_group: [2, '.height-group']
     },
     weight: {
@@ -29,68 +32,120 @@ var validationRules = {
     exam: {
         required: true
     },
+    polyp: {
+        required: {
+            depends: function (el) {
+                return $("[name='exam']").val() > 0;
+            }
+        }
+    },
     medications: {
         required: true
+    },
+    asprin: {
+        required: {
+            depends: function (el) {
+                return $("[name='medications']").val() == "0";
+            }
+        }
+    },
+    non_asprin: {
+        required: {
+            depends: function (el) {
+                return $("[name='medications']").val() == "0";
+            }
+        }
     },
     activity: {
         required: true
     },
+    moderate_months: {
+        required: {
+            depends: function (el) {
+                return $("[name='activity']").val() == "0";
+            }
+        }
+    },
+    vigorous_months: {
+        required: {
+            depends: function (el) {
+                return $("[name='activity']").val() == "0";
+            }
+        }
+    },
     "family_cancer": {
         required: true
     },
+    family_count: {
+        required: {
+            depends: function (el) {
+                return $("[name='family_cancer']").val() == "0";
+            }
+        }
+    },
+    veg_amount: {
+        required: {
+            depends: function (el) {
+                return $("[name='veg_servings']").val() > 0;
+            }
+        }
+    },
     cigarettes: {
         required: {
-            depends: function(el) {
+            depends: function (el) {
                 return $("[name='gender']:checked").val() == "Male";
             }
         }
     },
     smoke_age: {
         required: {
-            depends: function(el) {
+            depends: function (el) {
                 return $("[name='gender']:checked").val() == "Male" && $("#cigarettes").val() === "0";
             }
         }
     },
     cigarettes_num: {
         required: {
-            depends: function(el) {
+            depends: function (el) {
                 return $("#smoke_age").val() > 0;
             }
         }
     },
     smoke_now: {
         required: {
-            depends: function(el) {
+            depends: function (el) {
                 return $("#smoke_age").val() > 0;
             }
         }
     },
     smoke_quit: {
         required: {
-            depends: function(el) {
+            depends: function (el) {
                 return $("[name='smoke_now']:checked").val() == "0";
             }
         }
     },
     period: {
         required: {
-            depends: function(el) {
+            depends: function (el) {
                 return $("[name='gender']:checked").val() == "Female";
             }
         }
     },
-
-    //    freckling: {
-    //        required: true
-    //    },
-    //    damage: {
-    //        required: {
-    //            depends: function(el) {
-    //                return $('#gender').val() == 'Male';
-    //            }
-    //        }
-    //    }
+    last_period: {
+        required: {
+            depends: function (el) {
+                return $("[name='period']:checked").val() == '1';
+            }
+        }
+    },
+    hormones: {
+        required: {
+            depends: function (el) {
+                return $("[name='last_period']").val() == '2';
+            }
+        }
+    }
 };
 var validationMessages = {
     hispanic: {
@@ -107,7 +162,10 @@ var validationMessages = {
     gender: {
         required: "Gender must be selected"
     },
-    height: {
+    height_feet: {
+        require_from_group: "Enter both feet(ft) and inches(inch) for height"
+    },
+    height_inches: {
         require_from_group: "Enter both feet(ft) and inches(inch) for height"
     },
     weight: {
@@ -116,17 +174,38 @@ var validationMessages = {
     veg_servings: {
         required: "You must specify how many servings of vegetables you had in the past month"
     },
+    veg_amount: {
+        required: "You must specify the serving size of the vegetables"
+    },
     exam: {
         required: "You must specify whether you had a colonoscopy or sigmoidoscopy exam in the last decade"
+    },
+    polyp: {
+        required: "You must specify whther polyps were found during the exam"
     },
     medications: {
         required: "You must specify whether you have taken any medications in the past month"
     },
+    asprin: {
+        required: "You must specify whether you have taken any medications containing asprin in the past month"
+    },
+    non_asprin: {
+        required: "You must specify whether you have taken any medications not containing asprin in the past month"
+    },
     activity: {
-        required: "You must specify whether you have excercised in the past year"
+        required: "You must specify whether you have exercised in the past year"
+    },
+    moderate_months: {
+        required: "You must specify how many months you have participated in moderate exercise"
+    },
+    vigorous_months: {
+        required: "You must specify how many months you have participated in vigorous exercise"
     },
     "family_cancer": {
-        required: "You must specify whether any relatives had colon cancer"
+        required: "You must specify whether any relatives had colorectal cancer"
+    },
+    "family_count": {
+        required: "You must specify how many relatives had colorectal cancer"
     },
     cigarettes: {
         required: "You must specify whether you have smoked cigarettes"
@@ -146,28 +225,29 @@ var validationMessages = {
     period: {
         required: "You must specify whether you still have periods"
     },
-    //    freckling: {
-    //        required: "The extent of the freckling on the patient's back must be selected."
-    //    },
-    //    damage: {
-    //        required: "Whether the patient has severe solar damage on their next and shoulders must be selected."
-    //    }
+    last_period: {
+        required: "You must specify when you had your last period"
+    },
+    hormones: {
+        required: "You must specify whether you are taking any female hormones"
+    }
 };
+
 function validate() {
     $(document.forms.survey).validate({
         debug: true,
 
 
         igonore: ".ignore",
-        highlight: function(element, errorClass, validClass) {
-            if(element.type != "radio") {
+        highlight: function (element, errorClass, validClass) {
+            if (element.type != "radio") {
                 $(element).addClass(errorClass).removeClass(validClass);
             }
             $(element.form).find("label[for='" + element.name + "']")
                 .addClass(errorClass);
         },
-        unhighlight: function(element, errorClass, validClass) {
-            if(element.type != "radio") {
+        unhighlight: function (element, errorClass, validClass) {
+            if (element.type != "radio") {
                 $(element).removeClass(errorClass).addClass(validClass);
             }
             $(element.form).find("label[for='" + element.name + "']")
@@ -177,9 +257,9 @@ function validate() {
         rules: validationRules,
         messages: validationMessages,
         errorLabelContainer: '#error',
-        wrapper: 'p',
-        submitHandler: function(form) {
-            $('#error').empty().css('display','none');
+//        wrapper: 'p',
+        submitHandler: function (form) {
+            $('#error').empty().css('display', 'none');
             $('#result').addClass('hide').empty();
             $('.error').removeClass('error');
             $.ajax({
@@ -189,7 +269,7 @@ function validate() {
                 processData: false,
                 contentType: false,
                 dataType: 'json'
-            }).done(function(data) {
+            }).done(function (data) {
                 if (data.success) {
                     displayResult(data.message);
                 } else {
@@ -199,19 +279,19 @@ function validate() {
                     }
                     var index;
                     for (index in data.missing) {
-                        $('#'+data.missing[index]).addClass('error');
+                        $('#' + data.missing[index]).addClass('error');
                         message += "<p>The " + data.missing[index] + " question was not answered.</p>";
                     }
                     for (index in data.nonnumeric) {
-                        $('#'+data.nonnumeric[index]).addClass('error');
+                        $('#' + data.nonnumeric[index]).addClass('error');
                         message += "<p>The " + data.missing[index] + " question contained a nonnumeric answer.</p>";
                     }
-                    $('#error').append(message).css('display','block');
+                    $('#error').append(message).css('display', 'block');
                     document.getElementById("top").scrollIntoView();
                 }
-            }).fail(function(data) {
-                if(data.responseJSON.message)
-                    $('#error').append("<p>"+data.responseJSON.message+"</p>").css('display','block');
+            }).fail(function (data) {
+                if (data.responseJSON.message)
+                    $('#error').append("<p>" + data.responseJSON.message + "</p>").css('display', 'block');
                 document.getElementById("top").scrollIntoView();
             });
         }

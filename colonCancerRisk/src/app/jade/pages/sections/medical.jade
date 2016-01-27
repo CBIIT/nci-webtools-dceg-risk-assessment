@@ -26,9 +26,10 @@ li
         .input
             select#exam(name='exam')
                 option(value='') -select-
-                option(value='0') Colonoscopy Only
-                option(value='1') Sigmoidoscopy Only
-                option(value='2') Both
+                option(value="0") Neither
+                option(value='1') Colonoscopy Only
+                option(value='2') Sigmoidoscopy Only
+                option(value='3') Both
     ol
         li#subquestion-exam.subquestion
             .question
@@ -90,15 +91,15 @@ li
                         option(value='1') No
                         option(value='2') I don't know
             .question
-                label.question-text(for="non-asprin") During
+                label.question-text(for="non_asprin") During
                     i  the past 30 days,
                     |  have you taken medications that
                     | &nbsp;
-                    a.termToDefine(data-term="non-asprin") DO NOT contain aspirin
+                    a.termToDefine(data-term="non_asprin") DO NOT contain aspirin
                     |  at least 3 times a week :
                 | NOTE: Do NOT include TYLENOL
                 .input
-                    select#non-asprin(name='non-asprin')
+                    select#non_asprin(name='non_asprin')
                         option(value='') -select-
                         option(value='0') Yes
                         option(value='1') No

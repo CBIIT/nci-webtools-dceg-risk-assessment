@@ -2,7 +2,7 @@ $(".notice-show").each(function(i, el){
     $(this).on("click", showNotice);
 });
 
-function showNotice(e){
+function showNotice(e) {
     var noticeElement = $( $(e.target.parentElement).prev()[0] );
     if(noticeElement.hasClass("notice")) {
         var display = noticeElement.is(":visible") ? false: true;
@@ -10,7 +10,16 @@ function showNotice(e){
     }
 }
 
-$("input[name='hispanic']").on("change", function(){
+function resetInputs() {
+    if(this.type == "radio" || this.type == "checkbox" )
+        this.checked = false;
+    if(this.type == "select-one" || this.type == "select-multiple" || this.type == "text" )
+        this.value = "";
+}
+
+$("input[name='hispanic']").on("change", function() {
+    $.each(document.getElementsByName("race"), resetInputs);
+    
     if(this.value == "1"){
         $("#subquestion-race").addClass("show").effect("highlight", 500);
     }
@@ -20,8 +29,7 @@ $("input[name='hispanic']").on("change", function(){
 });
 
 $("input[name='gender']").on("change", function() {
-    $(".male,.female").find("input[type='radio']").attr("checked", false);
-    $(".male,.female").find("select").val("");
+    $(".male,.female").find("input,select").each(resetInputs);
 
     if(this.value === "Male"){
         $(".male").addClass("show").effect("highlight", 500);
@@ -44,18 +52,18 @@ $("input[name='activity']").on("change", function(){
     }
 });
 
-$("input[name='active-months']").on("blur", function(){
-    $("#subquestion-active-months").find("select").val("");
+$("input[name='moderate_months']").on("blur", function(){
+    $("#subquestion-moderate_months").find("select").val("");
     if(this.value <= "0"){
-        $("#subquestion-active-months").removeClass("show");
+        $("#subquestion-moderate_months").removeClass("show");
     }
     else {
-        $("#subquestion-active-months").addClass("show").effect("highlight", 500);
+        $("#subquestion-moderate_months").addClass("show").effect("highlight", 500);
     }
 });
 
 $("input[name='vigorous-months']").on("blur", function(){
-    $("#subquestion-active-months").find("select").val("");
+    $("#subquestion-moderate_months").find("select").val("");
     if(this.value <= "0"){
         $("#subquestion-vigorous-months").removeClass("show");
     }
@@ -89,7 +97,7 @@ $("select[name='veg_servings']").on("change", function(){
 
 $("select[name='exam']").on("change", function(){
     $("#subquestion-exam").find("input").val("");
-    if(this.value >= 0){
+    if(this.value > 0){
         $("#subquestion-exam").addClass("show").effect("highlight", 500);
     }
     else {

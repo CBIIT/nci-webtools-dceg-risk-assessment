@@ -1,5 +1,4 @@
 requirejs.config({
-
     paths:{
         jquery: "https://code.jquery.com/jquery-1.11.3",
         jqueryUI: "https://code.jquery.com/ui/1.11.4/jquery-ui",

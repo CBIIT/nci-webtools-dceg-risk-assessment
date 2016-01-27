@@ -19,7 +19,7 @@ var terms = {
         fullName: "Medications containing Asprin",
         definition: "Ex. Bufferin, Bayer, Excedrin or Other generic form"
     },
-    "non-asprin": {
+    "non_asprin": {
         fullName: "Medications NOT containing Asprin",
         definition: "Ex. Advil, Aleve, Celebrex, Ibuprofen, Motrin, Naproxen or Nuprin"
     },
