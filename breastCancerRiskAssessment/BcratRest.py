@@ -4,20 +4,23 @@ import math
 def AverageRisk(race, currentAge, projectionAge):
   return AbsRisk(race, currentAge, projectionAge, 0, 0, 0, 0, 1.0)
 
+# rhyp    yes = 1.82
+#          no = 0.93
+#       other = 1.00
 def AbsRisk(race, currentAge, projectionAge, numberOfBiopsy, menarcheAge, firstLiveBirthAge, firstDegRelatives, rhyp):
   if projectionAge <= currentAge:
     raise RuntimeError("projectionAge must be greater than the current age")
   raceAttribute  = BcratConstants.ATTRIBUTE_RISK   ["Absolute"][race]
   raceHazards    = BcratConstants.COMPETING_HAZARDS["Absolute"][race]
   raceIncidence  = BcratConstants.INCIDENCE        ["Absolute"][race]
-  raceCovariants = BcratConstants.COVARIANTS       ["Absolute"][race]
+  raceCovariants = BcratConstants.COVARIANTS       [race]
   currentAgeInterval    = int(math.floor(currentAge   /5))-4
   projectionAgeInterval = int(math.floor(projectionAge/5))-4
   #age ge 50 ind  0=[20, 50)
   #               1=[50, 85)
   if (race == "Black" and menarcheAge == 2):
-    menarcheAge = 1;        // recode agemen=2 (age<12) to agmen=1 [12,13]
-    firstLiveBirthAge = 0;  // set age 1st live birth to 0
+    menarcheAge = 1;        # recode agemen=2 (age<12) to agmen=1 [12,13]
+    firstLiveBirthAge = 0;  # set age 1st live birth to 0
   covariateBreakdown = [
     # age of menarchy  0=[14, 39] U 99 (unknown)
     #                  1=[12, 14)
@@ -41,63 +44,100 @@ def AbsRisk(race, currentAge, projectionAge, numberOfBiopsy, menarcheAge, firstL
     # first birth * number of relatives
     firstLiveBirthAge * firstDegRelatives
   ]
-  covariateSummary = math.exp(sum([x*y for x,y in zip(covariateBreakdown,raceCovariants)]) + Math.Log(rhyp))
-  cancerIncidence = raceIncidence[currentAgeInterval]*raceAttribute[currentAgeInterval]*covariateSummary
-  deathRate = cancerIncidence+raceHazards[currentAgeInterval]
-  absRisk = 1.0
-  if (projectionAgeInterval == currentAgeInterval):
-    absRisk -= math.exp(-deathRate*(projectionAge-currentAge))
-    absRisk *= cancerIncidence/deathRate
-  else:
-    absRisk -= math.exp(-deathRate*(currentAgeInterval*5+25-currentAge))
-    absRisk *= cancerIncidence/deathRate
-    if projectionAgeInterval-currentAgeInterval > 0:
-      riskMod = 1.0
-      projectedAttributeIncidence = raceIncidence[projectionAgeInterval]*raceAttribute[projectionAgeInterval]
-      if (projectionAge > 50 and currentAge < 50.0):
-        projectedCovariateSummary = math.exp(sum([x*y for x,y in zip([menarcheAge, numberOfBiopsy, firstLiveBirthAge, firstDegRelatives, numberOfBiopsy, firstLiveBirthAge * firstDegRelatives],raceCovariants)]) + Math.Log(rhyp))
-        projectedCancerIncidence = projectedAttributeIncidence*projectedCovariateSummary
-        projectedDeathRate = projectedCancerIncidence+raceHazards[projectionAgeInterval]
-        riskMod -= math.exp(-projectedDeathRate*(projectionAge-projectionAgeInterval*5-20))
-        riskMod *= projectedCancerIncidence/projectedDeathRate
-        riskMod *= math.exp(-deathRate*(currentAgeInterval*5+25-currentAge))
-        for j in (currentAgeInterval,projectionAgeInterval):
-          if (j >= 6):
-            riskMod *= math.exp(-(raceIncidence[j]*raceAttribute[j] * projectedCovariateSummary + raceHazards[j]) * 5);
-          else:
-            riskMod *= math.exp(-(raceIncidence[j]*raceAttribute[j] * covariateSummary + raceHazards[j]) * 5);
-      else:
-        interstitialCancerIncidence = projectedAttributeIncidence*covariateSummary
-        interstitialDeathRate = interstitialCancerIncidence+raceHazards[projectionAgeInterval]
-        riskMod -= math.exp(-interstitialDeathRate*(projectionAge-projectionAgeInterval*5-20))
-        riskMod *= interstitialCancerIncidence/interstitialDeathRate
-        riskMod *= math.exp(-deathRate*(currentAgeInterval*5+25-currentAge))
-        for j in range(currentAgeInterval,projectionAgeInterval)
-          riskMod *= math.exp(-(raceIncidence[j]*raceAttribute[j] * covariateSummary + raceHazards[j]) * 5)
-      absRisk += riskMod;
-      if projectionAgeInterval-currentAgeInterval > 1:
-        if projectionAge > 50.0 and currentAge < 50.0:
-          for k in range(currentAgeInterval+2,projectionAgeInterval):
-            riskMod = 1.0
-            if k >= 7:
-              riskMod -= math.exp(-(raceIncidence[k]*raceAttribute[k] * projectedCovariateSummary + raceHazards[k]) * 5)
-              riskMod *= raceIncidence[k]*raceAttribute[k] * projectedCovariateSummary / (raceIncidence[k]*raceAttribute[k] * projectedCovariateSummary + raceHazards[k])
-            else:
-              riskMod -= math.exp(-(raceIncidence[k - 1]*raceAttribute[k - 1] * covariateSummary + raceHazards[k - 1]) * (t[k] - t[k - 1]))
-              riskMod *= raceIncidence[k]*raceAttribute[k] * covariateSummary / (raceIncidence[k]*raceAttribute[k] * covariateSummary + raceHazards[k])
-            riskMod *= math.exp(-deathRate*(currentAgeInterval*5+25-currentAge))
-            for j in range(currentAgeInterval+1,k):
-              if j >= 6:
-                riskMod *= math.exp(-(raceIncidence[j]*raceAttribute[j]*projectedCovariateSummary+raceHazards[j])*5)
-              else:
-                riskMod *= math.exp(-(raceIncidence[j]*raceAttribute[j]*covariateSummary+raceHazards[j])*5)
-            absRisk += riskMod
-        else:
-          for k in range(currentAgeInterval+1,projectionAgeInterval):
-            riskMod = 1.0-math.exp(-(raceIncidence[k]*raceAttribute[k]*covariateSummary+raceHazards[k])*5)
-            riskMod *= raceIncidence[k]*raceAttribute[k]*covariateSummary/(raceIncidence[k]*raceAttribute[k]*covariateSummary+raceHazards[k])
-            riskMod *= math.exp(-deathRate*(currentAgeInterval*5+25-currentAge))
-            for j in range(currentAgeInterval+1,k):
-              riskMod *= math.exp(-(raceIncidence[j]*raceAttribute[j] * covariateSummary + raceHazards[j])*5)
-            absRisk += riskMod
+  covariateSummary = math.exp(sum([x*y for x,y in zip(covariateBreakdown,raceCovariants)]) + math.log(rhyp))
+  projectedCovariateSummary = math.exp(sum([x*y for x,y in zip([menarcheAge, numberOfBiopsy, firstLiveBirthAge, firstDegRelatives, numberOfBiopsy, firstLiveBirthAge * firstDegRelatives],raceCovariants)]) + math.log(rhyp))
+            if (ts <= t[ni])
+            {
+                abs[i - 1] = 1.0 - Math.Exp(-(rlan[ni - 1] * Math.Exp(sumbb[i - 1]) + rmu[ni - 1]) * (ts - ti))
+                abs[i - 1] = abs[i - 1] * rlan[ni - 1] * Math.Exp(sumbb[i - 1]) / (rlan[ni - 1] * Math.Exp(sumbb[i - 1]) + rmu[ni - 1])
+            }
+            else
+            {
+                abs[i - 1] = 1.0 - Math.Exp(-(rlan[ni - 1] * Math.Exp(sumbb[i - 1]) + rmu[ni - 1]) * (t[ni] - ti))
+                abs[i - 1] = abs[i - 1] * rlan[ni - 1] * Math.Exp(sumbb[i - 1]) / (rlan[ni - 1] * Math.Exp(sumbb[i - 1]) + rmu[ni - 1])
+                if (ns - ni > 0)
+                {
+                    if (projectionAge > 50.0 && currentAge < 50.0)
+                    {
+                        r = 1.0 - Math.Exp(-(rlan[ns - 1] * Math.Exp(sumbb[i + 107]) + rmu[ns - 1]) * (ts - t[ns - 1]))
+                        r = r * rlan[ns - 1] * Math.Exp(sumbb[i + 107]) / (rlan[ns - 1] * Math.Exp(sumbb[i + 107]) + rmu[ns - 1])
+                        r *= Math.Exp(-(rlan[ni - 1] * Math.Exp(sumbb[i - 1]) + rmu[ni - 1]) * (t[ni] - ti))
+                        if (ns - ni > 1)
+                        {
+                            for (j = ni + 1; j <= ns - 1; ++j)
+                            {
+                                if (t[j - 1] >= 50.0)
+                                {
+                                    r *= Math.Exp(-(rlan[j - 1] * Math.Exp(sumbb[i + 107]) + rmu[j - 1]) * (t[j] - t[j - 1]))
+                                }
+                                else
+                                {
+                                    r *= Math.Exp(-(rlan[j - 1] * Math.Exp(sumbb[i - 1]) + rmu[j - 1]) * (t[j] - t[j - 1]))
+                                }
+                            }
+                        }
+                        abs[i - 1] += r
+                    }
+                    else
+                    {
+                        r = 1.0 - Math.Exp(-(rlan[ns - 1] * Math.Exp(sumbb[i - 1]) + rmu[ns - 1]) * (ts - t[ns - 1]))
+                        r = r * rlan[ns - 1] * Math.Exp(sumbb[i - 1]) / (rlan[ns - 1] * Math.Exp(sumbb[i - 1]) + rmu[ns - 1])
+                        r *= Math.Exp(-(rlan[ni - 1] * Math.Exp(sumbb[i - 1]) + rmu[ni - 1]) * (t[ni] - ti))
+                        if (ns - ni > 1)
+                        {
+                            for (j = ni + 1; j <= ns - 1; ++j)
+                            {
+                                r *= Math.Exp(-(rlan[j - 1] * Math.Exp(sumbb[i - 1]) + rmu[j - 1]) * (t[j] - t[j - 1]));
+                            }
+                        }
+                        abs[i - 1] += r
+                    }
+                }
+                if (ns - ni > 1)
+                {
+                    if (projectionAge > 50.0 && currentAge < 50.0)
+                    {
+                        for (k = ni + 1; k <= ns - 1; ++k)
+                        {
+                            if (t[k - 1] >= 50.0)
+                            {
+                                r = 1.0 - Math.Exp(-(rlan[k - 1] * Math.Exp(sumbb[i + 107]) + rmu[k - 1]) * (t[k] - t[k - 1]))
+                                r = r * rlan[k - 1] * Math.Exp(sumbb[i + 107]) / (rlan[k - 1] * Math.Exp(sumbb[i + 107]) + rmu[k - 1])
+                            }
+                            else
+                            {
+                                r = 1.0 - Math.Exp(-(rlan[k - 1] * Math.Exp(sumbb[i - 1]) + rmu[k - 1]) * (t[k] - t[k - 1]))
+                                r = r * rlan[k - 1] * Math.Exp(sumbb[i - 1]) / (rlan[k - 1] * Math.Exp(sumbb[i - 1]) + rmu[k - 1])
+                            }
+                            r *= Math.Exp(-(rlan[ni - 1] * Math.Exp(sumbb[i - 1]) + rmu[ni - 1]) * (t[ni] - ti))
+                            for (j = ni + 1; j <= k - 1; ++j)
+                            {
+                                if (t[j - 1] >= 50.0)
+                                {
+                                    r *= Math.Exp(-(rlan[j - 1] * Math.Exp(sumbb[i + 107]) + rmu[j - 1]) * (t[j] - t[j - 1]))
+                                }
+                                else
+                                {
+                                    r *= Math.Exp(-(rlan[j - 1] * Math.Exp(sumbb[i - 1]) + rmu[j - 1]) * (t[j] - t[j - 1]))
+                                }
+                            }
+                            abs[i - 1] += r
+                        }
+                    }
+                    else
+                    {
+                        for (k = ni + 1; k <= ns - 1; ++k)
+                        {
+                            r = 1.0 - Math.Exp(-(rlan[k - 1] * Math.Exp(sumbb[i - 1]) + rmu[k - 1]) * (t[k] - t[k - 1]))
+                            r = r * rlan[k - 1] * Math.Exp(sumbb[i - 1]) / (rlan[k - 1] * Math.Exp(sumbb[i - 1]) + rmu[k - 1])
+                            r *= Math.Exp(-(rlan[ni - 1] * Math.Exp(sumbb[i - 1]) + rmu[ni - 1]) * (t[ni] - ti))
+                            for (j = ni + 1; j <= k - 1; ++j)
+                            {
+                                r *= Math.Exp(-(rlan[j - 1] * Math.Exp(sumbb[i - 1]) + rmu[j - 1]) * (t[j] - t[j - 1]))
+                            }
+                            abs[i - 1] += r
+                        }
+                    }
+                }
+            }
   return absRisk
