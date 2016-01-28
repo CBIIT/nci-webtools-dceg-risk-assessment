@@ -1,5 +1,7 @@
 li
     .question
+        .question-illustrations
+            img.stock-images(src="images/vegs.jpg", alt="vegetables")
         .notice
             p Some studies suggest that people who eat a diet
                 | very low in vegetables may have a higher risk of colorectal cancer.
@@ -9,7 +11,8 @@ li
             a.termToDefine(data-term="vegetable") vegetables
             |  or leafy green salads?
             include ../../templates/notice-anchor
-        | NOTE: If you have eaten vegetables in the past 30 days, you will define serving size in the next set of questions.
+        br
+        em NOTE: If you have eaten vegetables in the past 30 days, you will define serving size in the next set of questions.
         .input
             label
                 input(type="radio", name="eaten_veg", value='0')

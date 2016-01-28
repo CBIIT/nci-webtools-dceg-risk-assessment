@@ -52,7 +52,7 @@ li.male
             |  colorectal cancer. At this time, studies show that smoking
             |  does not increase risk of colorectal cancer among women.
             |  As time goes on and other studies are completed, that may change.
-        label.question-text(for="smoked") Have you ever once smoked a cigarette?
+        label.question-text(for="smoked") Have you ever smoked a cigarette?
             include ../../templates/notice-anchor
         .input
             label
@@ -62,18 +62,17 @@ li.male
                 input(type="radio", name="smoked", value='1')
                 | No
     ol
-        #subquestion-smoke-age.subquestion
-            label.question-text(for="cigarettes") In your
-                i  entire lifetime,
-                | altogether, have you smoked 100 or more cigarettes?
-                include ../../templates/notice-anchor
-            .input
-                select#cigarettes(name='cigarettes')
-                    option(value='') -select-
-                    option(value='0') Yes
-                    option(value='1') No
-                    option(value='2') I don't know
         li#subquestion-smoke-age.subquestion
+            .question
+                label.question-text(for="cigarettes") In your
+                    i  entire lifetime,
+                    | altogether, have you smoked 100 or more cigarettes?
+                .input
+                    select#cigarettes(name='cigarettes')
+                        option(value='') -select-
+                        option(value='0') Yes
+                        option(value='1') No
+                        option(value='2') I don't know
             .question
                 label.question-text(for="smoke_age")
                     | How old were you when you started smoking cigarettes

@@ -254,15 +254,16 @@ section form button {
 section form .question-illustrations {
   width: 100%;
   margin: 0 auto;
-  background: #fff;
+  background: inherit;
   text-align: center;
 }
 section form .question-illustrations .stock-images {
   margin: 0 10px;
+  border: 2px solid #d2caca;
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  width: 200px;
-  height: 140px;
+  width: 180px;
+  height: 130px;
 }
 section form .question-illustrations .expand {
   width: 100%;

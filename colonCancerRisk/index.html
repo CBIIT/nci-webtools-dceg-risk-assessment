@@ -410,6 +410,7 @@
               </li>
               <li>
                 <div class="question">
+                  <div class="question-illustrations"><img src="images/scale.jpg" alt="bathroom scale" class="stock-images"></div>
                   <div class="notice">
                     Height and weight are used to determine your
                     body mass index (BMI). It can also be used to
@@ -439,13 +440,14 @@
               </li>
               <li>
                 <div class="question">
+                  <div class="question-illustrations"><img src="images/vegs.jpg" alt="vegetables" class="stock-images"></div>
                   <div class="notice">
                     <p>
                       Some studies suggest that people who eat a diet
                       very low in vegetables may have a higher risk of colorectal cancer.
                     </p>
                   </div>
-                  <label for="eaten_veg" class="question-text">In<i> the past 30 days</i>, have you eaten any &nbsp;<a data-term="vegetable" class="termToDefine">vegetables</a> or leafy green salads?&nbsp;<a class="notice-show">[More]</a></label>NOTE: If you have eaten vegetables in the past 30 days, you will define serving size in the next set of questions.
+                  <label for="eaten_veg" class="question-text">In<i> the past 30 days</i>, have you eaten any &nbsp;<a data-term="vegetable" class="termToDefine">vegetables</a> or leafy green salads?&nbsp;<a class="notice-show">[More]</a></label><br><em>NOTE: If you have eaten vegetables in the past 30 days, you will define serving size in the next set of questions.</em>
                   <div class="input">
                     <label>
                       <input type="radio" name="eaten_veg" value="0">Yes
@@ -493,6 +495,7 @@
               </li>
               <li>
                 <div class="question">
+                  <div class="question-illustrations"><img src="images/exam-patient.jpg" alt="doctor with patient" class="stock-images"></div>
                   <div class="notice">
                     In a sigmoidoscopy, your doctor looks inside your rectum
                      and the lower part of the colon with a lighted tube
@@ -545,6 +548,7 @@
               </li>
               <li>
                 <div class="question">
+                  <div class="question-illustrations"><img src="images/pharm.jpg" alt="woman with pharmacist" class="stock-images"></div>
                   <div class="notice">
                     Studies have shown that aspirin and drugs called NSAIDs
                      can lower the risk of colorectal adenomas (tumors that
@@ -597,6 +601,7 @@
               </li>
               <li>
                 <div class="question">
+                  <div class="question-illustrations"><img src="images/running.jpg" alt="man running in race" class="stock-images"></div>
                   <div class="notice">
                     Studies suggest that not being active may
                      increase your risk of colorectal cancer.
@@ -605,7 +610,7 @@
                   </div>
                   <label for="activity" class="question-text">
                     Over the
-                    &nbsp;<i>past 12 months,</i> have you participated in any  physical activity?&nbsp;<a class="notice-show">[More]</a>
+                    &nbsp;<i>past 12 months,</i> have you participated in any physical activity?&nbsp;<a class="notice-show">[More]</a>
                   </label>
                   <div class="input">
                     <label>
@@ -731,7 +736,7 @@
                      does not increase risk of colorectal cancer among women.
                      As time goes on and other studies are completed, that may change.
                   </div>
-                  <label for="smoked" class="question-text">Have you ever once smoked a cigarette?&nbsp;<a class="notice-show">[More]</a></label>
+                  <label for="smoked" class="question-text">Have you ever smoked a cigarette?&nbsp;<a class="notice-show">[More]</a></label>
                   <div class="input">
                     <label>
                       <input type="radio" name="smoked" value="0">Yes
@@ -742,18 +747,18 @@
                   </div>
                 </div>
                 <ol>
-                  <div id="subquestion-smoke-age" class="subquestion">
-                    <label for="cigarettes" class="question-text">In your<i> entire lifetime,</i>altogether, have you smoked 100 or more cigarettes?&nbsp;<a class="notice-show">[More]</a></label>
-                    <div class="input">
-                      <select id="cigarettes" name="cigarettes">
-                        <option value="">-select-</option>
-                        <option value="0">Yes</option>
-                        <option value="1">No</option>
-                        <option value="2">I don't know</option>
-                      </select>
-                    </div>
-                  </div>
                   <li id="subquestion-smoke-age" class="subquestion">
+                    <div class="question">
+                      <label for="cigarettes" class="question-text">In your<i> entire lifetime,</i>altogether, have you smoked 100 or more cigarettes?</label>
+                      <div class="input">
+                        <select id="cigarettes" name="cigarettes">
+                          <option value="">-select-</option>
+                          <option value="0">Yes</option>
+                          <option value="1">No</option>
+                          <option value="2">I don't know</option>
+                        </select>
+                      </div>
+                    </div>
                     <div class="question">
                       <label for="smoke_age" class="question-text">
                         How old were you when you started smoking cigarettes
@@ -935,6 +940,7 @@
               </li>
               <li>
                 <div class="question">
+                  <div class="question-illustrations"><img src="images/family.jpg" alt="family together" class="stock-images"></div>
                   <div class="notice">
                     If you have close relatives (parents, brothers, sisters,
                      or children) who have had colorectal cancer, your risk
@@ -979,6 +985,7 @@
               </li>
             </ol>
             <button id="calculate" type="submit">Calculate Risk</button>
+            <button id="reset" type="reset">Reset</button>
           </form>
         </div>
       </section>

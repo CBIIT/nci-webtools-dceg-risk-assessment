@@ -17,20 +17,10 @@ function resetInputs() {
         this.value = "";
 }
 
-function resetForm() {
-
-    $('.subquestion').removeClass("show").find("input, select").each(function () {
-        if (this.type == "select-one") {
-            $(this).val("");
-        }
-        if (this.type == "text") {
-            $(this).val("");
-        }
-        if (this.type == "radio" || this.type == "checkbox") {
-            this.checked = false;
-        }
-    });
-}
+$("#reset, .goToTab[name='risk-calculator']").on("click", function () {
+    $(survey).validate().resetForm();
+    $('.show').removeClass("show");
+});
 
 $("input[name='hispanic']").on("change", function () {
     $.each(document.getElementsByName("race"), resetInputs);
@@ -109,6 +99,14 @@ $("select[name='exam']").on("change", function () {
         $("#subquestion-exam").addClass("show").effect("highlight", 500);
     } else {
         $("#subquestion-exam").removeClass("show");
+    }
+});
+$("input[name='smoked']").on("change", function () {
+    if(this.value == "0"){
+        $("#subquestion-smoke-age").addClass("show").effect("highlight", 500);
+    }
+    else {
+        $("#subquestion-smoke-age").removeClass("show");
     }
 });
 
