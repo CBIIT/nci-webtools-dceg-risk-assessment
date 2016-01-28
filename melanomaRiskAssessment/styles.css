@@ -3,6 +3,9 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+[role="tooltip"] {
+  position: fixed;
+}
 body {
   font-family: sans-serif, Helvetica, Calibri, Arial Rounded MT Bold;
   font-size: 10pt;
@@ -158,7 +161,7 @@ section form > ol li {
   padding: 15px;
   width: 43%;
   max-width: 100%;
-  height: 350px;
+  height: 335px;
   vertical-align: top;
   overflow: auto;
   border: 2px solid #2a71a5;
@@ -215,7 +218,6 @@ section form .question-num {
   text-align: center;
 }
 section form .question-text {
-  font-family: "Calibri", "sans-serif", "Arial";
   font-weight: bold;
 }
 section form .question-text.error {
@@ -224,10 +226,6 @@ section form .question-text.error {
 section form button {
   float: right;
   padding: 8px 60px;
-  font-size: 0.9;
-}
-section form em {
-  font-size: 0.8em;
 }
 section form .question-illustrations {
   width: 100%;
@@ -243,13 +241,14 @@ section form .question-illustrations .stock-images {
   height: 140px;
 }
 section form .question-illustrations .expand {
+  padding: 0;
   width: 100%;
   -webkit-box-shadow: 3px 3px 10px #000;
   box-shadow: 3px 3px 10px #000;
 }
 section form .question-illustrations img {
   width: 30%;
-  margin: 10px 0;
+  padding: 10px;
   vertical-align: top;
 }
 section form .counties {
@@ -279,7 +278,6 @@ section form #region_subquestion {
   float: right;
 }
 .section-title a {
-  font-size: 0.9em;
   color: inherit !important;
 }
 .section-title a,
@@ -359,7 +357,6 @@ section form #region_subquestion {
 }
 .references {
   font-style: italic;
-  font-size: initial;
 }
 .section-anchors {
   margin: 10px auto;
@@ -367,7 +364,6 @@ section form #region_subquestion {
   text-align: center;
   font-weight: bold;
   vertical-align: top;
-  text-align: left;
 }
 .section-anchors p {
   vertical-align: text-top;

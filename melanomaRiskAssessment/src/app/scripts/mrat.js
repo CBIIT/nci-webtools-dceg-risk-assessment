@@ -251,7 +251,12 @@ $(".thumbnail").on("click", function() {
         if($(this).hasClass("expand"))
             return;
         else
-            this.scrollIntoView();
             return "expand";
     });
+    this.scrollIntoView();
+});
+
+$("#reset").on("click", function(){
+    $(survey).validate().resetForm();
+    $(".show").removeClass("show");
 });
