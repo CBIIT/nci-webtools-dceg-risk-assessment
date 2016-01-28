@@ -41,9 +41,8 @@ def AbsRisk(race, currentAge, projectionAge, numberOfBiopsy, menarcheAge, firstL
     # first birth * number of relatives
     firstLiveBirthAge * firstDegRelatives
   ]
-  covariateSummary = sum([x*y for x,y in zip(covariateBreakdown,raceCovariants)]) + Math.Log(rhyp);
-  attributeIncidence = raceIncidence[currentAgeInterval]*raceAttribute[currentAgeInterval]
-  cancerIncidence = attributeIncidence*math.exp(covariateSummary)
+  covariateSummary = math.exp(sum([x*y for x,y in zip(covariateBreakdown,raceCovariants)]) + Math.Log(rhyp))
+  cancerIncidence = raceIncidence[currentAgeInterval]*raceAttribute[currentAgeInterval]*covariateSummary
   deathRate = cancerIncidence+raceHazards[currentAgeInterval]
   absRisk = 1.0
   if (projectionAgeInterval == currentAgeInterval):
@@ -56,76 +55,49 @@ def AbsRisk(race, currentAge, projectionAge, numberOfBiopsy, menarcheAge, firstL
       riskMod = 1.0
       projectedAttributeIncidence = raceIncidence[projectionAgeInterval]*raceAttribute[projectionAgeInterval]
       if (projectionAge > 50 and currentAge < 50.0):
-        projectedCovariateSummary = sum([x*y for x,y in zip([menarcheAge, numberOfBiopsy, firstLiveBirthAge, firstDegRelatives, numberOfBiopsy, firstLiveBirthAge * firstDegRelatives],raceCovariants)]) + Math.Log(rhyp)
-        projectedCancerIncidence = projectedAttributeIncidence*math.exp(projectedCovariateSummary)
+        projectedCovariateSummary = math.exp(sum([x*y for x,y in zip([menarcheAge, numberOfBiopsy, firstLiveBirthAge, firstDegRelatives, numberOfBiopsy, firstLiveBirthAge * firstDegRelatives],raceCovariants)]) + Math.Log(rhyp))
+        projectedCancerIncidence = projectedAttributeIncidence*projectedCovariateSummary
         projectedDeathRate = projectedCancerIncidence+raceHazards[projectionAgeInterval]
         riskMod -= math.exp(-projectedDeathRate*(projectionAge-projectionAgeInterval*5-20))
         riskMod *= projectedCancerIncidence/projectedDeathRate
         riskMod *= math.exp(-deathRate*(currentAgeInterval*5+25-currentAge))
         for j in (currentAgeInterval,projectionAgeInterval):
           if (j >= 6):
-            riskMod *= math.exp(-(raceIncidence[j]*raceAttribute[j] * math.exp(projectedCovariateSummary) + raceHazards[j]) * 5);
+            riskMod *= math.exp(-(raceIncidence[j]*raceAttribute[j] * projectedCovariateSummary + raceHazards[j]) * 5);
           else:
-            riskMod *= math.exp(-(raceIncidence[j]*raceAttribute[j] * math.exp(covariateSummary) + raceHazards[j]) * 5);
+            riskMod *= math.exp(-(raceIncidence[j]*raceAttribute[j] * covariateSummary + raceHazards[j]) * 5);
       else:
-        interstitialCancerIncidence = projectedAttributeIncidence*math.exp(covariateSummary)
+        interstitialCancerIncidence = projectedAttributeIncidence*covariateSummary
         interstitialDeathRate = interstitialCancerIncidence+raceHazards[projectionAgeInterval]
         riskMod -= math.exp(-interstitialDeathRate*(projectionAge-projectionAgeInterval*5-20))
         riskMod *= interstitialCancerIncidence/interstitialDeathRate
         riskMod *= math.exp(-deathRate*(currentAgeInterval*5+25-currentAge))
         for j in range(currentAgeInterval,projectionAgeInterval)
-          riskMod *= math.exp(-(raceIncidence[j]*raceAttribute[j] * math.exp(covariateSummary) + raceHazards[j]) * 5)
+          riskMod *= math.exp(-(raceIncidence[j]*raceAttribute[j] * covariateSummary + raceHazards[j]) * 5)
       absRisk += riskMod;
       if projectionAgeInterval-currentAgeInterval > 1:
         if projectionAge > 50.0 and currentAge < 50.0:
           for k in range(currentAgeInterval+2,projectionAgeInterval):
+            riskMod = 1.0
             if k >= 7:
-              r = 1.0 - math.exp(-(raceIncidence[k - 1]*raceAttribute[k - 1] * math.exp(projectedCovariateSummary) + raceHazards[k - 1]) * (t[k] - t[k - 1]));
-              r = r * raceIncidence[k - 1]*raceAttribute[k - 1] * math.exp(projectedCovariateSummary) / (raceIncidence[k - 1]*raceAttribute[k - 1] * math.exp(projectedCovariateSummary) + raceHazards[k - 1]);
-            else
-            {
-                r = 1.0 - math.exp(-(raceIncidence[k - 1]*raceAttribute[k - 1] * math.exp(covariateSummary) + raceHazards[k - 1]) * (t[k] -
-                    t[k - 1]));
-                r = r * raceIncidence[k - 1]*raceAttribute[k - 1] * math.exp(covariateSummary
-                    ) / (raceIncidence[k - 1]*raceAttribute[k - 1] * math.exp(covariateSummary) + raceHazards[k - 1]);
-            }
-            r *= math.exp(-(attributeIncidence * math.exp(covariateSummary)
-                + raceHazards[currentAgeInterval]) * (t[(currentAgeInterval+1)] - currentAge));
-            NumberOfBiopsy = k - 1;
-            for (j = (currentAgeInterval+1) + 1; j <= NumberOfBiopsy; ++j)
-            {
-                if (t[j - 1] >= 50.0)
-                {
-                    r *= math.exp(-(raceIncidence[j - 1]*raceAttribute[j - 1] * math.exp(projectedCovariateSummary) + raceHazards[j - 1]) * (t[
-                        j] - t[j - 1]));
-                }
-                else
-                {
-                    r *= math.exp(-(raceIncidence[j - 1]*raceAttribute[j - 1] * math.exp(covariateSummary) + raceHazards[j - 1]) * (t[j]
-                        - t[j - 1]));
-                }
-            }
-            absRisk += r;
-        else
-        {
-            /* calculate risk from */
-            /* intervecurrentAgeIntervalng age int */
-            MenarcheAge = projectionAgeInterval;
-            for (k = (currentAgeInterval+1) + 1; k <= MenarcheAge; ++k)
-            {
-                r = 1.0 - math.exp(-(raceIncidence[k - 1]*raceAttribute[k - 1] * math.exp(covariateSummary) + raceHazards[k - 1]) * (t[k] - t[k -
-                    1]));
-                r = r * raceIncidence[k - 1]*raceAttribute[k - 1] * math.exp(covariateSummary) /
-                    (raceIncidence[k - 1]*raceAttribute[k - 1] * math.exp(covariateSummary) +
-                    raceHazards[k - 1]);
-                r *= math.exp(-(attributeIncidence * math.exp(covariateSummary)
-                    + raceHazards[currentAgeInterval]) * (t[(currentAgeInterval+1)] - currentAge));
-                NumberOfBiopsy = k - 1;
-                for (j = (currentAgeInterval+1) + 1; j <= NumberOfBiopsy; ++j)
-                {
-                    r *= math.exp(-(raceIncidence[j-1]*raceAttribute[j-1] * math.exp(covariateSummary) + raceHazards[j - 1]) * (t[j] - t[j - 1]));
-                }
-                absRisk += r;
-            }
-        }
+              riskMod -= math.exp(-(raceIncidence[k]*raceAttribute[k] * projectedCovariateSummary + raceHazards[k]) * 5)
+              riskMod *= raceIncidence[k]*raceAttribute[k] * projectedCovariateSummary / (raceIncidence[k]*raceAttribute[k] * projectedCovariateSummary + raceHazards[k])
+            else:
+              riskMod -= math.exp(-(raceIncidence[k - 1]*raceAttribute[k - 1] * covariateSummary + raceHazards[k - 1]) * (t[k] - t[k - 1]))
+              riskMod *= raceIncidence[k]*raceAttribute[k] * covariateSummary / (raceIncidence[k]*raceAttribute[k] * covariateSummary + raceHazards[k])
+            riskMod *= math.exp(-deathRate*(currentAgeInterval*5+25-currentAge))
+            for j in range(currentAgeInterval+1,k):
+              if j >= 6:
+                riskMod *= math.exp(-(raceIncidence[j]*raceAttribute[j]*projectedCovariateSummary+raceHazards[j])*5)
+              else:
+                riskMod *= math.exp(-(raceIncidence[j]*raceAttribute[j]*covariateSummary+raceHazards[j])*5)
+            absRisk += riskMod
+        else:
+          for k in range(currentAgeInterval+1,projectionAgeInterval):
+            riskMod = 1.0-math.exp(-(raceIncidence[k]*raceAttribute[k]*covariateSummary+raceHazards[k])*5)
+            riskMod *= raceIncidence[k]*raceAttribute[k]*covariateSummary/(raceIncidence[k]*raceAttribute[k]*covariateSummary+raceHazards[k])
+            riskMod *= math.exp(-deathRate*(currentAgeInterval*5+25-currentAge))
+            for j in range(currentAgeInterval+1,k):
+              riskMod *= math.exp(-(raceIncidence[j]*raceAttribute[j] * covariateSummary + raceHazards[j])*5)
+            absRisk += riskMod
   return absRisk
