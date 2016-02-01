@@ -1,5 +1,7 @@
 li.female
     .question-group-title Gender Based
+    .question-illustrations
+        img.stock-images(src="images/women.jpg", alt="women")
     .question
         .notice
             | Studies show that women who still have periods,
@@ -40,13 +42,15 @@ li.female
                 |  or as vaginal suppositories.
                 .input
                     label
-                        | Yes
                         input(type="radio", name="hormones", value='0')
+                        | Yes
                     label
-                        | No
                         input(type="radio", name="hormones", value='1')
+                        | No
 li.male
     .question-group-title Gender Based
+    .question-illustrations
+        img.stock-images(src="images/cigarettes.jpg", alt="cigarettes")
     .question
         .notice
             | Studies suggest that men who are current or former smokers
