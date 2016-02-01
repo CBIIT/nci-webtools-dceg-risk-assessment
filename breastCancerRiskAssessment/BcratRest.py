@@ -3,45 +3,20 @@ import math
 
 class BcratRest:
   def AbsoluteRisk(self, race, currentage, projectionAge, menarcheAge, numberOfBiopsy, firstLiveBirthAge, firstDegRelatives, rhyp):
-    return self.CalculateRisk(1, race, currentage, projectionAge, numberOfBiopsy, menarcheAge, firstLiveBirthAge, firstDegRelatives, rhyp)
+    return self.CalculateRisk("Absolute", race, currentage, projectionAge, numberOfBiopsy, menarcheAge, firstLiveBirthAge, firstDegRelatives, rhyp)
 
   def AverageRisk(self, race, currentAge, projectionAge):
-    return self.CalculateRisk(2, race, currentAge, projectionAge, 0, 0, 0, 0, 1.0)
+    return self.CalculateRisk("Average", race, currentAge, projectionAge, 0, 0, 0, 0, 1.0)
 
   # rhyp    yes = 1.82
   #          no = 0.93
   #       other = 1.00
-  def CalculateRisk(self, riskindex, race, currentAge, projectionAge, menarcheAge, numberOfBiopsy, firstLiveBirthAge, firstDegRelatives, rhyp):
-    riskType = None
-    if riskindex == 1:
-      riskType = "Absolute"
-    elif riskindex == 2:
-      riskType = "Average"
-    else:
-      raise RuntimeError("riskindex contained an invalid value")
+  def CalculateRisk(self, riskType, race, currentAge, projectionAge, menarcheAge, numberOfBiopsy, firstLiveBirthAge, firstDegRelatives, rhyp):
     if projectionAge <= currentAge:
       raise RuntimeError("projectionAge must be greater than the current age")
-    if race == "White":
-      irace = 1
-    elif race == "Black":
-      irace = 2
-    elif race == "Hispanic":
-      irace = 3
-    elif race == "Chinese":
-      irace = 7
-    elif race == "Japanese":
-      irace = 8
-    elif race == "Filipino":
-      irace = 9
-    elif race == "Hawaiian":
-      irace = 10
-    elif race == "Islander":
-      irace = 11
-    elif race == "Asian":
-      irace = 12
-    else:
-      raise RuntimeError("race contained an invalid value")
-    raceCovariants = BcratConstants.COVARIANTS[irace - 1]
+    if (race == "Black" and menarcheAge == 2):
+      menarcheAge = 1
+      firstLiveBirthAge = 0
     covariateBreakdown = [
       # age of menarchy                   0=[14, 39] U 99 (unknown)
       #                                   1=[12, 14)
@@ -65,75 +40,67 @@ class BcratRest:
       # first birth * number of relatives
       firstLiveBirthAge * firstDegRelatives
     ]
-    if (irace == 2 and menarcheAge == 2):
-      menarcheAge = 1
-      firstLiveBirthAge = 0
-    currentAgeInterval = int(math.floor(currentAge/5.0))-3
-    projectionAgeInterval = int(math.ceil(projectionAge/5.0))-4
-    cindx = irace - 1
-    if (riskindex == 2 and irace < 7):
-      cindx += 3
-    rmu = BcratConstants.rmu2[riskType][race]
-    rlan = BcratConstants.rlan2[cindx]
-    rf = [None]*2
-    rf[0] = BcratConstants.rf2[0][cindx]
-    rf[1] = BcratConstants.rf2[1][cindx]
-    if (riskindex == 2 and irace >= 7): #average asians
-      rf[0] = BcratConstants.rf2[0][12]
-      rf[1] = BcratConstants.rf2[1][12]
-    covariateSummary = sum([x*y for x,y in zip(raceCovariants,covariateBreakdown)]) + math.log(rhyp)
-    over50CovariateSummary = sum([x*y for x,y in zip(raceCovariants,covariateBreakdown[:4]+[numberOfBiopsy]+covariateBreakdown[5:])]) + math.log(rhyp)
-    rlanrf = [None]*14
-    for j in range(1, 6+1):
-      rlanrf[j - 1] = rlan[j - 1]*rf[0]
-    for j in range(7, 14+1):
-      rlanrf[j - 1] = rlan[j - 1]*rf[1]
+    currentAgeInterval = int(math.floor(currentAge/5.0))-4
+    projectionAgeInterval = int(math.ceil(projectionAge/5.0))-5
+    raceCovariants = BcratConstants.COVARIANTS[race]
+    raceHazards   = BcratConstants.COMPETING_HAZARDS[riskType][race]
+    raceIncidence = BcratConstants.CANCER_INCIDENCE [riskType][race]
+    raceAttribute = BcratConstants.ATTRIBUTE_RISK   [riskType][race]
+    covariateSummary       = math.exp(sum([x*y for x,y in zip(raceCovariants,covariateBreakdown)]) + math.log(rhyp))
+    over50CovariateSummary = math.exp(sum([x*y for x,y in zip(raceCovariants,covariateBreakdown[:4]+[numberOfBiopsy]+covariateBreakdown[5:])]) + math.log(rhyp))
     absRisk = 1.0
-    if (projectionAge <= BcratConstants.t[currentAgeInterval]):
-      absRisk -= math.exp(-(rlanrf[currentAgeInterval - 1] * math.exp(covariateSummary) + rmu[currentAgeInterval - 1]) * (projectionAge - currentAge))
-      absRisk *= rlanrf[currentAgeInterval - 1] * math.exp(covariateSummary) / (rlanrf[currentAgeInterval - 1] * math.exp(covariateSummary) + rmu[currentAgeInterval - 1])
+    currentCancerRisk = raceIncidence[currentAgeInterval] * raceAttribute[currentAgeInterval] * covariateSummary
+    currentDeathRisk = currentCancerRisk + raceHazards[currentAgeInterval]
+    if (projectionAge <= currentAgeInterval*5+25):
+      absRisk -= math.exp(-currentDeathRisk * (projectionAge - currentAge))
+      absRisk *= currentCancerRisk / currentDeathRisk
     else:
-      absRisk -= math.exp(-(rlanrf[currentAgeInterval - 1] * math.exp(covariateSummary) + rmu[currentAgeInterval - 1]) * (BcratConstants.t[currentAgeInterval] - currentAge))
-      absRisk *= rlanrf[currentAgeInterval - 1] * math.exp(covariateSummary) / (rlanrf[currentAgeInterval - 1] * math.exp(covariateSummary) + rmu[currentAgeInterval - 1])
+      absRisk -= math.exp(-currentDeathRisk * (currentAgeInterval*5+25 - currentAge))
+      absRisk *= currentCancerRisk / currentDeathRisk
       if (projectionAgeInterval - currentAgeInterval > 0):
         riskMod = 1.0
         if (projectionAge > 50.0 and currentAge < 50.0):
-          riskMod -= math.exp(-(rlanrf[projectionAgeInterval - 1] * math.exp(over50CovariateSummary) + rmu[projectionAgeInterval - 1]) * (projectionAge - BcratConstants.t[projectionAgeInterval - 1]))
-          riskMod *= rlanrf[projectionAgeInterval - 1] * math.exp(over50CovariateSummary) / (rlanrf[projectionAgeInterval - 1] * math.exp(over50CovariateSummary) + rmu[projectionAgeInterval - 1])
-          riskMod *= math.exp(-(rlanrf[currentAgeInterval - 1] * math.exp(covariateSummary) + rmu[currentAgeInterval - 1]) * (BcratConstants.t[currentAgeInterval] - currentAge))
-          for j in range(currentAgeInterval, projectionAgeInterval - 1):
-            riskMod *= math.exp(-(rlanrf[j] * math.exp(over50CovariateSummary if BcratConstants.t[j] >= 50.0 else covariateSummary) + rmu[j]) * 5)
+          projectedCancerRisk = raceIncidence[projectionAgeInterval] * raceAttribute[projectionAgeInterval] * over50CovariateSummary
+          projectedDeathRisk = projectedCancerRisk + raceHazards[projectionAgeInterval]
+          riskMod -= math.exp(-projectedDeathRisk * (projectionAge - projectionAgeInterval*5-20))
+          riskMod *= projectedCancerRisk / projectedDeathRisk
+          riskMod *= math.exp(-currentDeathRisk * (currentAgeInterval*5+25 - currentAge))
+          for j in range(currentAgeInterval+1, projectionAgeInterval):
+            riskMod *= math.exp(-(raceIncidence[j] * raceAttribute[j] * (over50CovariateSummary if j >= 6.0 else covariateSummary) + raceHazards[j]) * 5)
         else:
-          riskMod -= math.exp(-(rlanrf[projectionAgeInterval - 1] * math.exp(covariateSummary) + rmu[projectionAgeInterval - 1]) * (projectionAge - BcratConstants.t[projectionAgeInterval - 1]))
-          riskMod *= rlanrf[projectionAgeInterval - 1] * math.exp(covariateSummary) / (rlanrf[projectionAgeInterval - 1] * math.exp(covariateSummary) + rmu[projectionAgeInterval - 1])
-          riskMod *= math.exp(-(rlanrf[currentAgeInterval - 1] * math.exp(covariateSummary) + rmu[currentAgeInterval - 1]) * (BcratConstants.t[currentAgeInterval] - currentAge))
-          for j in range(currentAgeInterval, projectionAgeInterval-1):
-            riskMod *= math.exp(-(rlanrf[j] * math.exp(covariateSummary) + rmu[j]) * 5)
+          interimCancerRisk = raceIncidence[projectionAgeInterval] * raceAttribute[projectionAgeInterval] * covariateSummary
+          interimDeathRisk = interimCancerRisk + raceHazards[projectionAgeInterval]
+          riskMod -= math.exp(-interimDeathRisk * (projectionAge - projectionAgeInterval*5-20))
+          riskMod *= interimCancerRisk / interimDeathRisk
+          riskMod *= math.exp(-currentDeathRisk * (currentAgeInterval*5+25 - currentAge))
+          for j in range(currentAgeInterval+1, projectionAgeInterval):
+            riskMod *= math.exp(-(raceIncidence[j] * raceAttribute[j] * covariateSummary + raceHazards[j]) * 5)
         absRisk += riskMod
       if (projectionAgeInterval - currentAgeInterval > 1):
         if (projectionAge > 50.0 and currentAge < 50.0):
-          for k in range(currentAgeInterval, projectionAgeInterval - 1):
+          for k in range(currentAgeInterval+1, projectionAgeInterval):
             riskMod = 1.0
-            if (BcratConstants.t[k] >= 50.0):
-              riskMod -= math.exp(-(rlanrf[k] * math.exp(over50CovariateSummary) + rmu[k]) * 5)
-              riskMod *= rlanrf[k] * math.exp(over50CovariateSummary) / (rlanrf[k] * math.exp(over50CovariateSummary) + rmu[k])
+            kCancerRisk = raceIncidence[k] * raceAttribute[k]
+            if (k >= 6.0):
+              riskMod -= math.exp(-(kCancerRisk * over50CovariateSummary + raceHazards[k]) * 5)
+              riskMod *= kCancerRisk * over50CovariateSummary / (kCancerRisk * over50CovariateSummary + raceHazards[k])
             else:
-              riskMod -= math.exp(-(rlanrf[k] * math.exp(covariateSummary) + rmu[k]) * 5)
-              riskMod *= rlanrf[k] * math.exp(covariateSummary) / (rlanrf[k] * math.exp(covariateSummary) + rmu[k])
-            riskMod *= math.exp(-(rlanrf[currentAgeInterval - 1] * math.exp(covariateSummary) + rmu[currentAgeInterval - 1]) * (BcratConstants.t[currentAgeInterval] - currentAge))
-            for j in range(currentAgeInterval, k):
-              if (BcratConstants.t[j] >= 50.0):
-                riskMod *= math.exp(-(rlanrf[j] * math.exp(over50CovariateSummary) + rmu[j]) * 5)
+              riskMod -= math.exp(-(kCancerRisk * covariateSummary + raceHazards[k]) * 5)
+              riskMod *= kCancerRisk * covariateSummary / (kCancerRisk * covariateSummary + raceHazards[k])
+            riskMod *= math.exp(-currentDeathRisk * (currentAgeInterval*5+25 - currentAge))
+            for j in range(currentAgeInterval+1, k):
+              if j >= 6.0:
+                riskMod *= math.exp(-(raceIncidence[j] * raceAttribute[j] * over50CovariateSummary + raceHazards[j]) * 5)
               else:
-                riskMod *= math.exp(-(rlanrf[j] * math.exp(covariateSummary) + rmu[j]) * 5)
+                riskMod *= math.exp(-(raceIncidence[j] * raceAttribute[j] * covariateSummary + raceHazards[j]) * 5)
             absRisk += riskMod
         else:
-          for k in range(currentAgeInterval, projectionAgeInterval - 1):
-            riskMod = 1.0
-            riskMod -= math.exp(-(rlanrf[k] * math.exp(covariateSummary) + rmu[k]) * (BcratConstants.t[k + 1] - BcratConstants.t[k]))
-            riskMod *= rlanrf[k] * math.exp(covariateSummary) / (rlanrf[k] * math.exp(covariateSummary) + rmu[k])
-            riskMod *= math.exp(-(rlanrf[currentAgeInterval - 1] * math.exp(covariateSummary) + rmu[currentAgeInterval - 1]) * (BcratConstants.t[currentAgeInterval] - currentAge))
-            for j in range(currentAgeInterval, k):
-              riskMod *= math.exp(-(rlanrf[j] * math.exp(covariateSummary) + rmu[j]) * 5)
+          for k in range(currentAgeInterval+1, projectionAgeInterval):
+            kCancerRisk = raceIncidence[k] * raceAttribute[k]
+            riskMod = 1.0 - math.exp(-(kCancerRisk * covariateSummary + raceHazards[k]) * 5)
+            riskMod *= kCancerRisk * covariateSummary / (kCancerRisk * covariateSummary + raceHazards[k])
+            riskMod *= math.exp(-currentDeathRisk * (currentAgeInterval*5+25-currentAge))
+            for j in range(currentAgeInterval+1, k):
+              riskMod *= math.exp(-(raceIncidence[j] * raceAttribute[j] * covariateSummary + raceHazards[j]) * 5)
             absRisk += riskMod
     return absRisk
