@@ -55,20 +55,20 @@ $("input[name='activity']").on("change", function () {
 });
 
 $("input[name='moderate_months']").on("blur", function () {
-    $("#subquestion-moderate_months").find("select").val("");
+    $("#subquestion-moderate-hours").find("select").val("");
     if (this.value <= "0") {
-        $("#subquestion-moderate_months").removeClass("show");
+        $("#subquestion-moderate-hours").removeClass("show");
     } else {
-        $("#subquestion-moderate_months").addClass("show").effect("highlight", 500);
+        $("#subquestion-moderate-hours").addClass("show").effect("highlight", 500);
     }
 });
 
-$("input[name='vigorous-months']").on("blur", function () {
+$("input[name='vigorous_months']").on("blur", function () {
     $("#subquestion-moderate_months").find("select").val("");
     if (this.value <= "0") {
-        $("#subquestion-vigorous-months").removeClass("show");
+        $("#subquestion-vigorous_months").removeClass("show");
     } else {
-        $("#subquestion-vigorous-months").addClass("show").effect("highlight", 500);
+        $("#subquestion-vigorous_months").addClass("show").effect("highlight", 500);
     }
 });
 

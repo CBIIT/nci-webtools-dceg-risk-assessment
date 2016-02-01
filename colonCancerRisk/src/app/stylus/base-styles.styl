@@ -1,11 +1,11 @@
 *
   box-sizing border-box
 body
-    font-family sans-serif,  Helvetica, Calibri, Arial Rounded MT Bold
+    font-family "Noto Sans", 'Montserrat', Arial, sans-serif, Helvetica, Calibri;
     font-size 10pt
     margin 0
     min-width 320px
-    background #f7f8f3
+    background #FCFCFA
     line-height 1.5
 a
     color inherit
@@ -46,7 +46,7 @@ header
 
 ul.nav
     background #636363
-    background linear-gradient(135deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
+    background linear-gradient(135deg, #FCFCFA 60px, #636363 100px, #404040 120px, rgba(255,255,255,0) 100%);
     border-top 2px solid #BB0E3D
     margin 0
     padding-left 160px
@@ -59,7 +59,7 @@ ul.nav
         // padding needs to happen on the header element to ensure we don't lose the submenu before we reach it
         padding 10px 15px
         &.active
-            background-color #f7f8f3
+            background-color #FCFCFA
             a
                 color black
                 font-weight bold
@@ -81,7 +81,7 @@ ul.nav
         &:not(:hover) > ul
             display none
         &#quick-link ul
-            background #f7f8f3
+            background #FCFCFA
             a
                 color #BB0E3D
     &.stick-nav-top
@@ -124,13 +124,14 @@ section
             > li
                 display inline-block
                 margin 5px
-                padding 15px
+                padding 5px 15px
                 width 32%
                 max-width 100%
                 height 400px
                 vertical-align top
                 overflow auto
                 border 2px solid #2A71A5
+                border-radius 5px
                 &:nth-child(even)
                     background #fff
                 &:nth-child(odd)
@@ -201,7 +202,7 @@ section
             background inherit
             text-align center
             .stock-images
-                margin 0 10px
+                margin 10px
                 border 2px solid #D2CACA
                 border-radius 5px
                 width 180px
@@ -351,6 +352,14 @@ section
                 background red
         img
             width 5%
+
+.question-group-title
+    text-align center
+    background #555554
+    color #FCFCFA
+    border-radius 5px
+    padding 3px 0
+
 .hide
     display none
 

@@ -66,10 +66,24 @@ var validationRules = {
             }
         }
     },
+    moderate_hours: {
+        required: {
+            depends: function (el) {
+                return $("[name='moderate_months']").val() > 0;
+            }
+        }
+    },
     vigorous_months: {
         required: {
             depends: function (el) {
                 return $("[name='activity']").val() == "0";
+            }
+        }
+    },
+    vigorous_hours: {
+        required: {
+            depends: function (el) {
+                return $("[name='vigorous_months']").val() > 0;
             }
         }
     },

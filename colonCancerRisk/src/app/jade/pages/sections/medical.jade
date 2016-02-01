@@ -1,7 +1,8 @@
 li
+    .question-group-title Medical
+    .question-illustrations
+        img.stock-images(src="images/exam-patient.jpg", alt="doctor with patient")
     .question
-        .question-illustrations
-            img.stock-images(src="images/exam-patient.jpg", alt="doctor with patient")
         .notice
             | In a sigmoidoscopy, your doctor looks inside your rectum
             |  and the lower part of the colon with a lighted tube
@@ -54,9 +55,10 @@ li
                         option(value='1') No
                         option(value='2') I don't know
 li
+    .question-group-title Medical
+    .question-illustrations
+        img.stock-images(src="images/pharm.jpg", alt="woman with pharmacist")
     .question
-        .question-illustrations
-            img.stock-images(src="images/pharm.jpg", alt="woman with pharmacist")
         .notice
             | Studies have shown that aspirin and drugs called NSAIDs
             |  can lower the risk of colorectal adenomas (tumors that
@@ -86,7 +88,7 @@ li
                     | &nbsp;
                     a.termToDefine(data-term="asprin") contain aspirin
                     | &nbsp;
-                    | at least 3 times a week :
+                    | at least 3 times a week?
                 | NOTE: Do NOT include TYLENOL
                 .input
                     select#asprin(name='asprin')
@@ -100,7 +102,7 @@ li
                     |  have you taken medications that
                     | &nbsp;
                     a.termToDefine(data-term="non_asprin") DO NOT contain aspirin
-                    |  at least 3 times a week :
+                    |  at least 3 times a week?
                 | NOTE: Do NOT include TYLENOL
                 .input
                     select#non_asprin(name='non_asprin')

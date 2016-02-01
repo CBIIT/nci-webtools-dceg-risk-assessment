@@ -49,8 +49,7 @@
           <div id="questions-exp" class="content-details">
             <div class="about-question-title"><strong>Questions:&nbsp;</strong>
               <ul>
-                <li>Do you consider yourself to be Hispanic/Latino?</li>
-                <li>Which of the following do you consider yourself to be? (African-American; Asian American/Pacific Islander; White)</li>
+                <li>Which of the following do you consider yourself to be? (African-American; Asian American/Pacific Islander; White;Hispanic/Latino)</li>
               </ul>
             </div>
             <div class="about-question-explanation"><strong>Explanation</strong>
@@ -97,6 +96,7 @@
             </div>
             <div class="about-question-title"><strong>Questions:&nbsp;</strong>
               <ul>
+                <li>In the past 30 days, have you eaten any  vegetables or leafy green salads?</li>
                 <li>
                   In the past 30 days, about how many servings per week of vegetables
                   or leafy green salads did you eat?
@@ -142,14 +142,14 @@
             <div class="about-question-title"><strong>Questions:&nbsp;</strong>
               <ul>
                 <li>
-                  This question asks about medications that contain aspirin. During the past 30 days,
-                  have you taken aspirin, BUFFERIN, BAYER, or EXCEDRIN at least 3 times a week? (Do NOT include TYLENOL)
+                  During the past 30 days, have you taken  any prescription
+                  or over the counter medications?
                 </li>
                 <li>
-                  This question asks about some medications that do not contain aspirin. During the past 30 days,
-                  have you taken ADVIL, ALEVE, CELEBREX, IBUPROFEN, MOTRIN, NAPROXEN, or NUPRIN at least
-                  3 times a week? Do NOT include TYLENOL.
+                  During the past 30 days, have you taken medications that contain aspirin at least
+                  3 times a week?
                 </li>
+                <li>During the past 30 days, have you taken medications that  DO NOT contain aspirin at least 3 times a week?</li>
               </ul>
             </div>
             <div class="about-question-explanation"><strong>Explanation</strong>
@@ -162,6 +162,7 @@
             </div>
             <div class="about-question-title"><strong>Questions:&nbsp;</strong>
               <ul>
+                <li>Over the  past 12 months, have you participated in any physical activity?</li>
                 <li>Over the past 12 months, in how many months, if any, did you do any kind of moderate exerices?</li>
                 <li>During those months, on average, about how many hours per week did you do moderate exercise?</li>
                 <li>Over the past 12 months, in how many months, if any, did you do any kind of vigorous exercise?</li>
@@ -341,6 +342,8 @@
           <form id="survey" action="/ccratRest/calculate/" method="POST">
             <ol>
               <li>
+                <div class="question-group-title">Demographics</div>
+                <div class="question-illustrations"><img src="images/waiting-room-people.jpg" alt="people waiting" class="stock-images"></div>
                 <div class="question">
                   <div class="notice">
                     <p>
@@ -397,7 +400,7 @@
                     cancer or cause you to be at higher risk are
                     different for men and women.
                   </div>
-                  <label for="gender" class="question-text">What is the your sex?&nbsp;<a class="notice-show">[More]</a></label>
+                  <label for="gender" class="question-text">Are you male or female?&nbsp;<a class="notice-show">[More]</a></label>
                   <div class="input">
                     <label>
                       <input name="gender" type="radio" value="Male" required>Male
@@ -409,8 +412,9 @@
                 </div>
               </li>
               <li>
+                <div class="question-group-title">Demographics</div>
+                <div class="question-illustrations"><img src="images/scale.jpg" alt="bathroom scale" class="stock-images"></div>
                 <div class="question">
-                  <div class="question-illustrations"><img src="images/scale.jpg" alt="bathroom scale" class="stock-images"></div>
                   <div class="notice">
                     Height and weight are used to determine your
                     body mass index (BMI). It can also be used to
@@ -419,7 +423,7 @@
                     people have too much body fat) has been linked
                     to a higher risk of colorectal cancer.
                   </div>
-                  <label for="height_feet" class="question-text">What is your height without shoes?&nbsp;<a class="notice-show">[More]</a></label>
+                  <label for="height_feet" class="question-text">How tall are you without shoes&nbsp;<a class="notice-show">[More]</a></label>
                   <div class="input">
                     <label for="height_feet">
                       <input id="height_feet" type="number" name="height_feet" min="2" max="8" placeholder="feet" title="feet" required class="height-group">
@@ -430,7 +434,7 @@
                   </div>
                 </div>
                 <div class="question">
-                  <label for="weight" class="question-text">What is your weight without shoes?</label>
+                  <label for="weight" class="question-text">How much do you weigh without shoes?</label>
                   <div class="input">
                     <label>
                       <input type="number" name="weight" min="50" placeholder="in pounds (lbs)" required>
@@ -439,8 +443,9 @@
                 </div>
               </li>
               <li>
+                <div class="question-group-title">Diet</div>
+                <div class="question-illustrations"><img src="images/vegs.jpg" alt="vegetables" class="stock-images"></div>
                 <div class="question">
-                  <div class="question-illustrations"><img src="images/vegs.jpg" alt="vegetables" class="stock-images"></div>
                   <div class="notice">
                     <p>
                       Some studies suggest that people who eat a diet
@@ -494,8 +499,9 @@
                 </ol>
               </li>
               <li>
+                <div class="question-group-title">Medical</div>
+                <div class="question-illustrations"><img src="images/exam-patient.jpg" alt="doctor with patient" class="stock-images"></div>
                 <div class="question">
-                  <div class="question-illustrations"><img src="images/exam-patient.jpg" alt="doctor with patient" class="stock-images"></div>
                   <div class="notice">
                     In a sigmoidoscopy, your doctor looks inside your rectum
                      and the lower part of the colon with a lighted tube
@@ -547,8 +553,9 @@
                 </ol>
               </li>
               <li>
+                <div class="question-group-title">Medical</div>
+                <div class="question-illustrations"><img src="images/pharm.jpg" alt="woman with pharmacist" class="stock-images"></div>
                 <div class="question">
-                  <div class="question-illustrations"><img src="images/pharm.jpg" alt="woman with pharmacist" class="stock-images"></div>
                   <div class="notice">
                     Studies have shown that aspirin and drugs called NSAIDs
                      can lower the risk of colorectal adenomas (tumors that
@@ -572,7 +579,7 @@
                     <div class="question">
                       <label for="asprin" class="question-text">During<i> the past 30 days,</i> have you taken medications that
                         &nbsp;<a data-term="asprin" class="termToDefine">contain aspirin</a>&nbsp;
-                        at least 3 times a week :
+                        at least 3 times a week?
                       </label>NOTE: Do NOT include TYLENOL
                       <div class="input">
                         <select id="asprin" name="asprin">
@@ -585,7 +592,7 @@
                     </div>
                     <div class="question">
                       <label for="non_asprin" class="question-text">During<i> the past 30 days,</i> have you taken medications that
-                        &nbsp;<a data-term="non_asprin" class="termToDefine">DO NOT contain aspirin</a> at least 3 times a week :
+                        &nbsp;<a data-term="non_asprin" class="termToDefine">DO NOT contain aspirin</a> at least 3 times a week?
                       </label>NOTE: Do NOT include TYLENOL
                       <div class="input">
                         <select id="non_asprin" name="non_asprin">
@@ -600,8 +607,9 @@
                 </ol>
               </li>
               <li>
+                <div class="question-group-title">Activity</div>
+                <div class="question-illustrations"><img src="images/running.jpg" alt="man running in race" class="stock-images"></div>
                 <div class="question">
-                  <div class="question-illustrations"><img src="images/running.jpg" alt="man running in race" class="stock-images"></div>
                   <div class="notice">
                     Studies suggest that not being active may
                      increase your risk of colorectal cancer.
@@ -632,10 +640,10 @@
                         <input id="moderate_months" type="number" name="moderate_months" min="0" max="12" placeholder="Enter number of months (0-12)">
                       </div>
                     </div>
-                    <div id="subquestion-moderate_months" class="question subquestion">
-                      <label for="active-hours" class="question-text">During those months,<i> on average</i>, about how many<i> hours per week</i> did you do &nbsp;<a data-term="moderate" class="termToDefine">moderate</a> physical activities?</label>
+                    <div id="subquestion-moderate-hours" class="question subquestion">
+                      <label for="moderate_hours" class="question-text">During those months,<i> on average</i>, about how many<i> hours per week</i> did you do &nbsp;<a data-term="moderate" class="termToDefine">moderate</a> physical activities?</label>
                       <div class="input">
-                        <select id="active-hours" name="active-hours">
+                        <select id="moderate_hours" name="moderate_hours">
                           <option value="">-select-</option>
                           <option value=".5">Up to 1 hour per week</option>
                           <option value="1.5">Between 1-2 hours per week</option>
@@ -651,14 +659,14 @@
                         &nbsp;<i>past 12 months,</i> in how many months, if any, did you do any kind of &nbsp;<a data-term="vigorous" class="termToDefine">vigorous</a> physical activity?
                       </label>
                       <div class="input">
-                        <input id="vigorous-months" type="number" name="vigorous-months" min="0" max="12" placeholder="Enter number of months (0-12)">
+                        <input id="vigorous_months" type="number" name="vigorous_months" min="0" max="12" placeholder="Enter number of months (0-12)">
                       </div>
                       <ol>
-                        <li id="subquestion-vigorous-months" class="subquestion">
+                        <li id="subquestion-vigorous_months" class="subquestion">
                           <div class="question">
-                            <label for="vigorous-hours" class="question-text">During those months,<i> on average</i>, about how many<i> hours per week</i> did you do &nbsp;<a data-term="vigorous" class="termToDefine">vigorous</a> physical activities?</label>
+                            <label for="vigorous_hours" class="question-text">During those months,<i> on average</i>, about how many<i> hours per week</i> did you do &nbsp;<a data-term="vigorous" class="termToDefine">vigorous</a> physical activities?</label>
                             <div class="input">
-                              <select id="vigorous-hours" name="vigorous-hours">
+                              <select id="vigorous_hours" name="vigorous_hours">
                                 <option value="">-select-</option>
                                 <option value=".5">Up to 1 hour per week</option>
                                 <option value="1.5">Between 1-2 hours per week</option>
@@ -675,6 +683,7 @@
                 </ol>
               </li>
               <li class="female">
+                <div class="question-group-title">Gender Based</div>
                 <div class="question">
                   <div class="notice">
                     Studies show that women who still have periods,
@@ -728,6 +737,7 @@
                 </ol>
               </li>
               <li class="male">
+                <div class="question-group-title">Gender Based</div>
                 <div class="question">
                   <div class="notice">
                     Studies suggest that men who are current or former smokers
@@ -939,8 +949,9 @@
                 </ol>
               </li>
               <li>
+                <div class="question-group-title">Family</div>
+                <div class="question-illustrations"><img src="images/family.jpg" alt="family together" class="stock-images"></div>
                 <div class="question">
-                  <div class="question-illustrations"><img src="images/family.jpg" alt="family together" class="stock-images"></div>
                   <div class="notice">
                     If you have close relatives (parents, brothers, sisters,
                      or children) who have had colorectal cancer, your risk

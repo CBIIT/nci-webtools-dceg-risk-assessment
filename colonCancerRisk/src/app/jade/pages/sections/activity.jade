@@ -1,7 +1,8 @@
 li
+    .question-group-title Activity
+    .question-illustrations
+        img.stock-images(src="images/running.jpg", alt="man running in race")
     .question
-        .question-illustrations
-            img.stock-images(src="images/running.jpg", alt="man running in race")
         .notice
             | Studies suggest that not being active may
             |  increase your risk of colorectal cancer.
@@ -30,8 +31,8 @@ li
                     |  physical activity?
                 .input
                     input#moderate_months(type="number", name='moderate_months',min="0", max="12", placeholder="Enter number of months (0-12)")
-            #subquestion-moderate_months.question.subquestion
-                label.question-text(for="active-hours") During those months,
+            #subquestion-moderate-hours.question.subquestion
+                label.question-text(for="moderate_hours") During those months,
                     i  on average
                     | , about how many
                     i  hours per week
@@ -39,7 +40,7 @@ li
                     a.termToDefine(data-term="moderate") moderate
                     |  physical activities?
                 .input
-                    select#active-hours(name='active-hours')
+                    select#moderate_hours(name='moderate_hours')
                         option(value='') -select-
                         option(value='.5') Up to 1 hour per week
                         option(value='1.5') Between 1-2 hours per week
@@ -55,11 +56,11 @@ li
                     a.termToDefine(data-term="vigorous") vigorous
                     |  physical activity?
                 .input
-                    input#vigorous-months(type="number", name='vigorous-months',min="0", max="12", placeholder="Enter number of months (0-12)")
+                    input#vigorous_months(type="number", name='vigorous_months',min="0", max="12", placeholder="Enter number of months (0-12)")
                 ol
-                    li#subquestion-vigorous-months.subquestion
+                    li#subquestion-vigorous_months.subquestion
                         .question
-                            label.question-text(for="vigorous-hours") During those months,
+                            label.question-text(for="vigorous_hours") During those months,
                                 i  on average
                                 | , about how many
                                 i  hours per week
@@ -67,7 +68,7 @@ li
                                 a.termToDefine(data-term="vigorous") vigorous
                                 |  physical activities?
                             .input
-                                select#vigorous-hours(name='vigorous-hours')
+                                select#vigorous_hours(name='vigorous_hours')
                                     option(value='') -select-
                                     option(value='.5') Up to 1 hour per week
                                     option(value='1.5') Between 1-2 hours per week
