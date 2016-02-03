@@ -1,0 +1,33 @@
+{
+  "name": "colon-cancer-assessment-tool",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "build": "gulp build",
+    "dev": "gulp dev"
+  },
+  "dependencies": {
+    "jquery": "^1.11.3",
+    "jquery-ui": "^1.10.5",
+    "jquery-validation": "^1.14.0",
+    "requirejs": "^2.1.22"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-cli": "^1.1.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-filter": "^3.0.1",
+    "gulp-jade": "^1.1.0",
+    "gulp-jshint": "^2.0.0",
+    "gulp-plumber": "^1.0.1",
+    "gulp-strip-comments": "^1.1.1",
+    "gulp-stylus": "^2.1.1",
+    "gulp-util": "^3.0.7",
+    "jshint": "^2.8.0",
+    "jshint-stylish": "^2.1.0",
+    "matchdep": "^1.0.0",
+    "nib": "^1.1.0",
+    "node-notifier": "^4.4.0",
+    "streamqueue": "^1.1.1"
+  }
+}
