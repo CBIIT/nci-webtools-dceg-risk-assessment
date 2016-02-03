@@ -59,16 +59,12 @@ def AbsRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
     #                  [1] Hormones used
     hormoneUsage
   ];
-  
   #rectal_covariates   = sum([math.exp(x*y) for x,y in zip(covariate_breakdown,genderCovariates["rectal"  ])])*genderAttributeRisks["rectal"  ]
-  rectal_covariates   = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["rectal"  ])])*genderAttributeRisks["rectal"  ])
-  print [x*y for x,y in zip(covariate_breakdown,genderCovariates["rectal"  ])]
+  rectal_covariates   = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["rectal"  ])]))*genderAttributeRisks["rectal"  ]
   #proximal_covariates = sum([math.exp(x*y) for x,y in zip(covariate_breakdown,genderCovariates["proximal"])])*genderAttributeRisks["proximal"]
-  proximal_covariates = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["proximal"])])*genderAttributeRisks["proximal"])
-  print [x*y for x,y in zip(covariate_breakdown,genderCovariates["proximal"])]
+  proximal_covariates = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["proximal"])]))*genderAttributeRisks["proximal"]
   #distal_covariates   = sum([math.exp(x*y) for x,y in zip(covariate_breakdown,genderCovariates["distal"  ])])
   distal_covariates   = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["distal"  ])]))
-  print [x*y for x,y in zip(covariate_breakdown,genderCovariates["distal"  ])]
   #relational risk factors become less relavent for distal cancer as the age goes up
   if gender == "Female" and age >= 65:
     distal_covariates *= genderAttributeRisks["distalOver65"]
