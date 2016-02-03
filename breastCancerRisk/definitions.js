@@ -27,6 +27,10 @@ var terms = {
         fullName: "Atypical Hyperplasia (AY-TIP-i-kul hy-per-PLAY-zha)",
         definition: "A benign (noncancerous) condition in which cells look abnormal under a microscope and are increased in number."
     },
+    ibc: {
+        fullName: "invasive breast cancer (in-VAY-siv brest KAN-ser)",
+        definition: "Cancer that has spread from where it started in the breast into surrounding, healthy tissue. Most invasive breast cancers start in the ducts (tubes that carry milk from the lobules to the nipple). Invasive breast cancer can spread to other parts of the body through the blood and lymph systems. Also called infiltrating breast cancer."
+    },
 
 };
 

@@ -3,15 +3,12 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-[role="tooltip"] {
-  position: fixed;
-}
 body {
-  font-family: sans-serif, Helvetica, Calibri, Arial Rounded MT Bold;
+  font-family: "Noto Sans", 'Montserrat', Arial, sans-serif, Helvetica, Calibri;
   font-size: 10pt;
   margin: 0;
   min-width: 320px;
-  background: #f7f8f3;
+  background: #fcfcfa;
   line-height: 1.5;
 }
 a {
@@ -62,11 +59,11 @@ header #toolTitle #toolDescription {
 }
 ul.nav {
   background: #636363;
-  background: -webkit-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
-  background: -moz-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
-  background: -o-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
-  background: -ms-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
-  background: linear-gradient(135deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
+  background: -webkit-linear-gradient(315deg, #fcfcfa 60px, #636363 100px, #404040 120px, rgba(255,255,255,0) 100%);
+  background: -moz-linear-gradient(315deg, #fcfcfa 60px, #636363 100px, #404040 120px, rgba(255,255,255,0) 100%);
+  background: -o-linear-gradient(315deg, #fcfcfa 60px, #636363 100px, #404040 120px, rgba(255,255,255,0) 100%);
+  background: -ms-linear-gradient(315deg, #fcfcfa 60px, #636363 100px, #404040 120px, rgba(255,255,255,0) 100%);
+  background: linear-gradient(135deg, #fcfcfa 60px, #636363 100px, #404040 120px, rgba(255,255,255,0) 100%);
   border-top: 2px solid #bb0e3d;
   margin: 0;
   padding-left: 160px;
@@ -79,7 +76,7 @@ ul.nav li {
   padding: 10px 15px;
 }
 ul.nav li.active {
-  background-color: #f7f8f3;
+  background-color: #fcfcfa;
 }
 ul.nav li.active a {
   color: #000;
@@ -105,7 +102,7 @@ ul.nav li:not(:hover) > ul {
   display: none;
 }
 ul.nav li#quick-link ul {
-  background: #f7f8f3;
+  background: #fcfcfa;
 }
 ul.nav li#quick-link ul a {
   color: #bb0e3d;
@@ -155,48 +152,77 @@ section form {
 section form > ol {
   list-style: decimal;
 }
-section form > ol li {
+section form > ol > li {
   display: inline-block;
   margin: 5px;
-  padding: 15px;
-  width: 43%;
+  padding: 5px 15px;
+  width: 32%;
   max-width: 100%;
-  height: 335px;
+  height: 400px;
   vertical-align: top;
   overflow: auto;
   border: 2px solid #2a71a5;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
 }
-section form > ol li:nth-child(even) {
+section form > ol > li:nth-child(even) {
   background: #fff;
 }
-section form > ol li:nth-child(odd) {
+section form > ol > li:nth-child(odd) {
   background-color: transparent;
 }
-section form > ol li:nth-child(odd) > .question-illustrations {
+section form > ol > li:nth-child(odd) > .question-illustrations {
   background-color: inherit;
 }
-section form > ol li ol {
-  list-style: lower-alpha;
+section form > ol > li ol {
+  list-style: none;
   padding: 0;
 }
-section form > ol li .question {
-  padding: 10px 0;
+section form > ol > li .question > * {
+  padding: 6px 0;
 }
-section form > ol li .question > label {
+section form > ol > li .question > .notice {
+  font-size: 0.9em;
+  border: 1px solid;
+  padding: 10px;
+  margin: 5px auto;
+  max-width: 400px;
+  display: none;
+  color: #000;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 3px 2px 7px #000;
+  box-shadow: 3px 2px 7px #000;
+}
+section form > ol > li .question > .notice > p {
+  margin: 5px 0;
+}
+section form > ol > li .question > label {
   display: inline-block;
 }
-section form > ol li .question > p {
+section form > ol > li .question > label > * {
+  vertical-align: top;
+}
+section form > ol > li .question > label > a.notice-show {
+  font-weight: normal;
+}
+section form > ol > li .question > p {
   display: inline-block;
 }
-section form > ol li .question .input > label {
+section form > ol > li .question .input > label {
   display: block;
 }
-section form > ol li .question select,
-section form > ol li .question input {
+section form > ol > li .question select,
+section form > ol > li .question input {
   width: 100%;
 }
+section form > ol > li .question select[type="radio"],
+section form > ol > li .question input[type="radio"] {
+  width: 15px;
+}
 section form .female:not(.show),
-section form .male:not(.show) {
+section form .male:not(.show),
+section form .subquestion:not(.show) {
   display: none;
 }
 section form input,
@@ -230,40 +256,33 @@ section form button {
 section form .question-illustrations {
   width: 100%;
   margin: 0 auto;
-  background: #fff;
+  background: inherit;
   text-align: center;
 }
 section form .question-illustrations .stock-images {
-  margin: 0 10px;
+  margin: 10px;
+  border: 2px solid #d2caca;
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  width: 200px;
-  height: 140px;
+  width: 180px;
+  max-height: 130px;
 }
 section form .question-illustrations .expand {
-  padding: 0;
   width: 100%;
   -webkit-box-shadow: 3px 3px 10px #000;
   box-shadow: 3px 3px 10px #000;
 }
 section form .question-illustrations img {
   width: 30%;
-  padding: 10px;
+  margin: 10px 0;
   vertical-align: top;
 }
-section form .counties {
-  display: none;
-}
-section form #region_subquestion {
-  border: none;
-  list-style: none;
-  width: inherit;
-  padding: 0;
-  margin: 0;
-  height: auto;
-}
-.section-content {
+.section-content,
+.section-description {
   padding: 0 1%;
+}
+ul.red-arrow li {
+  list-style-image: url("images/red-arrow.gif");
 }
 .section-title {
   margin: 5px auto;
@@ -289,11 +308,13 @@ section form #region_subquestion {
 .section-content a :hover {
   text-decoration: none;
 }
-.info {
-  width: 25px;
-  text-align: center;
-  float: left;
-  margin: 0 10px;
+a.termToDefine {
+  font-style: italic;
+  text-decoration: none;
+  border-bottom: 1px dotted;
+}
+a.termToDefine:hover {
+  border-bottom: none;
 }
 .section-description {
   margin: 10px auto;
@@ -333,14 +354,15 @@ section form #region_subquestion {
 }
 .section-description > .show-more:hover {
   text-decoration: none;
-  background: none;
   color: #fff;
   border-color: #fff;
+  background: none;
 }
 .about-question-title {
   border-left: 2px solid #2a71a5;
   padding-left: 5px;
   margin: 5px auto;
+  font-weight: bold;
 }
 .about-question-explanation {
   margin: 5px auto;
@@ -352,24 +374,13 @@ section form #region_subquestion {
   border: 2px solid #2a71a5;
   background: #fff;
 }
-.termToDefine {
-  font-style: italic;
-}
 .references {
   font-style: italic;
 }
 .section-anchors {
   margin: 10px auto;
-  padding: 5px;
+  padding: 0;
   text-align: center;
-  font-weight: bold;
-  vertical-align: top;
-}
-.section-anchors p {
-  vertical-align: text-top;
-  display: inline-block;
-  width: 40%;
-  margin: 5px 10px;
 }
 .section-anchors li {
   display: inline;
@@ -388,7 +399,16 @@ section form #region_subquestion {
   border: 5px solid #a95f5f;
   -webkit-border-radius: 10px;
   border-radius: 10px;
-  padding: 30px;
+  padding: 5px;
+  font-weight: bold;
+  vertical-align: top;
+  text-align: left;
+}
+#error p {
+  vertical-align: text-top;
+  display: inline-block;
+  width: 40%;
+  margin: 5px 10px;
 }
 #result {
   border: 5px solid #000;
@@ -425,6 +445,14 @@ section form #region_subquestion {
 #result .chart img {
   width: 5%;
 }
+.question-group-title {
+  text-align: center;
+  background: #555554;
+  color: #fcfcfa;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 3px 0;
+}
 .hide {
   display: none;
 }
@@ -460,8 +488,8 @@ section form #region_subquestion {
   height: auto;
 }
 #topButton {
-  display: none;
   font-size: 2em;
+  display: none;
   color: #fff;
   text-align: center;
   padding: 5px 0;
@@ -497,6 +525,11 @@ section form #region_subquestion {
   }
 }
 @media (max-width: 990px) {
+  #error p {
+    display: block;
+    width: 100%;
+    margin: 5px;
+  }
   header {
     position: relative;
   }
