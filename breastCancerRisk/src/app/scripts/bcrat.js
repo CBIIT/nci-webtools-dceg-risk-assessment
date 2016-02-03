@@ -1,9 +1,15 @@
+    $.validator.addMethod("invalidOption", function (value, element, params) {
+        return value != params;
+    });
+
 var validationRules = {
     history: {
-        required: true
+        required: true,
+        invalidOption: 0
     },
     mutation: {
-        required: true
+        required: true,
+        invalidOption: 0
     },
     age: {
         required: true,
@@ -60,10 +66,12 @@ var validationRules = {
 
 var validationMessages = {
     history: {
-        required: "You must answer the history of DCIS or LCIS question"
+        required: "You must answer the history of DCIS or LCIS question",
+        invalidOption: "This tool cannot calculate breast cancer risk accurately for women with a medical history of any breast cancer or of DCIS or LCIS. See the 'About' page for more information."
     },
     mutation: {
-        required: "You must answer the (BCRA gene / genetic mutation) question"
+        required: "You must answer the (BCRA gene / genetic mutation) question",
+        invalidOption: 'Other tools may be more appropriate for women with known mutations in either the BRCA1 or BRCA2 gene, or other hereditary syndromes associated with higher risk of breast cancer. See the \"About\" page for more information.'
     },
     age: {
         required: "The woman's age is required",
