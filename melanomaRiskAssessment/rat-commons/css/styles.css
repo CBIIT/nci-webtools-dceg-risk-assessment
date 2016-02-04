@@ -367,6 +367,9 @@ section form .question-illustrations img {
   padding-left: 5px;
   margin: 5px auto;
 }
+.about-question-title > * {
+  font-weight: bold;
+}
 .about-question-explanation {
   margin: 5px auto;
   padding: 15px;
