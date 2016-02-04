@@ -7,8 +7,7 @@ body
     min-width 320px
     background #FCFCFA
     line-height 1.5
-a
-    color inherit
+
 header
     margin 0
     min-width 320px
@@ -21,7 +20,7 @@ header
         img
             display block
             max-height 90px
-            max-width 450px
+            max-width 500px
             min-height 52px
             min-width 30px
     #toolTitle
@@ -206,7 +205,7 @@ section
                 border 2px solid #D2CACA
                 border-radius 5px
                 width 180px
-                max-height 130px
+                height 130px
             .expand
                 width 100%
                 box-shadow 3px 3px 10px #000
@@ -217,9 +216,9 @@ section
 
 .section-content,.section-description
     padding 0 1%
-ul
-    &.red-arrow li
-        list-style-image url("images/red-arrow.gif")
+
+ ul.red-arrow li
+    list-style-image url("images/red-arrow.gif")
 
 .section-title
     margin 5px auto
@@ -233,19 +232,18 @@ ul
     a
         color inherit !important
 
-.section-title, .section-content
+.section-title, .section-content,.content-details,.question
     a
         text-decoration underline
         color #BB0E3D
         :hover
             text-decoration none
-
-a.termToDefine
-    font-style italic
-    text-decoration none
-    border-bottom 1px dotted
-    &:hover
-        border-bottom none
+        &.termToDefine
+            font-style italic
+            text-decoration none
+            border-bottom 1px dotted
+            &:hover
+                border-bottom none
 
 .section-description
     margin 10px auto
@@ -284,7 +282,6 @@ a.termToDefine
     border-left 2px solid #2A71A5
     padding-left 5px
     margin 5px auto
-    font-weight bold
 
 .about-question-explanation
     margin 5px auto

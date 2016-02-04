@@ -32,7 +32,7 @@ header #nci-banner {
 header #nci-banner img {
   display: block;
   max-height: 90px;
-  max-width: 450px;
+  max-width: 500px;
   min-height: 52px;
   min-width: 30px;
 }

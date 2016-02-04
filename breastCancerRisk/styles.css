@@ -11,9 +11,6 @@ body {
   background: #fcfcfa;
   line-height: 1.5;
 }
-a {
-  color: inherit;
-}
 header {
   margin: 0;
   min-width: 320px;
@@ -29,7 +26,7 @@ header #nci-banner {
 header #nci-banner img {
   display: block;
   max-height: 90px;
-  max-width: 450px;
+  max-width: 500px;
   min-height: 52px;
   min-width: 30px;
 }
@@ -265,7 +262,7 @@ section form .question-illustrations .stock-images {
   -webkit-border-radius: 5px;
   border-radius: 5px;
   width: 180px;
-  max-height: 130px;
+  height: 130px;
 }
 section form .question-illustrations .expand {
   width: 100%;
@@ -300,20 +297,30 @@ ul.red-arrow li {
   color: inherit !important;
 }
 .section-title a,
-.section-content a {
+.section-content a,
+.content-details a,
+.question a {
   text-decoration: underline;
   color: #bb0e3d;
 }
 .section-title a :hover,
-.section-content a :hover {
+.section-content a :hover,
+.content-details a :hover,
+.question a :hover {
   text-decoration: none;
 }
-a.termToDefine {
+.section-title a.termToDefine,
+.section-content a.termToDefine,
+.content-details a.termToDefine,
+.question a.termToDefine {
   font-style: italic;
   text-decoration: none;
   border-bottom: 1px dotted;
 }
-a.termToDefine:hover {
+.section-title a.termToDefine:hover,
+.section-content a.termToDefine:hover,
+.content-details a.termToDefine:hover,
+.question a.termToDefine:hover {
   border-bottom: none;
 }
 .section-description {
@@ -362,7 +369,6 @@ a.termToDefine:hover {
   border-left: 2px solid #2a71a5;
   padding-left: 5px;
   margin: 5px auto;
-  font-weight: bold;
 }
 .about-question-explanation {
   margin: 5px auto;
