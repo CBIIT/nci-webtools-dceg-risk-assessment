@@ -45,8 +45,7 @@ section#about(tab='about')
             a(href='#model-exp') About the Gail Model
             | " section.
         .about-question-title
-            | Question 2: Does the woman have a mutation in either the
-            | &nbsp;
+            | Question 2: Does the woman have a mutation in either the&nbsp;
             a.termToDefine(data-term='brca1') brca1
             | &nbsp;or&nbsp;
             a.termToDefine(data-term='brca2') brca2
@@ -77,7 +76,8 @@ section#about(tab='about')
           p
               | Note: This tool only calculates risk for women 35 years of age
               | or older.
-        .about-question-title Question 4: What was the woman's age at time of her first&nbsp;
+        .about-question-title
+            | Question 4: What was the woman's age at time of her first&nbsp;
             a.termToDefine(data-term='menst') menstrual period
             | ?
         .about-question-explanation
@@ -88,7 +88,8 @@ section#about(tab='about')
             |  menstrual cycle. Women who start menstruating at a very young age have a slight
             |  increase in breast cancer risk that may be linked to their longer lifetime exposure
             |  to estrogen.
-        .about-question-title Question 5: What was the woman's age at her first live birth of a child?
+        .about-question-title
+            | Question 5: What was the woman's age at her first live birth of a child?
         .about-question-explanation
             strong Explanation
             br
@@ -171,24 +172,31 @@ section#about(tab='about')
             |  Having one or more first-degree relatives (mother, sisters, daughters) who have
             |  had breast cancer increases a woman's chances of developing this disease.
         .about-question-title
-            | Question 7: Has the woman ever had a breast&nbsp;
-            a.termToDefine(data-term='biopsy') biopsy
-            | ?
-        .about-question-title
-            | 7a: How many previous breast biopsies (positive or negative) has
-            |   the woman had?
-        .about-question-title 7b: Has the woman had at least one breast biopsy with&nbsp;
-              a.termToDefine(data-term='ah') atypical hyperplasia
-              | ?
+            | Question 7:
+            ul.red-arrow
+                li 7: Has the woman ever had a breast&nbsp;
+                    a.termToDefine(data-term='biopsy') biopsy
+                    | ?
+                li
+                    | 7a: How many previous breast biopsies (positive or negative) has
+                    |   the woman had?
+                li
+                    | 7b: Has the woman had at least one breast biopsy with&nbsp;
+                    a.termToDefine(data-term='ah') atypical hyperplasia
+                    | ?
         .about-question-explanation
             strong Explanation
             |  Women who have had breast biopsies have an increased risk of breast cancer, especially
             |  if their biopsy specimens showed atypical hyperplasia. Women who have a history
             |  of breast biopsies are at increased risk because of whatever breast changes prompted
             |  the biopsies. Breast biopsies themselves do not cause cancer.
-        .about-question-title Question 8: If known, please indicate the woman's race/ethnicity.
+        .about-question-title
+            | Question 8:
+            ul.red-arrow
+                li 8: If known, please indicate the woman's race/ethnicity.
+                li 8a: What is the sub race/ethnicity?
         .about-question-explanation
-            strong Explanation
+            strong Explanation (Question 8)
             p
                 |  The original Breast Cancer Risk Assessment Tool was based on data from white women.
                 |  But race/ethnicity can influence the calculation of breast cancer risk. Over the
@@ -208,9 +216,7 @@ section#about(tab='about')
                 em
                   | If the woman's race/ethnicity is unknown, the tool will use
                   | data for white females to estimate the predicted risk.
-        .about-question-title Question 8a: What is the sub race/ethnicity?
-        .about-question-explanation
-            strong Explanation
+            strong Explanation (Question 8a)
             p
                 | To calculate breast cancer risk using Asian-American as the race/ethnicity, the
                 |  sub race/ethnicity needs to be known. If the sub-category of race/ethnicity is not
@@ -315,9 +321,9 @@ section#about(tab='about')
                 |  gene
             li
                 | Women with a known mutation in either the&nbsp;
-                a.termToDefine(data-term='brca1.html') brca1
+                a.termToDefine(data-term='brca1') brca1
                 | &nbsp;or&nbsp;
-                a.termToDefine(data-term='brca2.html') brca2
+                a.termToDefine(data-term='brca2') brca2
                 |  gene can use the&nbsp;
                 a(target="_blank", href='http://ccge.medschl.cam.ac.uk/boadicea/') BOADICEA model
                 |  to estimate their breast cancer risk.

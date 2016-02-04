@@ -9,7 +9,7 @@
     <link href="styles.css" rel="stylesheet" type="text/css">
   </head>
   <body>
-    <header><img id="menu-button" src="images/menu.svg" alt="mobile menu access button"><a id="nci-banner" href="http://cancer.gov/" target="_blank"><img src="/common/images/DCEG-logo.svg" alt="National Cancer Institute"></a>
+    <header><img id="menu-button" src="images/menu.svg" alt="mobile menu access button"><a id="nci-banner" href="http://cancer.gov/" target="_blank"><img src="images/bcrat-logo.svg" alt="National Cancer Institute Breast Cancer Risk Assessment Tool"></a>
       <div id="toolTitle">
         <div id="toolDescription">An interactive tool to help estimate a woman's risk of developing breast cancer</div>
       </div>
@@ -64,9 +64,7 @@
              to the chest for treatment of Hodgkin lymphoma. There may be more appropriate tools
              for these women. See the "<a href="#model-exp">About the Gail Model</a>" section.
           </div>
-          <div class="about-question-title">
-            Question 2: Does the woman have a mutation in either the
-            &nbsp;<a data-term="brca1" class="termToDefine">brca1</a>&nbsp;or&nbsp;<a data-term="brca2" class="termToDefine">brca2</a>&nbsp;gene, or a diagnosis of a genetic syndrome that may be associated with elevated
+          <div class="about-question-title">Question 2: Does the woman have a mutation in either the&nbsp;<a data-term="brca1" class="termToDefine">brca1</a>&nbsp;or&nbsp;<a data-term="brca2" class="termToDefine">brca2</a>&nbsp;gene, or a diagnosis of a genetic syndrome that may be associated with elevated
              risk of breast cancer?
           </div>
           <div class="about-question-explanation"><strong>Explanation</strong><br> Although the tool has been used with success in clinics for women with strong family
@@ -154,19 +152,28 @@
           <div class="about-question-explanation"><strong>Explanation</strong><br> Having one or more first-degree relatives (mother, sisters, daughters) who have
              had breast cancer increases a woman's chances of developing this disease.
           </div>
-          <div class="about-question-title">Question 7: Has the woman ever had a breast&nbsp;<a data-term="biopsy" class="termToDefine">biopsy</a>?</div>
-          <div class="about-question-title">
-            7a: How many previous breast biopsies (positive or negative) has
-              the woman had?
+          <div class="about-question-title">Question 7:
+            <ul class="red-arrow">
+              <li>7: Has the woman ever had a breast&nbsp;<a data-term="biopsy" class="termToDefine">biopsy</a>?</li>
+              <li>
+                7a: How many previous breast biopsies (positive or negative) has
+                  the woman had?
+              </li>
+              <li>7b: Has the woman had at least one breast biopsy with&nbsp;<a data-term="ah" class="termToDefine">atypical hyperplasia</a>?</li>
+            </ul>
           </div>
-          <div class="about-question-title">7b: Has the woman had at least one breast biopsy with&nbsp;<a data-term="ah" class="termToDefine">atypical hyperplasia</a>?</div>
           <div class="about-question-explanation"><strong>Explanation</strong> Women who have had breast biopsies have an increased risk of breast cancer, especially
              if their biopsy specimens showed atypical hyperplasia. Women who have a history
              of breast biopsies are at increased risk because of whatever breast changes prompted
              the biopsies. Breast biopsies themselves do not cause cancer.
           </div>
-          <div class="about-question-title">Question 8: If known, please indicate the woman's race/ethnicity.</div>
-          <div class="about-question-explanation"><strong>Explanation</strong>
+          <div class="about-question-title">Question 8:
+            <ul class="red-arrow">
+              <li>8: If known, please indicate the woman's race/ethnicity.</li>
+              <li>8a: What is the sub race/ethnicity?</li>
+            </ul>
+          </div>
+          <div class="about-question-explanation"><strong>Explanation (Question 8)</strong>
             <p>
                The original Breast Cancer Risk Assessment Tool was based on data from white women.
                But race/ethnicity can influence the calculation of breast cancer risk. Over the
@@ -184,10 +191,7 @@
             </p>
             <p><strong>Note:</strong><em>
                 If the woman's race/ethnicity is unknown, the tool will use
-                data for white females to estimate the predicted risk.</em></p>
-          </div>
-          <div class="about-question-title">Question 8a: What is the sub race/ethnicity?</div>
-          <div class="about-question-explanation"><strong>Explanation</strong>
+                data for white females to estimate the predicted risk.</em></p><strong>Explanation (Question 8a)</strong>
             <p>
               To calculate breast cancer risk using Asian-American as the race/ethnicity, the
                sub race/ethnicity needs to be known. If the sub-category of race/ethnicity is not
@@ -284,7 +288,7 @@
               [<a href="http://jnci.oxfordjournals.org/content/97/19/1428.full.pdf">PubMed Abstract</a>].
             </li>
             <li>A known mutation in either the&nbsp;<a data-term="brca1" class="termToDefine">brca1</a> or&nbsp;<a data-term="brca2" class="termToDefine">brca2</a> gene</li>
-            <li>Women with a known mutation in either the&nbsp;<a data-term="brca1.html" class="termToDefine">brca1</a>&nbsp;or&nbsp;<a data-term="brca2.html" class="termToDefine">brca2</a> gene can use the&nbsp;<a target="_blank" href="http://ccge.medschl.cam.ac.uk/boadicea/">BOADICEA model</a> to estimate their breast cancer risk.</li>
+            <li>Women with a known mutation in either the&nbsp;<a data-term="brca1" class="termToDefine">brca1</a>&nbsp;or&nbsp;<a data-term="brca2" class="termToDefine">brca2</a> gene can use the&nbsp;<a target="_blank" href="http://ccge.medschl.cam.ac.uk/boadicea/">BOADICEA model</a> to estimate their breast cancer risk.</li>
             <li>Other rare cancer-causing syndromes, such as the Li-Fraumeni syndrome</li>
             <li>
               Women with a known or suspected inherited cancer-causing syndrome
@@ -357,14 +361,14 @@
                    cancer or of&nbsp;<a data-term="dcis" class="termToDefine">ductal carcinoma in situ (DCIS)</a>&nbsp;or&nbsp;<a data-term="lcis" class="termToDefine">lobular carcinoma in situ (LCIS)</a> or has she received previous radiation therapy
                    to the chest for treatment of Hodgkin lymphoma?
                 </label>
-              </div>
-              <div class="input">
-                <label>
-                  <input type="radio" name="history" value="0">Yes
-                </label>
-                <label>
-                  <input type="radio" name="history" value="1">No
-                </label>
+                <div class="input">
+                  <label>
+                    <input type="radio" name="history" value="0">Yes
+                  </label>
+                  <label>
+                    <input type="radio" name="history" value="1">No
+                  </label>
+                </div>
               </div>
             </li>
             <li>
@@ -373,17 +377,17 @@
                 <label for="mutation" class="question-text">Does the woman have a mutation in either the&nbsp;<a data-term="brca1" class="termToDefine">BRCA1</a>&nbsp;or&nbsp;<a data-term="brca2" class="termToDefine">BRCA2</a>&nbsp;gene, or a diagnosis of a genetic syndrome that may be associated with
                   &nbsp;elevated risk of breast cancer?
                 </label>
-              </div>
-              <div class="input">
-                <label>
-                  <input type="radio" name="mutation" value="0">Yes
-                </label>
-                <label>
-                  <input type="radio" name="mutation" value="1">No
-                </label>
-                <label>
-                  <input type="radio" name="mutation" value="2">Unknown
-                </label>
+                <div class="input">
+                  <label>
+                    <input type="radio" name="mutation" value="0">Yes
+                  </label>
+                  <label>
+                    <input type="radio" name="mutation" value="1">No
+                  </label>
+                  <label>
+                    <input type="radio" name="mutation" value="2">Unknown
+                  </label>
+                </div>
               </div>
             </li>
             <li>
