@@ -9,7 +9,7 @@
     <link href="styles.css" rel="stylesheet" type="text/css">
   </head>
   <body>
-    <header><img id="menu-button" src="images/menu.svg" alt="mobile menu access button"><a id="nci-banner" href="http://cancer.gov/" target="_blank"><img src="/common/images/nci-logo-full.svg" alt="National Cancer Institute"></a>
+    <header><img id="menu-button" src="images/menu.svg" alt="mobile menu access button"><a id="nci-banner" href="http://cancer.gov/" target="_blank"><img src="images/ccrat-logo.svg" alt="National Cancer Institute Colon Cancer Risk Assessment Tool"></a>
       <div id="toolTitle">
         <div id="toolDescription">An interactive tool to help estimate a person's risk of developing colorectal cancer</div>
       </div>
@@ -47,11 +47,9 @@
             <li><a title="go to references" name="#reference" class="goTo">Reference</a></li>
           </ul><strong>Explaining the Questions</strong>
           <div id="questions-exp" class="content-details">
-            <div class="about-question-title"><strong>Questions:&nbsp;</strong>
-              <ul>
-                <li>Which of the following do you consider yourself to be? (African-American; Asian American/Pacific Islander; White;Hispanic/Latino)</li>
-              </ul>
-            </div>
+            <div class="about-question-title"><strong>
+                Question 1: Which of the following do you consider yourself to be?
+                 (African-American; Asian American/Pacific Islander; White;Hispanic/Latino)</strong></div>
             <div class="about-question-explanation"><strong>Explanation</strong>
               <p>
                 When we first developed this tool, we tested it with white people and found it to
@@ -69,21 +67,23 @@
                 but we are working to improve the tool for use by these groups of people.
               </p>
             </div>
-            <div class="about-question-title"><strong>Questions:&nbsp;</strong>What is your age? (Keep in mind that this tool only estimates risk for people from 50 to 85 years old.)</div>
+            <div class="about-question-title"><strong>
+                Question 2: What is your age? (Keep in mind that this tool only estimates
+                 risk for people from 50 to 85 years old.)</strong></div>
             <div class="about-question-explanation"><strong>Explanation</strong>
               <p>
                 As you get older, your risk of colorectal cancer gets higher. More than 90 percent
                 of people with this disease are diagnosed after age 50. The average age at diagnosis is 72.
               </p>
             </div>
-            <div class="about-question-title"><strong>Questions:&nbsp;</strong>Are you male or female?</div>
+            <div class="about-question-title"><strong>Question 3: Are you male or female?</strong></div>
             <div class="about-question-explanation"><strong>Explanation</strong>
               <p>The factors that can protect you from colorectal cancer or cause you to be at higher risk are different for men and women.</p>
             </div>
-            <div class="about-question-title"><strong>Questions:&nbsp;</strong>
-              <ul>
+            <div class="about-question-title"><strong>Question 4</strong>
+              <ul class="red-arrow">
                 <li>How tall are you without shoes?</li>
-                <li>How much do you weigh without shoes?</li>
+                <li>4a: How much do you weigh without shoes?</li>
               </ul>
             </div>
             <div class="about-question-explanation"><strong>Explanation</strong>
@@ -94,17 +94,17 @@
                 has been linked to a higher risk of colorectal cancer.
               </p>
             </div>
-            <div class="about-question-title"><strong>Questions:&nbsp;</strong>
-              <ul>
+            <div class="about-question-title"><strong>Question 5</strong>
+              <ul class="red-arrow">
                 <li>In the past 30 days, have you eaten any  vegetables or leafy green salads?</li>
                 <li>
-                  In the past 30 days, about how many servings per week of vegetables
+                  5a: In the past 30 days, about how many servings per week of vegetables
                   or leafy green salads did you eat?
                   &nbsp;
                   INCLUDE raw, cooked, canned, and frozen vegetables (including beans) and
                   leafy green salads. DO NOT INCLUDE fried vegetables like French fries or fried potatoes.
                 </li>
-                <li>In the past 30 days, how much did you usually eat in each serving of vegetables or leafy green salads?</li>
+                <li>5b: In the past 30 days, how much did you usually eat in each serving of vegetables or leafy green salads?</li>
               </ul>
             </div>
             <div class="about-question-explanation"><strong>Explanation</strong>
@@ -112,8 +112,7 @@
                 <Some>studies suggest that people who eat a diet very low in vegetables may have a higher risk of colorectal cancer.</Some>
               </p>
             </div>
-            <div class="about-question-title"><strong>Questions:&nbsp;</strong>During the past 10 years, did you have a colonoscopy or a sigmoidoscopy?
-              (These are medical procedures in which your doctor inserts a tube into
+            <div class="about-question-title"><strong>Question 6: During the past 10 years, did you have a colonoscopy or a sigmoidoscopy?</strong>(These are medical procedures in which your doctor inserts a tube into
               the rectum to look for signs of cancer or other problems.)
             </div>
             <div class="about-question-explanation"><strong>Explanation</strong>
@@ -129,7 +128,9 @@
                 will reduce your risk of colorectal cancer because polyps that can grow into cancer are removed.
               </p>
             </div>
-            <div class="about-question-title"><strong>Questions:&nbsp;</strong>During the past 10 years did a doctor tell you that you had a polyp in your colon or rectum?</div>
+            <div class="about-question-title"><strong>
+                Question 7: During the past 10 years did a doctor tell you that
+                 you had a polyp in your colon or rectum?</strong></div>
             <div class="about-question-explanation"><strong>Explanation</strong>
               <p>
                 Polyps are growths on the inner wall of the colon or rectum.
@@ -139,17 +140,17 @@
                 "polyps unknown" corrected on 10/7/2014.]
               </p>
             </div>
-            <div class="about-question-title"><strong>Questions:&nbsp;</strong>
-              <ul>
+            <div class="about-question-title"><strong>Question 8</strong>
+              <ul class="red-arrow">
                 <li>
                   During the past 30 days, have you taken  any prescription
                   or over the counter medications?
                 </li>
                 <li>
-                  During the past 30 days, have you taken medications that contain aspirin at least
+                  8a: During the past 30 days, have you taken medications that contain aspirin at least
                   3 times a week?
                 </li>
-                <li>During the past 30 days, have you taken medications that  DO NOT contain aspirin at least 3 times a week?</li>
+                <li>8b: During the past 30 days, have you taken medications that  DO NOT contain aspirin at least 3 times a week?</li>
               </ul>
             </div>
             <div class="about-question-explanation"><strong>Explanation</strong>
@@ -160,13 +161,13 @@
                 "medications that do not contain aspirin unknown" corrected on 10/7/2014.]
               </p>
             </div>
-            <div class="about-question-title"><strong>Questions:&nbsp;</strong>
+            <div class="about-question-title"><strong>Question 9</strong>
               <ul>
                 <li>Over the  past 12 months, have you participated in any physical activity?</li>
-                <li>Over the past 12 months, in how many months, if any, did you do any kind of moderate exerices?</li>
-                <li>During those months, on average, about how many hours per week did you do moderate exercise?</li>
-                <li>Over the past 12 months, in how many months, if any, did you do any kind of vigorous exercise?</li>
-                <li>During those months, on average, about how many hours per week did you do vigorous exercise?</li>
+                <li>9a: Over the past 12 months, in how many months, if any, did you do any kind of moderate exerices?</li>
+                <li>9b: During those months, on average, about how many hours per week did you do moderate exercise?</li>
+                <li>9c: Over the past 12 months, in how many months, if any, did you do any kind of vigorous exercise?</li>
+                <li>9d: During those months, on average, about how many hours per week did you do vigorous exercise?</li>
               </ul>
             </div>
             <div class="about-question-explanation"><strong>Explanation</strong>
@@ -175,17 +176,17 @@
                 On the other hand, if you exercise often, you may reduce your risk of colorectal cancer.
               </p>
             </div>
-            <div class="about-question-title"><strong>Questions for males:&nbsp;</strong>
-              <ul>
+            <div class="about-question-title"><strong>Gender Specific Questions (Males)</strong>
+              <ul class="red-arrow">
                 <li>In your entire lifetime, altogether, have you smoked 100 or more cigarettes?</li>
                 <li>
-                  How old were you when you started smoking cigarettes on a regular basis,
+                  10a: How old were you when you started smoking cigarettes on a regular basis,
                   that is, at least one cigarette a day for six months or longer?
                 </li>
-                <li>Do you currently smoke cigarettes?</li>
-                <li>How old were you when you quit smoking cigarettes completely?</li>
+                <li>10b: Do you currently smoke cigarettes?</li>
+                <li>10c: How old were you when you quit smoking cigarettes completely?</li>
                 <li>
-                  Thinking back over the years you have smoked regularly,
+                  10d: Thinking back over the years you have smoked regularly,
                   about how many cigarettes have you usually smoked a day?
                 </li>
               </ul>
@@ -198,11 +199,11 @@
                 colorectal cancer among women. As time goes on and other studies are completed, that may change.
               </p>
             </div>
-            <div class="about-question-title"><strong>Questions for females:&nbsp;</strong>
-              <ul>
+            <div class="about-question-title"><strong>Gender Specific Questions (Females)</strong>
+              <ul class="red-arrow">
                 <li>Do you still have periods?</li>
-                <li>When did you have your last period?</li>
-                <li>During the past 2 years, have you used estrogen, progestin, or other female hormones?</li>
+                <li>10a: When did you have your last period?</li>
+                <li>10b: During the past 2 years, have you used estrogen, progestin, or other female hormones?</li>
               </ul>
             </div>
             <div class="about-question-explanation"><strong>Explanation</strong>
@@ -213,14 +214,14 @@
                 2 years may be at lower risk for colorectal cancer than other women.
               </p>
             </div>
-            <div class="about-question-title"><strong>Questions:&nbsp;</strong>
+            <div class="about-question-title"><strong>Question 11</strong>
               <ul>
                 <li>
                   Think only about your biological mother and father, full brothers and sisters, and your
                   biological sons or daughters. At any time in their lives, did any of these relatives
                   ever have colorectal cancer (which is another way to say colon or rectal cancer)?
                 </li>
-                <li>How many of these relatives had colorectal cancer (which is another way to say colon or rectal cancer)?</li>
+                <li>11a: How many of these relatives had colorectal cancer (which is another way to say colon or rectal cancer)?</li>
               </ul>
             </div>
             <div class="about-question-explanation"><strong>Explanation</strong>
