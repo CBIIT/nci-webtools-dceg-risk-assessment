@@ -240,15 +240,16 @@ section form button {
 section form .question-illustrations {
   width: 100%;
   margin: 0 auto;
-  background: #fff;
+  background: inherit;
   text-align: center;
 }
 section form .question-illustrations .stock-images {
-  margin: 0 10px;
+  margin: 10px;
+  border: 2px solid #d2caca;
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  width: 200px;
-  height: 140px;
+  width: 180px;
+  height: 130px;
 }
 section form .question-illustrations .expand {
   padding: 0;
@@ -258,7 +259,7 @@ section form .question-illustrations .expand {
 }
 section form .question-illustrations img {
   width: 30%;
-  padding: 10px;
+  margin: 5px 0;
   vertical-align: top;
 }
 .section-content {
@@ -401,6 +402,7 @@ section form .question-illustrations img {
   -webkit-border-radius: 10px;
   border-radius: 10px;
   padding: 30px;
+  font-weight: bold;
 }
 .rounded {
   -webkit-border-radius: 10px;

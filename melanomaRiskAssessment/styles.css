@@ -29,6 +29,9 @@ section form #region_subquestion {
   margin: 0;
   height: auto;
 }
+section form .question-illustrations .stock-images {
+  border: none;
+}
 
 @media (max-width: 1300px) {
   section {
@@ -76,7 +79,7 @@ section form #region_subquestion {
     min-height: 130px;
     padding: 5px 10px;
   }
-  .question-illustration .stock-images {
+  .question-illustrations .stock-images {
     width: 180px;
   }
 }
