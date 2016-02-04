@@ -6,7 +6,7 @@ requirejs.config({
         "jquery.validate.methods" : "https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods" ,
         globalGlossary:"/common/js/popover-functions",
         ccrat: "ccrat",
-        navActions: "nav-actions",
+        ratScript: "rat-commons/js/rat-script",
         definitions: "definitions"
     },
     shim: {
@@ -23,7 +23,7 @@ requirejs.config({
             // define what this script depends on in order to run
             deps: ["jqueryUI"],
         },
-        navActions: {
+        ratScript: {
             deps: ["jqueryUI"],
         },
         definitions: {
@@ -39,6 +39,6 @@ requirejs.config({
 });
 
 // load scripts for additional tools by defining in paths and adding to array
-require(['ccrat', 'definitions', 'navActions'], function() {
+require(['ccrat', 'definitions', 'ratScript'], function() {
 
 });

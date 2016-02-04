@@ -73,7 +73,7 @@ li
             | a healthy weight. Obesity (a problem in which
             | people have too much body fat) has been linked
             | to a higher risk of colorectal cancer.
-        label.question-text(for="height_feet")
+        label.question-text
             | How tall are you without shoes
             include ../../templates/notice-anchor
         .input
@@ -85,5 +85,4 @@ li
         label.question-text(for="weight")
             | How much do you weigh without shoes?
         .input
-            label
-                input(type="number", name="weight", min="50", placeholder="in pounds (lbs)", required)
+            input(type="number", name="weight", min="50", placeholder="in pounds (lbs)", required)
