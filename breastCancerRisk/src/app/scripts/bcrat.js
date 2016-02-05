@@ -35,7 +35,7 @@
         childbirth_age: {
             required: {
                 depends: function () {
-                    return Number($("#childbirth").val()) === 0;
+                    return Number($("[name='childbirth']").val()) === 0;
                 }
             }
         },
@@ -50,7 +50,7 @@
         biopsy_result: {
             required: {
                 depends: function () {
-                    return Number($("#biopsy").val()) === 0;
+                    return Number($("[name='biopsy']").val()) === 0;
                 }
             }
         },
@@ -58,7 +58,7 @@
         biopsy_ah: {
             required: {
                 depends: function () {
-                    return Number($("#biopsy").val()) === 0;
+                    return Number($("[name='biopsy']").val()) === 0;
                 }
             }
         },
