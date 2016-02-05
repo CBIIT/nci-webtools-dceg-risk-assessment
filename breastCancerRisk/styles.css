@@ -2,9 +2,7 @@ section form > ol > li {
   display: inline-block;
   margin: 5px;
   padding: 5px 15px;
-  width: 32%;
-  max-width: 100%;
-  height: 400px;
+  height: 440px;
   vertical-align: top;
   overflow: auto;
   border: 2px solid #2a71a5;
@@ -23,6 +21,14 @@ section form > ol > li:nth-child(odd) > .question-illustrations {
 section form > ol > li ol {
   list-style: none;
   padding: 0;
+}
+section form > ol > li ol > li {
+  background: none;
+  width: inherit;
+  border: none;
+  margin: 0;
+  padding: 0;
+  height: inherit;
 }
 section form > ol > li .question > .notice {
   font-size: 0.9em;
@@ -103,6 +109,9 @@ section form > ol > li select.error {
 .content-details a.termToDefine:hover,
 .question a.termToDefine:hover {
   border-bottom: none;
+}
+ul.red-arrow li {
+  list-style-image: url("images/red-arrow.gif");
 }
 .content-details {
   -webkit-border-radius: 10px;

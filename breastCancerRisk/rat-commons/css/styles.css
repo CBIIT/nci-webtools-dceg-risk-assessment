@@ -169,6 +169,15 @@ section form {
 section form > ol {
   list-style: decimal;
 }
+section form > ol > li:nth-child(even) {
+  background: #fff;
+}
+section form > ol > li:nth-child(odd) {
+  background-color: transparent;
+}
+section form > ol > li:nth-child(odd) > .question-illustrations {
+  background-color: inherit;
+}
 section form > ol li {
   display: inline-block;
   margin: 5px;
@@ -179,15 +188,6 @@ section form > ol li {
   vertical-align: top;
   overflow: auto;
   border: 2px solid #2a71a5;
-}
-section form > ol li:nth-child(even) {
-  background: #fff;
-}
-section form > ol li:nth-child(odd) {
-  background-color: transparent;
-}
-section form > ol li:nth-child(odd) > .question-illustrations {
-  background-color: inherit;
 }
 section form > ol li ol {
   list-style: lower-alpha;
@@ -401,10 +401,10 @@ section form .question-illustrations img {
 }
 #error {
   background: #fc7878;
-  border: 5px solid #a95f5f;
+  border: 2px solid #a95f5f;
   -webkit-border-radius: 10px;
   border-radius: 10px;
-  padding: 30px;
+  padding: 5px 10px;
   font-weight: bold;
 }
 .rounded {

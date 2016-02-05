@@ -31,7 +31,7 @@ requirejs.config({
             deps: ["globalGlossary"],
         },
         bcrat: {
-            deps: ["jquery.validate.methods","ratScript"],
+            deps: ["jquery.validate.methods", "ratScript"],
         }
     }
 });
