@@ -9,7 +9,6 @@ function removeClass(elementList,className) {
         elementList[index].className = elementList[index].className.replace(className,"").trim();
     }
 }
-
 function genderChange() {
     if (!genderChangeLoaded) {
         if( document.all && !document.getElementsByTagName ){
@@ -56,7 +55,6 @@ function genderChange() {
         genderChangeLoaded = true;
     }
 }
-
 
 var validationRules = {
     state: {
@@ -154,50 +152,14 @@ var validationMessages = {
         required: "Whether the patient has severe solar damage on their next and shoulders must be selected."
     }
 };
+
 function validate(){
     $(document.forms.survey).validate({
         rules: validationRules,
         messages: validationMessages,
         errorLabelContainer: '#error',
         wrapper: 'p',
-        submitHandler: function(form) {
-            $('#error').empty().css('display','none');
-            $('#result').addClass('hide').empty();
-            $('.error').removeClass('error');
-            $.ajax({
-                url: form.action,
-                type: form.method,
-                data: new FormData(form),
-                processData: false,
-                contentType: false,
-                dataType: 'json'
-            }).done(function(data) {
-                if (data.success) {
-                    displayResult(data.message);
-                } else {
-                    var message = "";
-                    if (data.message) {
-                        message += "<p>" + data.message + "</p>";
-                    }
-                    var index;
-                    for (index in data.missing) {
-                        $('#'+data.missing[index]).addClass('error');
-                        message += "<p>The " + data.missing[index] + " question was not answered.</p>";
-                    }
-                    for (index in data.nonnumeric) {
-                        $('#'+data.nonnumeric[index]).addClass('error');
-                        message += "<p>The " + data.missing[index] + " question contained a nonnumeric answer.</p>";
-                    }
-                    $('#error').append(message).css('display','block');
-                    document.getElementById("top").scrollIntoView();
-                }
-            }).fail(function(data) {
-
-                if(data.responseJSON.message)
-                    $('#error').append("<p>"+data.responseJSON.message+"</p>").css('display','block');
-                    document.getElementById("top").scrollIntoView();
-            });
-        }
+        submitHandler: processSubmission
     });
 }
 $("#state").on("change", regionFilter);
@@ -219,4 +181,24 @@ $(validate);
 $("#reset").on("click", function(){
     $(survey).validate().resetForm();
     $(".show").removeClass("show");
+});
+
+
+$(function(){
+    var titles = {
+        "risk-calculator": "Risk Calculator",
+        "about": "About",
+        "cancer-risk": "Melanoma Risk Factors",
+        "source-code": "Access Source Code"
+    };
+
+    $('.goTo').on('click', function() {
+        $("html, body").animate({
+            scrollTop: $(this.name).offset().top - $("header")[0].clientHeight
+        }, 1000);
+    });
+
+    $('#content').on('click','[tabTo]',function(e) {
+        document.title  =  "Melanoma Risk Assessment Tool (MRAT) | " + titles[$(this).attr('tabTo')];
+    });
 });

@@ -146,6 +146,12 @@ section
         display block
         > ol
             list-style decimal
+            > li:nth-child(even)
+                background #fff
+            > li:nth-child(odd)
+                background-color transparent
+                > .question-illustrations
+                    background-color inherit
             li
                 display inline-block
                 margin 5px
@@ -156,12 +162,6 @@ section
                 vertical-align top
                 overflow auto
                 border 2px solid #2A71A5
-                &:nth-child(even)
-                    background #fff
-                &:nth-child(odd)
-                    background-color transparent
-                    > .question-illustrations
-                        background-color inherit
                 ol
                     list-style lower-alpha
                     padding 0
@@ -339,9 +339,9 @@ section
 
 #error
     background #FC7878
-    border 5px solid #A95F5F
+    border 2px solid #A95F5F
     border-radius 10px
-    padding 30px
+    padding 5px 10px
     font-weight bold
 
 .rounded
