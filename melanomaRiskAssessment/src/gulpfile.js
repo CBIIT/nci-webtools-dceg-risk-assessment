@@ -117,7 +117,7 @@ gulp.task('rat-common:copy', function(){
         objectMode: true
     });
     gulp.src(parentDir+"/rat-commons/**/*")
-        .pipe(gulp.dest(parentDir+"/"+parentDir+"/colonCancerRisk/rat-commons"));
+        .pipe(gulp.dest(parentDir+"/"+parentDir+"/colorectalCancerRisk/rat-commons"));
     gulp.src(parentDir+"/rat-commons/**/*")
         .pipe(gulp.dest(parentDir+"/"+parentDir+"/breastCancerRisk/rat-commons"));
 
