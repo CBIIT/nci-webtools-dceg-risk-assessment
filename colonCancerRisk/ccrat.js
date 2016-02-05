@@ -1,3 +1,23 @@
+$(function(){
+    var titles = {
+        "risk-calculator": "Risk Calculator",
+        "about": "About",
+        "risk-factors": "Colorectal Cancer Risk Factors",
+        "source-code": "Access Source Code"
+    };
+
+    $('.goTo').on('click', function() {
+        $("html, body").animate({
+            scrollTop: $(this.name).offset().top - $("header")[0].clientHeight
+        }, 1000);
+    });
+
+    $('#content').on('click','[tabTo]',function(e) {
+        document.title  =  "Colorectal Cancer Risk Assessment Tool (CCRAT) | " +
+            titles[$(this).attr('tabTo')];
+    });
+});
+
 $(".notice-show").each(function (i, el) {
     $(this).on("click", showNotice);
 });

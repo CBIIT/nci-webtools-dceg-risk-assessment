@@ -1,9 +1,18 @@
 section form
         > ol
             list-style decimal
-            > li ol
+            > li
+                height 440px
+                ol
                     list-style none
                     padding 0
+                    > li
+                        background none
+                        width inherit
+                        border none
+                        margin 0
+                        padding 0
+                        height inherit
                 .question
                     > *
                         padding 6px 0
@@ -52,6 +61,9 @@ section form
         color #BB0E3D
         :hover
             text-decoration none
+
+ul.red-arrow li
+    list-style-image url("images/red-arrow.gif")
 
 .content-details
     border-radius 10px

@@ -30,7 +30,7 @@ requirejs.config({
             deps: ["globalGlossary"],
         },
         validation: {
-            deps: ["jquery.validate.methods"],
+            deps: ["jquery.validate.methods", "ratScript"],
         },
         ccrat:{
             deps: ["validation"]
@@ -39,6 +39,6 @@ requirejs.config({
 });
 
 // load scripts for additional tools by defining in paths and adding to array
-require(['ccrat', 'definitions', 'ratScript'], function() {
+require(['ccrat', 'definitions'], function() {
 
 });
