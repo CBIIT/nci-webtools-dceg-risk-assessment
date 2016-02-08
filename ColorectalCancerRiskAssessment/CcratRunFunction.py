@@ -57,7 +57,10 @@ def AbsRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
     bmiTrend,
     #hormoneUsage:     [0] No hormones used in the last 2 years
     #                  [1] Hormones used
-    hormoneUsage
+    hormoneUsage,
+    #bmi*hormoneUsage  [1] BMI >= 30 and hormones used
+    #                  [0] All other conditions
+    bmiTrend*(1-hormoneUsage)
   ];
   #rectal_covariates   = sum([math.exp(x*y) for x,y in zip(covariate_breakdown,genderCovariates["rectal"  ])])*genderAttributeRisks["rectal"  ]
   rectal_covariates   = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["rectal"  ])]))*genderAttributeRisks["rectal"  ]
@@ -66,23 +69,21 @@ def AbsRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
   #distal_covariates   = sum([math.exp(x*y) for x,y in zip(covariate_breakdown,genderCovariates["distal"  ])])
   distal_covariates   = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["distal"  ])]))
   #relational risk factors become less relavent for distal cancer as the age goes up
-  if gender == "Female" and age >= 65:
-    distal_covariates *= genderAttributeRisks["distalOver65"]
-  else:
-    distal_covariates *= genderAttributeRisks["distal"      ]
   absRisk = 0
   survivalRate = 1
   for currentAge in range(startAge,upperBoundAge):
     ageInterval = int(math.floor((currentAge-50)/5))
     yearlyHazards = rectal_covariates  *genderRaceRisk["rectal"]  [ageInterval] + \
-                    proximal_covariates*genderRaceRisk["proximal"][ageInterval] + \
-                    distal_covariates  *genderRaceRisk["distal"]  [ageInterval]
+                    proximal_covariates*genderRaceRisk["proximal"][ageInterval]
+    if gender == "Female" and currentAge >= 65:
+      yearlyHazards += distal_covariates *genderRaceRisk["distal"]  [ageInterval]*genderAttributeRisks["distalOver65"]
+    else:
+      yearlyHazards += distal_covariates *genderRaceRisk["distal"]  [ageInterval]*genderAttributeRisks["distal"      ]
     #yearlySurvival = math.exp(-yearlyHazards-genderRaceHazards[ageInterval])
     yearlyDeathRatio = yearlyHazards+genderRaceHazards[ageInterval]
     yearlyDeathRate = math.exp(-yearlyDeathRatio)
     #absRisk += yearlyHazards/(yearlyHazards+genderRaceHazards[ageInterval])*(1-yearlySurvival)*survivalRate
     absRisk += yearlyHazards/yearlyDeathRatio*survivalRate*(1-yearlyDeathRate)
     survivalRate *= yearlyDeathRate
-
   return absRisk
 
