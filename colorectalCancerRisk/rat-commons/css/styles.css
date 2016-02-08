@@ -6,6 +6,10 @@
 [role="tooltip"] {
   position: fixed;
 }
+button,
+a {
+  cursor: pointer;
+}
 body {
   font-family: sans-serif, Helvetica, Calibri, Arial Rounded MT Bold;
   font-size: 10pt;
@@ -29,7 +33,7 @@ header #nci-banner {
 header #nci-banner img {
   display: block;
   max-height: 90px;
-  max-width: 500px;
+  max-width: 520px;
   min-height: 52px;
   min-width: 30px;
 }
@@ -40,6 +44,11 @@ header #toolTitle {
 }
 header #toolTitle #toolDescription {
   font-style: italic;
+}
+ul.nav,
+#toolDescription,
+.section-title {
+  font-size: 11pt;
 }
 a {
   color: inherit;
