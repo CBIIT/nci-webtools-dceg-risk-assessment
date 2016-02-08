@@ -110,9 +110,6 @@ section form > ol > li select.error {
 .question a.termToDefine:hover {
   border-bottom: none;
 }
-ul.red-arrow li {
-  list-style-image: url("images/red-arrow.gif");
-}
 .content-details {
   -webkit-border-radius: 10px;
   border-radius: 10px;

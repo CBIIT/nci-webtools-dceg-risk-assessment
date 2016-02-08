@@ -45,8 +45,16 @@ a
 
 dl
     padding 0 60px
+    overflow auto
     dt
         font-weight bold
+    dd
+        &:nth-child(odd)
+            img
+                float right
+        &:nth-child(even)
+            img
+                float left
 
 footer
     color black
@@ -128,9 +136,9 @@ ul.nav
             left 0
             position absolute
             top 100%
-        // by using :not we don't have to worry about what the original display value of the element is
-        &:not(:hover) > ul
-            display none
+            // by using :not we don't have to worry about what the original display value of the element is
+            &:not(.show)
+                display none
         &#quick-link ul
             background #f7f8f3
             a
@@ -209,12 +217,6 @@ section
             margin 0 auto
             background inherit
             text-align center
-            .stock-images
-                margin 10px
-                border 2px solid #D2CACA
-                border-radius 5px
-                width 180px
-                height 130px
             .expand
                 padding 0
                 width 100%
@@ -223,7 +225,12 @@ section
                 width 30%
                 margin 5px 0
                 vertical-align top
-
+.stock-images
+    margin 10px
+    border 2px solid #D2CACA
+    border-radius 5px
+    width 180px
+    height 130px
 
 .section-content
     padding 0 1%
@@ -367,3 +374,6 @@ section
 
 .hidden-anchor
     display none
+
+ul.red-arrow li
+    list-style-image url("../../images/red-arrow.gif")

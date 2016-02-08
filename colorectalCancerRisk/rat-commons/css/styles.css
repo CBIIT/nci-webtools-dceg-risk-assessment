@@ -55,9 +55,16 @@ a {
 }
 dl {
   padding: 0 60px;
+  overflow: auto;
 }
 dl dt {
   font-weight: bold;
+}
+dl dd:nth-child(odd) img {
+  float: right;
+}
+dl dd:nth-child(even) img {
+  float: left;
 }
 footer {
   color: #000;
@@ -151,7 +158,7 @@ ul.nav li ul {
   position: absolute;
   top: 100%;
 }
-ul.nav li:not(:hover) > ul {
+ul.nav li ul:not(.show) {
   display: none;
 }
 ul.nav li#quick-link ul {
@@ -252,14 +259,6 @@ section form .question-illustrations {
   background: inherit;
   text-align: center;
 }
-section form .question-illustrations .stock-images {
-  margin: 10px;
-  border: 2px solid #d2caca;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  width: 180px;
-  height: 130px;
-}
 section form .question-illustrations .expand {
   padding: 0;
   width: 100%;
@@ -270,6 +269,14 @@ section form .question-illustrations img {
   width: 30%;
   margin: 5px 0;
   vertical-align: top;
+}
+.stock-images {
+  margin: 10px;
+  border: 2px solid #d2caca;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  width: 180px;
+  height: 130px;
 }
 .section-content {
   padding: 0 1%;
@@ -434,6 +441,9 @@ section form .question-illustrations img {
 }
 .hidden-anchor {
   display: none;
+}
+ul.red-arrow li {
+  list-style-image: url("../../images/red-arrow.gif");
 }
 
 @media (max-width: 1300px) {
