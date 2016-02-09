@@ -24,7 +24,7 @@ app.directive('arcFileChange', ['$rootScope', function($rootScope) {
         fileInputElem.addEventListener('change', function(e) {
             var file = e.target.files[0];
             var id = e.target.id;
-
+            
             $rootScope.$broadcast('fileAdded', {id: id, file: file });
             $scope.$apply();
         });
@@ -37,6 +37,30 @@ app.directive('arcFileChange', ['$rootScope', function($rootScope) {
       link: link
     };
 }]);
+
+app.directive('arcSessionUpload', ['$rootScope', function($rootScope) {
+    function link($scope, elem, attributes) {
+        var fileInputElem = elem[0];
+
+        fileInputElem.addEventListener('change', function(e) {
+            var file = e.target.files[0];
+            var id = e.target.id;
+            
+            console.log("Uploaded session: " + file);
+
+            $rootScope.$broadcast('sessionFileAdded', {id: id, file: file });
+            $scope.$apply();
+        });
+    }
+
+    return {
+      restrict: 'AE',
+      replace: 'true',
+      scope: {},
+      link: link
+    };
+}]);
+
 
 /* Tabs controller */
 app.controller('ArcTabs', [function() {
@@ -469,6 +493,10 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService', 'DataRetrieval',
             console.log('prepping calcs and running');
             self.runCalculations();
         });
+        
+        $rootScope.$on('sessionFileAdded', function(e, data) {
+            console.log('called rootscope method');
+        });
     };
 
     self.calculateData = function() {
@@ -542,6 +570,10 @@ app.controller('ArcAccordion', ['BuildSection', 'CacheService', 'DataRetrieval',
     }
     
     self.loadSessionRData = function() {
+        
+    }
+    
+    self.selectSessionFile = function() {
         
     }
     
