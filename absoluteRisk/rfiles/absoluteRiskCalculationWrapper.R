@@ -11,7 +11,7 @@ library(iCare)
 #-------------------------------------------------------
 convertJSONtoRData <- function(jsonData, pathToRDataFile) {
   rData = fromJSON(jsonData)
-  save(rData, pathToRDataFile)
+  save(rData, file = pathToRDataFile)
   return (pathToRDataFile)
 }
 
@@ -28,308 +28,120 @@ uploadRData <- function(fileName) {
 }
 
 #-------------------------------------------------------
-# createFormula
+# verifyFile
 # 
-# Function: Creates a formula string based on the model information
-# Inputs:   (1) The model information as JSON
-#           (2) Path to the list of variables RData file
-# Outputs:  (1) The formula based on the model information
-#-------------------------------------------------------
-createFormula <- function(model_info_JSON, list_of_variables_RData) {
-  
-  # model_info = get(load(model_info_RData))
-  
-  model_info = fromJSON(model_info_JSON)
-  list_of_variables = get(load(list_of_variables_RData))
-  
-  # initialize
-  form = "Y ~ "
-  inter = " "
-  # add linear terms, collect interactions
-  for(i in 1:length(model_info)){
-    
-    # if linear term
-    if(model_info[[i]]$linear){
-      if(i != 1){
-        form = paste(form, " + ", sep = "")
-      }
-      if(list_of_variables[[i]]$type == "factor"){
-        form = paste(form, "as.factor(", model_info[[i]]$name, ")", sep = "")
-        if(!is.null(model_info[[i]]$interaction)){
-          for(j in 1:length(model_info[[i]]$interaction)){
-            inter = paste(inter, "+ as.factor(", model_info[[i]]$name, ")*", sep = "")
-            inter = paste(inter, form_type(model_info[[i]]$interaction[j], model_info, list_of_variables), sep = "")
-          }
-        }
-      }else{
-        form = paste(form, model_info[[i]]$name , sep = "")
-        if(!is.null(model_info[[i]]$interaction)){
-          for(j in 1:length(model_info[[i]]$interaction)){
-            inter = paste(inter, "+ ", model_info[[i]]$name, "*", sep = "")
-            inter = paste(inter, form_type(model_info[[i]]$interaction[j], model_info, list_of_variables), sep = "")
-          }
-        }
-      }
-    }
-  }
-  # add interaction terms
-  form = paste(form, inter, sep = "")
-  
-  return (form)
-}
-
-form_type <- function(var_name, model_info, list_of_variables){
-  
-  for(j in 1:length(list_of_variables)){
-    if(var_name == list_of_variables[[j]]$name){
-      i = j; break
-    }
-  }
-  if(list_of_variables[[i]]$type == "factor"){
-    res = paste("as.factor(", model_info[[i]]$name, ")", sep = "")
-  }else{
-    res = model_info[[i]]$name
-  }
-  res
-}
-
-#-------------------------------------------------------
-# createFormulaFile
-# 
-# Function: Creates a formula RData file based on the model information
-# Inputs:   (1) Path to the formula file
-#           (2) Model information as JSON
-#           (3) Path to the list of variables RData file
-#-------------------------------------------------------
-
-createFormulaFile <- function(filePath, modelInfoJSON, listOfVariablesRData) {
-  formula = createFormula(modelInfoJSON, listOfVariablesRData)
-  save(formula, file = filePath)
-}
-
-#-------------------------------------------------------
-# processFormulaFile
+# Function: Validates an input file
+# Inputs:   (1) A JSON object with the following fields: 
+#              (1)  id         - The id of the file being validated
+#              (2)  filePaths  - A list containing the paths to the input files
+#                 (1)  listOfVariables
+#                 (2)  modelFormula
+#                 (3)  riskFactorDistribution
+#                 (4)  logOddsRatios
+#                 (5)  diseaseIncidenceRates
+#                 (6)  mortalityIncidenceRates
+#                 (7)  snpInformation
+#                 (8)  riskFactorPrediction
+#                 (9)  genotypesForPrediction
+#                 (10) ageInterval
 #
-# Function: Generates JSON from a given formula
-# Inputs: (1) Path to the RData formula (eg: 'model_predictor.RData')
-#         (2) Path to the variables list file (eg: 'list_of_variables.RData')
-# Outputs: Returns the formula as JSON
-#--------------------------------------------------------
+# Outputs:  (1) File validation error messages
+#-------------------------------------------------------
+verifyFile <- function(param) {
+  
+  param = fromJSON(param)
+  filePaths = param$filePaths
+  errors = list()
+  data = list()
 
-processFormulaFile <- function(formulaFilePath, variablesFilePath) {
-  return (toJSON(process_formula_terms(formulaFilePath, variablesFilePath)))
-}
-
-process_formula_terms <- function(formulaFilePath, variablesFilePath) {
-  
-  vars = get(load(variablesFilePath))
-  form = get(load(formulaFilePath))
-  split = strsplit(gsub(" ", "", substring(form, 4, nchar(form))), "[+]") # split formula string on + signs
-  formulaTerms = list()
-  interactionTerms = list()
-  formulaData = list()
-  
-  # assign default values
-  for (i in 1:length(vars)) {
-    formulaData[[i]] = list(name = vars[[i]]$name, linear = FALSE, interaction = NULL)
-  }
-  
-  # get linear/interaction terms
-  for (i in 1:length(split[[1]])) {
-    term = split[[1]][i]
-    
-    # if not interaction term
-    if (length(grep("[*]", term)) == 0) {
-      formulaTerms[length(formulaTerms) + 1] = removeFactor(term)
-    }
-    
-    else {
-      interactionTerms[length(interactionTerms) + 1] = term
+  for (key in names(filePaths)) {
+    if (filePaths[[key]] != "") {
+      data[[key]] = switch(key,
+        listOfVariables          = get(load(filePaths$listOfVariables)),
+        modelFormula             = as.formula(get(load(filePaths$modelFormula))),
+        riskFactorDistribution   = read.csv(filePaths$riskFactorDistribution, stringsAsFactors = F),
+        logOddsRatios            = read.csv(filePaths$logOddsRatios, stringsAsFactors = F),
+        diseaseIncidenceRates    = read.csv(filePaths$diseaseIncidenceRates),
+        mortalityIncidenceRates  = read.csv(filePaths$mortalityIncidenceRates),
+        snpInformation           = read.csv(filePaths$snpInformation, stringsAsFactors = F),
+        riskFactorForPrediction  = read.csv(filePaths$riskFactorForPrediction, stringsAsFactors = F),
+        genotypesForPrediction   = read.csv(filePaths$genotypesForPrediction),
+        ageInterval              = read.csv(filePaths$ageInterval)
+      )
     }
   }
   
-  # check for linear state
-  for (i in 1:length(vars)) {
-    for (j in 1:length(formulaTerms)) {
-      # a formula term is linear if it is found within the list of variables
-      if (vars[[i]]$name == formulaTerms[j]) {
-        formulaData[[i]]$linear = TRUE
+  tryCatch(
+    switch(param$id,
+           
+      listOfVariables = {
+        check_triple_check(data$listOfVariables)
+      },
+      
+      modelFormula = {
+        get_beta_given_names(data$listOfVariables, data$modelFormula)
+      }, 
+      
+      riskFactorDistribution = {
+        names = sapply(data$listOfVariables, function(x) x$name)
+        if (sum(colnames(data$riskFactorDistribution) == names) != length(names))
+          stop("ERROR: Column names must match names and order in list of variables")      
+      },
+      
+      logOddsRatios = {
+        rows = get_beta_given_names(data$listOfVariables, data$modelFormula)
+  
+        if (ncol(data$logOddsRatios) != 2)
+          stop("ERROR: The uploaded log odds ratios file must have two columns")
+        
+        if (sum(data$logOddsRatios[[1]] == rows) != length(rows))
+          stop("ERROR: Row names must match names and order in design matrix.")
+      },
+      
+      diseaseIncidenceRates = {
+        check_disease_rates(filePaths$diseaseIncidenceRates)
+      },
+      
+      mortalityIncidenceRates = {
+        lambda = na.omit(check_disease_rates(filePaths$diseaseIncidenceRates))
+        check_competing_rates(filePaths$mortalityIncidenceRates, lambda)
+      },
+      
+      snpInformation = {
+        check_SNP_info(data$snpInformation)
+      },
+      
+      riskFactorForPrediction = {
+#        check_triple_check(data$riskFactorPrediction)
+      },
+      
+      genotypesForPrediction = {
+        # Verify column names are equal to snp row names
+      },
+      
+      ageInterval = {
+        ageStart                  = data$ageInterval[[1]]
+        interval                  = data$ageInterval[[2]]
+        riskFactorForPrediction   = data$riskFactorForPrediction
+        snpInformation            = data$snpInformation
+        diseaseIncidenceRates     = na.omit(check_disease_rates(filePaths$diseaseIncidenceRates))
+        competingIncidenceRates   = check_competing_rates(filePaths$competingIncidenceRates, diseaseIncidenceRates)
+
+        if (filePaths$riskFactorForPrediction != "")
+          snpInformation = NULL
+        
+        validations = check_age_inputs (ageStart, interval, riskFactorForPrediction, 
+                          snpInformation, diseaseIncidenceRates, competingIncidenceRates)
+        
+        
+        
+        print(param$id)
+        print(validations)
       }
-    }
-  }
-  
-  # add interaction terms
-  for(i in 1:length(interactionTerms)) {
-    term = strsplit(interactionTerms[[i]][1], "[*]")[[1]]
-    
-    indexTerm = removeFactor(term[1])
-    interaction = removeFactor(term[2])
-    
-    for(j in 1:length(formulaData)) {
-      if (indexTerm == formulaData[[j]]$name) {
-        #append interaction to list
-        formulaData[[j]]$interaction[length(formulaData[[j]]$interaction) + 1] = interaction
-      }
-    }
-  }
-  
-  return (formulaData)
-}
+    ), error = function(e) { print (e);  errors <<- e$message }
+  )
 
-removeFactor <- function(term) {
-  if (length(grep("[()]", term)) != 0)
-    term = strsplit(term, "[()]")[[1]][2]
-  
-  return (term)
-}
-
-#-------------------------------------------------------
-# getLogOddsNames
-# 
-# Function: Generates the names of log odds ratios
-# Inputs:   (1) RData - Path to the list of variables
-#           (2) RData - Path to the model predictor
-# Outputs:  (1) The list of names as JSON
-#-------------------------------------------------------
-getLogOddsNames <- function(listOfVariables, modelPredictor) {
-  names = verifyModelFormula(listOfVariables, modelPredictor)
-  
-  return (toJSON(names))
-}
-
-#-------------------------------------------------------
-# verifyModelFormula
-# 
-# Function: Verifies the list of variables and model formula
-# Inputs:   (1) RData - Path to the list of variables
-#           (2) RData - Path to the Model Predictor
-# Outputs:  (1) Any error messages from validation
-#-------------------------------------------------------
-verifyModelFormula <- function(listOfVariables, modelPredictor) {
-  variables = get(load(listOfVariables))
-  predictor = as.formula(get(load(modelPredictor)))
-  
-  names = get_beta_given_names(variables, predictor)
-  
-  return (names)
-}
-
-#-------------------------------------------------------
-# verifyRiskFactorDistribution
-# 
-# Function: Verifies the risk factor distribution
-# Inputs:   (1) CSV - Path to the risk factor distribution file
-#           (2) RData - Path to the list of variables
-# Outputs:  (1) Any error messages from validation
-#-------------------------------------------------------
-verifyRiskFactorDistribution <- function(riskFactorDistribution, listOfVariables) {
-  data = read.csv(riskFactorDistribution, stringsAsFactors = FALSE)
-  variables = get(load(listOfVariables))
-  
-  names = sapply(variables, function(x) x$name)
-  
-  if (sum(colnames(data) == names) != length(names)) {
-    stop("ERROR: Column names must match names and order in list of variables")
-  }
-}
-
-#-------------------------------------------------------
-# verifyLogOddsRatios
-# 
-# Function: Verifies the log odds ratios
-# Inputs:   (1) CSV - Path to log odds ratios file
-#           (2) RData - Path to the List of variables
-#           (3) RData - Path to the Model Predictor
-# Outputs:  (1) Any error messages from validation
-#-------------------------------------------------------
-verifyLogOddsRatios <- function(logOddsRatios, listOfVariables, modelPredictor) {
-  rows = verifyModelFormula(listOfVariables, modelPredictor)
-  data = read.csv(logOddsRatios)
-  
-  if (ncol(data) != 2) {
-    stop("ERROR: The uploaded log odds ratios file must have two columns")
-  }
-  
-  if (sum(data[[1]] == rows) != length(rows)) {
-    stop("ERROR: Row names must match names and order in design matrix.")
-  }
-}
-
-#-------------------------------------------------------
-# verifyDiseaseRates
-# 
-# Function: Processes the population disease incidence rates file
-# Inputs:   (1) The file name
-# Outputs:  (1) The information in this file as a data frame
-#-------------------------------------------------------
-verifyDiseaseRates <- function(diseaseRatesCSV) {
-  return (na.omit(check_disease_rates(diseaseRatesCSV)))
-}
-
-#-------------------------------------------------------
-# verifyCompetingRates
-# 
-# Function: Processes the competing mortality incidence rates file
-# Inputs:   (1) The file name
-# Outputs:  (1) The information in this file as a data frame
-#-------------------------------------------------------
-verifyCompetingRates <- function(competingRatesCSV, diseaseRatesCSV) {
-  lambda = verifyDiseaseRates(diseaseRatesCSV)
-  return (check_competing_rates(competingRatesCSV, lambda))
-}
-
-#-------------------------------------------------------
-# verifySNPInfo
-# 
-# Function: Verifies the SNP info
-# Inputs:   (1) CSV - Path to the SNP information
-# Outputs:  (1) Any error messages from validation
-#-------------------------------------------------------
-verifySNPInfo <- function(snpInfoCSV) {
-  snpInfo = read.csv(snpInfoCSV)
-  check_SNP_info(snpInfo)
-}
-
-#-------------------------------------------------------
-# verifyRiskFactorForPrediction
-# 
-# Function: Verifies the risk factor for prediction
-# Inputs:   (1) CSV - Path to the risk factor for prediction
-# Outputs:  (1) Any error messages from validation
-#-------------------------------------------------------
-verifyRiskFactorForPrediction <- function(riskFactorForPredictionCSV) {
-  model.cov.info = read.csv(riskFactorForPredictionCSV, stringsAsFactors = FALSE)
-  check_triple_check(model.cov.info)
-}
-
-#-------------------------------------------------------
-# verifyAgeInterval
-# 
-# Function: Verifies the age/interval file
-# Inputs:   (1) CSV - Path to the age/interval file
-#           (2) CSV - Path to the risk factor for prediction file
-#           (3) CSV - Path to the snp information file
-#           (4) CSV - Path to the disease incidence rates file
-#           (5) CSV - Path to the competing incidence rates file
-# Outputs:  (1) Any error messages from validation
-#-------------------------------------------------------
-verifyAgeInterval <- function(ageIntervalCSV, 
-                              riskFactorForPredictionCSV = NULL, 
-                              snpInformationCSV = NULL, 
-                              diseaseIncidenceRatesCSV = NULL, 
-                              competingIncidenceRatesCSV = NULL) {
-  
-  ageInterval               = read.csv(ageIntervalCSV)
-  ageStart                  = ageInterval[[1]]
-  ageIntervalLength         = ageInterval[[2]]
-  
-  riskFactorForPrediction   = read.csv(riskFactorForPredictionCSV)
-  snpInformation            = read.csv(snpInformationCSV)
-  diseaseIncidenceRates     = read.csv(diseaseIncidenceRatesCSV)
-  competingIncidenceRates   = verifyCompetingRates(competingIncidenceRatesCSV, diseaseIncidenceRates)
-  
-  check_age_inputs (ageStart, ageIntervalLength, riskFactorForPrediction, 
-                    snpInformation, diseaseIncidenceRates, competingIncidenceRates)
+  return (toJSON(errors))
 }
 
 #-------------------------------------------------------
@@ -337,17 +149,18 @@ verifyAgeInterval <- function(ageIntervalCSV,
 #
 # Function: Computes the absolute risk for this model
 # Inputs:   (1)  String   - Path prefix for the output files
-#           (2)  RData    - Path to the list of variables
-#           (3)  RData    - Path to the model formula
-#           (4)  CSV      - Path to the risk factor distribution
-#           (5)  CSV      - Path to the log odds ratios
-#           (6)  CSV      - Path to the disease incidence rates
-#           (7)  CSV      - Path to the mortality incidence rates
-#           (8)  CSV      - Path to the SNP information
-#           (9)  String   - The family history variable name
-#           (10) CSV      - Path to the risk factor for prediction
-#           (11) CSV      - Path to the genotypes for prediction
-#           (12) CSV      - Path to the age/intervals
+#           (2)  String   - JSON string containing filepaths/parameters
+#              (1)  RData    - Path to the list of variables
+#              (2)  RData    - Path to the model formula
+#              (3)  CSV      - Path to the risk factor distribution
+#              (4)  CSV      - Path to the log odds ratios
+#              (5)  CSV      - Path to the disease incidence rates
+#              (6)  CSV      - Path to the mortality incidence rates
+#              (7)  CSV      - Path to the SNP information
+#              (8)  String   - The family history variable name
+#              (9)  CSV      - Path to the risk factor for prediction
+#              (10) CSV      - Path to the genotypes for prediction
+#              (11) CSV      - Path to the age/intervals
 # 
 # Required inputs are: (1)  Path to the output files
 #                      (4)  The model disease incidence rates 
@@ -369,33 +182,31 @@ verifyAgeInterval <- function(ageIntervalCSV,
 #           (3) Path to the results reference file
 # 
 #-------------------------------------------------------
-finalCalculation <- function(filePath = NULL, listOfVariablesRData = NULL, modelFormulaRData = NULL,
-                             riskFactorDistributionCSV = NULL, logOddsRatiosCSV = NULL,
-                             diseaseIncidenceRatesCSV, mortalityIncidenceRatesCSV = NULL,
-                             snpInformationCSV = NULL, familyHistory = NULL,
-                             riskFactorForPredictionCSV = NULL, genotypesForPredictionCSV = NULL,
-                             ageIntervalCSV) {
+finalCalculation <- function(filePath, parameters) {
+
+  imagePath             = paste0(filePath, 'rplot.jpg')
+  resultsPath           = paste0(filePath, 'results.csv')
+  resultsReferencePath  = paste0(filePath, 'results_reference.csv')
   
-  imagePath = paste(filePath, 'rplot.jpg', sep = '_')
-  resultsPath = paste(filePath, 'results.csv', sep = '_')
-  resultsReferencePath = paste(filePath, 'results_reference.csv', sep = '_')
+  param = fromJSON(parameters)
   
-  listOfVariables           = get(load(listOfVariablesRData))
-  modelFormula              = as.formula(get(load(modelFormulaRData)))
+  listOfVariables           = get(load(param$listOfVariables))
+  modelFormula              = as.formula(get(load(param$modelFormula)))
   
-  riskFactorDistribution    = read.csv(riskFactorDistributionCSV, stringsAsFactors = FALSE)
-  logOddsRatios             = as.matrix(read.csv(logOddsRatiosCSV, row.names = 1))
-  diseaseIncidenceRates     = verifyDiseaseRates(diseaseIncidenceRatesCSV)
-  mortalityIncidenceRates   = verifyCompetingRates(mortalityIncidenceRatesCSV, diseaseIncidenceRatesCSV)
-  snpInformation            = read.csv(snpInformationCSV)
+  riskFactorDistribution    = read.csv(param$riskFactorDistribution, stringsAsFactors = FALSE)
+  logOddsRatios             = as.matrix(read.csv(param$logOddsRatios, row.names = 1))
+  diseaseIncidenceRates     = na.omit(check_disease_rates(param$diseaseIncidenceRates))
+  mortalityIncidenceRates   = check_competing_rates(param$mortalityIncidenceRates, diseaseIncidenceRates)
+  snpInformation            = read.csv(param$snpInformation)
+  familyHistory             = param$familyHistory
   
-  riskFactorPrediction      = read.csv(riskFactorForPredictionCSV)
-  genotypesForPrediction    = read.csv(genotypesForPredictionCSV)
+  riskFactorPrediction      = read.csv(param$riskFactorForPrediction)
+  genotypesForPrediction    = read.csv(param$genotypesForPrediction)
   
-  ageInterval               = read.csv(ageIntervalCSV)
+  ageInterval               = read.csv(param$ageInterval)
   ageStart                  = ageInterval[[1]]
-  ageIntervalLength         = ageInterval[[2]]
-  
+  interval                  = ageInterval[[2]]
+
   results = compute.absolute.risk(model.formula = modelFormula, 
                                   model.cov.info = listOfVariables, 
                                   model.ref.dataset = riskFactorDistribution,
@@ -408,7 +219,7 @@ finalCalculation <- function(filePath = NULL, listOfVariablesRData = NULL, model
                                   apply.cov.profile = riskFactorPrediction,
                                   apply.snp.profile = genotypesForPrediction,
                                   apply.age.start = ageStart,
-                                  apply.age.interval.length = ageIntervalLength,
+                                  apply.age.interval.length = interval,
                                   use.c.code = 1, return.lp = FALSE, return.refs.risk = TRUE)
   
   if (length(results$risk) <= 12) {
@@ -439,9 +250,9 @@ finalCalculation <- function(filePath = NULL, listOfVariablesRData = NULL, model
   
   write.csv(res, file = resultsPath)
   write.csv(ref, file = resultsReferencePath)
-  
-  results = c(imagePath, resultsPath, resultsReferencePath)
-  return (results)
+
+  results = list(imagePath = imagePath, resultsPath = resultsPath, resultsReferencePath = resultsReferencePath)
+  return (toJSON(results))
 }
 
 
@@ -449,36 +260,37 @@ finalCalculation <- function(filePath = NULL, listOfVariablesRData = NULL, model
 # saveSession
 #
 # Function: Creates a session file from the given RData
-# Inputs:   (1)  String   - Path to the sesion file
-#           (2)  RData    - Path to the list of variables
-#           (3)  RData    - Path to the model formula
-#           (4)  CSV      - Path to the risk factor distribution
-#           (5)  CSV      - Path to the log odds ratios
-#           (6)  CSV      - Path to the disease incidence rates
-#           (7)  CSV      - Path to the mortality incidence rates
-#           (8)  CSV      - Path to the SNP information
-#           (9)  String   - The family history variable name
+# Inputs:   (1)  String        - Path to output file
+#           (2)  Session       - JSON string containing 
+#              (1)  RData    - Path to the list of variables
+#              (2)  RData    - Path to the model formula
+#              (3)  CSV      - Path to the risk factor distribution
+#              (4)  CSV      - Path to the log odds ratios
+#              (5)  CSV      - Path to the disease incidence rates
+#              (6)  CSV      - Path to the mortality incidence rates
+#              (7)  CSV      - Path to the SNP information
+#              (8)  String   - The family history variable name
 # 
 #-------------------------------------------------------
 
-saveSession <- function(filePath = NULL, listOfVariablesRData = NULL, modelFormulaRData = NULL,
-                        riskFactorDistributionCSV = NULL, logOddsRatiosCSV = NULL,
-                        diseaseIncidenceRatesCSV, mortalityIncidenceRatesCSV = NULL,
-                        snpInformationCSV = NULL, familyHistory = NULL) {
+saveSession <- function(filePath, sessionData) {
+
+  print(sessionData)
+  sessionData = fromJSON(sessionData)
+  print(sessionData)
+  session = list()
+
+  session $listOfVariables           = get(load(sessionData $listOfVariables))
+  session $modelFormula              = as.formula(get(load(sessionData $modelFormula)))
   
-  model = list()
+  session $riskFactorDistribution    = read.csv(sessionData $riskFactorDistribution, stringsAsFactors = FALSE)
+  session $logOddsRatios   = as.matrix(read.csv(sessionData $logOddsRatios, row.names = 1))
+  session $diseaseIncidenceRates     = read.csv(sessionData $diseaseIncidenceRates)
+  session $mortalityIncidenceRates   = read.csv(sessionData $mortalityIncidenceRates)
+  session $snpInformation            = read.csv(sessionData $snpInformation)
+  session $familyHistory             = sessionData $familyHistory
   
-  model$listOfVariables           = get(load(listOfVariablesRData))
-  model$modelFormula              = get(load(modelFormulaRData))
-  
-  model$riskFactorDistribution    = read.csv(riskFactorDistributionCSV, stringsAsFactors = FALSE)
-  model$logOddsRatios             = as.matrix(read.csv(logOddsRatiosCSV, row.names = 1))
-  model$diseaseIncidenceRates     = verifyDiseaseRates(diseaseIncidenceRatesCSV)
-  model$mortalityIncidenceRates   = verifyCompetingRates(mortalityIncidenceRatesCSV, diseaseIncidenceRates)
-  model$snpInformation            = read.csv(snpInformationCSV)
-  model$familyHistory             = familyHistory  
-  
-  save(model, file = filePath)
+  save(session, file = filePath)
 }
 
 #-------------------------------------------------------
@@ -487,7 +299,7 @@ saveSession <- function(filePath = NULL, listOfVariablesRData = NULL, modelFormu
 # Function: Creates RData and CSV files from a saved session file
 # Inputs:   (1)  The path to the output files
 #           (2)  The path to the saved session file
-# Outputs:  A vector consisting of: 
+# Outputs:  A JSON object consisting of: 
 #           (1)  RData    - Path to the list of variables
 #           (2)  RData    - Path to the model formula
 #           (3)  CSV      - Path to the risk factor distribution
@@ -501,40 +313,41 @@ saveSession <- function(filePath = NULL, listOfVariablesRData = NULL, modelFormu
 
 loadSession <- function(filePath, sessionFile) {
   
+  restore = list()
   model = get(load(sessionFile))
   
-  listOfVariables             = model$listOfVariables
-  modelFormula                = model$modelFormula
+  listOfVariables             = model $listOfVariables
+  modelFormula                = model $modelFormula
   
-  riskFactorDistribution      = model$riskFactorDistribution
-  logOddsRatios               = model$logOddsRatios
-  diseaseIncidenceRates       = model$diseaseIncidenceRates
-  mortalityIncidenceRates     = model$mortalityIncidenceRates
-  snpInformation              = model$snpInformation
-  familyHistory               = model$familyHistory
+  riskFactorDistribution      = model $riskFactorDistribution
+  logOddsRatios               = model $logOddsRatios
+  diseaseIncidenceRates       = model $diseaseIncidenceRates
+  mortalityIncidenceRates     = model $mortalityIncidenceRates
+  snpInformation              = model $snpInformation
+  familyHistory               = model $familyHistory
   
-  listOfVariablesPath         = paste(filePath, "list_of_variables.rdata", sep = "_")
-  modelFormulaPath            = paste(filePath, "model_predictor.rdata", sep = "_")
-  riskFactorDistributionPath  = paste(filePath, "risk_factor_distribution.csv", sep = "_")
-  logOddsRatiosPath           = paste(filePath, "log_odds_ratios.csv", sep = "_")
-  diseaseIncidenceRatesPath   = paste(filePath, "disease_incidence_rates.csv", sep = "_")
-  mortalityIncidenceRatesPath = paste(filePath, "mortality_incidence_rates.csv", sep = "_")
-  snpInformationPath          = paste(filePath, "snp_information.csv", sep = "_")
+  restore $filePaths $listOfVariables               = paste0(filePath, "listOfVariables.rdata")
+  restore $filePaths $modelFormula                  = paste0(filePath, "modelFormula.rdata")
+  restore $filePaths $riskFactorDistribution        = paste0(filePath, "riskFactorDistribution.csv")
+  restore $filePaths $logOddsRatios                 = paste0(filePath, "logOddsRatios.csv")
+  restore $filePaths $diseaseIncidenceRates         = paste0(filePath, "diseaseIncidenceRates.csv")
+  restore $filePaths $mortalityIncidenceRates       = paste0(filePath, "mortalityIncidenceRates.csv")
+  restore $filePaths $snpInformation                = paste0(filePath, "snpInformation.csv")
+
+  save(listOfVariables,  file = restore $filePaths $listOfVariables)
+  save(modelFormula,     file = restore $filePaths $modelFormula)
   
-  save(listOfVariables, file = listOfVariablesPath)
-  save(modelFormula, file = modelFormulaPath)
+  write.csv(riskFactorDistribution,   row.names=FALSE, file = restore $filePaths $riskFactorDistribution)
+  write.csv(logOddsRatios,            row.names=TRUE,  file = restore $filePaths $logOddsRatios)
+  write.csv(diseaseIncidenceRates,    row.names=FALSE, file = restore $filePaths $diseaseIncidenceRates)
+  write.csv(mortalityIncidenceRates,  row.names=FALSE, file = restore $filePaths $mortalityIncidenceRates)
+  write.csv(snpInformation,           row.names=FALSE, file = restore $filePaths $snpInformation)
   
-  write.csv(riskFactorDistribution, file = riskFactorDistributionPath)
-  write.csv(logOddsRatios, file = logOddsRatiosPath)
-  write.csv(diseaseIncidenceRates, file = diseaseIncidenceRatesPath)
-  write.csv(mortalityIncidenceRates, file = mortalityIncidenceRatesPath)
-  write.csv(snpInformation, file = snpInformationPath)
-  
-  return (c(listOfVariablesPath,
-            modelFormulaPath,
-            logOddsRatiosPath,
-            diseaseIncidenceRatesPath,
-            mortalityIncidenceRatesPath,
-            snpInformationPath,
-            familyHistory))
+  formula = as.character(modelFormula)
+  restore $model $listOfVariables        = listOfVariables
+  restore $model $formulaString          = paste(formula[2], formula[1], formula[3])
+  restore $model $snpRowNames            = snpInformation[[1]]
+  restore $model $familyHistory          = model$familyHistory
+
+  return (toJSON(restore))
 }
