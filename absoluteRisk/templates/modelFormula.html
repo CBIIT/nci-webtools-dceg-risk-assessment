@@ -1,0 +1,25 @@
+<div class="clearfix hidden-sm hidden-xs">
+	<div class="column-header col-md-3">Variable</div>
+	<div class="column-header col-md-2">Linear</div>
+	<div class="column-header col-md-7">Interaction Terms</div>
+</div>
+
+<div class="margin">
+	<div class="row default-border alternate" ng-repeat="eachTerm in fc.getFormulaData()">
+		<!-- Templates file is located at: templates/formulaTerm.html -->
+		<term data="eachTerm" />
+	</div>
+
+	<div class="row">
+		<hr>{{fc.getFormulaString()}}<hr>
+
+		<div class="pull-right">
+			<span class="max-width"><a ng-click="fc.getUploadedFile()">{{fc.getUploadedFileName()}}</a></span>
+			<span ng-show="!fc.getUploadedFileName()">no file selected <a ng-click="fc.getExampleFile()">(example)</a></span>
+			<span class="btn btn-info btn-file">Upload RData
+			<input type="file" id="modelFormula" uploadfile></span>
+			<button type="button" class="btn btn-info" ng-click="fc.downloadFile()">Download RData</button>
+			<button type="button" class="btn btn-primary" ng-click="fc.submitData()">Submit</button>
+		</div>
+	</div>
+</div>

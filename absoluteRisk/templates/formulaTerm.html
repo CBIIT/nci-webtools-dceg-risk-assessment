@@ -1,0 +1,9 @@
+<div class="top-margin col-md-3" ng-bind="term.data.name"></div>
+
+<div class="col-md-2 checkbox-placement">
+<input type="checkbox" ng-model="term.data.linear">
+</div>
+
+<div class="pad col-md-7">
+<input class="control form-control" type="text" ng-model="term.interaction" ng-change="term.setInteractionTerms()" ng-disabled="!term.data.linear">
+</div>

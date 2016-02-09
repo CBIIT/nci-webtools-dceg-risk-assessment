@@ -1,0 +1,35 @@
+<div class="row" >
+	<div class="form-group">
+		<label class="radio-inline">
+			<input type="radio" name="ageInterval_radio" ng-model="section.inputMethod" value="manual" checked> Enter Single Values
+		</label>
+		<label class="radio-inline">
+			<input type="radio" name="ageInterval_radio" ng-model="section.inputMethod" value="upload" > Upload Multiple Values
+		</label>
+	</div>
+
+	<div class="reduce-margin" ng-show="section.inputMethod === 'manual'">
+		<div class="form-group">
+			<span>Age: </span>
+			<select ng-model="section.selectedAge" ng-options="age for age in section.range"></select>
+		</div>
+		<div class="form-group">
+			<span>Age Interval: </span>
+			<select ng-model="section.selectedInterval" ng-options="interval for interval in section.range"></select>
+		</div>
+	</div>
+
+    <div ng-show="section.inputMethod === 'upload'">
+		<a class="pull-right" ng-click="section.viewTemplate()">View Template</a>
+
+		<span class="btn btn-info btn-file">Upload CSV File
+		<input type="file" id="ageInterval" uploadfile></span>
+
+		<span><a ng-click="section.getUploadedFile()">{{section.getUploadedFileName()}}</a></span>
+		<span ng-show="!section.getUploadedFileName()">No file selected <a ng-click="section.getExampleFile()">(example)</a></span>
+        <br>
+        <br>
+	</div>
+    <button type="button" class="btn btn-primary pull-right" ng-click="section.submitData()">Submit</button>
+
+</div>
