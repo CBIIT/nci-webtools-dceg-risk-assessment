@@ -15,7 +15,8 @@ app.config['examples_folder']    = 'tmp/examples'
 app.config['allowed_extensions'] = ['.csv', '.rdata']
 
 with open ('rfiles/absoluteRiskCalculationWrapper.R') as fh:
-    arc = SignatureTranslatedAnonymousPackage(fh.read(), 'wrapper')
+    rcode = os.linesep.join(line.strip() for line in fh)
+    arc = SignatureTranslatedAnonymousPackage(rcode, 'wrapper')
 
 # This route takes a JSON object as an input, saves it to the server as an RData file, and returns the file path as JSON
 @app.route('/absoluteRiskRest/dataUpload', methods=['POST'])
