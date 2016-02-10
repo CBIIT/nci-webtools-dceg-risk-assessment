@@ -8,5 +8,5 @@
     <span ng-show="!sc.getUploadedFileName()">No file selected <a ng-click="sc.getExampleFile()">(example)</a></span>
     <br>
     <br>
-    <button type="button" class="btn btn-primary pull-right" ng-click="sc.submitData()">Submit</button>
+    <button type="button" class="btn btn-primary pull-right" ng-click="sc.submitData()" ng-disabled="!sc.getUploadedFileName()">Submit</button>
 </div>

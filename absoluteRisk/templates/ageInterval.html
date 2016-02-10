@@ -30,6 +30,6 @@
         <br>
         <br>
 	</div>
-    <button type="button" class="btn btn-primary pull-right" ng-click="section.submitData()">Submit</button>
+    <button type="button" class="btn btn-primary pull-right" ng-click="section.submitData()" ng-disabled="section.inputMethod ==='upload' && !section.getUploadedFileName()">Submit</button>
 
 </div>

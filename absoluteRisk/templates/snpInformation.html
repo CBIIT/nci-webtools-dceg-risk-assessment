@@ -1,7 +1,9 @@
 <div class="row">
     <a class="pull-right" ng-click="snp.viewTemplate()">View Template</a>
 
-    <span class="btn btn-info btn-file">Upload CSV File
+    <span class="btn btn-info btn-file">
+    
+        Upload CSV File
     <input type="file" id="snpInformation" uploadfile></span>
 
     <span><a ng-click="snp.getUploadedFile()">{{snp.getUploadedFileName()}}</a></span>
@@ -13,5 +15,5 @@
     <span>Family History Variable Name:</span>
     <select ng-model="snp.familyHistory" ng-options="variable for variable in snp.getVariableNames()" ></select>
 
-    <button type="button" class="btn btn-primary pull-right" ng-click="snp.submitData()">Submit</button>
+    <button type="button" class="btn btn-primary pull-right" ng-click="snp.submitData()" ng-disabled="!snp.getUploadedFileName()">Submit</button>
 </div>
