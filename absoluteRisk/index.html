@@ -13,6 +13,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-rc.2/angular-resource.js"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.1/ui-bootstrap-tpls.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.14.2/select.min.js"></script>
 	<script src="https://cdn.rawgit.com/angular-ui/ui-uploader/master/src/uploader.js"></script>
 
 	<!-- Application JS -->
@@ -35,7 +36,8 @@
 	<script src="assets/js/components/sectionComponent.js"></script>
 
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.14.2/select.min.css">
 
 	<!-- Local CSS -->
 	<link rel="stylesheet" href="assets/css/app.css" />
@@ -54,10 +56,28 @@
 			<!-- Home Tab -->
 			<uib-tab heading="Home" active="tabs.active[0]">
 				<div class="container tab-margin panel-margin">
-					<h4>Absolute Risk Calculator</h4><br>
+					<h4>iCARE (individualized Coherent Absolute Risk Estimators)</h4>
+					<h5>An R package to compute Individualized Coherent Absolute Risk Estimators (iCARE)</h5><br>
 					<a ng-click="tabs.select(1)">ARC for Researchers</a><br>
 					<a ng-click="tabs.select(2)">ARC for Clinicians</a><br>
 					<a ng-click="tabs.select(3)">Help</a>
+					<hr>
+
+					<h5><b>Description</b></h5>
+					<div>
+						iCARE allows researchers to quickly build models for absolute risk, and apply them to estimate an individual's risk of developing disease during a specifed time interval, based on a set of user defined input parameters. An attractive feature of the software is that it gives users fexibility to update models rapidly based on new knowledge of risk factors and tailor models to different populations. The tool requires three input arguments be specifed: (1) a model for relative risk (2) an age-specifc disease incidence rate and (3) the distribution of risk factors for the population of interest. The tool handles missing risk factor information for individuals for whom risks are to be predicted using a coherent approach where all estimates are derived from a single model after appropriate model averaging. The software allows single nucleotide polymorphisms (SNPs) to be incorporated into the model using published odds ratios and allele frequencies.
+					</div>
+
+					<br>Download from Bioconductor: <a href="http://www.bioconductor.org/packages/iCARE">bioconductor.org/packages/iCARE</a><br>
+					<a href="http://dceg.cancer.gov/tools/analysis/icare/license">License Agreement</a><br>
+					<a href="http://dceg.cancer.gov/tools/analysis/icare/vignette.txt">Vignette</a><br><br>
+
+					<h5><b>Authors</b></h5>
+					<p>Paige Maas, William Wheeler, Mark N. Brook, David Check, Montse Garcia-Closas, Nilanjan Chatterjee</p><br>
+
+					<h5><b>Software Report</b></h5>
+					<a href="http://dceg.cancer.gov/tools/analysis/icare/iCARE_report.pdf">
+					Maas P, Wheeler W, Brook MN, Check DP, Garcia-Closas M, Chatterjee N. iCARE: An R Package to Build and Apply Absolute Risk Models. 2015 <i>Submitted</i></a>
 				</div>
 			</uib-tab>
 
@@ -88,11 +108,9 @@
 								<uib-accordion-group ng-repeat="section in step.sections" is-open="section.isOpen">
 									<uib-accordion-heading>
 										<span> {{section.header}}
-										<span ng-show="!section.optional"> * </span>
-										<span class="glyphicon glyphicon-ok glyphicon-green pull-right" ng-show="section.validated"></span>
+											<span ng-show="!section.optional"> * </span>
+											<span class="glyphicon glyphicon-ok glyphicon-green pull-right" ng-show="section.validated"></span>
 										</span>
-
-
 									</uib-accordion-heading>
 									<div class="panel-margin">
 										<!-- List of Variables Section - templates/variables-section.html -->
