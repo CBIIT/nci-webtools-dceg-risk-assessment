@@ -25,11 +25,7 @@ function(root, resource, uploader, modal, validation, utility) {
         };
     });
 
-    self.sections.listOfVariables.model = [{
-        'name:': '',
-        'type': 'continuous'
-    }];
-
+    self.sections.listOfVariables.model = [{name: '', type: 'continuous'}];
     self.sections.modelFormula.model = 'Y ~ +';
     self.sections.modelFormula.array = [];
 
@@ -81,10 +77,12 @@ function(root, resource, uploader, modal, validation, utility) {
 
         self.file = file;
 
-        var endpoint = 'http://' + window.location.hostname + '/absoluteRiskRest/fileUpload';
+        var endpoint = 'http://' + window.location.hostname + '/absoluteRiskRest';
 
         if (id == 'sessionUpload')
-            endpoint = 'http://' + window.location.hostname + '/absoluteRiskRest/sessionUpload';
+            endpoint += '/sessionUpload';
+        else
+            endpoint += '/fileUpload';
 
         uploader.addFiles([self.file]);
         uploader.startUpload({
@@ -178,7 +176,7 @@ function(root, resource, uploader, modal, validation, utility) {
                     self.sections.listOfVariables.validated = true;
                 } else {
                     modal.errorDialog('Validation Error', 'Invalid file contents. Please verify the list of variables.');
-                }break;
+                } break;
             case 'modelFormula':
                 if (data && typeof data == 'string') {
                     self.sections.modelFormula.model = data;

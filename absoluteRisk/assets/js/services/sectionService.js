@@ -17,7 +17,9 @@ angular.module('Arc')
     }
 
     function getExampleFile(id) {
-        data.downloadFile(id + '.csv&example');
+        var section = data.getSection(id);
+        var template = modal.generateTemplate(section.columnNames, section.rowNames || null);
+        modal.downloadCSV(template, id + 'Template.csv');
     }
 
     function downloadFile(id) {

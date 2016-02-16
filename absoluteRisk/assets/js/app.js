@@ -1,4 +1,4 @@
-angular.module('Arc', ['ngAnimate', 'ngResource', 'ui.bootstrap', 'ui.uploader']);
+angular.module('Arc', ['ngAnimate', 'ngResource', 'ui.bootstrap', 'ui.uploader', 'ui.select']);
 
 angular.module('Arc')
 
@@ -8,7 +8,7 @@ angular.module('Arc')
 
         angular.forEach(varList, function(v) {
             angular.forEach(terms, function(term) {
-                if (v.name === term.name && v.linear) {
+                if (v.name === term && v.linear) {
                     verifiedTerms.push(v);
                 }
             });

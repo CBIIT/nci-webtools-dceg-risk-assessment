@@ -1,10 +1,7 @@
 angular.module('Arc')
 .component('sectionComponent', {
 
-    bindings: {
-        id: '=',
-	},
-
+    bindings: { id: '=' },
 	controllerAs: 'sc',
 	controller: ['SectionService', function(section) {
         var self = this;

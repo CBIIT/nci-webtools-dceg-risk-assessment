@@ -5,6 +5,8 @@ angular.module('Arc')
     return {
         csvDialog: csvDialog,
         errorDialog: errorDialog,
+        generateTemplate: generateTemplate,
+        downloadCSV: downloadCSV
     }
 
     function csvDialog(id, columnNames, rowNames) {

@@ -154,7 +154,6 @@
 			<uib-tab heading="Help" active="tabs.active[3]">
 				<div class="container tab-margin panel-margin">
 				<h4>Instructions for each section</h4>
-
 				<hr>
 
 				<h4>List of Variables <a class="small" href="tmp/examples/listOfVariables.rdata">(example)</a></h4>
@@ -163,7 +162,7 @@
 					<ul>
 						<li>The covariate name as referenced in the model formula</li>
 						<li>The type of covariate (continuous or factor). If the covariate is a factor then the levels
-						and optionally, the referent level of the covariate must be specified</li>
+						and optionally, the referent level of the covariate should be specified</li>
 					</ul>
 
 					<h5>Requirements</h5>
@@ -281,7 +280,7 @@
 
 				<h4>Starting Age and Length of Age Interval <a class="small" href="tmp/examples/ageInterval.csv">(example)</a></h4>
 				<div>
-					A matrix providing integer ages for the start of each interval over which to compute absolute risk.
+					A matrix providing age intervals over which to compute absolute risk.
 					<h5>Requirements</h5>
 					<ul>
 						<li>[Age Start, Age Interval Length]</li>

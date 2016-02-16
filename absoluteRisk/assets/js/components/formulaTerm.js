@@ -5,9 +5,11 @@ angular.module('Arc')
 		data: '='
 	},
 
-	controller: function() {
+	controller: ['DataService', function(data) {
 
 		var self = this;
+
+		self.interactions = [];
 
 		// if this term contains interactions, set the text
 		// field to display a space-delineated string
@@ -21,7 +23,7 @@ angular.module('Arc')
 		}
 
 		// Splits the interactions string into an array
-		this.setInteractionTerms = function() {
+		self.setInteractionTerms = function() {
 			var terms = self.interaction.split(/\s+/);
 
 			if (terms.length > 1)
@@ -30,7 +32,17 @@ angular.module('Arc')
 			else
 				self.data.interaction = terms[0];
 		}
-	},
+
+		self.getVariables = function() {
+			return data.getSection('listOfVariables').model;
+		}
+
+		self.getVariableNames = function() {
+			return data.getSection('listOfVariables').model.map(function(variable) {
+				return variable.name;
+			});
+		}
+	}],
 
 	templateUrl: 'templates/formulaTerm.html'
 });

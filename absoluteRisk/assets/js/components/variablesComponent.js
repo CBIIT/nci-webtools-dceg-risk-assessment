@@ -32,6 +32,11 @@ angular.module('Arc')
 
 			data.submitSection(self.id);
 		}
+
+		self.getInteractionTerms = function(id) {
+			
+		}
+
 	}],
 
 	templateUrl: 'templates/listOfVariables.html'
