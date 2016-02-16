@@ -56,28 +56,21 @@
 			<!-- Home Tab -->
 			<uib-tab heading="Home" active="tabs.active[0]">
 				<div class="container tab-margin panel-margin">
-					<h4>iCARE (individualized Coherent Absolute Risk Estimators)</h4>
-					<h5>An R package to compute Individualized Coherent Absolute Risk Estimators (iCARE)</h5><br>
-					<a ng-click="tabs.select(1)">ARC for Researchers</a><br>
-					<a ng-click="tabs.select(2)">ARC for Clinicians</a><br>
-					<a ng-click="tabs.select(3)">Help</a>
-					<hr>
+					<h4>Absolute Risk Calculator</h4>
+					<i>A frontend for iCARE, an R package to compute Individualized Coherent Absolute Risk Estimators</i>
 
-					<h5><b>Description</b></h5>
-					<div>
-						iCARE allows researchers to quickly build models for absolute risk, and apply them to estimate an individual's risk of developing disease during a specifed time interval, based on a set of user defined input parameters. An attractive feature of the software is that it gives users fexibility to update models rapidly based on new knowledge of risk factors and tailor models to different populations. The tool requires three input arguments be specifed: (1) a model for relative risk (2) an age-specifc disease incidence rate and (3) the distribution of risk factors for the population of interest. The tool handles missing risk factor information for individuals for whom risks are to be predicted using a coherent approach where all estimates are derived from a single model after appropriate model averaging. The software allows single nucleotide polymorphisms (SNPs) to be incorporated into the model using published odds ratios and allele frequencies.
-					</div>
+					<div><br>
+						iCARE allows researchers to quickly build models for absolute risk, and apply them to estimate an individual's risk of developing disease during a specifed time interval,
+						based on a set of user defined input parameters. An attractive feature of the software is that it gives users flexibility to update models rapidly based on new knowledge
+						of risk factors and tailor models to different populations. The tool requires three input arguments be specifed: (1) a model for relative risk (2) an age-specifc disease
+						incidence rate and (3) the distribution of risk factors for the population of interest. The tool handles missing risk factor information for individuals for whom risks
+						are to be predicted using a coherent approach where all estimates are derived from a single model after appropriate model averaging. The software allows single nucleotide
+						polymorphisms (SNPs) to be incorporated into the model using published odds ratios and allele frequencies.
+					</div><br>
 
-					<br>Download from Bioconductor: <a href="http://www.bioconductor.org/packages/iCARE">bioconductor.org/packages/iCARE</a><br>
-					<a href="http://dceg.cancer.gov/tools/analysis/icare/license">License Agreement</a><br>
-					<a href="http://dceg.cancer.gov/tools/analysis/icare/vignette.txt">Vignette</a><br><br>
-
-					<h5><b>Authors</b></h5>
-					<p>Paige Maas, William Wheeler, Mark N. Brook, David Check, Montse Garcia-Closas, Nilanjan Chatterjee</p><br>
-
-					<h5><b>Software Report</b></h5>
 					<a href="http://dceg.cancer.gov/tools/analysis/icare/iCARE_report.pdf">
-					Maas P, Wheeler W, Brook MN, Check DP, Garcia-Closas M, Chatterjee N. iCARE: An R Package to Build and Apply Absolute Risk Models. 2015 <i>Submitted</i></a>
+					Maas P, Wheeler W, Brook MN, Check DP, Garcia-Closas M, Chatterjee N. iCARE: An R Package to Build and Apply Absolute Risk Models. 2015
+					<i>Submitted</i></a>
 				</div>
 			</uib-tab>
 
@@ -160,10 +153,148 @@
 			<!-- Help Tab -->
 			<uib-tab heading="Help" active="tabs.active[3]">
 				<div class="container tab-margin panel-margin">
-				<h4>Help Contents</h4>
+				<h4>Instructions for each section</h4>
+
+				<hr>
+
+				<h4>List of Variables <a class="small" href="tmp/examples/listOfVariables.rdata">(example)</a></h4>
+				<div>
+					The list of risk factors in the model - each covariate has the following fields:<br>
+					<ul>
+						<li>The covariate name as referenced in the model formula</li>
+						<li>The type of covariate (continuous or factor). If the covariate is a factor then the levels
+						and optionally, the referent level of the covariate must be specified</li>
+					</ul>
+
+					<h5>Requirements</h5>
+					<ul>
+						<li>This field must be included unless an SNP only model is provided.</li>
+					</ul>
+				</div>
+
+				<hr><br>
+
+				<h4>Model Formula <a class="small" href="tmp/examples/modelFormula.rdata">(example)</a></h4>
+				<div>
+					Model object for predictors, e.g. Y ~ famhist + as.factor(menarche_dec) + as.factor(parity)<br>
+					The model formula should be given only in terms of the predictors of interest for which the odds ratios are provided.
+
+					<h5>Requirements</h5>
+					<ul>
+						<li>This field must be included unless an SNP only model is provided.</li>
+					</ul>
+				</div>
+
+				<hr><br>
+
+				<h4>Risk Factor Distribution <a class="small" href="tmp/examples/riskFactorDistribution.csv">(example)</a></h4>
+				<div>
+					A dataframe of risk factors for a sample of subjects that are representative of the underlying population,
+					with no missing (NA) values. This reference distribution is used for calibration of the model with respect to
+					the population incidence rate and for imputation of missing data for risk factor profiles on which the model
+					can be provided.
+
+					<h5>Requirements</h5>
+					<ul>
+						<li>The dataframe must contain covariates with the same names in the same order as in the model formula.</li>
+						<li>Levels for each covariate must not have values outside those given by the list of variables</li>
+						<li>This field must be included unless an SNP only model is provided.</li>
+					</ul>
+				</div>
+
+				<hr><br>
+
+				<h4>Log Odds Ratios <a class="small" href="tmp/examples/logOddsRatios.csv">(example)</a></h4>
+				<div>
+					A vector or matrix with log odds ratios corresponding to the model.
+					<h5>Requirements</h5>
+					<ul>
+						<li>This should not include an intercept parameter.</li>
+						<li>The row names must match those of the design matrix created from the list of variables and model formula</li>
+						<li>This field must be included unless an SNP only model is provided.</li>
+					</ul>
+
+				</div>
+
+				<hr><br>
+
+				<h4>Incidence Rates of Disease in Population <a class="small" href="tmp/examples/diseaseIncidenceRates.csv">(example)</a></h4>
+				<div>
+					A two or three column matrix that provides disease incidence rates that are representative of the population of interest.
+					<h5>Requirements</h5>
+					<ul>
+						<li>Two column matrix - [consecutive integer ages, disease incidence rates]</li>
+						<li>Three column matrix - [start age, end age, disease incidence rates in start-end age interval]</li>
+						<li>This field must be included unless an SNP only model is provided.</li>
+					</ul>
+				</div>
+
+				<hr><br>
+
+				<h4>Incidence Rates of Competing Mortality <a class="small" href="tmp/examples/mortalityIncidenceRates.csv">(example)</a></h4>
+				<div>
+					A two or three column matrix that provides incidence rates for competing mortality that are representative of the population of interest.
+					<h5>Requirements</h5>
+					<ul>
+						<li>Two column matrix - [consecutive integer ages, competing event incidence rates]</li>
+						<li>Three column matrix - [start age, end age, competing incidence rates in start-end age interval]</li>
+						<li>This field must be included unless an SNP only model is provided.</li>
+					</ul>
+				</div>
+
+				<hr><br>
+
+				<h4>SNP Information <a class="small" href="tmp/examples/snpInformation.csv">(example)</a></h4>
+				<div>A matrix providing information for each SNP<br>
+					<h5>Requirements</h5>
+					<ul>
+						<li>[RS numbers for the snp names, odds ratios for each snp, allele frequencies]</li>
+						<li>Allele frequencies for each snp must be consistent with how SNPs were coded when estimating the odds ratios</li>
+						<li>Must be provided unless no SNPs should be included in the model.</li>
+					</ul>
+				</div>
+
+				<hr><br>
+
+				<h4>Risk Factor for Prediction <a class="small" href="tmp/examples/riskFactorForPrediction.csv">(example)</a></h4>
+				<div>
+					A dataframe containing the covariate profiles for which absolute risk will be computed.
+					<h5>Requirements</h5>
+					<ul>
+						<li>The dataframe must contain covariates with the same names in the same order as in the model formula.</li>
+						<li>Each covariate must not have values outside those given by the list of variables.</li>
+					</ul>
+				</div>
+
+				<hr><br>
+
+				<h4>Genotypes for Prediction <a class="small" href="tmp/examples/genotypesForPrediction.csv">(example)</a></h4>
+				<div>
+					A dataframe with observed SNP data (coded 0, 1, 2, or NA)
+					<h5>Requirements</h5>
+					<ul>
+						<li>SNPs should have the same names in the same order as the snp names given in the first column of the SNP Information matrix.</li>
+					</ul>
+				</div>
+
+				<hr><br>
+
+				<h4>Starting Age and Length of Age Interval <a class="small" href="tmp/examples/ageInterval.csv">(example)</a></h4>
+				<div>
+					A matrix providing integer ages for the start of each interval over which to compute absolute risk.
+					<h5>Requirements</h5>
+					<ul>
+						<li>[Age Start, Age Interval Length]</li>
+						<li>Age Start - Integer age(s) for the start of the interval over which to compute absolute risk</li>
+						<li>Age Interval Length - Integer number of years over which absolute risk should be computed</li>
+						<li>A single numeric value may be provided for Age Start and for Age Interval Length</li>
+						<li>If a matrix is provided the number of rows must match the number of rows for the covariate profiles (Risk Factor for Prediction)</li>
+						<li>This is a required input.</li>
+					</ul>
+				</div>
+
 				</div>
 			</uib-tab>
-
 		</uib-tabset>
 		<hr>
 	</div>
