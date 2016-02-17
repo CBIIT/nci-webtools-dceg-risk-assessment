@@ -10,6 +10,7 @@
     padding: 0 20px;
   }
   section form > ol > li {
+    margin: 10px auto;
     width: 45%;
     min-height: 150px;
     max-height: 600px;
@@ -327,6 +328,10 @@ ul.nav.stick-nav-top {
 #content {
   margin: 0;
   background: transparent;
+}
+section {
+  margin: 0 auto;
+  padding: 0 150px;
 }
 section form {
   display: block;
