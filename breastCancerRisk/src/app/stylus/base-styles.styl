@@ -1,65 +1,57 @@
-section form > ol > li
-        display inline-block
-        margin 5px
-        padding 5px 15px
-        height 440px
-        vertical-align top
-        overflow auto
-        border 2px solid #2A71A5
-        border-radius 5px
-        &:nth-child(even)
-            background #fff
-        &:nth-child(odd)
-            background-color transparent
-            > .question-illustrations
-                background-color inherit
-        ol
-            list-style none
+section form ol li
+    width 47%
+    &:nth-child(even)
+        background #fff
+    &:nth-child(odd)
+        background-color transparent
+        > .question-illustrations
+            background-color inherit
+    ol
+        list-style none
+        padding 0
+        > 
+            background none
+            border none
+            margin 0
             padding 0
-            > li
-                background none
-                width inherit
-                border none
-                margin 0
-                padding 0
-                height inherit
-        .question
-            > .notice
-                font-size .9em
-                border 1px solid
-                padding 10px
-                margin 5px auto
-                max-width 400px
-                display none
-                color #000
-                border-radius 5px
-                box-shadow 3px 2px 7px black
-                > p
-                    margin 5px 0
-            > label
-                display inline-block
-                > *
-                    vertical-align top
-                > a.notice-show
-                    font-weight normal
-            > p
-                display inline-block
-            .input > label
-                display block
-            select, input
-                width 100%
-                &[type="radio"]
-                    width 15px
-
-        .female, .male, .subquestion
-            &:not(.show)
-                display none
-
-        input, select
+            height inherit
+    .question
+        > .notice
+            font-size .9em
+            border 1px solid
             padding 10px
-            &.error
-                border 2px solid #FC7878
-                background rgba(255, 0, 0, 0.25)
+            margin 5px auto
+            max-width 400px
+            display none
+            color #000
+            border-radius 5px
+            box-shadow 3px 2px 7px black
+            > p
+                margin 5px 0
+        > label
+            display inline-block
+            > *
+                vertical-align top
+            > a.notice-show
+                font-weight normal
+        > p
+            display inline-block
+        .input > label
+            display block
+        select, input
+            width 100%
+            &[type="radio"]
+                width 15px
+
+    .female, .male, .subquestion
+        &:not(.show)
+            display none
+
+    input, select
+        padding 10px
+        &.error
+            border 2px solid #FC7878
+            background rgba(255, 0, 0, 0.25)
 
 
 .section-title, .section-content,.content-details,.question
