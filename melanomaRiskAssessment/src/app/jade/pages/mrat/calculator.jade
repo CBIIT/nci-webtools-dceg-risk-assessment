@@ -43,7 +43,7 @@ section#risk-calculator(tab='risk-calculator')
         #error(style="display:none;")
         form#survey(action="/mratRest/calculate/",method="POST")
             ol
-                li.rounded
+                li
                     .question
                         label.question-text(for="state") In what state does the patient reside?
                         .input
@@ -165,7 +165,7 @@ section#risk-calculator(tab='risk-calculator')
                                         option(value="Yuba") Yuba
                     .question-illustrations
                         img.stock-images(alt="map of the United States", src="images/states.png")
-                li.rounded
+                li
                     .question
                         label.question-text(for="gender") What is the patient's gender?
                         .input
@@ -179,7 +179,7 @@ section#risk-calculator(tab='risk-calculator')
                             | The answer to this question will determine what other questions are asked below.
                         .question-illustrations
                             img.stock-images(alt="image of a man and woman",src="images/man-woman.jpg")
-                li.rounded
+                li
                     .question
                         label.question-text(for="race") What is the patient's race?
                         .input
@@ -189,14 +189,14 @@ section#risk-calculator(tab='risk-calculator')
                             option(value='1') Other
                     .question-illustrations
                         img.stock-images(alt="diverse group of people",src="images/diversity.jpg")
-                li.rounded
+                li
                     .question
                         label.question-text(for="age") What is the patient's age?
                         .input
                           input#age(name='age', type="number", min="1", max="120", placeholder="Enter patient's age")
                     .question-illustrations
                         img.stock-images(alt="woman and girl",src="images/age.jpg")
-                li.male.rounded
+                li.male
                     .question
                         label.question-text(for="sunburn")
                           b.no-css &nbsp;Males only
@@ -207,7 +207,7 @@ section#risk-calculator(tab='risk-calculator')
                             option(value='') Select
                             option(value='0') Yes
                             option(value='1') No
-                li.male.female.rounded
+                li.male.female
                     .question
                         label.question-text(for="complexion")
                           i Ask the patient:
@@ -220,7 +220,7 @@ section#risk-calculator(tab='risk-calculator')
                             option(value='2') Dark
                     .question-illustrations
                         img.stock-images(alt="hands of different skin complexions", src="images/hand-circle.png")
-                li.female.rounded
+                li.female
                     .question
                         label.question-text(for="tan")
                           b.no-css &nbsp;Females only
@@ -234,7 +234,7 @@ section#risk-calculator(tab='risk-calculator')
                             option(value='1') Moderately tanned
                             option(value='2') Lightly tanned
                             option(value='3') No tan at all
-                li.male.rounded
+                li.male
                     .question
                         label.question-text(for="big-moles")
                           b.no-css &nbsp;Males only
@@ -244,7 +244,7 @@ section#risk-calculator(tab='risk-calculator')
                             option(value='') Select
                             option(value='0') Less than two
                             option(value='1') Two or more
-                li.male.female.rounded
+                li.male.female
                     .question
                         label.question-text(for="small-moles")
                           | How many moles less than or equal to 5mm in diameter are on the patient's back?
@@ -254,7 +254,7 @@ section#risk-calculator(tab='risk-calculator')
                             option(value='0') Less than seven
                             option(value='1') Seven to seventeen
                             option(value='2') More than seventeen
-                li.male.female.rounded
+                li.male.female
                     .question
                         label.question-text(for="freckling")
                           | How extensive is the freckling on the patient's back and shoulders?
@@ -271,7 +271,7 @@ section#risk-calculator(tab='risk-calculator')
                         img.thumbnail(src="images/mratMildLrg.jpg", title="Mild Freckling", alt="Mild Freckling")
                         img.thumbnail(src="images/mratModLrg.jpg", title="Moderate Freckling", alt="Moderate Freckling")
                         img.thumbnail(src="images/mratSevereLrg.jpg", title="Severe Freckling", alt="Severe Freckling")
-                li.male.rounded
+                li.male
                     .question
                         label.question-text(for="damage")
                           b.no-css &nbsp;Males only
