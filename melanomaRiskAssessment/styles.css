@@ -14,10 +14,6 @@ section form > ol li .question select,
 section form > ol li .question input {
   width: 100%;
 }
-section form .female:not(.show),
-section form .male:not(.show) {
-  display: none;
-}
 section form .counties {
   display: none;
 }
