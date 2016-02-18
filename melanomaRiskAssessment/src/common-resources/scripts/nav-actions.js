@@ -25,6 +25,10 @@ $(function(){
 
     $('#main-nav a').on('click',function() {
         var naxtNav = $(this).next('ul.nav');
+        
+        if($('#main-nav').hasClass('show') && naxtNav.length === 0)
+            $('#main-nav').removeClass('show');
+    
         if (naxtNav.length > 0) {
             naxtNav.toggleClass('show');
         }

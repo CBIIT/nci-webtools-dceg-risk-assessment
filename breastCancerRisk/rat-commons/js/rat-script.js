@@ -71,7 +71,7 @@ function processSubmission(form) {
         }
     }).fail(function (data) {
        
-        if (data.responseJSON.message)
+        if (data.responseJSON)
             $('#error').append("<p>" + data.responseJSON.message + "</p>").css('display', 'block');
         else
             $('#error').append("<p>" + data.responseText + "</p>").css('display', 'block');
@@ -134,6 +134,9 @@ $(function(){
     });
 
     $('#main-nav a').on('click',function() {
+        if($('#main-nav').hasClass('show'))
+            $('#main-nav').removeClass('show');
+        
         var naxtNav = $(this).next('ul.nav');
         if (naxtNav.length > 0) {
             naxtNav.toggleClass('show');
