@@ -73,6 +73,9 @@ function processSubmission(form) {
        
         if (data.responseJSON.message)
             $('#error').append("<p>" + data.responseJSON.message + "</p>").css('display', 'block');
+        else
+            $('#error').append("<p>" + data.responseText + "</p>").css('display', 'block');
+        
         document.getElementById("top").scrollIntoView();
     });
 }

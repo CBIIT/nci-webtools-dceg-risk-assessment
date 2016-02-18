@@ -71,8 +71,11 @@ function processSubmission(form) {
         }
     }).fail(function (data) {
         //                $('#error').append("<p>An unknown error occurred. Please consult the administrator.</p>");
-        if (data.responseJSON.message)
+        if (data.responseJSON)
             $('#error').append("<p>" + data.responseJSON.message + "</p>").css('display', 'block');
+        else
+            $('#error').append("<p>" + data.responseText + "</p>").css('display', 'block');
+        
         document.getElementById("top").scrollIntoView();
     });
 }
