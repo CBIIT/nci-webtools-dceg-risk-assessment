@@ -596,3 +596,8 @@ section form button {
 ul.red-arrow li {
   list-style-image: url("../../images/red-arrow.gif");
 }
+.male:not(.show),
+.female:not(.show),
+.subquestion:not(.show) {
+  display: none;
+}
