@@ -534,6 +534,7 @@ section form button {
 .about-question-title {
   border-left: 2px solid #2a71a5;
   padding-left: 5px;
+  margin-left: 15px;
   font-weight: bold;
 }
 .about-question-title > * {
