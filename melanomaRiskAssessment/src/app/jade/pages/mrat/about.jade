@@ -1,12 +1,9 @@
-//-extends index
-//-block page-title
-//-    title About the Tool - MRAT
-
 section#about(tab='about')
-    .section-title
-        span About the Tool
-        a.goToTab(title='go to melanoma risk assessment', name='risk-calculator') Calculate Risk for New Patients
     .section-content
+        .section-title
+            span About the Tool
+            a.goToTab(title='go to melanoma risk assessment', name='risk-calculator')
+                | Calculate Risk for New Patients
         ul.section-anchors
             li
                 a.goTo(title='skip to explanations of the questions', name='#questions-exp') Explaining the Questions
@@ -19,7 +16,7 @@ section#about(tab='about')
             .spacer
             li
                 a.goTo(title='go to references', name='#reference') Reference
-        .section-title Explaining the Questions
+        .section-title Explaining the Questions        
         #questions-exp
             .about-question-title Question 1: In what state does the patient reside?
             .about-question-explanation
