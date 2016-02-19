@@ -22,7 +22,7 @@ $(function(){
     $('#menu-button').on('click',function() {
         $('#main-nav').toggleClass('show');
     });
-    
+
     $('#main-nav a').on('click',function() {
         var naxtNav = $(this).next('ul.nav');
         if (naxtNav.length > 0) {
@@ -32,13 +32,34 @@ $(function(){
 
     var currentHash = window.location.hash;
     if (currentHash.length > 0) {
-      $('[tabTo] a[href="'+window.location.hash+'"]').parent().click();
+        $('[tabTo] a[href="'+window.location.hash+'"]').parent().click();
     } else {
-      $('[tabTo]:first-child').first().click();
+        $('[tabTo]:first-child').first().click();
     }
 
     $(window).scroll(fixedToTop);
     fixedToTop();
+
+    $(".section-description").each(function() {
+
+        if(this.innerText.length > 600) {
+            var text = "<div class='more'>"+ this.innerHTML +"</div><button class='show-more'><span class='fa fa-arrow-down'></span> Show More</button>";
+            this.innerHTML = text;
+        }
+    });
+
+    $(".show-more").on("click", function() {
+        if(!$(this).prev().hasClass("more")){
+            this.innerHTML = "<span class='fa fa-arrow-down'></span> Show More";
+            $(this).attr("title","Show More");
+        }
+        else{
+            this.innerHTML = "<span class='fa fa-arrow-up'></span> Show Less";
+            $(this).attr("title","Show Less");
+        }
+
+        $(this).prev().toggleClass("more");
+    });
 });
 
 function fixedToTop() {

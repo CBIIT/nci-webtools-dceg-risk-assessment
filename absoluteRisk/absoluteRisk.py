@@ -28,9 +28,11 @@ app.config['rdata_upload_folder'] = UPLOAD_RDATA_FOLDER
 app.config['results_folder'] = RESULTS_FOLDER
 app.config['examples_folder'] = EXAMPLES_FOLDER
 
-with open ('rfiles/absoluteRiskWrapper.R') as fh:
-    rcode = os.linesep.join(line.strip() for line in fh)
-    arc_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
+#with open ('rfiles/absoluteRiskWrapper.R') as fh:
+#    rcode = os.linesep.join(line.strip() for line in fh)
+
+rcode = open('rfiles/absoluteRiskWrapper.R').read()
+arc_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
 
 @app.route('/')
 def index():
@@ -152,7 +154,25 @@ def dataUpload():
         except Exception, e:
             raise InvalidUsage(e.args[0], status_code = 500)
     return ''
+    
+# This route takes in a session file and saves it to the server
+@app.route('/sessionUpload', methods=['POST'])
+def sessionUpload():
+    if request.method == 'POST':
+        file = request.files['file']
+        filepath = ''
+        fileAllowed = allowed_file(file.filename)
 
+        if file and fileAllowed:
+            filename = time.strftime("%Y%m%d-%H%M%S") + '_' + secure_filename(file.filename)
+            file.save(os.path.join(app.config['results_folder'], filename))
+            filepath = app.config['results_folder'] + '/' + filename
+
+            return json.dumps({ 'path_to_file': filepath })
+    return ''
+    
+
+    
 # This route takes in a JSON object, converts it to a CSV file, and returns the file to the user
 @app.route('/absoluteRiskRest/exportToCsv', methods=['POST'])
 def exportToCsv():
@@ -555,8 +575,31 @@ def saveSession():
             raise InvalidUsage('KeyError: ' + e.args[0], status_code = 500)
 
         try:
-            results_path = app.config['results_folder'] + '/' + time.strftime("%Y%m%d-%H%M%S")
+            results_path = app.config['results_folder'] + '/' + time.strftime("%Y%m%d-%H%M%S") + '.rdata'
             results = arc_wrapper.saveAllFiles(results_path, list_of_variables_RData, model_predictor_RData, ref_dataset_RData, log_odds_RData, disease_rates_RData, competing_rates_RData, snp_info_RData, fam_hist_RData)
+
+            return results[0]
+        except Exception,e:
+            raise InvalidUsage(e.args[0], status_code=500)
+    return ''
+    
+
+# This route takes in a path to a session file and returns a list of rdata/csv files
+@app.route('/absoluteRiskRest/loadSession', methods=['POST'])
+def loadSession():
+    if request.method == 'POST':
+        jsonData = json.loads(request.data)
+        
+        try:
+            session_filename = jsonData['session']['path_to_file']
+            session_prefix = os.path.splitext(session_filename)[0]
+            
+        except KeyError, e:
+            raise InvalidUsage('KeyError: ' + e.args[0], status_code = 500)
+
+        try:
+            results_path = app.config['results_folder'] + '/' + session_name
+            results = arc_wrapper.saveAllFiles(results_path, session_prefix)
 
             return results[0]
         except Exception,e:

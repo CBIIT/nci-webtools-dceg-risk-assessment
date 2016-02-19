@@ -1,528 +1,80 @@
-* {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+section form > ol li .question > label {
+  display: inline-block;
 }
-body {
-  font-family: sans-serif, Helvetica, Calibri, Arial Rounded MT Bold;
-  margin: 0;
-  min-width: 320px;
+section form > ol li .question > p {
+  display: inline-block;
 }
-header {
-  margin: 0;
-  background: #f7f8f3;
-  min-width: 320px;
-  width: 100%;
-}
-header #nci-banner {
-  display: block;
-  max-height: 90px;
-  max-width: 450px;
-  min-height: 52px;
-  min-width: 30px;
-  overflow: auto;
-  padding-left: 60px;
-}
-header #nci-banner img {
+section form > ol li .question .input > label {
   display: block;
 }
-header #toolTitle {
-  background: #2a71a5;
-  color: #fff;
-  padding: 10px 160px;
-  font-size: 0.9em;
-}
-header #toolTitle #toolName {
-  font-weight: bold;
-}
-header #toolTitle #toolDescription {
-  font-style: italic;
-}
-#top {
-  display: block;
-  margin: 0 0 40px 0;
-  min-height: 40px;
-}
-#menu-button {
-  display: none;
-  float: right;
-  height: 52px;
-  padding: 5px;
-  position: relative;
-  width: 60px;
-}
-[tab]:not(.active) {
-  display: none;
-}
-ul.nav {
-  background: #636363;
-  background: -webkit-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
-  background: -moz-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
-  background: -o-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
-  background: -ms-linear-gradient(315deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
-  background: linear-gradient(135deg, #fff 0%, #f2f6f8 7%, #636363 8%, #424242 7%, rgba(255,255,255,0) 100%);
-  border-top: 2px solid #bb0e3d;
-  font-size: 0.9em;
-  margin: 0px;
-  padding-left: 160px;
-  position: relative;
-  top: 0;
+section form > ol li .question select,
+section form > ol li .question input {
   width: 100%;
 }
-ul.nav li {
-  display: inline-block;
-  padding: 10px 15px;
-}
-ul.nav li.active {
-  background-color: #fff;
-}
-ul.nav li.active a {
-  color: #000;
-  font-weight: bold;
-}
-ul.nav li a {
-  color: #fff;
-  display: inline-block;
-  text-align: center;
-  text-decoration: none;
-}
-ul.nav li a:hover {
-  text-decoration: underline;
-}
-ul.nav li ul {
-  background: #000;
-  border: 0px;
-  left: 0px;
-  position: absolute;
-  top: 100%;
-}
-ul.nav li:not(:hover) > ul {
+section form .counties {
   display: none;
-}
-ul.nav.stick-nav-top {
-  position: fixed;
-  z-index: 10000;
-}
-#content {
-  margin: 0px;
-  background: #f7f8f3;
-}
-footer {
-  color: #000;
-  padding: 5px 0px;
-  clear: both;
-  text-align: center;
-  font-size: 0.9em;
-}
-footer ul li {
-  list-style: none;
-  display: inline-block;
-  margin: 0px 5px;
-}
-footer ul li a {
-  color: #000;
-}
-footer ul li a :hover {
-  text-decoration: none;
-}
-dl {
-  padding: 0px 60px;
-}
-dl dt {
-  font-weight: bold;
-}
-hr {
-  width: 50%;
-  margin: 10px auto;
-}
-.minimize,
-.maximize {
-  display: none;
-  color: inherit;
-}
-section {
-  margin: 0px 0px 30px;
-  float: right;
-}
-section form {
-  display: block;
-}
-section form > ul {
-  list-style: none;
-}
-section form li {
-  margin: 5px 0px;
-  overflow: hidden;
-}
-section form li > label {
-  display: inline-block;
-  float: left;
-  width: 40px;
-}
-section form li > p {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  display: inline-block;
-  float: left;
-  margin: 0px -13em 0px -5em;
-  padding: 5px 13em 5px 5em;
-  width: 100%;
-}
-section form li > .input {
-  display: inline-block;
-  width: 13em;
-}
-section form li > .input select {
-  width: 100%;
-}
-section form .female:not(.show),
-section form .male:not(.show) {
-  display: none;
-}
-section form input,
-section form select {
-  width: 300px;
-  padding: 10px;
-}
-section form input.error,
-section form select.error {
-  background: #f00;
-}
-section form .no-css {
-  display: none;
-}
-section form .question-num {
-  border-right: 4px #606060 solid;
-  color: #606060;
-  padding: 5px 0;
-  font-weight: bold;
-  text-align: center;
-}
-section form .question-text {
-  font-size: 1.1em;
-  font-family: "Calibri", "sans-serif", "Arial";
-  text-indent: 15px;
-}
-section form button {
-  float: right;
-  padding: 8px 60px;
-  font-size: 0.9;
-}
-section form em {
-  font-size: 0.8em;
-}
-section form .question-illustrations {
-  padding-left: 150px;
-  margin: 5px auto;
-  height: 270px;
-}
-section form .question-illustrations img {
-  width: 250px;
-  height: 270px;
-  margin: 5px;
-}
-section form .question-illustrations img:hover {
-  -webkit-transform: scale(1.6);
-  -moz-transform: scale(1.6);
-  -o-transform: scale(1.6);
-  -ms-transform: scale(1.6);
-  transform: scale(1.6);
 }
 section form #region_subquestion {
-  display: none;
-}
-.section-content {
-  padding: 0;
-}
-.section-title {
-  margin: 5px auto;
-  font-weight: bold;
-  padding: 5px 20px;
-  background: #bb0e3d;
-  color: #fff;
-}
-.section-title :nth-child(2) {
-  float: right;
-}
-.section-title a {
-  font-size: 0.9em;
-  color: inherit !important;
-}
-.section-title a,
-.section-content a {
-  text-decoration: underline;
-  color: #bb0e3d;
-}
-.section-title a :hover,
-.section-content a :hover {
-  text-decoration: none;
-}
-.section-description {
-  background: #f0ffff;
-  margin: 5px auto;
-  padding: 10px;
-  border: 1px solid;
-  font-size: 0.9em;
-}
-.about-question-title {
-  border-left: 2px solid #2a71a5;
-  padding-left: 5px;
-  margin: 5px auto;
-}
-.termToDefine {
-  font-style: italic;
-}
-.references {
-  font-style: italic;
-  font-size: initial;
-}
-.section-anchors {
-  margin: 0px auto;
-  padding: 0px;
-  text-align: center;
-}
-.section-anchors li {
-  display: inline;
+  border: none;
   list-style: none;
-  margin: 0px;
-  padding: 0px;
+  width: inherit;
+  padding: 0;
+  margin: 0;
+  height: auto;
 }
-.spacer {
-  border-left: 2px solid;
-  border-color: inherit;
-  display: inline;
-  margin: 0px 10px;
+img.stock-images {
+  height: inherit;
+  width: inherit;
 }
-#reference {
-  width: 300px;
+.question-illustrations > img.stock-images {
+  border: none;
 }
-#reference * {
-  font-size: 0.9em;
-}
-#error {
-  background: #f00;
-  border: 5px solid #900;
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  padding: 30px;
-}
-#result {
-  border: 5px solid #000;
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  margin: 0px auto;
-  max-width: 600px;
-  padding: 30px;
-}
-#result h2 {
-  font-size: 48px;
-  margin: 0px;
-  text-align: center;
-}
-#result .chart {
-  background: #69f;
-  font-size: 0px;
-  position: relative;
-  z-index: 0;
-}
-#result .chart .bar {
-  height: 20%;
-  left: 0px;
-  top: 0px;
-  position: absolute;
-  z-index: -1;
-}
-#result .chart .bar.yours {
-  background: #300828;
-}
-#result .chart .bar.average {
-  background: #f00;
-}
-#result .chart img {
-  width: 5%;
-}
-.hide {
-  display: none;
-}
-.hidden-anchor {
-  display: none;
-}
-.ui-helper-hidden-accessible {
-  border: 0px;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0px;
-  position: absolute;
-  width: 1px;
-}
-.default-tooltip-title {
-  font-size: 0.8em;
-  background: #8c9c9a;
-  font-weight: bold;
-  color: #fff;
-  -webkit-border-radius: 10px 10px 0px 0px;
-  border-radius: 10px 10px 0px 0px;
-  text-decoration: underline;
-}
-.default-tooltip-content {
-  background: #d6e4e1;
-  font-size: 0.9em;
-  line-height: 1.4;
-  -webkit-border-radius: 0px 0px 10px 10px;
-  border-radius: 0px 0px 10px 10px;
-}
-.link-icons {
-  display: none;
-}
-#topButton {
-  display: none;
-  font-size: 2em;
-  background: rgba(42,113,165,0.7);
-  width: 45px;
-  color: #fff;
-  -webkit-border-radius: 25px;
-  border-radius: 25px;
-  text-align: center;
-  padding: 5px 0px;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
+dd > img {
+  margin: 0 10px;
 }
 
-@media (max-width: 1300px) {
-  ul.nav {
-    margin: 0;
-  }
-  ul.nav li {
-    padding: 5px;
-  }
-}
 @media (max-width: 990px) {
-  header {
-    position: relative;
+  section {
+    margin: 0 25px;
   }
-  header #toolTitle {
-    text-align: center;
-    padding: 5px;
-  }
-  dl {
+  section form > ol {
     padding: 0;
   }
-  .spacer {
-    display: block;
+  section form > ol > li > p {
+    margin-right: 0;
   }
-  .section-anchors li,
-  footer li {
-    padding: 5px 0;
-  }
-  section form ul {
-    padding-right: 40px;
-  }
-  section form li {
-    margin: 10px auto;
-  }
-  section form li > p {
-    margin-right: 0px;
-  }
-  section form li > .input {
+  section form > ol > li > p > .input {
     width: 100%;
     margin: 10px auto;
   }
   section form .question-text {
-    margin-left: -4em;
-    padding: 0 0 0 5em;
+    margin: 0;
+    padding: 1%;
   }
-  section form button {
-    display: inherit;
-    margin: 0 auto;
-    width: 50%;
-    float: none;
+  section form .question-illustrations img {
+    width: 80%;
   }
 }
 @media (max-width: 768px) {
-  header #nci-banner {
-    padding-left: 25px;
-  }
-  header #toolTitle,
   .section-title {
-    padding: 5px 0px;
-  }
-  .link-icons {
-    display: inline-block;
-  }
-  .menu-title {
-    padding: 5px 0px;
-    display: block;
-    background-color: rgba(220,222,224,0.5);
-    color: #fff;
-    padding-left: 0;
-  }
-  #top {
-    margin: 0px;
-    min-height: 0px;
-  }
-  #menu-button {
-    display: block;
-  }
-  ul.nav {
-    background: transparent;
-    padding: 0px;
-    text-align: center;
-  }
-  ul.nav:not(.show) {
-    display: none;
-  }
-  ul.nav.stick-nav-top {
-    position: inherit;
-  }
-  ul.nav li {
-    display: block;
-    padding: 8px;
-  }
-  ul.nav li:first-child {
-    margin: 0px;
-  }
-  ul.nav li a {
-    color: #bb0e3d;
-  }
-  ul.nav li:not(:hover) > ul {
-    display: block;
-  }
-  ul.nav li ul {
-    background: transparent;
-    margin: 10px 0px -5px;
-    position: static;
-  }
-  ul.nav li ul:not(.show) {
-    display: none;
-  }
-  .section-description {
-    width: 85%;
-  }
-  .section-title {
-    overflow: auto;
+    padding: 5px 10px;
   }
   section {
-    margin: 0px;
+    margin: 10px;
+    padding: 0;
   }
-  footer {
-    margin: 25px 0px;
+  section form > ol > li {
+    width: 100%;
+    height: auto;
+    max-height: 350px;
+    min-height: 130px;
+    padding: 5px 10px;
   }
-  .minimize,
-  .maximize {
-    display: inline-block;
-  }
-  .question-illustration {
-    padding-left: 0px;
+  .question-illustrations .stock-images {
+    width: 180px;
   }
 }
 @media (max-width: 480px) {
-  header #nci-banner {
-    padding-left: 0px;
-  }
   .section-title * {
     display: block;
     text-align: center;
