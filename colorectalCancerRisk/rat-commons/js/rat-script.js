@@ -97,12 +97,7 @@ function removeHighlightErrorElement(element, errorClass, validClass) {
 }
 
 function expandCollapseImage() {
-    $(this).toggleClass(function () {
-        if ($(this).hasClass("expand"))
-            return;
-        else
-            return "expand";
-    });
+    $(this).toggleClass("expand");
     this.scrollIntoView();
 }
 
@@ -134,10 +129,11 @@ $(function(){
     });
 
     $('#main-nav a').on('click',function() {
-        if($('#main-nav').hasClass('show'))
-            $('#main-nav').removeClass('show');
-        
         var naxtNav = $(this).next('ul.nav');
+        
+        if($('#main-nav').hasClass('show') && naxtNav.length === 0)
+            $('#main-nav').removeClass('show');
+    
         if (naxtNav.length > 0) {
             naxtNav.toggleClass('show');
         }

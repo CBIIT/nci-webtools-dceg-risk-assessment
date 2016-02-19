@@ -9,11 +9,6 @@
     margin: 0 50px;
     padding: 0 20px;
   }
-  section form > ol > li {
-    width: 45%;
-    min-height: 150px;
-    max-height: 600px;
-  }
 }
 @media (max-width: 990px) {
   header {
@@ -127,6 +122,13 @@
   .question-illustration .stock-images {
     width: 180px;
   }
+  ul.two-col {
+    overflow: auto;
+  }
+  ul.two-col li {
+    width: 100%;
+    float: none;
+  }
 }
 @media (max-width: 480px) {
   header #nci-banner {
@@ -150,7 +152,8 @@
   position: fixed;
 }
 button,
-a {
+a,
+.thumbnail {
   cursor: pointer;
 }
 body {
@@ -197,7 +200,6 @@ a {
   color: inherit;
 }
 dl {
-  padding: 0 60px;
   overflow: auto;
 }
 dl dt {
@@ -312,7 +314,7 @@ ul.nav li#quick-link ul {
   background: #f7f8f3;
 }
 ul.nav li#quick-link ul.nav {
-  padding: 0;
+  padding-left: 40px;
 }
 ul.nav li#quick-link ul.nav > li {
   padding: 10px 5px;
@@ -337,8 +339,8 @@ section form > ol {
 section form > ol > li {
   display: inline-block;
   margin: 5px;
-  padding: 15px;
-  width: 30%;
+  padding: 10px;
+  width: 46%;
   max-width: 100%;
   height: 335px;
   vertical-align: top;
@@ -532,7 +534,7 @@ section form button {
 .about-question-title {
   border-left: 2px solid #2a71a5;
   padding-left: 5px;
-  margin: 5px auto;
+  font-weight: bold;
 }
 .about-question-title > * {
   font-weight: bold;
@@ -595,6 +597,14 @@ section form button {
 }
 ul.red-arrow li {
   list-style-image: url("../../images/red-arrow.gif");
+}
+ul.two-col {
+  overflow: auto;
+}
+ul.two-col li {
+  width: 45%;
+  float: left;
+  margin: 5px 20px;
 }
 .male:not(.show),
 .female:not(.show),

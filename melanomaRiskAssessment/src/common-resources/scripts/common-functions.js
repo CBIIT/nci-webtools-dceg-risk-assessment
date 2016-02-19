@@ -97,12 +97,7 @@ function removeHighlightErrorElement(element, errorClass, validClass) {
 }
 
 function expandCollapseImage() {
-    $(this).toggleClass(function () {
-        if ($(this).hasClass("expand"))
-            return;
-        else
-            return "expand";
-    });
+    $(this).toggleClass("expand");
     this.scrollIntoView();
 }
 

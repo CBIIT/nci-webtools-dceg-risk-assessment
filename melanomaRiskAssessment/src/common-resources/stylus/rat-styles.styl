@@ -4,7 +4,7 @@
 [role="tooltip"]
     position fixed
 
-button, a
+button, a, .thumbnail
     cursor pointer
 
 body
@@ -44,7 +44,6 @@ a
     color inherit
 
 dl
-    padding 0 60px
     overflow auto
     dt
         font-weight bold
@@ -147,7 +146,7 @@ ul.nav
         &#quick-link ul
             background #f7f8f3
             &.nav
-                padding 0
+                padding-left 40px
                 > li
                     padding 10px 5px
             a
@@ -169,8 +168,8 @@ section form
             > li
                 display inline-block
                 margin 5px
-                padding 15px
-                width 30%
+                padding 10px
+                width 46%
                 max-width 100%
                 height 335px
                 vertical-align top
@@ -326,7 +325,7 @@ section form
 .about-question-title
     border-left 2px solid #2A71A5
     padding-left 5px
-    margin 5px auto
+    font-weight bold
     > *
         font-weight bold
 
@@ -384,7 +383,14 @@ section form
 
 ul.red-arrow li
     list-style-image url("../../images/red-arrow.gif")
-    
+
+ul.two-col
+    overflow auto
+    li
+        width 45%
+        float left
+        margin 5px 20px
+
 .male,.female,.subquestion
     &:not(.show)
         display none
