@@ -97,14 +97,18 @@ gulp.task('common-js:copy', function(){
 });
 
 gulp.task('common-css:copy', function(){
-    var styl;
-    styl = gulp.src(['common-resources/stylus/**/*.styl'
+    var styl, s;
+    styl = gulp.src(['common-resources/stylus/rat-styles.styl', 'common-resources/stylus/rat-mobile.styl'
                     ]).pipe(gulpFilter(function(it) {
         return !/\/_[^/]+\.styl$/.test(it.path);
     })).pipe(gulpStylus({
         use: [nib()],
         'import': ['nib']
-    })).pipe(gulpConcat("styles.css")).pipe(gulp.dest(parentDir + "/rat-commons/css/"));
+    })).pipe(gulpConcat('styles.css')).pipe(gulp.dest(parentDir+"/rat-commons/css"));
+
+    return s = streamqueue({
+        objectMode: true
+    });
 });
 
 gulp.task('rat-common:copy', function(){
@@ -112,9 +116,12 @@ gulp.task('rat-common:copy', function(){
     s = streamqueue({
         objectMode: true
     });
-    gulp.src(parentDir+"/rat-commons/**/*")  .pipe(gulp.dest(parentDir+"/"+parentDir+"/colorectalCancerRisk/rat-commons"));
-    
-    gulp.src(parentDir+"/rat-commons/**/*")        .pipe(gulp.dest(parentDir+"/"+parentDir+"/breastCancerRisk/rat-commons"));
+    gulp.src(parentDir+"/rat-commons/**/*")
+        .pipe(gulp.dest(parentDir+"/"+parentDir+"/colorectalCancerRisk/rat-commons"));
+    gulp.src(parentDir+"/rat-commons/**/*")
+        .pipe(gulp.dest(parentDir+"/"+parentDir+"/breastCancerRisk/rat-commons"));
 
     return s.done();
 });
+
+
