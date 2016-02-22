@@ -33,13 +33,13 @@ header
     #toolTitle
         background #2A71A5
         color white
-        padding 10px 160px
+        padding 10px 0 10px 160px
         #toolDescription
             font-style italic
 
 ul.nav, #toolDescription, .section-title
     font-size 11pt
-
+    
 a
     color inherit
 
@@ -98,11 +98,6 @@ footer
 //navigation rules
 #menu-button
     display none
-    float right
-    height 52px
-    padding 5px
-    position relative
-    width 60px
 
 [tab]:not(.active)
     display none
@@ -235,8 +230,8 @@ section form
             margin 10px
             border 2px solid #D2CACA
             border-radius 5px
-            width 180px
-            height 130px
+            max-width 230px
+            max-height 140px
 
 .section-content
     padding 0 1%
@@ -263,35 +258,12 @@ section form
 .section-description
     margin 10px auto
     padding 5px
-    border 2px solid #fff
+    border 2px solid #2A71A5
     border-radius 10px
-    box-shadow 3px 2px 5px black
-    background rgb(119,136,153)
-    color #fff
-    a
-        color inherit
-        &:hover
-            text-decoration none
-    p
-        margin 10px 0
-    > .more
-        height 100px
-        overflow hidden
-    > .show-more
-        height 30px
-        margin 10px 0
-        font-size .9em
-        color #fff
-        background #4A4A4A
-        border 2px solid #fff
-        border-radius 5px
-        text-decoration underline
-        font-family "Tahoma", "Geneva", "sans-serif"
-        &:hover
-            text-decoration none
-            background none
-            color #fff
-            border-color #fff
+    .more
+        height auto
+    .show-more
+        display none
 
 .section-anchors
     margin 10px auto

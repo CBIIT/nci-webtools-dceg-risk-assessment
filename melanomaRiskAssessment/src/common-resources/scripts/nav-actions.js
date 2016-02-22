@@ -45,9 +45,8 @@ $(function(){
     fixedToTop();
 
     $(".section-description").each(function() {
-
-        if(this.innerText.length > 600) {
-            var text = "<div class='more'>"+ this.innerHTML +"</div><button class='show-more'><span class='fa fa-arrow-down'></span> Show More</button>";
+        if(this.innerText.length > 300) {
+            var text = "<div class='collapse'>"+ this.innerHTML +"</div><button class='show-more'><span class='fa fa-arrow-down'></span> Show More</button>";
             this.innerHTML = text;
         }
     });
