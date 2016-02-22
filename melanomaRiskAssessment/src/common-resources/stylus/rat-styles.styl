@@ -33,7 +33,7 @@ header
     #toolTitle
         background #2A71A5
         color white
-        padding 10px 160px
+        padding 10px 0 10px 160px
         #toolDescription
             font-style italic
 
@@ -42,24 +42,27 @@ ul.nav, #toolDescription, .section-title
 
 a
     color inherit
+    text-decoration none
+    &:hover
+      text-decoration underline
 
 dl
     overflow auto
     dt
         font-weight bold
-    dd      
+    dd
         &:nth-child(odd)
             img
                 float right
         &:nth-child(even)
             img
                 float left
-                
+
 .stock-images
     &.small
         width 170px
         height 125px
-    
+
 footer
     color black
     padding 5px 0
@@ -98,11 +101,6 @@ footer
 //navigation rules
 #menu-button
     display none
-    float right
-    height 52px
-    padding 5px
-    position relative
-    width 60px
 
 [tab]:not(.active)
     display none
@@ -130,9 +128,6 @@ ul.nav
             color white
             display inline-block
             text-align center
-            text-decoration none
-            &:hover
-                text-decoration underline
         // reposition the subelement underneath the larger header. This breaks down literally as soon as there is a second line of headers, so mobile nav needs to start right around that point.
         ul
             background #000
@@ -230,16 +225,16 @@ section form
         width 30%
         margin 5px 0
         vertical-align top
-        
+
         &.stock-images
             margin 10px
             border 2px solid #D2CACA
             border-radius 5px
-            width 180px
-            height 130px
+            max-width 230px
+            max-height 140px
 
 .section-content
-    padding 0 1%
+    padding 0 120px
 
 .section-title
     margin 10px auto
@@ -255,43 +250,24 @@ section form
 
 .section-title, .section-content
     a
-        text-decoration underline
         color #BB0E3D
-        :hover
-            text-decoration none
 
 .section-description
     margin 10px auto
-    padding 5px
-    border 2px solid #fff
+    padding 10px
+    border 2px solid #2A71A5
     border-radius 10px
-    box-shadow 3px 2px 5px black
-    background rgb(119,136,153)
-    color #fff
-    a
+    .heading
+        font-weight bold
+        font-size 1.1em
         color inherit
-        &:hover
-            text-decoration none
     p
+        padding 0
+        margin 0
+    .description
         margin 10px 0
-    > .more
-        height 100px
-        overflow hidden
-    > .show-more
-        height 30px
-        margin 10px 0
-        font-size .9em
-        color #fff
-        background #4A4A4A
-        border 2px solid #fff
-        border-radius 5px
-        text-decoration underline
-        font-family "Tahoma", "Geneva", "sans-serif"
-        &:hover
-            text-decoration none
-            background none
-            color #fff
-            border-color #fff
+        &:not(.show)
+            display none
 
 .section-anchors
     margin 10px auto
@@ -363,6 +339,34 @@ section form
     border-radius 10px
     padding 5px 10px
     font-weight bold
+
+#result
+    border 5px solid #2A71A5
+    border-radius 10px
+    margin 0px auto
+    max-width 600px
+    padding 30px
+    h2
+        font-size 48px
+        margin 0px
+        text-align center
+    .chart
+        background #2A71A5
+        font-size 0px
+        position relative
+        z-index 0
+        .bar
+            height 20%
+            left 0px
+            top 0px
+            position absolute
+            z-index -1
+            &.yours
+                background #023C4D
+            &.average
+                background red
+        img
+            width 5%
 
 .rounded
     border-radius 10px

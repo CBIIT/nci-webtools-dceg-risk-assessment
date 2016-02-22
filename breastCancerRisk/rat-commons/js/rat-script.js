@@ -70,7 +70,7 @@ function processSubmission(form) {
             document.getElementById("top").scrollIntoView();
         }
     }).fail(function (data) {
-       
+        
         if (data.responseJSON)
             $('#error').append("<p>" + data.responseJSON.message + "</p>").css('display', 'block');
         else
@@ -130,10 +130,10 @@ $(function(){
 
     $('#main-nav a').on('click',function() {
         var naxtNav = $(this).next('ul.nav');
-        
+
         if($('#main-nav').hasClass('show') && naxtNav.length === 0)
             $('#main-nav').removeClass('show');
-    
+
         if (naxtNav.length > 0) {
             naxtNav.toggleClass('show');
         }
@@ -149,25 +149,8 @@ $(function(){
     $(window).scroll(fixedToTop);
     fixedToTop();
 
-    $(".section-description").each(function() {
-
-        if(this.innerText.length > 600) {
-            var text = "<div class='more'>"+ this.innerHTML +"</div><button class='show-more'><span class='fa fa-arrow-down'></span> Show More</button>";
-            this.innerHTML = text;
-        }
-    });
-
-    $(".show-more").on("click", function() {
-        if(!$(this).prev().hasClass("more")){
-            this.innerHTML = "<span class='fa fa-arrow-down'></span> Show More";
-            $(this).attr("title","Show More");
-        }
-        else{
-            this.innerHTML = "<span class='fa fa-arrow-up'></span> Show Less";
-            $(this).attr("title","Show Less");
-        }
-
-        $(this).prev().toggleClass("more");
+    $(".section-description").on("click", function() {
+        $(this).find(".description").toggleClass("show");
     });
 });
 

@@ -6,6 +6,11 @@
     section
         margin 0 50px
         padding 0 20px
+        form > ol > li
+            margin 10px auto
+            width 45%
+            min-height 150px
+            max-height 600px
 
 @media (max-width 990px)
     header
@@ -19,6 +24,8 @@
         display block
     .section-anchors li, footer li
         padding 5px 0
+    .section-content
+        padding 0 1%
     section
         margin 0 25px
         form
@@ -50,6 +57,11 @@
         min-height 0
     #menu-button
         display block
+        float right
+        height 52px
+        padding 5px
+        position relative
+        width 60px
     ul.nav
         background transparent
         padding 0
@@ -89,12 +101,8 @@
         padding-left 0
         .stock-images
             width 180px
-            
-    ul.two-col
-        overflow auto
-        li
-            width 100%
-            float none
+    ul.two-col li
+        width auto
 
 @media (max-width 480px)
     header #nci-banner

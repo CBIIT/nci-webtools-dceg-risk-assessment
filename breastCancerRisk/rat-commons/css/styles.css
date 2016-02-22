@@ -1,148 +1,3 @@
-@media (max-width: 1300px) {
-  ul.nav {
-    margin: 0;
-  }
-  ul.nav li {
-    padding: 7px;
-  }
-  section {
-    margin: 0 50px;
-    padding: 0 20px;
-  }
-}
-@media (max-width: 990px) {
-  header {
-    position: relative;
-  }
-  header #toolTitle {
-    text-align: center;
-    padding: 5px;
-  }
-  dl {
-    padding: 0;
-  }
-  .spacer {
-    display: block;
-  }
-  .section-anchors li,
-  footer li {
-    padding: 5px 0;
-  }
-  section {
-    margin: 0 25px;
-  }
-  section form > ol {
-    padding: 0;
-  }
-  section form > ol > li > p {
-    margin-right: 0;
-  }
-  section form > ol > li > p > .input {
-    width: 100%;
-    margin: 10px auto;
-  }
-  section form .question-text {
-    margin: 0;
-    padding: 1%;
-  }
-  section form .question-illustrations img {
-    width: 80%;
-  }
-  section form button {
-    display: inherit;
-    margin: 0 auto;
-    width: 50%;
-    float: none;
-  }
-}
-@media (max-width: 768px) {
-  header #nci-banner {
-    padding-left: 25px;
-  }
-  header #toolTitle {
-    padding: 5px 0;
-  }
-  #top {
-    margin: 0;
-    min-height: 0;
-  }
-  #menu-button {
-    display: block;
-  }
-  ul.nav {
-    background: transparent;
-    padding: 0;
-    text-align: center;
-  }
-  ul.nav:not(.show) {
-    display: none;
-  }
-  ul.nav.stick-nav-top {
-    position: inherit;
-  }
-  ul.nav > li {
-    display: block;
-    padding: 8px;
-  }
-  ul.nav > li a {
-    color: #bb0e3d;
-  }
-  ul.nav > li:not(:hover) > ul {
-    display: block;
-  }
-  ul.nav > li > ul {
-    background: transparent;
-    margin: 10px 0 -5px;
-    position: static;
-  }
-  ul.nav > li > ul:not(.show) {
-    display: none;
-  }
-  .section-title {
-    overflow: auto;
-    padding: 5px 10px;
-  }
-  section {
-    margin: 10px;
-    padding: 0;
-  }
-  section form > ol > li {
-    width: 100%;
-    height: auto;
-    max-height: 350px;
-    min-height: 130px;
-    padding: 5px 10px;
-  }
-  footer {
-    margin: 25px 0;
-  }
-  .question-illustration {
-    padding-left: 0;
-  }
-  .question-illustration .stock-images {
-    width: 180px;
-  }
-  ul.two-col {
-    overflow: auto;
-  }
-  ul.two-col li {
-    width: 100%;
-    float: none;
-  }
-}
-@media (max-width: 480px) {
-  header #nci-banner {
-    padding-left: 0;
-  }
-  .section-title * {
-    display: block;
-    text-align: center;
-  }
-  .section-title :nth-child(2) {
-    float: none;
-  }
-}
-
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -186,7 +41,7 @@ header #nci-banner img {
 header #toolTitle {
   background: #2a71a5;
   color: #fff;
-  padding: 10px 160px;
+  padding: 10px 0 10px 160px;
 }
 header #toolTitle #toolDescription {
   font-style: italic;
@@ -198,6 +53,10 @@ ul.nav,
 }
 a {
   color: inherit;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
 }
 dl {
   overflow: auto;
@@ -257,11 +116,6 @@ footer ul li a :hover {
 }
 #menu-button {
   display: none;
-  float: right;
-  height: 52px;
-  padding: 5px;
-  position: relative;
-  width: 60px;
 }
 [tab]:not(.active) {
   display: none;
@@ -295,10 +149,6 @@ ul.nav li a {
   color: #fff;
   display: inline-block;
   text-align: center;
-  text-decoration: none;
-}
-ul.nav li a:hover {
-  text-decoration: underline;
 }
 ul.nav li ul {
   background: #000;
@@ -428,14 +278,14 @@ section form button {
   border: 2px solid #d2caca;
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  width: 180px;
-  height: 130px;
+  max-width: 230px;
+  max-height: 140px;
 }
 .section-content {
-  padding: 0 1%;
+  padding: 0 120px;
 }
 .section-title {
-  margin: 5px auto;
+  margin: 10px auto;
   font-weight: bold;
   padding: 5px 20px;
   background: #bb0e3d;
@@ -451,54 +301,29 @@ section form button {
 }
 .section-title a,
 .section-content a {
-  text-decoration: underline;
   color: #bb0e3d;
-}
-.section-title a :hover,
-.section-content a :hover {
-  text-decoration: none;
 }
 .section-description {
   margin: 10px auto;
-  padding: 5px;
-  border: 2px solid #fff;
+  padding: 10px;
+  border: 2px solid #2a71a5;
   -webkit-border-radius: 10px;
   border-radius: 10px;
-  -webkit-box-shadow: 3px 2px 5px #000;
-  box-shadow: 3px 2px 5px #000;
-  background: #789;
-  color: #fff;
 }
-.section-description a {
+.section-description .heading {
+  font-weight: bold;
+  font-size: 1.1em;
   color: inherit;
 }
-.section-description a:hover {
-  text-decoration: none;
-}
 .section-description p {
+  padding: 0;
+  margin: 0;
+}
+.section-description .description {
   margin: 10px 0;
 }
-.section-description > .more {
-  height: 100px;
-  overflow: hidden;
-}
-.section-description > .show-more {
-  height: 30px;
-  margin: 10px 0;
-  font-size: 0.9em;
-  color: #fff;
-  background: #4a4a4a;
-  border: 2px solid #fff;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  text-decoration: underline;
-  font-family: "Tahoma", "Geneva", "sans-serif";
-}
-.section-description > .show-more:hover {
-  text-decoration: none;
-  background: none;
-  color: #fff;
-  border-color: #fff;
+.section-description .description:not(.show) {
+  display: none;
 }
 .section-anchors {
   margin: 10px auto;
@@ -577,6 +402,41 @@ section form button {
   padding: 5px 10px;
   font-weight: bold;
 }
+#result {
+  border: 5px solid #000;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  margin: 0px auto;
+  max-width: 600px;
+  padding: 30px;
+}
+#result h2 {
+  font-size: 48px;
+  margin: 0px;
+  text-align: center;
+}
+#result .chart {
+  background: #69f;
+  font-size: 0px;
+  position: relative;
+  z-index: 0;
+}
+#result .chart .bar {
+  height: 20%;
+  left: 0px;
+  top: 0px;
+  position: absolute;
+  z-index: -1;
+}
+#result .chart .bar.yours {
+  background: #300828;
+}
+#result .chart .bar.average {
+  background: #f00;
+}
+#result .chart img {
+  width: 5%;
+}
 .rounded {
   -webkit-border-radius: 10px;
   border-radius: 10px;
@@ -611,4 +471,159 @@ ul.two-col li {
 .female:not(.show),
 .subquestion:not(.show) {
   display: none;
+}
+
+@media (max-width: 1300px) {
+  ul.nav {
+    margin: 0;
+  }
+  ul.nav li {
+    padding: 7px;
+  }
+  section {
+    margin: 0 50px;
+    padding: 0 20px;
+  }
+  section form > ol > li {
+    margin: 10px auto;
+    width: 45%;
+    min-height: 150px;
+    max-height: 600px;
+  }
+}
+@media (max-width: 990px) {
+  header {
+    position: relative;
+  }
+  header #toolTitle {
+    text-align: center;
+    padding: 5px;
+  }
+  dl {
+    padding: 0;
+  }
+  .spacer {
+    display: block;
+  }
+  .section-anchors li,
+  footer li {
+    padding: 5px 0;
+  }
+  .section-content {
+    padding: 0 1%;
+  }
+  section {
+    margin: 0 25px;
+  }
+  section form > ol {
+    padding: 0;
+  }
+  section form > ol > li > p {
+    margin-right: 0;
+  }
+  section form > ol > li > p > .input {
+    width: 100%;
+    margin: 10px auto;
+  }
+  section form .question-text {
+    margin: 0;
+    padding: 1%;
+  }
+  section form .question-illustrations img {
+    width: 80%;
+  }
+  section form button {
+    display: inherit;
+    margin: 0 auto;
+    width: 50%;
+    float: none;
+  }
+}
+@media (max-width: 768px) {
+  header #nci-banner {
+    padding-left: 25px;
+  }
+  header #toolTitle {
+    padding: 5px 0;
+  }
+  #top {
+    margin: 0;
+    min-height: 0;
+  }
+  #menu-button {
+    display: block;
+    float: right;
+    height: 52px;
+    padding: 5px;
+    position: relative;
+    width: 60px;
+  }
+  ul.nav {
+    background: transparent;
+    padding: 0;
+    text-align: center;
+  }
+  ul.nav:not(.show) {
+    display: none;
+  }
+  ul.nav.stick-nav-top {
+    position: inherit;
+  }
+  ul.nav > li {
+    display: block;
+    padding: 8px;
+  }
+  ul.nav > li a {
+    color: #bb0e3d;
+  }
+  ul.nav > li:not(:hover) > ul {
+    display: block;
+  }
+  ul.nav > li > ul {
+    background: transparent;
+    margin: 10px 0 -5px;
+    position: static;
+  }
+  ul.nav > li > ul:not(.show) {
+    display: none;
+  }
+  .section-title {
+    overflow: auto;
+    padding: 5px 10px;
+  }
+  section {
+    margin: 10px;
+    padding: 0;
+  }
+  section form > ol > li {
+    width: 100%;
+    height: auto;
+    max-height: 350px;
+    min-height: 130px;
+    padding: 5px 10px;
+  }
+  footer {
+    margin: 25px 0;
+  }
+  .question-illustration {
+    padding-left: 0;
+  }
+  .question-illustration .stock-images {
+    width: 180px;
+  }
+  ul.two-col li {
+    width: auto;
+  }
+}
+@media (max-width: 480px) {
+  header #nci-banner {
+    padding-left: 0;
+  }
+  .section-title * {
+    display: block;
+    text-align: center;
+  }
+  .section-title :nth-child(2) {
+    float: none;
+  }
 }
