@@ -7,7 +7,7 @@ from MratConstants import MratConstants
 
 app = Flask(__name__, static_folder="", static_url_path="")
 
-class RiskAssessmentTools:
+class MelanomaRiskAssessmentTool:
   @staticmethod
   def buildFailure(message):
     if (isinstance(message,str)):
@@ -65,9 +65,9 @@ class RiskAssessmentTools:
         age = int(parameters['age'])
         if (age < 20 or age > 70):
           errorObject['message'] = "This tool cannot be used to assess risk for those under the age of 20 or over the age of 70.";
-          return RiskAssessmentTools.buildFailure(errorObject)
+          return MelanomaRiskAssessmentTool.buildFailure(errorObject)
       if len(errorObject['missing']) > 0 or len(errorObject['nonnumeric']) > 0:
-        return RiskAssessmentTools.buildFailure(errorObject);
+        return MelanomaRiskAssessmentTool.buildFailure(errorObject);
       r = 1
       if sex == 0:
         r *= MratConstants.SUNBURN[int(parameters['sunburn'])]
@@ -92,15 +92,15 @@ class RiskAssessmentTools:
         h22 = MratConstants.MORTALITY[sex][ageIndex+1]
         risk += h12*r*math.exp((age-t2)*(h11*r+h21))*(1-math.exp((t1-age)*(h12*r+h22)))/(h12*r+h22)
       risk = round(risk*10000)/100
-      return RiskAssessmentTools.buildSuccess(str(risk))
+      return MelanomaRiskAssessmentTool.buildSuccess(str(risk))
     except Exception as e:
       exc_type, exc_obj, exc_tb = sys.exc_info()
       fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
       print("EXCEPTION------------------------------", exc_type, fname, exc_tb.tb_lineno)
-      return RiskAssessmentTools.buildFailure(str(e))
+      return MelanomaRiskAssessmentTool.buildFailure(str(e))
 
   def __init__(self):
     app.run(host='0.0.0.0', port=8200, debug=True)
 
 if __name__ == '__main__':
-  RiskAssessmentTools()
+  MelanomaRiskAssessmentTool()
