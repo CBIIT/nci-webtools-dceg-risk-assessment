@@ -104,9 +104,9 @@ footer ul li a :hover {
 }
 #topButton > .fa {
   margin: 5px;
-  border: 4px solid #6699bc;
-  background: #6699bc;
-  background: rgba(42,113,165,0.7);
+  border: 4px solid #bb0e3d;
+  background: #bb0e3d;
+  background: rgba(187,14,61,0.7);
   -webkit-border-radius: 20px;
   border-radius: 20px;
 }
@@ -195,7 +195,7 @@ section form > ol > li {
   height: 335px;
   vertical-align: top;
   overflow: auto;
-  border: 2px solid #2a71a5;
+  border: 2px solid #bb0e3d;
   -webkit-border-radius: 5px;
   border-radius: 5px;
 }
@@ -310,15 +310,18 @@ section form button {
 }
 .section-description {
   margin: 10px auto;
-  padding: 5px;
-  border: 2px solid #2a71a5;
+  padding: 10px;
+  border: 3px solid #bb0e3d;
   -webkit-border-radius: 10px;
   border-radius: 10px;
+  background: #fff;
+  text-align: center;
 }
 .section-description .heading {
   font-weight: bold;
   font-size: 1.1em;
   color: inherit;
+  text-align: center;
 }
 .section-description p {
   padding: 0;
@@ -511,7 +514,7 @@ ul.two-col li {
 }
 @media (max-width: 768px) {
   header #nci-banner {
-    padding-left: 25px;
+    padding-left: 0;
   }
   header #toolTitle {
     padding: 5px 0;
@@ -586,9 +589,6 @@ ul.two-col li {
   }
 }
 @media (max-width: 480px) {
-  header #nci-banner {
-    padding-left: 0;
-  }
   .section-title * {
     display: block;
     text-align: center;
