@@ -164,10 +164,11 @@ ul.nav li#quick-link ul {
   background: #f7f8f3;
 }
 ul.nav li#quick-link ul.nav {
-  padding-left: 40px;
+  padding: 0;
 }
 ul.nav li#quick-link ul.nav > li {
-  padding: 10px 5px;
+  text-align: center;
+  padding: 5px 10px;
 }
 ul.nav li#quick-link ul a {
   color: #bb0e3d;
@@ -317,6 +318,11 @@ section form button {
   font-size: 1.1em;
   color: inherit;
   text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+}
+.section-description .heading:hover {
+  text-decoration: underline;
 }
 .section-description p {
   padding: 0;
