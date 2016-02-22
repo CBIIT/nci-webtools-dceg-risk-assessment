@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="/common/css/style.css" rel="stylesheet" type="text/css">
+    <link href="rat-commons/css/styles.css" rel="stylesheet" type="text/css">
     <link href="styles.css" rel="stylesheet" type="text/css">
   </head>
   <body>
@@ -18,10 +19,10 @@
         <ul id="main-nav" class="nav">
           <li tabTo="risk-calculator"><a href="#risk-calculator">
               <div class="link-text">Risk Calculator</div></a></li>
-          <li tabTo="cancer-risk"><a href="#cancer-risk">
-              <div class="link-text">Melanoma Cancer Risk</div></a></li>
           <li tabTo="about"><a href="#about">
               <div class="link-text">About</div></a></li>
+          <li tabTo="cancer-risk"><a href="#cancer-risk">
+              <div class="link-text">Melanoma Risk Factors</div></a></li>
           <li id="quick-link"><a href="javascript:void(0);">
               <div class="link-text">Quick Links</div></a>
             <ul class="nav">
@@ -41,8 +42,8 @@
               <div class="link-text">Source Code</div></a></li>
         </ul></span>
       <section id="about" tab="about">
-        <div class="section-title"><span>About the Tool</span><a title="go to melanoma risk assessment" name="risk-calculator" class="goToTab">Calculate Risk for New Patients</a></div>
         <div class="section-content">
+          <div class="section-title"><span>About the Tool</span><a title="go to melanoma risk assessment" name="risk-calculator" class="goToTab">Calculate Risk for New Patients</a></div>
           <ul class="section-anchors">
             <li><a title="skip to explanations of the questions" name="#questions-exp" class="goTo">Explaining the Questions</a></li>
             <div class="spacer"></div>
@@ -51,71 +52,73 @@
             <li><a title="skip to the model" name="#model-exp" class="goTo">About the Model</a></li>
             <div class="spacer"></div>
             <li><a title="go to references" name="#reference" class="goTo">Reference</a></li>
-          </ul><strong>Explaining the Questions</strong>
-          <div id="questions-exp" class="content-details rounded">
-            <div class="about-question-title"><strong>Question 1:&nbsp;</strong><em>In what state does the patient reside?</em></div>
+          </ul>
+          <div class="section-title">Explaining the Questions        </div>
+          <div id="questions-exp">
+            <div class="about-question-title">Question 1: In what state does the patient reside?</div>
             <div class="about-question-explanation"><strong>Explanation</strong><br>Melanoma is more common in people who live in areas that get large amounts of UV
               radiation from the sun. For example, melanoma is more common in California than
               in Minnesota, where the sun is not as strong.
             </div>
-            <div class="about-question-title"><strong>Question 2:&nbsp;</strong><em>What is the patient's gender?</em></div>
+            <div class="about-question-title">Question 2: What is the patient's gender?</div>
             <div class="about-question-explanation"><strong>Explanation</strong><br>In the United States, melanoma incidence is higher for men than for women. Risk
               factors for melanoma and sun behavior patterns are also different between men and
               women.
             </div>
-            <p class="about-question-title"><strong>Question 3:&nbsp;</strong><em>What is the patient's race?</em></p>
-            <p class="about-question-explanation"><strong>Explanation</strong><br>The risks are estimated only for non-Hispanic whites; data on other ethnicities
+            <div class="about-question-title">Question 3: What is the patient's race?</div>
+            <div class="about-question-explanation"><strong>Explanation</strong><br>The risks are estimated only for non-Hispanic whites; data on other ethnicities
               were too limited to accurately estimate risk. White people get melanoma far more
               often than do African American people, probably because light skin is more easily
               damaged by the sun.
-            </p>
-            <p class="about-question-title"><strong>Question 4:&nbsp;</strong><em>What is the patient's age?</em></p>
-            <p class="about-question-explanation"><strong>Explanation</strong><br>The risk of developing melanoma increases with age. Most cancers develop slowly
+            </div>
+            <div class="about-question-title">Question 4: What is the patient's age?</div>
+            <div class="about-question-explanation"><strong>Explanation</strong><br>The risk of developing melanoma increases with age. Most cancers develop slowly
               over time. For this reason, melanoma is more common among older individuals.
-            </p>
-            <p class="about-question-title"><strong>Question 5:&nbsp;</strong><em>Has the patient ever had a blistering sunburn?</em></p>
-            <p class="about-question-explanation"><strong>Explanation</strong><br>People who have had at least one severe, blistering sunburn are at increased risk
+            </div>
+            <div class="about-question-title">Question 5: Has the patient ever had a blistering sunburn?</div>
+            <div class="about-question-explanation"><strong>Explanation</strong><br>People who have had at least one severe, blistering sunburn are at increased risk
               of melanoma. Doctors advise protection from the sun to reduce the risk of melanoma.
-            </p>
-            <p class="about-question-title"><strong>Question 5 for females:</strong><br><strong>Question 6 for males:&nbsp;</strong><em>Is the patient's complexion light, medium, or dark?</em></p>
-            <p class="about-question-explanation"><strong>Explanation</strong><br>Melanoma occurs more frequently in people who have fair skin that burns or freckles
+            </div>
+            <div class="about-question-title">Question 5 for females:<br>Question 6 for males: Is the patient's complexion light, medium, or dark?</div>
+            <div class="about-question-explanation"><strong>Explanation</strong><br>Melanoma occurs more frequently in people who have fair skin that burns or freckles
               easily (these people also usually have red or blond hair and blue eyes) than in
               people with dark skin, probably because light skin is more easily damaged by the
               sun.
-            </p>
-            <p></p>
-            <p class="about-question-title"><strong>Question 6 (for females only):&nbsp;</strong><em>
-                After repeated and prolonged exposure to sunlight, at the age the patient is now,
-                how tan would the patient's skin become?</em></p>
-            <p class="about-question-explanation"><strong>Explanation</strong><br>Melanoma occurs more frequently in people who have skin that burns easily and does
+            </div>
+            <div class="about-question-title">
+              Question 6 (for females only): After repeated and prolonged exposure to sunlight, at the age the patient is now,
+              how tan would the patient's skin become?
+            </div>
+            <div class="about-question-explanation"><strong>Explanation</strong><br>Melanoma occurs more frequently in people who have skin that burns easily and does
               not tan well. Sun resistance, or the ability to tan instead of burn when exposed
               to the sun, has been associated with a lower risk of melanoma. People who tan well,
               however, are also at risk of melanoma and their risk is higher the more sun exposure
               that they have.
-            </p>
-            <p class="about-question-title"><strong>Question 7 (for males only):&nbsp;</strong><em>How many moles larger than 5mm in diameter are on the patient's back?</em></p>
-            <p class="about-question-explanation"><strong>Explanation</strong><br>Having many moles increases the risk of developing melanoma. Dysplastic nevi are
+            </div>
+            <div class="about-question-title">Question 7 (for males only): How many moles larger than 5mm in diameter are on the patient's back?</div>
+            <div class="about-question-explanation"><strong>Explanation</strong><br>Having many moles increases the risk of developing melanoma. Dysplastic nevi are
               larger moles that are more likely than ordinary moles to become cancerous. The back
               and shoulders are commonly and readily examined and the evaluation is easier than
               on chronically exposed areas.
-            </p>
-            <p class="about-question-title"><strong>Question 7 for females:</strong><br><strong>Question 8 for males:&nbsp;</strong><em>How many moles less than or equal to 5mm in diameter are on the patient's back?</em></p>
-            <p class="about-question-explanation"><strong>Explanation</strong><br>Having many moles, particularly larger moles, increases the risk of developing melanoma.
+            </div>
+            <div class="about-question-title">Question 7 for females:<br>Question 8 for males: How many moles less than or equal to 5mm in diameter are on the patient's back?</div>
+            <div class="about-question-explanation"><strong>Explanation</strong><br>Having many moles, particularly larger moles, increases the risk of developing melanoma.
               The back and shoulders are commonly and readily examined and the evaluation is easier
               than on chronically exposed areas. Characteristics of the back are highly correlated
               with total body characteristics.
-            </p>
-            <p class="about-question-title"><strong>Question 8 for females:</strong><br><strong>Question 9 for males:&nbsp;</strong><em>How extensive is the freckling on the patient's back and shoulders?</em></p>
-            <p class="about-question-explanation"><strong>Explanation</strong><br>Melanoma occurs more frequently in people who have fair skin that freckles easily.
+            </div>
+            <div class="about-question-title">Question 8 for females:<br>Question 9 for males: How extensive is the freckling on the patient's back and shoulders?</div>
+            <div class="about-question-explanation"><strong>Explanation</strong><br>Melanoma occurs more frequently in people who have fair skin that freckles easily.
               The back and shoulders are commonly and readily examined and the evaluation is easier
               than on chronically exposed areas.
-            </p>
-            <p class="about-question-title"><strong>Question 10 (for males only):&nbsp;</strong><em>Does the patient have severe solar damage on the shoulders?</em></p>
-            <p class="about-question-explanation"><strong>Explanation</strong><br>UV radiation from the sun causes premature aging of the skin and skin damage that
+            </div>
+            <div class="about-question-title">Question 10 (for males only): Does the patient have severe solar damage on the shoulders?</div>
+            <div class="about-question-explanation"><strong>Explanation</strong><br>UV radiation from the sun causes premature aging of the skin and skin damage that
               can lead to melanoma.
-            </p>
-          </div><strong>Explaining the Results</strong>
-          <div id="results-exp" class="content-details rounded">
+            </div>
+          </div>
+          <div class="section-title">Explaining the Results</div>
+          <div id="results-exp">
             <p>
               The Melanoma Risk Assessment Tool will estimate an individual's risk of developing
               melanoma during the next 5-year period and up to age 70 based on the risk factor
@@ -129,8 +132,9 @@
               The MRAT risk calculator may be updated periodically as new data or research becomes
               available.
             </p>
-          </div><strong>About the Model</strong>
-          <div id="model-exp" class="content-details rounded">
+          </div>
+          <div class="section-title">About the Model</div>
+          <div id="model-exp">
             <p>
               The Melanoma Risk Assessment Tool is based on a statistical model. The model uses
               patient's self-reported history and a brief physical exam by a health care professional.
@@ -144,57 +148,66 @@
               The MRAT risk calculator may be updated periodically as new data or research becomes
               available. The system is currently on statistical model version 1 and software version
             </p>
-          </div><strong>Reference</strong>
-          <div id="reference" class="content-details rounded"><a target="_blank" href="http://www.ncbi.nlm.nih.gov/pubmed/16728488" class="references"><em>
-                Fears TR, Guerry D IV, Pfeiffer
-                RM, et al: Identifying Individuals at High Risk of Melanoma: A Practical Predictor
-                of Absolute Risk. J Clin Oncol 24(22): pp-pp, 2006.</em></a></div>
+          </div>
+          <div class="section-title">Reference</div>
+          <div id="reference">
+            <div class="references">
+              Fears TR, Guerry D IV, Pfeiffer
+              RM, et al: Identifying Individuals at High Risk of Melanoma: A Practical Predictor
+              of Absolute Risk. J Clin Oncol 24(22): pp-pp, 2006. [<a target="_blank" href="http://www.ncbi.nlm.nih.gov/pubmed/16728488">PubMed Abstract</a>]
+            </div>
+          </div>
         </div>
       </section>
       <section id="risk-calculator" tab="risk-calculator">
-        <div class="section-content">
-          <div class="section-description"><span class="hidden-anchor"><a href="#survey">Skip to survey</a></span>
-            <p>
-              The Melanoma Risk Assessment is an interactive tool designed by scientists at the National Cancer Institute (NCI),
-              the University of Pennsylvania, and the University of California, San Francisco,
-              to estimate a person's &nbsp;<a data-term="ar" class="termToDefine">absolute risk</a> of developing invasive melanoma. The tool helps clinicians identify
-              individuals at increased risk of melanoma in order to plan
-              appropriate screening interventions with them.
-            </p><strong>Who should use this tool</strong>
-            <p>
-              The melanoma risk calculator was developed using data from a large case-control
-              study in the United States. Risks are estimated for non-Hispanic whites only; data
-              for other races/ethnicities are too limited to accurately estimate risk.
-            </p>
-            <p><a href="http://www.ncbi.nlm.nih.gov/pubmed/16728488" target="_blank">JCO Publication</a></p>
-            <p><strong>Before using the tool, please note the following:</strong></p>
-            <ul>
-              <li>
-                The melanoma risk calculator was designed for use by health professionals during
-                a routine physical examination that includes recording of information about the
-                patient's personal and family medical history and an examination of the skin on
-                the patient's back and shoulders. If you are not a health professional, you are
-                strongly encouraged to discuss the results obtained with this tool and your personal
-                risk of melanoma with your doctor.
-              </li>
-              <li>
-                The MRAT risk calculator may be updated periodically as new data or research becomes
-                available.
-              </li>
-              <li>
-                This tool should not be used to estimate melanoma risk for people who have already
-                had a diagnosis of melanoma, melanoma-in-situ, non-melanoma skin cancer, or a family
-                history of melanoma. These individuals should be in screening and surveillance programs.
-              </li>
-              <li>A recent version of Internet Explorer, Firefox, or Chrome is recommended.</li>
-            </ul>
+        <div class="section-content"><span class="hidden-anchor"><a href="#survey">Skip to survey</a></span>
+          <p>
+            The Melanoma Risk Assessment is an interactive tool designed by scientists at the National Cancer Institute (NCI),
+            the University of Pennsylvania, and the University of California, San Francisco,
+            to estimate a person's &nbsp;<a data-term="ar" class="termToDefine">absolute risk</a> of developing invasive melanoma. The tool helps clinicians identify
+            individuals at increased risk of melanoma in order to plan
+            appropriate screening interventions with them.
+          </p>
+          <div class="section-description"><a class="heading">Who should use this tool</a>
+            <div class="description">
+              <p>
+                The melanoma risk calculator was developed using data from a large case-control
+                study in the United States. Risks are estimated for non-Hispanic whites only; data
+                for other races/ethnicities are too limited to accurately estimate risk.
+              </p><br><a href="http://www.ncbi.nlm.nih.gov/pubmed/16728488" target="_blank">JCO Publication</a>
+            </div>
+          </div>
+          <div class="section-description"><a class="heading">Before using the tool</a>
+            <div class="description">
+              <p>Please note the following:</p>
+              <ul>
+                <li>
+                  The melanoma risk calculator was designed for use by health professionals during
+                  a routine physical examination that includes recording of information about the
+                  patient's personal and family medical history and an examination of the skin on
+                  the patient's back and shoulders. If you are not a health professional, you are
+                  strongly encouraged to discuss the results obtained with this tool and your personal
+                  risk of melanoma with your doctor.
+                </li>
+                <li>
+                  The MRAT risk calculator may be updated periodically as new data or research becomes
+                  available.
+                </li>
+                <li>
+                  This tool should not be used to estimate melanoma risk for people who have already
+                  had a diagnosis of melanoma, melanoma-in-situ, non-melanoma skin cancer, or a family
+                  history of melanoma. These individuals should be in screening and surveillance programs.
+                </li>
+                <li>A recent version of Internet Explorer, Firefox, or Chrome is recommended.</li>
+              </ul>
+            </div>
           </div>
           <div class="section-title"><span>Questions</span></div>
           <div id="result" class="hide"></div>
           <div id="error" style="display:none;"></div>
           <form id="survey" action="/mratRest/calculate/" method="POST">
             <ol>
-              <li class="rounded">
+              <li>
                 <div class="question">
                   <label for="state" class="question-text">In what state does the patient reside?</label>
                   <div class="input">
@@ -322,9 +335,9 @@
                     </div>
                   </li>
                 </ol>
-                <div class="question-illustrations"><img alt="map of the United States" src="images/states.svg" class="stock-images"></div>
+                <div class="question-illustrations"><img alt="map of the United States" src="images/states.png" class="stock-images"></div>
               </li>
-              <li class="rounded">
+              <li>
                 <div class="question">
                   <label for="gender" class="question-text">What is the patient's gender?</label>
                   <div class="input">
@@ -340,7 +353,7 @@
                   <div class="question-illustrations"><img alt="image of a man and woman" src="images/man-woman.jpg" class="stock-images"></div>
                 </div>
               </li>
-              <li class="rounded">
+              <li>
                 <div class="question">
                   <label for="race" class="question-text">What is the patient's race?</label>
                   <div class="input">
@@ -353,7 +366,7 @@
                 </div>
                 <div class="question-illustrations"><img alt="diverse group of people" src="images/diversity.jpg" class="stock-images"></div>
               </li>
-              <li class="rounded">
+              <li>
                 <div class="question">
                   <label for="age" class="question-text">What is the patient's age?</label>
                   <div class="input">
@@ -362,7 +375,7 @@
                 </div>
                 <div class="question-illustrations"><img alt="woman and girl" src="images/age.jpg" class="stock-images"></div>
               </li>
-              <li class="male rounded">
+              <li class="male">
                 <div class="question">
                   <label for="sunburn" class="question-text"><b class="no-css">&nbsp;Males only</b><i>Ask the patient:</i> Did you ever get a blistering sunburn?</label>
                   <div class="input">
@@ -374,7 +387,7 @@
                   </div>
                 </div>
               </li>
-              <li class="male female rounded">
+              <li class="male female">
                 <div class="question">
                   <label for="complexion" class="question-text"><i>Ask the patient:</i> Is your complexion light, medium, or dark?</label>
                   <div class="input">
@@ -388,7 +401,7 @@
                 </div>
                 <div class="question-illustrations"><img alt="hands of different skin complexions" src="images/hand-circle.png" class="stock-images"></div>
               </li>
-              <li class="female rounded">
+              <li class="female">
                 <div class="question">
                   <label for="tan" class="question-text"><b class="no-css">&nbsp;Females only</b><i>Ask the patient:</i> After repeated and prolonged exposure to sunlight, at the age you are now, would your skin become
                     very brown and deeply tanned, moderately tanned, lightly tanned, or not tanned at all?
@@ -404,7 +417,7 @@
                   </div>
                 </div>
               </li>
-              <li class="male rounded">
+              <li class="male">
                 <div class="question">
                   <label for="big-moles" class="question-text"><b class="no-css">&nbsp;Males only</b>How many moles larger than 5mm in diameter are on the patient's back?</label>
                   <div class="input">
@@ -416,7 +429,7 @@
                   </div>
                 </div>
               </li>
-              <li class="male female rounded">
+              <li class="male female">
                 <div class="question">
                   <label for="small-moles" class="question-text">How many moles less than or equal to 5mm in diameter are on the patient's back?</label>
                   <div class="input">
@@ -429,7 +442,7 @@
                   </div>
                 </div>
               </li>
-              <li class="male female rounded">
+              <li class="male female">
                 <div class="question">
                   <label for="freckling" class="question-text">How extensive is the freckling on the patient's back and shoulders?</label>
                   <div class="input">
@@ -442,9 +455,9 @@
                     </select>
                   </div>
                 </div>
-                <div class="question-illustrations"><small>(click image to view full size)</small><br><img src="images/mratMildLrg.jpg" title="Mild Freckling" alt="Mild Freckling" class="thumbnail"><img src="images/mratModLrg.jpg" title="Moderate Freckling" alt="Moderate Freckling" class="thumbnail"><img src="images/mratSevereLrg.jpg" title="Severe Freckling" alt="Severe Freckling" class="thumbnail"></div>
+                <div class="question-illustrations"><em>(click image to view full size)</em><br><img src="images/mratMildLrg.jpg" title="Mild Freckling" alt="Mild Freckling" class="thumbnail"><img src="images/mratModLrg.jpg" title="Moderate Freckling" alt="Moderate Freckling" class="thumbnail"><img src="images/mratSevereLrg.jpg" title="Severe Freckling" alt="Severe Freckling" class="thumbnail"></div>
               </li>
-              <li class="male rounded">
+              <li class="male">
                 <div class="question">
                   <label for="damage" class="question-text"><b class="no-css">&nbsp;Males only</b>Does the patient have severe solar damage on the shoulders?</label>
                   <div class="input">
@@ -455,27 +468,27 @@
                     </select>
                   </div>
                 </div>
-                <div class="question-illustrations"><small>(click image to view full size)</small><br><img src="images/mratSevereLrg2.jpg" title="Severe solar damage" alt="Severe solar damage" class="thumbnail"></div>
+                <div class="question-illustrations"><em>(click image to view full size)</em><br><img src="images/mratSevereLrg2.jpg" title="Severe solar damage" alt="Severe solar damage" class="thumbnail"></div>
               </li>
             </ol>
+            <button id="reset" type="reset">Reset</button>
             <button id="calculate" type="submit">Calculate Risk</button>
           </form>
         </div>
       </section>
       <section id="cancer-risk" tab="cancer-risk">
-        <div class="section-title"><span>Melanoma Cancer Risk</span><a title="go to melanoma risk assessment" name="risk-calculator" class="goToTab">Calculate Risk for New Patients</a></div>
         <div class="section-content">
-          <div class="content-details rounded">
-            <dl>
+          <div class="section-title"><span>Melanoma Cancer Risk</span><a title="go to melanoma risk assessment" name="risk-calculator" class="goToTab">Calculate Risk for New Patients</a></div>
+          <dl>
+            <p>
+              No one knows the exact causes of melanoma. Doctors can seldom explain why one person
+              gets melanoma and another does not. However, research has shown that people with
+              certain
+              &nbsp;<a data-term="rf" class="termToDefine">risk factors</a> are more likely than others to develop melanoma. Anything that increases the chance
+              of developing a disease is called a risk factor.
+            </p>
+            <dd><strong>Personal history of melanoma or skin cancer</strong>
               <p>
-                No one knows the exact causes of melanoma. Doctors can seldom explain why one person
-                gets melanoma and another does not. However, research has shown that people with
-                certain
-                &nbsp;<a data-term="rf" class="termToDefine">risk factors</a> are more likely than others to develop melanoma. Anything that increases the chance
-                of developing a disease is called a risk factor.
-              </p>
-              <dt>Personal history of melanoma or skin cancer</dt>
-              <dd>
                  People who have been
                 treated for melanoma have a high risk of a second, separate melanoma. Some people
                 develop more than two melanomas. People who have had one or more of the common skin
@@ -485,46 +498,50 @@
                 ) are also at increased risk of melanoma. These
                 individuals should be in screening and surveillance programs and this risk assessment
                 tool is not appropriate for them.
-              </dd>
-              <dt>Family history of melanoma:</dt>
-              <dd>
-                Melanoma sometimes runs in families.
+              </p>
+            </dd>
+            <dd><strong>Family history of melanoma</strong>
+              <p><img src="https://visualsonline.cancer.gov/retrieve.cfm?imageid=7504&amp;dpi=72&amp;fileformat=jpg" class="stock-images small">Melanoma sometimes runs in families.
                 Having close relatives who have had this disease is a risk factor. About 10 percent
                 of all patients with melanoma have another family member with this disease; only
                 about 1% of individuals with melanoma have more than one family member with
                 melanoma. When melanoma runs in a family, all close family members of individuals
                 with melanoma should be checked regularly by a doctor.
-              </dd>
-              <dt>Many ordinary moles:</dt>
-              <dd>
+              </p>
+            </dd>
+            <dd><img src="https://visualsonline.cancer.gov/retrieve.cfm?imageid=9187&amp;dpi=300&amp;fileformat=jpg" class="stock-images small"><strong>Many ordinary moles</strong>
+              <p>
                 Having many moles, particularly larger moles,
                 increases the risk of developing melanoma.
-              </dd>
-              <dt>Dysplastic nevi:</dt>
-              <dd>
+              </p>
+            </dd>
+            <dd><strong>Dysplastic nevi</strong>
+              <p>
                 Dysplastic nevi are larger, flat, irregular moles
                 that are more likely than ordinary moles to become cancerous. Dysplastic nevi are
                 relatively common, and many people have a few of these abnormal moles. The risk
                 of melanoma is greatest for people who have a large number of dysplastic nevi. The
-                risk is especially high for people with a family history of both dysplastic nevi
-                and melanoma.
-              </dd>
-              <dt>Fair skin or freckles:</dt>
-              <dd>
+                risk is especially high for people with a family history of both dysplastic nevi and melanoma.
+              </p>
+            </dd>
+            <dd><img src="images/mratSevereLrg.jpg" class="stock-images small"><strong>Fair skin or freckles</strong>
+              <p>
                 Melanoma occurs more frequently in people
                 who have fair skin that burns or freckles than in people with dark skin, probably
                 because light skin is more easily damaged by the sun. People who have freckles have
                 had enough sun to damage their skin.
-              </dd>
-              <dt>Severe, blistering sunburns:</dt>
-              <dd>
-                People who have had at least one severe,
-                blistering sunburn are at increased risk of melanoma. Doctors particularly advise
-                that parents protect children's skin from the sun. Such protection may reduce the
-                risk of melanoma later in life.
-              </dd>
-              <dt><a data-term="uv" class="termToDefine">Ultraviolet (UV) radiation</a>:</dt>
-              <dd>
+              </p>
+            </dd>
+            <dd><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Family_enjoys_a_perfect_day_at_the_beach.jpg/1024px-Family_enjoys_a_perfect_day_at_the_beach.jpg" class="stock-images small"><strong>Severe, blistering sunburns</strong>
+              <p>
+                People who have had at least one severe, blistering sunburn are at increased
+                risk of melanoma. Doctors particularly advise that parents protect children's
+                skin from the sun. Such protection may reduce the risk of melanoma
+                later in life.
+              </p>
+            </dd>
+            <dd><img src="https://upload.wikimedia.org/wikipedia/commons/a/ae/715px-Sunbedoff_large.jpg" class="stock-images small"><strong><a data-term="uv" class="termToDefine">Ultraviolet (UV) radiation</a></strong>
+              <p>
                 Melanoma is more common in people who
                 live in areas that get large amounts of UV radiation from the sun. In the United
                 States, for example, melanoma is more common in California than in Minnesota, where the
@@ -533,146 +550,129 @@
                 as sunlamps and tanning booths, can also cause skin damage and increase the risk
                 of melanoma. Doctors encourage people to limit their exposure to natural UV radiation
                 and to avoid artificial sources.
-              </dd>
-              <dt>
+              </p>
+            </dd>
+            <dd><img src="https://visualsonline.cancer.gov/retrieve.cfm?imageid=4453&amp;dpi=72&amp;fileformat=jpg" class="stock-images small"><strong>
                 Weakened
-                &nbsp;<a data-term="is" class="termToDefine">immune system:</a>
-              </dt>
-              <dd>
+                &nbsp;<a data-term="is" class="termToDefine">Immune System</a></strong>
+              <p>
                 People whose immune system is weakened by certain cancers or other
                 immune disorders, or by drugs given after organ
                 &nbsp;<a data-term="transplant" class="termToDefine">transplantation</a>, are at increased risk of developing melanoma. Although these conditions
                 are not common, it would be advisable for such individuals to be in
                 screening and surveillance programs.
-              </dd>
-            </dl>
-          </div>
-          <div class="section-description">
-            <p><strong>
-                People who are concerned about developing melanoma should talk with their doctor
-                about the disease, the symptoms to watch for, and an appropriate schedule for checkups.
-                The doctor's advice will be based on the individual's personal and family history,
-                medical history, and other risk factors.</strong></p>
-            <p>
-              Doctors recommend that everyone take steps to help prevent and reduce the risk of
-              melanoma and non-melanoma skin cancers caused by UV radiation:
-              <ul class="red-arrow">
-                <li>
-                  Avoid exposure to the midday sun (from 10 a.m. to 4 p.m.) whenever possible. When
-                  your shadow is shorter than you are, remember to protect yourself from the sun.
-                </li>
-                <li>
-                  Avoid exposure to artificial sources of UV radiation, such as sunlamps and tanning
-                  booths.
-                </li>
-                <li>If you must be outside, wear long sleeves, long pants, and a hat with a wide brim.</li>
-                <li>
-                  Protect yourself from UV radiation that can penetrate light clothing, windshields,
-                  and windows.
-                </li>
-                <li>Protect yourself from UV radiation reflected by sand, water, snow, and ice.</li>
-                <li>Protect yourself when you are at higher elevations, such as in the mountains.</li>
-                <li>Help protect your skin by using a lotion, cream, or gel that contains<a data-term="ss" class="termToDefine"></a><em>sunscreen</em>. Use sunscreens
-                      that reflect, absorb, and/or scatter both types of ultraviolet radiation. These
-                      sunscreen products will be labeled with "broad-spectrum coverage." Use
-                      a sunscreen with a Solar Protection Factor (SPF) of 15 or greater for more protection.
-                </li>
-                <li>
-                  Wear sunglasses that have UV-absorbing lenses. The label should specify that the
-                  lenses block at least 99 percent of
-                  &nbsp;<a data-term="uva" class="termToDefine">UVA</a>&nbsp;
-                  and
-                  &nbsp;<a data-term="uvb" class="termToDefine">UVB</a> radiation. Sunglasses can protect both the eyes and the skin around the eyes.
-                </li>
-              </ul>
-            </p>
-          </div>
+              </p>
+            </dd>
+          </dl><strong>
+            People who are concerned about developing melanoma should talk with their doctor
+            about the disease, the symptoms to watch for, and an appropriate schedule for checkups.
+            The doctor's advice will be based on the individual's personal and family history,
+            medical history, and other risk factors.</strong>
+          <p>
+            Doctors recommend that everyone take steps to help prevent and reduce the risk of
+            melanoma and non-melanoma skin cancers caused by UV radiation:
+          </p>
+          <ul class="red-arrow two-col">
+            <li>
+              Avoid exposure to the midday sun (from 10 a.m. to 4 p.m.) whenever possible. When
+              your shadow is shorter than you are, remember to protect yourself from the sun.
+            </li>
+            <li>
+              Avoid exposure to artificial sources of UV radiation, such as sunlamps and tanning
+              booths.
+            </li>
+            <li>If you must be outside, wear long sleeves, long pants, and a hat with a wide brim.</li>
+            <li>
+              Protect yourself from UV radiation that can penetrate light clothing, windshields,
+              and windows.
+            </li>
+            <li>Protect yourself from UV radiation reflected by sand, water, snow, and ice.</li>
+            <li>Protect yourself when you are at higher elevations, such as in the mountains.</li>
+            <li>Help protect your skin by using a lotion, cream, or gel that contains&nbsp;<a data-term="ss" class="termToDefine">sunscreen</a>. Use sunscreens
+                  that reflect, absorb, and/or scatter both types of ultraviolet radiation. These
+                  sunscreen products will be labeled with "broad-spectrum coverage." Use
+                  a sunscreen with a Solar Protection Factor (SPF) of 15 or greater for more protection.
+            </li>
+            <li>
+              Wear sunglasses that have UV-absorbing lenses. The label should specify that the
+              lenses block at least 99 percent of
+              &nbsp;<a data-term="uva" class="termToDefine">UVA</a>&nbsp;
+              and
+              &nbsp;<a data-term="uvb" class="termToDefine">UVB</a> radiation. Sunglasses can protect both the eyes and the skin around the eyes.
+            </li>
+          </ul>
         </div>
       </section>
       <section id="source-code" tab="source-code">
-        <div class="section-title">Download Source Code for the Melanoma Risk Calculation Engine</div>
         <div class="section-content">
-          <div class="content-details rounded">
-            <p>
-              The MRAT risk calculator may be updated periodically as new data or research becomes
-              available. The system is currently on statistical model version 1 and software version 2.0
-              The source code for the MRAT risk calculator can be accessed via the &nbsp;<a href="https://github.com/CBIIT/nci-webtools-dceg-risk-assessment/tree/master/melanomaRiskAssessment" target="_blank">GitHub Repository</a>.
-               By downloading, you accept our Terms & Conditions below.
-            </p>
-            <div id="documentation">
-              <div class="section-subheading">
-                <Documentation></Documentation>
-              </div><strong>Non-Proprietary Software Transfer Agreement</strong>
-              <p>
-                Provider: National Institutes of Health (NIH), National Cancer Institute
-                (hereinafter "NCI")
-              </p>
-              <p>By accepting Software, Recipient agrees to the terms of this Agreement.</p>
-              <p>
-                The Software transferred under this agreement was created by Federal Government
-                employees in the course of official duties. Transfer of Software to Recipient does
-                not constitute endorsement by the NCI of the Recipient or any product, service or
-                company and no endorsement should be inferred. SOFTWARE IS NOT INTENDED FOR TREATING
-                OR DIAGNOSING HUMAN SUBJECTS.
-              </p>
-              <p>
-                The MRAT risk calculator may be updated periodically as new data or research becomes
-                available.
-              </p>
-              <p>
-                Software is supplied AS IS, without any accompanying services or improvements from
-                NIH. SOFTWARE IS SUPPLIED TO RECIPIENT WITH NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
-                ANY WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. NCI makes no
-                representations that the use of Software will not infringe any patent or proprietary
-                rights of third parties.
-              </p>
-              <p>
-                All risk as to quality and performance of Software is with Recipient. In no event
-                will the United States Government or NCI be liable to Recipient for damages arising
-                out of the use or inability to use Software, including but not limited to loss of
-                data or data being rendered inaccurate or losses sustained by Recipient or third
-                parties.
-              </p>
-            </div>
-          </div>
-          <div id="terms-conditions">
-            <div class="section-title">
-              Terms & Conditions
-              Source Code for Melanoma Risk Calculation Engine
-            </div>
-            <div class="content-details rounded"><strong>Non-Proprietary Software Transfer Agreement</strong>
-              <p>
-                Provider: National Institutes of Health (NIH)
-                , National Cancer Institute(hereinafter "NCI")
-                By accepting Software, Recipient agrees to the terms of this Agreement.
-              </p>
-              <p>
-                The Software transferred under this agreement was created by Federal Government
-                employees in the course of official duties. Transfer of Software to Recipient does
-                not constitute endorsement by the NCI of the Recipient or any product, service or
-                company and no endorsement should be inferred. SOFTWARE IS NOT INTENDED FOR TREATING
-                OR DIAGNOSING HUMAN SUBJECTS.
-              </p>
-              <p>
-                The MRAT risk calculator may be updated periodically as new data or research becomes
-                available.
-              </p>
-              <p>
-                Software is supplied AS IS, without any accompanying services or improvements from
-                NIH. SOFTWARE IS SUPPLIED TO RECIPIENT WITH NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
-                ANY WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. NCI makes no
-                representations that the use of Software will not infringe any patent or proprietary
-                rights of third parties.
-              </p>
-              <p>
-                All risk as to quality and performance of Software is with Recipient. In no event
-                will the United States Government or NCI be liable to Recipient for damages arising
-                out of the use or inability to use Software, including but not limited to loss of
-                data or data being rendered inaccurate or losses sustained by Recipient or third
-                parties
-              </p>
-            </div>
-          </div>
+          <div class="section-title">Download Source Code for the Melanoma Risk Calculation Engine</div>The MRAT risk calculator may be updated periodically as new data or research becomes
+          available. The system is currently on statistical model version 1 and software version 2.0
+          The source code for the MRAT risk calculator can be accessed via the &nbsp;<a href="https://github.com/CBIIT/nci-webtools-dceg-risk-assessment/tree/master/melanomaRiskAssessment" target="_blank">GitHub Repository</a>. By downloading, you accept our Terms & Conditions below.
+          <div class="section-title">Documentation</div><strong>Non-Proprietary Software Transfer Agreement</strong>
+          <p>
+            Provider: National Institutes of Health (NIH), National Cancer Institute
+            (hereinafter "NCI")
+          </p>
+          <p>By accepting Software, Recipient agrees to the terms of this Agreement.</p>
+          <p>
+            The Software transferred under this agreement was created by Federal Government
+            employees in the course of official duties. Transfer of Software to Recipient does
+            not constitute endorsement by the NCI of the Recipient or any product, service or
+            company and no endorsement should be inferred. SOFTWARE IS NOT INTENDED FOR TREATING
+            OR DIAGNOSING HUMAN SUBJECTS.
+          </p>
+          <p>
+            The MRAT risk calculator may be updated periodically as new data or research becomes
+            available.
+          </p>
+          <p>
+            Software is supplied AS IS, without any accompanying services or improvements from
+            NIH. SOFTWARE IS SUPPLIED TO RECIPIENT WITH NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
+            ANY WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. NCI makes no
+            representations that the use of Software will not infringe any patent or proprietary
+            rights of third parties.
+          </p>
+          <p>
+            All risk as to quality and performance of Software is with Recipient. In no event
+            will the United States Government or NCI be liable to Recipient for damages arising
+            out of the use or inability to use Software, including but not limited to loss of
+            data or data being rendered inaccurate or losses sustained by Recipient or third
+            parties.
+          </p>
+          <div class="section-title">
+            Terms & Conditions
+            Source Code for Melanoma Risk Calculation Engine
+          </div><strong>Non-Proprietary Software Transfer Agreement</strong>
+          <p>
+            Provider: National Institutes of Health (NIH)
+            , National Cancer Institute(hereinafter "NCI")
+            By accepting Software, Recipient agrees to the terms of this Agreement.
+          </p>
+          <p>
+            The Software transferred under this agreement was created by Federal Government
+            employees in the course of official duties. Transfer of Software to Recipient does
+            not constitute endorsement by the NCI of the Recipient or any product, service or
+            company and no endorsement should be inferred. SOFTWARE IS NOT INTENDED FOR TREATING
+            OR DIAGNOSING HUMAN SUBJECTS.
+          </p>
+          <p>
+            The MRAT risk calculator may be updated periodically as new data or research becomes
+            available.
+          </p>
+          <p>
+            Software is supplied AS IS, without any accompanying services or improvements from
+            NIH. SOFTWARE IS SUPPLIED TO RECIPIENT WITH NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
+            ANY WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. NCI makes no
+            representations that the use of Software will not infringe any patent or proprietary
+            rights of third parties.
+          </p>
+          <p>
+            All risk as to quality and performance of Software is with Recipient. In no event
+            will the United States Government or NCI be liable to Recipient for damages arising
+            out of the use or inability to use Software, including but not limited to loss of
+            data or data being rendered inaccurate or losses sustained by Recipient or third
+            parties
+          </p>
         </div>
       </section>
       <footer>

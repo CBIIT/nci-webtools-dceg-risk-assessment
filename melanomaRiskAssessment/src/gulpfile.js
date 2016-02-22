@@ -30,18 +30,13 @@ plumber = function(){
 
 gulp.task('default',['build']);
 
-gulp.task('build', ['jade-compile', 'js:copy', 'css'], function(){
+gulp.task('build', ['jade-compile', 'js:copy', 'css','common-js:copy',
+'common-css:copy', 'rat-common:copy'], function(){
     notifier.notify({
         title: 'Compilation Complete',
         message: "The code has been compiled in the project's root directory"
     });
 });
-
-gulp.task('dev', ['jade-compile', 'js:copy', 'ls:app', 'css'], function(done){
-    gulp.watch(['app/jade/pages/*.jade'], ['jade-compile']);
-    return gulp.watch('app/stylus/**/*.styl', ['css']);
-});
-
 
 // task for rendering jade files to HTML
 gulp.task('jade-compile', function(){
@@ -81,3 +76,52 @@ gulp.task('css', function(){
         objectMode: true
     });
 });
+
+
+// tasks to copy common features across all RATs
+gulp.task('common-js:copy', function(){
+    var s;
+    s = streamqueue({
+        objectMode: true
+    });
+    gulp.src('common-resources/scripts/**/*.json')
+        .pipe(gulp.dest(parentDir+"/rat-commons"));
+
+    gulp.src(['common-resources/scripts/**/*.js'])
+        .pipe(stripComments())
+        .pipe(jshint())
+        .pipe(jshint.reporter('jshint-stylish'))
+        .pipe(gulpConcat("rat-script.js"))
+        .pipe(gulp.dest(parentDir+"/rat-commons/js"));
+    return s.done();
+});
+
+gulp.task('common-css:copy', function(){
+    var styl, s;
+    styl = gulp.src(['common-resources/stylus/rat-styles.styl', 'common-resources/stylus/rat-mobile.styl'
+                    ]).pipe(gulpFilter(function(it) {
+        return !/\/_[^/]+\.styl$/.test(it.path);
+    })).pipe(gulpStylus({
+        use: [nib()],
+        'import': ['nib']
+    })).pipe(gulpConcat('styles.css')).pipe(gulp.dest(parentDir+"/rat-commons/css"));
+
+    return s = streamqueue({
+        objectMode: true
+    });
+});
+
+gulp.task('rat-common:copy', function(){
+    var s;
+    s = streamqueue({
+        objectMode: true
+    });
+    gulp.src(parentDir+"/rat-commons/**/*")
+        .pipe(gulp.dest(parentDir+"/"+parentDir+"/colorectalCancerRisk/rat-commons"));
+    gulp.src(parentDir+"/rat-commons/**/*")
+        .pipe(gulp.dest(parentDir+"/"+parentDir+"/breastCancerRisk/rat-commons"));
+
+    return s.done();
+});
+
+

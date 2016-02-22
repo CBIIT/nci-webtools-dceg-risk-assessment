@@ -1,25 +1,20 @@
-//-extends index
-//-
-//-block page-title
-//-    title Melanoma Cancer Risk
-
 section#cancer-risk(tab='cancer-risk')
-    .section-title
-        span Melanoma Cancer Risk
-        a.goToTab(title='go to melanoma risk assessment', name='risk-calculator') Calculate Risk for New Patients
     .section-content
-        .content-details.rounded
-            dl
+        .section-title
+            span Melanoma Cancer Risk
+            a.goToTab(title='go to melanoma risk assessment', name='risk-calculator') Calculate Risk for New Patients
+        dl
+            p
+                | No one knows the exact causes of melanoma. Doctors can seldom explain why one person
+                | gets melanoma and another does not. However, research has shown that people with
+                | certain
+                | &nbsp;
+                a.termToDefine(data-term="rf") risk factors
+                |  are more likely than others to develop melanoma. Anything that increases the chance
+                | of developing a disease is called a risk factor.
+            dd
+                strong Personal history of melanoma or skin cancer
                 p
-                    | No one knows the exact causes of melanoma. Doctors can seldom explain why one person
-                    | gets melanoma and another does not. However, research has shown that people with
-                    | certain
-                    | &nbsp;
-                    a.termToDefine(data-term="rf") risk factors
-                    |  are more likely than others to develop melanoma. Anything that increases the chance
-                    | of developing a disease is called a risk factor.
-                dt Personal history of melanoma or skin cancer
-                dd
                     |  People who have been
                     | treated for melanoma have a high risk of a second, separate melanoma. Some people
                     | develop more than two melanomas. People who have had one or more of the common skin
@@ -33,42 +28,52 @@ section#cancer-risk(tab='cancer-risk')
                     | ) are also at increased risk of melanoma. These
                     | individuals should be in screening and surveillance programs and this risk assessment
                     | tool is not appropriate for them.
-                dt Family history of melanoma:
-                dd
+            dd
+                strong Family history of melanoma
+                p
+                    img.stock-images.small(src="https://visualsonline.cancer.gov/retrieve.cfm?imageid=7504&dpi=72&fileformat=jpg")
                     | Melanoma sometimes runs in families.
                     | Having close relatives who have had this disease is a risk factor. About 10 percent
                     | of all patients with melanoma have another family member with this disease; only
                     | about 1% of individuals with melanoma have more than one family member with
                     | melanoma. When melanoma runs in a family, all close family members of individuals
                     | with melanoma should be checked regularly by a doctor.
-                dt Many ordinary moles:
-                dd
+            dd
+                img.stock-images.small(src="https://visualsonline.cancer.gov/retrieve.cfm?imageid=9187&dpi=300&fileformat=jpg")
+                strong Many ordinary moles
+                p
                     | Having many moles, particularly larger moles,
                     | increases the risk of developing melanoma.
-                dt Dysplastic nevi:
-                dd
+            dd
+                strong Dysplastic nevi
+                p
                     | Dysplastic nevi are larger, flat, irregular moles
                     | that are more likely than ordinary moles to become cancerous. Dysplastic nevi are
                     | relatively common, and many people have a few of these abnormal moles. The risk
                     | of melanoma is greatest for people who have a large number of dysplastic nevi. The
-                    | risk is especially high for people with a family history of both dysplastic nevi
-                    | and melanoma.
-                dt Fair skin or freckles:
-                dd
+                    | risk is especially high for people with a family history of both dysplastic nevi and melanoma.
+            dd
+                img.stock-images.small(src="images/mratSevereLrg.jpg")
+                strong Fair skin or freckles
+                p
                     | Melanoma occurs more frequently in people
                     | who have fair skin that burns or freckles than in people with dark skin, probably
                     | because light skin is more easily damaged by the sun. People who have freckles have
                     | had enough sun to damage their skin.
-                dt Severe, blistering sunburns:
-                dd
-                    | People who have had at least one severe,
-                    | blistering sunburn are at increased risk of melanoma. Doctors particularly advise
-                    | that parents protect children's skin from the sun. Such protection may reduce the
-                    | risk of melanoma later in life.
-                dt
+            dd
+                img.stock-images.small(src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Family_enjoys_a_perfect_day_at_the_beach.jpg/1024px-Family_enjoys_a_perfect_day_at_the_beach.jpg")
+                strong Severe, blistering sunburns
+                p
+
+                    | People who have had at least one severe, blistering sunburn are at increased
+                    | risk of melanoma. Doctors particularly advise that parents protect children's
+                    | skin from the sun. Such protection may reduce the risk of melanoma
+                    | later in life.
+            dd
+                img.stock-images.small(src="https://upload.wikimedia.org/wikipedia/commons/a/ae/715px-Sunbedoff_large.jpg")
+                strong
                     a.termToDefine(data-term='uv') Ultraviolet (UV) radiation
-                    | :
-                dd
+                p
                     | Melanoma is more common in people who
                     | live in areas that get large amounts of UV radiation from the sun. In the United
                     | States, for example, melanoma is more common in California than in Minnesota, where the
@@ -77,11 +82,13 @@ section#cancer-risk(tab='cancer-risk')
                     | as sunlamps and tanning booths, can also cause skin damage and increase the risk
                     | of melanoma. Doctors encourage people to limit their exposure to natural UV radiation
                     | and to avoid artificial sources.
-                dt
+            dd
+                img.stock-images.small(src="https://visualsonline.cancer.gov/retrieve.cfm?imageid=4453&dpi=72&fileformat=jpg")
+                strong
                     | Weakened
                     | &nbsp;
-                    a.termToDefine(data-term='is') immune system:
-                dd
+                    a.termToDefine(data-term='is') Immune System
+                p
                     | People whose immune system is weakened by certain cancers or other
                     | immune disorders, or by drugs given after organ
                     | &nbsp;
@@ -89,45 +96,42 @@ section#cancer-risk(tab='cancer-risk')
                     | , are at increased risk of developing melanoma. Although these conditions
                     | are not common, it would be advisable for such individuals to be in
                     | screening and surveillance programs.
-        .section-description
-            p
-                strong
-                    | People who are concerned about developing melanoma should talk with their doctor
-                    | about the disease, the symptoms to watch for, and an appropriate schedule for checkups.
-                    | The doctor's advice will be based on the individual's personal and family history,
-                    | medical history, and other risk factors.
-            p
-                | Doctors recommend that everyone take steps to help prevent and reduce the risk of
-                | melanoma and non-melanoma skin cancers caused by UV radiation:
-                ul.red-arrow
-                    li
-                        | Avoid exposure to the midday sun (from 10 a.m. to 4 p.m.) whenever possible. When
-                        | your shadow is shorter than you are, remember to protect yourself from the sun.
-                    li
-                        | Avoid exposure to artificial sources of UV radiation, such as sunlamps and tanning
-                        | booths.
-                    li
-                        | If you must be outside, wear long sleeves, long pants, and a hat with a wide brim.
-                    li
-                        | Protect yourself from UV radiation that can penetrate light clothing, windshields,
-                        | and windows.
-                    li Protect yourself from UV radiation reflected by sand, water, snow, and ice.
-                    li Protect yourself when you are at higher elevations, such as in the mountains.
-                    li
-                        | Help protect your skin by using a lotion, cream, or gel that contains
-                        a.termToDefine(data-term='ss')
-                        em sunscreen
-                        | . Use sunscreens
-                        |     that reflect, absorb, and/or scatter both types of ultraviolet radiation. These
-                        |     sunscreen products will be labeled with "broad-spectrum coverage." Use
-                        |     a sunscreen with a Solar Protection Factor (SPF) of 15 or greater for more protection.
-                    li
-                        | Wear sunglasses that have UV-absorbing lenses. The label should specify that the
-                        | lenses block at least 99 percent of
-                        | &nbsp;
-                        a.termToDefine(data-term='uva') UVA
-                        | &nbsp;
-                        | and
-                        | &nbsp;
-                        a.termToDefine(data-term='uvb') UVB
-                        |  radiation. Sunglasses can protect both the eyes and the skin around the eyes.
+        strong
+            | People who are concerned about developing melanoma should talk with their doctor
+            | about the disease, the symptoms to watch for, and an appropriate schedule for checkups.
+            | The doctor's advice will be based on the individual's personal and family history,
+            | medical history, and other risk factors.
+        p
+            | Doctors recommend that everyone take steps to help prevent and reduce the risk of
+            | melanoma and non-melanoma skin cancers caused by UV radiation:
+        ul.red-arrow.two-col
+            li
+                | Avoid exposure to the midday sun (from 10 a.m. to 4 p.m.) whenever possible. When
+                | your shadow is shorter than you are, remember to protect yourself from the sun.
+            li
+                | Avoid exposure to artificial sources of UV radiation, such as sunlamps and tanning
+                | booths.
+            li
+                | If you must be outside, wear long sleeves, long pants, and a hat with a wide brim.
+            li
+                | Protect yourself from UV radiation that can penetrate light clothing, windshields,
+                | and windows.
+            li Protect yourself from UV radiation reflected by sand, water, snow, and ice.
+            li Protect yourself when you are at higher elevations, such as in the mountains.
+            li
+                | Help protect your skin by using a lotion, cream, or gel that contains&nbsp;
+                a.termToDefine(data-term='ss') sunscreen
+                | . Use sunscreens
+                |     that reflect, absorb, and/or scatter both types of ultraviolet radiation. These
+                |     sunscreen products will be labeled with "broad-spectrum coverage." Use
+                |     a sunscreen with a Solar Protection Factor (SPF) of 15 or greater for more protection.
+            li
+                | Wear sunglasses that have UV-absorbing lenses. The label should specify that the
+                | lenses block at least 99 percent of
+                | &nbsp;
+                a.termToDefine(data-term='uva') UVA
+                | &nbsp;
+                | and
+                | &nbsp;
+                a.termToDefine(data-term='uvb') UVB
+                |  radiation. Sunglasses can protect both the eyes and the skin around the eyes.

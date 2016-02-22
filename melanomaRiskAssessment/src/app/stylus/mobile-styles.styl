@@ -1,29 +1,6 @@
-@media (max-width 1300px)
-    ul.nav
-        margin 0
-        li
-            padding 7px
-    section
-        margin 0 50px
-        padding 0 20px
-        form > ol > li
-            margin 10px auto
-            width 45%
-            min-height 150px
-            max-height 600px
-
 @media (max-width 990px)
-    header
-        position relative
-        #toolTitle
-            text-align center
-            padding 5px
-    dl
-        padding 0
-    .spacer
-        display block
-    .section-anchors li, footer li
-        padding 5px 0
+    .description:not(.show)
+        display none
     section
         margin 0 25px
         form
@@ -39,51 +16,9 @@
                 padding 1%
             .question-illustrations img
                 width 80%
-            button
-                display inherit
-                margin 0 auto
-                width 50%
-                float none
 
 @media (max-width 768px)
-    header #nci-banner
-        padding-left 25px
-    header #toolTitle
-        padding 5px 0
-    .menu-title
-        padding 5px 0
-        display block
-        background-color rgba(220, 222, 224, 0.5)
-        color white
-        padding-left 0
-    #top
-        margin 0
-        min-height 0
-    #menu-button
-        display block
-    ul.nav
-        background transparent
-        padding 0
-        text-align center
-        &:not(.show)
-            display none
-        &.stick-nav-top
-            position inherit
-        > li
-            display block
-            padding 8px
-            a
-                color #bb0e3d
-            &:not(:hover) > ul
-                display block
-            > ul
-                background transparent
-                margin 10px 0 -5px
-                position static
-                &:not(.show)
-                    display none
     .section-title
-        overflow auto
         padding 5px 10px
     section
         margin 10px
@@ -94,16 +29,11 @@
             max-height 350px
             min-height 130px
             padding 5px 10px
-    footer
-        margin 25px 0
-    .question-illustration
-        padding-left 0
-        .stock-images
-            width 180px
+
+    .question-illustrations .stock-images
+        width 180px
 
 @media (max-width 480px)
-    header #nci-banner
-        padding-left 0
     .section-title
         *
             display block

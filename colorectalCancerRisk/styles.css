@@ -1,0 +1,109 @@
+section form > ol > li {
+  width: 47%;
+}
+section form > ol > li ol {
+  list-style: none;
+}
+section form > ol > li ol > li {
+  background: none;
+  width: inherit;
+  border: none;
+  margin: 0;
+  padding: 0;
+  height: inherit;
+}
+section form > ol > li .question > .notice {
+  font-size: 0.9em;
+  border: 1px solid;
+  padding: 10px;
+  margin: 5px auto;
+  max-width: 400px;
+  display: none;
+  color: #000;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 3px 2px 7px #000;
+  box-shadow: 3px 2px 7px #000;
+}
+section form > ol > li .question > .notice > p {
+  margin: 5px 0;
+}
+section form > ol > li .question > label {
+  display: inline-block;
+}
+section form > ol > li .question > label > * {
+  vertical-align: top;
+}
+section form > ol > li .question > label > a.notice-show {
+  font-weight: normal;
+}
+section form > ol > li .question > p {
+  display: inline-block;
+}
+section form > ol > li .question .input > label {
+  display: block;
+}
+section form > ol > li .question select,
+section form > ol > li .question input {
+  width: 100%;
+}
+section form > ol > li .question select[type="radio"],
+section form > ol > li .question input[type="radio"] {
+  width: 15px;
+}
+section form > ol > li .subquestion:not(.show) {
+  display: none;
+}
+section form > ol > li input,
+section form > ol > li select {
+  padding: 10px;
+}
+section form > ol > li input.error,
+section form > ol > li select.error {
+  border: 2px solid #fc7878;
+  background: rgba(255,0,0,0.25);
+}
+.section-title a,
+.section-content a,
+.content-details a,
+.question a {
+  text-decoration: underline;
+  color: #bb0e3d;
+}
+.section-title a :hover,
+.section-content a :hover,
+.content-details a :hover,
+.question a :hover {
+  text-decoration: none;
+}
+.section-title a.termToDefine,
+.section-content a.termToDefine,
+.content-details a.termToDefine,
+.question a.termToDefine {
+  font-style: italic;
+  text-decoration: none;
+  border-bottom: 1px dotted;
+}
+.section-title a.termToDefine:hover,
+.section-content a.termToDefine:hover,
+.content-details a.termToDefine:hover,
+.question a.termToDefine:hover {
+  border-bottom: none;
+}
+.content-details {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  padding: 10px 15px;
+  margin: 10px auto;
+  border: 2px solid #2a71a5;
+  background: #fff;
+}
+.question-group-title {
+  text-align: center;
+  background: #555554;
+  color: #fcfcfa;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 3px 0;
+}
+

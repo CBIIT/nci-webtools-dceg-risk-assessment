@@ -1,12 +1,9 @@
-//-extends index
-//-block page-title
-//-    title About the Tool - MRAT
-
 section#about(tab='about')
-    .section-title
-        span About the Tool
-        a.goToTab(title='go to melanoma risk assessment', name='risk-calculator') Calculate Risk for New Patients
     .section-content
+        .section-title
+            span About the Tool
+            a.goToTab(title='go to melanoma risk assessment', name='risk-calculator')
+                | Calculate Risk for New Patients
         ul.section-anchors
             li
                 a.goTo(title='skip to explanations of the questions', name='#questions-exp') Explaining the Questions
@@ -19,71 +16,57 @@ section#about(tab='about')
             .spacer
             li
                 a.goTo(title='go to references', name='#reference') Reference
-        strong Explaining the Questions
-        #questions-exp.content-details.rounded
-            .about-question-title
-                strong Question 1:&nbsp;
-                em In what state does the patient reside?
+        .section-title Explaining the Questions        
+        #questions-exp
+            .about-question-title Question 1: In what state does the patient reside?
             .about-question-explanation
                 strong Explanation
                 br
                 | Melanoma is more common in people who live in areas that get large amounts of UV
                 | radiation from the sun. For example, melanoma is more common in California than
                 | in Minnesota, where the sun is not as strong.
-            .about-question-title
-                strong Question 2:&nbsp;
-                em What is the patient's gender?
+            .about-question-title Question 2: What is the patient's gender?
             .about-question-explanation
                 strong Explanation
                 br
                 | In the United States, melanoma incidence is higher for men than for women. Risk
                 | factors for melanoma and sun behavior patterns are also different between men and
                 | women.
-            p.about-question-title
-                strong Question 3:&nbsp;
-                em What is the patient's race?
-            p.about-question-explanation
+            .about-question-title Question 3: What is the patient's race?
+            .about-question-explanation
                 strong Explanation
                 br
                 | The risks are estimated only for non-Hispanic whites; data on other ethnicities
                 | were too limited to accurately estimate risk. White people get melanoma far more
                 | often than do African American people, probably because light skin is more easily
                 | damaged by the sun.
-            p.about-question-title
-                strong Question 4:&nbsp;
-                em What is the patient's age?
-            p.about-question-explanation
+            .about-question-title Question 4: What is the patient's age?
+            .about-question-explanation
                 strong Explanation
                 br
                 | The risk of developing melanoma increases with age. Most cancers develop slowly
                 | over time. For this reason, melanoma is more common among older individuals.
-            p.about-question-title
-                strong Question 5:&nbsp;
-                em Has the patient ever had a blistering sunburn?
-            p.about-question-explanation
+            .about-question-title Question 5: Has the patient ever had a blistering sunburn?
+            .about-question-explanation
                 strong Explanation
                 br
                 | People who have had at least one severe, blistering sunburn are at increased risk
                 | of melanoma. Doctors advise protection from the sun to reduce the risk of melanoma.
-            p.about-question-title
-                strong Question 5 for females:
+            .about-question-title
+                | Question 5 for females:
                 br
-                strong Question 6 for males:&nbsp;
-                em Is the patient's complexion light, medium, or dark?
-            p.about-question-explanation
+                | Question 6 for males: Is the patient's complexion light, medium, or dark?
+            .about-question-explanation
                 strong Explanation
                 br
                 | Melanoma occurs more frequently in people who have fair skin that burns or freckles
                 | easily (these people also usually have red or blond hair and blue eyes) than in
                 | people with dark skin, probably because light skin is more easily damaged by the
                 | sun.
-            p
-            p.about-question-title
-                strong Question 6 (for females only):&nbsp;
-                em
-                    | After repeated and prolonged exposure to sunlight, at the age the patient is now,
-                    | how tan would the patient's skin become?
-            p.about-question-explanation
+            .about-question-title
+                | Question 6 (for females only): After repeated and prolonged exposure to sunlight, at the age the patient is now,
+                | how tan would the patient's skin become?
+            .about-question-explanation
                 strong Explanation
                 br
                 | Melanoma occurs more frequently in people who have skin that burns easily and does
@@ -91,50 +74,46 @@ section#about(tab='about')
                 | to the sun, has been associated with a lower risk of melanoma. People who tan well,
                 | however, are also at risk of melanoma and their risk is higher the more sun exposure
                 | that they have.
-            p.about-question-title
-                strong Question 7 (for males only):&nbsp;
-                em How many moles larger than 5mm in diameter are on the patient's back?
-            p.about-question-explanation
+            .about-question-title
+                | Question 7 (for males only): How many moles larger than 5mm in diameter are on the patient's back?
+            .about-question-explanation
                 strong Explanation
                 br
                 | Having many moles increases the risk of developing melanoma. Dysplastic nevi are
                 | larger moles that are more likely than ordinary moles to become cancerous. The back
                 | and shoulders are commonly and readily examined and the evaluation is easier than
                 | on chronically exposed areas.
-            p.about-question-title
-                strong Question 7 for females:
+            .about-question-title
+                | Question 7 for females:
                 br
-                strong Question 8 for males:&nbsp;
-                em How many moles less than or equal to 5mm in diameter are on the patient's back?
-            p.about-question-explanation
+                | Question 8 for males: How many moles less than or equal to 5mm in diameter are on the patient's back?
+            .about-question-explanation
                 strong Explanation
                 br
                 | Having many moles, particularly larger moles, increases the risk of developing melanoma.
                 | The back and shoulders are commonly and readily examined and the evaluation is easier
                 | than on chronically exposed areas. Characteristics of the back are highly correlated
                 | with total body characteristics.
-            p.about-question-title
-                strong Question 8 for females:
+            .about-question-title
+                | Question 8 for females:
                 br
-                strong Question 9 for males:&nbsp;
-                em How extensive is the freckling on the patient's back and shoulders?
-            p.about-question-explanation
+                | Question 9 for males: How extensive is the freckling on the patient's back and shoulders?
+            .about-question-explanation
                 strong Explanation
                 br
                 | Melanoma occurs more frequently in people who have fair skin that freckles easily.
                 | The back and shoulders are commonly and readily examined and the evaluation is easier
                 | than on chronically exposed areas.
 
-            p.about-question-title
-                strong Question 10 (for males only):&nbsp;
-                em Does the patient have severe solar damage on the shoulders?
-            p.about-question-explanation
+            .about-question-title
+                | Question 10 (for males only): Does the patient have severe solar damage on the shoulders?
+            .about-question-explanation
                 strong Explanation
                 br
                 | UV radiation from the sun causes premature aging of the skin and skin damage that
                 | can lead to melanoma.
-        strong Explaining the Results
-        #results-exp.content-details.rounded
+        .section-title Explaining the Results
+        #results-exp
             p
                 | The Melanoma Risk Assessment Tool will estimate an individual's risk of developing
                 | melanoma during the next 5-year period and up to age 70 based on the risk factor
@@ -146,8 +125,8 @@ section#about(tab='about')
             p
                 | The MRAT risk calculator may be updated periodically as new data or research becomes
                 | available.
-        strong About the Model
-        #model-exp.content-details.rounded
+        .section-title About the Model
+        #model-exp
             p
                 | The Melanoma Risk Assessment Tool is based on a statistical model. The model uses
                 | patient's self-reported history and a brief physical exam by a health care professional.
@@ -159,10 +138,11 @@ section#about(tab='about')
             p
                 | The MRAT risk calculator may be updated periodically as new data or research becomes
                 | available. The system is currently on statistical model version 1 and software version
-        strong Reference
-        #reference.content-details.rounded
-            a.references(target="_blank",href='http://www.ncbi.nlm.nih.gov/pubmed/16728488')
-                em
-                    | Fears TR, Guerry D IV, Pfeiffer
-                    | RM, et al: Identifying Individuals at High Risk of Melanoma: A Practical Predictor
-                    | of Absolute Risk. J Clin Oncol 24(22): pp-pp, 2006.
+        .section-title Reference
+        #reference
+            .references
+                | Fears TR, Guerry D IV, Pfeiffer
+                | RM, et al: Identifying Individuals at High Risk of Melanoma: A Practical Predictor
+                | of Absolute Risk. J Clin Oncol 24(22): pp-pp, 2006. [
+                a(target="_blank",href='http://www.ncbi.nlm.nih.gov/pubmed/16728488') PubMed Abstract
+                | ]
