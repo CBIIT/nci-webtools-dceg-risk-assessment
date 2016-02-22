@@ -282,7 +282,7 @@ section form button {
   max-height: 140px;
 }
 .section-content {
-  padding: 0 1%;
+  padding: 0 120px;
 }
 .section-title {
   margin: 10px auto;
@@ -304,8 +304,8 @@ section form button {
   text-decoration: underline;
   color: #bb0e3d;
 }
-.section-title a :hover,
-.section-content a :hover {
+.section-title a:hover,
+.section-content a:hover {
   text-decoration: none;
 }
 .section-description {
@@ -315,10 +315,19 @@ section form button {
   -webkit-border-radius: 10px;
   border-radius: 10px;
 }
-.section-description .more {
-  height: auto;
+.section-description .heading {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: inherit;
 }
-.section-description .show-more {
+.section-description p {
+  padding: 0;
+  margin: 0;
+}
+.section-description .description {
+  margin: 10px 0;
+}
+.section-description .description:not(.show) {
   display: none;
 }
 .section-anchors {
@@ -495,16 +504,6 @@ ul.two-col li {
     margin: 0 auto;
     width: 50%;
     float: none;
-  }
-  .section-description .collapse {
-    height: 50px;
-    overflow: hidden;
-  }
-  .section-description .collapse.more {
-    height: auto;
-  }
-  .section-description .show-more {
-    display: block;
   }
 }
 @media (max-width: 768px) {

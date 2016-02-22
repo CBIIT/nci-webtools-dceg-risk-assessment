@@ -39,7 +39,7 @@ header
 
 ul.nav, #toolDescription, .section-title
     font-size 11pt
-    
+
 a
     color inherit
 
@@ -47,19 +47,19 @@ dl
     overflow auto
     dt
         font-weight bold
-    dd      
+    dd
         &:nth-child(odd)
             img
                 float right
         &:nth-child(even)
             img
                 float left
-                
+
 .stock-images
     &.small
         width 170px
         height 125px
-    
+
 footer
     color black
     padding 5px 0
@@ -225,7 +225,7 @@ section form
         width 30%
         margin 5px 0
         vertical-align top
-        
+
         &.stock-images
             margin 10px
             border 2px solid #D2CACA
@@ -234,7 +234,7 @@ section form
             max-height 140px
 
 .section-content
-    padding 0 1%
+    padding 0 120px
 
 .section-title
     margin 10px auto
@@ -252,7 +252,7 @@ section form
     a
         text-decoration underline
         color #BB0E3D
-        :hover
+        &:hover
             text-decoration none
 
 .section-description
@@ -260,10 +260,17 @@ section form
     padding 5px
     border 2px solid #2A71A5
     border-radius 10px
-    .more
-        height auto
-    .show-more
-        display none
+    .heading
+        font-weight bold
+        font-size 1.1em
+        color inherit
+    p
+        padding 0
+        margin 0
+    .description
+        margin 10px 0
+        &:not(.show)
+            display none
 
 .section-anchors
     margin 10px auto
