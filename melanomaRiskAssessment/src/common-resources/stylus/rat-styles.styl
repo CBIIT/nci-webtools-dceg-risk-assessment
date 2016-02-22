@@ -33,7 +33,7 @@ header
     #toolTitle
         background #2A71A5
         color white
-        padding 10px 160px
+        padding 10px 0 10px 160px
         #toolDescription
             font-style italic
 
@@ -47,19 +47,19 @@ dl
     overflow auto
     dt
         font-weight bold
-    dd      
+    dd
         &:nth-child(odd)
             img
                 float right
         &:nth-child(even)
             img
                 float left
-                
+
 .stock-images
     &.small
         width 170px
         height 125px
-    
+
 footer
     color black
     padding 5px 0
@@ -98,11 +98,6 @@ footer
 //navigation rules
 #menu-button
     display none
-    float right
-    height 52px
-    padding 5px
-    position relative
-    width 60px
 
 [tab]:not(.active)
     display none
@@ -230,16 +225,16 @@ section form
         width 30%
         margin 5px 0
         vertical-align top
-        
+
         &.stock-images
             margin 10px
             border 2px solid #D2CACA
             border-radius 5px
-            width 180px
-            height 130px
+            max-width 230px
+            max-height 140px
 
 .section-content
-    padding 0 1%
+    padding 0 120px
 
 .section-title
     margin 10px auto
@@ -257,41 +252,25 @@ section form
     a
         text-decoration underline
         color #BB0E3D
-        :hover
+        &:hover
             text-decoration none
 
 .section-description
     margin 10px auto
     padding 5px
-    border 2px solid #fff
+    border 2px solid #2A71A5
     border-radius 10px
-    box-shadow 3px 2px 5px black
-    background rgb(119,136,153)
-    color #fff
-    a
+    .heading
+        font-weight bold
+        font-size 1.1em
         color inherit
-        &:hover
-            text-decoration none
     p
+        padding 0
+        margin 0
+    .description
         margin 10px 0
-    > .more
-        height 100px
-        overflow hidden
-    > .show-more
-        height 30px
-        margin 10px 0
-        font-size .9em
-        color #fff
-        background #4A4A4A
-        border 2px solid #fff
-        border-radius 5px
-        text-decoration underline
-        font-family "Tahoma", "Geneva", "sans-serif"
-        &:hover
-            text-decoration none
-            background none
-            color #fff
-            border-color #fff
+        &:not(.show)
+            display none
 
 .section-anchors
     margin 10px auto
