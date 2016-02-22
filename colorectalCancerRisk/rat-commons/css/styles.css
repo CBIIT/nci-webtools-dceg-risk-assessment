@@ -53,6 +53,10 @@ ul.nav,
 }
 a {
   color: inherit;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
 }
 dl {
   overflow: auto;
@@ -145,10 +149,6 @@ ul.nav li a {
   color: #fff;
   display: inline-block;
   text-align: center;
-  text-decoration: none;
-}
-ul.nav li a:hover {
-  text-decoration: underline;
 }
 ul.nav li ul {
   background: #000;
@@ -301,16 +301,11 @@ section form button {
 }
 .section-title a,
 .section-content a {
-  text-decoration: underline;
   color: #bb0e3d;
-}
-.section-title a:hover,
-.section-content a:hover {
-  text-decoration: none;
 }
 .section-description {
   margin: 10px auto;
-  padding: 5px;
+  padding: 10px;
   border: 2px solid #2a71a5;
   -webkit-border-radius: 10px;
   border-radius: 10px;
@@ -407,6 +402,41 @@ section form button {
   padding: 5px 10px;
   font-weight: bold;
 }
+#result {
+  border: 5px solid #000;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  margin: 0px auto;
+  max-width: 600px;
+  padding: 30px;
+}
+#result h2 {
+  font-size: 48px;
+  margin: 0px;
+  text-align: center;
+}
+#result .chart {
+  background: #69f;
+  font-size: 0px;
+  position: relative;
+  z-index: 0;
+}
+#result .chart .bar {
+  height: 20%;
+  left: 0px;
+  top: 0px;
+  position: absolute;
+  z-index: -1;
+}
+#result .chart .bar.yours {
+  background: #300828;
+}
+#result .chart .bar.average {
+  background: #f00;
+}
+#result .chart img {
+  width: 5%;
+}
 .rounded {
   -webkit-border-radius: 10px;
   border-radius: 10px;
@@ -478,6 +508,9 @@ ul.two-col li {
   .section-anchors li,
   footer li {
     padding: 5px 0;
+  }
+  .section-content {
+    padding: 0 1%;
   }
   section {
     margin: 0 25px;

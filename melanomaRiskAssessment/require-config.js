@@ -21,7 +21,7 @@ requirejs.config({
             deps: ["jquery.validate"],
         },
         globalGlossary: {
-           
+            
             deps: ["jqueryUI"],
         },
         ratScript: {
