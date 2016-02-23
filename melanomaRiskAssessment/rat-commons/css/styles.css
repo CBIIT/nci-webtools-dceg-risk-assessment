@@ -122,21 +122,21 @@ footer ul li a :hover {
 }
 ul.nav {
   background: #636363;
-  background: -webkit-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
-  background: -moz-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
-  background: -o-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
-  background: -ms-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
-  background: linear-gradient(135deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
+  background: -webkit-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px);
+  background: -moz-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px);
+  background: -o-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px);
+  background: -ms-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px);
+  background: linear-gradient(135deg, #f7f8f3 60px, #636363 100px, #424242 120px);
   border-top: 2px solid #bb0e3d;
   margin: 0;
-  padding-left: 160px;
+  padding-left: 200px;
   position: relative;
   top: 0;
   width: 100%;
 }
 ul.nav li {
-  display: inline-block;
   padding: 10px 15px;
+  display: inline-block;
 }
 ul.nav li.active {
   background-color: #f7f8f3;
@@ -147,7 +147,6 @@ ul.nav li.active a {
 }
 ul.nav li a {
   color: #fff;
-  display: inline-block;
   text-align: center;
 }
 ul.nav li ul {
@@ -156,6 +155,7 @@ ul.nav li ul {
   left: 0;
   position: absolute;
   top: 100%;
+  display: table;
 }
 ul.nav li ul:not(.show) {
   display: none;
@@ -167,8 +167,9 @@ ul.nav li#quick-link ul.nav {
   padding: 0;
 }
 ul.nav li#quick-link ul.nav > li {
+  display: table-cell;
   text-align: center;
-  padding: 5px 10px;
+  padding: 5px 0;
 }
 ul.nav li#quick-link ul a {
   color: #bb0e3d;
@@ -180,6 +181,9 @@ ul.nav.stick-nav-top {
 #content {
   margin: 0;
   background: transparent;
+}
+section {
+  padding: 0 100px;
 }
 section form {
   display: block;
@@ -491,7 +495,7 @@ ul.two-col li {
   }
   section {
     margin: 0 50px;
-    padding: 0 20px;
+    padding: 0;
   }
   section form > ol > li {
     margin: 10px auto;
@@ -588,21 +592,20 @@ ul.two-col li {
   ul.nav > li:not(:hover) > ul {
     display: block;
   }
-  ul.nav > li > ul {
+  ul.nav > li#quick-link > ul {
     background: transparent;
     margin: 10px 0 -5px;
     position: static;
   }
-  ul.nav > li > ul:not(.show) {
+  ul.nav > li#quick-link > ul.nav > li {
+    display: block;
+  }
+  ul.nav > li#quick-link > ul:not(.show) {
     display: none;
   }
   .section-title {
     overflow: auto;
     padding: 5px 10px;
-  }
-  section {
-    margin: 10px;
-    padding: 0;
   }
   section form > ol > li {
     width: 100%;

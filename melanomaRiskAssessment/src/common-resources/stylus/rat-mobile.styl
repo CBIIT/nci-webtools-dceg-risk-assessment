@@ -5,7 +5,7 @@
             padding 7px
     section
         margin 0 50px
-        padding 0 20px
+        padding 0
         form > ol > li
             margin 10px auto
             width 45%
@@ -77,24 +77,24 @@
                 color #bb0e3d
             &:not(:hover) > ul
                 display block
-            > ul
+            &#quick-link > ul
                 background transparent
                 margin 10px 0 -5px
                 position static
+                &.nav > li
+                    display block
                 &:not(.show)
                     display none
+
     .section-title
         overflow auto
         padding 5px 10px
-    section
-        margin 10px
-        padding 0
-        form > ol > li
-            width 100%
-            height auto
-            max-height 350px
-            min-height 130px
-            padding 5px 10px
+    section form > ol > li
+        width 100%
+        height auto
+        max-height 350px
+        min-height 130px
+        padding 5px 10px
     footer
         margin 25px 0
     .question-illustration
