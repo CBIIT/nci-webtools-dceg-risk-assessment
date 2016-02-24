@@ -104,7 +104,10 @@ function expandCollapseImage() {
 
 
 $(function () {
+
+
     $('.goTo').on('click', function () {
+       
         $("html, body").animate({
             scrollTop: $(this.name).offset().top - $("header")[0].clientHeight
         }, 1000);

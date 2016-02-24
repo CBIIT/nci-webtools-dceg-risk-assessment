@@ -32,14 +32,6 @@ section form > ol > li ol {
 .question .input > label {
   display: block;
 }
-.question select,
-.question input {
-  width: 100%;
-}
-.question select[type="radio"],
-.question input[type="radio"] {
-  width: 15px;
-}
 .subquestion:not(.show) {
   display: none;
 }

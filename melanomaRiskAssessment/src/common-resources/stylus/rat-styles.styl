@@ -188,6 +188,8 @@ section
                             display block
                         select, input
                             width 100%
+                            &[type="radio"]
+                                width 15px
                     &:nth-child(even)
                         background #fff
                     &:nth-child(odd)
@@ -217,8 +219,6 @@ section
                 padding 8px 60px
 
 .question-illustrations
-    width 100%
-    margin 0 auto
     background inherit
     text-align center
     .expand
@@ -309,6 +309,9 @@ section
 
 .references
     font-style italic
+    &li
+        padding 10px 0
+
 
 .about-question-title
     border-left 2px solid #2A71A5

@@ -224,6 +224,10 @@ section form > ol > li .question select,
 section form > ol > li .question input {
   width: 100%;
 }
+section form > ol > li .question select[type="radio"],
+section form > ol > li .question input[type="radio"] {
+  width: 15px;
+}
 section form > ol > li:nth-child(even) {
   background: #fff;
 }
@@ -262,8 +266,6 @@ section form button {
   padding: 8px 60px;
 }
 .question-illustrations {
-  width: 100%;
-  margin: 0 auto;
   background: inherit;
   text-align: center;
 }
@@ -368,6 +370,9 @@ section form button {
 }
 .references {
   font-style: italic;
+}
+.referencesli {
+  padding: 10px 0;
 }
 .about-question-title {
   border-left: 2px solid #2a71a5;

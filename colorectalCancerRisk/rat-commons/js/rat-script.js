@@ -107,10 +107,10 @@ $(function () {
 
 
     $('.goTo').on('click', function () {
-        $(this.name)[0].scrollIntoView();
        
-       
-       
+        $("html, body").animate({
+            scrollTop: $(this.name).offset().top - $("header")[0].clientHeight
+        }, 800);
     });
 
     $('#content').on('click', '[tabTo]', function (e) {
