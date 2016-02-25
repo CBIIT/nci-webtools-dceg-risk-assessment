@@ -75,15 +75,33 @@ section form > ol > li ol
 .graphic
     font-size 7em
     float left
+    clear both
+    vertical-align middle
     &.fa
-        margin 30px 25px
+        margin 0 25px
         &.fa-arrow-circle-o-down
             color green
         &.fa-arrow-circle-o-up
             color red
-
 .two-col
-    min-height 160px
-    width 50%
+    height 300px
+    width 45%
     float left
-    margin-bottom 10px
+    margin 10px
+    padding 25px 5px
+    border 3px solid
+    color black
+    &:nth-child(1)
+        padding-right 5px
+
+.green
+    color green
+    border-color green
+
+.red
+    color red
+    border-color red
+
+[tab="risk-factors"]
+    p, ul
+        clear both

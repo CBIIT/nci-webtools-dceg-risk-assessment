@@ -107,10 +107,7 @@ $(function () {
 
 
     $('.goTo').on('click', function () {
-       
-        $("html, body").animate({
-            scrollTop: $(this.name).offset().top - $("header")[0].clientHeight
-        }, 1000);
+        $(this.name)[0].scrollIntoView();
     });
 
     $('#content').on('click', '[tabTo]', function (e) {
@@ -132,13 +129,13 @@ $(function () {
     });
 
     $('#main-nav a').on('click', function () {
-        var naxtNav = $(this).next('ul.nav');
+        var nextNav = $(this).next('ul.nav');
 
-        if ($('#main-nav').hasClass('show') && naxtNav.length === 0)
+        if ($('#main-nav').hasClass('show') && nextNav.length === 0)
             $('#main-nav').removeClass('show');
 
-        if (naxtNav.length > 0)
-            naxtNav.toggleClass('show');
+        if (nextNav.length > 0)
+            nextNav.toggleClass('show');
         else
             $('#quick-link > ul.nav').removeClass('show');
     });

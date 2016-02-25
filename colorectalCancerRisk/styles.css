@@ -93,9 +93,11 @@ select.error {
 .graphic {
   font-size: 7em;
   float: left;
+  clear: both;
+  vertical-align: middle;
 }
 .graphic.fa {
-  margin: 30px 25px;
+  margin: 0 25px;
 }
 .graphic.fa.fa-arrow-circle-o-down {
   color: #008000;
@@ -104,10 +106,28 @@ select.error {
   color: #f00;
 }
 .two-col {
-  min-height: 160px;
-  width: 50%;
+  height: 300px;
+  width: 45%;
   float: left;
-  margin-bottom: 10px;
+  margin: 10px;
+  padding: 25px 5px;
+  border: 3px solid;
+  color: #000;
+}
+.two-col:nth-child(1) {
+  padding-right: 5px;
+}
+.green {
+  color: #008000;
+  border-color: #008000;
+}
+.red {
+  color: #f00;
+  border-color: #f00;
+}
+[tab="risk-factors"] p,
+[tab="risk-factors"] ul {
+  clear: both;
 }
 
 @media (max-width: 990px) {

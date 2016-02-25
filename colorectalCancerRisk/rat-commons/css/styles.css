@@ -173,6 +173,8 @@ ul.nav li#quick-link ul.nav > li {
 }
 ul.nav li#quick-link ul a {
   color: #bb0e3d;
+  font-size: 0.9em;
+  font-weight: bold;
 }
 ul.nav.stick-nav-top {
   position: fixed;
@@ -556,8 +558,8 @@ ul.two-col li {
     width: 50%;
     float: none;
   }
-  section form .section-content {
-    padding: 0 25px;
+  section .section-content {
+    padding: 0;
   }
 }
 @media (max-width: 768px) {
