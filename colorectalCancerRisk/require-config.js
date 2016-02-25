@@ -39,6 +39,6 @@ requirejs.config({
 });
 
 
-require(['ccrat', 'definitions'], function() {
+require.config({urlArgs:"bust="+(new Date()).getTime()})(['ccrat', 'definitions'], function() {
 
 });

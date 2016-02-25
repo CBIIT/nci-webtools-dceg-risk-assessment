@@ -6,38 +6,23 @@ li
         .notice
             p Some studies suggest that people who eat a diet
                 | very low in vegetables may have a higher risk of colorectal cancer.
-        label.question-text(for="eaten_veg") In
+        label.question-text(for="veg_servings") In
             i  the past 30 days
-            | , have you eaten any &nbsp;
+            | , about how many servings per week of &nbsp;
             a.termToDefine(data-term="vegetable") vegetables
-            |  or leafy green salads?
+            |  or leafy green salads did you eat?
             include ../../templates/notice-anchor
-        br
-        em NOTE: If you have eaten vegetables in the past 30 days, you will define serving size in the next set of questions.
         .input
-            label
-                input(type="radio", name="eaten_veg", value='0')
-                | Yes
-            label
-                input(type="radio", name="eaten_veg", value='1')
-                | No
+            select#veg_servings(name='veg_servings')
+                option(value='') -select-
+                option(value='0') None
+                option(value='.5') Less than 1 serving per week
+                option(value='1.5') 1-2 servings per week
+                option(value='3.5') 3-4 servings per week
+                option(value='5.5') 5-6 servings per week
+                option(value='8.5') 7-10 servings per week
+                option(value='11') More than 10 servings per week
     ol#subquestion-veg.subquestion
-        li
-            .question
-                label.question-text(for="veg_servings") In
-                    i  the past 30 days
-                    | , about how many servings per week of &nbsp;
-                    a.termToDefine(data-term="vegetable") vegetables
-                    |  or leafy green salads did you eat?
-                .input
-                    select#veg_servings(name='veg_servings')
-                        option(value='') -select-
-                        option(value='.5') Less than 1 serving per week
-                        option(value='1.5') 1-2 servings per week
-                        option(value='3.5') 3-4 servings per week
-                        option(value='5.5') 5-6 servings per week
-                        option(value='8.5') 7-10 servings per week
-                        option(value='11') More than 10 servings per week
         li
             .question
                 label.question-text(for="veg_amount") In

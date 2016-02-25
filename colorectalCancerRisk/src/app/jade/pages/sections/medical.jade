@@ -29,10 +29,10 @@ li
         .input
             select#exam(name='exam')
                 option(value='') -select-
-                option(value="0") Neither
-                option(value='1') Colonoscopy Only
-                option(value='2') Sigmoidoscopy Only
-                option(value='3') Both
+                option(value='0') Yes
+                option(value='1') No
+                option(value='3')
+                  | I don't know
     ol
         li#subquestion-exam.subquestion
             .question
@@ -51,9 +51,10 @@ li
                 .input
                     select#polyp(name='polyp')
                         option(value='') -select-
-                        option(value='0') Yes
-                        option(value='1') No
-                        option(value='2') I don't know
+                        option(value='2') Yes
+                        option(value='0') No
+                        option(value='0')
+                          | I don't know
 li
     .question-group-title Medical
     .question-illustrations
@@ -64,49 +65,40 @@ li
             |  can lower the risk of colorectal adenomas (tumors that
             |  are not cancer), and may lower the risk of colorectal
             |  cancer. (NSAID stands for nonsteroidal anti-inflammatory drug.)
-        label.question-text(for="medications") During
+        label.question-text(for="aspirin") During
             i  the past 30 days,
-            |  have you taken
+            |  have you taken medications that
             | &nbsp;
-            i any
-            |  prescription or over the counter medications?
+            a.termToDefine(data-term="aspirin") contain aspirin
+            | &nbsp;
+            | at least 3 times a week?
             include ../../templates/notice-anchor
-        br
         | NOTE: Do NOT include TYLENOL
         .input
-            select#medications(name='medications')
+            select#aspirin(name='aspirin')
                 option(value='') -select-
                 option(value='0') Yes
                 option(value='1') No
-                option(value='2') I don't know
-    ol
-        li#subquestion-medications.subquestion
-            .question
-                label.question-text(for="asprin") During
-                    i  the past 30 days,
-                    |  have you taken medications that
-                    | &nbsp;
-                    a.termToDefine(data-term="asprin") contain aspirin
-                    | &nbsp;
-                    | at least 3 times a week?
-                | NOTE: Do NOT include TYLENOL
-                .input
-                    select#asprin(name='asprin')
-                        option(value='') -select-
-                        option(value='0') Yes
-                        option(value='1') No
-                        option(value='2') I don't know
-            .question
-                label.question-text(for="non_asprin") During
-                    i  the past 30 days,
-                    |  have you taken medications that
-                    | &nbsp;
-                    a.termToDefine(data-term="non_asprin") DO NOT contain aspirin
-                    |  at least 3 times a week?
-                | NOTE: Do NOT include TYLENOL
-                .input
-                    select#non_asprin(name='non_asprin')
-                        option(value='') -select-
-                        option(value='0') Yes
-                        option(value='1') No
-                        option(value='2') I don't know
+                option(value='0')
+                  | I don't know
+    .question
+        .notice
+            | Studies have shown that aspirin and drugs called NSAIDs
+            |  can lower the risk of colorectal adenomas (tumors that
+            |  are not cancer), and may lower the risk of colorectal
+            |  cancer. (NSAID stands for nonsteroidal anti-inflammatory drug.)
+        label.question-text(for="non_aspirin") During
+            i  the past 30 days,
+            |  have you taken medications that
+            | &nbsp;
+            a.termToDefine(data-term="non_aspirin") DO NOT contain aspirin
+            |  at least 3 times a week?
+            include ../../templates/notice-anchor
+        | NOTE: Do NOT include TYLENOL
+        .input
+            select#non_aspirin(name='non_aspirin')
+                option(value='') -select-
+                option(value='0') Yes
+                option(value='1') No
+                option(value='0')
+                  | I don't know
