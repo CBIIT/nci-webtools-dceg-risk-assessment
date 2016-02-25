@@ -110,7 +110,7 @@ $(function () {
        
         $("html, body").animate({
             scrollTop: $(this.name).offset().top - $("header")[0].clientHeight
-        }, 800);
+        }, 1000);
     });
 
     $('#content').on('click', '[tabTo]', function (e) {

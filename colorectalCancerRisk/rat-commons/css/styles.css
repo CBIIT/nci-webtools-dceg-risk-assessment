@@ -289,7 +289,7 @@ section form button {
   max-height: 140px;
 }
 .section-content {
-  padding: 0 120px;
+  padding: 0 100px;
 }
 .section-title {
   margin: 10px auto;
@@ -508,6 +508,9 @@ ul.two-col li {
     min-height: 150px;
     max-height: 600px;
   }
+  section .section-content {
+    padding: 0 50px;
+  }
 }
 @media (max-width: 990px) {
   header {
@@ -526,9 +529,6 @@ ul.two-col li {
   .section-anchors li,
   footer li {
     padding: 5px 0;
-  }
-  .section-content {
-    padding: 0 1%;
   }
   section {
     margin: 0 25px;
@@ -555,6 +555,9 @@ ul.two-col li {
     margin: 0 auto;
     width: 50%;
     float: none;
+  }
+  section form .section-content {
+    padding: 0 25px;
   }
 }
 @media (max-width: 768px) {
@@ -611,6 +614,9 @@ ul.two-col li {
   .section-title {
     overflow: auto;
     padding: 5px 10px;
+  }
+  section .section-content {
+    padding: 0;
   }
   section form > ol > li {
     width: 100%;
