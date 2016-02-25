@@ -1,18 +1,7 @@
-section form > ol > li {
-  width: 47%;
-}
 section form > ol > li ol {
   list-style: none;
 }
-section form > ol > li ol > li {
-  background: none;
-  width: inherit;
-  border: none;
-  margin: 0;
-  padding: 0;
-  height: inherit;
-}
-section form > ol > li .question > .notice {
+.question > .notice {
   font-size: 0.9em;
   border: 1px solid;
   padding: 10px;
@@ -25,41 +14,33 @@ section form > ol > li .question > .notice {
   -webkit-box-shadow: 3px 2px 7px #000;
   box-shadow: 3px 2px 7px #000;
 }
-section form > ol > li .question > .notice > p {
+.question > .notice > p {
   margin: 5px 0;
 }
-section form > ol > li .question > label {
+.question > label {
   display: inline-block;
 }
-section form > ol > li .question > label > * {
+.question > label > * {
   vertical-align: top;
 }
-section form > ol > li .question > label > a.notice-show {
+.question > label > a.notice-show {
   font-weight: normal;
 }
-section form > ol > li .question > p {
+.question > p {
   display: inline-block;
 }
-section form > ol > li .question .input > label {
+.question .input > label {
   display: block;
 }
-section form > ol > li .question select,
-section form > ol > li .question input {
-  width: 100%;
-}
-section form > ol > li .question select[type="radio"],
-section form > ol > li .question input[type="radio"] {
-  width: 15px;
-}
-section form > ol > li .subquestion:not(.show) {
+.subquestion:not(.show) {
   display: none;
 }
-section form > ol > li input,
-section form > ol > li select {
+input,
+select {
   padding: 10px;
 }
-section form > ol > li input.error,
-section form > ol > li select.error {
+input.error,
+select.error {
   border: 2px solid #fc7878;
   background: rgba(255,0,0,0.25);
 }
@@ -90,6 +71,9 @@ section form > ol > li select.error {
 .question a.termToDefine:hover {
   border-bottom: none;
 }
+.section-description {
+  text-align: left;
+}
 .content-details {
   -webkit-border-radius: 10px;
   border-radius: 10px;
@@ -106,4 +90,48 @@ section form > ol > li select.error {
   border-radius: 5px;
   padding: 3px 0;
 }
+.graphic {
+  font-size: 7em;
+  float: left;
+  clear: both;
+  vertical-align: middle;
+}
+.graphic.fa {
+  margin: 0 25px;
+}
+.graphic.fa.fa-arrow-circle-o-down {
+  color: #008000;
+}
+.graphic.fa.fa-arrow-circle-o-up {
+  color: #f00;
+}
+.two-col {
+  height: 300px;
+  width: 45%;
+  float: left;
+  margin: 10px;
+  padding: 25px 5px;
+  border: 3px solid;
+  color: #000;
+}
+.two-col:nth-child(1) {
+  padding-right: 5px;
+}
+.green {
+  color: #008000;
+  border-color: #008000;
+}
+.red {
+  color: #f00;
+  border-color: #f00;
+}
+[tab="risk-factors"] p,
+[tab="risk-factors"] ul {
+  clear: both;
+}
 
+@media (max-width: 990px) {
+  .two-col {
+    width: auto;
+  }
+}

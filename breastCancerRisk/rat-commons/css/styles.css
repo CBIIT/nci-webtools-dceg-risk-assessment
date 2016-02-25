@@ -108,9 +108,9 @@ footer ul li a :hover {
 }
 #topButton > .fa {
   margin: 5px;
-  border: 4px solid #6699bc;
-  background: #6699bc;
-  background: rgba(42,113,165,0.7);
+  border: 4px solid #bb0e3d;
+  background: #bb0e3d;
+  background: rgba(187,14,61,0.7);
   -webkit-border-radius: 20px;
   border-radius: 20px;
 }
@@ -122,21 +122,21 @@ footer ul li a :hover {
 }
 ul.nav {
   background: #636363;
-  background: -webkit-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
-  background: -moz-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
-  background: -o-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
-  background: -ms-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
-  background: linear-gradient(135deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
+  background: -webkit-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px);
+  background: -moz-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px);
+  background: -o-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px);
+  background: -ms-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px);
+  background: linear-gradient(135deg, #f7f8f3 60px, #636363 100px, #424242 120px);
   border-top: 2px solid #bb0e3d;
   margin: 0;
-  padding-left: 160px;
+  padding-left: 200px;
   position: relative;
   top: 0;
   width: 100%;
 }
 ul.nav li {
-  display: inline-block;
   padding: 10px 15px;
+  display: inline-block;
 }
 ul.nav li.active {
   background-color: #f7f8f3;
@@ -147,7 +147,6 @@ ul.nav li.active a {
 }
 ul.nav li a {
   color: #fff;
-  display: inline-block;
   text-align: center;
 }
 ul.nav li ul {
@@ -156,6 +155,7 @@ ul.nav li ul {
   left: 0;
   position: absolute;
   top: 100%;
+  display: table;
 }
 ul.nav li ul:not(.show) {
   display: none;
@@ -164,10 +164,12 @@ ul.nav li#quick-link ul {
   background: #f7f8f3;
 }
 ul.nav li#quick-link ul.nav {
-  padding-left: 40px;
+  padding: 0;
 }
 ul.nav li#quick-link ul.nav > li {
-  padding: 10px 5px;
+  display: table-cell;
+  text-align: center;
+  padding: 5px 0;
 }
 ul.nav li#quick-link ul a {
   color: #bb0e3d;
@@ -179,6 +181,9 @@ ul.nav.stick-nav-top {
 #content {
   margin: 0;
   background: transparent;
+}
+section {
+  padding: 0 100px;
 }
 section form {
   display: block;
@@ -195,7 +200,7 @@ section form > ol > li {
   height: 335px;
   vertical-align: top;
   overflow: auto;
-  border: 2px solid #2a71a5;
+  border: 2px solid #bb0e3d;
   -webkit-border-radius: 5px;
   border-radius: 5px;
 }
@@ -218,6 +223,10 @@ section form > ol > li .question .input > label {
 section form > ol > li .question select,
 section form > ol > li .question input {
   width: 100%;
+}
+section form > ol > li .question select[type="radio"],
+section form > ol > li .question input[type="radio"] {
+  width: 15px;
 }
 section form > ol > li:nth-child(even) {
   background: #fff;
@@ -257,8 +266,6 @@ section form button {
   padding: 8px 60px;
 }
 .question-illustrations {
-  width: 100%;
-  margin: 0 auto;
   background: inherit;
   text-align: center;
 }
@@ -282,7 +289,7 @@ section form button {
   max-height: 140px;
 }
 .section-content {
-  padding: 0 120px;
+  padding: 0 100px;
 }
 .section-title {
   margin: 10px auto;
@@ -306,14 +313,22 @@ section form button {
 .section-description {
   margin: 10px auto;
   padding: 10px;
-  border: 2px solid #2a71a5;
+  border: 3px solid #bb0e3d;
   -webkit-border-radius: 10px;
   border-radius: 10px;
+  background: #fff;
+  text-align: center;
 }
 .section-description .heading {
   font-weight: bold;
   font-size: 1.1em;
   color: inherit;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+}
+.section-description .heading:hover {
+  text-decoration: underline;
 }
 .section-description p {
   padding: 0;
@@ -355,6 +370,9 @@ section form button {
 }
 .references {
   font-style: italic;
+}
+.referencesli {
+  padding: 10px 0;
 }
 .about-question-title {
   border-left: 2px solid #2a71a5;
@@ -482,13 +500,16 @@ ul.two-col li {
   }
   section {
     margin: 0 50px;
-    padding: 0 20px;
+    padding: 0;
   }
   section form > ol > li {
     margin: 10px auto;
     width: 45%;
     min-height: 150px;
     max-height: 600px;
+  }
+  section .section-content {
+    padding: 0 50px;
   }
 }
 @media (max-width: 990px) {
@@ -508,9 +529,6 @@ ul.two-col li {
   .section-anchors li,
   footer li {
     padding: 5px 0;
-  }
-  .section-content {
-    padding: 0 1%;
   }
   section {
     margin: 0 25px;
@@ -538,10 +556,13 @@ ul.two-col li {
     width: 50%;
     float: none;
   }
+  section form .section-content {
+    padding: 0 25px;
+  }
 }
 @media (max-width: 768px) {
   header #nci-banner {
-    padding-left: 25px;
+    padding-left: 0;
   }
   header #toolTitle {
     padding: 5px 0;
@@ -579,20 +600,22 @@ ul.two-col li {
   ul.nav > li:not(:hover) > ul {
     display: block;
   }
-  ul.nav > li > ul {
+  ul.nav > li#quick-link > ul {
     background: transparent;
     margin: 10px 0 -5px;
     position: static;
   }
-  ul.nav > li > ul:not(.show) {
+  ul.nav > li#quick-link > ul.nav > li {
+    display: block;
+  }
+  ul.nav > li#quick-link > ul:not(.show) {
     display: none;
   }
   .section-title {
     overflow: auto;
     padding: 5px 10px;
   }
-  section {
-    margin: 10px;
+  section .section-content {
     padding: 0;
   }
   section form > ol > li {
@@ -616,9 +639,6 @@ ul.two-col li {
   }
 }
 @media (max-width: 480px) {
-  header #nci-banner {
-    padding-left: 0;
-  }
   .section-title * {
     display: block;
     text-align: center;
