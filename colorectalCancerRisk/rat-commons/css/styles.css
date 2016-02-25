@@ -12,8 +12,8 @@ a,
   cursor: pointer;
 }
 body {
-  font-family: sans-serif, Helvetica, Calibri, Arial Rounded MT Bold;
-  font-size: 10pt;
+  font-family: Montserrat, Arial, sans-serif;
+  font-size: 15px;
   margin: 0;
   min-width: 320px;
   background: #f7f8f3;
@@ -173,7 +173,6 @@ ul.nav li#quick-link ul.nav > li {
 }
 ul.nav li#quick-link ul a {
   color: #bb0e3d;
-  font-size: 0.9em;
   font-weight: bold;
 }
 ul.nav.stick-nav-top {

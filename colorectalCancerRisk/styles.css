@@ -1,7 +1,10 @@
+section form > ol > li {
+  height: 555px;
+}
 section form > ol > li ol {
   list-style: none;
 }
-.question > .notice {
+section form > ol > li .question > .notice {
   font-size: 0.9em;
   border: 1px solid;
   padding: 10px;
@@ -14,33 +17,33 @@ section form > ol > li ol {
   -webkit-box-shadow: 3px 2px 7px #000;
   box-shadow: 3px 2px 7px #000;
 }
-.question > .notice > p {
+section form > ol > li .question > .notice > p {
   margin: 5px 0;
 }
-.question > label {
+section form > ol > li .question > label {
   display: inline-block;
 }
-.question > label > * {
+section form > ol > li .question > label > * {
   vertical-align: top;
 }
-.question > label > a.notice-show {
+section form > ol > li .question > label > a.notice-show {
   font-weight: normal;
 }
-.question > p {
+section form > ol > li .question > p {
   display: inline-block;
 }
-.question .input > label {
+section form > ol > li .question .input > label {
   display: block;
 }
-.subquestion:not(.show) {
+section form > ol > li .subquestion:not(.show) {
   display: none;
 }
-input,
-select {
+section form > ol > li input,
+section form > ol > li select {
   padding: 10px;
 }
-input.error,
-select.error {
+section form > ol > li input.error,
+section form > ol > li select.error {
   border: 2px solid #fc7878;
   background: rgba(255,0,0,0.25);
 }
@@ -133,5 +136,10 @@ select.error {
 @media (max-width: 990px) {
   .two-col {
     width: auto;
+  }
+}
+@media (max-width: 768px) {
+  section form > ol > li {
+    max-height: 555px;
   }
 }
