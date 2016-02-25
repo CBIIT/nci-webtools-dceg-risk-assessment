@@ -24,9 +24,10 @@ li
         .input
             select#family_cancer(name='family_cancer')
                 option(value='') -select-
-                option(value='0') Yes
-                option(value='1') No
-                option(value='2') I don't know
+                option(value='1') Yes
+                option(value='0') No
+                option(value='0')
+                  | I don't know
     ol
         li#subquestion-family-cancer.subquestion
             .question
@@ -39,4 +40,5 @@ li
                         option(value='') -select-
                         option(value='0') 1
                         option(value='1') 2 or more
-                        option(value='2') I don't know
+                        option(value='0')
+                          | I don't know

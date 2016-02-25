@@ -39,6 +39,6 @@ requirejs.config({
 });
 
 // load scripts for additional tools by defining in paths and adding to array
-require(['ccrat', 'definitions'], function() {
+require.config({urlArgs:"bust="+(new Date()).getTime()})(['ccrat', 'definitions'], function() {
 
 });

@@ -1,7 +1,7 @@
 from CcratConstants import CcratConstants
 import math
 
-def AbsRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, cigarettesPerDay, nsaidRegimine, aspirinOnly, familyHistory, averageExercise, servingsPerMonth, bmiTrend, hormoneUsage):
+def AbsRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, cigarettesPerDay, nsaidRegimine, aspirinOnly, familyHistory, averageExercise, servingsPerDay, bmiTrend, hormoneUsage):
   genderRaceRisk       = CcratConstants.CANCER_RATES     [gender][race]
   genderRaceHazards    = CcratConstants.COMPETING_HAZARDS[gender][race]
   genderAttributeRisks = CcratConstants.ATTRIBUTE_RISKS  [gender]
@@ -47,9 +47,9 @@ def AbsRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
     1 if averageExercise==3 else 0,
     1 if averageExercise==2 else 0,
     1 if averageExercise==1 else 0,
-    #servingsPerMonth: [0]   5+ servings
-    #                  [1] 0-4
-    servingsPerMonth,
+    #servingsPerDay:   [0] >= 2.5 cups of veggies
+    #                  [1]  < 2.5 cups
+    servingsPerDay,
     #bmiTrend:         [0] men: N/A              women: < 30
     #                  [1] men: < 24.9           women: >=30
     #                  [2] men: >=24.9 & < 29.9  women: N/A

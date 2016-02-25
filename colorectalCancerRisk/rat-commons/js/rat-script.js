@@ -29,7 +29,7 @@ function graphResult(element, result) {
     var fullBars = Math.floor(result / 20);
     var partialBar = (result - (20 * fullBars)) * 5;
     var top = 0;
-    for (var j = 0; j < fullBars; i++) {
+    for (var j = 0; j < fullBars; j++) {
         $(element).prepend('<div class="bar yours" style="top:' + top + '%;width:100%;"></div>');
         top += 20;
     }
@@ -64,7 +64,7 @@ function processSubmission(form) {
             }
             for (index in data.nonnumeric) {
                 $('#' + data.nonnumeric[index]).addClass('error');
-                message += "<p>The " + data.missing[index] + " question contained a nonnumeric answer.</p>";
+                message += "<p>The " + data.nonnumeric[index] + " question contained a nonnumeric answer.</p>";
             }
             $('#error').append(message).css('display', 'block');
             document.getElementById("top").scrollIntoView();

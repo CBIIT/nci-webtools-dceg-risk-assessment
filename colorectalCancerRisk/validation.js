@@ -19,15 +19,8 @@ var validationRules = {
         min: 50,
         max: 700
     },
-    eaten_veg: {
-        required: true
-    },
     veg_servings: {
-        required: {
-            depends: function (el) {
-                return $("[name='eaten_veg']:checked").val() == "0";
-            }
-        }
+        required: true
     },
     exam: {
         required: true
@@ -35,36 +28,18 @@ var validationRules = {
     polyp: {
         required: {
             depends: function (el) {
-                return $("[name='exam']").val() > 0;
+                return $("[name='exam']").val() == "0";
             }
         }
     },
-    medications: {
+    aspirin: {
         required: true
     },
-    asprin: {
-        required: {
-            depends: function (el) {
-                return $("[name='medications']").val() == "0";
-            }
-        }
-    },
-    non_asprin: {
-        required: {
-            depends: function (el) {
-                return $("[name='medications']").val() == "0";
-            }
-        }
-    },
-    activity: {
+    non_aspirin: {
         required: true
     },
     moderate_months: {
-        required: {
-            depends: function (el) {
-                return $("[name='activity']").val() == "0";
-            }
-        }
+        required: true
     },
     moderate_hours: {
         required: {
@@ -74,11 +49,7 @@ var validationRules = {
         }
     },
     vigorous_months: {
-        required: {
-            depends: function (el) {
-                return $("[name='activity']").val() == "0";
-            }
-        }
+        required: true
     },
     vigorous_hours: {
         required: {
@@ -93,7 +64,7 @@ var validationRules = {
     family_count: {
         required: {
             depends: function (el) {
-                return $("[name='family_cancer']").val() == "0";
+                return $("[name='family_cancer']").val() == "1";
             }
         }
     },
@@ -121,21 +92,21 @@ var validationRules = {
     cigarettes_num: {
         required: {
             depends: function (el) {
-                return $("#smoke_age").val() > 0;
+                return $("[name='gender']:checked").val() == "Male" && $("#cigarettes").val() === "0" && $("#smoke_age").val() > 0;
             }
         }
     },
     smoke_now: {
         required: {
             depends: function (el) {
-                return $("#smoke_age").val() > 0;
+                return $("[name='gender']:checked").val() == "Male" && $("#cigarettes").val() === "0" && $("#smoke_age").val() > 0;
             }
         }
     },
     smoke_quit: {
         required: {
             depends: function (el) {
-                return $("[name='smoke_now']:checked").val() == "0";
+                return $("[name='gender']:checked").val() == "Male" && $("#cigarettes").val() === "0" && $("#smoke_age").val() > 0 && $("[name='smoke_now']:checked").val() == "0";
             }
         }
     },
@@ -180,9 +151,6 @@ var validationMessages = {
         required: "Weight is required",
         min: "Weight must be greater than 50"
     },
-    eaten_veg: {
-        required: "You must specify whether you have eaten vegetables in the last month"
-    },
     veg_servings: {
         required: "You must specify how many servings of vegetables you had in the past month"
     },
@@ -195,17 +163,11 @@ var validationMessages = {
     polyp: {
         required: "You must specify whther polyps were found during the exam"
     },
-    medications: {
-        required: "You must specify whether you have taken any medications in the past month"
-    },
-    asprin: {
+    aspirin: {
         required: "You must specify whether you have taken any medications containing asprin in the past month"
     },
-    non_asprin: {
+    non_aspirin: {
         required: "You must specify whether you have taken any medications not containing asprin in the past month"
-    },
-    activity: {
-        required: "You must specify whether you have exercised in the past year"
     },
     moderate_months: {
         required: "You must specify how many months you have participated in moderate exercise"
@@ -248,7 +210,7 @@ var validationMessages = {
 function validate() {
     $(document.forms.survey).validate({
         ignoreTitle: true,
-        igonore: ".ignore",
+        ignore: ".ignore",
         highlight: highlightErrorElement,
         unhighlight: removeHighlightErrorElement,
         rules: validationRules,
