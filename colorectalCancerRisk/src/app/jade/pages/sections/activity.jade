@@ -8,70 +8,63 @@ li
             |  increase your risk of colorectal cancer.
             |  On the other hand, if you exercise often,
             |  you may reduce your risk of colorectal cancer.
-        label.question-text(for="activity") Over the
+        label.question-text(for="moderate_months") Over the
             | &nbsp;
-            u past 12 months,
-            |  have you participated in any physical activity?
+            i past 12 months,
+            |  in how many months, if any, did you do any kind of &nbsp;
+            a.termToDefine(data-term="moderate") moderate
+            |  physical activity?
             include ../../templates/notice-anchor
         .input
-            label
-                input(type="radio", name="activity", value='0')
-                | Yes
-            label
-                input(type="radio", name="activity", value='1')
-                | No
-    ol
-        li#subquestion-activity.subquestion
-            .question
-                label.question-text(for="moderate_months") Over the
-                    | &nbsp;
-                    u past 12 months,
-                    |  in how many months, if any, did you do any kind of &nbsp;
-                    a.termToDefine(data-term="moderate") moderate
-                    |  physical activity?
-                .input
-                    input#moderate_months(type="number", name='moderate_months',min="0", max="12", placeholder="Enter number of months (0-12)")
-            #subquestion-moderate-hours.question.subquestion
-                label.question-text(for="moderate_hours") During those months,
-                    u  on average
-                    | , about how many
-                    u  hours per week
-                    |  did you do &nbsp;
-                    a.termToDefine(data-term="moderate") moderate
-                    |  physical activities?
-                .input
-                    select#moderate_hours(name='moderate_hours')
-                        option(value='') -select-
-                        option(value='.5') Up to 1 hour per week
-                        option(value='1.5') Between 1-2 hours per week
-                        option(value='2.5') Between 2-3 hours per week
-                        option(value='3.5') Between 3-4 hours per week
-                        option(value='5') More than 4 hours per week
-
-            .question
-                label.question-text(for="moderate_months") Over the
-                    | &nbsp;
-                    u past 12 months,
-                    |  in how many months, if any, did you do any kind of &nbsp;
-                    a.termToDefine(data-term="vigorous") vigorous
-                    |  physical activity?
-                .input
-                    input#vigorous_months(type="number", name='vigorous_months',min="0", max="12", placeholder="Enter number of months (0-12)")
-                ol
-                    li#subquestion-vigorous_months.subquestion
-                        .question
-                            label.question-text(for="vigorous_hours") During those months,
-                                u  on average
-                                | , about how many
-                                u  hours per week
-                                |  did you do &nbsp;
-                                a.termToDefine(data-term="vigorous") vigorous
-                                |  physical activities?
-                            .input
-                                select#vigorous_hours(name='vigorous_hours')
-                                    option(value='') -select-
-                                    option(value='.5') Up to 1 hour per week
-                                    option(value='1.5') Between 1-2 hours per week
-                                    option(value='2.5') Between 2-3 hours per week
-                                    option(value='3.5') Between 3-4 hours per week
-                                    option(value='5') More than 4 hours per week
+            input#moderate_months(type="number", name='moderate_months',min="0", max="12", placeholder="Enter number of months (0-12)")
+        ol
+            li#subquestion-moderate-hours.subquestion
+                .question
+                    label.question-text(for="moderate_hours") During those months,
+                        i  on average
+                        | , about how many
+                        i  hours per week
+                        |  did you do &nbsp;
+                        a.termToDefine(data-term="moderate") moderate
+                        |  physical activities?
+                    .input
+                        select#moderate_hours(name='moderate_hours')
+                            option(value='') -select-
+                            option(value='.5') Up to 1 hour per week
+                            option(value='1.5') Between 1-2 hours per week
+                            option(value='2.5') Between 2-3 hours per week
+                            option(value='3.5') Between 3-4 hours per week
+                            option(value='5') More than 4 hours per week
+    .question
+        .notice
+            | Studies suggest that not being active may
+            |  increase your risk of colorectal cancer.
+            |  On the other hand, if you exercise often,
+            |  you may reduce your risk of colorectal cancer.
+        label.question-text(for="moderate_months") Over the
+            | &nbsp;
+            i past 12 months,
+            |  in how many months, if any, did you do any kind of &nbsp;
+            a.termToDefine(data-term="vigorous") vigorous
+            |  physical activity?
+            include ../../templates/notice-anchor
+        .input
+            input#vigorous_months(type="number", name='vigorous_months',min="0", max="12", placeholder="Enter number of months (0-12)")
+        ol
+            li#subquestion-vigorous_months.subquestion
+                .question
+                    label.question-text(for="vigorous_hours") During those months,
+                        i  on average
+                        | , about how many
+                        i  hours per week
+                        |  did you do &nbsp;
+                        a.termToDefine(data-term="vigorous") vigorous
+                        |  physical activities?
+                    .input
+                        select#vigorous_hours(name='vigorous_hours')
+                            option(value='') -select-
+                            option(value='.5') Up to 1 hour per week
+                            option(value='1.5') Between 1-2 hours per week
+                            option(value='2.5') Between 2-3 hours per week
+                            option(value='3.5') Between 3-4 hours per week
+                            option(value='5') More than 4 hours per week

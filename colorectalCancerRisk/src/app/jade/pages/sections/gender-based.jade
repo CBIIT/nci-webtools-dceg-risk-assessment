@@ -58,27 +58,19 @@ li.male
             |  colorectal cancer. At this time, studies show that smoking
             |  does not increase risk of colorectal cancer among women.
             |  As time goes on and other studies are completed, that may change.
-        label.question-text(for="smoked") Have you ever smoked a cigarette?
+        label.question-text(for="cigarettes") In your
+            i  entire lifetime,
+            | altogether, have you smoked 100 or more cigarettes?
             include ../../templates/notice-anchor
         .input
-            label
-                input(type="radio", name="smoked", value='0')
-                | Yes
-            label
-                input(type="radio", name="smoked", value='1')
-                | No
+            select#cigarettes(name='cigarettes')
+                option(value='') -select-
+                option(value='0') Yes
+                option(value='1') No
+                option(value='2')
+                  | I don't know
     ol
         li#subquestion-smoke-age.subquestion
-            .question
-                label.question-text(for="cigarettes") In your
-                    u  entire lifetime,
-                    | altogether, have you smoked 100 or more cigarettes?
-                .input
-                    select#cigarettes(name='cigarettes')
-                        option(value='') -select-
-                        option(value='0') Yes
-                        option(value='1') No
-                        option(value='2') I don't know
             .question
                 label.question-text(for="smoke_age")
                     | How old were you when you started smoking cigarettes
@@ -102,9 +94,9 @@ li.male
                 .input
                     select#cigarettes_num(name='cigarettes_num')
                         option(value='') -select-
-                        - var n = 16
-                        while n <= 54
-                            option(value=n)= n++
+                        option(value='1') 1 to 10 cigarettes per day
+                        option(value='2') 11 to 20 cigarettes per day
+                        option(value='3') 21 or more cigarettes per day
             .question
                 label.question-text(for="smoke_now")
                     | Do you currently smoke cigarettes?
