@@ -398,12 +398,12 @@
                   <div class="input">
                     <select id="race" name="race">
                       <option value="">Select</option>
-                      <option value="0">White</option>
-                      <option value="1">African American</option>
-                      <option value="2">Hispanic</option>
-                      <option value="3">Asian American</option>
-                      <option value="4">American Indian or Alaskan Native</option>
-                      <option value="-1">Unknown</option>
+                      <option value="White">White</option>
+                      <option value="Black">African American</option>
+                      <option value="Hispanic">Hispanic</option>
+                      <option value="Asian">Asian American</option>
+                      <option value="White">American Indian or Alaskan Native</option>
+                      <option value="White">Unknown</option>
                     </select>
                   </div>
                 </div>
@@ -412,6 +412,12 @@
                   <div class="input">
                     <select id="sub_race" name="sub_race">
                       <option value="">Select</option>
+                      <option value="Chinese">Chinese</option>
+                      <option value="Japanese">Japanese</option>
+                      <option value="Filipino">Filipino</option>
+                      <option value="Hawaiian">Hawaiian</option>
+                      <option value="Islander">Other Pacific Islander</option>
+                      <option value="Asian">Other Asian American</option>
                     </select>
                   </div>
                 </div>
@@ -432,10 +438,13 @@
                   <label for="childbirth" class="question-text">Has the woman ever given birth?</label>
                   <div class="input">
                     <label>
-                      <input type="radio" name="childbirth" value="0">Yes
+                      <input type="radio" name="childbirth" value="-1">Yes
                     </label>
                     <label>
-                      <input type="radio" name="childbirth" value="1">No
+                      <input type="radio" name="childbirth" value="2">No
+                    </label>
+                    <label>
+                      <input type="radio" name="childbirth" value="0">Unknown
                     </label>
                   </div>
                 </div>
@@ -456,7 +465,7 @@
                   <div class="input">
                     <select id="relatives" name="relatives">
                       <option value="">Select</option>
-                      <option value="-1">Unknown</option>
+                      <option value="0">Unknown</option>
                       <option value="0">None</option>
                       <option value="1">1</option>
                       <option value="2">More than 1</option>
@@ -469,13 +478,13 @@
                   <label for="biopsy" class="question-text">Has the woman ever had a breast&nbsp;<a data-term="biopsy" class="termToDefine">biopsy</a>?</label>
                   <div class="input">
                     <label>
-                      <input type="radio" name="biopsy" value="0">Yes
+                      <input type="radio" name="biopsy" value="1">Yes
                     </label>
                     <label>
-                      <input type="radio" name="biopsy" value="1">No
+                      <input type="radio" name="biopsy" value="0">No
                     </label>
                     <label>
-                      <input type="radio" name="biopsy" value="2">Don't Know
+                      <input type="radio" name="biopsy" value="0">Don't Know
                     </label>
                   </div>
                 </div>
@@ -500,13 +509,13 @@
                   </label>
                   <div class="input">
                     <label>
-                      <input type="radio" name="biopsy_ah" value="0">Yes
+                      <input type="radio" name="biopsy_ah" value="1.82">Yes
                     </label>
                     <label>
-                      <input type="radio" name="biopsy_ah" value="1">No
+                      <input type="radio" name="biopsy_ah" value="0.93">No
                     </label>
                     <label>
-                      <input type="radio" name="biopsy_ah" value="2">Don't Know
+                      <input type="radio" name="biopsy_ah" value="1.00">Don't Know
                     </label>
                   </div>
                 </div>

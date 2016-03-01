@@ -4,7 +4,7 @@ import math
 # rhyp    yes = 1.82
 #          no = 0.93
 #       other = 1.00
-def AbsRisk(self, riskType, race, currentAge, projectionAge, menarcheAge, numberOfBiopsy, firstLiveBirthAge, firstDegRelatives, rhyp):
+def AbsRisk(riskType, race, currentAge, projectionAge, menarcheAge, numberOfBiopsy, firstLiveBirthAge, firstDegRelatives, rhyp):
   if projectionAge <= currentAge:
     raise RuntimeError("projectionAge must be greater than the current age")
   if (race == "Black" and menarcheAge == 2):

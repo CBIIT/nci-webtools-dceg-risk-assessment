@@ -72,21 +72,28 @@ section#risk-calculator(tab='risk-calculator')
                         .input
                           input#age(name='age', type="number", min="35", max="120", placeholder="Enter patient's age")
                     .question
-                        label.question-text(for="race") What is the patient's race?
+                        label.question-text(for="race")
+                          | What is the patient's race?
                         .input
                           select#race(name='race')
                             option(value='') Select
-                            option(value='0') White
-                            option(value='1') African American
-                            option(value='2') Hispanic
-                            option(value='3') Asian American
-                            option(value='4') American Indian or Alaskan Native
-                            option(value='-1') Unknown
+                            option(value='White') White
+                            option(value='Black') African American
+                            option(value='Hispanic') Hispanic
+                            option(value='Asian') Asian American
+                            option(value='White') American Indian or Alaskan Native
+                            option(value='White') Unknown
                     .question#subquestion-race.subquestion
                         label.question-text(for="sub_race") What is the sub race/ethnicity?
                         .input
                             select#sub_race(name='sub_race')
                                 option(value='') Select
+                                option(value='Chinese') Chinese
+                                option(value='Japanese') Japanese
+                                option(value='Filipino') Filipino
+                                option(value='Hawaiian') Hawaiian
+                                option(value='Islander') Other Pacific Islander
+                                option(value='Asian') Other Asian American
                 li
                     .question-illustrations
                         img.stock-images(src="images/teen-patient.jpg", alt="girl with mother and doctor")
@@ -106,11 +113,14 @@ section#risk-calculator(tab='risk-calculator')
                             | Has the woman ever given birth?
                         .input
                             label
-                                input(type="radio", name="childbirth", value='0')
+                                input(type="radio", name="childbirth", value='-1')
                                 | Yes
                             label
-                                input(type="radio", name="childbirth", value='1')
+                                input(type="radio", name="childbirth", value='2')
                                 | No
+                            label
+                                input(type="radio", name="childbirth", value='0')
+                                | Unknown
                     #subquestion-childbirth-age.question.subquestion
                         label.question-text(for="childbirth_age")
                             | What was the woman's age at the time of her first live birth of a child?
@@ -126,7 +136,7 @@ section#risk-calculator(tab='risk-calculator')
                         .input
                           select#relatives(name='relatives')
                             option(value='') Select
-                            option(value='-1') Unknown
+                            option(value='0') Unknown
                             option(value='0') None
                             option(value='1') 1
                             option(value='2') More than 1
@@ -137,13 +147,13 @@ section#risk-calculator(tab='risk-calculator')
                             | ?
                         .input
                             label
-                                input(type="radio", name="biopsy", value='0')
+                                input(type="radio", name="biopsy", value='1')
                                 | Yes
                             label
-                                input(type="radio", name="biopsy", value='1')
+                                input(type="radio", name="biopsy", value='0')
                                 | No
                             label
-                                input(type="radio", name="biopsy", value='2')
+                                input(type="radio", name="biopsy", value='0')
                                 | Don't Know
                     #subquestion-biopsy.subquestion.question
                         label.question-text(for="biopsy_result") How many breast
@@ -162,13 +172,13 @@ section#risk-calculator(tab='risk-calculator')
                             | ?
                         .input
                             label
-                                input(type="radio", name="biopsy_ah", value='0')
+                                input(type="radio", name="biopsy_ah", value='1.82')
                                 | Yes
                             label
-                                input(type="radio", name="biopsy_ah", value='1')
+                                input(type="radio", name="biopsy_ah", value='0.93')
                                 | No
                             label
-                                input(type="radio", name="biopsy_ah", value='2')
+                                input(type="radio", name="biopsy_ah", value='1.00')
                                 | Don't Know
             button#reset(type="reset") Reset
             button#calculate(type="submit") Calculate Risk
