@@ -9,7 +9,7 @@ button, a, .thumbnail
 
 body
     font-family sans-serif,  Helvetica, Calibri, Arial Rounded MT Bold
-    font-size 10pt
+    font-size 15px
     margin 0
     min-width 320px
     background #f7f8f3
@@ -85,7 +85,7 @@ footer
 #topButton
     display none
     font-size 2em
-    color white
+    color #fff
     text-align center
     padding 5px 0
     position fixed
@@ -93,9 +93,9 @@ footer
     right 20px
     > .fa
         margin 5px
-        border 4px solid #6699BC
-        background #6699BC
-        background rgba(42,113,165,0.7)
+        border 4px solid #BB0E3D
+        background #BB0E3D
+        background rgba(187,14,61,0.7)
         border-radius 20px
 
 //navigation rules
@@ -107,18 +107,18 @@ footer
 
 ul.nav
     background #636363
-    background linear-gradient(135deg, #f7f8f3 60px, #636363 100px, #424242 120px, rgba(255,255,255,0) 100%);
+    background linear-gradient(135deg, #f7f8f3 60px, #636363 100px, #424242 120px);
     border-top 2px solid #BB0E3D
     margin 0
-    padding-left 160px
+    padding-left 200px
     // submenu's absolute positioning is now relative to the submenu allowing us to remove it from the flow without worrying about calculating its position on display
     position relative
     top 0
     width 100%
     li
-        display inline-block
         // padding needs to happen on the header element to ensure we don't lose the submenu before we reach it
         padding 10px 15px
+        display inline-block
         &.active
             background-color #f7f8f3
             a
@@ -126,7 +126,6 @@ ul.nav
                 font-weight bold
         a
             color white
-            display inline-block
             text-align center
         // reposition the subelement underneath the larger header. This breaks down literally as soon as there is a second line of headers, so mobile nav needs to start right around that point.
         ul
@@ -135,17 +134,21 @@ ul.nav
             left 0
             position absolute
             top 100%
+            display table
             // by using :not we don't have to worry about what the original display value of the element is
             &:not(.show)
                 display none
         &#quick-link ul
             background #f7f8f3
             &.nav
-                padding-left 40px
+                padding 0
                 > li
-                    padding 10px 5px
+                    display table-cell
+                    text-align center
+                    padding 5px 0
             a
                 color #BB0E3D
+                font-weight bold
     &.stick-nav-top
         position fixed
         z-index 10000
@@ -156,65 +159,67 @@ ul.nav
     margin 0
     background transparent
 
-section form
-        display block
-        > ol
-            list-style decimal
-            > li
-                display inline-block
-                margin 5px
+section
+    padding 0 100px
+    form
+            display block
+            > ol
+                list-style decimal
+                > li
+                    display inline-block
+                    margin 5px
+                    padding 10px
+                    width 46%
+                    max-width 100%
+                    height 335px
+                    vertical-align top
+                    overflow auto
+                    border 2px solid #bb0e3d
+                    border-radius 5px
+                    ol
+                        list-style lower-alpha
+                        padding 0
+                    .question
+                        padding 10px 0
+                        > label
+                            display inline-block
+                        > p
+                            display inline-block
+                        .input > label
+                            display block
+                        select, input
+                            width 100%
+                            &[type="radio"]
+                                width 15px
+                    &:nth-child(even)
+                        background #fff
+                    &:nth-child(odd)
+                        background-color transparent
+                        > .question-illustrations
+                            background-color inherit
+            input, select
                 padding 10px
-                width 46%
-                max-width 100%
-                height 335px
-                vertical-align top
-                overflow auto
-                border 2px solid #2A71A5
-                border-radius 5px
-                ol
-                    list-style lower-alpha
-                    padding 0
-                .question
-                    padding 10px 0
-                    > label
-                        display inline-block
-                    > p
-                        display inline-block
-                    .input > label
-                        display block
-                    select, input
-                        width 100%
-                &:nth-child(even)
-                    background #fff
-                &:nth-child(odd)
-                    background-color transparent
-                    > .question-illustrations
-                        background-color inherit
-        input, select
-            padding 10px
-            &.error
-                border 2px solid #FC7878
-                background rgba(255,0,0,0.25)
-        .no-css
-            display none
+                &.error
+                    border 2px solid #FC7878
+                    background rgba(255,0,0,0.25)
+            .no-css
+                display none
 
-        .question-num
-            border-right 4px #606060 solid
-            color #606060
-            font-weight bold
-            text-align center
+            .question-num
+                border-right 4px #606060 solid
+                color #606060
+                font-weight bold
+                text-align center
 
-        .question-text
-            font-weight bold
-            &.error
-                color red
-        button
-            float right
-            padding 8px 60px
+            .question-text
+                font-weight bold
+                &.error
+                    color red
+            button
+                float right
+                padding 8px 60px
 
 .question-illustrations
-    width 100%
-    margin 0 auto
     background inherit
     text-align center
     .expand
@@ -234,7 +239,7 @@ section form
             max-height 140px
 
 .section-content
-    padding 0 120px
+    padding 0 100px
 
 .section-title
     margin 10px auto
@@ -255,12 +260,20 @@ section form
 .section-description
     margin 10px auto
     padding 10px
-    border 2px solid #2A71A5
+    border 3px solid #BB0E3D
     border-radius 10px
+    background #fff
+    text-align center
     .heading
         font-weight bold
         font-size 1.1em
         color inherit
+        text-align center
+        cursor pointer
+        text-decoration none
+        &:hover
+            text-decoration underline
+
     p
         padding 0
         margin 0
@@ -297,6 +310,9 @@ section form
 
 .references
     font-style italic
+    &li
+        padding 10px 0
+
 
 .about-question-title
     border-left 2px solid #2A71A5

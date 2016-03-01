@@ -15,23 +15,24 @@ li
                 | biological mother and father, full brothers and sisters,
                 |  and your biological sons or daughters
             | . At
-            i  any time in their lives
+            u  any time in their lives
             |  , did any of these relatives ever
             |  have
-            i  cancer of the colon or rectum
+            u  cancer of the colon or rectum
             |  (cancer of the lower intestine)?
             include ../../templates/notice-anchor
         .input
             select#family_cancer(name='family_cancer')
                 option(value='') -select-
-                option(value='0') Yes
-                option(value='1') No
-                option(value='2') I don't know
+                option(value='1') Yes
+                option(value='0') No
+                option(value='0')
+                  | I don't know
     ol
         li#subquestion-family-cancer.subquestion
             .question
                 label.question-text(for="family_count")
-                    i How many
+                    u How many
                     |  of these relatives had cancer of the
                     |  colon or rectum (cancer of the lower intestine)?
                 .input
@@ -39,4 +40,5 @@ li
                         option(value='') -select-
                         option(value='0') 1
                         option(value='1') 2 or more
-                        option(value='2') I don't know
+                        option(value='0')
+                          | I don't know

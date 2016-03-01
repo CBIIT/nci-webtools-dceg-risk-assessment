@@ -64,16 +64,6 @@ $("input[name='gender']").on("change", function () {
     }
 });
 
-$("input[name='activity']").on("change", function () {
-    $("#subquestion-activity").find("input").val("");
-    if (this.value == "0") {
-        $("#subquestion-activity").addClass("show").effect("highlight", 500);
-    } else {
-        $("#subquestion-activity").removeClass("show");
-        $("#subquestion-activity").find("input").val(this.value);
-    }
-});
-
 $("input[name='moderate_months']").on("blur", function () {
     $("#subquestion-moderate-hours").find("select").val("");
     if (this.value <= "0") {
@@ -92,21 +82,9 @@ $("input[name='vigorous_months']").on("blur", function () {
     }
 });
 
-$("select[name='medications']").on("change", function () {
-    $("#subquestion-medications").find("input, select").val("");
-    if (this.value === "0") {
-        $("#subquestion-medications").addClass("show").effect("highlight", 500);
-    } else {
-        if (this.value == "1")
-            $("#subquestion-medications").find("input, select").val(this.value);
-        $("#subquestion-medications").removeClass("show");
-    }
-});
-
-
-$("input[name='eaten_veg']").on("change", function () {
+$("select[name='veg_servings']").on("change", function () {
     $("#subquestion-veg").find("select").val("");
-    if (this.value == "0") {
+    if (this.value > 0) {
         $("#subquestion-veg").addClass("show").effect("highlight", 500);
     } else {
         $("#subquestion-veg").removeClass("show");
@@ -115,7 +93,7 @@ $("input[name='eaten_veg']").on("change", function () {
 
 $("select[name='exam']").on("change", function () {
     $("#subquestion-exam").find("input").val("");
-    if (this.value > 0) {
+    if (this.value == "0") {
         $("#subquestion-exam").addClass("show").effect("highlight", 500);
     } else {
         $("#subquestion-exam").removeClass("show");
@@ -136,6 +114,8 @@ $("select[name='cigarettes']").on("change", function () {
         $("#subquestion-smoke-age").addClass("show").effect("highlight", 500);
     else
         $("#subquestion-smoke-age").removeClass("show");
+        $("#subquestion-smoke-now").removeClass("show");
+        $("#subquestion-smoke-quit").removeClass("show");
 });
 
 $("select[name='smoke_age']").on("change", function () {
@@ -171,11 +151,9 @@ $("select[name='last_period']").on("change", function () {
 
 $("select[name='family_cancer']").on("change", function () {
     $("#subquestion-family-cancer").find("input, select").val("");
-    if (this.value === "0") {
+    if (this.value === "1") {
         $("#subquestion-family-cancer").addClass("show").effect("highlight", 500);
     } else {
-        if (this.value == "1")
-            $("#subquestion-family-cancer").find("input, select").val(this.value);
         $("#subquestion-family-cancer").removeClass("show");
     }
 });

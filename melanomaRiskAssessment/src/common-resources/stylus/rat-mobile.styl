@@ -5,12 +5,14 @@
             padding 7px
     section
         margin 0 50px
-        padding 0 20px
+        padding 0
         form > ol > li
             margin 10px auto
             width 45%
             min-height 150px
             max-height 600px
+        .section-content
+            padding 0 50px
 
 @media (max-width 990px)
     header
@@ -24,8 +26,6 @@
         display block
     .section-anchors li, footer li
         padding 5px 0
-    .section-content
-        padding 0 1%
     section
         margin 0 25px
         form
@@ -46,10 +46,12 @@
                 margin 0 auto
                 width 50%
                 float none
+        .section-content
+            padding 0
 
 @media (max-width 768px)
     header #nci-banner
-        padding-left 25px
+        padding-left 0
     header #toolTitle
         padding 5px 0
     #top
@@ -77,18 +79,21 @@
                 color #bb0e3d
             &:not(:hover) > ul
                 display block
-            > ul
+            &#quick-link > ul
                 background transparent
                 margin 10px 0 -5px
                 position static
+                &.nav > li
+                    display block
                 &:not(.show)
                     display none
+
     .section-title
         overflow auto
         padding 5px 10px
     section
-        margin 10px
-        padding 0
+        .section-content
+            padding 0
         form > ol > li
             width 100%
             height auto
@@ -105,8 +110,6 @@
         width auto
 
 @media (max-width 480px)
-    header #nci-banner
-        padding-left 0
     .section-title
         *
             display block

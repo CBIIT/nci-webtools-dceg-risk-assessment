@@ -3,10 +3,10 @@
 //-    title About the Tool - MRAT
 
 section#about(tab='about')
-    .section-title
-        span About the Tool
-        a.goToTab(title='go to colorectal cancer risk assessment', name='risk-calculator') Calculate Risk for New Patients
     .section-content
+        .section-title
+            span About the Tool
+            a.goToTab(title='go to colorectal cancer risk assessment', name='risk-calculator') Calculate Risk for New Patients
         ul.section-anchors
             li
                 a.goTo(title='skip to explanations of the questions', name='#questions-exp') Explaining the Questions
@@ -19,12 +19,11 @@ section#about(tab='about')
             .spacer
             li
                 a.goTo(title='go to references', name='#reference') Reference
-        strong Explaining the Questions
-        #questions-exp.content-details
+        .section-title Explaining the Questions
+        #questions-exp
             .about-question-title
-                strong
-                    | Question 1: Which of the following do you consider yourself to be?
-                    |  (African-American; Asian American/Pacific Islander; White;Hispanic/Latino)
+                | Question 1: Which of the following do you consider yourself to be?
+                |  (African-American; Asian American/Pacific Islander; White;Hispanic/Latino)
             .about-question-explanation
                 strong Explanation
                 p
@@ -41,21 +40,20 @@ section#about(tab='about')
                     | but we are working to improve the tool for use by these groups of people.
 
             .about-question-title
-                strong Question 2: What is your age? (Keep in mind that this tool only estimates
-                    |  risk for people from 50 to 85 years old.)
+                | Question 2: What is your age? (Keep in mind that this tool only estimates
+                |  risk for people from 50 to 85 years old.)
             .about-question-explanation
                 strong Explanation
                 p
                     | As you get older, your risk of colorectal cancer gets higher. More than 90 percent
                     | of people with this disease are diagnosed after age 50. The average age at diagnosis is 72.
 
-            .about-question-title
-                strong Question 3: Are you male or female?
+            .about-question-title Question 3: Are you male or female?
             .about-question-explanation
                 strong Explanation
                 p The factors that can protect you from colorectal cancer or cause you to be at higher risk are different for men and women.
             .about-question-title
-                strong Question 4
+                | Question 4
                 ul.red-arrow
                     li How tall are you without shoes?
                     li 4a: How much do you weigh without shoes?
@@ -67,7 +65,7 @@ section#about(tab='about')
                     | a healthy weight. Obesity (a problem in which people have too much body fat)
                     | has been linked to a higher risk of colorectal cancer.
             .about-question-title
-                strong Question 5
+                | Question 5
                 ul.red-arrow
                     li
                         | In the past 30 days, have you eaten any  vegetables or leafy green salads?
@@ -83,25 +81,26 @@ section#about(tab='about')
                 p
                     Some studies suggest that people who eat a diet very low in vegetables may have a higher risk of colorectal cancer.
             .about-question-title
-                strong Question 6: During the past 10 years, did you have a colonoscopy or a sigmoidoscopy?
-                | (These are medical procedures in which your doctor inserts a tube into
-                | the rectum to look for signs of cancer or other problems.)
+                | Question 6: During the past 10 years, did you have a colonoscopy or a sigmoidoscopy?
+                |  (These are medical procedures in which your doctor inserts a tube into
+                |  the rectum to look for signs of cancer or other problems.)
             .about-question-explanation
                 strong Explanation
                 p
                     | In a sigmoidoscopy, your doctor looks inside your rectum and the lower part
-                    | of the colon with a lighted tube called a sigmoidoscope. If anything unusual
-                    | is in the rectum or colon, like a small polyp or inflamed tissue, your doctor
-                    | can remove it using the sigmoidoscope. Then, he or she will send that piece of
-                    | tissue to the lab for testing. In a colonoscopy, your doctor looks inside the
-                    | rectum and entire colon using a long, lighted tube called a colonoscope.
-                    | Using a colonoscope, your doctor can remove any polyps he or she sees.
-                    | The procedure to remove polyps is called a polypectomy. Having this procedure
-                    | will reduce your risk of colorectal cancer because polyps that can grow into cancer are removed.
+                    |  of the colon with a lighted tube called a sigmoidoscope. If anything unusual
+                    |  is in the rectum or colon, like a small polyp or inflamed tissue, your doctor
+                    |  can remove it using the sigmoidoscope. Then, he or she will send that piece of
+                    |  tissue to the lab for testing. In a colonoscopy, your doctor looks inside the
+                    |  rectum and entire colon using a long, lighted tube called a colonoscope.
+                    |  Using a colonoscope, your doctor can remove any polyps he or she sees.
+                    |  The procedure to remove polyps is called a polypectomy. Having this procedure
+                    |  will reduce your risk of colorectal cancer because polyps that can grow
+                    |  into cancer are removed.
 
             .about-question-title
-                strong Question 7: During the past 10 years did a doctor tell you that
-                    |  you had a polyp in your colon or rectum?
+                | Question 7: During the past 10 years did a doctor tell you that
+                |  you had a polyp in your colon or rectum?
             .about-question-explanation
                 strong Explanation
                 p
@@ -111,24 +110,24 @@ section#about(tab='about')
                     | the risk of colorectal cancer. [Risk estimates for men for
                     | "polyps unknown" corrected on 10/7/2014.]
             .about-question-title
-                strong Question 8
+                | Question 8
                 ul.red-arrow
                     li During the past 30 days, have you taken  any prescription
                         | or over the counter medications?
-                    li 8a: During the past 30 days, have you taken medications that contain aspirin at least
-                        | 3 times a week?
-                    li 8b: During the past 30 days, have you taken medications that  DO NOT contain aspirin at least 3 times a week?
+                    li 8a: During the past 30 days, have you taken medications that contain aspirin at least 3 times a week?
+                    li 8b: During the past 30 days, have you taken medications that DO NOT contain aspirin at least 3 times a week?
             .about-question-explanation
                 strong Explanation
                 p
                     | Studies have shown that aspirin and drugs called NSAIDs can lower
                     | the risk of colorectal adenomas (tumors that are not cancer),
                     | and may lower the risk of colorectal cancer. (NSAID stands for nonsteroidal
+                    | &nbsp;
                     a.termToDefine(data-term="aid") anti-inflammatory drug
                     | .) [Risk estimates for men and women for
                     | "medications that do not contain aspirin unknown" corrected on 10/7/2014.]
             .about-question-title
-                strong Question 9
+                | Question 9
                 ul.red-arrow
                     li Over the  past 12 months, have you participated in any physical activity?
                     li 9a: Over the past 12 months, in how many months, if any, did you do any kind of moderate exerices?
@@ -142,7 +141,7 @@ section#about(tab='about')
                     | On the other hand, if you exercise often, you may reduce your risk of colorectal cancer.
 
             .about-question-title
-                strong Gender Specific Questions (Males)
+                | Gender Specific Questions (Males)
                 ul.red-arrow
                     li In your entire lifetime, altogether, have you smoked 100 or more cigarettes?
                     li 10a: How old were you when you started smoking cigarettes on a regular basis,
@@ -160,7 +159,7 @@ section#about(tab='about')
                     | colorectal cancer among women. As time goes on and other studies are completed, that may change.
 
             .about-question-title
-                strong Gender Specific Questions (Females)
+                | Gender Specific Questions (Females)
                 ul.red-arrow
                     li Do you still have periods?
                     li 10a: When did you have your last period?
@@ -176,7 +175,7 @@ section#about(tab='about')
                     | 2 years may be at lower risk for colorectal cancer than other women.
 
             .about-question-title
-                strong Question 11
+                | Question 11
                 ul.red-arrow
                     li Think only about your biological mother and father, full brothers and sisters, and your
                         | biological sons or daughters. At any time in their lives, did any of these relatives
@@ -188,8 +187,8 @@ section#about(tab='about')
                     | If you have close relatives (parents, brothers, sisters, or children) who have had colorectal cancer,
                     | your risk of colorectcal cancer is slightly higher. This is more true if the relative had the cancer
                     | at a young age. If you have many close relatives who have had colorectal cancer, the risk can be even higher.
-        strong Explaining the Results
-        #results-exp.content-details
+        .section-title Explaining the Results
+        #results-exp
             p The Colorectal Cancer Risk Assessment Tool estimates your risk of colorectal cancer
                 | during the next 5 and 10 years (up to age 90) if you are:
             ul
@@ -213,8 +212,8 @@ section#about(tab='about')
 
             p This tool does not yet apply to American Indians and Alaska Natives,
                 | but we are working to improve the tool for use in these groups of people.
-        strong About the Model
-        #model-exp.content-details
+        .section-title About the Model
+        #model-exp
             p
                 | The Colorectal Cancer Risk Assessment Tool is based on the first absolute risk model for
                 | colorectal cancer. The model was developed using data from two large U.S. population-based case-control
@@ -233,8 +232,8 @@ section#about(tab='about')
             p
                 | The risk calculator will be updated periodically as new data or research become available.
                 | In addition, the tool may prove useful to researchers who are designing research intervention studies.
-        strong Reference
-        #reference.content-details
+        .section-title Reference
+        #reference
             ul.red-arrow
                 li.references
                     em

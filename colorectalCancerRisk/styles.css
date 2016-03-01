@@ -1,16 +1,8 @@
 section form > ol > li {
-  width: 47%;
+  height: 555px;
 }
 section form > ol > li ol {
   list-style: none;
-}
-section form > ol > li ol > li {
-  background: none;
-  width: inherit;
-  border: none;
-  margin: 0;
-  padding: 0;
-  height: inherit;
 }
 section form > ol > li .question > .notice {
   font-size: 0.9em;
@@ -42,14 +34,6 @@ section form > ol > li .question > p {
 }
 section form > ol > li .question .input > label {
   display: block;
-}
-section form > ol > li .question select,
-section form > ol > li .question input {
-  width: 100%;
-}
-section form > ol > li .question select[type="radio"],
-section form > ol > li .question input[type="radio"] {
-  width: 15px;
 }
 section form > ol > li .subquestion:not(.show) {
   display: none;
@@ -90,6 +74,9 @@ section form > ol > li select.error {
 .question a.termToDefine:hover {
   border-bottom: none;
 }
+.section-description {
+  text-align: left;
+}
 .content-details {
   -webkit-border-radius: 10px;
   border-radius: 10px;
@@ -106,4 +93,53 @@ section form > ol > li select.error {
   border-radius: 5px;
   padding: 3px 0;
 }
+.graphic {
+  font-size: 7em;
+  float: left;
+  clear: both;
+  vertical-align: middle;
+}
+.graphic.fa {
+  margin: 0 25px;
+}
+.graphic.fa.fa-arrow-circle-o-down {
+  color: #008000;
+}
+.graphic.fa.fa-arrow-circle-o-up {
+  color: #f00;
+}
+.two-col {
+  height: 300px;
+  width: 45%;
+  float: left;
+  margin: 10px;
+  padding: 25px 5px;
+  border: 3px solid;
+  color: #000;
+}
+.two-col:nth-child(1) {
+  padding-right: 5px;
+}
+.green {
+  color: #008000;
+  border-color: #008000;
+}
+.red {
+  color: #f00;
+  border-color: #f00;
+}
+[tab="risk-factors"] p,
+[tab="risk-factors"] ul {
+  clear: both;
+}
 
+@media (max-width: 990px) {
+  .two-col {
+    width: auto;
+  }
+}
+@media (max-width: 768px) {
+  section form > ol > li {
+    max-height: 555px;
+  }
+}
