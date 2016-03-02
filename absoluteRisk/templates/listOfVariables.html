@@ -6,13 +6,13 @@
 </div>
 
 <div class="margin">
-	<div class="alternate row default-border" ng-repeat="eachVariable in vc.getListOfVariables()">
+	<div class="alternate row default-border" ng-repeat="eachVariable in section.getListOfVariables()">
 		<!-- Templates file is located at: templates/variable.html -->
 		<variable data="eachVariable" index="$index" />
 	</div>
 
 	<div class="row">
-		<button type="button" class="btn btn-link pull-left" ng-click="vc.addVariable()">
+		<button type="button" class="btn btn-link pull-left" ng-click="section.addVariable()">
 			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 			<span class="sr-only">Add a Variable</span>
 			Add a Variable
@@ -20,11 +20,11 @@
 		<br>
 		<div class="pull-right">
 
-			<span class="top-margin" ng-show="vc.getUploadedFileName()">
-			<a ng-click="vc.getUploadedFile()">{{vc.getUploadedFileName()}}</a>
+			<span class="top-margin" ng-show="section.getUploadedFileName()">
+			<a ng-click="section.downloadFile()">{{section.getFileName()}}</a>
 			</span>
 
-			<span class="top-margin" ng-show="!vc.getUploadedFileName()">no file selected</span>
+			<span class="top-margin" ng-show="!section.getFileName()">no file selected</span>
 			<hr class="visible-xs">
 
 			<span class="btn btn-info btn-file">Upload RData
@@ -32,9 +32,9 @@
 
 			<br class="visible-xs">
 
-			<button type="button" class="btn btn-info" ng-click="vc.downloadFile()">Download RData</button>
+			<button type="button" class="btn btn-info" ng-click="section.downloadFile()">Download RData</button>
 			<br class="visible-xs">
-			<button type="button" class="btn btn-primary" ng-click="vc.submitData()">Submit</button>
+			<button type="button" class="btn btn-primary" ng-click="section.submitSection()">Submit</button>
 		</div>
 	</div>
 </div>

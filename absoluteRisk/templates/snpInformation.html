@@ -4,14 +4,14 @@
         Upload CSV File
     <input type="file" id="snpInformation" uploadfile></span>
 
-    <span><a ng-click="snp.getUploadedFile()">{{snp.getUploadedFileName()}}</a></span>
-    <span ng-show="!snp.getUploadedFileName()"> No file selected <a ng-click="snp.getExampleFile()">(example)</a></span>
+    <span><a ng-click="section.downloadFile()">{{section.getFileName()}}</a></span>
+    <span ng-show="!section.getFileName()"> No file selected <a ng-click="section.getTemplate()">(template)</a></span>
 
     <br>
     <br>
 
     <span>Family History Variable Name:</span>
-    <select ng-model="snp.familyHistory" ng-options="variable for variable in snp.getVariableNames()" ></select>
+    <select ng-model="section.model.familyHistory" ng-options="variable for variable in section.getVariableNames()" ></select>
 
-    <button type="button" class="btn btn-primary pull-right" ng-click="snp.submitData()" ng-disabled="!snp.getUploadedFileName()">Submit</button>
+    <button type="button" class="btn btn-primary pull-right" ng-click="section.submitSection()" ng-disabled="!section.getFileName()">Submit</button>
 </div>

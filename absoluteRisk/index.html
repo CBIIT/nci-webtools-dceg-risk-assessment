@@ -8,9 +8,9 @@
 
 	<!-- AngularJS -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-rc.0/angular.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-rc.2/angular-sanitize.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-rc.2/angular-animate.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-rc.2/angular-resource.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-sanitize.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-animate.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-resource.js"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.1/ui-bootstrap-tpls.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.14.2/select.min.js"></script>
@@ -83,8 +83,10 @@
 							<div ng-controller="SessionController as session">
 								<div class="form-group clearfix" ng-show="step.id === 'build'">
 									<h4 class="pull-left">Build the Model</h4>
-									<span class="btn btn-success btn-file pull-right">Upload RData
-								    <input type="file" id="sessionUpload" uploadfile></span>
+									<span class="btn btn-success btn-file pull-right">
+
+									{{session.text}}
+								    <input type="file" id="session" uploadfile ng-click="session.changeText()"></span>
 								</div>
 
 								<div class="form-group clearfix" ng-show="step.id === 'apply'">
@@ -124,7 +126,8 @@
 								</uib-accordion-group>
 							</uib-accordion>
 						</div>
-						<button type="button" class="btn btn-primary pull-right" ng-click="accordion.calculate()">Calculate</button>
+						<button type="button" class="btn btn-primary" ng-click="accordion.log()">Log</button>
+						<button type="button" class="btn btn-primary pull-right" ng-click="accordion.calculate()" ng-disabled="accordion.validated()">Calculate</button>
 					</div>
 
 					<div class="col-md-6" ng-class="{'output': accordion.calcRunning}">
@@ -156,7 +159,7 @@
 				<h4>Instructions for each section</h4>
 				<hr>
 
-				<h4>List of Variables <a class="small" href="tmp/examples/listOfVariables.rdata">(example)</a></h4>
+				<h4>List of Variables <a class="small" href="tmp/examples/ListOfVariables.rdata">(example)</a></h4>
 				<div>
 					The list of risk factors in the model - each covariate has the following fields:<br>
 					<ul>
@@ -173,7 +176,7 @@
 
 				<hr><br>
 
-				<h4>Model Formula <a class="small" href="tmp/examples/modelFormula.rdata">(example)</a></h4>
+				<h4>Model Formula <a class="small" href="tmp/examples/ModelFormula.rdata">(example)</a></h4>
 				<div>
 					Model object for predictors, e.g. Y ~ famhist + as.factor(menarche_dec) + as.factor(parity)<br>
 					The model formula should be given only in terms of the predictors of interest for which the odds ratios are provided.
@@ -186,7 +189,7 @@
 
 				<hr><br>
 
-				<h4>Risk Factor Distribution <a class="small" href="tmp/examples/riskFactorDistribution.csv">(example)</a></h4>
+				<h4>Risk Factor Distribution <a class="small" href="tmp/examples/RiskFactorDistribution.csv">(example)</a></h4>
 				<div>
 					A dataframe of risk factors for a sample of subjects that are representative of the underlying population,
 					with no missing (NA) values. This reference distribution is used for calibration of the model with respect to
@@ -203,7 +206,7 @@
 
 				<hr><br>
 
-				<h4>Log Odds Ratios <a class="small" href="tmp/examples/logOddsRatios.csv">(example)</a></h4>
+				<h4>Log Odds Ratios <a class="small" href="tmp/examples/LogOddsRatios.csv">(example)</a></h4>
 				<div>
 					A vector or matrix with log odds ratios corresponding to the model.
 					<h5>Requirements</h5>
@@ -217,7 +220,7 @@
 
 				<hr><br>
 
-				<h4>Incidence Rates of Disease in Population <a class="small" href="tmp/examples/diseaseIncidenceRates.csv">(example)</a></h4>
+				<h4>Incidence Rates of Disease in Population <a class="small" href="tmp/examples/DiseaseIncidenceRates.csv">(example)</a></h4>
 				<div>
 					A two or three column matrix that provides disease incidence rates that are representative of the population of interest.
 					<h5>Requirements</h5>
@@ -230,7 +233,7 @@
 
 				<hr><br>
 
-				<h4>Incidence Rates of Competing Mortality <a class="small" href="tmp/examples/mortalityIncidenceRates.csv">(example)</a></h4>
+				<h4>Incidence Rates of Competing Mortality <a class="small" href="tmp/examples/MortalityIncidenceRates.csv">(example)</a></h4>
 				<div>
 					A two or three column matrix that provides incidence rates for competing mortality that are representative of the population of interest.
 					<h5>Requirements</h5>
@@ -243,7 +246,7 @@
 
 				<hr><br>
 
-				<h4>SNP Information <a class="small" href="tmp/examples/snpInformation.csv">(example)</a></h4>
+				<h4>SNP Information <a class="small" href="tmp/examples/SnpInformation.csv">(example)</a></h4>
 				<div>A matrix providing information for each SNP<br>
 					<h5>Requirements</h5>
 					<ul>
@@ -255,7 +258,7 @@
 
 				<hr><br>
 
-				<h4>Risk Factor for Prediction <a class="small" href="tmp/examples/riskFactorForPrediction.csv">(example)</a></h4>
+				<h4>Risk Factor for Prediction <a class="small" href="tmp/examples/RiskFactorForPrediction.csv">(example)</a></h4>
 				<div>
 					A dataframe containing the covariate profiles for which absolute risk will be computed.
 					<h5>Requirements</h5>
@@ -267,7 +270,7 @@
 
 				<hr><br>
 
-				<h4>Genotypes for Prediction <a class="small" href="tmp/examples/genotypesForPrediction.csv">(example)</a></h4>
+				<h4>Genotypes for Prediction <a class="small" href="tmp/examples/GenotypesForPrediction.csv">(example)</a></h4>
 				<div>
 					A dataframe with observed SNP data (coded 0, 1, 2, or NA)
 					<h5>Requirements</h5>
@@ -278,7 +281,7 @@
 
 				<hr><br>
 
-				<h4>Starting Age and Length of Age Interval <a class="small" href="tmp/examples/ageInterval.csv">(example)</a></h4>
+				<h4>Starting Age and Length of Age Interval <a class="small" href="tmp/examples/AgeInterval.csv">(example)</a></h4>
 				<div>
 					A matrix providing age intervals over which to compute absolute risk.
 					<h5>Requirements</h5>

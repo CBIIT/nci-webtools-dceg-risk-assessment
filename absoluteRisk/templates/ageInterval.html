@@ -11,11 +11,11 @@
 	<div class="reduce-margin" ng-show="section.inputMethod === 'manual'">
 		<div class="form-group">
 			<span>Age: </span>
-			<select ng-model="section.selectedAge" ng-options="age for age in section.range"></select>
+			<select ng-model="section.model.age" ng-options="age for age in section.range(120)"></select>
 		</div>
 		<div class="form-group">
 			<span>Age Interval: </span>
-			<select ng-model="section.selectedInterval" ng-options="interval for interval in section.range"></select>
+			<select ng-model="section.model.interval" ng-options="interval for interval in section.range(100)"></select>
 		</div>
 	</div>
 
@@ -23,9 +23,9 @@
 		<span class="btn btn-info btn-file">Upload CSV File
 		<input type="file" id="ageInterval" uploadfile></span>
 
-		<span><a ng-click="section.getUploadedFile()">{{section.getUploadedFileName()}}</a></span>
-		<span ng-show="!section.getUploadedFileName()">No file selected <a ng-click="section.getExampleFile()">(example)</a></span>
+		<span><a ng-click="section.downloadFile()">{{section.getFileName()}}</a></span>
+		<span ng-show="!section.getFileName()">No file selected <a ng-click="section.getTemplate">(template)</a></span>
 	</div>
-    <button type="button" class="btn btn-primary pull-right" ng-click="section.submitData()" ng-disabled="section.inputMethod ==='upload' && !section.getUploadedFileName()">Submit</button>
+    <button type="button" class="btn btn-primary pull-right" ng-click="section.submitSection()" ng-disabled="section.inputMethod ==='upload' && !section.getFileName()">Submit</button>
 
 </div>

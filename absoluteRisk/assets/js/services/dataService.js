@@ -1,6 +1,6 @@
 angular.module('Arc')
-.factory('DataService', ['$rootScope', '$resource', 'uiUploader', 'ModalService', 'ValidationService', 'UtilityService',
-function(root, resource, uploader, modal, validation, utility) {
+.factory('DataService', ['$rootScope', '$resource', 'uiUploader', 'ModalService',
+function(root, resource, uploader, modal) {
 
     var self = this;
     self.sections = {};
@@ -19,232 +19,200 @@ function(root, resource, uploader, modal, validation, utility) {
         'ageInterval'
     ].forEach(function(id) {
         self.sections[id] = {
-            uploadedFileName: '',
-            filePath: '',
+            filename: '',
+            filepath: '',
+            model: null,
             validated: false
         };
     });
 
-    self.sections.listOfVariables.model = [{name: '', type: 'continuous'}];
-    self.sections.modelFormula.model = 'Y ~ +';
-    self.sections.modelFormula.array = [];
+    self.sections.listOfVariables.model         = [{name: '', type: 'continuous'}];
+    self.sections.modelFormula.model            = 'Y ~ +';
+    self.sections.modelFormula.array            = [];
 
     self.sections.snpInformation.familyHistory  = null;
     self.sections.ageInterval.age               = null;
     self.sections.ageInterval.interval          = null;
 
-    // initialize csv column names
+    // Initialize default csv column names
     self.sections.riskFactorDistribution.columnNames    = [];
-
     self.sections.logOddsRatios.columnNames             = ['Variables', 'Log Odds Ratios'];
     self.sections.logOddsRatios.rowNames                = [];
-
     self.sections.diseaseIncidenceRates.columnNames     = ['Age (Integer)', 'Rate'];
     self.sections.mortalityIncidenceRates.columnNames   = ['Age (Integer)', 'Rate'];
-
     self.sections.snpInformation.columnNames            = ['snp.name', 'snp.odds.ratio', 'snp.freq'];
-    self.sections.snpInformation.uploadedRowNames       = [];
 
     self.sections.riskFactorForPrediction.columnNames   = [];
     self.sections.genotypesForPrediction.columnNames    = [];
     self.sections.ageInterval.columnNames               = ['Age', 'Age Interval'];
 
+    /*  ------------ Exposed Functions ------------ */
     return {
-        calculate:        calculate,
-        sections:         sections,
-        getSection:       getSection,
-        uploadFile:       uploadFile,
-        submitModel:      submitModel,
-        downloadFile:     downloadFile,
-        submitSection:    submitSection,
-        downloadSession:  downloadSession
+        sections:           sections,
+        calculate:          calculate,
+        getSection:         getSection,
+        uploadFile:         uploadFile,
+        loadSession:        loadSession,
+        submitModel:        submitModel,
+        downloadCSV:        downloadCSV,
+        downloadFile:       downloadFile,
+        downloadSession:    downloadSession,
+        downloadTemplate:   downloadTemplate,
+        log:                function() {console.log(self.sections)},
     }
 
-    /*  ------------ Internal Functions ------------ */
-
-    /* ------ Retrieve Sections ------ */
+    /* ------ Retrieve all sections ------ */
     function sections() {
         return self.sections;
     }
 
-    /* ------ Retrieve a Section */
+    /* ------ Retrieve specified section ------ */
     function getSection(id) {
         return self.sections[id];
     }
 
-    /* ------ Upload File ------ */
-    function uploadFile(scope, id, file) {
-
-        self.file = file;
-
-        var endpoint = 'http://' + window.location.hostname + '/absoluteRiskRest';
-
-        if (id == 'sessionUpload')
-            endpoint += '/sessionUpload';
-        else
-            endpoint += '/fileUpload';
-
-        uploader.addFiles([self.file]);
-        uploader.startUpload({
-            url: endpoint,
-            concurrency: 2,
-            onProgress: function(file) {},
-            onCompleted: function(file, response) {
-                var resp = JSON.parse(response);
-                console.log("Full response is: ", resp);
-
-                if (resp.message) {
-                    console.log('500', resp.message);
-                } else if (resp.filePath) {
-                    var section = self.sections[id];
-
-                    section.filePath = resp.filePath;
-                    section.uploadedFileName = resp.filePath.split('/').pop();
-
-                    if (id == 'listOfVariables' || id == 'modelFormula') {
-                        if (resp.data)
-                            postUploadActions(id, JSON.parse(resp.data));
-                        else
-                            modal.errorDialog('Error', 'Invalid file format. Please ensure that an RData file has been uploaded.');
-                    }
-
-                    scope.$apply();
-                } else if (resp.filePaths && resp.model) {
-                    console.log('uploaded session');
-
-                    var filePaths = resp.filePaths;
-                    var model = resp.model;
-
-                    for (file in filePaths) {
-                        self.sections[file].filePath = filePaths[file];
-                        self.sections[file].uploadedFileName = filePaths[file].split('/').pop();
-                        self.sections[file].validated = true;
-                    };
-
-                    self.sections.ageInterval.validated = true;
-
-                    self.sections.listOfVariables.model = model.listOfVariables;
-                    self.sections.modelFormula.model = model.formulaString;
-                    self.sections.modelFormula.array = utility.parseFormula(self.sections);
-                    self.sections.snpInformation.uploadedRowNames = model.snpRowNames;
-                    self.sections.snpInformation.familyHistory = model.familyHistory;
-                    self.sections.genotypesForPrediction.columnNames = model.snpRowNames;
-
-                    var variableNames = self.sections.listOfVariables.model.map(function(variable) {
-                        return variable.name;
-                    });
-        			self.sections.riskFactorDistribution.columnNames = variableNames;
-        			self.sections.riskFactorForPrediction.columnNames = variableNames;
-                    self.sections.logOddsRatios.rowNames = utility.generateLogOddsRatios(self.sections);
-
-                    root.$broadcast('validateBuildSection', true);
-
-                } else {
-                    console.log('503', 'Service Not Available');
-                }
-            },
-            onCompletedAll: function(file) {}
-        });
-    }
-
-    /* ------ Convert Data Model to File  ------ */
-    function submitModel(id, data) {
+    /* ------ Submit data model ------ */
+    function submitModel(id, model, callback) {
         resource('/absoluteRiskRest/dataUpload')
-            .save({ 'id': id, 'data': data }, onSuccess, onError);
+            .save({ 'id': id, 'data': model }, onSuccess, onError);
 
         function onSuccess(result) {
-            self.sections[id]['filePath'] = result.filePath;
+            self.sections[id]['filepath'] = result.filepath;
+            self.sections[id]['filename'] = result.filepath.split('/').pop();
+            callback(id);
         }
 
         function onError(message) {
-            modal.errorDialog('Error', 'Service Unavailable');
+            modal.errorDialog('Error', 'Invalid file contents');
         }
     }
 
-    /* ------ Download File ------ */
-    function downloadFile(filename) {
-        window.location = 'http://' + window.location.hostname + '/absoluteRiskRest/fileDownload?filename=' + filename.split('/').pop();
-    }
-
-    /* ------ Post Upload Actions ------ */
-    function postUploadActions(id, data) {
-
-        switch(id) {
-            case 'listOfVariables':
-                if (data && data instanceof Array && data.length) {
-                    self.sections.listOfVariables.model = data;
-                    self.sections.listOfVariables.validated = true;
-                } else {
-                    modal.errorDialog('Validation Error', 'Invalid file contents. Please verify the list of variables.');
-                } break;
-            case 'modelFormula':
-                if (data && typeof data == 'string') {
-                    self.sections.modelFormula.model = data;
-                    self.sections.modelFormula.array = null;
-                    self.sections.modelFormula.validated = true;
-                } else {
-                    modal.errorDialog('Validation Error', 'Invalid file contents. Please verify the model formula.');
-                } break;
-            case 'riskFactorDistribution':
-                break;
-        }
-    }
-
-    /* ------ Calculate ------ */
+    /* ------ Call calculation ------ */
     function calculate() {
-        var parameters = retrieveFilePaths();
-        parameters.familyHistory = self.sections.snpInformation.familyHistory;
-        console.log(parameters);
 
+        console.log("Calling calculation: ", self.sections);
         root.$broadcast('calculationRunning', true);
 
         resource('/absoluteRiskRest/calculate')
-            .save(JSON.stringify(parameters), onSuccess, onError);
+            .save({'parameters': JSON.stringify(self.sections)}, onSuccess, onError);
 
         function onSuccess(response) {
+            console.log(response);
             root.$broadcast('calculationRunning', false);
             root.$broadcast('displayResults', response);
         }
 
         function onError(response) {
             root.$broadcast('calculationRunning', false);
-            modal.errorDialog('Calculation Error', response.data.message);
+            modal.dialog('Calculation Error', response.data.message);
         }
     }
 
-    function retrieveFilePaths() {
-        var filepaths = {};
-        for (key in self.sections)
-            filepaths[key] = self.sections[key]['filePath'];
+    /* ------ Submit file to retrieve contents ------ */
+    function uploadFile(scope, id, file, callback) {
+        uploader.addFiles([file]);
+        uploader.startUpload({
+            url: 'http://' + window.location.hostname + '/absoluteRiskRest/fileUpload',
+            concurrency: 2,
+            onCompleted: function(file, response) {
+                response = JSON.parse(response);
+                console.log(response);
 
-        return filepaths;
+                var section = self.sections[id];
+                section.filepath = response.filepath;
+                section.filename = response.filepath.split('/').pop();
+                section.model = JSON.parse(response.model);
+                callback(id);
+                scope.$apply();
+            }
+        });
     }
 
-    /* ------ Advance Section ------ */
-    function submitSection(id) {
-        if (!self.sections[id].validated)
-            validation.submit(id, self.sections);
-        else
-            root.$broadcast('nextSection', id);
+    /* ------ Loads a session ------ */
+    function loadSession(scope, file, callback) {
+        if (window.FileReader) {
+            var reader = new FileReader();
+
+            reader.onload = function(event) {
+                var session = JSON.parse(event.target.result);
+                callback(session);
+                scope.$apply();
+            }
+
+            if (file)
+                reader.readAsText(file);
+        }
     }
 
+    /* ------ Download file ------ */
+    function downloadFile(filename) {
+        window.location = 'http://' + window.location.hostname + '/absoluteRiskRest/fileDownload?filename=' + filename.split('/').pop();
+    }
+
+    /* ------ Downloads the current session ------ */
     function downloadSession() {
+        var session = {};
+        [   'listOfVariables',
+            'modelFormula',
+            'riskFactorDistribution',
+            'logOddsRatios',
+            'diseaseIncidenceRates',
+            'mortalityIncidenceRates',
+            'snpInformation'
+        ].forEach(function(id) {
+            session[id] = self.sections[id];
 
-        var session = retrieveFilePaths();
-        session.familyHistory = self.sections.snpInformation.familyHistory;
-        console.log(session);
+            if (id == 'listOfVariables')
+                for (var i = 0; i < session[id].model.length; i ++)
+                    delete session[id].model[i]['$$hashKey'];
 
-        resource('/absoluteRiskRest/sessionDownload')
-            .save(session, onSuccess, onError);
+            else if (id == 'modelFormula')
+                for (var j = 0; j < session[id].array.length; j ++)
+                    delete session[id].array[j]['$$hashKey'];
 
-        function onSuccess(result) {
-            console.log('Session file: ' + result.filePath);
-            downloadFile(result.filePath);
-        }
+        });
 
-        function onError(message) {
-            modal.errorDialog('Error', 'Service Unavailable');
-        }
+        var date = new Date();
+        var timestamp = [date.getFullYear(), date.getMonth() + 1, date.getDay(), date.getHours(), date.getMinutes(), date.getSeconds()].join('_');
+        download(timestamp + '_session.rdata', JSON.stringify(session), 'text/plain; charset=utf-8;');
     }
 
+    function downloadTemplate(id) {
+        var section = self.sections[id];
+        var template = [section.columnNames];
+
+        if (section.rowNames)
+            sections.rowNames.forEach(function (rowName) {
+                var length = section.columnNames.length - 1;
+                var row = [rowName].concat(new Array(length));
+                template.push(row);
+            });
+
+        download(id + 'Template.csv', template, 'text/csv; charset=utf-8;');
+    }
+
+    /* ------ Downloads a csv file ------ */
+    function downloadCSV(id) {
+        var content = self.sections[id].model.map(function(line) {
+            return line.join(',');
+        }).join('\n');
+
+        download(self.sections[id].filename, content, 'text/csv; charset=utf-8;');
+    }
+
+    /* ------ Saves a file on the client ------ */
+    function download(filename, data, type) {
+        var blob = new Blob([data], {type: type});
+
+        if (window.navigator.msSaveOrOpenBlob)
+            window.navigator.msSaveBlob(blob, filename);
+        else {
+            var element = window.document.createElement('a');
+            element.href = window.URL.createObjectURL(blob);
+            element.download = filename;
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+    }
 }]);

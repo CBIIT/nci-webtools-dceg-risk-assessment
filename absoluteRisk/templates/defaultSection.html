@@ -1,8 +1,8 @@
 <div class="row">
     <span class="btn btn-info btn-file">Upload CSV File
-    <input type="file" id="{{sc.id}}" uploadfile></span>
+    <input type="file" id="{{section.id}}" uploadfile></span>
 
-    <span><a ng-click="sc.getUploadedFile()">{{sc.getUploadedFileName()}}</a></span>
-    <span ng-show="!sc.getUploadedFileName()">No file selected <a ng-click="sc.getExampleFile()">(example)</a></span>
-    <button type="button" class="btn btn-primary pull-right" ng-click="sc.submitData()" ng-disabled="!sc.getUploadedFileName()">Submit</button>
+    <span><a ng-click="section.downloadFile()">{{section.getFileName()}}</a></span>
+    <span ng-show="!section.getFileName()">No file selected <a ng-click="section.getTemplate()">(example)</a></span>
+    <button type="button" class="btn btn-primary pull-right" ng-click="section.submitSection()" ng-disabled="!section.getFileName()">Submit</button>
 </div>

@@ -1,5 +1,5 @@
 angular.module('Arc')
-.factory('UtilityService', [function() {
+.factory('UtilityService', ['DataService', function(data) {
 
     return {
         parseFormula:               parseFormula,
@@ -11,10 +11,10 @@ angular.module('Arc')
     /**
         Returns an array of formula terms representing the formula model
     */
-    function parseFormula(sections) {
+    function parseFormula() {
 
-        var listOfVariables = sections.listOfVariables;
-        var formulaString = sections.modelFormula.model;
+        var listOfVariables = data.getSection('listOfVariables');
+        var formulaString = data.getSection('modelFormula').model;
         console.log(listOfVariables, formulaString);
 
         if (!formulaString) return;
@@ -80,10 +80,10 @@ angular.module('Arc')
     /**
     	Converts model data to a formula string
     */
-    function generateFormula(sections) {
+    function generateFormula() {
 
-        var listOfVariables = sections.listOfVariables.model;
-        var formulaModel = sections.modelFormula.array;
+        var listOfVariables = data.getSection('listOfVariables').model;
+        var formulaModel = data.getSection('modelFormula').array;
 
         if (!formulaModel) return 'Undefined Formula';
 
@@ -145,9 +145,9 @@ angular.module('Arc')
     	Parameters:	listOfVariables - the list of variables, provided by SectionService's getFormula method
     	Returns:	An array of formula terms representing the formula model
     */
-    function generateFormulaTemplate(sections) {
+    function generateFormulaTemplate() {
 
-        var listOfVariables = sections.listOfVariables.model;
+        var listOfVariables = data.getSection('listOfVariables').model;
 
         // an array of formula terms representing the formula model
         var formula = [];
@@ -170,10 +170,9 @@ angular.module('Arc')
     	Returns an array of strings containing the log odds ratios
     */
 
-    function generateLogOddsRatios(sections) {
-
-        var formulaModel = sections.modelFormula.array;
-        var listOfVariables = sections.listOfVariables.model;
+    function generateLogOddsRatios() {
+        var listOfVariables = data.getSection('listOfVariables').model;
+        var formulaModel = data.getSection('modelFormula').array;
 
         /* ------ Initialize Internal Functions ------ */
 

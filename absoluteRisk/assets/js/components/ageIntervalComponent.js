@@ -2,37 +2,23 @@ angular.module('Arc')
 .component('ageIntervalComponent', {
 
 	controllerAs: 'section',
-	controller: ['DataService', 'UtilityService', 'ModalService', 'SectionService', function(data, utility, modal, section) {
+	controller: ['DataService', 'SectionService', function(data, section) {
 
         var self = this;
 		self.id = 'ageInterval';
 
-        self.inputMethod = 'manual';
-		self.selectedInterval = 5;
-		self.selectedAge = 30;
-
-		self.range					= arrRange(120);
-		self.getUploadedFileName	= function() { return section.getUploadedFileName(self.id) }
-		self.getExampleFile			= function() { section.getExampleFile(self.id) }
+		self.inputMethod 			= 'manual';
+		self.model 					= data.getSection(self.id);
+		self.range					= function(i){ return i ? self.range(i-1).concat(i):[] }
+		self.getFileName			= function() { return section.getFileName(self.id) }
+		self.getTemplate			= function() { section.getTemplate(self.id) }
 		self.downloadFile			= function() { section.downloadFile(self.id) }
-		self.getUploadedFile	    = function() { section.getUploadedFile(self.id) }
-		self.viewTemplate		 	= function() { section.viewTemplate(self.id) }
-		self.submitData				= function() {
+		self.submitSection			= function() {
+			if (self.inputMethod == 'manual')
+				data.getSection(self.id).model = [self.model.columnNames, [self.model.age, self.model.interval]];
 
-			var section = data.getSection(self.id);
-
-			if (self.inputMethod == 'manual') {
-				section.age = self.selectedAge.toString();
-				section.interval = self.selectedInterval.toString();
-				data.submitModel(self.id, section);
-			}
-
-			setTimeout(function() { data.submitSection(self.id) }, 100);
+			section.submitSection(self.id);
 		}
-
-		function arrRange(i) {
-            return i ? arrRange(i-1).concat(i):[];
-        }
 	}],
 
 	templateUrl: 'templates/ageInterval.html'

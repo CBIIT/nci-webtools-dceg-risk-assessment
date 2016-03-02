@@ -183,15 +183,16 @@ verifyFile <- function(param) {
 # 
 #-------------------------------------------------------
 finalCalculation <- function(filePath, parameters) {
-
+  
   imagePath             = paste0(filePath, 'rplot.jpg')
   resultsPath           = paste0(filePath, 'results.csv')
   resultsReferencePath  = paste0(filePath, 'results_reference.csv')
   
+  print(parameters)
   param = fromJSON(parameters)
   
-  listOfVariables           = get(load(param$listOfVariables))
-  modelFormula              = as.formula(get(load(param$modelFormula)))
+  listOfVariables           = param$listOfVariables
+  modelFormula              = as.formula(param$modelFormula)
   
   riskFactorDistribution    = read.csv(param$riskFactorDistribution, stringsAsFactors = FALSE)
   logOddsRatios             = as.matrix(read.csv(param$logOddsRatios, row.names = 1))
@@ -344,10 +345,16 @@ loadSession <- function(filePath, sessionFile) {
   write.csv(snpInformation,           row.names=FALSE, file = restore $filePaths $snpInformation)
   
   formula = as.character(modelFormula)
-  restore $model $listOfVariables        = listOfVariables
-  restore $model $formulaString          = paste(formula[2], formula[1], formula[3])
-  restore $model $snpRowNames            = snpInformation[[1]]
-  restore $model $familyHistory          = model$familyHistory
+  
+  
+  restore $listOfVariables             = model $listOfVariables
+  restore $formulaString               = paste (formula[2], formula[1], formula[3])
+  restore $riskFactorDistribution      = model $riskFactorDistribution
+  restore $logOddsRatios               = model $logOddsRatios
+  restore $diseaseIncidenceRates       = model $diseaseIncidenceRates
+  restore $mortalityIncidenceRates     = model $mortalityIncidenceRates
+  restore $snpInformation              = model $snpInformation
+  restore $familyHistory               = model $familyHistory
 
   return (toJSON(restore))
 }

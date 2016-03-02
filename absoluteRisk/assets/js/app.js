@@ -18,21 +18,58 @@ angular.module('Arc')
     };
 })
 
-.directive('uploadfile', ['DataService', 'ValidationService', function(data, validation) {
+.directive('uploadfile', ['$rootScope', 'DataService', 'ValidationService', 'UtilityService',
+function(root, data, validation, utility) {
     function link($scope, elem, attributes) {
         var fileInputElem = elem[0];
 
         fileInputElem.addEventListener('change', function(e) {
             var id = e.target.id;
             var file = e.target.files[0];
-            data.uploadFile($scope, id, file);
 
-            if (id != 'sessionUpload')
+            if (id == 'listOfVariables' || id == 'modelFormula')
+                data.uploadFile($scope, id, file, function(id) {
+                    if (id == 'modelFormula')
+                        data.getSection(id).array = utility.parseFormula();
+                });
+
+            else if (id == 'session')
+                data.loadSession($scope, file, function(session) {
+                    for (key in session) {
+                        var section = data.getSection(key);
+
+                        section.model = session[key].model;
+                        section.filename = session[key].filename;
+                        section.validated = session[key].validated;
+
+                        if (key == 'modelFormula')
+                            section.array = session[key].array;
+
+                        if (key == 'snpInformation')
+                            section.familyHistory = session[key].familyHistory;
+
+                        root.$broadcast('validationStatus', key, section.validated);
+                    }
+
+                    var variables = data.getSection('listOfVariables').model.map(function(variable) {
+                        return variable.name;
+                    });
+
+                    validation.setExpectedColumns('riskFactorDistribution');
+                    validation.setExpectedColumns('riskFactorForPrediction');
+                    data.getSection('snpInformation').variables = variables;
+                    validation.setExpectedRows('logOddsRatios');
+                    validation.setExpectedColumns('genotypesForPrediction');
+
+
+                });
+
+            else
                 validation.readFile(id, file);
         });
     }
-
     return {
+
       restrict: 'AE',
       replace: 'true',
       scope: {},
@@ -51,12 +88,21 @@ angular.module('Arc')
     self.select(0);
 }])
 
-.controller('SessionController', ['DataService', function(data) {
+.controller('SessionController', ['$rootScope', 'DataService', function(root, data) {
     var self = this;
     this.download = data.downloadSession;
+    self.text = 'Upload RData';
+
+    self.changeText = function() {
+        self.text = 'Loading Session';
+    }
+    root.$on('sessionLoaded', function(event, session) {
+        self.text = 'Upload RData';
+    });
+
 }])
 
-.controller('AccordionController', ['$rootScope', 'DataService', 'ValidationService', '$scope', function(root, data, validation, scope) {
+.controller('AccordionController', ['$rootScope', 'DataService', 'ValidationService', function(root, data, validation) {
     var self = this;
 
     var buildSteps = [
@@ -126,21 +172,19 @@ angular.module('Arc')
     ];
     self.calcRunning = false;
     self.calculate = data.calculate;
+    self.isValidated = validation.isValidated;
+    self.log = data.log;
 
-    self.log = function() {
-        console.log('Section Data',  data.sections());
-        validation.log();
-    }
-
-
-    root.$on('validateBuildSection', function(event, status) {
-        for (var i = 0; i < self.steps[0].sections.length; i ++) {
-            var section = self.steps[0].sections[i];
-            section.isOpen = false;
-            section.validated = true;
+    root.$on('validationStatus', function(event, sectionID, status) {
+        for (var i = 0; i < self.steps.length; i ++) {
+            for (var j = 0; j < self.steps[i].sections.length; j ++) {
+                var section = self.steps[i].sections[j];
+                if (section.id == sectionID)
+                    section.validated = status;
+                    if (status)
+                        section.isOpen = false;
+            }
         }
-
-        scope.$apply();
     });
 
     root.$on('nextSection', function(event, sectionID) {
@@ -179,6 +223,5 @@ angular.module('Arc')
         self.resultsFilePath    = results.resultsPath;
         self.resultsRefFilePath = results.resultsReferencePath;
     });
-
 
 }]);

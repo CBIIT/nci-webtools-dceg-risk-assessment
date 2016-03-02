@@ -1,7 +1,7 @@
 import os
+import csv
 import json
 import time
-from os import path
 from flask import Flask, request, jsonify, make_response, send_from_directory
 from rpy2.robjects.packages import SignatureTranslatedAnonymousPackage
 from rpy2.robjects.vectors import IntVector, FloatVector, StrVector
@@ -16,10 +16,10 @@ app.config['examples_folder']    = 'tmp/examples'
 app.config['allowed_extensions'] = ['.csv', '.rdata']
 
 with open ('rfiles/absoluteRiskCalculationWrapper.R') as fh:
-    rcode = os.linesep.join(line.strip() for line in fh)
-    arc = SignatureTranslatedAnonymousPackage(rcode, 'wrapper')
+#    rcode = os.linesep.join(line.strip() for line in fh)
+    arc = SignatureTranslatedAnonymousPackage(fh.read(), 'wrapper')
 
-# This route takes a JSON object as an input, saves it to the server as an RData file, and returns the file path as JSON
+# This route takes a JSON object as an input, saves it to the server as an RData or CSV file, and returns the file path as JSON
 @app.route('/absoluteRiskRest/dataUpload', methods=['POST'])
 def dataUpload():
     if request.method == 'POST':
@@ -32,44 +32,35 @@ def dataUpload():
             filename = secure_filename(timestamp() + id)
             filepath = folder + '/' + filename
 
-            if (id == 'ageInterval'):
-                filepath += '.csv'
-                age      = data['age']
-                interval = data['interval']
-                contents = ','.join([age, interval])
-                headers  = ','.join(data['columnNames'])
-
-                with open(filepath, 'w') as csv:
-                    csv.write(headers + '\n' + contents)
-            else:
+            if (id in ['listOfVariables', 'modelFormula']):
                 filepath += '.rdata'
                 arc.convertJSONtoRData(json.dumps(data), filepath)
-            return json.dumps({ 'filePath': filepath })
+            else:
+                filepath += '.csv'
+                with open(filepath, 'w') as f:
+                    csv.writer(f, lineterminator = '\n').writerows(data)
+
+            return json.dumps({ 'filepath': filepath })
 
         except Exception, e:
             raise InvalidUsage(e.args[0], status_code = 500)
     return ''
 
-# This route takes in a CSV or RData file as input, saves it to the server, and returns the file path (and rdata contents) as JSON
+# This route takes in a RData file as input, saves it to the server, and returns the filepath and contents
 @app.route('/absoluteRiskRest/fileUpload', methods=['POST'])
 def fileUpload():
     if request.method == 'POST':
         file = request.files['file']
-        extension = path.splitext(file.filename)[1]
+        extension = os.path.splitext(file.filename)[1]
 
         try:
             if file and extension in app.config['allowed_extensions']:
                 folder   = app.config['upload_folder']
                 filename = secure_filename(timestamp() + file.filename)
                 filepath = folder + '/' + filename
+                file.save(os.path.join(folder, filename))
 
-                filedata = { 'filePath': filepath }
-                file.save(path.join(folder, filename))
-
-                if extension == '.rdata':
-                    filedata['data'] = arc.uploadRData(filepath)[0]
-
-                return json.dumps(filedata)
+                return json.dumps ( {'filepath': filepath, 'model': arc.uploadRData(filepath)[0]} );
         except Exception, e:
             raise InvalidUsage(e.args[0], status_code = 500)
     return ''
@@ -81,9 +72,9 @@ def fileDownload():
         example  = 'example' in request.args
         folder   = app.config['examples_folder'] if example else app.config['upload_folder']
         filename = request.args['filename']
-        filepath = path.join(folder, filename)
+        filepath = os.path.join(folder, filename)
 
-        if path.isfile(filepath):
+        if os.path.isfile(filepath):
             return send_from_directory(folder, filename, as_attachment = True)
         else:
             return 'This file no longer exists'
@@ -95,7 +86,7 @@ def fileDownload():
 def sessionUpload():
     if request.method == 'POST':
         file = request.files['file']
-        extension = path.splitext(file.filename)[1]
+        extension = os.path.splitext(file.filename)[1]
 
         try:
             if file and extension in app.config['allowed_extensions']:
@@ -103,7 +94,7 @@ def sessionUpload():
                 filename = secure_filename(timestamp() + file.filename)
                 filepath = folder + '/' + filename
 
-                file.save(path.join(folder, filename))
+                file.save(os.path.join(folder, filename))
                 return arc.loadSession(folder + '/' + timestamp(), filepath)[0]
         except Exception, e:
             raise InvalidUsage(e.args[0], status_code = 500)
@@ -141,8 +132,16 @@ def validate():
 def calculate():
     if request.method == 'POST':
         try:
+#            return arc.finalCalculation("", "")[0]
             filepath = app.config['results_folder'] + '/' + timestamp()
-            return arc.finalCalculation(filepath, request.data)[0]
+            data = json.loads(request.stream.read())['parameters']
+            data = json.loads(data)
+            
+            param = {'listOfVariables': data['listOfVariables']['model'], 'modelFormula': data['modelFormula']['model'], 'familyHistory': data['snpInformation']['familyHistory']}
+            for key in ['riskFactorDistribution', 'logOddsRatios', 'diseaseIncidenceRates', 'mortalityIncidenceRates', 'snpInformation', 'riskFactorForPrediction', 'genotypesForPrediction', 'ageInterval']:
+                param[key] = generateCSV(key, data[key]['model'])
+
+            return arc.finalCalculation(filepath, json.dumps(param))[0]
 
         except Exception, e:
             raise InvalidUsage(e.args[0], status_code = 500)
@@ -169,6 +168,12 @@ def handle_invalid_usage(error):
     response = jsonify(error.to_dict())
     response.status_code = error.status_code
     return response
+
+def generateCSV(key, data):
+    filepath = app.config['upload_folder'] + '/' + timestamp() + key + '.csv'
+    with open(filepath, 'w') as f:
+        csv.writer(f, lineterminator = '\n').writerows(data)
+    return filepath
 
 def timestamp():
     return time.strftime('%Y%m%d_%H%M%S_')
