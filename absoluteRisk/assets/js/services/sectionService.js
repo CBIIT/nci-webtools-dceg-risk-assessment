@@ -20,8 +20,11 @@ function(data, modal, utility, validation) {
     }
 
     function downloadFile(id) {
-        if (id == 'modelFormula' || id == 'listOfVariables')
-            data.downloadFile(data.getSection(id).filename);
+        if (id == 'modelFormula' || id == 'listOfVariables') {
+            data.submitModel(id, data.getSection(id).model, function(id) {
+                data.downloadFile(data.getSection(id).filename);
+            });
+        }
         else
             data.downloadCSV(id);
     }

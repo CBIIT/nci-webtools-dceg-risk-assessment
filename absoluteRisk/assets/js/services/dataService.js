@@ -30,9 +30,9 @@ function(root, resource, uploader, modal) {
     self.sections.modelFormula.model            = 'Y ~ +';
     self.sections.modelFormula.array            = [];
 
-    self.sections.snpInformation.familyHistory  = null;
-    self.sections.ageInterval.age               = null;
-    self.sections.ageInterval.interval          = null;
+    self.sections.snpInformation.familyHistory  = 'Family history is not in the model';
+    self.sections.ageInterval.age               = '30';
+    self.sections.ageInterval.interval          = '5';
 
     // Initialize default csv column names
     self.sections.riskFactorDistribution.columnNames    = [];
@@ -173,7 +173,7 @@ function(root, resource, uploader, modal) {
         });
 
         var date = new Date();
-        var timestamp = [date.getFullYear(), date.getMonth() + 1, date.getDay(), date.getHours(), date.getMinutes(), date.getSeconds()].join('_');
+        var timestamp = [date.getFullYear(), date.getMonth() + 1, date.getDay(), '_', date.getHours(), date.getMinutes(), date.getSeconds()].join('');
         download(timestamp + '_session.rdata', JSON.stringify(session), 'text/plain; charset=utf-8;');
     }
 
