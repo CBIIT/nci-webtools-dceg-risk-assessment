@@ -15,7 +15,7 @@ section#about(tab='about')
             .spacer
             li
                 a.goTo(title='go to references', name='#reference') Reference
-        .section-title Explaining the Questions
+        .exp-title Explaining the Questions
         #questions-exp
             .about-question-title
                 em
@@ -28,23 +28,23 @@ section#about(tab='about')
                     |  therapy to the chest for treatment of Hodgkin lymphoma?
             .about-question-explanation
                 strong Explanation
-                br
-                | The tool is not for use by women who have a diagnosis of breast cancer. In addition,
-                |  a medical history of&nbsp;
-                a.termToDefine(data-term='dcis') ductal carcinoma in situ (DCIS)
-                | &nbsp;or&nbsp;
-                a.termToDefine(data-term='lcis') lobular carcinoma in situ (LCIS)
-                |  increases the risk of developing invasive breast cancer. The method used by the
-                |  Breast Cancer Risk Assessment Tool to calculate the risk of invasive breast cancer
-                |  is not accurate for women with a history of DCIS or LCIS. In addition, the tool
-                |  cannot accurately predict the risk of another breast cancer for women who have a
-                |  medical history of breast cancer.
                 p
-                | Further, the tool is not appropriate for women who have had previous radiation therapy
-                |  to the chest for treatment of Hodgkin lymphoma. There may be more appropriate tools
-                |  for these women. See the "
-                a(href='#model-exp') About the Gail Model
-                | " section.
+                    | The tool is not for use by women who have a diagnosis of breast cancer. In addition,
+                    |  a medical history of&nbsp;
+                    a.termToDefine(data-term='dcis') ductal carcinoma in situ (DCIS)
+                    | &nbsp;or&nbsp;
+                    a.termToDefine(data-term='lcis') lobular carcinoma in situ (LCIS)
+                    |  increases the risk of developing invasive breast cancer. The method used by the
+                    |  Breast Cancer Risk Assessment Tool to calculate the risk of invasive breast cancer
+                    |  is not accurate for women with a history of DCIS or LCIS. In addition, the tool
+                    |  cannot accurately predict the risk of another breast cancer for women who have a
+                    |  medical history of breast cancer.
+                    p
+                        | Further, the tool is not appropriate for women who have had previous radiation therapy
+                        |  to the chest for treatment of Hodgkin lymphoma. There may be more appropriate tools
+                        |  for these women. See the "
+                        a(href='#model-exp') About the Gail Model
+                        | " section.
             .about-question-title
                 em
                     | Question 2: Does the woman have a mutation in either the&nbsp;
@@ -55,30 +55,30 @@ section#about(tab='about')
                     |  risk of breast cancer?
             .about-question-explanation
                 strong Explanation
-                br
-                |  Although the tool has been used with success in clinics for women with strong family
-                |  histories of breast cancer, more specific methods of estimating risk are appropriate
-                |  for women known to have breast cancer-producing mutations in the&nbsp;
-                a.termToDefine(data-term='brca1') brca1
-                | &nbsp;or&nbsp;
-                a.termToDefine(data-term='brca2') brca2
-                | &nbsp; genes. Similarly, there are several hereditary conditions,
-                |  such as Li-Fraumeni Syndrome, that increase a woman's risk for breast cancer. This
-                |  tool will not appropriately estimate breast cancer risk for such women. There may
-                |  be more appropriate tools for these women. See the "
-                a(href='#model-exp') About the Gail Model
-                | " section.
+                p
+                    |  Although the tool has been used with success in clinics for women with strong family
+                    |  histories of breast cancer, more specific methods of estimating risk are appropriate
+                    |  for women known to have breast cancer-producing mutations in the&nbsp;
+                    a.termToDefine(data-term='brca1') brca1
+                    | &nbsp;or&nbsp;
+                    a.termToDefine(data-term='brca2') brca2
+                    | &nbsp; genes. Similarly, there are several hereditary conditions,
+                    |  such as Li-Fraumeni Syndrome, that increase a woman's risk for breast cancer. This
+                    |  tool will not appropriately estimate breast cancer risk for such women. There may
+                    |  be more appropriate tools for these women. See the "
+                    a(href='#model-exp') About the Gail Model
+                    | " section.
             .about-question-title
                 em Question 3: What is the woman's age?
             .about-question-explanation
                 strong Explanation
-                br
-                | The risk of developing breast cancer increases with age. The great majority of breast
-                |  cancer cases occur in women older than age 50. Most cancers develop slowly over
-                |  time. For this reason, breast cancer is more common among older women.
-              p
-                  | Note: This tool only calculates risk for women 35 years of age
-                  | or older.
+                p
+                    | The risk of developing breast cancer increases with age. The great majority of breast
+                    |  cancer cases occur in women older than age 50. Most cancers develop slowly over
+                    |  time. For this reason, breast cancer is more common among older women.
+                    em
+                        | Note: This tool only calculates risk for women 35 years of age
+                        | or older.
             .about-question-title
                 em
                     | Question 4: What was the woman's age at time of her first&nbsp;
@@ -86,30 +86,29 @@ section#about(tab='about')
                     | ?
             .about-question-explanation
                 strong Explanation
-                br
-                |  Women who had their first menstrual period before age 12 have a slightly increased
-                |  risk of breast cancer. The levels of the female hormone estrogen change with the
-                |  menstrual cycle. Women who start menstruating at a very young age have a slight
-                |  increase in breast cancer risk that may be linked to their longer lifetime exposure
-                |  to estrogen.
+                p
+                    |  Women who had their first menstrual period before age 12 have a slightly increased
+                    |  risk of breast cancer. The levels of the female hormone estrogen change with the
+                    |  menstrual cycle. Women who start menstruating at a very young age have a slight
+                    |  increase in breast cancer risk that may be linked to their longer lifetime exposure
+                    |  to estrogen.
             .about-question-title
                 em
                     | Question 5: What was the woman's age at her first live birth of a child?
             .about-question-explanation
                 strong Explanation
-                br
-                |  Risk depends on many factors, including age at first live birth and family history
-                |  of breast cancer. The relationship of these two factors in white women is shown
-                |  in the following table of relative risks.
                 p
-                    | Relative Risk of Developing Breast Cancer*
+                    |  Risk depends on many factors, including age at first live birth and family history of breast cancer.
+                    |  The relationship of these two factors in white women is shown in the following table
+                    |  of relative risks.
+                    em Relative Risk of Developing Breast Cancer*
                     table
                         tbody
                           tr
                             td(valign='top', rowspan='2')
                               | Age at first
                               br
-                              |          live birth
+                              | live birth
                             td(valign='top', colspan='3')
                               | # of affected relatives
                           tr
@@ -155,18 +154,16 @@ section#about(tab='about')
                               | 2.8
                             td(valign='top')
                               | 4.2
-                    p
-                        | For women with 0 or 1 affected relative, risks increase with age at first live birth.
-                        | For women with 2 or more first degree relatives, risks decrease with age at first
-                        | live birth.
-                        .references
+                    | For women with 0 or 1 affected relative, risks increase with age at first live birth.
+                    | For women with 2 or more first degree relatives, risks decrease with age at first
+                    | live birth.
+                    .references
                         | Adapted from Table 1, Gail MH, Brinton LA, Byar DP, Corle DK, Green SB, Shairer
                         | C, Mulvihill JJ: Projecting individualized probabilities of developing breast cancer
                         | for white females who are being examined annually. J Natl Cancer Inst 81(24):1879-86,
                         | 1989. [
                         a(target="_blank",href='http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&db=pubmed&dopt=Abstract&list_uids=2593165&query_hl=4&itool=pubmed_docsum')
-                          | PubMed
-                          | Abstract
+                          | PubMed Abstract
                         | ]
             .about-question-title
                 em
@@ -174,9 +171,9 @@ section#about(tab='about')
                     |  mother, sisters, daughters - have had breast cancer?
             .about-question-explanation
                 strong Explanation
-                br
-                |  Having one or more first-degree relatives (mother, sisters, daughters) who have
-                |  had breast cancer increases a woman's chances of developing this disease.
+                p
+                    |  Having one or more first-degree relatives (mother, sisters, daughters) who have
+                    |  had breast cancer increases a woman's chances of developing this disease.
             .about-question-title
                 em
                     | Question 7:
@@ -219,11 +216,13 @@ section#about(tab='about')
                     |  probably have lower risk than predicted by the model. Researchers are conducting
                     |  additional studies, including studies with minority populations, to gather more
                     |  data and to increase the accuracy of the tool.
-                p
-                    strong Note:
+
                     em
-                      | If the woman's race/ethnicity is unknown, the tool will use
-                      | data for white females to estimate the predicted risk.
+                        strong Note:
+                        | If the woman's race/ethnicity is unknown, the tool will use data for white females
+                        | to estimate the predicted risk.
+                br
+                br
                 strong Explanation (Question 8a)
                 p
                     | To calculate breast cancer risk using Asian-American as the race/ethnicity, the
@@ -232,7 +231,7 @@ section#about(tab='about')
                     |  The "Other Asian American" category includes women of Asian Indian/Pakistani, Korean,
                     |  Vietnamese, Laotian, and Kampuchean descent. The "Other Pacific Islander" category
                     |  includes women of Guamanian, Samoan, and Tongan descent.
-        .section-title Explaining the Results
+        .exp-title Explaining the Results
         #results-exp
             p
                 | The Breast Cancer Risk Assessment Tool will estimate a woman's risk of developing
@@ -257,10 +256,12 @@ section#about(tab='about')
             p
                 | The Breast Cancer Risk Assessment Tool may be updated periodically as new data or
                 | research becomes available.
-        .section-title About the Gail Model
+        .exp-title About the Model
         #model-exp
             | The Breast Cancer Risk Assessment Tool is based on a statistical model known as
-            | the "Gail model," which is named after&nbsp;
+            | the "
+            strong Gail model
+            | ," which is named after&nbsp;
             a(target="_blank", href='http://dceg.cancer.gov/about/staff-directory/biographies/K-N/gail-mitchell')
                 | Dr. Mitchell Gail
             | , Senior Investigator in the Biostatistics Branch of NCI's
@@ -343,7 +344,7 @@ section#about(tab='about')
                 li
                     | The Breast Cancer Risk Assessment Tool may be updated periodically as new data or
                     |  research becomes available. The algorithm was last updated in 2011.
-        .section-title References
+        .exp-title References
         #reference
             ul.red-arrow
                 li.references

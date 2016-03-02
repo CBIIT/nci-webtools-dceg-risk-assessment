@@ -15,11 +15,11 @@ var terms = {
         fullName: "Polyp",
         definition: "A polyp is a small growth, like a skin tag, that develops on the inside of the colon or rectum."
     },
-    asprin: {
+    aspirin: {
         fullName: "Medications containing Asprin",
         definition: "Ex. Bufferin, Bayer, Excedrin or Other generic form"
     },
-    "non_asprin": {
+    "non_aspirin": {
         fullName: "Medications NOT containing Asprin",
         definition: "Ex. Advil, Aleve, Celebrex, Ibuprofen, Motrin, Naproxen or Nuprin"
     },

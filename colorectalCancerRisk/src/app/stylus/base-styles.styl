@@ -37,18 +37,12 @@ section form > ol > li
             background rgba(255, 0, 0, 0.25)
 
 
-.section-title, .section-content,.content-details,.question
+.content-details,.question
     a
         text-decoration underline
         color #BB0E3D
         :hover
             text-decoration none
-        &.termToDefine
-            font-style italic
-            text-decoration none
-            border-bottom 1px dotted
-            &:hover
-                border-bottom none
 
 .section-description
     text-align left
@@ -79,23 +73,21 @@ section form > ol > li
         &.fa-arrow-circle-o-up
             color red
 .two-col
-    height 300px
     width 45%
-    float left
-    margin 10px
-    padding 25px 5px
-    border 3px solid
-    color black
-    &:nth-child(1)
-        padding-right 5px
+    ul
+        height 200px
+        li
+            width inherit
+    &.green
+        border 4px solid green
+    &.red
+        border 4px solid red
 
 .green
     color green
-    border-color green
 
 .red
     color red
-    border-color red
 
 [tab="risk-factors"]
     p, ul

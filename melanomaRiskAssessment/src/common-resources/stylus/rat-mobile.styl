@@ -22,9 +22,13 @@
             padding 5px
     dl
         padding 0
+        dd
+            margin 0
     .spacer
         display block
-    .section-anchors li, footer li
+    .section-anchors li
+        display none
+    footer li
         padding 5px 0
     section
         margin 0 25px
@@ -48,6 +52,27 @@
                 float none
         .section-content
             padding 0
+        .about-question-title
+            margin 0
+        .about-question-explanation:not(.show)
+            > strong
+                color #bb0e3d
+                &:hover
+                    text-decoration underline
+            > p
+                display none
+        .exp-title
+            text-decoration underline
+            &:hover
+                text-decoration none
+            + p
+                display inherit
+        #questions-exp,#results-exp, #model-exp, #reference
+            &:not(.show)
+                display none
+
+        ul.two-col > li
+            width auto
 
 @media (max-width 768px)
     header #nci-banner
@@ -106,8 +131,6 @@
         padding-left 0
         .stock-images
             width 180px
-    ul.two-col li
-        width auto
 
 @media (max-width 480px)
     .section-title

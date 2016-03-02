@@ -34,10 +34,11 @@ header
         background #2A71A5
         color white
         padding 10px 0 10px 160px
+        border-bottom 2px solid #BB0E3D
         #toolDescription
             font-style italic
 
-ul.nav, #toolDescription, .section-title
+ul.nav, #toolDescription, .section-title, .exp-title
     font-size 11pt
 
 a
@@ -108,7 +109,7 @@ footer
 ul.nav
     background #636363
     background linear-gradient(135deg, #f7f8f3 60px, #636363 100px, #424242 120px);
-    border-top 2px solid #BB0E3D
+
     margin 0
     padding-left 200px
     // submenu's absolute positioning is now relative to the submenu allowing us to remove it from the flow without worrying about calculating its position on display
@@ -239,23 +240,24 @@ section
             max-height 140px
 
 .section-content
-    padding 0 100px
+    padding 0 5%
+    a
+        color #BB0E3D
 
-.section-title
+.section-title, .exp-title
     margin 10px auto
     font-weight bold
     padding 5px 20px
     background #BB0E3D
     border-radius 10px
     color white
+    > a
+        color white
+        text-decoration underline
+        &:hover
+            text-decoration none
     :nth-child(2)
         float right
-    a
-        color inherit !important
-
-.section-title, .section-content
-    a
-        color #BB0E3D
 
 .section-description
     margin 10px auto
@@ -307,7 +309,10 @@ section
 
 .termToDefine
     font-style italic
-
+    text-decoration none
+    border-bottom 1px dotted
+    &:hover
+        border-bottom none
 .references
     font-style italic
     &li
@@ -323,8 +328,8 @@ section
         font-weight bold
 
 .about-question-explanation
-    margin 5px auto
-    padding 15px
+    margin 0 auto
+    padding 10px 15px
 
 .ui-helper-hidden-accessible
     border 0
@@ -379,6 +384,7 @@ section
             z-index -1
             &.yours
                 background #023C4D
+                background repeating-linear-gradient(125deg, #000, #fff 0%, #000 15px, #fff 18px);
             &.average
                 background red
         img
@@ -405,11 +411,19 @@ section
 ul.red-arrow li
     list-style-image url("../../images/red-arrow.gif")
 
+.two-col
+    float left
+    margin 10px
+    padding 25px 5px
+    &:nth-child(1)
+        padding-right 5px
+
 ul.two-col
+    float left
     overflow auto
-    li
-        width 45%
+    > li
         float left
+        width 45%
         margin 5px 20px
 
 .male,.female,.subquestion

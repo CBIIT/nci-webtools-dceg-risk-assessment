@@ -1,5 +1,11 @@
 $(function () {
+    $(".about-question-explanation").on("click", function() {
+        toggleShow(this);
+    });
 
+    $(".exp-title").on("click", function() {
+        toggleShow($(this).next());
+    });
 
     $('.goTo').on('click', function () {
         $(this.name)[0].scrollIntoView();
@@ -20,7 +26,8 @@ $(function () {
     });
 
     $('#menu-button').on('click', function () {
-        $('#main-nav').toggleClass('show');
+//        $('#main-nav').toggleClass('show');
+        toggleShow($('#main-nav'));
     });
 
     $('#main-nav a').on('click', function () {
@@ -30,7 +37,8 @@ $(function () {
             $('#main-nav').removeClass('show');
 
         if (nextNav.length > 0)
-            nextNav.toggleClass('show');
+            toggleShow(nextNav);
+//            nextNav.toggleClass('show');
         else
             $('#quick-link > ul.nav').removeClass('show');
     });
@@ -46,9 +54,14 @@ $(function () {
     fixedToTop();
 
     $(".section-description").on("click", function () {
-        $(this).find(".description").toggleClass("show");
+//        $(this).find(".description").toggleClass("show");
+        toggleShow($(this).find(".description"));
     });
 });
+
+function toggleShow(el){
+    $(el).toggleClass("show");
+}
 
 function fixedToTop() {
     var window_top = $(window).scrollTop();
