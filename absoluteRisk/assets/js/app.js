@@ -92,14 +92,6 @@ function(root, data, validation, utility) {
     var self = this;
     this.download = data.downloadSession;
     self.text = 'Upload RData';
-
-    self.changeText = function() {
-        self.text = 'Loading Session';
-    }
-    root.$on('sessionLoaded', function(event, session) {
-        self.text = 'Upload RData';
-    });
-
 }])
 
 .controller('AccordionController', ['$rootScope', 'DataService', 'ValidationService', function(root, data, validation) {

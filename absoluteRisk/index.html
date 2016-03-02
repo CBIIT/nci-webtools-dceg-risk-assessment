@@ -126,7 +126,7 @@
 								</uib-accordion-group>
 							</uib-accordion>
 						</div>
-						<button type="button" class="btn btn-primary" ng-click="accordion.log()">Log</button>
+						<span><i>* indicates required sections</i></span>
 						<button type="button" class="btn btn-primary pull-right" ng-click="accordion.calculate()" ng-disabled="accordion.validated()">Calculate</button>
 					</div>
 
@@ -136,11 +136,14 @@
 		                <div class="result-plot" ng-show="accordion.resultsImagePath">
 		                    <img ng-src="{{accordion.resultsImagePath}}" alt="Result" title="Result" />
 		                </div>
-		                <div ng-show="accordion.resultsImagePath">
-		                    <hr>
-		                    <h4>Download Results</h4>
-		                    <a href="{{accordion.resultsFilePath}}">Results</a><br>
-		                    <a href="{{accordion.resultsRefFilePath}}">Results Reference</a><br>
+						<hr>
+		                <div class="row" ng-show="accordion.resultsImagePath">
+							<div class="col-md-6">
+		                    	<a href="{{accordion.resultsFilePath}}">Download Results</a>
+							</div>
+							<div class="col-md-6">
+		                    <a href="{{accordion.resultsRefFilePath}}">Download Results Reference</a><br>
+							</div>
 						</div>
 					</div>
 				</div>
