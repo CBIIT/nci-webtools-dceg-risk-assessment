@@ -167,14 +167,14 @@ function(root, data, validation, utility) {
     self.isValidated = validation.isValidated;
     self.log = data.log;
 
-    root.$on('validationStatus', function(event, sectionID, status) {
+    root.$on('validationStatus', function(event, id, status) {
         for (var i = 0; i < self.steps.length; i ++) {
             for (var j = 0; j < self.steps[i].sections.length; j ++) {
                 var section = self.steps[i].sections[j];
-                if (section.id == sectionID)
+                if (section.id == id) {
                     section.validated = status;
-                    if (status)
-                        section.isOpen = false;
+                    section.isOpen = !status;
+                }
             }
         }
     });
