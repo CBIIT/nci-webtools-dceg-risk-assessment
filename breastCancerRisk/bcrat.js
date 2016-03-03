@@ -35,7 +35,7 @@
         childbirth_age: {
             required: {
                 depends: function () {
-                    return Number($("[name='childbirth']").val()) === 0;
+                    return Number($("[name='childbirth']").val()) === -1;
                 }
             }
         },
@@ -50,7 +50,7 @@
         biopsy_result: {
             required: {
                 depends: function () {
-                    return Number($("[name='biopsy']").val()) === 0;
+                    return Number($("[name='biopsy']").val()) === 1;
                 }
             }
         },
@@ -58,7 +58,7 @@
         biopsy_ah: {
             required: {
                 depends: function () {
-                    return Number($("[name='biopsy']").val()) === 0;
+                    return Number($("[name='biopsy']").val()) === 1;
                 }
             }
         },
@@ -131,23 +131,21 @@
     $(".thumbnail").on("click", expandCollapseImage);
 
     $("[name='race']").on("change", function () {
-        if (Number(this.value) == 3) {
-            var aa_subraces = "<option value=''>Select</option><option value='0'>Chinese</option><option value='1'>Japanese</option><option value='2'>Filipino</option><option value='3'>Hawiian</option><option value='4'>Other Pacific Islander</option><option value='5'>Other Asian American</option>";
+        if (this.value == "Asian") {
             $("#subquestion-race").addClass("show");
-            $("select#sub_race").empty().append(aa_subraces);
         } else
             $("#subquestion-race").removeClass("show");
     });
 
     $("[name='childbirth']").on("change", function () {
-        if (Number(this.value) === 0)
+        if (Number(this.value) === -1)
             $("#subquestion-childbirth-age").addClass("show");
         else
             $("#subquestion-childbirth-age").removeClass("show");
     });
 
     $("[name='biopsy']").on("change", function () {
-        if (Number(this.value) === 0)
+        if (Number(this.value) === 1)
             $("#subquestion-biopsy,#subquestion-biopsy-ah").addClass("show");
         else
             $("#subquestion-biopsy,#subquestion-biopsy-ah").removeClass("show");
