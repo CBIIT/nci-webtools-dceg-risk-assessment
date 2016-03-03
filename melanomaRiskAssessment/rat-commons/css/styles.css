@@ -451,6 +451,8 @@ section form button {
   background: #2a71a5;
   font-size: 0px;
   position: relative;
+  max-width: 500px;
+  min-width: 260px;
   z-index: 0;
 }
 #result .chart .bar {
@@ -461,12 +463,12 @@ section form button {
   z-index: -1;
 }
 #result .chart .bar.yours {
-  background: #023c4d;
-  background: -webkit-repeating-linear-gradient(325deg, #000, #fff 0%, #000 15px, #fff 18px);
-  background: -moz-repeating-linear-gradient(325deg, #000, #fff 0%, #000 15px, #fff 18px);
-  background: -o-repeating-linear-gradient(325deg, #000, #fff 0%, #000 15px, #fff 18px);
-  background: -ms-repeating-linear-gradient(325deg, #000, #fff 0%, #000 15px, #fff 18px);
-  background: repeating-linear-gradient(125deg, #000, #fff 0%, #000 15px, #fff 18px);
+  background: #bb0e3d;
+  background: -webkit-repeating-linear-gradient(55deg, #163852 50%, #fff 55%);
+  background: -moz-repeating-linear-gradient(55deg, #163852 50%, #fff 55%);
+  background: -o-repeating-linear-gradient(55deg, #163852 50%, #fff 55%);
+  background: -ms-repeating-linear-gradient(55deg, #163852 50%, #fff 55%);
+  background: repeating-linear-gradient(35deg, #163852 50%, #fff 55%);
 }
 #result .chart .bar.average {
   background: #f00;

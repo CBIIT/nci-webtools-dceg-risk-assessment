@@ -17,6 +17,10 @@ function displayResult(result) {
         outOf += matches[2].length;
     }
     outOf = Number('1e' + outOf);
+
+    if(window.location.hostname.indexOf("dev") == -1)
+        result = Number(result).toFixed(1);
+
     $('#result').append('<h2>' + result + '%</h2><p>Your risk of developing cancer in the next 5 years is ' + result + '%. This means that roughly ' + estimate + ' in ' + outOf + ' people like you are likely to develop cancer in the next 5 years.').removeClass('hide');
     graphResult($('#result').append('<div class="chart"></div>').children('.chart'), Number(result));
     document.getElementById("top").scrollIntoView();
@@ -75,7 +79,7 @@ function processSubmission(form) {
             $('#error').append("<p>" + data.responseJSON.message + "</p>").css('display', 'block');
         else
             $('#error').append("<p>" + data.responseText + "</p>").css('display', 'block');
-        
+
         document.getElementById("top").scrollIntoView();
     });
 }

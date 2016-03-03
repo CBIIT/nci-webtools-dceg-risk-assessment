@@ -190,7 +190,7 @@ class ColorectalRiskAssessmentTool:
       #hormoneUsage:     [0] No hormones used in the last 2 years
       #                  [1] Hormones used
       risk = AbsRisk("Male",race,age,min(age+5,90),screening,yearsSmoking,cigarettesPerDay,nsaidRegimine,aspirinOnly,family_cancer,exercise,veggies,bmi,hormoneUsage)
-      risk = round(risk*100,1)
+      risk = round(risk*100,-2)
       return ColorectalRiskAssessmentTool.buildSuccess(str(risk))
     except Exception as e:
       exc_type, exc_obj, exc_tb = sys.exc_info()

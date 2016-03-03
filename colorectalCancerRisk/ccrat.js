@@ -53,7 +53,7 @@ $("input[name='hispanic']").on("change", function () {
 });
 
 $("input[name='gender']").on("change", function () {
-    $(".male,.female").find("input,select").each(resetInputs);
+    $.each($(".male,.female").find("input,select"), resetInputs);
 
     if (this.value === "Male") {
         $(".male").addClass("show").effect("highlight", 500);
@@ -67,20 +67,21 @@ $("input[name='gender']").on("change", function () {
 $("input[name='moderate_months']").on("blur", function () {
     $.each($("#subquestion-moderate-hours").find("select,input"), resetInputs);
 
-    if (this.value <= "0") {
-        $("#subquestion-moderate-hours").removeClass("show");
-    } else {
+    if (this.value > "0") {
         $("#subquestion-moderate-hours").addClass("show").effect("highlight", 500);
+    }
+    else {
+        $("#subquestion-moderate-hours").removeClass("show");
     }
 });
 
 $("input[name='vigorous_months']").on("blur", function () {
-    $.each($("#subquestion-moderate_months").find("select,input"), resetInputs);
+    $.each($("#subquestion-vigorous_months").find("select,input"), resetInputs);
 
-    if (this.value <= "0") {
-        $("#subquestion-vigorous_months").removeClass("show");
-    } else {
+    if (this.value > "0") {
         $("#subquestion-vigorous_months").addClass("show").effect("highlight", 500);
+    } else {
+        $("#subquestion-vigorous_months").removeClass("show");
     }
 });
 
