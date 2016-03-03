@@ -47,32 +47,14 @@ section form > ol > li select.error {
   border: 2px solid #fc7878;
   background: rgba(255,0,0,0.25);
 }
-.section-title a,
-.section-content a,
 .content-details a,
 .question a {
   text-decoration: underline;
   color: #bb0e3d;
 }
-.section-title a :hover,
-.section-content a :hover,
 .content-details a :hover,
 .question a :hover {
   text-decoration: none;
-}
-.section-title a.termToDefine,
-.section-content a.termToDefine,
-.content-details a.termToDefine,
-.question a.termToDefine {
-  font-style: italic;
-  text-decoration: none;
-  border-bottom: 1px dotted;
-}
-.section-title a.termToDefine:hover,
-.section-content a.termToDefine:hover,
-.content-details a.termToDefine:hover,
-.question a.termToDefine:hover {
-  border-bottom: none;
 }
 .section-description {
   text-align: left;
@@ -109,37 +91,38 @@ section form > ol > li select.error {
   color: #f00;
 }
 .two-col {
-  height: 300px;
   width: 45%;
-  float: left;
-  margin: 10px;
-  padding: 25px 5px;
-  border: 3px solid;
-  color: #000;
 }
-.two-col:nth-child(1) {
-  padding-right: 5px;
+.two-col ul {
+  height: 200px;
+}
+.two-col ul li {
+  width: inherit;
+}
+.two-col.green {
+  border: 4px solid #008000;
+}
+.two-col.red {
+  border: 4px solid #f00;
 }
 .green {
   color: #008000;
-  border-color: #008000;
 }
 .red {
   color: #f00;
-  border-color: #f00;
 }
 [tab="risk-factors"] p,
 [tab="risk-factors"] ul {
   clear: both;
 }
 
-@media (max-width: 990px) {
-  .two-col {
-    width: auto;
-  }
-}
 @media (max-width: 768px) {
   section form > ol > li {
-    max-height: 555px;
+    height: 695px;
+    max-height: 600px;
+  }
+  .two-col {
+    width: auto;
+    height: auto;
   }
 }

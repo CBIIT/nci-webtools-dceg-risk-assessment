@@ -42,13 +42,15 @@ header #toolTitle {
   background: #2a71a5;
   color: #fff;
   padding: 10px 0 10px 160px;
+  border-bottom: 2px solid #bb0e3d;
 }
 header #toolTitle #toolDescription {
   font-style: italic;
 }
 ul.nav,
 #toolDescription,
-.section-title {
+.section-title,
+.exp-title {
   font-size: 11pt;
 }
 a {
@@ -127,7 +129,6 @@ ul.nav {
   background: -o-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px);
   background: -ms-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px);
   background: linear-gradient(135deg, #f7f8f3 60px, #636363 100px, #424242 120px);
-  border-top: 2px solid #bb0e3d;
   margin: 0;
   padding-left: 200px;
   position: relative;
@@ -290,9 +291,13 @@ section form button {
   max-height: 140px;
 }
 .section-content {
-  padding: 0 100px;
+  padding: 0 5%;
 }
-.section-title {
+.section-content a {
+  color: #bb0e3d;
+}
+.section-title,
+.exp-title {
   margin: 10px auto;
   font-weight: bold;
   padding: 5px 20px;
@@ -301,15 +306,18 @@ section form button {
   border-radius: 10px;
   color: #fff;
 }
-.section-title :nth-child(2) {
+.section-title > a,
+.exp-title > a {
+  color: #fff;
+  text-decoration: underline;
+}
+.section-title > a:hover,
+.exp-title > a:hover {
+  text-decoration: none;
+}
+.section-title :nth-child(2),
+.exp-title :nth-child(2) {
   float: right;
-}
-.section-title a {
-  color: inherit !important;
-}
-.section-title a,
-.section-content a {
-  color: #bb0e3d;
 }
 .section-description {
   margin: 10px auto;
@@ -368,6 +376,11 @@ section form button {
 }
 .termToDefine {
   font-style: italic;
+  text-decoration: none;
+  border-bottom: 1px dotted;
+}
+.termToDefine:hover {
+  border-bottom: none;
 }
 .references {
   font-style: italic;
@@ -385,8 +398,8 @@ section form button {
   font-weight: bold;
 }
 .about-question-explanation {
-  margin: 5px auto;
-  padding: 15px;
+  margin: 0 auto;
+  padding: 10px 15px;
 }
 .ui-helper-hidden-accessible {
   border: 0;
@@ -449,6 +462,11 @@ section form button {
 }
 #result .chart .bar.yours {
   background: #023c4d;
+  background: -webkit-repeating-linear-gradient(325deg, #000, #fff 0%, #000 15px, #fff 18px);
+  background: -moz-repeating-linear-gradient(325deg, #000, #fff 0%, #000 15px, #fff 18px);
+  background: -o-repeating-linear-gradient(325deg, #000, #fff 0%, #000 15px, #fff 18px);
+  background: -ms-repeating-linear-gradient(325deg, #000, #fff 0%, #000 15px, #fff 18px);
+  background: repeating-linear-gradient(125deg, #000, #fff 0%, #000 15px, #fff 18px);
 }
 #result .chart .bar.average {
   background: #f00;
@@ -478,12 +496,21 @@ section form button {
 ul.red-arrow li {
   list-style-image: url("../../images/red-arrow.gif");
 }
+.two-col {
+  float: left;
+  margin: 10px;
+  padding: 25px 5px;
+}
+.two-col:nth-child(1) {
+  padding-right: 5px;
+}
 ul.two-col {
+  float: left;
   overflow: auto;
 }
-ul.two-col li {
-  width: 45%;
+ul.two-col > li {
   float: left;
+  width: 45%;
   margin: 5px 20px;
 }
 .male:not(.show),
@@ -524,10 +551,15 @@ ul.two-col li {
   dl {
     padding: 0;
   }
+  dl dd {
+    margin: 0;
+  }
   .spacer {
     display: block;
   }
-  .section-anchors li,
+  .section-anchors li {
+    display: none;
+  }
   footer li {
     padding: 5px 0;
   }
@@ -559,6 +591,36 @@ ul.two-col li {
   }
   section .section-content {
     padding: 0;
+  }
+  section .about-question-title {
+    margin: 0;
+  }
+  section .about-question-explanation:not(.show) > strong {
+    color: #bb0e3d;
+  }
+  section .about-question-explanation:not(.show) > strong:hover {
+    text-decoration: underline;
+  }
+  section .about-question-explanation:not(.show) > p {
+    display: none;
+  }
+  section .exp-title {
+    text-decoration: underline;
+  }
+  section .exp-title:hover {
+    text-decoration: none;
+  }
+  section .exp-title + p {
+    display: inherit;
+  }
+  section #questions-exp:not(.show),
+  section #results-exp:not(.show),
+  section #model-exp:not(.show),
+  section #reference:not(.show) {
+    display: none;
+  }
+  section ul.two-col > li {
+    width: auto;
   }
 }
 @media (max-width: 768px) {
@@ -634,9 +696,6 @@ ul.two-col li {
   }
   .question-illustration .stock-images {
     width: 180px;
-  }
-  ul.two-col li {
-    width: auto;
   }
 }
 @media (max-width: 480px) {

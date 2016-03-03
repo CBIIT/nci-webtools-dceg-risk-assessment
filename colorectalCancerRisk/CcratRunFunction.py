@@ -55,8 +55,8 @@ def AbsRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
     #                  [2] men: >=24.9 & < 29.9  women: N/A
     #                  [3] men: >=29.9           women: N/A
     bmiTrend,
-    #hormoneUsage:     [0] No hormones used in the last 2 years
-    #                  [1] Hormones used
+    #hormoneUsage:     [0] Hormones used
+    #                  [1] No hormones used in the last 2 years
     hormoneUsage,
     #bmi*hormoneUsage  [1] BMI >= 30 and hormones used
     #                  [0] All other conditions

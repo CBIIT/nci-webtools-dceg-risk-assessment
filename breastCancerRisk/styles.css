@@ -3,29 +3,21 @@
 .subquestion:not(.show) {
   display: none;
 }
-.section-title a,
-.section-content a,
 .content-details a,
 .question a {
   text-decoration: underline;
   color: #bb0e3d;
 }
-.section-title a :hover,
-.section-content a :hover,
 .content-details a :hover,
 .question a :hover {
   text-decoration: none;
 }
-.section-title a.termToDefine,
-.section-content a.termToDefine,
 .content-details a.termToDefine,
 .question a.termToDefine {
   font-style: italic;
   text-decoration: none;
   border-bottom: 1px dotted;
 }
-.section-title a.termToDefine:hover,
-.section-content a.termToDefine:hover,
 .content-details a.termToDefine:hover,
 .question a.termToDefine:hover {
   border-bottom: none;
