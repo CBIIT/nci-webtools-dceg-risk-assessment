@@ -65,7 +65,8 @@ $("input[name='gender']").on("change", function () {
 });
 
 $("input[name='moderate_months']").on("blur", function () {
-    $("#subquestion-moderate-hours").find("select").val("");
+    $.each($("#subquestion-moderate-hours").find("select,input"), resetInputs);
+
     if (this.value <= "0") {
         $("#subquestion-moderate-hours").removeClass("show");
     } else {
@@ -74,7 +75,8 @@ $("input[name='moderate_months']").on("blur", function () {
 });
 
 $("input[name='vigorous_months']").on("blur", function () {
-    $("#subquestion-moderate_months").find("select").val("");
+    $.each($("#subquestion-moderate_months").find("select,input"), resetInputs);
+
     if (this.value <= "0") {
         $("#subquestion-vigorous_months").removeClass("show");
     } else {
@@ -83,7 +85,8 @@ $("input[name='vigorous_months']").on("blur", function () {
 });
 
 $("select[name='veg_servings']").on("change", function () {
-    $("#subquestion-veg").find("select").val("");
+    $.each($("#subquestion-veg").find("select,input"), resetInputs);
+
     if (this.value > 0) {
         $("#subquestion-veg").addClass("show").effect("highlight", 500);
     } else {
@@ -92,14 +95,18 @@ $("select[name='veg_servings']").on("change", function () {
 });
 
 $("select[name='exam']").on("change", function () {
-    $("#subquestion-exam").find("input").val("");
+    $.each($("#subquestion-exam").find("select,input"), resetInputs);
+
     if (this.value == "0") {
         $("#subquestion-exam").addClass("show").effect("highlight", 500);
     } else {
         $("#subquestion-exam").removeClass("show");
     }
 });
+
 $("input[name='smoked']").on("change", function () {
+    $.each($("#subquestion-smoke-age").find("select,input"), resetInputs);
+
     if(this.value == "0"){
         $("#subquestion-smoke-age").addClass("show").effect("highlight", 500);
     }
@@ -109,16 +116,20 @@ $("input[name='smoked']").on("change", function () {
 });
 
 $("select[name='cigarettes']").on("change", function () {
-    $("#subquestion-smoke-age").find("select").val("");
+    $.each($("#subquestion-smoke-age").find("select,input"), resetInputs);
+
     if (this.value === "0")
         $("#subquestion-smoke-age").addClass("show").effect("highlight", 500);
-    else
+    else {
         $("#subquestion-smoke-age").removeClass("show");
         $("#subquestion-smoke-now").removeClass("show");
         $("#subquestion-smoke-quit").removeClass("show");
+    }
 });
 
 $("select[name='smoke_age']").on("change", function () {
+    $.each($("#subquestion-smoke-now").find("select,input"), resetInputs);
+
     if (this.value >= 6)
         $("#subquestion-smoke-now").addClass("show").effect("highlight", 500);
     else
@@ -126,7 +137,8 @@ $("select[name='smoke_age']").on("change", function () {
 });
 
 $("input[name='smoke_now']").on("change", function () {
-    $("#subquestion-smoke-quit").find("select").val("");
+    $.each($("#subquestion-smoke-quit").find("select,input"), resetInputs);
+
     if (this.value === "0")
         $("#subquestion-smoke-quit").addClass("show").effect("highlight", 500);
     else
@@ -134,7 +146,8 @@ $("input[name='smoke_now']").on("change", function () {
 });
 
 $("input[name='period']").on("change", function () {
-    $("#subquestion-period").find("input, select").val("");
+    $.each($("#subquestion-period, #subquestion-hormones").find("select,input"), resetInputs);
+
     if (this.value == "0")
         $("#subquestion-period, #subquestion-hormones").removeClass("show");
     else
@@ -142,7 +155,6 @@ $("input[name='period']").on("change", function () {
 });
 
 $("select[name='last_period']").on("change", function () {
-    $("#subquestion-hormones").find("select").val("");
     if (this.value == "2")
         $("#subquestion-hormones").addClass("show").effect("highlight", 500);
     else
@@ -150,7 +162,8 @@ $("select[name='last_period']").on("change", function () {
 });
 
 $("select[name='family_cancer']").on("change", function () {
-    $("#subquestion-family-cancer").find("input, select").val("");
+    $.each($("#subquestion-family-cancer").find("select,input"), resetInputs);
+
     if (this.value === "1") {
         $("#subquestion-family-cancer").addClass("show").effect("highlight", 500);
     } else {
