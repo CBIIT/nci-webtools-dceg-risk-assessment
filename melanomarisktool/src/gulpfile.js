@@ -117,9 +117,9 @@ gulp.task('rat-common:copy', function(){
         objectMode: true
     });
     gulp.src(parentDir+"/rat-commons/**/*")
-        .pipe(gulp.dest(parentDir+"/"+parentDir+"/colorectalCancerRisk/rat-commons"));
+        .pipe(gulp.dest(parentDir+"/"+parentDir+"/colorectalcancerrisk/rat-commons"));
     gulp.src(parentDir+"/rat-commons/**/*")
-        .pipe(gulp.dest(parentDir+"/"+parentDir+"/breastCancerRisk/rat-commons"));
+        .pipe(gulp.dest(parentDir+"/"+parentDir+"/bcrisktool/rat-commons"));
 
     return s.done();
 });
