@@ -121,8 +121,15 @@ class BreastRiskAssessmentTool:
       print("EXCEPTION------------------------------", exc_type, fname, exc_tb.tb_lineno)
       return BreastRiskAssessmentTool.buildFailure(str(e))
 
-  def __init__(self):
-    app.run(host='0.0.0.0', port=8200, debug=True)
+  def __init__(self,port,debug):
+    app.run(host='0.0.0.0', port=port, debug=debug)
 
 if __name__ == '__main__':
-  BreastRiskAssessmentTool()
+  import argparse
+  parser = argparse.ArgumentParser()
+  parser.add_argument("-p", dest="port_number", default="9160", help="Sets the Port")
+  parser.add_argument("--debug", action="store_true")
+
+  args = parser.parse_args()
+  port_num = int(args.port_number);
+  BreastRiskAssessmentTool(port_num, args.debug)
