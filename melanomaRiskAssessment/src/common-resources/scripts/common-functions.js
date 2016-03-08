@@ -18,27 +18,82 @@ function displayResult(result) {
     }
     outOf = Number('1e' + outOf);
 
-    if(window.location.hostname.indexOf("dev") == -1)
+    if (window.location.hostname.indexOf("dev") == -1)
         result = Number(result).toFixed(1);
 
     $('#result').append('<h2>' + result + '%</h2><p>Your risk of developing cancer in the next 5 years is ' + result + '%. This means that roughly ' + estimate + ' in ' + outOf + ' people like you are likely to develop cancer in the next 5 years.').removeClass('hide');
-    graphResult($('#result').append('<div class="chart"></div>').children('.chart'), Number(result));
+    //    graphResult($('#result').append('<div class="chart"></div>').children('.chart'), Number(result));
+
+    graphResult($('#result').append('<canvas class="chart"></canvas>').children('.chart')[0], Number(result));
     document.getElementById("top").scrollIntoView();
 }
 
+/*
+    functions for canvas graphic generation
+*/
+
 function graphResult(element, result) {
-    for (var i = 0; i < 100; i++) {
-        $(element).append('<img src="images/person.svg"/>');
+    //    for (var i = 0; i < 100; i++) {
+    //        $(element).append('<img src="images/person.svg"/>');
+    //    }
+    //    var fullBars = Math.floor(result / 20);
+    //    var partialBar = (result - (20 * fullBars)) * 5;
+    //    var top = 0;
+    //    for (var j = 0; j < fullBars; j++) {
+    //        $(element).prepend('<div class="bar yours" style="top:' + top + '%;width:100%;"></div>');
+    //        top += 20;
+    //    }
+    //    if (partialBar > 0) {
+    //        $(element).prepend('<div class="bar yours" style="top:' + top + '%;width:' + partialBar + '%;"></div>');
+    //    }
+
+    var ctx1 = element.getContext('2d');
+
+    var img = new Image();
+    img.src = "../images/person.svg";
+    img.onload = function () {
+        var $this = this;
+
+        $this.width = this.width/16;
+        $this.height = this.height/20;
+//
+//        highlightImage($this, result, ctx1);
+//        createMask($this, ctx1);
+                return window.setInterval(function () {
+                    // Clear Canvas
+                    ctx1.clearRect(0, 0, $this.width*20, $this.height*20);
+
+                    highlightImage($this, result, ctx1);
+                    createMask($this,ctx1);
+                }, 2000);
+    };
+}
+
+function highlightImage(img, calcResult, canvasContext) {
+
+    for (var i = calcResult; i >= 0; i--) {
+        var j = Math.floor(Math.random() * 20);
+        var k = Math.floor(Math.random() * 5);
+
+        if (calcResult > 0) {
+            canvasContext.fillStyle = "#000000";
+
+            if (calcResult > 0 && calcResult < 1) {
+                canvasContext.fillRect(img.width * j, img.height * k, calcResult * img.width, img.height);
+            } else if (calcResult > 1) {
+                canvasContext.fillRect(img.width * j, img.height * k, img.width, img.height);
+            }
+        } else
+            return;
+        calcResult--;
     }
-    var fullBars = Math.floor(result / 20);
-    var partialBar = (result - (20 * fullBars)) * 5;
-    var top = 0;
-    for (var j = 0; j < fullBars; j++) {
-        $(element).prepend('<div class="bar yours" style="top:' + top + '%;width:100%;"></div>');
-        top += 20;
-    }
-    if (partialBar > 0) {
-        $(element).prepend('<div class="bar yours" style="top:' + top + '%;width:' + partialBar + '%;"></div>');
+}
+
+function createMask(maskImg, canvasContext) {
+    for (var i = 0; i < 20; i++) {
+        for (var j = 0; j < 5; j++) {
+            canvasContext.drawImage(maskImg, maskImg.width * i, maskImg.height * j, maskImg.width, maskImg.height);
+        }
     }
 }
 
@@ -105,4 +160,12 @@ function expandCollapseImage() {
     this.scrollIntoView();
 }
 
+function resetInputs() {
+    $(this).validate().reset();
+    $("[name='" + this.name + "'], [for='" + this.name + "']").removeClass("error");
 
+    if (this.type == "radio" || this.type == "checkbox")
+        this.checked = false;
+    if (this.type == "select-one" || this.type == "select-multiple" || this.type == "text" || this.type == "number")
+        this.value = "";
+}

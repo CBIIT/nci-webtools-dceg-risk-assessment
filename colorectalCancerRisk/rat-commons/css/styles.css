@@ -327,13 +327,13 @@ section form button {
   border-radius: 10px;
   background: #fff;
   text-align: center;
+  cursor: pointer;
 }
 .section-description .heading {
   font-weight: bold;
   font-size: 1.1em;
   color: inherit;
   text-align: center;
-  cursor: pointer;
   text-decoration: none;
 }
 .section-description .heading:hover {
@@ -447,7 +447,12 @@ section form button {
   margin: 0px;
   text-align: center;
 }
-#result .chart {
+#result canvas {
+  width: 600px;
+  height: 400px;
+  min-height: 382px;
+}
+#result canvas.chart {
   background: #2a71a5;
   font-size: 0px;
   position: relative;
@@ -455,14 +460,14 @@ section form button {
   min-width: 260px;
   z-index: 0;
 }
-#result .chart .bar {
+#result canvas.chart .bar {
   height: 20%;
   left: 0px;
   top: 0px;
   position: absolute;
   z-index: -1;
 }
-#result .chart .bar.yours {
+#result canvas.chart .bar.yours {
   background: #bb0e3d;
   background: -webkit-repeating-linear-gradient(55deg, #163852 50%, #fff 55%);
   background: -moz-repeating-linear-gradient(55deg, #163852 50%, #fff 55%);
@@ -470,10 +475,10 @@ section form button {
   background: -ms-repeating-linear-gradient(55deg, #163852 50%, #fff 55%);
   background: repeating-linear-gradient(35deg, #163852 50%, #fff 55%);
 }
-#result .chart .bar.average {
+#result canvas.chart .bar.average {
   background: #f00;
 }
-#result .chart img {
+#result canvas.chart img {
   width: 5%;
 }
 .rounded {
