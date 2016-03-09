@@ -24,7 +24,7 @@ function displayResult(result) {
     $('#result').append('<h2>' + result + '%</h2><p>Your risk of developing cancer in the next 5 years is ' + result + '%. This means that roughly ' + estimate + ' in ' + outOf + ' people like you are likely to develop cancer in the next 5 years.').removeClass('hide');
     //    graphResult($('#result').append('<div class="chart"></div>').children('.chart'), Number(result));
 
-    graphResult($('#result').append('<canvas class="chart"></canvas>').children('.chart')[0], Number(result));
+    graphResult($('#result').append('<canvas class="chart" width="500" height="380"></canvas>').children('.chart')[0], Number(result));
     document.getElementById("top").scrollIntoView();
 }
 
@@ -33,39 +33,38 @@ function displayResult(result) {
 */
 
 function graphResult(element, result) {
-    //    for (var i = 0; i < 100; i++) {
-    //        $(element).append('<img src="images/person.svg"/>');
-    //    }
-    //    var fullBars = Math.floor(result / 20);
-    //    var partialBar = (result - (20 * fullBars)) * 5;
-    //    var top = 0;
-    //    for (var j = 0; j < fullBars; j++) {
-    //        $(element).prepend('<div class="bar yours" style="top:' + top + '%;width:100%;"></div>');
-    //        top += 20;
-    //    }
-    //    if (partialBar > 0) {
-    //        $(element).prepend('<div class="bar yours" style="top:' + top + '%;width:' + partialBar + '%;"></div>');
-    //    }
+
+    var ratio = window.devicePixelRatio || 1;
 
     var ctx1 = element.getContext('2d');
+    element.style['max-width'] = element.width + "px";
+
+    element.width *= ratio;
+    element.height *= ratio;
 
     var img = new Image();
     img.src = "../images/person.svg";
     img.onload = function () {
         var $this = this;
 
-        $this.width = this.width/16;
-        $this.height = this.height/20;
-//
-//        highlightImage($this, result, ctx1);
-//        createMask($this, ctx1);
-                return window.setInterval(function () {
-                    // Clear Canvas
-                    ctx1.clearRect(0, 0, $this.width*20, $this.height*20);
+        $this.width = this.width / 9.5;
+        $this.height = this.height / 8;
 
-                    highlightImage($this, result, ctx1);
-                    createMask($this,ctx1);
-                }, 2000);
+        // Clear Canvas
+        ctx1.clearRect(0, 0, $this.width * 20, $this.height * 20);
+        ctx1.scale(ratio, ratio);
+
+        highlightImage($this, result, ctx1);
+        createMask($this, ctx1);
+
+        return window.setInterval(function () {
+            // Clear Canvas
+            ctx1.clearRect(0, 0, $this.width * 20, $this.height * 20);
+            ctx1.scale(ratio, ratio);
+
+            highlightImage($this, result, ctx1);
+            createMask($this, ctx1);
+        }, 2000);
     };
 }
 
@@ -98,6 +97,7 @@ function createMask(maskImg, canvasContext) {
 }
 
 function processSubmission(form) {
+
     $('#error').empty().css('display', 'none');
     $('#result').addClass('hide').empty();
     $('.error').removeClass('error');
@@ -129,7 +129,6 @@ function processSubmission(form) {
             document.getElementById("top").scrollIntoView();
         }
     }).fail(function (data) {
-        //                $('#error').append("<p>An unknown error occurred. Please consult the administrator.</p>");
         if (data.responseJSON)
             $('#error').append("<p>" + data.responseJSON.message + "</p>").css('display', 'block');
         else

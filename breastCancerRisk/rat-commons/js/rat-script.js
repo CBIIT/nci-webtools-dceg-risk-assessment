@@ -24,45 +24,46 @@ function displayResult(result) {
     $('#result').append('<h2>' + result + '%</h2><p>Your risk of developing cancer in the next 5 years is ' + result + '%. This means that roughly ' + estimate + ' in ' + outOf + ' people like you are likely to develop cancer in the next 5 years.').removeClass('hide');
    
 
-    graphResult($('#result').append('<canvas class="chart"></canvas>').children('.chart')[0], Number(result));
+    graphResult($('#result').append('<canvas class="chart" width="500" height="380"></canvas>').children('.chart')[0], Number(result));
     document.getElementById("top").scrollIntoView();
 }
 
 
 
 function graphResult(element, result) {
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
+
+    var ratio = window.devicePixelRatio || 1;
 
     var ctx1 = element.getContext('2d');
+    element.style.width = "auto";
+    element.style.height = "auto";
+
+    element.width *= ratio;
+    element.height *= ratio;
 
     var img = new Image();
     img.src = "../images/person.svg";
     img.onload = function () {
         var $this = this;
 
-        $this.width = this.width/16;
-        $this.height = this.height/20;
+        $this.width = this.width / 9.5;
+        $this.height = this.height / 8;
 
+       
+        ctx1.clearRect(0, 0, $this.width * 20, $this.height * 20);
+        ctx1.scale(ratio, ratio);
 
-                return window.setInterval(function () {
-                   
-                    ctx1.clearRect(0, 0, element.width, element.height);
+        highlightImage($this, result, ctx1);
+        createMask($this, ctx1);
 
-                    highlightImage($this, result, ctx1);
-                    createMask($this,ctx1);
-                }, 2000);
+        return window.setInterval(function () {
+           
+            ctx1.clearRect(0, 0, $this.width * 20, $this.height * 20);
+            ctx1.scale(ratio, ratio);
+
+            highlightImage($this, result, ctx1);
+            createMask($this, ctx1);
+        }, 2000);
     };
 }
 
@@ -95,6 +96,7 @@ function createMask(maskImg, canvasContext) {
 }
 
 function processSubmission(form) {
+
     $('#error').empty().css('display', 'none');
     $('#result').addClass('hide').empty();
     $('.error').removeClass('error');
@@ -126,7 +128,6 @@ function processSubmission(form) {
             document.getElementById("top").scrollIntoView();
         }
     }).fail(function (data) {
-       
         if (data.responseJSON)
             $('#error').append("<p>" + data.responseJSON.message + "</p>").css('display', 'block');
         else
