@@ -35,8 +35,7 @@ function graphResult(element, result) {
     var ratio = window.devicePixelRatio || 1;
 
     var ctx1 = element.getContext('2d');
-    element.style.width = "auto";
-    element.style.height = "auto";
+    element.style['max-width'] = element.width + "px";
 
     element.width *= ratio;
     element.height *= ratio;
@@ -74,7 +73,31 @@ function highlightImage(img, calcResult, canvasContext) {
         var k = Math.floor(Math.random() * 5);
 
         if (calcResult > 0) {
-            canvasContext.fillStyle = "#000000";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            canvasContext.fillStyle = "#bb0e3d";
 
             if (calcResult > 0 && calcResult < 1) {
                 canvasContext.fillRect(img.width * j, img.height * k, calcResult * img.width, img.height);
