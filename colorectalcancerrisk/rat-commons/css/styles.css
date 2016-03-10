@@ -451,7 +451,7 @@ section form button {
   text-align: center;
 }
 #result canvas.chart {
-  background: #2a71a5;
+  background: rgba(0,0,0,0.08);
   font-size: 0px;
   position: relative;
   width: 100%;

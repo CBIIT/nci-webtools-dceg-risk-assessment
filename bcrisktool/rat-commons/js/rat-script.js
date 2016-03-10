@@ -27,7 +27,6 @@ function displayResult(result) {
         result = Number(result).toFixed(1);
 
     $('#result').append('<h2>' + result + '%</h2><p>Your risk of developing cancer in the next 5 years is ' + result + '%. This means that roughly ' + estimate + ' in ' + outOf + ' people like you are likely to develop cancer in the next 5 years.').addClass('show');
-   
 
     graphResult($('#result').append('<canvas class="chart" width="500" height="380"></canvas>').children('.chart')[0], Number(result));
     $("#result").addClass("show");
@@ -62,7 +61,6 @@ function graphResult(element, result) {
         return window.setInterval(function () {
            
             ctx1.clearRect(0, 0, $this.width * 20, $this.height * 20);
-            ctx1.scale(ratio, ratio);
 
             highlightImage($this, result, ctx1);
             createMask($this, ctx1);

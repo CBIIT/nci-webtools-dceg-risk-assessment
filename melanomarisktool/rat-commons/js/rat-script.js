@@ -61,7 +61,6 @@ function graphResult(element, result) {
         return window.setInterval(function () {
            
             ctx1.clearRect(0, 0, $this.width * 20, $this.height * 20);
-            ctx1.scale(ratio, ratio);
 
             highlightImage($this, result, ctx1);
             createMask($this, ctx1);
