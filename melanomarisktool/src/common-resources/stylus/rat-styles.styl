@@ -367,13 +367,15 @@ section
     margin 0px auto
     max-width 600px
     padding 30px
+    &:not(.show)
+        display none
     h2
         font-size 48px
         margin 0px
         text-align center
     canvas
         &.chart
-            background #2A71A5
+            background rgba(0, 0, 0, 0.08)
             font-size 0px
             position relative
             width 100%

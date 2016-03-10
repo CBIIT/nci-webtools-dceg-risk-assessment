@@ -442,6 +442,9 @@ section form button {
   max-width: 600px;
   padding: 30px;
 }
+#result:not(.show) {
+  display: none;
+}
 #result h2 {
   font-size: 48px;
   margin: 0px;

@@ -8,6 +8,11 @@ $(".thumbnail").on("click", function () {
     this.scrollIntoView();
 });
 
+$('[type="reset"]').on("click",function() {
+    $("#result").empty().removeClass("show");
+});
+
+
 function displayResult(result) {
     var matches = Number(result).toExponential().toString().match(/(\d+)(?:.(\d+))?e([-+]?\d+)/i);
     var estimate = matches[1];
@@ -21,14 +26,12 @@ function displayResult(result) {
     if (window.location.hostname.indexOf("dev") == -1)
         result = Number(result).toFixed(1);
 
-    $('#result').append('<h2>' + result + '%</h2><p>Your risk of developing cancer in the next 5 years is ' + result + '%. This means that roughly ' + estimate + ' in ' + outOf + ' people like you are likely to develop cancer in the next 5 years.').removeClass('hide');
-   
+    $('#result').append('<h2>' + result + '%</h2><p>Your risk of developing cancer in the next 5 years is ' + result + '%. This means that roughly ' + estimate + ' in ' + outOf + ' people like you are likely to develop cancer in the next 5 years.').addClass('show');
 
     graphResult($('#result').append('<canvas class="chart" width="500" height="380"></canvas>').children('.chart')[0], Number(result));
+    $("#result").addClass("show");
     document.getElementById("top").scrollIntoView();
 }
-
-
 
 function graphResult(element, result) {
 
@@ -97,7 +100,7 @@ function createMask(maskImg, canvasContext) {
 function processSubmission(form) {
 
     $('#error').empty().css('display', 'none');
-    $('#result').addClass('hide').empty();
+    $('#result').empty();
     $('.error').removeClass('error');
     $.ajax({
         url: form.action,

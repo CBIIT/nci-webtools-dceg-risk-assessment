@@ -442,13 +442,16 @@ section form button {
   max-width: 600px;
   padding: 30px;
 }
+#result:not(.show) {
+  display: none;
+}
 #result h2 {
   font-size: 48px;
   margin: 0px;
   text-align: center;
 }
 #result canvas.chart {
-  background: #2a71a5;
+  background: rgba(0,0,0,0.08);
   font-size: 0px;
   position: relative;
   width: 100%;
