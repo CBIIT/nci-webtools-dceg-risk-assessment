@@ -28,18 +28,8 @@ function displayResult(result) {
     }
     outOf = Number('1e' + outOf);
 
-<<<<<<< HEAD
-    $('#result').append('<h2>' + result + '%</h2><p>Your risk of developing cancer in the next 5 years is ' + result + '%. This means that roughly ' + estimate + ' in ' + outOf + ' people like you are likely to develop cancer in the next 5 years.').removeClass('hide');
-    graphResult($('#result').append('<div class="chart"></div>').children('.chart'), Number(result));
-=======
-    if (window.location.hostname.indexOf("dev") == -1)
-        result = Number(result).toFixed(1);
-
     $('#result').append('<h2>' + result + '%</h2><p>Your risk of developing cancer in the next 5 years is ' + result + '%. This means that roughly ' + estimate + ' in ' + outOf + ' people like you are likely to develop cancer in the next 5 years.').addClass('show');
-
     graphResult($('#result').append('<canvas class="chart" width="500" height="380"></canvas>').children('.chart')[0], Number(result));
-    $("#result").addClass("show");
->>>>>>> 4d9af7db54caa06a3ac1d98f3fa88c204ca43a36
     document.getElementById("top").scrollIntoView();
 }
 
@@ -61,7 +51,7 @@ function graphResult(element, result) {
         $this.width = this.width / 9.5;
         $this.height = this.height / 8;
 
-       
+        
         ctx1.clearRect(0, 0, $this.width * 20, $this.height * 20);
         ctx1.scale(ratio, ratio);
 
@@ -69,7 +59,7 @@ function graphResult(element, result) {
         createMask($this, ctx1);
 
         return window.setInterval(function () {
-           
+            
             ctx1.clearRect(0, 0, $this.width * 20, $this.height * 20);
 
             highlightImage($this, result, ctx1);
