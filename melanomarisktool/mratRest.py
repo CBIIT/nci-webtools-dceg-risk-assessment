@@ -30,8 +30,8 @@ class MelanomaRiskAssessmentTool:
     response.status_code = 200
     return response
 
-  @app.route('/calculate', methods=['POST'])
-  @app.route('/calculate/', methods=['POST'])
+  @app.route('/melanomarisktool/rest/calculate', methods=['POST'])
+  @app.route('/melanomarisktool/rest/calculate/', methods=['POST'])
   def mratRisk():
     try:
       parameters = dict(request.form)

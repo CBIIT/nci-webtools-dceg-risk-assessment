@@ -30,8 +30,8 @@ class ColorectalRiskAssessmentTool:
     response.status_code = 200
     return response
 
-  @app.route('/calculate', methods=['POST'])
-  @app.route('/calculate/', methods=['POST'])
+  @app.route('/colorectalcancerrisk/rest/calculate', methods=['POST'])
+  @app.route('/colorectalcancerrisk/rest/calculate/', methods=['POST'])
   def ccratRisk():
     try:
       parameters = dict(request.form)

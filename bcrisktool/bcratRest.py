@@ -30,8 +30,8 @@ class BreastRiskAssessmentTool:
     response.status_code = 200
     return response
 
-  @app.route('/calculate', methods=['POST'])
-  @app.route('/calculate/', methods=['POST'])
+  @app.route('/bcrisktool/rest/calculate', methods=['POST'])
+  @app.route('/bcrisktool/rest/calculate/', methods=['POST'])
   def bcratRisk():
     try:
       parameters = dict(request.form)
