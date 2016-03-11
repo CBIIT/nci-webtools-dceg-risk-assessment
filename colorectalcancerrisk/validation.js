@@ -1,3 +1,34 @@
+$.validator.addMethod("lessThan", function(value,element,params) {
+  var compareTo = params;
+  var allowEqual = false;
+  if (typeof params === 'object') {
+    compareTo = $(params.element).val();
+    allowEqual = params.allowEqual===undefined?false:params.allowEqual;
+  }
+  value = Number(value);
+  compareTo = Number(compareTo);
+  if (allowEqual) {
+    return value <= compareTo;
+  } else {
+    return value < compareTo;
+  }
+});
+$.validator.addMethod("greaterThan", function(value,element,params) {
+  var compareTo = params;
+  var allowEqual = false;
+  if (typeof params === 'object') {
+    compareTo = $(params.element).val();
+    allowEqual = params.allowEqual===undefined?false:params.allowEqual;
+  }
+  value = Number(value);
+  compareTo = Number(compareTo);
+  if (allowEqual) {
+    return value >= compareTo;
+  } else {
+    return value > compareTo;
+  }
+});
+
 var validationRules = {
     race: {
         required: true
@@ -87,7 +118,8 @@ var validationRules = {
             depends: function (el) {
                 return $("[name='gender']:checked").val() == "Male" && $("#cigarettes").val() === "0";
             }
-        }
+        },
+        lessThan: { "element": "[name='age']", "allowEqual": true }
     },
     cigarettes_num: {
         required: {
@@ -108,6 +140,18 @@ var validationRules = {
             depends: function (el) {
                 return $("[name='gender']:checked").val() == "Male" && $("#cigarettes").val() === "0" && $("#smoke_age").val() > 0 && $("[name='smoke_now']:checked").val() == "0";
             }
+        },
+        lessThan: {
+            depends: function (el) {
+                return $("[name='gender']:checked").val() == "Male" && $("#cigarettes").val() === "0" && $("#smoke_age").val() > 0 && $("[name='smoke_now']:checked").val() == "0";
+            },
+            param: { "element": "[name='age']", "allowEqual": true }
+        },
+        greaterThan: {
+            depends: function (el) {
+                return $("[name='gender']:checked").val() == "Male" && $("#cigarettes").val() === "0" && $("#smoke_age").val() > 0 && $("[name='smoke_now']:checked").val() == "0";
+            },
+            param: { "element": "[name='smoke_age']", "allowEqual": true }
         }
     },
     period: {
@@ -189,12 +233,15 @@ var validationMessages = {
     },
     "smoke_age": {
         required: "You must specify the age you began smoking",
+        lessThan: "Cigarette smoking \"start age\" cannot be greater than ACTUAL age. Please select an appropriate age."
     },
     "smoke_now": {
         required: "You must specify whether you currently smoke",
     },
     smoke_quit: {
-        required: "You must specify the age at which you last quit smoking"
+        required: "You must specify the age at which you last quit smoking",
+        lessThan: "Smoking cigarettes \"quit age\" cannot be greater than the ACTUAL age. Please select an appropriate age.",
+        greaterThan: "Smoking cigarettes \"quit age\" cannot be less than the smoking cigarettes \"start age\". Please select an appropriate age."
     },
     period: {
         required: "You must specify whether you still have periods"

@@ -50,23 +50,19 @@ def AbsRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
     #servingsPerDay:   [0] >= 2.5 cups of veggies
     #                  [1]  < 2.5 cups
     servingsPerDay,
-    #bmiTrend:         [0] men: N/A              women: < 30
-    #                  [1] men: < 24.9           women: >=30
-    #                  [2] men: >=24.9 & < 29.9  women: N/A
-    #                  [3] men: >=29.9           women: N/A
+    #bmiTrend:         [0] men: < 24.9              women: < 30
+    #                  [1] men: >=24.9 & < 29.9     women: >=30
+    #                  [2] men: >=29.9              women: N/A
     bmiTrend,
     #hormoneUsage:     [0] Hormones used
     #                  [1] No hormones used in the last 2 years
     hormoneUsage,
-    #bmi*hormoneUsage  [1] BMI >= 30 and hormones used
+    #bmi*hormoneUsage  [1] BMI >= 30 and no hormones used
     #                  [0] All other conditions
     bmiTrend*(1-hormoneUsage)
   ];
-  #rectal_covariates   = sum([math.exp(x*y) for x,y in zip(covariate_breakdown,genderCovariates["rectal"  ])])*genderAttributeRisks["rectal"  ]
   rectal_covariates   = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["rectal"  ])]))*genderAttributeRisks["rectal"  ]
-  #proximal_covariates = sum([math.exp(x*y) for x,y in zip(covariate_breakdown,genderCovariates["proximal"])])*genderAttributeRisks["proximal"]
   proximal_covariates = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["proximal"])]))*genderAttributeRisks["proximal"]
-  #distal_covariates   = sum([math.exp(x*y) for x,y in zip(covariate_breakdown,genderCovariates["distal"  ])])
   distal_covariates   = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["distal"  ])]))
   #relational risk factors become less relavent for distal cancer as the age goes up
   absRisk = 0
@@ -79,10 +75,8 @@ def AbsRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
       yearlyHazards += distal_covariates *genderRaceRisk["distal"]  [ageInterval]*genderAttributeRisks["distalOver65"]
     else:
       yearlyHazards += distal_covariates *genderRaceRisk["distal"]  [ageInterval]*genderAttributeRisks["distal"      ]
-    #yearlySurvival = math.exp(-yearlyHazards-genderRaceHazards[ageInterval])
     yearlyDeathRatio = yearlyHazards+genderRaceHazards[ageInterval]
     yearlyDeathRate = math.exp(-yearlyDeathRatio)
-    #absRisk += yearlyHazards/(yearlyHazards+genderRaceHazards[ageInterval])*(1-yearlySurvival)*survivalRate
     absRisk += yearlyHazards/yearlyDeathRatio*survivalRate*(1-yearlyDeathRate)
     survivalRate *= yearlyDeathRate
   return absRisk

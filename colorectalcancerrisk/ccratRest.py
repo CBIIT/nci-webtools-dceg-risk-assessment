@@ -37,7 +37,6 @@ class ColorectalRiskAssessmentTool:
       parameters = dict(request.form)
       for field in parameters:
         parameters[field] = parameters[field][0]
-      print parameters
       errorObject = {'missing':[],'nonnumeric':[],'message':[]}
       requiredParameters = ['age','height_feet','height_inches','weight','veg_servings','exam','aspirin','non_aspirin','vigorous_months','family_cancer']
       if ('race' not in parameters):
@@ -78,7 +77,7 @@ class ColorectalRiskAssessmentTool:
           elif parameters['smoke_age'] != '0':
             smoke_age = int(parameters['smoke_age'])
             if smoke_age > age:
-              errorObject['message'] += ["You are not old enough to have started smoke at age "+smoke_age]
+              errorObject['message'] += ["You are not old enough to have started smoke at age "+str(smoke_age)]
             else:
               if 'cigarettes_num' not in parameters or parameters['cigarettes_num'] == '':
                 errorObject['missing'] += ['cigarettes_num']
@@ -128,10 +127,11 @@ class ColorectalRiskAssessmentTool:
       if hoursPerWeek > 0:
         if 'vigorous_hours' not in parameters or parameters['vigorous_hours'] == '':
           errorObject['missing'] += ['vigorous_hours']
-        elif not parameters['vigorous_hours'].isnumeric():
-          errorObject['nonnumeric'] += ['vigorous_hours']
         else:
-          hoursPerWeek = hoursPerWeek/12 * int(parameters['vigorous_hours'])
+          try:
+            hoursPerWeek = hoursPerWeek/12 * float(parameters['vigorous_hours'])
+          except:
+            errorObject['nonnumeric'] += ['vigorous_hours']
       servingsPerDay = 0
       if 'veg_servings' not in errorObject['missing'] and 'veg_servings' not in errorObject['nonnumeric'] and parameters['veg_servings'] != '0':
         servingsPerDay = float(parameters['veg_servings'])
@@ -139,7 +139,6 @@ class ColorectalRiskAssessmentTool:
           errorObject['missing'] += ['veg_amount']
         else:
           try:
-            print(float(parameters['veg_amount']))
             servingsPerDay *= float(parameters['veg_amount'])/3.5 #Half Cup servings per day
           except:
             errorObject['nonnumeric'] += ['veg_amount']
@@ -187,10 +186,8 @@ class ColorectalRiskAssessmentTool:
       nonAspirin = int(parameters['non_aspirin'])
       nsaidRegimine = min(aspirin,nonAspirin)
       aspirinOnly = nonAspirin
-      #hormoneUsage:     [0] No hormones used in the last 2 years
-      #                  [1] Hormones used
       risk = AbsRisk("Male",race,age,min(age+5,90),screening,yearsSmoking,cigarettesPerDay,nsaidRegimine,aspirinOnly,family_cancer,exercise,veggies,bmi,hormoneUsage)
-      risk = round(risk*100,-2)
+      risk = round(risk*100,1)
       return ColorectalRiskAssessmentTool.buildSuccess(str(risk))
     except Exception as e:
       exc_type, exc_obj, exc_tb = sys.exc_info()

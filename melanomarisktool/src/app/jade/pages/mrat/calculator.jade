@@ -194,7 +194,8 @@ section#risk-calculator(tab='risk-calculator')
                         img.stock-images(alt="diverse group of people",src="images/diversity.jpg")
                 li
                     .question
-                        label.question-text(for="age") What is the patient's age?
+                        label.question-text(for="age")
+                          | What is the patient's age?
                         .input
                           input#age(name='age', type="number", min="1", max="120", placeholder="Enter patient's age")
                     .question-illustrations
@@ -254,9 +255,12 @@ section#risk-calculator(tab='risk-calculator')
                         .input
                           select#small-moles(name='small-moles')
                             option(value='') Select
-                            option(value='0') Less than seven
-                            option(value='1') Seven to seventeen
-                            option(value='2') More than seventeen
+                            option(value='0').male Less than seven
+                            option(value='0').female Less than five
+                            option(value='1').male Seven to seventeen
+                            option(value='1').female Five to eleven
+                            option(value='2').male More than seventeen
+                            option(value='2').female Twelve or more
                 li.male.female
                     .question
                         label.question-text(for="freckling")

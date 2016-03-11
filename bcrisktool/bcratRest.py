@@ -37,7 +37,6 @@ class BreastRiskAssessmentTool:
       parameters = dict(request.form)
       for field in parameters:
         parameters[field] = parameters[field][0]
-      print parameters
       errorObject = {'missing':[],'nonnumeric':[],'message':[]}
       requiredParameters = ['age','age_period','childbirth','biopsy']
       if 'race' not in parameters or parameters['race'] == "":

@@ -9,6 +9,11 @@ $(".thumbnail").on("click", function () {
 });
 
 function displayResult(result) {
+    if(window.location.hostname.indexOf("dev") == -1 || window.location.hostname.indexOf("localhost") == -1) {
+        result = Math.round(Number(result)*100)/100;
+    } else {
+        result = Math.round(Number(result)*10)/10;
+    }
     var matches = Number(result).toExponential().toString().match(/(\d+)(?:.(\d+))?e([-+]?\d+)/i);
     var estimate = matches[1];
     var outOf = 2 - Number(matches[3]);
@@ -17,9 +22,6 @@ function displayResult(result) {
         outOf += matches[2].length;
     }
     outOf = Number('1e' + outOf);
-
-    if(window.location.hostname.indexOf("dev") == -1)
-        result = Number(result).toFixed(1);
 
     $('#result').append('<h2>' + result + '%</h2><p>Your risk of developing cancer in the next 5 years is ' + result + '%. This means that roughly ' + estimate + ' in ' + outOf + ' people like you are likely to develop cancer in the next 5 years.').removeClass('hide');
     graphResult($('#result').append('<div class="chart"></div>').children('.chart'), Number(result));
