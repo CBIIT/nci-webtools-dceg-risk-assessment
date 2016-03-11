@@ -8,6 +8,11 @@ $(".thumbnail").on("click", function () {
     this.scrollIntoView();
 });
 
+$('[type="reset"]').on("click",function() {
+    $("#result").empty().removeClass("show");
+});
+
+
 function displayResult(result) {
     if(window.location.hostname.indexOf("dev") == -1 || window.location.hostname.indexOf("localhost") == -1) {
         result = Math.round(Number(result)*100)/100;
@@ -23,30 +28,78 @@ function displayResult(result) {
     }
     outOf = Number('1e' + outOf);
 
-    $('#result').append('<h2>' + result + '%</h2><p>Your risk of developing cancer in the next 5 years is ' + result + '%. This means that roughly ' + estimate + ' in ' + outOf + ' people like you are likely to develop cancer in the next 5 years.').removeClass('hide');
-    graphResult($('#result').append('<div class="chart"></div>').children('.chart'), Number(result));
+    $('#result').append('<h2>' + result + '%</h2><p>Your risk of developing cancer in the next 5 years is ' + result + '%. This means that roughly ' + estimate + ' in ' + outOf + ' people like you are likely to develop cancer in the next 5 years.').addClass('show');
+    graphResult($('#result').append('<canvas class="chart" width="500" height="380"></canvas>').children('.chart')[0], Number(result));
     document.getElementById("top").scrollIntoView();
 }
 
 function graphResult(element, result) {
-    for (var i = 0; i < 100; i++) {
-        $(element).append('<img src="images/person.svg"/>');
+
+    var ratio = window.devicePixelRatio || 1;
+
+    var ctx1 = element.getContext('2d');
+    element.style['max-width'] = element.width + "px";
+
+    element.width *= ratio;
+    element.height *= ratio;
+
+    var img = new Image();
+    img.src = "../images/person.svg";
+    img.onload = function () {
+        var $this = this;
+
+        $this.width = this.width / 9.5;
+        $this.height = this.height / 8;
+
+        
+        ctx1.clearRect(0, 0, $this.width * 20, $this.height * 20);
+        ctx1.scale(ratio, ratio);
+
+        highlightImage($this, result, ctx1);
+        createMask($this, ctx1);
+
+        return window.setInterval(function () {
+            
+            ctx1.clearRect(0, 0, $this.width * 20, $this.height * 20);
+
+            highlightImage($this, result, ctx1);
+            createMask($this, ctx1);
+        }, 2000);
+    };
+}
+
+function highlightImage(img, calcResult, canvasContext) {
+
+    for (var i = calcResult; i >= 0; i--) {
+        var j = Math.floor(Math.random() * 20);
+        var k = Math.floor(Math.random() * 5);
+
+        if (calcResult > 0) {
+            canvasContext.fillStyle = "#bb0e3d";
+
+            if (calcResult > 0 && calcResult < 1) {
+                canvasContext.fillRect(img.width * j, img.height * k, calcResult * img.width, img.height);
+            } else if (calcResult > 1) {
+                canvasContext.fillRect(img.width * j, img.height * k, img.width, img.height);
+            }
+        } else
+            return;
+        calcResult--;
     }
-    var fullBars = Math.floor(result / 20);
-    var partialBar = (result - (20 * fullBars)) * 5;
-    var top = 0;
-    for (var j = 0; j < fullBars; j++) {
-        $(element).prepend('<div class="bar yours" style="top:' + top + '%;width:100%;"></div>');
-        top += 20;
-    }
-    if (partialBar > 0) {
-        $(element).prepend('<div class="bar yours" style="top:' + top + '%;width:' + partialBar + '%;"></div>');
+}
+
+function createMask(maskImg, canvasContext) {
+    for (var i = 0; i < 20; i++) {
+        for (var j = 0; j < 5; j++) {
+            canvasContext.drawImage(maskImg, maskImg.width * i, maskImg.height * j, maskImg.width, maskImg.height);
+        }
     }
 }
 
 function processSubmission(form) {
+
     $('#error').empty().css('display', 'none');
-    $('#result').addClass('hide').empty();
+    $('#result').empty();
     $('.error').removeClass('error');
     $.ajax({
         url: form.action,
@@ -76,7 +129,6 @@ function processSubmission(form) {
             document.getElementById("top").scrollIntoView();
         }
     }).fail(function (data) {
-        
         if (data.responseJSON)
             $('#error').append("<p>" + data.responseJSON.message + "</p>").css('display', 'block');
         else
@@ -107,7 +159,15 @@ function expandCollapseImage() {
     this.scrollIntoView();
 }
 
+function resetInputs() {
+    $(this).validate().reset();
+    $("[name='" + this.name + "'], [for='" + this.name + "']").removeClass("error");
 
+    if (this.type == "radio" || this.type == "checkbox")
+        this.checked = false;
+    if (this.type == "select-one" || this.type == "select-multiple" || this.type == "text" || this.type == "number")
+        this.value = "";
+}
 
 $(function () {
     $(".about-question-explanation").on("click", function() {
@@ -137,7 +197,6 @@ $(function () {
     });
 
     $('#menu-button').on('click', function () {
-
         toggleShow($('#main-nav'));
     });
 
@@ -149,7 +208,6 @@ $(function () {
 
         if (nextNav.length > 0)
             toggleShow(nextNav);
-
         else
             $('#quick-link > ul.nav').removeClass('show');
     });
@@ -165,7 +223,6 @@ $(function () {
     fixedToTop();
 
     $(".section-description").on("click", function () {
-
         toggleShow($(this).find(".description"));
     });
 });

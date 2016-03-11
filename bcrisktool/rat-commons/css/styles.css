@@ -327,13 +327,13 @@ section form button {
   border-radius: 10px;
   background: #fff;
   text-align: center;
+  cursor: pointer;
 }
 .section-description .heading {
   font-weight: bold;
   font-size: 1.1em;
   color: inherit;
   text-align: center;
-  cursor: pointer;
   text-decoration: none;
 }
 .section-description .heading:hover {
@@ -442,27 +442,29 @@ section form button {
   max-width: 600px;
   padding: 30px;
 }
+#result:not(.show) {
+  display: none;
+}
 #result h2 {
   font-size: 48px;
   margin: 0px;
   text-align: center;
 }
-#result .chart {
-  background: #2a71a5;
+#result canvas.chart {
+  background: rgba(0,0,0,0.08);
   font-size: 0px;
   position: relative;
-  max-width: 500px;
-  min-width: 260px;
+  width: 100%;
   z-index: 0;
 }
-#result .chart .bar {
+#result canvas.chart .bar {
   height: 20%;
   left: 0px;
   top: 0px;
   position: absolute;
   z-index: -1;
 }
-#result .chart .bar.yours {
+#result canvas.chart .bar.yours {
   background: #bb0e3d;
   background: -webkit-repeating-linear-gradient(55deg, #163852 50%, #fff 55%);
   background: -moz-repeating-linear-gradient(55deg, #163852 50%, #fff 55%);
@@ -470,11 +472,8 @@ section form button {
   background: -ms-repeating-linear-gradient(55deg, #163852 50%, #fff 55%);
   background: repeating-linear-gradient(35deg, #163852 50%, #fff 55%);
 }
-#result .chart .bar.average {
+#result canvas.chart .bar.average {
   background: #f00;
-}
-#result .chart img {
-  width: 5%;
 }
 .rounded {
   -webkit-border-radius: 10px;

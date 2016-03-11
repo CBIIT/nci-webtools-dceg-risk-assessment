@@ -26,7 +26,6 @@ $(function () {
     });
 
     $('#menu-button').on('click', function () {
-//        $('#main-nav').toggleClass('show');
         toggleShow($('#main-nav'));
     });
 
@@ -38,7 +37,6 @@ $(function () {
 
         if (nextNav.length > 0)
             toggleShow(nextNav);
-//            nextNav.toggleClass('show');
         else
             $('#quick-link > ul.nav').removeClass('show');
     });
@@ -54,7 +52,6 @@ $(function () {
     fixedToTop();
 
     $(".section-description").on("click", function () {
-//        $(this).find(".description").toggleClass("show");
         toggleShow($(this).find(".description"));
     });
 });

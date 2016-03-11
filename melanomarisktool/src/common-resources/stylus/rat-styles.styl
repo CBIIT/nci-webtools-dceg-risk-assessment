@@ -266,12 +266,12 @@ section
     border-radius 10px
     background #fff
     text-align center
+    cursor pointer
     .heading
         font-weight bold
         font-size 1.1em
         color inherit
         text-align center
-        cursor pointer
         text-decoration none
         &:hover
             text-decoration underline
@@ -367,30 +367,30 @@ section
     margin 0px auto
     max-width 600px
     padding 30px
+    &:not(.show)
+        display none
     h2
         font-size 48px
         margin 0px
         text-align center
-    .chart
-        background #2A71A5
-        font-size 0px
-        position relative
-        max-width 500px
-        min-width 260px
-        z-index 0
-        .bar
-            height 20%
-            left 0px
-            top 0px
-            position absolute
-            z-index -1
-            &.yours
-                background #BB0E3D
-                background repeating-linear-gradient(35deg, rgb(22, 56, 82) 50%, #fff 55%)
-            &.average
-                background red
-        img
-            width 5%
+    canvas
+        &.chart
+            background rgba(0, 0, 0, 0.08)
+            font-size 0px
+            position relative
+            width 100%
+            z-index 0
+            .bar
+                height 20%
+                left 0px
+                top 0px
+                position absolute
+                z-index -1
+                &.yours
+                    background #BB0E3D
+                    background repeating-linear-gradient(35deg, rgb(22, 56, 82) 50%, #fff 55%)
+                &.average
+                    background red
 
 .rounded
     border-radius 10px
