@@ -201,7 +201,7 @@ class ColorectalRiskAssessmentTool:
 if __name__ == '__main__':
   import argparse
   parser = argparse.ArgumentParser()
-  parser.add_argument("-p", dest="port_number", default="9160", help="Sets the Port")
+  parser.add_argument("-p", dest="port_number", default="8070", help="Sets the Port")
   parser.add_argument("--debug", action="store_true")
 
   args = parser.parse_args()
