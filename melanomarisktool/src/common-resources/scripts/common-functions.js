@@ -46,7 +46,7 @@ function graphResult(element, result) {
     element.height *= ratio;
 
     var img = new Image();
-    img.src = "../images/person.svg";
+    img.src = "images/person.svg";
     img.onload = function () {
         var $this = this;
 

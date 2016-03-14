@@ -44,14 +44,14 @@ function graphResult(element, result) {
     element.height *= ratio;
 
     var img = new Image();
-    img.src = "../images/person.svg";
+    img.src = "images/person.svg";
     img.onload = function () {
         var $this = this;
 
         $this.width = this.width / 9.5;
         $this.height = this.height / 8;
 
-        
+       
         ctx1.clearRect(0, 0, $this.width * 20, $this.height * 20);
         ctx1.scale(ratio, ratio);
 
@@ -59,7 +59,7 @@ function graphResult(element, result) {
         createMask($this, ctx1);
 
         return window.setInterval(function () {
-            
+           
             ctx1.clearRect(0, 0, $this.width * 20, $this.height * 20);
 
             highlightImage($this, result, ctx1);
