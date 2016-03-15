@@ -1,0 +1,39 @@
+<div class="table-responsive">
+    <table class="table table-striped table-hover variables">
+        <thead>
+            <tr>
+                <th>Variable</th>
+                <th>Continuous</th>
+                <th>Levels</th>
+                <th>Reference</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr ng-repeat="variable in section.getVariables()">
+                <td><input type="text" class="form-control" ng-model="variable.name" required></input></td>
+                <td><input type="checkbox" ng-model="variable.type" ng-true-value="'continuous'" ng-false-value="'factor'" ng-change="section.clearLevels($index)"></td>
+                <td><input type="text" class="form-control" ng-model="variable.levels" ng-disabled="variable.type=='continuous'"></td>
+                <td><input type="text" class="form-control" ng-model="variable.ref" ng-disabled="variable.type=='continuous'"></td>
+                <td><a ng-click="section.removeVariable($index)">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    	<span class="sr-only">Delete {{variable.name}}</span>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+        <caption class="btn btn-link" ng-click="section.addVariable()">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <span class="sr-only">Add a Variable</span>
+            Add a Variable
+        </caption>
+    </table>
+</div>
+
+<div class="pull-right">
+    <span class="btn btn-info btn-file">Upload RData
+    <input type="file" id="listOfVariables" uploadfile></span>
+    <button class="btn btn-info" ng-click="section.downloadFile()">Download RData</button>
+    <button class="btn btn-primary" ng-click="section.submit()">Submit</button>
+</div>

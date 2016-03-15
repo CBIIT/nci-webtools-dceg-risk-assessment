@@ -33,14 +33,14 @@
 
 <h4>Risk Factor Distribution <a class="small" href="tmp/examples/RiskFactorDistribution.csv">(example)</a></h4>
 <div>
-    A dataframe of risk factors for a sample of subjects that are representative of the underlying population,
+    A table of risk factors for a sample of subjects that are representative of the underlying population,
     with no missing (NA) values. This reference distribution is used for calibration of the model with respect to
     the population incidence rate and for imputation of missing data for risk factor profiles on which the model
     can be provided.
 
     <h5>Requirements</h5>
     <ul>
-        <li>The dataframe must contain covariates with the same names in the same order as in the model formula.</li>
+        <li>The table must contain covariates with the same names in the same order as in the model formula.</li>
         <li>Levels for each covariate must not have values outside those given by the list of variables</li>
         <li>This field must be included unless an SNP only model is provided.</li>
     </ul>
@@ -50,7 +50,7 @@
 
 <h4>Log Odds Ratios <a class="small" href="tmp/examples/LogOddsRatios.csv">(example)</a></h4>
 <div>
-    A vector or matrix with log odds ratios corresponding to the model.
+    A table with log odds ratios corresponding to the model.
     <h5>Requirements</h5>
     <ul>
         <li>This should not include an intercept parameter.</li>
@@ -64,11 +64,11 @@
 
 <h4>Incidence Rates of Disease in Population <a class="small" href="tmp/examples/DiseaseIncidenceRates.csv">(example)</a></h4>
 <div>
-    A two or three column matrix that provides disease incidence rates that are representative of the population of interest.
+    A two or three column table that provides disease incidence rates that are representative of the population of interest.
     <h5>Requirements</h5>
     <ul>
-        <li>Two column matrix - [consecutive integer ages, disease incidence rates]</li>
-        <li>Three column matrix - [start age, end age, disease incidence rates in start-end age interval]</li>
+        <li>Two column table - [consecutive integer ages, disease incidence rates]</li>
+        <li>Three column table - [start age, end age, disease incidence rates in start-end age interval]</li>
         <li>This field must be included unless an SNP only model is provided.</li>
     </ul>
 </div>
@@ -77,11 +77,11 @@
 
 <h4>Incidence Rates of Competing Mortality <a class="small" href="tmp/examples/MortalityIncidenceRates.csv">(example)</a></h4>
 <div>
-    A two or three column matrix that provides incidence rates for competing mortality that are representative of the population of interest.
+    A two or three column table that provides incidence rates for competing mortality that are representative of the population of interest.
     <h5>Requirements</h5>
     <ul>
-        <li>Two column matrix - [consecutive integer ages, competing event incidence rates]</li>
-        <li>Three column matrix - [start age, end age, competing incidence rates in start-end age interval]</li>
+        <li>Two column table - [consecutive integer ages, competing event incidence rates]</li>
+        <li>Three column table - [start age, end age, competing incidence rates in start-end age interval]</li>
         <li>This field must be included unless an SNP only model is provided.</li>
     </ul>
 </div>
@@ -89,7 +89,7 @@
 <hr><br>
 
 <h4>SNP Information <a class="small" href="tmp/examples/SnpInformation.csv">(example)</a></h4>
-<div>A matrix providing information for each SNP<br>
+<div>A table providing information for each SNP<br>
     <h5>Requirements</h5>
     <ul>
         <li>[RS numbers for the snp names, odds ratios for each snp, allele frequencies]</li>
@@ -102,10 +102,10 @@
 
 <h4>Risk Factor for Prediction <a class="small" href="tmp/examples/RiskFactorForPrediction.csv">(example)</a></h4>
 <div>
-    A dataframe containing the covariate profiles for which absolute risk will be computed.
+    A table containing the covariate profiles for which absolute risk will be computed.
     <h5>Requirements</h5>
     <ul>
-        <li>The dataframe must contain covariates with the same names in the same order as in the model formula.</li>
+        <li>The table must contain covariates with the same names in the same order as in the model formula.</li>
         <li>Each covariate must not have values outside those given by the list of variables.</li>
     </ul>
 </div>
@@ -114,10 +114,10 @@
 
 <h4>Genotypes for Prediction <a class="small" href="tmp/examples/GenotypesForPrediction.csv">(example)</a></h4>
 <div>
-    A dataframe with observed SNP data (coded 0, 1, 2, or NA)
+    A table with observed SNP data (coded 0, 1, 2, or NA)
     <h5>Requirements</h5>
     <ul>
-        <li>SNPs should have the same names in the same order as the snp names given in the first column of the SNP Information matrix.</li>
+        <li>SNPs should have the same names in the same order as the snp names given in the first column of the SNP information table.</li>
     </ul>
 </div>
 
@@ -125,14 +125,14 @@
 
 <h4>Starting Age and Length of Age Interval <a class="small" href="tmp/examples/AgeInterval.csv">(example)</a></h4>
 <div>
-    A matrix providing age intervals over which to compute absolute risk.
+    A table providing age intervals over which to compute absolute risk.
     <h5>Requirements</h5>
     <ul>
         <li>[Age Start, Age Interval Length]</li>
         <li>Age Start - Integer age(s) for the start of the interval over which to compute absolute risk</li>
         <li>Age Interval Length - Integer number of years over which absolute risk should be computed</li>
         <li>A single numeric value may be provided for Age Start and for Age Interval Length</li>
-        <li>If a matrix is provided the number of rows must match the number of rows for the covariate profiles (Risk Factor for Prediction)</li>
+        <li>If a table is provided the number of rows must match the number of rows for the covariate profiles (Risk Factor for Prediction)</li>
         <li>This is a required input.</li>
     </ul>
 </div>
