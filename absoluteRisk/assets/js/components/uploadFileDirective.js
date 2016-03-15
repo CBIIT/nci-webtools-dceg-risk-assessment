@@ -1,10 +1,8 @@
 angular.module('Arc')
 .directive('uploadfile', ['$rootScope', 'DataService', 'ValidationService', 'UtilityService',
 function(root, data, validation, utility) {
-    function link($scope, elem, attributes) {
-        var fileInputElem = elem[0];
-
-        fileInputElem.addEventListener('change', function(e) {
+    function link($scope, element, attributes) {
+        element[0].addEventListener('change', function(e) {
             var id = e.target.id;
             var file = e.target.files[0];
 
@@ -19,12 +17,14 @@ function(root, data, validation, utility) {
             if (id == 'listOfVariables') {
                 data.uploadModel(id, file, function() {
                     data.getSection(id).array = modelToArray(data.getSection(id).model);
+                    setTimeout(function(){element.val(null)}, 0);
                 });
             }
 
             else if (id == 'modelFormula') {
                 data.uploadModel(id, file, function() {
                     data.getSection(id).array = utility.parseFormula();
+                    setTimeout(function(){element.val(null)}, 0);
                 });
             }
 
@@ -63,17 +63,20 @@ function(root, data, validation, utility) {
                         validation.setExpectedRows('logOddsRatios');
                         validation.setExpectedColumns('genotypesForPrediction');
 
+                        setTimeout(function(){element.val(null)}, 0);
                         root.$apply();
                     }
                 }
             }
 
             else
-                validation.readFile(id, file);
+                validation.readFile(id, file, function() {
+                    element.val(null);
+                });
         });
     }
-    return {
 
+    return {
       restrict: 'AE',
       replace: 'true',
       scope: {},

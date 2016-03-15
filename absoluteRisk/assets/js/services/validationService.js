@@ -14,7 +14,7 @@ function(root, resource, modal, data, utility) {
         setExpectedColumns: setExpectedColumns,
     };
 
-    function readFile(id, file) {
+    function readFile(id, file, callback) {
         if (window.FileReader) {
             var reader = new FileReader();
 
@@ -25,6 +25,7 @@ function(root, resource, modal, data, utility) {
                 section.model = event.target.result.match(/[^\r\n]+/g)
                     .map(function(line) { return line.split(',') });
 
+                callback();
                 root.$apply();
             }
 

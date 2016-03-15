@@ -4,48 +4,7 @@ function(root, resource, uploader, modal) {
 
     var self = this;
     self.sections = {};
-
-    /* ------ Initialize Data Model ------ */
-
-    [   'listOfVariables',
-        'modelFormula',
-        'riskFactorDistribution',
-        'logOddsRatios',
-        'diseaseIncidenceRates',
-        'mortalityIncidenceRates',
-        'snpInformation',
-        'riskFactorForPrediction',
-        'genotypesForPrediction',
-        'ageInterval'
-    ].forEach(function(id) {
-        self.sections[id] = {
-            filename: '',
-            model: null,
-            validated: false
-        };
-    });
-
-    self.sections.listOfVariables.array         = [{name: '', type: 'continuous'}];
-    self.sections.listOfVariables.model         = [];
-
-    self.sections.modelFormula.array            = [];
-    self.sections.modelFormula.model            = '';
-
-    self.sections.snpInformation.familyHistory  = 'Family history is not in the model';
-    self.sections.ageInterval.age               = 30;
-    self.sections.ageInterval.interval          = 5;
-
-    // Initialize default csv column names
-    self.sections.riskFactorDistribution.columnNames    = [];
-    self.sections.logOddsRatios.columnNames             = ['Variables', 'Log Odds Ratios'];
-    self.sections.logOddsRatios.rowNames                = [];
-    self.sections.diseaseIncidenceRates.columnNames     = ['Age (Integer)', 'Rate'];
-    self.sections.mortalityIncidenceRates.columnNames   = ['Age (Integer)', 'Rate'];
-    self.sections.snpInformation.columnNames            = ['snp.name', 'snp.odds.ratio', 'snp.freq'];
-
-    self.sections.riskFactorForPrediction.columnNames   = [];
-    self.sections.genotypesForPrediction.columnNames    = [];
-    self.sections.ageInterval.columnNames               = ['Age', 'Age Interval'];
+    initialize();
 
     /*  ------------ Exposed Functions ------------ */
     return {
@@ -56,7 +15,8 @@ function(root, resource, uploader, modal) {
         downloadTemplate:   downloadTemplate,
         downloadCSV:        downloadCSV,
         uploadModel:        uploadModel,
-        calculate:          calculate
+        initialize:         initialize,
+        calculate:          calculate,
     }
 
     function sections() {
@@ -67,16 +27,63 @@ function(root, resource, uploader, modal) {
         return self.sections[id];
     }
 
-    function calculate(successCb, errorCb) {
-        var model = {}
-        for (key in self.sections)
-            if (self.sections[key].validated)
-                model[key] = self.sections[key].model;
+    /* ------ Initialize Data Model ------ */
+    function initialize() {
+        self.sections = {};
 
-        if (self.sections.snpInformation.validated &&
-            self.sections.snpInformation.familyHistory.length &&
-            self.sections.snpInformation.familyHistory != 'Family history is not in the model')
-            model.familyHistory = self.sections.snpInformation.familyHistory;
+        [   'listOfVariables',
+            'modelFormula',
+            'riskFactorDistribution',
+            'logOddsRatios',
+            'diseaseIncidenceRates',
+            'mortalityIncidenceRates',
+            'snpInformation',
+            'riskFactorForPrediction',
+            'genotypesForPrediction',
+            'ageInterval'
+        ].forEach(function(id) {
+            self.sections[id] = {
+                filename: '',
+                model: null,
+                validated: false
+            };
+        });
+
+        self.sections.listOfVariables.array         = [{name: '', type: 'continuous'}];
+        self.sections.listOfVariables.model         = [];
+
+        self.sections.modelFormula.array            = [];
+        self.sections.modelFormula.model            = '';
+
+        self.sections.snpInformation.familyHistory  = 'Family history is not in the model';
+        self.sections.ageInterval.age               = 30;
+        self.sections.ageInterval.interval          = 5;
+
+        // Initialize default csv column names
+        self.sections.riskFactorDistribution.columnNames    = [];
+        self.sections.logOddsRatios.columnNames             = ['Variables', 'Log Odds Ratios'];
+        self.sections.logOddsRatios.rowNames                = [];
+        self.sections.diseaseIncidenceRates.columnNames     = ['Age (Integer)', 'Rate'];
+        self.sections.mortalityIncidenceRates.columnNames   = ['Age (Integer)', 'Rate'];
+        self.sections.snpInformation.columnNames            = ['snp.name', 'snp.odds.ratio', 'snp.freq'];
+
+        self.sections.riskFactorForPrediction.columnNames   = [];
+        self.sections.genotypesForPrediction.columnNames    = [];
+        self.sections.ageInterval.columnNames               = ['Age', 'Age Interval'];
+    }
+
+    /* ------ Call Calculation ------ */
+    function calculate(sections, successCb, errorCb) {
+        var model = {}
+        for (key in sections)
+            if (sections[key].validated)
+                model[key] = sections[key].model;
+
+        if (sections.snpInformation.validated &&
+            sections.snpInformation.familyHistory &&
+            sections.snpInformation.familyHistory.length &&
+            sections.snpInformation.familyHistory != 'Family history is not in the model')
+            model.familyHistory = sections.snpInformation.familyHistory;
 
         resource('/absoluteRiskRest/calculate')
             .save({parameters: model}, successCb, errorCb);
@@ -99,21 +106,26 @@ function(root, resource, uploader, modal) {
 
     /* ------ Uploads a model to the server ------ */
     function uploadModel(id, file, callback) {
-        uploader.addFiles([file]);
-        uploader.startUpload({
-            url: 'http://' + window.location.hostname + '/absoluteRiskRest/fileUpload',
-            concurrency: 2,
-            onCompleted: function(file, response) {
-                response = JSON.parse(response);
-                console.log(response);
+        console.log(file);
+        if (file) {
+            console.log('read successfully');
+            uploader.addFiles([file]);
+            uploader.startUpload({
+                url: 'http://' + window.location.hostname + '/absoluteRiskRest/fileUpload',
+                concurrency: 2,
+                onCompleted: function(file, response) {
+                    response = JSON.parse(response);
+                    console.log(response);
 
-                var section = self.sections[id];
-                section.filename = response.filename;
-                section.model = JSON.parse(response.model);
-                callback(id);
-                root.$apply();
-            }
-        });
+                    var section = self.sections[id];
+                    section.filename = response.filename;
+                    section.model = JSON.parse(response.model);
+
+                    callback(id);
+                    root.$apply();
+                }
+            });
+        }
     }
 
     /* ------ Downloads the current session ------ */
@@ -176,8 +188,6 @@ function(root, resource, uploader, modal) {
 
     /* ------ Saves a file on the client ------ */
     function download(filename, data, type) {
-        data = data
-
         var blob = new Blob([data], {type: type});
 
         if (window.navigator.msSaveOrOpenBlob)

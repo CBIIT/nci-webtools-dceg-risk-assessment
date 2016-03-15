@@ -6,6 +6,7 @@
         <meta name="viewpower" content="width=device-width, initial-scale=1">
 
         <!-- AngularJS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-sanitize.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-animate.js"></script>
@@ -56,7 +57,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="radio-inline">
-                                    <input type="radio" name="model_type" ng-click="accordion.setType('covariatesAndSNP')" checked>Covariate and SNP Information
+                                    <input type="radio" name="model_type" ng-click="accordion.setType('covariatesAndSNP')" checked>Covariate data and SNP information
                                 </label>
                                 <label class="radio-inline">
                                     <input type="radio" name="model_type" ng-click="accordion.setType('covariatesOnly')">Covariate data only
@@ -105,11 +106,11 @@
                             </div>
                             <span><i>* indicates required sections</i></span>
                             <div class="pull-right">
-                                <button class="btn btn-info" ng-click="accordion.log()">Log</button>
+                                <button class="btn btn-info" ng-click="accordion.reset()">Clear</button>
             					<button type="button" class="btn btn-primary" ng-click="accordion.calculate()" ng-disabled="accordion.calculationDisabled()">Calculate</button>
                             </div>
                         </div>
-                        <div class="col-md-6" ng-class="{'output': accordion.calcRunning}">
+                        <div class="col-md-6 results-height" ng-class="{'output': accordion.calcRunning}">
                             <div class="large loading" ng-if="accordion.calcRunning"><div class="">Loading...</div></div>
                             <div class="result-plot overlay clearfix" ng-show="accordion.resultsImagePath">
                                 <img ng-src="{{accordion.resultsImagePath}}"><br><br>
