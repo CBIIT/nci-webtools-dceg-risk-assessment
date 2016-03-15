@@ -19,34 +19,7 @@ with open ('rfiles/absoluteRiskCalculationWrapper.R') as fh:
 #    rcode = os.linesep.join(line.strip() for line in fh)
     arc = SignatureTranslatedAnonymousPackage(fh.read(), 'wrapper')
 
-# This route takes a JSON object as an input, saves it to the server as an RData or CSV file, and returns the file path as JSON
-@app.route('/absoluteRiskRest/dataUpload', methods=['POST'])
-def dataUpload():
-    if request.method == 'POST':
-        model   = json.loads(request.data)
-        data    = model['data']
-        id      = model['id']
-
-        try:
-            folder   = app.config['upload_folder']
-            filename = secure_filename(timestamp() + id)
-            filepath = folder + '/' + filename
-
-            if (id in ['listOfVariables', 'modelFormula']):
-                filepath += '.rdata'
-                arc.convertJSONtoRData(json.dumps(data), filepath)
-            else:
-                filepath += '.csv'
-                with open(filepath, 'w') as f:
-                    csv.writer(f, lineterminator = '\n').writerows(data)
-
-            return json.dumps({ 'filepath': filepath })
-
-        except Exception, e:
-            raise InvalidUsage(e.args[0], status_code = 500)
-    return ''
-
-# This route takes in a RData file as input, saves it to the server, and returns the filepath and contents
+# This route takes in a RData file as input, saves it to the server, and returns the filename and contents
 @app.route('/absoluteRiskRest/fileUpload', methods=['POST'])
 def fileUpload():
     if request.method == 'POST':
@@ -58,59 +31,33 @@ def fileUpload():
                 folder   = app.config['upload_folder']
                 filename = secure_filename(timestamp() + file.filename)
                 filepath = folder + '/' + filename
-                file.save(os.path.join(folder, filename))
+                file.save(filepath)
 
-                return json.dumps ( {'filepath': filepath, 'model': arc.uploadRData(filepath)[0]} );
+                return json.dumps({'filename': filename, 'model': arc.uploadRData(filepath)[0]})
         except Exception, e:
             raise InvalidUsage(e.args[0], status_code = 500)
     return ''
 
-# This route returns a specified file, if it exists on the server
-@app.route('/absoluteRiskRest/fileDownload', methods=['GET'])
+# This route takes in a json object as input, saves it to the server as an RData file, and returns the filepath to the client
+@app.route('/absoluteRiskRest/fileDownload', methods=['POST'])
 def fileDownload():
-    if 'filename' in request.args:
-        example  = 'example' in request.args
-        folder   = app.config['examples_folder'] if example else app.config['upload_folder']
-        filename = request.args['filename']
-        filepath = os.path.join(folder, filename)
-
-        if os.path.isfile(filepath):
-            return send_from_directory(folder, filename, as_attachment = True)
-        else:
-            return 'This file no longer exists'
-    else:
-        return 'Correct parameter not provided in GET'
-
-# This route takes in a session file as input, regenerates the input files, and returns the file paths (and rdata contents) as JSON
-@app.route('/absoluteRiskRest/sessionUpload', methods=['POST'])
-def sessionUpload():
     if request.method == 'POST':
-        file = request.files['file']
-        extension = os.path.splitext(file.filename)[1]
+        model = json.loads(request.data)
+        data = model['data']
+        id = model['id']
 
-        try:
-            if file and extension in app.config['allowed_extensions']:
-                folder   = app.config['upload_folder']
-                filename = secure_filename(timestamp() + file.filename)
-                filepath = folder + '/' + filename
+        print id
+        print data
 
-                file.save(os.path.join(folder, filename))
-                return arc.loadSession(folder + '/' + timestamp(), filepath)[0]
-        except Exception, e:
-            raise InvalidUsage(e.args[0], status_code = 500)
-    return ''
-
-# This route takes in a json object as input and returns a session filepath
-@app.route('/absoluteRiskRest/sessionDownload', methods=['POST'])
-def sessionDownload():
-    if request.method == 'POST':
         try:
             folder   = app.config['upload_folder']
-            filename = timestamp() + 'session.rdata'
+            filename = secure_filename(timestamp() + id + '.rdata')
             filepath = folder + '/' + filename
-            arc.saveSession(filepath, request.data)
+            arc.convertJSONtoRData(json.dumps(data), filepath)
 
-            return json.dumps({'filePath': filepath})
+            if os.path.isfile(filepath):
+                return json.dumps({'filepath': filepath})
+
         except Exception, e:
             raise InvalidUsage(e.args[0], status_code = 500)
     return ''
@@ -132,16 +79,14 @@ def validate():
 def calculate():
     if request.method == 'POST':
         try:
-#            return arc.finalCalculation("", "")[0]
             filepath = app.config['results_folder'] + '/' + timestamp()
-            data = json.loads(request.stream.read())['parameters']
-            data = json.loads(data)
-            
-            param = {'listOfVariables': data['listOfVariables']['model'], 'modelFormula': data['modelFormula']['model'], 'familyHistory': data['snpInformation']['familyHistory']}
-            for key in ['riskFactorDistribution', 'logOddsRatios', 'diseaseIncidenceRates', 'mortalityIncidenceRates', 'snpInformation', 'riskFactorForPrediction', 'genotypesForPrediction', 'ageInterval']:
-                param[key] = generateCSV(key, data[key]['model'])
+            parameters = json.loads(request.stream.read())['parameters']
 
-            return arc.finalCalculation(filepath, json.dumps(param))[0]
+            for key in parameters:
+                if not key in ['familyHistory', 'listOfVariables', 'modelFormula'] and parameters[key] is not None:
+                    parameters[key] = generateCSV(key, parameters[key])
+
+            return arc.finalCalculation(filepath, json.dumps(parameters))[0]
 
         except Exception, e:
             raise InvalidUsage(e.args[0], status_code = 500)
@@ -151,7 +96,7 @@ def calculate():
 class InvalidUsage(Exception):
     status_code = 400
 
-    def __init__(self, message, status_code=None, payload=None):
+    def __init__(self, message, status_code = None, payload = None):
         Exception.__init__(self)
         self.message = message
         if status_code is not None:
@@ -169,22 +114,33 @@ def handle_invalid_usage(error):
     response.status_code = error.status_code
     return response
 
+def timestamp():
+    return time.strftime('%Y%m%d_%H%M%S_')
+
+def createDirectory(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
 def generateCSV(key, data):
     filepath = app.config['upload_folder'] + '/' + timestamp() + key + '.csv'
     with open(filepath, 'w') as f:
         csv.writer(f, lineterminator = '\n').writerows(data)
     return filepath
 
-def timestamp():
-    return time.strftime('%Y%m%d_%H%M%S_')
-
 import argparse
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("-p", dest="port_number", default="9170", help="Sets the Port")
+    parser.add_argument("-p", dest = "port_number", default = "9170", help = "Sets the Port")
+    parser.add_argument("-d", dest = "debug_option", default = "True", help = "Enables or disables debugging")
+    parser.add_argument("-e", dest = "evalex_option", default = "False", help = "Enables or disables the python console")
     # Default port is production value; prod, stage, dev=8170, sandbox=9170
     args = parser.parse_args()
     port_num = int(args.port_number);
+    debug_option = args.debug_option == 'True'
+    evalex_option = args.evalex_option == 'True'
+
+    createDirectory(app.config['upload_folder'])
+    createDirectory(app.config['results_folder'])
 
     hostname = gethostname()
-    app.run(host='0.0.0.0', port=port_num, debug = True)
+    app.run(host='0.0.0.0', port = port_num, debug = debug_option, use_evalex = evalex_option)
