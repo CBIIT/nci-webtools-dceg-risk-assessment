@@ -1,7 +1,3 @@
-.nav {
-    cursor: auto;
-}
-
 a {
     cursor: pointer;
 }
@@ -33,8 +29,13 @@ footer {
 .footer ul {
     text-align: center;
 }
+
 .footer ul li a {
     color: #444;
+}
+
+.nav {
+    cursor: auto;
 }
 
 .tool-logo img {
@@ -45,95 +46,24 @@ footer {
     margin-top: 0;
 }
 
-.panel-margin {
-    margin: 0px 12px ;
-}
-
-.tab-margin {
-    margin-top: 20px;
-}
-
-.margin {
-	margin: 3px;
-}
-
-.left-margin {
-    margin-left: 6px;
-}
-
-.top-margin {
-	margin-top: 8px;
-}
-
-.reduce-margin {
-    margin-bottom: -16px;
-}
-
-.max-width {
-}
-
-.output {
-    height:300px;
-}
-
-.result-plot img {
-    width: 100%;
-}
-
-.center {
-	text-align: center !important;
-	padding: 0px 2px !important;
-}
-
-.column-header {
-    padding: 0px;
-	text-align: center;
-	font-weight: bold;
-}
-
-.checkbox-placement {
-	text-align: center;
-	margin-top: 4px;
-}
-
-.pad {
-	padding: 0px 2px !important;
+.fixed-height {
+    height: 2.2em;
 }
 
 .glyphicon-green {
     color: #5cb85c;
 }
 
-.alternate:nth-child(odd) {
-    padding: 8px;
-    background: #F5F5F5;
+.top-margin {
+    margin-top: 20px;
 }
 
-.alternate:nth-child(even) {
-    padding: 8px;
-    background: #FFFFFF;
+.result-plot img {
+    width: 100%;
 }
 
-.default-border:nth-child(1) {
-    border-top: 1px solid #CCCCCC;
-}
 
-.default-border {
-    border-left: 1px solid #CCCCCC;
-    border-right: 1px solid #CCCCCC;
-    border-bottom: 1px solid #CCCCCC;
-}
-
-.collapsing {
-    transition-duration: 0.35s;
-    transition-timing-function: cubic-bezier(1.000, 0.320, 0.230, 1.000);
-}
-
-/* Bootstrap Buttons */
-
-.btn {
-    border-radius: 3px;
-}
+/****** Bootstrap Buttons ******/
 
 .btn-file {
     position: relative;
@@ -156,34 +86,7 @@ footer {
     display: block;
 }
 
-
-/* Bootstrap Panels */
-.panel {
-  border-radius: 2px;
-  background-color: white;
-  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, .1);
-          box-shadow: 0px 1px 3px rgba(0, 0, 0, .1);
-}
-
-.panel-default > .panel-heading {
-  transition: background 0.05s linear;
-  border-radius: 2px;
-  background-color: #FCFCFC;
-}
-
-.panel-default:hover > .panel-heading:hover {
-  text-shadow: 0px 0px 2px rgba(255, 255, 255, 1);
-  background-color: #FEFEFE;
-}
-
-.well {
-  border-color: #dcdcdc;
-  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, .05), 0 1px 0 rgba(255, 255, 255, .1);
-          box-shadow: inset 0 1px 3px rgba(0, 0, 0, .05), 0 1px 0 rgba(255, 255, 255, .1);
-}
-
-
-/* Bootstrap Tabs */
+/****** Bootstrap Tabs ******/
 
 .nav-tabs {
   cursor: auto;
@@ -240,12 +143,127 @@ footer {
   margin-top: 0;
 }
 
+/****** Bootstrap Tables ******/
+
+.table-responsive {
+    margin-bottom: -5px;
+}
+
+.table thead tr th,
+.table tbody tr td {
+    text-align: center;
+}
+
+.table tbody tr {
+    border: 1px solid #DDD;
+}
+
+.table tbody tr td {
+    vertical-align: middle;
+}
+
+.variables,
+.formula {
+    margin-right: -1px;
+}
+
+.variables thead tr th:first-child,
+.variables tbody tr td:first-child {
+    width: 30%;
+}
+
+.variables tbody tr td:nth-child(2),
+.variables thead tr th:nth-child(2) {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.variables thead tr th:nth-child(3),
+.variables tbody tr td:nth-child(3) {
+    width: 40%;
+}
+
+.variables thead tr th:nth-child(4),
+.variables tbody tr td:nth-child(4) {
+    width: 10%%;
+}
+
+.variables thead tr th:last-child,
+.variables tbody tr td:last-child {
+    border-right: 1px solid #FFF;
+    padding-left: 0px;
+    width: 8%;
+}
+
+.variables tbody tr td:last-child {
+    border-right: 1px solid #DDD;
+}
+
+.formula thead tr th:first-child,
+.formula tbody tr td:first-child {
+    width: 10%;
+}
+
+.formula thead tr th:nth-child(2),
+.formula tbody tr td:nth-child(2) {
+    width: 8%;
+}
+
+.formula tbody tr td:first-child,
+.formula tbody tr td:last-child {
+    text-align: left;
+}
+
+.formula thead tr th:last-child{
+    border-right: 1px solid #FFF;
+}
+
+.formula tbody tr td:last-child {
+    border-right: 1px solid #DDD;
+}
+
+
+/****** Bootstrap Panels ******/
+.panel {
+  border-radius: 2px;
+  background-color: white;
+  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, .1);
+          box-shadow: 0px 1px 3px rgba(0, 0, 0, .1);
+}
+
+.panel-default > .panel-heading {
+  transition: background 0.05s linear;
+  border-radius: 2px;
+  background-color: #FCFCFC;
+}
+
+.panel-default:hover > .panel-heading:hover {
+  text-shadow: 0px 0px 2px rgba(255, 255, 255, 1);
+  background-color: #FEFEFE;
+}
+
+.well {
+  border-color: #dcdcdc;
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, .05), 0 1px 0 rgba(255, 255, 255, .1);
+          box-shadow: inset 0 1px 3px rgba(0, 0, 0, .05), 0 1px 0 rgba(255, 255, 255, .1);
+}
+
+
 /**
  * (C)Leanest CSS spinner ever
  */
 
 @keyframes spin {
 	to { transform: rotate(1turn); }
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
 }
 
 .loading {
