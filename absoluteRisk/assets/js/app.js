@@ -2,81 +2,6 @@ angular.module('Arc', ['ngAnimate', 'ngResource', 'ui.bootstrap', 'ui.uploader',
 
 angular.module('Arc')
 
-.filter('verifyTerms', function() {
-    return function(input, terms, varList) {
-        var verifiedTerms = [];
-
-        angular.forEach(varList, function(v) {
-            angular.forEach(terms, function(term) {
-                if (v.name === term && v.linear) {
-                    verifiedTerms.push(v);
-                }
-            });
-        });
-
-        return verifiedTerms;
-    };
-})
-
-.directive('uploadfile', ['$rootScope', 'DataService', 'ValidationService', 'UtilityService',
-function(root, data, validation, utility) {
-    function link($scope, elem, attributes) {
-        var fileInputElem = elem[0];
-
-        fileInputElem.addEventListener('change', function(e) {
-            var id = e.target.id;
-            var file = e.target.files[0];
-
-            if (id == 'listOfVariables' || id == 'modelFormula')
-                data.uploadFile($scope, id, file, function(id) {
-                    if (id == 'modelFormula')
-                        data.getSection(id).array = utility.parseFormula();
-                });
-
-            else if (id == 'session')
-                data.loadSession($scope, file, function(session) {
-                    for (key in session) {
-                        var section = data.getSection(key);
-
-                        section.model = session[key].model;
-                        section.filename = session[key].filename;
-                        section.validated = session[key].validated;
-
-                        if (key == 'modelFormula')
-                            section.array = session[key].array;
-
-                        if (key == 'snpInformation')
-                            section.familyHistory = session[key].familyHistory;
-
-                        root.$broadcast('validationStatus', key, section.validated);
-                    }
-
-                    var variables = data.getSection('listOfVariables').model.map(function(variable) {
-                        return variable.name;
-                    });
-
-                    validation.setExpectedColumns('riskFactorDistribution');
-                    validation.setExpectedColumns('riskFactorForPrediction');
-                    data.getSection('snpInformation').variables = variables;
-                    validation.setExpectedRows('logOddsRatios');
-                    validation.setExpectedColumns('genotypesForPrediction');
-
-
-                });
-
-            else
-                validation.readFile(id, file);
-        });
-    }
-    return {
-
-      restrict: 'AE',
-      replace: 'true',
-      scope: {},
-      link: link
-    };
-}])
-
 .controller('TabsController', [function() {
     var self = this;
 
@@ -88,13 +13,11 @@ function(root, data, validation, utility) {
     self.select(0);
 }])
 
-.controller('SessionController', ['$rootScope', 'DataService', function(root, data) {
-    var self = this;
+.controller('SessionController', ['DataService', function(data) {
     this.download = data.downloadSession;
-    self.text = 'Upload RData';
 }])
 
-.controller('AccordionController', ['$rootScope', 'DataService', 'ValidationService', function(root, data, validation) {
+.controller('AccordionController', ['$rootScope', 'DataService', function(root, data) {
     var self = this;
 
     var buildSteps = [
@@ -102,7 +25,6 @@ function(root, data, validation, utility) {
             id: 'listOfVariables',
             type: 'listOfVariables',
             header: 'List the Variables',
-            isOpen: true
         },
         {
             id: 'modelFormula',
@@ -124,13 +46,11 @@ function(root, data, validation, utility) {
         {
             id: 'mortalityIncidenceRates',
             header: 'Provide Incidence Rates of Competing Mortality',
-            optional: true
         },
         {
             id: 'snpInformation',
             type: 'snpInformation',
             header: 'Provide SNP Information',
-            optional: true
         }
     ];
 
@@ -138,12 +58,10 @@ function(root, data, validation, utility) {
         {
             id: 'riskFactorForPrediction',
             header: 'Provide Risk Factor for Prediction',
-            optional: true
         },
         {
             id: 'genotypesForPrediction',
             header: 'Provide Genotypes for Prediction',
-            optional: true
         },
         {
             id: 'ageInterval',
@@ -162,58 +80,108 @@ function(root, data, validation, utility) {
             sections: applySteps
         }
     ];
-    self.calcRunning = false;
-    self.calculate = data.calculate;
-    self.isValidated = validation.isValidated;
-    self.log = data.log;
 
-    root.$on('validationStatus', function(event, id, status) {
-        for (var i = 0; i < self.steps.length; i ++) {
+    self.log = function() { console.log(data.sections()) }
+    self.download = data.downloadSession;
+
+    self.setType = function(type) {
+        for (var i = 0; i < self.steps.length; i ++)
+            for (var j = 0; j < self.steps[i].sections.length; j ++) {
+                self.steps[i].sections[j].visible = true;
+                self.steps[i].sections[j].optional = false;
+                self.steps[i].sections[j].open = false;
+            }
+
+        switch (type) {
+            case 'covariatesAndSNP':
+                self.steps[0].sections[0].open = true;
+                self.steps[0].sections[5].optional = true;
+                self.steps[0].sections[6].optional = true;
+                self.steps[1].sections[1].optional = true;
+                break;
+            case 'covariatesOnly':
+                self.steps[0].sections[0].open = true;
+                self.steps[0].sections[5].optional = true;
+                self.steps[0].sections[6].visible = false;
+                self.steps[1].sections[1].visible = false;
+                break;
+            case 'snpOnly':
+                self.steps[0].sections[4].open = true;
+                self.steps[0].sections[0].visible = false;
+                self.steps[0].sections[1].visible = false;
+                self.steps[0].sections[2].visible = false;
+                self.steps[0].sections[3].visible = false;
+                self.steps[0].sections[5].optional = true;
+                self.steps[1].sections[0].visible = false;
+                self.steps[1].sections[1].optional = true;
+                false;
+        }
+    }
+
+    self.setType('covariatesAndSNP');
+
+    self.calculate = function() {
+        console.log('running calculation');
+        self.calcRunning = true;
+        self.resultsImagePath = '';
+        self.resultsFilePath = '';
+        self.resultsRefFilePath = '';
+
+        data.calculate(
+            function(results) {
+                self.calcRunning = false;
+                self.resultsImagePath = results.imagePath;
+                self.resultsFilePath = results.filePath;
+                self.resultsRefFilePath = results.resultsReferencePath;
+            },
+            function(error) {
+                self.calcRunning = false;
+                console.log(error);
+            }
+        );
+    }
+
+    self.calculationDisabled = function() {
+        for (var i = 0; i < self.steps.length; i ++)
             for (var j = 0; j < self.steps[i].sections.length; j ++) {
                 var section = self.steps[i].sections[j];
-                if (section.id == id) {
-                    section.validated = status;
-                    section.isOpen = !status;
-                }
+                if (section.visible && !section.optional && !section.validated)
+                    return true;
             }
-        }
-    });
 
-    root.$on('nextSection', function(event, sectionID) {
+        return false;
+    }
+
+    root.$on('nextSection', function(event, id) {
         for (var i = 0; i < self.steps.length; i ++) {
             for (var j = 0; j < self.steps[i].sections.length; j ++) {
                 var section = self.steps[i].sections[j];
                 var nextSection = null;
 
-                if (section.id == sectionID) {
-                    section.isOpen = false;
-                    section.validated = true;
+                if (section.id == id) {
+                    section.validated = data.getSection(id).validated;
 
-                    switch(section.id) {
-                        case 'ageInterval':
-                            break;
-                        case 'snpInformation':
-                            nextSection = self.steps[1].sections[0];
-                            break;
-                        default:
-                            nextSection = self.steps[i].sections[j + 1];
+                    if (section.validated) {
+                        section.open = false;
+
+                        switch(section.id) {
+                            case 'snpInformation':
+                                nextSection = self.steps[1].sections[0];
+                                if (!nextSection.visible)
+                                    nextSection = self.steps[1].sections[1];
+                                break;
+                            case 'ageInterval':
+                                break;
+                            default:
+                                nextSection = self.steps[i].sections[j + 1];
+                        }
+
                     }
-
                     if (nextSection)
-                        nextSection.isOpen = true;
+                        nextSection.open = true;
                 }
             }
         }
     });
 
-    root.$on('calculationRunning', function(event, isRunning) {
-        self.calcRunning = isRunning;
-    });
-
-    root.$on('displayResults', function(event, results) {
-        self.resultsImagePath   = results.imagePath;
-        self.resultsFilePath    = results.resultsPath;
-        self.resultsRefFilePath = results.resultsReferencePath;
-    });
-
-}]);
+}])

@@ -252,10 +252,7 @@ function(root, resource, modal, data, utility) {
             if (error[key])
                 section.validated = false;
 
-        root.$broadcast('validationStatus', id, section.validated);
-
-        if (section.validated)
-            root.$broadcast('nextSection', id);
+        root.$broadcast('nextSection', id);
     }
 
     function setExpectedColumns(id) {

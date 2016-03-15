@@ -6,10 +6,10 @@ angular.module('Arc')
 	controller: ['SectionService', function(section) {
         var self = this;
 		self.getFileName      = function() { return section.getFileName(self.id) }
-		self.getTemplate      = function() { section.getTemplate(self.id) }
-		self.downloadFile     = function() { section.downloadFile(self.id) }
-		self.submitSection    = function() { section.submitSection(self.id) }
+        self.downloadTemplate = function() { section.downloadTemplate(self.id) }
+        self.downloadFile     = function() { section.downloadFile(self.id) }
+        self.submit           = function() { section.submit(self.id) }
 	}],
 
-	templateUrl: 'templates/defaultSection.html'
+	templateUrl: 'templates/sections/defaultSection.html'
 });

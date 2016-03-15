@@ -5,53 +5,37 @@ function(data, modal, utility, validation) {
     var self = this;
 
     return {
-        getTemplate:    getTemplate,
-        getFileName:    getFileName,
-        downloadFile:   downloadFile,
-        submitSection:  submitSection
+        submit:             submit,
+        getFileName:        getFileName,
+        downloadFile:       downloadFile,
+        downloadTemplate:   downloadTemplate,
     }
 
     function getFileName(id) {
         return data.getSection(id).filename;
     }
 
-    function getTemplate(id) {
+    function downloadTemplate(id) {
         data.downloadTemplate(id);
     }
 
     function downloadFile(id) {
-        if (id == 'modelFormula' || id == 'listOfVariables') {
-            data.submitModel(id, data.getSection(id).model, function(id) {
-                data.downloadFile(data.getSection(id).filename);
-            });
-        }
+        if (id == 'modelFormula' || id == 'listOfVariables')
+            data.downloadModel(id);
         else
             data.downloadCSV(id);
     }
 
-    function submitSection(id) {
-        if (id == 'modelFormula' || id == 'listOfVariables') {
-            var model = data.getSection(id).model;
-            data.submitModel(id, model, submit);
-        }
-
-        else
-            submit(id);
-    }
-
     function submit(id) {
-
         console.log('Submitting section', id);
         switch(id) {
             case 'listOfVariables':
-                var variables = data.getSection('listOfVariables').model.map(function(variable) {
-                    return variable.name;
-                });
 
+                var variables = data.getSection('listOfVariables').model.map(function(v) {return v.name})
                 validation.setExpectedColumns('riskFactorDistribution');
                 validation.setExpectedColumns('riskFactorForPrediction');
 
-                data.getSection('modelFormula').array = utility.generateFormulaTemplate();
+                data.getSection('modelFormula').array = utility.generateFormulaTemplate(true);
                 data.getSection('modelFormula').model = utility.generateFormula();
                 data.getSection('snpInformation').variables = variables;
                 break;
@@ -60,22 +44,16 @@ function(data, modal, utility, validation) {
                 validation.setExpectedRows('logOddsRatios');
                 break;
 
-            case 'riskFactorDistribution':
-            case 'logOddsRatios':
-            case 'diseaseIncidenceRates':
-            case 'mortalityIncidenceRates':
-                break;
-
             case 'snpInformation':
                 validation.setExpectedColumns('genotypesForPrediction');
                 break;
 
+            case 'riskFactorDistribution':
+            case 'logOddsRatios':
+            case 'diseaseIncidenceRates':
+            case 'mortalityIncidenceRates':
             case 'riskFactorForPrediction':
-                break;
-
             case 'genotypesForPrediction':
-                break;
-
             case 'ageInterval':
                 break;
         }

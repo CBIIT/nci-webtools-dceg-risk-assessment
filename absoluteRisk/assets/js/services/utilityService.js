@@ -142,27 +142,17 @@ angular.module('Arc')
 
     /**
     	Generates a default formula model template from a list of variables
-    	Parameters:	listOfVariables - the list of variables, provided by SectionService's getFormula method
+    	Parameter:	The default linear state for all terms
     	Returns:	An array of formula terms representing the formula model
     */
-    function generateFormulaTemplate() {
-
-        var listOfVariables = data.getSection('listOfVariables').model;
-
-        // an array of formula terms representing the formula model
-        var formula = [];
-
-        /* ------ Build Model ------ */
-
-        listOfVariables.forEach(function(term) {
-            formula.push({
-                'name': term.name,
-                'linear': true,
-                'interaction': null
-            });
+    function generateFormulaTemplate(linear) {
+        return data.getSection('listOfVariables').model.map(function(variable) {
+            return {
+                name: variable.name,
+                linear: linear,
+                interaction: null
+            }
         });
-
-        return formula;
     }
 
     /**
