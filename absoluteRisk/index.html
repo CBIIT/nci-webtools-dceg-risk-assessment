@@ -1,152 +1,140 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" ng-app="Arc">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewpower" content="width=device-width, initial-scale=1">
 
-<head>
-	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- AngularJS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-sanitize.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-animate.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-resource.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.1/ui-bootstrap-tpls.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.14.9/select.min.js"></script>
+        <script src="https://cdn.rawgit.com/angular-ui/ui-uploader/master/src/uploader.js"></script>
 
-	<!-- AngularJS -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-rc.0/angular.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-sanitize.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-animate.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-resource.js"></script>
+        <!-- AngularJS Application -->
+        <script src="assets/js/app.js"></script>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.1/ui-bootstrap-tpls.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.14.2/select.min.js"></script>
-	<script src="https://cdn.rawgit.com/angular-ui/ui-uploader/master/src/uploader.js"></script>
+        <!-- AngularJS Services -->
+        <script src="assets/js/services/dataService.js"></script>
+        <script src="assets/js/services/utilityService.js"></script>
+        <script src="assets/js/services/sectionService.js"></script>
+        <script src="assets/js/services/modalService.js"></script>
+        <script src="assets/js/services/validationService.js"></script>
 
-	<!-- Application JS -->
-	<script src="assets/js/app.js"></script>
+        <!-- AngularJS Components -->
+        <script src="assets/js/components/variablesComponent.js"></script>
+        <script src="assets/js/components/formulaComponent.js"></script>
+        <script src="assets/js/components/ageIntervalComponent.js"></script>
+        <script src="assets/js/components/snpInformationComponent.js"></script>
+        <script src="assets/js/components/sectionComponent.js"></script>
+        <script src="assets/js/components/uploadFileDirective.js"></script>
 
-	<!-- AngularJS Services -->
-	<script src="assets/js/services/dataService.js"></script>
-	<script src="assets/js/services/sectionService.js"></script>
-	<script src="assets/js/services/modalService.js"></script>
-	<script src="assets/js/services/utilityService.js"></script>
-	<script src="assets/js/services/validationService.js"></script>
+        <!-- Application Stylesheets -->
+        <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/vnd.microsoft.icon" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.14.9/select.css">
+        <link rel="stylesheet" href="assets/css/app.css">
 
-	<!-- AngularJS Components -->
-	<script src="assets/js/components/variable.js"></script>
-	<script src="assets/js/components/variablesComponent.js"></script>
-	<script src="assets/js/components/formulaTerm.js"></script>
-	<script src="assets/js/components/formulaComponent.js"></script>
-	<script src="assets/js/components/snpInformationComponent.js"></script>
-	<script src="assets/js/components/ageIntervalComponent.js"></script>
-	<script src="assets/js/components/sectionComponent.js"></script>
+        <title>Absolute Risk Calculator</title>
+    </head>
+    <body>
+        <div ng-include src="'templates/header.html'"></div>
 
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.14.2/select.min.css">
+        <div class="container" ng-controller="TabsController as tabs">
+            <uib-tabset>
+    			<!-- Home Tab -->
+    			<uib-tab heading="Home" active="tabs.active[0]">
+    				<div class="container top-margin" ng-include src="'templates/home.html'"></div>
+    			</uib-tab>
 
-	<!-- Local CSS -->
-	<link rel="stylesheet" href="assets/css/app.css" />
+    			<!-- ARC for Researchers Tab -->
+    			<uib-tab heading="ARC for Researchers" active="tabs.active[1]">
+                    <div class="top-margin" ng-controller="AccordionController as accordion">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="radio-inline">
+                                    <input type="radio" name="model_type" ng-click="accordion.setType('covariatesAndSNP')" checked>Covariate and SNP Information
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="model_type" ng-click="accordion.setType('covariatesOnly')">Covariate data only
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="model_type" ng-click="accordion.setType('snpOnly')">SNP only
+                                </label>
+                            </div>
 
-	<!-- Favicon -->
-	<link rel="shortcut icon" href="assets/images/favicon.ico" type="image/vnd.microsoft.icon" />
+                            <hr>
 
-	<title>Absolute Risk Calculator</title>
-</head>
+                            <div ng-repeat="step in accordion.steps">
+                                <div>
+    								<div class="form-group clearfix" ng-show="step.id === 'build'">
+    									<h4 class="pull-left">Build the Model</h4>
+    									<span class="btn btn-success btn-file pull-right">
+                                            Upload RData
+    								    <input type="file" id="session" uploadfile></span>
+    								</div>
 
-<body>
-    <div ng-include src="'templates/header.html'"></div>
+    								<div class="form-group clearfix" ng-show="step.id === 'apply'">
+    									<div class="clearfix" ng-controller="SessionController as session">
+    										<button type="button" class="btn btn-success pull-right" ng-click="session.download()">
+    											Download RData
+    										</button>
+    									</div>
+    									<h4>Apply the Model</h4>
+    								</div>
+    							</div>
 
-	<div class="container" ng-controller="TabsController as tabs">
-		<uib-tabset>
-			<!-- Home Tab -->
-			<uib-tab heading="Home" active="tabs.active[0]">
-				<div class="container tab-margin panel-margin" ng-include src="'templates/home.html'"></div>
-			</uib-tab>
+                                <uib-accordion>
+                                    <uib-accordion-group ng-repeat="section in step.sections" active="section.active" is-open="section.open" ng-if="section.visible">
+                                        <uib-accordion-heading>
+                                            <span ng-bind="section.header"></span>
+                                            <span ng-show="!section.optional">*</span>
+                                            <span class="glyphicon glyphicon-ok glyphicon-green pull-right" ng-show="section.validated"></span>
+                                        </uib-accordion-heading>
+                                        <variables-component ng-if="section.type === 'listOfVariables'"></variables-component>
+                                        <formula-component ng-if="section.type === 'modelFormula'"></formula-component>
+                                        <snp-information-component ng-if="section.type === 'snpInformation'"></snp-information-component>
+                                        <age-interval-component ng-if="section.type === 'ageInterval'"></age-interval-component>
+                                        <section-component id="section.id" ng-if="!section.type"></section-component>
+                                   </uib-accordion-group>
+                                </uib-accordion>
 
-			<!-- ARC for Researchers Tab -->
-			<uib-tab heading="ARC for Researchers" active="tabs.active[1]">
-				<div class="container tab-margin" ng-controller="AccordionController as accordion">
-					<div class="col-md-6">
-						<div ng-repeat="step in accordion.steps" >
+                            </div>
+                            <span><i>* indicates required sections</i></span>
+                            <div class="pull-right">
+                                <button class="btn btn-info" ng-click="accordion.log()">Log</button>
+            					<button type="button" class="btn btn-primary" ng-click="accordion.calculate()" ng-disabled="accordion.calculationDisabled()">Calculate</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6" ng-class="{'output': accordion.calcRunning}">
+                            <div class="large loading" ng-if="accordion.calcRunning"><div class="">Loading...</div></div>
+                            <div class="result-plot overlay clearfix" ng-show="accordion.resultsImagePath">
+                                <img ng-src="{{accordion.resultsImagePath}}"><br><br>
+                                <div class="col-md-6"><a href="{{accordion.resultsFilePath}}">Download Results</a></div>
+                                <div class="col-md-6"><a href="{{accordion.resultsRefFilePath}}">Download Results Reference</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </uib-tab>
 
-							<div ng-controller="SessionController as session">
-								<div class="form-group clearfix" ng-show="step.id === 'build'">
-									<h4 class="pull-left">Build the Model</h4>
-									<span class="btn btn-success btn-file pull-right">
+    			<!-- ARC for Clinicians Tab -->
+    			<uib-tab heading="ARC for Clinicians" active="tabs.active[2]">
+    				<div class="container top-margin">
+    				<h4>ARC for Clinicians</h4>
+    				</div>
+    			</uib-tab>
 
-									{{session.text}}
-								    <input type="file" id="session" uploadfile ng-click="session.changeText()"></span>
-								</div>
+    			<!-- Help Tab -->
+    			<uib-tab heading="Help" active="tabs.active[3]">
+    				<div class="container top-margin" ng-include src="'templates/help.html'"></div>
+    			</uib-tab>
+            </uib-tabset>
+            <hr>
+        </div>
 
-								<div class="form-group clearfix" ng-show="step.id === 'apply'">
-									<div class="clearfix">
-										<button type="button" class="btn btn-success pull-right" ng-click="session.download()">
-											Download RData
-										</button>
-									</div>
-									<h4>Apply the Model</h4>
-								</div>
-							</div>
-
-							<uib-accordion>
-								<uib-accordion-group ng-repeat="section in step.sections" is-open="section.isOpen">
-									<uib-accordion-heading>
-										<span> {{section.header}}
-											<span ng-show="!section.optional"> * </span>
-											<span class="glyphicon glyphicon-ok glyphicon-green pull-right" ng-show="section.validated"></span>
-										</span>
-									</uib-accordion-heading>
-									<div class="panel-margin">
-										<!-- List of Variables Section - templates/variables-section.html -->
-										<variables-component ng-show="section.type === 'listOfVariables'"></variables-component>
-
-										<!-- Model Formula Section - templates/formula-section.html -->
-										<formula-component ng-show="section.type === 'modelFormula'"></formula-component>
-
-										<!--  SNP Information Section - templates/snp-info-section.html -->
-										<snp-information-component ng-show="section.type === 'snpInformation'"></snp-information-component>
-
-										<!-- Age-Interval Section - templates/age-interval-section.html -->
-										<age-interval-component ng-show="section.type === 'ageInterval'"></age-interval-component>
-
-										<!-- Default Section (section type not specified) - templates/default-section.html -->
-										<section-component id="section.id" ng-show="!section.type"></section-component>
-									</div>
-								</uib-accordion-group>
-							</uib-accordion>
-						</div>
-						<span><i>* indicates required sections</i></span>
-						<button type="button" class="btn btn-primary pull-right" ng-click="accordion.calculate()" ng-disabled="accordion.validated()">Calculate</button>
-					</div>
-
-					<div class="col-md-6" ng-class="{'output': accordion.calcRunning}">
-						<div class="large loading" ng-show="accordion.calcRunning"><div>Loading…</div></div>
-		                <div class="result-plot" ng-show="accordion.resultsImagePath">
-		                    <img ng-src="{{accordion.resultsImagePath}}" alt="Result" title="Result" />
-		                </div>
-		                <div class="row" ng-show="accordion.resultsImagePath">
-							<br>
-							<div class="col-md-6">
-		                    	<a href="{{accordion.resultsFilePath}}">Download Results</a>
-							</div>
-							<div class="col-md-6">
-		                    	<a href="{{accordion.resultsRefFilePath}}">Download Results Reference</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</uib-tab>
-
-			<!-- ARC for Clinicians Tab -->
-			<uib-tab heading="ARC for Clinicians" active="tabs.active[2]">
-				<div class="container tab-margin panel-margin">
-				<h4>ARC for Clinicians</h4>
-				</div>
-			</uib-tab>
-
-			<!-- Help Tab -->
-			<uib-tab heading="Help" active="tabs.active[3]">
-				<div class="container tab-margin panel-margin" ng-include src="'templates/help.html'"></div>
-			</uib-tab>
-		</uib-tabset>
-		<hr>
-	</div>
-
-    <div ng-include src="'templates/footer.html'"></div>
-</body>
+        <div ng-include src="'templates/footer.html'"></div>
+    </body>
 </html>
