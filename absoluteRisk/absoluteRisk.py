@@ -4,7 +4,6 @@ import json
 import time
 from flask import Flask, request, jsonify, make_response, send_from_directory
 from rpy2.robjects.packages import SignatureTranslatedAnonymousPackage
-from rpy2.robjects.vectors import IntVector, FloatVector, StrVector
 from werkzeug import secure_filename
 from socket import gethostname
 
@@ -16,8 +15,8 @@ app.config['examples_folder']    = 'tmp/examples'
 app.config['allowed_extensions'] = ['.csv', '.rdata']
 
 with open ('rfiles/absoluteRiskCalculationWrapper.R') as fh:
-#    rcode = os.linesep.join(line.strip() for line in fh)
-    arc = SignatureTranslatedAnonymousPackage(fh.read(), 'wrapper')
+    rcode = os.linesep.join(line.strip() for line in fh)
+    arc = SignatureTranslatedAnonymousPackage(rcode, 'wrapper')
 
 # This route takes in a RData file as input, saves it to the server, and returns the filename and contents
 @app.route('/absoluteRiskRest/fileUpload', methods=['POST'])
