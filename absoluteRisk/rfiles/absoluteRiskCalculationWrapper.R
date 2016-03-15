@@ -205,7 +205,7 @@ finalCalculation <- function(filePath, parameters) {
   ageStart                  = if (is.null(ageInterval))                   NULL  else  ageInterval[[1]]
   interval                  = if (is.null(ageInterval))                   NULL  else  ageInterval[[2]]
 
-  results = computeAbsoluteRisk(  model.formula = model.formula = modelFormula,
+  results = computeAbsoluteRisk(  model.formula = modelFormula,
                                   model.cov.info = listOfVariables,
                                   model.ref.dataset = riskFactorDistribution,
                                   model.ref.dataset.weights = NULL,

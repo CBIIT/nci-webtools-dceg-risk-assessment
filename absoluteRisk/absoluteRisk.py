@@ -2,21 +2,19 @@ import os
 import csv
 import json
 import time
+from rpy2 import robjects
 from flask import Flask, request, jsonify, make_response, send_from_directory
-from rpy2.robjects.packages import SignatureTranslatedAnonymousPackage
 from werkzeug import secure_filename
 from socket import gethostname
 
 app = Flask(__name__)
+arc = robjects.r
 
 app.config['upload_folder']      = 'tmp/uploads'
 app.config['results_folder']     = 'tmp/results'
 app.config['examples_folder']    = 'tmp/examples'
 app.config['allowed_extensions'] = ['.csv', '.rdata']
-
-with open ('rfiles/absoluteRiskCalculationWrapper.R') as fh:
-    rcode = os.linesep.join(line.strip() for line in fh)
-    arc = SignatureTranslatedAnonymousPackage(rcode, 'wrapper')
+arc['source']('rfiles/absoluteRiskCalculationWrapper.R')
 
 # This route takes in a RData file as input, saves it to the server, and returns the filename and contents
 @app.route('/absoluteRiskRest/fileUpload', methods=['POST'])
@@ -32,7 +30,10 @@ def fileUpload():
                 filepath = folder + '/' + filename
                 file.save(filepath)
 
-                return json.dumps({'filename': filename, 'model': arc.uploadRData(filepath)[0]})
+                return json.dumps({
+                    'filename': filename, 
+                    'model': arc['uploadRData'](filepath)[0]
+                })
         except Exception, e:
             raise InvalidUsage(e.args[0], status_code = 500)
     return ''
@@ -66,7 +67,7 @@ def fileDownload():
 def validate():
     if request.method == 'POST':
         try:
-            results = arc.verifyFile(request.data)[0]
+            results = arc['verifyFile'](request.data)[0]
             return json.dumps({'error': results})
 
         except Exception, e:
@@ -85,7 +86,7 @@ def calculate():
                 if not key in ['familyHistory', 'listOfVariables', 'modelFormula'] and parameters[key] is not None:
                     parameters[key] = generateCSV(key, parameters[key])
 
-            return arc.finalCalculation(filepath, json.dumps(parameters))[0]
+            return arc['finalCalculation'](filepath, json.dumps(parameters))[0]
 
         except Exception, e:
             raise InvalidUsage(e.args[0], status_code = 500)
