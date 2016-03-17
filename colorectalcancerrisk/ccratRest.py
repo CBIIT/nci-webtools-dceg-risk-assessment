@@ -186,7 +186,7 @@ class ColorectalRiskAssessmentTool:
       nonAspirin = int(parameters['non_aspirin'])
       nsaidRegimine = min(aspirin,nonAspirin)
       aspirinOnly = nonAspirin
-      risk = AbsRisk("Male",race,age,min(age+5,90),screening,yearsSmoking,cigarettesPerDay,nsaidRegimine,aspirinOnly,family_cancer,exercise,veggies,bmi,hormoneUsage)
+      risk = AbsRisk("Male" if sex == 0 else "Female",race,age,min(age+5,90),screening,yearsSmoking,cigarettesPerDay,nsaidRegimine,aspirinOnly,family_cancer,exercise,veggies,bmi,hormoneUsage)
       risk = round(risk*100,1)
       return ColorectalRiskAssessmentTool.buildSuccess(str(risk))
     except Exception as e:
