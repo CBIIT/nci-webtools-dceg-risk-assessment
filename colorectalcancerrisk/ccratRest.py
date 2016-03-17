@@ -109,12 +109,13 @@ class ColorectalRiskAssessmentTool:
             errorObject['missing'] += ['last_period']
           elif not parameters['last_period'].isnumeric():
             errorObject['nonnumeric'] += ['last_period']
-          elif 'hormones' not in parameters or parameters['hormones'] == "":
-            errorObject['missing'] += ['hormones']
-          elif not parameters['hormones'].isnumeric():
-            errorObject['nonnumeric'] += ['hormones']
-          else:
-            hormoneUsage = int(parameters['hormones'])
+          elif parameters['last_period'] == "2":
+            if 'hormones' not in parameters or parameters['hormones'] == "":
+              errorObject['missing'] += ['hormones']
+            elif not parameters['hormones'].isnumeric():
+              errorObject['nonnumeric'] += ['hormones']
+            else:
+              hormoneUsage = int(parameters['hormones'])
       family_cancer = int(parameters['family_cancer'])
       if (family_cancer > 0):
         if 'family_count' not in parameters or parameters['family_count'] == '':
