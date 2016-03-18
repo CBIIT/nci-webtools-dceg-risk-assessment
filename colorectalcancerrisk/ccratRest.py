@@ -109,12 +109,13 @@ class ColorectalRiskAssessmentTool:
             errorObject['missing'] += ['last_period']
           elif not parameters['last_period'].isnumeric():
             errorObject['nonnumeric'] += ['last_period']
-          elif 'hormones' not in parameters or parameters['hormones'] == "":
-            errorObject['missing'] += ['hormones']
-          elif not parameters['hormones'].isnumeric():
-            errorObject['nonnumeric'] += ['hormones']
-          else:
-            hormoneUsage = int(parameters['hormones'])
+          elif parameters['last_period'] == "2":
+            if 'hormones' not in parameters or parameters['hormones'] == "":
+              errorObject['missing'] += ['hormones']
+            elif not parameters['hormones'].isnumeric():
+              errorObject['nonnumeric'] += ['hormones']
+            else:
+              hormoneUsage = int(parameters['hormones'])
       family_cancer = int(parameters['family_cancer'])
       if (family_cancer > 0):
         if 'family_count' not in parameters or parameters['family_count'] == '':
@@ -186,7 +187,7 @@ class ColorectalRiskAssessmentTool:
       nonAspirin = int(parameters['non_aspirin'])
       nsaidRegimine = min(aspirin,nonAspirin)
       aspirinOnly = nonAspirin
-      risk = AbsRisk("Male",race,age,min(age+5,90),screening,yearsSmoking,cigarettesPerDay,nsaidRegimine,aspirinOnly,family_cancer,exercise,veggies,bmi,hormoneUsage)
+      risk = AbsRisk("Male" if sex == 0 else "Female",race,age,min(age+5,90),screening,yearsSmoking,cigarettesPerDay,nsaidRegimine,aspirinOnly,family_cancer,exercise,veggies,bmi,hormoneUsage)
       risk = round(risk*100,1)
       return ColorectalRiskAssessmentTool.buildSuccess(str(risk))
     except Exception as e:
