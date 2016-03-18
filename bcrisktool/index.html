@@ -355,7 +355,7 @@
           <div class="section-title"><span>Questions</span></div>
           <div id="result"></div>
           <div id="error" style="display:none;"></div>
-          <form id="survey" action="/bcrisktool/rest/calculate/" method="POST">
+          <form id="survey" action="/bcrisktool/rest/calculate/" method="POST" autocomplete="off">
             <ol>
               <li>
                 <div class="question-illustrations"><img src="images/woman-w-doctor.jpg" alt="woman with doctor" class="stock-images"></div>
@@ -399,7 +399,7 @@
                 <div class="question">
                   <label for="age" class="question-text">What is the woman's age?<br>NOTE: This tool only calculates risk for women 35 years of age or older.</label>
                   <div class="input">
-                    <input id="age" name="age" type="number" min="35" max="120" placeholder="Enter patient's age">
+                    <input id="age" name="age" type="number" min="35" max="85" placeholder="Enter patient's age">
                   </div>
                 </div>
                 <div class="question">

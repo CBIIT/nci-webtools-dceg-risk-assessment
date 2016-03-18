@@ -19,7 +19,7 @@ section#risk-calculator(tab='risk-calculator')
             span Questions
         #result
         #error(style="display:none;")
-        form#survey(action="/bcrisktool/rest/calculate/", method="POST")
+        form#survey(action="/bcrisktool/rest/calculate/", method="POST", autocomplete="off")
             ol
                 li
                     .question-illustrations
@@ -70,7 +70,7 @@ section#risk-calculator(tab='risk-calculator')
                             br
                             | NOTE: This tool only calculates risk for women 35 years of age or older.
                         .input
-                          input#age(name='age', type="number", min="35", max="120", placeholder="Enter patient's age")
+                          input#age(name='age', type="number", min="35", max="85", placeholder="Enter patient's age")
                     .question
                         label.question-text(for="race")
                           | What is the patient's race?

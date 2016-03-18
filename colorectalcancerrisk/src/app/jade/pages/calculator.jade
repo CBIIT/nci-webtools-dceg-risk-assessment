@@ -55,7 +55,7 @@ section#risk-calculator(tab='risk-calculator')
           span Questions
         #result
         #error(style="display:none;")
-        form#survey(action="/colorectalcancerrisk/rest/calculate/",method="POST")
+        form#survey(action="/colorectalcancerrisk/rest/calculate/",method="POST", autocomplete="off")
             ol
                 include sections/demographics
                 include sections/diet
