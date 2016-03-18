@@ -13,7 +13,7 @@ a,
 }
 body {
   font-family: sans-serif, Helvetica, Calibri, Arial Rounded MT Bold;
-  font-size: 15px;
+  font-size: 10.5pt;
   margin: 0;
   min-width: 320px;
   background: #f7f8f3;
@@ -151,6 +151,7 @@ ul.nav li a {
   text-align: center;
 }
 ul.nav li ul {
+  font-size: 0.9em;
   background: #000;
   border: 0;
   left: 0;
@@ -495,7 +496,7 @@ section form button {
   display: none;
 }
 ul.red-arrow li {
-  list-style-image: url("../../images/red-arrow.gif");
+  list-style-image: url("../images/red-arrow.gif");
 }
 .two-col {
   float: left;

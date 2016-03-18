@@ -30,7 +30,7 @@ plumber = function(){
 
 gulp.task('default',['build']);
 
-gulp.task('build', ['jade-compile', 'js:copy', 'css','common-js:copy',
+gulp.task('build', ['jade-compile', 'js:copy', 'css','common-images:copy','common-js:copy',
 'common-css:copy', 'rat-common:copy'], function(){
     notifier.notify({
         title: 'Compilation Complete',
@@ -77,8 +77,16 @@ gulp.task('css', function(){
     });
 });
 
-
 // tasks to copy common features across all RATs
+gulp.task('common-images:copy', function(){
+    var s;
+    s = streamqueue({
+        objectMode: true
+    });
+    gulp.src('common-resources/images/**/*')
+        .pipe(gulp.dest(parentDir+"/rat-commons/images"));
+});
+
 gulp.task('common-js:copy', function(){
     var s;
     s = streamqueue({
