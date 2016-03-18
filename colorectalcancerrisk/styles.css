@@ -75,21 +75,6 @@ section form > ol > li select.error {
   border-radius: 5px;
   padding: 3px 0;
 }
-.graphic {
-  font-size: 7em;
-  float: left;
-  clear: both;
-  vertical-align: middle;
-}
-.graphic.fa {
-  margin: 0 25px;
-}
-.graphic.fa.fa-arrow-circle-o-down {
-  color: #008000;
-}
-.graphic.fa.fa-arrow-circle-o-up {
-  color: #f00;
-}
 .two-col {
   width: 45%;
 }
@@ -98,18 +83,6 @@ section form > ol > li select.error {
 }
 .two-col ul li {
   width: inherit;
-}
-.two-col.green {
-  border: 4px solid #008000;
-}
-.two-col.red {
-  border: 4px solid #f00;
-}
-.green {
-  color: #008000;
-}
-.red {
-  color: #f00;
 }
 [tab="risk-factors"] p,
 [tab="risk-factors"] ul {
