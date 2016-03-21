@@ -17,7 +17,7 @@ angular.module('Arc')
         var formulaString = data.getSection('modelFormula').model;
         console.log(listOfVariables, formulaString);
 
-        if (!formulaString) return;
+        if (!formulaString || typeof formulaString != 'string') return;
 
         /* ------ Initialize Variables ------ */
 
@@ -85,7 +85,7 @@ angular.module('Arc')
         var listOfVariables = data.getSection('listOfVariables').model;
         var formulaModel = data.getSection('modelFormula').array;
 
-        if (!formulaModel) return 'Undefined Formula';
+        if (!formulaModel || !listOfVariables instanceof Array) return;
 
         // ------ Initialize Variables ------ //
 
@@ -105,6 +105,14 @@ angular.module('Arc')
 
         var factor = function(term) {
             return addFactor(term, listOfVariables);
+        }
+
+        var isLinear = function(term) {
+            for (var i = 0; i < formulaModel.length; i ++)
+                if (term == formulaModel[i].name && formulaModel[i].linear)
+                    return true;
+
+            return false;
         }
 
         // ------ Build Model ------ //
@@ -128,7 +136,7 @@ angular.module('Arc')
                     // for each value in the array, if the interaction is within the list of variables
                     // add it to the array of interactions
                     interactions.forEach(function(interaction) {
-                        if (variables.indexOf(interaction) != -1) {
+                        if (variables.indexOf(interaction) != -1 && isLinear(interaction)) {
                             interactionTerms.push(factor(term['name']) + "*" + factor(interaction))
                         }
                     });
@@ -146,13 +154,14 @@ angular.module('Arc')
     	Returns:	An array of formula terms representing the formula model
     */
     function generateFormulaTemplate(linear) {
-        return data.getSection('listOfVariables').model.map(function(variable) {
-            return {
-                name: variable.name,
-                linear: linear,
-                interaction: null
-            }
-        });
+        if (data.getSection('listOfVariables').model instanceof Array)
+            return data.getSection('listOfVariables').model.map(function(variable) {
+                return {
+                    name: variable.name,
+                    linear: linear,
+                    interaction: null
+                }
+            });
     }
 
     /**

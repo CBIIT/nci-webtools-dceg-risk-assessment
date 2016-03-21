@@ -1,6 +1,6 @@
 angular.module('Arc')
-.directive('uploadfile', ['$rootScope', 'DataService', 'ValidationService', 'UtilityService',
-function(root, data, validation, utility) {
+.directive('uploadfile', ['$rootScope', 'DataService', 'ValidationService', 'UtilityService', 'ModalService',
+function(root, data, validation, utility, modal) {
     function link($scope, element, attributes) {
         element[0].addEventListener('change', function(e) {
             var id = e.target.id;
@@ -16,14 +16,25 @@ function(root, data, validation, utility) {
 
             if (id == 'listOfVariables') {
                 data.uploadModel(id, file, function() {
-                    data.getSection(id).array = modelToArray(data.getSection(id).model);
+
+                    if (data.getSection(id).model instanceof Array)
+                        data.getSection(id).array = modelToArray(data.getSection(id).model);
+                    else
+                        modal.dialog('Validation Error', 'This file could not be parsed.')
+
                     setTimeout(function(){element.val(null)}, 0);
                 });
             }
 
             else if (id == 'modelFormula') {
                 data.uploadModel(id, file, function() {
-                    data.getSection(id).array = utility.parseFormula();
+
+                    if (typeof data.getSection(id).model == 'string')
+                        data.getSection(id).array = utility.parseFormula();
+
+                    else
+                        modal.dialog('Validation Error', 'This file could not be parsed.')
+
                     setTimeout(function(){element.val(null)}, 0);
                 });
             }

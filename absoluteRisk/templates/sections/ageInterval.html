@@ -20,7 +20,7 @@
 
 <div ng-show="section.inputMethod === 'upload'">
 	<span class="btn btn-info btn-file">Upload CSV File
-	<input type="file" id="ageInterval" uploadfile></span>
+	<input type="file" id="ageInterval" uploadfile accept=".csv"></span>
 
 	<span><a ng-click="section.downloadFile()">{{section.getFileName()}}</a></span>
 	<span ng-show="!section.getFileName()">No file selected <a ng-click="section.downloadTemplate()">(template)</a></span>

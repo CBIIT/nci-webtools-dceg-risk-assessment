@@ -23,7 +23,7 @@ function(root, resource, modal, data, utility) {
 
                 section.filename = file.name;
                 section.model = event.target.result.match(/[^\r\n]+/g)
-                    .map(function(line) { return line.split(',') });
+                    .map(function(line){return line.split(',')});
 
                 callback();
                 root.$apply();
@@ -48,6 +48,12 @@ function(root, resource, modal, data, utility) {
         if (section.model != null && section.columnNames
             && section.columnNames.join() != columnNames(id).join()) {
             modal.dialog('Validation Error', 'Column headers do not match template');
+            section.validated = false;
+        }
+
+        // Validate row length
+        if (section.model != null && section.columnNames && rowNames(id).length < 1) {
+            modal.dialog('Validation Error', 'This file is invalid.');
             section.validated = false;
         }
 
@@ -104,40 +110,24 @@ function(root, resource, modal, data, utility) {
                     var variables = data.getSection('listOfVariables').model;
 
                     var error = {na: false, levels: false};
+                    var errorRow = 0;
 
                     for (var i = 0; i < columns.length; i ++) {
                         var columnName = columns[i];
                         var levels = variables[i].levels || ['1', '0'];
 
-                        console.log('levels for ' + columnName + ' are ' + levels);
-
                         var col = getColumn(id, i);
                         var counter = 0;
+
                         col.forEach(function(level) {
                             counter ++;
                             if (!error.na)
                                 error.na = (level == 'NA');
 
-
-/* Todo
-//                            if (!error.levels) {
-//                                console.log('No errors found yet for ' + columnName);
-//                                error.levels = (levels.indexOf(level) == -1);
-
-
-
-//                                error.levels = (levels.indexOf(level) == -1 ? columnName : false);
-//                                if (levels.indexOf(level) == -1) {
-
-
-//                                    console.log('expected levels: ', levels);
-//                                    console.log(level, counter);
-//                                }
-//                            }
-
-//                            if (error.levels)
-//                                console.log('Errors found for ' + columnName);
-*/
+                            if (!error.levels) {
+                                error.levels = (levels.indexOf(level) == -1 ? columnName : false);
+                                errorRow = counter;
+                            }
                         });
                     }
 
@@ -145,7 +135,7 @@ function(root, resource, modal, data, utility) {
                         modal.dialog('Validation Error', 'The referent distribution model must not contain any NA values.');
 
                     if (error.levels)
-                        modal.dialog('Validation Error', 'The referent distribution model categorical value (' + error.levels + ') has levels ouside those provided in the model covariates.');
+                        modal.dialog('Validation Error', 'The referent distribution model categorical value (' + error.levels + ', row ' + (errorRow + 2) + ') has levels ouside those provided in the model covariates.');
 
                     if (rows.length < 200)
                         modal.dialog('Validation Warning', 'Samples in referent distribution model should be large.  Currently only size ' + rows.length);
@@ -167,9 +157,6 @@ function(root, resource, modal, data, utility) {
 
                     var error = {ages: false, rates: false}
 
-                    console.log('ages: ' + ages);
-                    console.log(ages[0] == '0')
-
                     ages.forEach(function(age) {
                         if (!error.ages)
                             error.ages = parseInt(age) != parseFloat(age);
@@ -184,35 +171,49 @@ function(root, resource, modal, data, utility) {
                         modal.dialog('Validation Error', 'The first column of the provided input should be integer ages.');
                     if (error.rates)
                         modal.dialog('Validation Error', 'The rates should be probabilities between 0 and 1.');
-
                     break;
 
                 case 'snpInformation':
-                    // No validation rules for this section
+                    var error = {parse: false}
+                    for (var i = 1; i < columnNames(id).length; i ++)
+                        for (var j = 1; j <= rowNames(id).length; j ++)
+                            if (!parseFloat(section.model[j][i]))
+                                error.parse = true;
+
+                    if (error.parse)
+                        modal.dialog('Validation Error', 'Please ensure that only numeric data has been provided.')
+
                     break;
 
                 case 'riskFactorForPrediction':
-/* Todo
-                    var columns = retrieveColumnNames(id);
-                    var rows = retrieveRowNames(id);
-                    var variables = data.getSection('listOfVariables').model;
+                var columns = columnNames(id);
+                var rows = rowNames(id);
+                var variables = data.getSection('listOfVariables').model;
 
-                    var error = {levels: false};
-                    for (var i = 0; i < columns.length; i ++) {
-                        var columnName = columns[i];
-                        var levels = variables[i].levels.concat('NA') || ['1', '0', 'NA'];
+                var error = {na: false, levels: false};
+                var errorRow = 0;
 
-                        var column = retriveColumn(id, i);
-                        column.forEach(function(level) {
-                            if (!error.levels);
-                                error.levels = (levels.indexOf(level) == -1) ? columnName : false;
-                        });
-                    }
+                for (var i = 0; i < columns.length; i ++) {
+                    var columnName = columns[i];
+                    var levels = variables[i].levels || ['1', '0'];
+                    levels = levels.concat('NA');
 
-                    if (error.levels)
-                        modal.errorDialog('Validation Error', 'The covariate profile model categorical value (' + error.levels + ') has levels ouside those provided in the model covariates.');
-*/
-                    break;
+                    var col = getColumn(id, i);
+                    var counter = 0;
+
+                    col.forEach(function(level) {
+                        counter ++;
+                        if (!error.levels) {
+                            error.levels = (levels.indexOf(level) == -1 ? columnName : false);
+                            errorRow = counter;
+                        }
+                    });
+                }
+
+                if (error.levels)
+                    modal.dialog('Validation Error', 'The categorical value (' + error.levels + ', row ' + (errorRow + 2) + ') has levels ouside those provided in the model covariates.');
+
+                break;
 
                 case 'genotypesForPrediction':
                     var genotypesLength = rowNames(id).length;
@@ -221,9 +222,6 @@ function(root, resource, modal, data, utility) {
 
                     var error = {lengths: false, column: false};
                     error.lengths = genotypesLength != riskFactorsLength;
-
-                    console.log(genotypesLength)
-                    console.log(riskFactorsLength);
 
                     for (var i = 0; i < columns.length; i ++) {
                         var columnName = columns[i];

@@ -107,8 +107,11 @@ function(root, resource, uploader, modal) {
     /* ------ Uploads a model to the server ------ */
     function uploadModel(id, file, callback) {
         console.log(file);
+
+        var extension = file.name.split('.').pop();
+        console.log('extension');
+
         if (file) {
-            console.log('read successfully');
             uploader.addFiles([file]);
             uploader.startUpload({
                 url: 'http://' + window.location.hostname + '/absoluteRiskRest/fileUpload',
