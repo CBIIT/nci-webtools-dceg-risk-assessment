@@ -31,7 +31,7 @@ def fileUpload():
                 file.save(filepath)
 
                 return json.dumps({
-                    'filename': filename, 
+                    'filename': filename,
                     'model': arc['uploadRData'](filepath)[0]
                 })
         except Exception, e:

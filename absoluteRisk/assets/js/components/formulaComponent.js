@@ -11,6 +11,7 @@ angular.module('Arc')
 		self.getInteractions		= getInteractions;
 		self.getFormulaData		    = getFormulaData;
 		self.getFormulaString		= getFormulaString;
+		self.downloadFile     		= function() { section.downloadFile(id) }
 		self.getListOfVariables		= function() { return data.getSection('listOfVariables').model }
 		self.getFormulaTerms		= function() { return modelFormula.array }
 		self.submit					= function() { section.submit(id) }

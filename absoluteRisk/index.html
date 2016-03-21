@@ -57,13 +57,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="radio-inline">
-                                    <input type="radio" name="model_type" ng-click="accordion.setType('covariatesAndSNP')" checked>Covariate data and SNP information
+                                    <input type="radio" name="model_type" ng-model="accordion.type" ng-click="accordion.setType('covariatesAndSNP')" value="covariatesAndSNP" checked>Covariate data and SNP information
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="model_type" ng-click="accordion.setType('covariatesOnly')">Covariate data only
+                                    <input type="radio" name="model_type" ng-model="accordion.type" ng-click="accordion.setType('covariatesOnly')" value="covariatesOnly">Covariate data only
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="model_type" ng-click="accordion.setType('snpOnly')">SNP only
+                                    <input type="radio" name="model_type" ng-model="accordion.type" ng-click="accordion.setType('snpOnly')" value="snpOnly">SNP only
                                 </label>
                             </div>
 

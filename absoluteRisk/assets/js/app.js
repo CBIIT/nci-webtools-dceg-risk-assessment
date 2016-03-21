@@ -95,32 +95,30 @@ angular.module('Arc')
                 self.steps[i].sections[j].open = false;
             }
 
-        root.$applyAsync(function() {
-            switch (type) {
-                case 'covariatesAndSNP':
-                    self.steps[0].sections[0].open = true;
-                    self.steps[0].sections[5].optional = true;
-                    self.steps[0].sections[6].optional = true;
-                    self.steps[1].sections[1].optional = true;
-                    break;
-                case 'covariatesOnly':
-                    self.steps[0].sections[0].open = true;
-                    self.steps[0].sections[5].optional = true;
-                    self.steps[0].sections[6].visible = false;
-                    self.steps[1].sections[1].visible = false;
-                    break;
-                case 'snpOnly':
-                    self.steps[0].sections[4].open = true;
-                    self.steps[0].sections[0].visible = false;
-                    self.steps[0].sections[1].visible = false;
-                    self.steps[0].sections[2].visible = false;
-                    self.steps[0].sections[3].visible = false;
-                    self.steps[0].sections[5].optional = true;
-                    self.steps[1].sections[0].visible = false;
-                    self.steps[1].sections[1].optional = true;
-                    break;
-            }
-        });
+        switch (type) {
+            case 'covariatesAndSNP':
+                self.steps[0].sections[0].open = true;
+                self.steps[0].sections[5].optional = true;
+                self.steps[0].sections[6].optional = true;
+                self.steps[1].sections[1].optional = true;
+                break;
+            case 'covariatesOnly':
+                self.steps[0].sections[0].open = true;
+                self.steps[0].sections[5].optional = true;
+                self.steps[0].sections[6].visible = false;
+                self.steps[1].sections[1].visible = false;
+                break;
+            case 'snpOnly':
+                self.steps[0].sections[4].open = true;
+                self.steps[0].sections[0].visible = false;
+                self.steps[0].sections[1].visible = false;
+                self.steps[0].sections[2].visible = false;
+                self.steps[0].sections[3].visible = false;
+                self.steps[0].sections[5].optional = true;
+                self.steps[1].sections[0].visible = false;
+                self.steps[1].sections[1].optional = true;
+                break;
+        }
     }
 
     self.refresh = function() {
@@ -130,7 +128,6 @@ angular.module('Arc')
                 self.steps[i].sections[j].validated = false;
             }
 
-        self.setType('snpOnly');
         setTimeout(function(){self.setType('covariatesAndSNP')}, 0);
     }
 
@@ -148,27 +145,26 @@ angular.module('Arc')
 
         for (key in sections) {
             parameters[key] = {};
+            var valid = true;
+
             switch(self.type) {
                 case 'covariatesAndSNP':
-                    parameters[key].validated = sections[key].validated;
-                    parameters[key].model = sections[key].model;
                     if (sections[key].familyHistory)
                         parameters[key].familyHistory = sections[key].familyHistory;
                     break;
 
                 case 'covariatesOnly':
-                    if (key != 'snpInformation' && key != 'genotypesForPrediction') {
-                        parameters[key].validated = sections[key].validated;
-                        parameters[key].model = sections[key].model;
-                    }
+                    valid = (key != 'snpInformation' && key != 'genotypesForPrediction')
                     break;
 
                 case 'snpOnly':
-                    if (key != 'listOfVariables' && key != 'modelFormula' && key != 'riskFactorDistribution' && key != 'logOddsRatios' && key != 'riskFactorForPrediction') {
-                        parameters[key].validated = sections[key].validated;
-                        parameters[key].model = sections[key].model;
-                    }
+                    valid = (key != 'listOfVariables' && key != 'modelFormula' && key != 'riskFactorDistribution' && key != 'logOddsRatios' && key != 'riskFactorForPrediction')
                     break;
+            }
+
+            if (valid) {
+                parameters[key].validated = sections[key].validated;
+                parameters[key].model = sections[key].model;
             }
         }
 
@@ -225,7 +221,6 @@ angular.module('Arc')
                             default:
                                 nextSection = self.steps[i].sections[j + 1];
                         }
-
                     }
                     if (nextSection)
                         nextSection.open = true;
