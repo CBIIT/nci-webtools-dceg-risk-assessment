@@ -190,6 +190,7 @@ section {
 }
 section form {
   display: block;
+  font-size: 0.9em;
 }
 section form > ol {
   list-style: decimal;
@@ -265,7 +266,10 @@ section form .question-text.error {
   color: #f00;
 }
 section form button {
-  float: right;
+  display: block;
+  margin: 0 auto;
+  width: 250px;
+  float: none;
   padding: 8px 60px;
 }
 .question-illustrations {
@@ -290,9 +294,6 @@ section form button {
   border-radius: 5px;
   max-width: 230px;
   max-height: 140px;
-}
-.section-content {
-  padding: 0 5%;
 }
 .section-content a {
   color: #bb0e3d;
@@ -322,7 +323,7 @@ section form button {
 }
 .section-description {
   margin: 10px auto;
-  padding: 10px;
+  padding: 5px;
   border: 3px solid #bb0e3d;
   -webkit-border-radius: 10px;
   border-radius: 10px;
@@ -452,7 +453,7 @@ section form button {
   text-align: center;
 }
 #result canvas.chart {
-  background: rgba(0,0,0,0.08);
+  background-color: rgba(0,0,0,0.02);
   font-size: 0px;
   position: relative;
   width: 100%;
@@ -503,8 +504,33 @@ ul.red-arrow li {
   margin: 10px;
   padding: 25px 5px;
 }
+.two-col ul {
+  height: auto;
+  min-height: 125px;
+}
+.two-col.green {
+  border: 4px solid #008000;
+}
+.two-col.red {
+  border: 4px solid #f00;
+}
 .two-col:nth-child(1) {
   padding-right: 5px;
+}
+.two-col > .graphic {
+  float: left;
+  clear: both;
+  vertical-align: middle;
+}
+.two-col > .graphic.fa {
+  margin: 0 25px;
+  font-size: 7em;
+}
+.green {
+  color: #008000;
+}
+.red {
+  color: #f00;
 }
 ul.two-col {
   float: left;
