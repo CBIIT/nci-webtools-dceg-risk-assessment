@@ -1,0 +1,40 @@
+<div class="table-responsive">
+    <table class="table table-striped table-hover formula">
+        <thead>
+            <tr>
+                <th>Variable</th>
+                <th>Linear</th>
+                <th>Interaction Terms</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr ng-repeat="term in section.getFormulaTerms()">
+                <td ng-bind="term.name"></td>
+                <td><input type="checkbox" ng-model="term.linear" ng-change="section.updateInteractions($index)"></td>
+                <td ng-if="!term.linear">
+                    <input type="text" class="form-control fixed-height" ng-disabled="true"></input>
+                </td>
+
+                <td ng-if="term.linear">
+                    <ui-select multiple ng-model="term.interaction">
+                        <ui-select-match>{{$item}}</ui-select-match>
+                        <ui-select-choices repeat="item in section.getInteractions($index)">
+                            {{item}}
+                        </ui-select-choices>
+                    </ui-select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div ng-bind="section.getFormulaString()"></div>
+<hr>
+
+<div class="pull-right">
+    <span class="btn btn-info btn-file">Upload RData
+    <input type="file" id="modelFormula" uploadfile accept=".rdata"></span>
+    <button class="btn btn-info" ng-click="section.downloadFile()">Download RData</button>
+    <button class="btn btn-primary" ng-click="section.submit()">Submit</button>
+</div>

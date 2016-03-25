@@ -1,0 +1,10 @@
+<span class="btn btn-info btn-file">Upload CSV File
+<input type="file" id="snpInformation" uploadfile accept=".csv"></span>
+
+<span><a ng-click="section.downloadFile()">{{section.getFileName()}}</a></span>
+<span ng-show="!section.getFileName()"> No file selected <a ng-click="section.downloadTemplate()">(template)</a></span>
+<br><br>
+
+<span>Family History Variable Name:</span>
+<select ng-model="section.model.familyHistory" ng-options="variable for variable in section.getVariableNames()" ></select>
+<button type="button" class="btn btn-primary pull-right" ng-click="section.submit()" ng-disabled="!section.getFileName()">Submit</button>
