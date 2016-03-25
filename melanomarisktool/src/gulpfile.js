@@ -114,6 +114,9 @@ gulp.task('common-css:copy', function(){
         'import': ['nib']
     })).pipe(gulpConcat('styles.css')).pipe(gulp.dest(parentDir+"/rat-commons/css"));
 
+    gulp.src('common-resources/stylus/fonts/**/*').pipe(
+        gulp.dest(parentDir+"/rat-commons/css/fonts"));
+
     return s = streamqueue({
         objectMode: true
     });

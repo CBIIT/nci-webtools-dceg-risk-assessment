@@ -1,3 +1,11 @@
+section form > ol > li {
+  vertical-align: inherit;
+  margin: 0 auto;
+  height: 400px;
+}
+.question {
+  padding: 5px 0;
+}
 .female:not(.show),
 .male:not(.show),
 .subquestion:not(.show) {

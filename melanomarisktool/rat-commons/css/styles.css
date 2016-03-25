@@ -1,3 +1,27 @@
+@font-face {
+  font-family: 'Noto Sans';
+  font-weight: normal;
+  font-style: normal;
+  src: url("fonts/NotoSans-Regular.ttf");
+}
+@font-face {
+  font-family: 'Noto Sans';
+  font-weight: normal;
+  font-style: italic;
+  src: url("fonts/NotoSans-Italic.ttf");
+}
+@font-face {
+  font-family: 'Noto Sans';
+  font-weight: bold;
+  font-style: italic;
+  src: url("fonts/NotoSans-700italic.ttf");
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: normal;
+  font-style: normal;
+  src: url("fonts/Montserrat-Regular.ttf");
+}
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -12,7 +36,7 @@ a,
   cursor: pointer;
 }
 body {
-  font-family: sans-serif, Helvetica, Calibri, Arial Rounded MT Bold;
+  font-family: 'Noto Sans', Arial, sans-serif;
   font-size: 10.5pt;
   margin: 0;
   min-width: 320px;
