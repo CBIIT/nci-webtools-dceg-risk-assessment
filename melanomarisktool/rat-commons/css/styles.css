@@ -11,12 +11,6 @@
   src: url("fonts/NotoSans-Italic.ttf");
 }
 @font-face {
-  font-family: 'Noto Sans';
-  font-weight: bold;
-  font-style: italic;
-  src: url("fonts/NotoSans-700italic.ttf");
-}
-@font-face {
   font-family: 'Montserrat';
   font-weight: normal;
   font-style: normal;
@@ -477,7 +471,7 @@ section form button {
   text-align: center;
 }
 #result canvas.chart {
-  background-color: rgba(0,0,0,0.02);
+  background-color: rgba(0,0,0,0.1);
   font-size: 0px;
   position: relative;
   width: 100%;
