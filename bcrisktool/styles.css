@@ -46,8 +46,7 @@ table {
   border: 1px #000 solid;
   border-spacing: 3px;
 }
-table tbody > tr:nth-child(1),
-table tbody > tr:nth-child(2) {
+table tbody > tr th {
   background-color: #14819b;
   color: #dbf2f8;
 }
