@@ -1,3 +1,21 @@
+@font-face
+  font-family 'Noto Sans'
+  font-weight normal
+  font-style normal
+  src url("fonts/NotoSans-Regular.ttf")
+
+@font-face
+  font-family 'Noto Sans'
+  font-weight normal
+  font-style italic
+  src url("fonts/NotoSans-Italic.ttf")
+
+@font-face
+  font-family 'Montserrat'
+  font-weight normal
+  font-style normal
+  src url("fonts/Montserrat-Regular.ttf")
+
 *
   box-sizing border-box
 
@@ -8,8 +26,9 @@ button, a, .thumbnail
     cursor pointer
 
 body
-    font-family sans-serif,  Helvetica, Calibri, Arial Rounded MT Bold
-    font-size 15px
+    //    font-family sans-serif,  Helvetica, Calibri, Arial Rounded MT Bold
+    font-family 'Noto Sans', Arial, sans-serif
+    font-size 10.5pt
     margin 0
     min-width 320px
     background #f7f8f3
@@ -108,7 +127,7 @@ footer
 
 ul.nav
     background #636363
-    background linear-gradient(135deg, #f7f8f3 60px, #636363 100px, #424242 120px);
+    background linear-gradient(135deg, #f7f8f3 60px, #636363 100px, #424242 120px)
 
     margin 0
     padding-left 200px
@@ -130,6 +149,7 @@ ul.nav
             text-align center
         // reposition the subelement underneath the larger header. This breaks down literally as soon as there is a second line of headers, so mobile nav needs to start right around that point.
         ul
+            font-size 0.9em
             background #000
             border 0
             left 0
@@ -164,6 +184,7 @@ section
     padding 0 100px
     form
             display block
+            font-size 0.9em
             > ol
                 list-style decimal
                 > li
@@ -217,7 +238,10 @@ section
                 &.error
                     color red
             button
-                float right
+                display block
+                margin 0 auto
+                width 250px
+                float none
                 padding 8px 60px
 
 .question-illustrations
@@ -239,10 +263,8 @@ section
             max-width 230px
             max-height 140px
 
-.section-content
-    padding 0 5%
-    a
-        color #BB0E3D
+.section-content a
+    color #BB0E3D
 
 .section-title, .exp-title
     margin 10px auto
@@ -261,7 +283,7 @@ section
 
 .section-description
     margin 10px auto
-    padding 10px
+    padding 5px
     border 3px solid #BB0E3D
     border-radius 10px
     background #fff
@@ -375,7 +397,7 @@ section
         text-align center
     canvas
         &.chart
-            background rgba(0, 0, 0, 0.08)
+            background-color rgba(0, 0, 0, 0.10)
             font-size 0px
             position relative
             width 100%
@@ -411,14 +433,34 @@ section
     display none
 
 ul.red-arrow li
-    list-style-image url("../../images/red-arrow.gif")
+    list-style-image url("../images/red-arrow.gif")
 
 .two-col
     float left
     margin 10px
     padding 25px 5px
+    ul
+        height auto
+        min-height 125px
+    &.green
+        border 4px solid green
+    &.red
+        border 4px solid red
     &:nth-child(1)
         padding-right 5px
+    > .graphic
+        float left
+        clear both
+        vertical-align middle
+        &.fa
+            margin 0 25px
+            font-size 7em
+
+.green
+    color green
+
+.red
+    color red
 
 ul.two-col
     float left

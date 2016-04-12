@@ -44,7 +44,7 @@ section#risk-calculator(tab='risk-calculator')
             span Questions
         #result
         #error(style="display:none;")
-        form#survey(action="/melanomarisktool/rest/calculate/",method="POST")
+        form#survey(action="/melanomarisktool/rest/calculate/",method="POST",autocomplete="off")
             ol
                 li
                     .question
@@ -197,7 +197,7 @@ section#risk-calculator(tab='risk-calculator')
                         label.question-text(for="age")
                           | What is the patient's age?
                         .input
-                          input#age(name='age', type="number", min="1", max="120", placeholder="Enter patient's age")
+                          input#age(name='age', type="number", min="20", max="70", placeholder="Enter patient's age")
                     .question-illustrations
                         img.stock-images(alt="woman and girl",src="images/age.jpg")
                 li.male

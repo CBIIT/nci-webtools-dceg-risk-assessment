@@ -10,7 +10,7 @@
     <link href="styles.css" rel="stylesheet" type="text/css">
   </head>
   <body>
-    <header><img id="menu-button" src="images/menu.svg" alt="mobile menu access button"><a id="nci-banner" href="http://cancer.gov/" target="_blank"><img src="images/mrat-logo-color.svg" alt="National Cancer Institute"></a>
+    <header><img id="menu-button" src="rat-commons/images/menu.svg" alt="mobile menu access button"><a id="nci-banner" href="http://cancer.gov/" target="_blank"><img src="images/mrat-logo-color.svg" alt="National Cancer Institute"></a>
       <div id="toolTitle">
         <div id="toolDescription">An interactive tool to help estimate a person's risk of developing invasive melanoma</div>
       </div>
@@ -238,7 +238,7 @@
           <div class="section-title"><span>Questions</span></div>
           <div id="result"></div>
           <div id="error" style="display:none;"></div>
-          <form id="survey" action="/melanomarisktool/rest/calculate/" method="POST">
+          <form id="survey" action="/melanomarisktool/rest/calculate/" method="POST" autocomplete="off">
             <ol>
               <li>
                 <div class="question">
@@ -403,7 +403,7 @@
                 <div class="question">
                   <label for="age" class="question-text">What is the patient's age?</label>
                   <div class="input">
-                    <input id="age" name="age" type="number" min="1" max="120" placeholder="Enter patient's age">
+                    <input id="age" name="age" type="number" min="20" max="70" placeholder="Enter patient's age">
                   </div>
                 </div>
                 <div class="question-illustrations"><img alt="woman and girl" src="images/age.jpg" class="stock-images"></div>

@@ -8,16 +8,31 @@ $(".thumbnail").on("click", function () {
     this.scrollIntoView();
 });
 
-$('[type="reset"]').on("click",function() {
+$('[type="reset"]').on("click", function () {
     $("#result").empty().removeClass("show");
 });
 
 
+
+
+var personImg;
+var img = new Image();
+img.src = "rat-commons/images/person.png";
+img.onload = function () {
+    personImg = this;
+    personImg.width = 25;
+    personImg.height = 76;
+};
+
+
+var patternImg = new Image();
+patternImg.src = "rat-commons/images/stripe.png";
+
 function displayResult(result) {
-    if(window.location.hostname.indexOf("dev") == -1 || window.location.hostname.indexOf("localhost") == -1) {
-        result = Math.round(Number(result)*100)/100;
+    if (window.location.hostname.indexOf("dev") == -1 || window.location.hostname.indexOf("localhost") == -1) {
+        result = Math.round(Number(result) * 100) / 100;
     } else {
-        result = Math.round(Number(result)*10)/10;
+        result = Math.round(Number(result) * 10) / 10;
     }
     var matches = Number(result).toExponential().toString().match(/(\d+)(?:.(\d+))?e([-+]?\d+)/i);
     var estimate = matches[1];
@@ -28,13 +43,20 @@ function displayResult(result) {
     }
     outOf = Number('1e' + outOf);
 
-    $('#result').append('<h2>' + result + '%</h2><p>Your risk of developing cancer in the next 5 years is ' + result + '%. This means that roughly ' + estimate + ' in ' + outOf + ' people like you are likely to develop cancer in the next 5 years.').addClass('show');
-    graphResult($('#result').append('<canvas class="chart" width="500" height="380"></canvas>').children('.chart')[0], Number(result));
+    $('#result').empty().append('<h2>' + result + '%</h2><p>Your risk of developing cancer in the next 5 years is ' + result + '%. This means that roughly ' + estimate + ' in ' + outOf + ' people like you are likely to develop cancer in the next 5 years.').addClass('show');
+
+    var canvas = $('<canvas class="chart" width="500" height="380"></canvas>');
+
+    if (canvas[0].getContext && canvas[0].getContext("2d")) {
+        $('#result').append(canvas);
+        graphResult($("#result canvas")[0], Number(result));
+    } else {
+        console.log("Canvas not supported!!");
+    }
     document.getElementById("top").scrollIntoView();
 }
 
 function graphResult(element, result) {
-
     var ratio = window.devicePixelRatio || 1;
 
     var ctx1 = element.getContext('2d');
@@ -43,39 +65,35 @@ function graphResult(element, result) {
     element.width *= ratio;
     element.height *= ratio;
 
-    var img = new Image();
-    img.src = "../images/person.svg";
-    img.onload = function () {
-        var $this = this;
+   
+    ctx1.clearRect(0, 0, personImg.width * 20, personImg.height * 20);
+   
 
-        $this.width = this.width / 9.5;
-        $this.height = this.height / 8;
+    highlightImage(personImg, result, ctx1);
+    createMask(personImg, ctx1);
 
+    return window.setInterval(function () {
        
-        ctx1.clearRect(0, 0, $this.width * 20, $this.height * 20);
-        ctx1.scale(ratio, ratio);
+        ctx1.clearRect(0, 0, personImg.width * 20, personImg.height * 20);
 
-        highlightImage($this, result, ctx1);
-        createMask($this, ctx1);
-
-        return window.setInterval(function () {
-           
-            ctx1.clearRect(0, 0, $this.width * 20, $this.height * 20);
-
-            highlightImage($this, result, ctx1);
-            createMask($this, ctx1);
-        }, 2000);
-    };
+        highlightImage(personImg, result, ctx1);
+        createMask(personImg, ctx1);
+    }, 2000);
 }
 
 function highlightImage(img, calcResult, canvasContext) {
+
+    var pattern = canvasContext.createPattern(patternImg, 'repeat');
+    canvasContext.fillStyle = pattern;
+   
+
 
     for (var i = calcResult; i >= 0; i--) {
         var j = Math.floor(Math.random() * 20);
         var k = Math.floor(Math.random() * 5);
 
         if (calcResult > 0) {
-            canvasContext.fillStyle = "#bb0e3d";
+           
 
             if (calcResult > 0 && calcResult < 1) {
                 canvasContext.fillRect(img.width * j, img.height * k, calcResult * img.width, img.height);
@@ -91,6 +109,7 @@ function highlightImage(img, calcResult, canvasContext) {
 function createMask(maskImg, canvasContext) {
     for (var i = 0; i < 20; i++) {
         for (var j = 0; j < 5; j++) {
+           
             canvasContext.drawImage(maskImg, maskImg.width * i, maskImg.height * j, maskImg.width, maskImg.height);
         }
     }

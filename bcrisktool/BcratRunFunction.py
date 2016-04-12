@@ -8,12 +8,12 @@ def AbsoluteRisk(race, currentAge, projectionAge, menarcheAge, numberOfBiopsy, f
     menarcheAge = 1
   else:
     menarcheAge = 2
-  if numberOfBiopsy > 1:
-    numberOfBiopsy = 2
-  elif numberOfBiopsy > 0:
+  if numberOfBiopsy < 1 or numberOfBiopsy == 99:
+    numberOfBiopsy = 0
+  elif numberOfBiopsy < 2:
     numberOfBiopsy = 1
   else:
-    numberOfBiopsy = 0
+    numberOfBiopsy = 2
   if firstLiveBirthAge == 99 or firstLiveBirthAge < 20:
     firstLiveBirthAge = 0
   elif firstLiveBirthAge < 25:
@@ -22,12 +22,12 @@ def AbsoluteRisk(race, currentAge, projectionAge, menarcheAge, numberOfBiopsy, f
     firstLiveBirthAge = 2
   else:
     firstLiveBirthAge = 3
-  if firstDegRelatives > 1:
-    firstDegRelatives = 2
-  elif firstDegRelatives > 0:
+  if firstDegRelatives < 1 or firstDegRelatives == 99:
+    firstDegRelatives = 0
+  if firstDegRelatives < 2:
     firstDegRelatives = 1
   else:
-    firstDegRelatives = 0
+    firstDegRelatives = 2
   return RiskCalculation("Absolute", race, currentAge, projectionAge, menarcheAge, numberOfBiopsy, firstLiveBirthAge, firstDegRelatives, rhyp)
 
 def AverageRisk(race, currentAge, projectionAge, menarcheAge, numberOfBiopsy, firstLiveBirthAge, firstDegRelatives, rhyp):

@@ -1,617 +1,102 @@
-# We need to import the jsonify object, it will let us
-# output json, and it will take care of the right string
-# data conversion, the headers for the response, etc
 import os
-import re
-import time
-import json
-import StringIO
-import string
 import csv
-from flask import Flask, render_template, request, jsonify, make_response, send_from_directory
-from rpy2.robjects.packages import SignatureTranslatedAnonymousPackage
-from rpy2.robjects.vectors import IntVector, FloatVector
-from socket import gethostname
+import json
+import time
+from rpy2 import robjects
+from flask import Flask, request, jsonify, make_response, send_from_directory
 from werkzeug import secure_filename
-import tempfile
-
-UPLOAD_CSV_FOLDER = 'uploads/csv'
-UPLOAD_RDATA_FOLDER = 'uploads/rdata'
-EXAMPLES_FOLDER = 'examples'
-RESULTS_FOLDER = 'tmp'
-
-ALLOWED_EXTENSIONS = set(['csv', 'rdata'])
+from socket import gethostname
 
 app = Flask(__name__)
-app.config['csv_upload_folder'] = UPLOAD_CSV_FOLDER
-app.config['rdata_upload_folder'] = UPLOAD_RDATA_FOLDER
-app.config['results_folder'] = RESULTS_FOLDER
-app.config['examples_folder'] = EXAMPLES_FOLDER
+arc = robjects.r
 
-#with open ('rfiles/absoluteRiskWrapper.R') as fh:
-#    rcode = os.linesep.join(line.strip() for line in fh)
+app.config['upload_folder']      = 'tmp/uploads'
+app.config['results_folder']     = 'tmp/results'
+app.config['examples_folder']    = 'tmp/examples'
+app.config['allowed_extensions'] = ['.csv', '.rdata']
+arc['source']('rfiles/absoluteRiskCalculationWrapper.R')
 
-rcode = open('rfiles/absoluteRiskWrapper.R').read()
-arc_wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
-
-@app.route('/')
-def index():
-    # Render template
-    return render_template('index.html')
-
-# Root endpoint
-@app.route('/absoluteRiskRest/', methods=['POST'])
-def absoluteRiskRest():
-    return
-
-
-# This route takes a CSV file as an input, saves it to the server, and returns the CSV file path as JSON
-@app.route('/absoluteRiskRest/csvFileUpload', methods=['POST'])
-def csvFileUpload():
+# This route takes in a RData file as input, saves it to the server, and returns the filename and contents
+@app.route('/absoluteRiskRest/fileUpload', methods=['POST'])
+def fileUpload():
     if request.method == 'POST':
         file = request.files['file']
-        filepath = ''
-        fileAllowed = allowed_file(file.filename)
-
-        if file and fileAllowed:
-            filename = time.strftime("%Y%m%d-%H%M%S") + '_' + secure_filename(file.filename)
-            file.save(os.path.join(app.config['csv_upload_folder'], filename))
-            filepath = app.config['csv_upload_folder'] + '/' + filename
-
-            return json.dumps({ 'path_to_file': filepath })
-    return ''
-
-# This route takes a CSV file as an input, stores it as RData file, and returns the RData file path as JSON
-@app.route('/absoluteRiskRest/csvFileUploadConversion', methods=['POST'])
-def csvFileUploadConversion():
-    if request.method == 'POST':
-        file = request.files['file']
-        filepath = ''
-        fileAllowed = allowed_file(file.filename)
-
-        if file and fileAllowed:
-            filename = time.strftime("%Y%m%d-%H%M%S") + '_' + secure_filename(file.filename)
-            file.save(os.path.join(app.config['csv_upload_folder'], filename))
-            filepath = app.config['csv_upload_folder'] + '/' + filename
-            convertedFilePath = app.config['rdata_upload_folder'] + '/' + filename
-
-            try:
-                storedFilePath = arc_wrapper.uploadCSV(filepath, convertedFilePath)[0]
-                return json.dumps({ 'path_to_file': storedFilePath, 'path_to_csv_file': filepath})
-            except Exception, e:
-                raise InvalidUsage(e.args[0], status_code = 500)
-    return ''
-
-# Specific to 'log odds'. This route takes a CSV file as an input, stores it as RData file, and returns the RData file path as JSON
-@app.route('/absoluteRiskRest/logOddsFileUploadConversion', methods=['POST'])
-def logOddsFileUploadConversion():
-    if request.method == 'POST':
-        file = request.files['file']
-        filepath = ''
-        fileAllowed = allowed_file(file.filename)
-
-        if file and fileAllowed:
-            filename = time.strftime("%Y%m%d-%H%M%S") + '_' + secure_filename(file.filename)
-            file.save(os.path.join(app.config['csv_upload_folder'], filename))
-            filepath = app.config['csv_upload_folder'] + '/' + filename
-            convertedFilePath = app.config['rdata_upload_folder'] + '/' + filename
-
-            try:
-                storedFilePath = arc_wrapper.upload_log_odds(filepath, convertedFilePath)[0]
-                return json.dumps({ 'path_to_file': storedFilePath, 'path_to_csv_file': filepath })
-            except Exception, e:
-                raise InvalidUsage(e.args[0], status_code = 500)
-    return ''
-
-# This route takes a RData file as an input, stores it, and returns a JSON object with data and file path
-@app.route('/absoluteRiskRest/rdataFileUpload', methods=['POST'])
-def rdataFileUpload():
-    if request.method == 'POST':
-        file = request.files['file']
-        filepath = ''
-        fileAllowed = allowed_file(file.filename)
-
-        if file and fileAllowed:
-            filename = time.strftime("%Y%m%d-%H%M%S") + '_' + secure_filename(file.filename)
-            file.save(os.path.join(app.config['rdata_upload_folder'], filename))
-            filepath = app.config['rdata_upload_folder'] + '/' + filename
-
-            try:
-                json_data = arc_wrapper.uploadRData(filepath)[0]
-                loadedJson = json.loads(json_data)
-
-                if (isinstance(loadedJson, list)):
-                    loadedJson.insert(0, {'path_to_file': filepath})
-
-                if (isinstance(loadedJson, unicode)):
-                    #loadedJson = {'formula': arc_wrapper.uploadRData(filepath)[0], 'path_to_file': filepath}
-                    loadedJson = {'formula': json_data, 'path_to_file': filepath}
-
-                return json.dumps(loadedJson)
-            except Exception, e:
-                raise InvalidUsage(e.args[0], status_code = 500)
-    return ''
-
-# This route takes in a JSON object, converts it to an RData file, and returns the filename to the user as JSON
-@app.route('/absoluteRiskRest/dataUpload', methods=['POST'])
-def dataUpload():
-    if request.method == 'POST':
-        sectionModel = json.loads(request.data)
-        sectionId = sectionModel['id']
-        sectionData = sectionModel['data']
+        extension = os.path.splitext(file.filename)[1]
 
         try:
-            if ('isFormula' in sectionModel):
-                pathToVarListFile = sectionModel['pathToVariableListFile']
-                sectionData = arc_wrapper.create_formula(json.dumps(sectionData), pathToVarListFile)[0]
+            if file and extension in app.config['allowed_extensions']:
+                folder   = app.config['upload_folder']
+                filename = secure_filename(timestamp() + file.filename)
+                filepath = folder + '/' + filename
+                file.save(filepath)
 
-            filename = time.strftime("%Y%m%d-%H%M%S") + "_" + sectionId + ".rdata"
-            filepath = app.config['rdata_upload_folder'] + '/' + filename
-
-            arc_wrapper.convertJSONtoRData(json.dumps(sectionData), filepath)
-
-            return filename
-        except Exception, e:
-            raise InvalidUsage(e.args[0], status_code = 500)
-    return ''
-    
-# This route takes in a session file and saves it to the server
-@app.route('/sessionUpload', methods=['POST'])
-def sessionUpload():
-    if request.method == 'POST':
-        file = request.files['file']
-        filepath = ''
-        fileAllowed = allowed_file(file.filename)
-
-        if file and fileAllowed:
-            filename = time.strftime("%Y%m%d-%H%M%S") + '_' + secure_filename(file.filename)
-            file.save(os.path.join(app.config['results_folder'], filename))
-            filepath = app.config['results_folder'] + '/' + filename
-
-            return json.dumps({ 'path_to_file': filepath })
-    return ''
-    
-
-    
-# This route takes in a JSON object, converts it to a CSV file, and returns the file to the user
-@app.route('/absoluteRiskRest/exportToCsv', methods=['POST'])
-def exportToCsv():
-    if request.method == 'POST':
-        csvModel = json.loads(request.data)
-        csvFileId = csvModel['id']
-        csvContent = csvModel['content']
-
-        filename = time.strftime("%Y%m%d-%H%M%S") + "_" + csvFileId + ".csv"
-        filepath = app.config['csv_upload_folder'] + '/' + filename
-
-        with open(filepath,"wb") as fo:
-            fo.write(csvContent)
-
-        return filepath
-
-    return ''
-
-
-@app.route('/absoluteRiskRest/downloadExample', methods=['GET'])
-def downloadExample():
-    if 'filename' in request.args:
-        filename = request.args['filename']
-        fileFolder = app.config['examples_folder'];
-        
-        filepath = os.path.join(fileFolder, filename)
-        
-        if (os.path.isfile(filepath)):
-            return send_from_directory(fileFolder, filename, as_attachment=True)
-        else:
-            return 'This file no longer exists'
-    else:
-        return 'Correct parameter not provided in GET'
-
-
-@app.route('/absoluteRiskRest/downloadSession', methods=['GET'])
-def downloadSession():
-    if 'filename' in request.args:
-        filename = request.args['filename']
-        fileFolder = app.config['results_folder'];
-        
-        filepath = os.path.join(fileFolder, filename)
-        
-        if (os.path.isfile(filepath)):
-            return send_from_directory(fileFolder, filename, as_attachment=True)
-        else:
-            return 'This file no longer exists'
-    else:
-        return 'Correct parameter not provided in GET'
-
-
-# This route returns a specified file, if it exists on the server
-@app.route('/absoluteRiskRest/downloadFile', methods=['GET'])
-def downloadFile():
-    if 'filename' in request.args:
-        filename = request.args['filename']
-        fileFolder = app.config['rdata_upload_folder']
-
-        if string.lower(filename.rsplit('.', 1)[1]) == 'csv':
-            fileFolder = app.config['csv_upload_folder']
-
-        if 'session' in request.args:
-            fileFolder = app.config['results_folder'];
-
-
-        filepath = os.path.join(fileFolder, filename)
-
-        if (os.path.isfile(filepath)):
-            return send_from_directory(fileFolder, filename, as_attachment=True)
-        else:
-            return 'This file no longer exists'
-    else:
-        return 'Correct parameter not provided in GET'
-
-
-# This route returns the generated formula string as JSON
-@app.route('/absoluteRiskRest/generateFormula', methods=['POST'])
-def generateFormula():
-    if request.method == 'POST':
-        jsonData = json.loads(request.data)
-        formulaModel = jsonData['model']['data']
-        pathToFile = jsonData['pathToVariableListFile']
-
-        try:
-            formulaData = arc_wrapper.create_formula(json.dumps(formulaModel), pathToFile)
-            formula = {'formula': formulaData[0], 'path': formulaData[1]}
-            
-            return json.dumps(formula)
-        except Exception, e:
-            raise InvalidUsage(e.args[0], status_code = 500)
-
-    return ''
-
-# This route processes a formula file and returns its json
-@app.route('/absoluteRiskRest/processFormula', methods=['POST'])
-def processFormula():
-    if request.method == 'POST':
-        jsonData = json.loads(request.data)
-        pathToFormula = jsonData['pathToFormulaFile']
-        pathToVariableList = jsonData['pathToVariableListFile']
-
-        try:
-            formula = arc_wrapper.process_formula(pathToFormula, pathToVariableList)
-            return json.dumps(formula[0])
-        except Exception, e:
-            raise InvalidUsage(e.args[0], status_code = 500)
-
-    return ''
-
-# This route takes in 2 parameters for validation of the model formula and returns any error emssages
-@app.route('/absoluteRiskRest/verifyModelFormula', methods=['POST'])
-def verifyModelFormula():
-    if request.method == 'POST':
-        try:
-            jsonData = json.loads(request.data)
-            pathToVariableListFile = jsonData['pathToVariableListFile']
-            pathToGenFormulaFile = jsonData['pathToGenFormulaFile']
-            
-            try:
-                arc_wrapper.verifyModelFormula(pathToVariableListFile, pathToGenFormulaFile)
-                
-            except Exception, e:
-                raise InvalidUsage(e.args[0], status_code = 500)
-        except KeyError, e:
-            raise InvalidUsage('KeyError: ' + e.args[0], status_code = 500)
-    return ''
-
-# This route takes in 2 parameters to validate the risk factor distribution and returns any error messages
-@app.route('/absoluteRiskRest/verifyRiskFactorDistribution', methods=['POST'])
-def verifyRiskFactorDistribution():
-    if request.method == 'POST':
-        try:
-            jsonData = json.loads(request.data)
-            pathToRiskFactorDistribution = jsonData['pathToRiskFactorDistributionCSV']
-            pathToVariableListFile = jsonData['pathToVariableListFile']
-            
-            try:
-                arc_wrapper.verifyRiskFactorDistribution(pathToRiskFactorDistribution, pathToVariableListFile)
-                
-            except Exception, e:
-                raise InvalidUsage(e.args[0], status_code = 500)
-        except KeyError, e:
-            raise InvalidUsage('KeyError: ' + e.args[0], status_code = 500)
-    return ''
-
-# This route takes in 3 parameters to validate the log odds ratios and returns any error messages
-@app.route('/absoluteRiskRest/verifyLogOddsRatios', methods=['POST'])
-def verifyLogOddsRatios():
-    if request.method == 'POST':
-        try:
-            jsonData = json.loads(request.data)
-            pathToLogOddsRatiosFile = jsonData['pathToLogOddsCSV']
-            pathToVariableListFile = jsonData['pathToVariableListFile']
-            pathToGenFormulaFile = jsonData['pathToGenFormulaFile']
-            
-            try:
-                arc_wrapper.verifyLogOddsRatios(pathToLogOddsRatiosFile, pathToVariableListFile, pathToGenFormulaFile)
-                
-            except Exception, e:
-                raise InvalidUsage(e.args[0], status_code = 500)
-        except KeyError, e:
-            raise InvalidUsage('KeyError: ' + e.args[0], status_code = 500)
-    return ''
-
-# This route takes in 1 parameter to validate the disease incidence rates and returns any error messages
-@app.route('/absoluteRiskRest/verifyDiseaseRates', methods=['POST'])
-def verifyDiseaseRates():
-    if request.method == 'POST':
-        try:
-            jsonData = json.loads(request.data)
-            pathToDiseaseRatesFile = jsonData['pathToDiseaseRatesCSV']
-            
-            try:
-                arc_wrapper.verifyDiseaseRates(pathToDiseaseRatesFile)
-                
-            except Exception, e:
-                raise InvalidUsage(e.args[0], status_code = 500)
-        except KeyError, e:
-            raise InvalidUsage('KeyError: ' + e.args[0], status_code = 500)
-    return ''
-
-# This route takes in 2 parameters to validate the competing mortality incidence rates and returns any error messages
-@app.route('/absoluteRiskRest/verifyCompetingRates', methods=['POST'])
-def verifyCompetingRates():
-    if request.method == 'POST':
-        try:
-            jsonData = json.loads(request.data)
-            pathToDiseaseRatesFile = jsonData['pathToDiseaseRatesCSV']
-            pathToCompetingRatesFile = jsonData['pathToCompetingRatesCSV']
-            
-            try:
-                arc_wrapper.verifyCompetingRates(pathToCompetingRatesFile, pathToDiseaseRatesFile)
-                
-            except Exception, e:
-                raise InvalidUsage(e.args[0], status_code = 500)
-        except KeyError, e:
-            raise InvalidUsage('KeyError: ' + e.args[0], status_code = 500)
-    return ''
-
-
-# This route takes in 1 parameter to validate the snp information file and returns any error messages
-@app.route('/absoluteRiskRest/verifySNPInfo', methods=['POST'])
-def verifySNPInfo():
-    if request.method == 'POST':
-        try:
-            jsonData = json.loads(request.data)
-            pathToSnpInfoFile = jsonData['pathToSnpInfoCSV']
-            
-            try:
-                arc_wrapper.verifySNPInfo(pathToSnpInfoFile)
-                
-            except Exception, e:
-                raise InvalidUsage(e.args[0], status_code = 500)
-        except KeyError, e:
-            raise InvalidUsage('KeyError: ' + e.args[0], status_code = 500)
-    return ''
-
-# This route takes in 1 parameter to validate the risk factor for prediction file and returns any error messages
-@app.route('/absoluteRiskRest/verifyRiskFactorForPrediction', methods=['POST'])
-def verifyRiskFactorForPrediction():
-    if request.method == 'POST':
-        try:
-            jsonData = json.loads(request.data)
-            pathToRiskFactorPredictionFile = jsonData['pathToRiskFactorPredictionCSV']
-            pathToVariableListFile = jsonData['pathToVariableListFile']
-
-            
-            try:
-                arc_wrapper.verifyRiskFactorForPrediction(pathToRiskFactorPredictionFile, pathToVariableListFile)
-                
-            except Exception, e:
-                raise InvalidUsage(e.args[0], status_code = 500)
-        except KeyError, e:
-            raise InvalidUsage('KeyError: ' + e.args[0], status_code = 500)
-    return ''
-
-# This route takes in 5 parameters to validate the age intervals file and returns any error messages
-@app.route('/absoluteRiskRest/verifyAgeInterval', methods=['POST'])
-def verifyAgeInterval():
-    if request.method == 'POST':
-        try:
-            jsonData = json.loads(request.data)
-            
-            pathToAgeIntervalFile = jsonData['pathToAgeIntervalCSV']
-            pathToRiskFactorPredictionFile = jsonData['pathToRiskFactorPredictionCSV']
-            pathToSnpInfoFile = jsonData['pathToSnpInfoCSV']
-            pathToDiseaseRatesFile = jsonData['pathToDiseaseRatesCSV']
-            pathToCompetingRatesFile = jsonData['pathToCompetingRatesCSV']
-            
-            try:
-                arc_wrapper.verifyAgeInterval(pathToAgeIntervalFile, pathToRiskFactorPredictionFile, pathToSnpInfoFile, pathToDiseaseRatesFile, pathToCompetingRatesFile)
-                
-            except Exception, e:
-                raise InvalidUsage(e.args[0], status_code = 500)
-        except KeyError, e:
-            raise InvalidUsage('KeyError: ' + e.args[0], status_code = 500)
-    return ''
-            
-# This route takes in 3 params for R calculations, and returns log_odds_rates based calculations as JSON
-@app.route('/absoluteRiskRest/logOddsRatios', methods=['POST'])
-def logOddsRatios():
-    if request.method == 'POST':
-        try:
-            jsonData = json.loads(request.data)
-            pathToVariableListFile = jsonData['pathToVariableListFile']
-            pathToGenFormulaFile = jsonData['pathToGenFormulaFile']
-            formulaData = jsonData['formulaData']['data']
-
-            try:
-                formula = arc_wrapper.create_formula(json.dumps(formulaData), pathToVariableListFile)
-                jsonList = arc_wrapper.log_odds_rates(pathToVariableListFile, json.dumps(formula[0]))
-
-                return jsonList[0]
-            except Exception, e:
-                raise InvalidUsage(e.args[0], status_code = 500)
-        except KeyError, e:
-            raise InvalidUsage('KeyError: ' + e.args[0], status_code = 500)
-    return ''
-
-# This route takes a csv file as an input, and converts it to a 'disease rates' specific RData file.
-# It then returns the RData file path as JSON
-@app.route('/absoluteRiskRest/csvFileUploadDiseaseRates', methods=['POST'])
-def csvFileUploadDiseaseRates():
-    if request.method == 'POST':
-        file = request.files['file']
-        filepath = ''
-
-        if file and allowed_file(file.filename):
-            filename = time.strftime("%Y%m%d-%H%M%S") + '_' + secure_filename(file.filename)
-
-            file.save(os.path.join(app.config['csv_upload_folder'], filename))
-            filepath = app.config['csv_upload_folder'] + '/' + filename
-            convertedFilePath = app.config['rdata_upload_folder'] + '/' + filename
-
-            try:
-                rdata_file_path = arc_wrapper.process_disease_rates(filepath, convertedFilePath)[0]
-
-                print rdata_file_path
-                return json.dumps({'path_to_file': rdata_file_path, 'path_to_csv_file':filepath})
-            except Exception, e:
-                raise InvalidUsage(e.args[0], status_code = 500)
-    return ''
-
-# This route takes 2 params for R calculations, and returns the RData file path as JSON
-@app.route('/absoluteRiskRest/mortalityRates', methods=['POST'])
-def mortalityRates():
-    if request.method == 'POST':
-        jsonData = json.loads(request.data)
-        pathToMortalityRatesCSVFile = jsonData['csvFilePath']
-        pathToDiseaseRatesRDataFile = jsonData['rdataFilePath']
-        filename = os.path.basename(pathToMortalityRatesCSVFile)
-
-        convertedFilePath = app.config['rdata_upload_folder'] + '/' + filename
-
-        try:
-            rdata_file_path = arc_wrapper.process_competing_rates(pathToMortalityRatesCSVFile, pathToDiseaseRatesRDataFile, convertedFilePath)[0]
-
-            print rdata_file_path
-            return json.dumps({'path_to_file': rdata_file_path, 'path_to_csv_file': pathToMortalityRatesCSVFile})
+                return json.dumps({
+                    'filename': filename,
+                    'model': arc['uploadRData'](filepath)[0]
+                })
         except Exception, e:
             raise InvalidUsage(e.args[0], status_code = 500)
     return ''
 
-# This route takes 2 params for R calculations, and returns the RData file path as JSON
-@app.route('/absoluteRiskRest/snpInformation', methods=['POST'])
-def snpInformation():
+# This route takes in a json object as input, saves it to the server as an RData file, and returns the filepath to the client
+@app.route('/absoluteRiskRest/fileDownload', methods=['POST'])
+def fileDownload():
     if request.method == 'POST':
-        jsonData = json.loads(request.data)
-        pathToSnpCSVFile = jsonData['csvFilePath']
-        famHistVarName = jsonData['famHist']
-        filename = os.path.basename(pathToSnpCSVFile)
-        famHistFileName = app.config['rdata_upload_folder'] + '/' + time.strftime("%Y%m%d-%H%M%S") + '_' + 'famHist'
-        convertedFilePath = app.config['rdata_upload_folder'] + '/' + filename
-        snpColNames = []
+        model = json.loads(request.data)
+        data = model['data']
+        id = model['id']
+
+        print id
+        print data
 
         try:
-            rdata_file_path = arc_wrapper.process_SNP_info(pathToSnpCSVFile, famHistVarName, convertedFilePath, famHistFileName)[0]
+            folder   = app.config['upload_folder']
+            filename = secure_filename(timestamp() + id + '.rdata')
+            filepath = folder + '/' + filename
+            arc.convertJSONtoRData(json.dumps(data), filepath)
 
-            with open(pathToSnpCSVFile) as f:
-                reader = csv.reader(f, dialect=csv.excel_tab, delimiter="\t")
-                for i in reader:
-                    colName = i[0].split(',')[0]
-                    snpColNames.append(colName)
+            if os.path.isfile(filepath):
+                return json.dumps({'filepath': filepath})
 
-            return json.dumps({'path_to_file': rdata_file_path, 'rows': snpColNames, 'path_to_csv_file':pathToSnpCSVFile })
         except Exception, e:
             raise InvalidUsage(e.args[0], status_code = 500)
-
     return ''
 
-# This route takes 2 params for R calculations, and returns the RData file path as JSON
+# This route takes in a json object as input and returns validation results
+@app.route('/absoluteRiskRest/validate', methods=['POST'])
+def validate():
+    if request.method == 'POST':
+        try:
+            results = arc['verifyFile'](request.data)[0]
+            return json.dumps({'error': results})
+
+        except Exception, e:
+            raise InvalidUsage(e.args[0], status_code = 500)
+    return ''
+
+# This route takes in a json object as input and returns calculation results
 @app.route('/absoluteRiskRest/calculate', methods=['POST'])
 def calculate():
     if request.method == 'POST':
-        jsonData = json.loads(request.data)
-
         try:
-            ref_dataset_RData = jsonData['risk_factor_distribution']['path_to_file']
-            log_odds_RData = jsonData['log_odds_ratios']['path_to_file']
-            list_of_variables_RData = jsonData['variable_list']['path_to_file']
-            snp_info_RData = jsonData['snp_information']['path_to_file']
-            fam_hist_RData = jsonData['snp_information']['path_to_famHist_file']
-            age_RData = jsonData['age_interval']['path_to_file']
-            cov_new_RData = jsonData['risk_factor_prediction']['path_to_file']
-            genotype_new_RData = jsonData['genotypes_prediction']['path_to_file']
-            disease_rates_RData = jsonData['disease_incidence_rates']['path_to_file']
-            competing_rates_RData = jsonData['mortality_incidence_rates']['path_to_file']
-            model_predictor_RData = jsonData['generate_formula']['path_to_file']
+            filepath = app.config['results_folder'] + '/' + timestamp()
+            parameters = json.loads(request.stream.read())['parameters']
 
-            print "Reference Dataset: " + ref_dataset_RData +"\nModel_predictor_RData: " + model_predictor_RData + "\nLog Odds: " + log_odds_RData + "\nList of Variables: " + list_of_variables_RData + "\nSnp Info: " + snp_info_RData + "\nFamily History: " + fam_hist_RData + "\nAge: " + age_RData + "\nCovariate: " + cov_new_RData + "\nGenotype: " + genotype_new_RData + "\nDisease Rates: " + disease_rates_RData + "\nCompeting Rates: " + competing_rates_RData
-        except KeyError, e:
-            raise InvalidUsage('KeyError: ' + e.args[0], status_code = 500)
+            for key in parameters:
+                if not key in ['familyHistory', 'listOfVariables', 'modelFormula'] and parameters[key] is not None:
+                    parameters[key] = generateCSV(key, parameters[key])
 
-        try:
-            results_path = app.config['results_folder'] + '/' + time.strftime("%Y%m%d-%H%M%S")
-            results = arc_wrapper.finalCalculation(results_path, ref_dataset_RData, model_predictor_RData, log_odds_RData, list_of_variables_RData, snp_info_RData, fam_hist_RData, age_RData, cov_new_RData, genotype_new_RData, disease_rates_RData, competing_rates_RData)
+            return arc['finalCalculation'](filepath, json.dumps(parameters))[0]
 
-            return results[0]
-        except Exception,e:
-            raise InvalidUsage(e.args[0], status_code=500)
+        except Exception, e:
+            raise InvalidUsage(e.args[0], status_code = 500)
     return ''
-
-# This route takes 2 params for R calculations, and returns the RData file path as JSON
-@app.route('/absoluteRiskRest/saveSession', methods=['POST'])
-def saveSession():
-    if request.method == 'POST':
-        jsonData = json.loads(request.data)
-
-        try:
-            ref_dataset_RData = jsonData['risk_factor_distribution']['path_to_file']
-            log_odds_RData = jsonData['log_odds_ratios']['path_to_file']
-            list_of_variables_RData = jsonData['variable_list']['path_to_file']
-            snp_info_RData = jsonData['snp_information']['path_to_file']
-            fam_hist_RData = jsonData['snp_information']['path_to_famHist_file']
-            disease_rates_RData = jsonData['disease_incidence_rates']['path_to_file']
-            competing_rates_RData = jsonData['mortality_incidence_rates']['path_to_file']
-            model_predictor_RData = jsonData['generate_formula']['path_to_file']
-
-        except KeyError, e:
-            raise InvalidUsage('KeyError: ' + e.args[0], status_code = 500)
-
-        try:
-            results_path = app.config['results_folder'] + '/' + time.strftime("%Y%m%d-%H%M%S") + '.rdata'
-            results = arc_wrapper.saveAllFiles(results_path, list_of_variables_RData, model_predictor_RData, ref_dataset_RData, log_odds_RData, disease_rates_RData, competing_rates_RData, snp_info_RData, fam_hist_RData)
-
-            return results[0]
-        except Exception,e:
-            raise InvalidUsage(e.args[0], status_code=500)
-    return ''
-    
-
-# This route takes in a path to a session file and returns a list of rdata/csv files
-@app.route('/absoluteRiskRest/loadSession', methods=['POST'])
-def loadSession():
-    if request.method == 'POST':
-        jsonData = json.loads(request.data)
-        
-        try:
-            session_filename = jsonData['session']['path_to_file']
-            session_prefix = os.path.splitext(session_filename)[0]
-            
-        except KeyError, e:
-            raise InvalidUsage('KeyError: ' + e.args[0], status_code = 500)
-
-        try:
-            results_path = app.config['results_folder'] + '/' + session_name
-            results = arc_wrapper.saveAllFiles(results_path, session_prefix)
-
-            return results[0]
-        except Exception,e:
-            raise InvalidUsage(e.args[0], status_code=500)
-    return ''
-
 
 # This is a simple custom Error handling class/handler to return humanly readable error strings to the UI
 class InvalidUsage(Exception):
     status_code = 400
 
-    def __init__(self, message, status_code=None, payload=None):
+    def __init__(self, message, status_code = None, payload = None):
         Exception.__init__(self)
         self.message = message
         if status_code is not None:
@@ -629,18 +114,33 @@ def handle_invalid_usage(error):
     response.status_code = error.status_code
     return response
 
-# This method checks whether file of specified type is allowed to be uploaded
-def allowed_file(filename):
-    return '.' in filename and \
-        string.lower(filename.rsplit('.', 1)[1]) in ALLOWED_EXTENSIONS
+def timestamp():
+    return time.strftime('%Y%m%d_%H%M%S_')
+
+def createDirectory(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+def generateCSV(key, data):
+    filepath = app.config['upload_folder'] + '/' + timestamp() + key + '.csv'
+    with open(filepath, 'w') as f:
+        csv.writer(f, lineterminator = '\n').writerows(data)
+    return filepath
 
 import argparse
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("-p", dest="port_number", default="9982", help="Sets the Port")
-    # Default port is production value; prod,stage,dev = 9982, sandbox=9983
+    parser.add_argument("-p", dest = "port_number", default = "9170", help = "Sets the Port")
+    parser.add_argument("-d", dest = "debug_option", default = "True", help = "Enables or disables debugging")
+    parser.add_argument("-e", dest = "evalex_option", default = "False", help = "Enables or disables the python console")
+    # Default port is production value; prod, stage, dev=8170, sandbox=9170
     args = parser.parse_args()
     port_num = int(args.port_number);
+    debug_option = args.debug_option == 'True'
+    evalex_option = args.evalex_option == 'True'
+
+    createDirectory(app.config['upload_folder'])
+    createDirectory(app.config['results_folder'])
 
     hostname = gethostname()
-    app.run(host='0.0.0.0', port=port_num, debug = True)
+    app.run(host='0.0.0.0', port = port_num, debug = debug_option, use_evalex = evalex_option)

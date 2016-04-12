@@ -1,379 +1,141 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" ng-app="Arc">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewpower" content="width=device-width, initial-scale=1">
 
-<head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- AngularJS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-sanitize.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-animate.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-resource.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.1/ui-bootstrap-tpls.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.14.9/select.min.js"></script>
+        <script src="https://cdn.rawgit.com/angular-ui/ui-uploader/master/src/uploader.js"></script>
 
-    <!-- Latest AngularJS from CDN -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-sanitize.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.12.1/select.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-animate.min.js"></script>
-    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.0.js"></script>
+        <!-- AngularJS Application -->
+        <script src="assets/js/app.js"></script>
 
-    <!-- Local -->
-    <script src="js/angular-ui-uploader.min.js"></script>
+        <!-- AngularJS Services -->
+        <script src="assets/js/services/dataService.js"></script>
+        <script src="assets/js/services/utilityService.js"></script>
+        <script src="assets/js/services/sectionService.js"></script>
+        <script src="assets/js/services/modalService.js"></script>
+        <script src="assets/js/services/validationService.js"></script>
 
+        <!-- AngularJS Components -->
+        <script src="assets/js/components/variablesComponent.js"></script>
+        <script src="assets/js/components/formulaComponent.js"></script>
+        <script src="assets/js/components/ageIntervalComponent.js"></script>
+        <script src="assets/js/components/snpInformationComponent.js"></script>
+        <script src="assets/js/components/sectionComponent.js"></script>
+        <script src="assets/js/components/uploadFileDirective.js"></script>
 
-    <!-- Angular Controllers -->
-    <script src="js/app.js"></script>
-    <script src="js/controllers/modalController.js"></script>
+        <!-- Application Stylesheets -->
+        <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/vnd.microsoft.icon" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.14.9/select.css">
+        <link rel="stylesheet" href="assets/css/app.css">
 
-    <!-- Angular Services -->
-    <script src="js/services/cacheService.js"></script>
-    <script src="js/services/dataService.js"></script>
-    <script src="js/services/sectionService.js"></script>
-    <script src="js/services/variableListSectionModel.js"></script>
-    <script src="js/services/generateFormulaSectionModel.js"></script>
-    <script src="js/services/ageIntervalSectionModel.js"></script>
-    <script src="js/services/snpSectionModel.js"></script>
-    <script src="js/services/defaultSectionModel.js"></script>
-    <script src="js/services/variable.js"></script>
-    <script src="js/services/formulaVariable.js"></script>
+        <title>Absolute Risk Calculator</title>
+    </head>
+    <body>
+        <div ng-include src="'templates/header.html'"></div>
 
-    <!-- Latest Bootstrap CSS from CDN -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.bootstrap3.css">
+        <div class="container" ng-controller="TabsController as tabs">
+            <uib-tabset>
+    			<!-- Home Tab -->
+    			<uib-tab heading="Home" active="tabs.active[0]">
+    				<div class="container top-margin" ng-include src="'templates/home.html'"></div>
+    			</uib-tab>
 
-    <!-- Local CSS -->
-    <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" href="css/theme.css">
-	<link rel="shortcut icon" href="images/favicon.ico" type="image/vnd.microsoft.icon" />
-    <link rel="icon" type="image/png" href="images/favicon.png">
-    
-    <title>Absolute Risk Calculator</title>
-</head>
+    			<!-- ARC for Researchers Tab -->
+    			<uib-tab heading="ARC for Researchers" active="tabs.active[1]">
+                    <div class="top-margin" ng-controller="AccordionController as accordion">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="radio-inline">
+                                    <input type="radio" name="model_type" ng-model="accordion.type" ng-click="accordion.setType('covariatesAndSNP')" value="covariatesAndSNP" checked>Covariate data and SNP information
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="model_type" ng-model="accordion.type" ng-click="accordion.setType('covariatesOnly')" value="covariatesOnly">Covariate data only
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="model_type" ng-model="accordion.type" ng-click="accordion.setType('snpOnly')" value="snpOnly">SNP only
+                                </label>
+                            </div>
 
-<body>
-    <header>
-        <div class="container">
-            <a href="http://dceg.cancer.gov/" target="dceg"><img class="img-responsive" src="/common/images/DCEG-logo.svg" alt="National Cancer Institute: Division of Cancer Epidemiology and Genetics" title="National Cancer Institute: Division of Cancer Epidemiology and Genetics"></a>
-        </div>
-        <div class="container tool-logo-container">
+                            <hr>
+
+                            <div ng-repeat="step in accordion.steps">
+                                <div>
+    								<div class="form-group clearfix" ng-show="step.id === 'build'">
+    									<h4 class="pull-left">Build the Model</h4>
+    									<span class="btn btn-success btn-file pull-right">
+                                            Upload RData
+    								    <input type="file" id="session" uploadfile></span>
+    								</div>
+
+    								<div class="form-group clearfix" ng-show="step.id === 'apply'">
+    									<div class="clearfix" ng-controller="SessionController as session">
+    										<button type="button" class="btn btn-success pull-right" ng-click="session.download()">
+    											Download RData
+    										</button>
+    									</div>
+    									<h4>Apply the Model</h4>
+    								</div>
+    							</div>
+
+                                <uib-accordion>
+                                    <uib-accordion-group ng-repeat="section in step.sections" active="section.active" is-open="section.open" ng-if="section.visible">
+                                        <uib-accordion-heading>
+                                            <span ng-bind="section.header"></span>
+                                            <span ng-show="!section.optional">*</span>
+                                            <span class="glyphicon glyphicon-ok glyphicon-green pull-right" ng-show="section.validated"></span>
+                                        </uib-accordion-heading>
+                                        <variables-component ng-if="section.type === 'listOfVariables'"></variables-component>
+                                        <formula-component ng-if="section.type === 'modelFormula'"></formula-component>
+                                        <snp-information-component ng-if="section.type === 'snpInformation'"></snp-information-component>
+                                        <age-interval-component ng-if="section.type === 'ageInterval'"></age-interval-component>
+                                        <section-component id="section.id" ng-if="!section.type"></section-component>
+                                   </uib-accordion-group>
+                                </uib-accordion>
+
+                            </div>
+                            <span><i>* indicates required sections</i></span>
+                            <div class="pull-right">
+                                <button class="btn btn-info" ng-click="accordion.reset()">Clear</button>
+            					<button type="button" class="btn btn-primary" ng-click="accordion.calculate()" ng-disabled="accordion.calculationDisabled()">Calculate</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 results-height" ng-class="{'output': accordion.calcRunning}">
+                            <div class="large loading" ng-if="accordion.calcRunning"><div class="">Loading...</div></div>
+                            <div class="result-plot overlay clearfix" ng-show="accordion.resultsImagePath">
+                                <img ng-src="{{accordion.resultsImagePath}}"><br><br>
+                                <div class="col-md-6"><a href="{{accordion.resultsFilePath}}">Download Results</a></div>
+                                <div class="col-md-6"><a href="{{accordion.resultsRefFilePath}}">Download Results Reference</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </uib-tab>
+
+    			<!-- ARC for Clinicians Tab -->
+    			<uib-tab heading="ARC for Clinicians" active="tabs.active[2]">
+    				<div class="container top-margin">
+    				<h4>ARC for Clinicians</h4>
+    				</div>
+    			</uib-tab>
+
+    			<!-- Help Tab -->
+    			<uib-tab heading="Help" active="tabs.active[3]">
+    				<div class="container top-margin" ng-include src="'templates/help.html'"></div>
+    			</uib-tab>
+            </uib-tabset>
             <hr>
-            <div class="col-xs-12 tool-logo" style="text-align: right;">
-                <img src="images/absoluteRiskCalculator_logo.gif" alt="Absolute Risk Calculator" title="Absolute Risk Calculator">
-            </div>
         </div>
-    </header>
 
-    <div class="container" ng-controller="ArcTabs as tabs">
-      <tabset class="fadeTabs">
-      <tab class="tab" heading="Home" active="tabs.active[0]">
-      <div class="pad tabContent">
-        <h4>Welcome to the Absolute Risk Calculator</h4><br>
-        <a ng-click="tabs.select(1)">ARC for Researchers</a><br>
-        <a ng-click="tabs.select(2)">ARC for Clinicians</a><br>
-        <a ng-click="tabs.select(3)">Help</a>
-      </div>
-      </tab>
-      <tab heading="ARC for Researchers" active="tabs.active[1]" >
-        <div class="tabContent container" >
-        <div ng-controller="ArcAccordion as accordion">
-            <div class="col-md-6">
-                <div ng-repeat="step in accordion.steps">
-                    <div class="form-group clearfix" ng-show="step.id === 'apply'">
-                        <form>
-                            <button type="button" class="btn btn-success pull-right" ng-click="accordion.saveSessionRData()">
-                                Download RData
-                            </button>
-                        </form>
-                    </div>
-                    <h4 ng-if="step.id === 'apply'">{{step.title}}</h4>
-                    <div class="form-group top-margin clearfix" ng-if="step.id === 'build'">
-                        <form>
-                            <h4 class="pull-left">{{step.title}}</h4>
-                            <button type="button" class="btn btn-success pull-right" ng-click="" ng-if="step.id === 'build'">
-                                Upload RData
-                            </button>
-                        </form>
-                    </div>
-                    <accordion close-others="true">
-                        <accordion-group ng-repeat="section in step.sections" is-open="section.isOpen">
-                            <accordion-heading>
-                                <span  ng-class="{'text-muted' : section.isDisabled }"> {{section.header()}} <i class="glyphicon" ng-class="{'glyphicon-ok glyphicon-green': section.validated}"></i></span>
-                            </accordion-heading>
-                            <form id="{{section.id}}" ng-if="section.type === 'variable_list'">
-                                <div class="form-group">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="{{'variable_section_' + $index}}" value="manual" ng-model="section.model.inputMethod" ng-click="section.init()" ng-disabled="section.model.inputMethod === 'manual'"> Manual
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="{{'variable_section_' + $index}}" value="upload" ng-model="section.model.inputMethod" ng-click="section.init()" ng-disabled="section.model.inputMethod === 'upload'" checked> Upload RData
-                                    </label>
-                                </div>
-                                <div ng-show="section.model.inputMethod === 'manual'">
-                                    <table class="table table-striped table-responsive">
-                                        <thead>
-                                            <tr>
-                                                <th>Variable Name</th>
-                                                <th>Is Continuous</th>
-                                                <th>Levels</th>
-                                                <th>Reference Level</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr ng-repeat="variable in section.model.variableList">
-                                                <td>
-                                                    <input type="text" name="name" placeholder="eg: famhist" class="form-control" ng-model="variable.name">
-                                                </td>
-                                                <td>
-                                                    <div class="centerCheckbox">
-                                                        <input type="checkbox" name="{{'type_' + $index}}" ng-true-value="'continuous'" ng-false-value="'factor'" ng-model="variable.type"> 
-                                                    </div>
-                                                    
-                                                </td>
-                                                <td>
-                                                    <input type="text" name="levels" placeholder="eg: 1 3 5+" class="form-control" ng-model="variable.levels" ng-disabled="variable.type === 'continuous'">
-                                                </td>
-                                                <td>
-                                                    <input type="text" name="ref" placeholder="eg: 5" class="form-control" ng-model="variable.ref" ng-disabled="variable.type === 'continuous'">
-                                                </td>
-                                                <td>
-                                                    <a ng-click="section.model.deleteVariable($index)">
-                                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                                        <span class="sr-only">Delete Variable</span>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <button type="button" class="btn btn-sm btn-link" ng-click="section.model.addVariable()">
-                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                        <span class="sr-only">Add a Variable</span>
-                                        Add a Variable
-                                    </button>
-                                    
-                                <div class="btn-toolbar">
-                                    <button type="button" class="btn btn-primary pull-right" ng-click="accordion.validateAndSubmit(section)">
-                                       Submit
-                                    </button>
-                                    <button type="button" class="btn btn-info pull-right" ng-click="section.model.saveModel()" >
-                                        Download RData
-                                    </button>
-                                </div>
-                                </div>
-                                <div ng-show="section.model.inputMethod === 'upload'">
-                                    <div class="form-group">
-                                        <span class="btn btn-info btn-file">
-                                            Browse <input type="file" id="{{section.id + '_file'}}" arc-file-change ng-click="accordion.selectFile(section)">
-                                        </span>
-                                        <span ng-model="section.file">{{section.file.name}}</span>
-                                        <span ng-show="!section.file">No file selected <a ng-click="accordion.getExampleFile(section.id)">(example)</a></span>
-                                    <button type="button" class="btn btn-primary pull-right" ng-click="accordion.validateAndSubmit(section)" ng-disabled = "accordion.completedUpload(section)">
-                                        
-
-                                        <span ng-show="accordion.uploadInProgress(section) && section.selectedFile">
-                                        Uploading
-                                        </span>
-                                        
-                                        <span ng-show="!accordion.uploadInProgress(section) || !section.selectedFile">
-                                        Submit
-                                        </span>
-                                    </button>
-                                    </div>
-                                </div>
-                            </form>
-                            <form id="{{section.id}}" ng-if="section.type === 'generate_formula'">
-                                <div class="form-group">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="{{'formula_section_' + $index}}" value="manual" ng-model="section.model.inputMethod" ng-click="section.init()" ng-disabled="section.model.inputMethod === 'manual'"> Manual
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="{{'formula_section_' + $index}}" value="upload" ng-model="section.model.inputMethod" ng-click="section.init()" ng-disabled="section.model.inputMethod === 'upload'" checked> Upload RData
-                                    </label>
-                                </div>
-                                <div ng-show="section.model.inputMethod === 'manual'">
-                                    <div>
-                                        <table class="table table-striped table-responsive">
-                                            <thead>
-                                                <tr>
-                                                    <th>Variable Name</th>
-                                                    <th>Linear</th>
-                                                    <th>Interaction Terms</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr ng-repeat="variable in section.model.variables">
-                                                    <td>
-                                                        <span>{{variable.name}}</span>
-                                                    </td>
-                                                    <td>
-                                                        <input type="checkbox" ng-model="variable.linear" ng-change="variable.alertLinearState()">
-                                                    </td>
-                                                    <td>
-                                                        <ui-select multiple ng-model="variable.interaction" theme="bootstrap" ng-show="variable.linear ">
-                                                          <ui-select-match placeholder="No selection...">{{$item.name}}</ui-select-match>
-                                                          <ui-select-choices repeat="term in variable.terms | verifyTerms: variable.terms: section.model.variables" ng-change="console.log('changed')">
-                                                            <div ng-bind-html="term.name | highlight: $select.search"></div>
-                                                          </ui-select-choices>
-                                                        </ui-select>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <div class="btn-toolbar">
-                                            <button type="button" class="btn btn-primary pull-right" ng-click="accordion.submitFormula(section)">Submit</button>
-                                            <button type="button" class="btn btn-info pull-right" ng-click="section.model.generateFormula()">View Formula</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div ng-show="section.model.inputMethod === 'upload'">
-                                    <div class="form-group">
-                                        <span class="btn btn-info btn-file">
-                                            Browse <input type="file" id="{{section.id + '_file'}}" arc-file-change ng-click="accordion.selectFile(section)">
-                                        </span>
-                                        <span ng-model="section.file">{{section.file.name}}</span>
-                                        <span ng-show="!section.file">No file selected <a ng-click="accordion.getExampleFile(section.id)">(example)</a></span>
-                                        <button type="button" class="btn btn-primary pull-right" ng-click="accordion.validateAndSubmit(section)" ng-disabled = "accordion.completedUpload(section)">
-                                            
-                                            <span ng-show="accordion.uploadInProgress(section) && section.selectedFile">
-                                            Uploading
-                                            </span>
-                                            
-                                            <span ng-show="!accordion.uploadInProgress(section) || !section.selectedFile">
-                                            Submit
-                                            </span>   
-                                         </button>
-                                    </div>
-                                </div>
-                            </form>
-                            <form ng-if="section.type === 'default' || section.type === 'snp_information'">
-                                <div class="form-group">
-                                    <span class="btn btn-info btn-file">
-                                        Upload CSV file <input type="file" id="{{section.id + '_file'}}" arc-file-change ng-click="accordion.selectFile(section)">
-                                    </span>
-                                    <span ng-model="section.file">{{section.file.name}}</span>
-                                    <span ng-show="!section.file">No file selected <a ng-click="accordion.getExampleFile(section.id)">(example)</a></span>
-                                    <a class="pull-right" ng-click="accordion.generateModal('template', section.model)">View Template</a>
-                                  </div>
-                                
-                                    
-                                <button ng-show = "section.type === 'default'" type="button" class="btn btn-primary pull-right" ng-click="accordion.validateAndSubmit(section)" ng-disabled = "accordion.completedUpload(section)">
-                                        <span ng-show="accordion.uploadInProgress(section) && section.selectedFile">
-                                        Uploading
-                                        </span>
-                                        
-                                        <span ng-show="!accordion.uploadInProgress(section) || !section.selectedFile">
-                                        Submit
-                                        </span>                                    
-                                </button>
-
-                                <button ng-show = "section.type === 'snp_information'" type="button" class="btn btn-primary pull-right" ng-click="accordion.submitBuildSteps(section)">
-                                        Submit
-                                </button>
-
-                                <div class="form-group" ng-show="section.type === 'snp_information'">
-                                    <span>Family History Variable Name: </span>
-                                    <select ng-model="section.model.famHist" ng-options="row for row in section.model.sectionDependencyData.rows">
-                                    </select>
-                                </div>
-                            </form>
-                            <form ng-if="section.type === 'age_interval'">
-                                <div class="form-group">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="{{'age_section_' + $index}}" value="manual" ng-model="section.model.inputMethod" checked> Enter Single Values
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="{{'age_section_' + $index}}" value="upload" ng-model="section.model.inputMethod"> Upload Multiple Values
-                                    </label>
-                                </div>
-                                <div ng-show="section.model.inputMethod === 'manual'">
-                                    <div class="form-group">
-                                        <span>Age: </span>
-                                        <select ng-model="section.model.age" ng-options="age for age in section.model.ages">
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <span>Age Interval: </span>
-                                        <select ng-model="section.model.ageInterval" ng-options="interval for interval in section.model.ageIntervals">
-                                        </select>
-                                    </div>
-                                </div>
-                                <div ng-show="section.model.inputMethod === 'upload'">
-                                    <div class="form-group">
-                                        <span class="btn btn-info btn-file">
-                                            Upload CSV file <input type="file" id="{{section.id + '_file'}}" arc-file-change>
-                                        </span>
-                                        <span ng-model="section.file">{{section.file.name}}</span>
-                                        <span ng-show="!section.file">No file selected <a ng-click="accordion.getExampleFile(section.id)">(example)</a></span>
-                                      <a class="pull-right" ng-click="accordion.generateModal('template', section.model)">View Template</a>
-                                    </div>
-                                </div>
-                            </form>
-                        </accordion-group>
-                    </accordion>
-                </div>
-                <div class="form-group clearfix">
-                    <form>
-                        <button type="button" class="btn btn-success pull-right" ng-click="accordion.calculateData()" ng-disabled="accordion.calcRunning">
-                            Calculate
-                        </button>
-                    </form>
-                </div>
-            </div>
-            <div class="col-md-6 top-margin" ng-class="{'output': accordion.calcRunning}">
-                <h4>Output</h4>
-                <div class="large loading" ng-show="accordion.calcRunning"><div>Loading…</div></div>
-                <div class="result-plot" ng-show="accordion.resultsImagePath">
-                    <img ng-src="{{accordion.resultsImagePath}}" alt="Result" title="Result" />
-                </div>
-                <div ng-show="accordion.resultsImagePath">
-                    <hr>
-                    <h4>Download Results</h4>
-                    <a href="{{accordion.resultsFilePath}}">Results</a><br>
-                    <a href="{{accordion.resultsRefFilePath}}">Results Reference</a><br>
-                </div>
-            </div>
-        </div>
-      </div>
-      </tab>
-      <tab heading="ARC for Clinicians" active="tabs.active[2]">
-      <div class="pad tabContent">
-      Arc for clinicians
-      </div>
-      </tab>
-      <tab heading="Help" active="tabs.active[3]">
-      <div class="pad tabContent">
-      Help contents
-      </div>
-      </tab>
-    </tabset>
-    <hr>
-    </div>
-    
-    <footer class="container footer">
-        <div class="center-block">
-            <ul class="list-inline">
-                <li><a href="http://www.cancer.gov/" title="Home" target="_blank">Home</a></li>
-                <li>|</li>
-                <li><a href="mailto:NCIAbsoluteRiskCalculatorWebAdmin@mail.nih.gov?subject=AbsoluteRiskCalculator" target="_top" title="Support">Support</a></li>
-                <li>|</li>
-                <li><a href="http://www.cancer.gov/global/web/policies" title="Policies" target="_blank">Policies</a></li>
-                <li>|</li>
-                <li><a href="http://www.cancer.gov/global/web/policies/accessibility" title="Accessibility" target="_blank">Accessibility</a></li>
-                <li>|</li>
-                <li><a href="http://cancer.gov/global/viewing-files" title="Viewing Files" target="_blank">Viewing Files</a></li>
-                <li>|</li>
-                <li><a href="http://www.cancer.gov/global/web/policies/foia" title="FOIA" target="_blank">FOIA</a></li>
-            </ul>
-            <ul class="list-inline">
-                <li><a href="http://www.hhs.gov/" target="_blank">U.S. Department of Health and Human Services</a></li>
-                <li>|</li>
-                <li><a href="http://www.nih.gov" target="_blank">National Institutes of Health</a></li>
-                <li>|</li>
-                <li><a href="http://www.cancer.gov/" target="_blank">National Cancer Institute</a></li>
-                <li>|</li>
-                <li><a href="http://usa.gov" target="_blank">USA.gov</a></li>
-            </ul>
-            <div class="text-center">
-                NIH ... Turning Discovery Into Health<sup>®</sup>
-            </div>
-        </div>
-    </footer>
-</body>
+        <div ng-include src="'templates/footer.html'"></div>
+    </body>
 </html>

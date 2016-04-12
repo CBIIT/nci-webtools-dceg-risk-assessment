@@ -30,16 +30,18 @@ plumber = function(){
 
 gulp.task('default',['build']);
 
-gulp.task('build', ['jade-compile', 'js:copy', 'css','common-js:copy',
-'common-css:copy', 'rat-common:copy'], function(){
+gulp.task('build', ['jade-compile', 'js:copy', 'css','commons'], function(){
     notifier.notify({
         title: 'Compilation Complete',
         message: "The code has been compiled in the project's root directory"
     });
 });
 
+gulp.task('commons', [ 'common-images:copy', 'common-js:copy',
+'common-css:copy', 'rat-common:copy' ]);
+
 // task for rendering jade files to HTML
-gulp.task('jade-compile', function(){
+gulp.task('jade-compile', function() {
     // only return the compiled index to root
     return gulp.src(['app/jade/pages/mrat/index.jade']).pipe(gulpJade({
         pretty: true,
@@ -77,8 +79,16 @@ gulp.task('css', function(){
     });
 });
 
-
 // tasks to copy common features across all RATs
+gulp.task('common-images:copy', function(){
+
+    gulp.src([ 'common-resources/images/**/*.png',
+             'common-resources/images/**/*.svg',
+             'common-resources/images/**/*.gif',
+             'common-resources/images/**/*.jpg' ])
+        .pipe(gulp.dest(parentDir+"/rat-commons/images"));
+});
+
 gulp.task('common-js:copy', function(){
     var s;
     s = streamqueue({
@@ -105,6 +115,9 @@ gulp.task('common-css:copy', function(){
         use: [nib()],
         'import': ['nib']
     })).pipe(gulpConcat('styles.css')).pipe(gulp.dest(parentDir+"/rat-commons/css"));
+
+    gulp.src('common-resources/stylus/fonts/**/*').pipe(
+        gulp.dest(parentDir+"/rat-commons/css/fonts"));
 
     return s = streamqueue({
         objectMode: true

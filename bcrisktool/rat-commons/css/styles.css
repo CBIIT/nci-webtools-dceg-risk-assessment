@@ -1,3 +1,21 @@
+@font-face {
+  font-family: 'Noto Sans';
+  font-weight: normal;
+  font-style: normal;
+  src: url("fonts/NotoSans-Regular.ttf");
+}
+@font-face {
+  font-family: 'Noto Sans';
+  font-weight: normal;
+  font-style: italic;
+  src: url("fonts/NotoSans-Italic.ttf");
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: normal;
+  font-style: normal;
+  src: url("fonts/Montserrat-Regular.ttf");
+}
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -12,8 +30,8 @@ a,
   cursor: pointer;
 }
 body {
-  font-family: sans-serif, Helvetica, Calibri, Arial Rounded MT Bold;
-  font-size: 15px;
+  font-family: 'Noto Sans', Arial, sans-serif;
+  font-size: 10.5pt;
   margin: 0;
   min-width: 320px;
   background: #f7f8f3;
@@ -151,6 +169,7 @@ ul.nav li a {
   text-align: center;
 }
 ul.nav li ul {
+  font-size: 0.9em;
   background: #000;
   border: 0;
   left: 0;
@@ -189,6 +208,7 @@ section {
 }
 section form {
   display: block;
+  font-size: 0.9em;
 }
 section form > ol {
   list-style: decimal;
@@ -264,7 +284,10 @@ section form .question-text.error {
   color: #f00;
 }
 section form button {
-  float: right;
+  display: block;
+  margin: 0 auto;
+  width: 250px;
+  float: none;
   padding: 8px 60px;
 }
 .question-illustrations {
@@ -289,9 +312,6 @@ section form button {
   border-radius: 5px;
   max-width: 230px;
   max-height: 140px;
-}
-.section-content {
-  padding: 0 5%;
 }
 .section-content a {
   color: #bb0e3d;
@@ -321,7 +341,7 @@ section form button {
 }
 .section-description {
   margin: 10px auto;
-  padding: 10px;
+  padding: 5px;
   border: 3px solid #bb0e3d;
   -webkit-border-radius: 10px;
   border-radius: 10px;
@@ -451,7 +471,7 @@ section form button {
   text-align: center;
 }
 #result canvas.chart {
-  background: rgba(0,0,0,0.08);
+  background-color: rgba(0,0,0,0.1);
   font-size: 0px;
   position: relative;
   width: 100%;
@@ -495,15 +515,40 @@ section form button {
   display: none;
 }
 ul.red-arrow li {
-  list-style-image: url("../../images/red-arrow.gif");
+  list-style-image: url("../images/red-arrow.gif");
 }
 .two-col {
   float: left;
   margin: 10px;
   padding: 25px 5px;
 }
+.two-col ul {
+  height: auto;
+  min-height: 125px;
+}
+.two-col.green {
+  border: 4px solid #008000;
+}
+.two-col.red {
+  border: 4px solid #f00;
+}
 .two-col:nth-child(1) {
   padding-right: 5px;
+}
+.two-col > .graphic {
+  float: left;
+  clear: both;
+  vertical-align: middle;
+}
+.two-col > .graphic.fa {
+  margin: 0 25px;
+  font-size: 7em;
+}
+.green {
+  color: #008000;
+}
+.red {
+  color: #f00;
 }
 ul.two-col {
   float: left;
