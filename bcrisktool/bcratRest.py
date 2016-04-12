@@ -111,7 +111,7 @@ class BreastRiskAssessmentTool:
       firstDegRelatives = int(parameters['relatives'])
       if parameters['race'] == "Asian" and firstDegRelatives > 0:
         firstDegRelatives = 1
-      risk = AbsRisk("Absolute", race, age, min(age+5,90), menarcheAge, numberOfBiopsies, firstLiveBirthAge, firstDegRelatives, rhyp)
+      risk = RiskCalculation("Absolute",race, age, min(age+5,90), menarcheAge, numberOfBiopsies, firstLiveBirthAge, firstDegRelatives, rhyp)
       risk = round(risk*100,1)
       return BreastRiskAssessmentTool.buildSuccess(str(risk))
     except Exception as e:
