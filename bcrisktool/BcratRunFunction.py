@@ -18,13 +18,13 @@ def AbsoluteRisk(race, currentAge, projectionAge, menarcheAge, numberOfBiopsy, f
     firstLiveBirthAge = 0
   elif firstLiveBirthAge < 25:
     firstLiveBirthAge = 1
-  elif firstLiveBirthAge < 30:
+  elif firstLiveBirthAge == 98 or firstLiveBirthAge < 30:
     firstLiveBirthAge = 2
   else:
     firstLiveBirthAge = 3
   if firstDegRelatives < 1 or firstDegRelatives == 99:
     firstDegRelatives = 0
-  if firstDegRelatives < 2:
+  elif firstDegRelatives < 2:
     firstDegRelatives = 1
   else:
     firstDegRelatives = 2
