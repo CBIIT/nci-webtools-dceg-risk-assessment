@@ -42,6 +42,8 @@ def RiskCalculation(riskType, race, currentAge, projectionAge, menarcheAge, numb
   if (race == "Black" and menarcheAge == 2):
     menarcheAge = 1
     firstLiveBirthAge = 0
+  if (race in ["Chinese", "Japanese", "Filipino", "Hawaiian", "Islander", "Asian"] and firstDegRelatives > 1):
+    firstDegRelatives = 1
   covariateBreakdown = [
     # age of menarchy                   0=[14, 39] U 99 (unknown)
     #                                   1=[12, 14)
