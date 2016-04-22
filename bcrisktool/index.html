@@ -446,23 +446,17 @@
               <li>
                 <div class="question">
                   <div class="question-illustrations"><img src="images/family-baby.jpg" alt="women together" class="stock-images"></div>
-                  <label for="childbirth" class="question-text">Has the woman ever given birth to a live child?</label>
-                  <div class="input">
-                    <label>
-                      <input type="radio" name="childbirth" value="-1">Yes
-                    </label>
-                    <label>
-                      <input type="radio" name="childbirth" value="2">No
-                    </label>
-                    <label>
-                      <input type="radio" name="childbirth" value="0">Unknown
-                    </label>
-                  </div>
-                </div>
-                <div id="subquestion-childbirth-age" class="question subquestion">
                   <label for="childbirth_age" class="question-text">What was the woman's age at the time of her first live birth of a child?</label>
                   <div class="input">
-                    <input id="childbirth_age" name="childbirth_age" type="number" min="10" max="50">
+                    <select id="childbirth_age" name="childbirth_age">
+                      <option value="">Select</option>
+                      <option value="0">Unknown</option>
+                      <option value="2">No Births</option>
+                      <option value="0">19 and younger</option>
+                      <option value="1">20 to 24</option>
+                      <option value="2">25 to 29</option>
+                      <option value="3">30 or older</option>
+                    </select>
                   </div>
                 </div>
               </li>

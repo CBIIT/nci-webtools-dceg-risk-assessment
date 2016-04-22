@@ -109,23 +109,17 @@ section#risk-calculator(tab='risk-calculator')
                     .question
                         .question-illustrations
                             img.stock-images(src="images/family-baby.jpg", alt="women together")
-                        label.question-text(for="childbirth")
-                            | Has the woman ever given birth to a live child?
-                        .input
-                            label
-                                input(type="radio", name="childbirth", value='-1')
-                                | Yes
-                            label
-                                input(type="radio", name="childbirth", value='2')
-                                | No
-                            label
-                                input(type="radio", name="childbirth", value='0')
-                                | Unknown
-                    #subquestion-childbirth-age.question.subquestion
                         label.question-text(for="childbirth_age")
                             | What was the woman's age at the time of her first live birth of a child?
                         .input
-                            input#childbirth_age(name='childbirth_age', type="number", min="10", max="50")
+                            select#childbirth_age(name='childbirth_age')
+                                option(value='') Select
+                                option(value='0') Unknown
+                                option(value='2') No Births
+                                option(value='0') 19 and younger
+                                option(value='1') 20 to 24
+                                option(value='2') 25 to 29
+                                option(value='3') 30 or older
                 li
                     .question-illustrations
                         img.stock-images(src="images/women-kitchen.jpg", alt="women together")

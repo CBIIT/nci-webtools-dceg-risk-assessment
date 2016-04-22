@@ -3,7 +3,7 @@ import os
 import sys
 
 from flask import Flask, Response, request, jsonify, send_from_directory
-from BcratRunFunction import AbsRisk
+from BcratRunFunction import RiskCalculation
 
 app = Flask(__name__, static_folder="", static_url_path="")
 
@@ -38,7 +38,7 @@ class BreastRiskAssessmentTool:
       for field in parameters:
         parameters[field] = parameters[field][0]
       errorObject = {'missing':[],'nonnumeric':[],'message':[]}
-      requiredParameters = ['age','age_period','childbirth','biopsy']
+      requiredParameters = ['age','age_period','childbirth_age','biopsy']
       if 'race' not in parameters or parameters['race'] == "":
         errorObject['missing'] += ['race']
       elif parameters['race'] == "Asian":
@@ -48,8 +48,6 @@ class BreastRiskAssessmentTool:
           race = parameters['sub_race']
       else:
         race = parameters['race']
-      if 'childbirth' not in errorObject['missing'] and parameters['childbirth'] == '-1':
-        requiredParameters += ['childbirth_age']
       for required in requiredParameters:
         if required not in parameters or parameters[required] == "":
           errorObject['missing'].append(required)
@@ -74,20 +72,8 @@ class BreastRiskAssessmentTool:
         else:
           menarcheAge = 0
       firstLiveBirthAge = 0
-      if 'childbirth' not in errorObject['missing'] and 'childbirth' not in errorObject['nonnumeric']:
-        firstLiveBirthAge = int(parameters['childbirth'])
-        if parameters['childbirth'] == '-1' and 'childbirth_age' not in errorObject['missing'] and 'childbirth_age' not in errorObject['nonnumeric']:
-          firstLiveBirthAge = int(parameters['childbirth_age'])
-          if firstLiveBirthAge < 10 or firstLiveBirthAge > 50:
-            errorObject['message'] += ["Women who had their first child under the age of 10 or over the age of 50 are not within the scope of this assessment."]
-          elif firstLiveBirthAge < 20:
-            firstLiveBirthAge = 0
-          elif firstLiveBirthAge < 25:
-            firstLiveBirthAge = 1
-          elif firstLiveBirthAge < 30:
-            firstLiveBirthAge = 2
-          else:
-            firstLiveBirthAge = 3
+      if 'childbirth_age' not in errorObject['missing'] and 'childbirth_age' not in errorObject['nonnumeric']:
+        firstLiveBirthAge = int(parameters['childbirth_age'])
       numberOfBiopsies = 0
       rhyp = 1.0
       if 'biopsy' not in errorObject['missing'] and 'biopsy' not in errorObject['nonnumeric']:

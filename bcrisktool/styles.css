@@ -2,6 +2,7 @@ section form > ol > li {
   vertical-align: inherit;
   margin: 0 auto;
   height: 400px;
+  width: 32%;
 }
 .question {
   padding: 5px 0;
@@ -51,3 +52,13 @@ table tbody > tr th {
   color: #dbf2f8;
 }
 
+@media (max-width: 990px) {
+  section form > ol > li {
+    width: 45%;
+  }
+}
+@media (max-width: 768px) {
+  section form > ol > li {
+    width: 100%;
+  }
+}

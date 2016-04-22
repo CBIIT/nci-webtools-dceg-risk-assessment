@@ -28,16 +28,9 @@
         age_period: {
             required: true
         },
-        childbirth: {
-            required: true
-        },
 
         childbirth_age: {
-            required: {
-                depends: function () {
-                    return Number($("[name='childbirth']").val()) === -1;
-                }
-            }
+            required: true
         },
 
         relatives: {
@@ -88,10 +81,6 @@
             required: "You must enter the woman's age when she first had her period"
         },
 
-        childbirth: {
-            required: "You must select whether the woman has ever given birth"
-        },
-
         childbirth_age: {
             required: "You must enter the age of woman when she first gave birth"
         },
@@ -135,13 +124,6 @@
             $("#subquestion-race").addClass("show");
         } else
             $("#subquestion-race").removeClass("show");
-    });
-
-    $("[name='childbirth']").on("change", function () {
-        if (Number(this.value) === -1)
-            $("#subquestion-childbirth-age").addClass("show");
-        else
-            $("#subquestion-childbirth-age").removeClass("show");
     });
 
     $("[name='biopsy']").on("change", function () {
