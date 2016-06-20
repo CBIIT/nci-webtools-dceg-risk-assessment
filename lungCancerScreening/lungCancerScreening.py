@@ -86,6 +86,13 @@ def lungCancerRest():
 
         return json.dumps(string)
 
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+    return response
+
 import argparse
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
