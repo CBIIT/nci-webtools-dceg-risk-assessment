@@ -58,10 +58,15 @@
     </div>
     <div class="container" ng-controller="MyController">
         <div class="row">
-            <div class="col-xs-12">
+<!--             <div class="col-xs-12">
                 <p>The National Lung Screening Trial (NLST) compared the efficacy of low-dose helical CT with that of standard chest X-ray for detecting lung cancer.  Low-dose CT resulted in 20% reduction in lung cancer mortality, and the <a href="http://www.uspreventiveservicestaskforce.org/Page/Topic/recommendation-summary/lung-cancer-screening" target="_blank" title="USPSTF (U.S. Preventive Services Task Force)">US Preventive Services Task Force (USPSTF)</a> recommends CT lung screening for those 50-80 years of age, minimum 30 pack-years of smoking, and no more than 15 years since quitting.  The Risk-based NLST Outcomes Tool (RNOT) provides chance of diagnosis and death from lung cancer, and risk of false-positive CT screen, based on data from the NLST.</p>
                 <p class="text-bold">The best way to lower your risk of lung cancer, and all smoking-related diseases, is to quit smoking. Learn more by visiting <a href="http://smokefree.gov" target="smokefree">smokefree.gov</a> and the CDC page on <a href="http://www.cdc.gov/tobacco/quit_smoking/" target="cdcSmokeFree">quitting smoking</a>.</p>
-            </div>
+            </div> -->
+            <div class="col-xs-12">
+                <p>The National Lung Screening Trial (NLST) compared two ways of finding out whether someone has lung cancer: <a href="http://www.cancer.gov/types/lung/patient/lung-screening-pdq#section/_13" target="_blank">low-dose helical computed tomography (CT) (also known as spiral CT) and a standard chest X-ray</a>. The study found that CT lung screening reduced lung cancer death.  As a result, the <a href="http://www.uspreventiveservicestaskforce.org/Page/Document/UpdateSummaryFinal/lung-cancer-screening " target="_blank">US Preventative Services Task Force </a>(a group of experts who make recommendations about prevention) recommends CT lung screening for those 55-80 years of age, who smoked at least <a href="http://www.cancer.gov/publications/dictionaries/cancer-terms?cdrid=306510" target="_blank">30 pack-years</a>, and no more than 15 years since quitting.  This online tool, the Risk-based NLST Outcomes tool (RNOT), uses data from the NLST to give information about whether someone like you would be recommended to have screening.  The RNOT also predicts your chance of getting a lung cancer diagnosis, your chance of dying from lung cancer, and your risk of a <a href="http://www.cancer.gov/publications/dictionaries/cancer-terms?cdrid=340929">false</a> alarm (a person has a positive screening test but does not actually have lung cancer) using some basic information you provide about yourself and your smoking behavior.
+                </p>
+                <p class="text-bold">The best way to lower your risk of lung cancer, and all smoking-related diseases, is to quit smoking. Learn more by visiting <a href="http://smokefree.gov" target="smokefree">smokefree.gov</a> and the CDC page on <a href="http://www.cdc.gov/tobacco/quit_smoking/" target="cdcSmokeFree">quitting smoking</a> or call 1-800-QUIT-NOW.</p>                
+            </div>            
         </div>
         <div class="row">
             <div class="col-xs-12 col-md-6">
@@ -201,18 +206,6 @@
                                         </div>
                                     </div>
                                     -->
-                                    <div class="form-group">
-                                        <label for="race_group" class="col-xs-12 col-md-6 control-label">Race or Ethnic Group</label>
-                                        <div class="col-xs-12 col-md-6">
-                                            <select name="race_group" id="race_group" class="form-control input-sm" ng-model="myForm.group" ng-required="true">
-                                                <option value="">Select...</option>
-                                                <option value="0">White</option>
-                                                <option value="1">Black or African-American</option>
-                                                <option value="2">Hispanic</option>
-                                                <option value="3">Asian or Pacific Islander</option>
-                                            </select>
-                                        </div>
-                                    </div>
                                     <!--
                                     <div ng-show="myForm.groupCriteria" class="row">
                                         <div class="col-xs-12 has-error">
@@ -299,6 +292,18 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="race_group" class="col-xs-12 col-md-6 control-label">Race or Ethnic Group</label>
+                                        <div class="col-xs-12 col-md-6">
+                                            <select name="race_group" id="race_group" class="form-control input-sm" ng-model="myForm.group" ng-required="true">
+                                                <option value="">Select...</option>
+                                                <option value="0">White</option>
+                                                <option value="1">Black or African-American</option>
+                                                <option value="2">Hispanic</option>
+                                                <option value="3">Asian or Pacific Islander</option>
+                                            </select>
+                                        </div>
+                                    </div>                                    
                                     <div class="form-group">
                                         <div class="col-xs-12">
                                             <div class="btn-toolbar pull-right">
