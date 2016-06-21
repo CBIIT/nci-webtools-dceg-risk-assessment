@@ -1,6 +1,6 @@
 var app = angular.module("myapp", []);
 
-app.controller("MyController", function($scope, $http) {
+app.controller("MyController", function($scope, $sce, $http) {
   /* These globals are used in multiple ajax calls in different functions */
   var GLOBAL_DATA;
 
@@ -270,7 +270,8 @@ app.controller("MyController", function($scope, $http) {
         params,
         paramsArray = [],
         qtyears,
-        url = 'http://' + window.location.hostname + '/lungCancerRest/';
+        // url = 'http://' + window.location.hostname + ':9982/lungCancerRest/';
+        url = 'http://localhost:9982/lungCancerRest/';
 
     /* Reset summary property to disable results/download results button */
     $scope.myForm.summary = '';
@@ -400,4 +401,39 @@ app.controller("MyController", function($scope, $http) {
       $scope.myForm.weight = Math.round($scope.myForm.weight * 100) / 100;
     }
   }
+
+  /* Draws a simple table with 1000 cells filled in based on units out of 1000 */
+  $scope.drawGraph = function(units) {
+    var cellArray = [];
+    var html = '<table cellspacing="0" cellpadding="0">';
+
+    /* create rows and columns filled in with color based on units until units is zero */
+    for (var x=0; x<25; x++) {
+      var row = [];
+      for (var z=1; z<41; z++) {
+        if (units>0) {
+          row.push('<td class="filled"></td>');
+        }
+        else {
+          row.push('<td></td>');
+        };
+        units-=1;
+      };
+      cellArray.push(row);
+    };
+
+    /* reverse rows so colors fill in from bottom of chart */
+    cellArray.reverse();
+    
+    /* loop through row array and create actual html to be dislpayed on page */
+    for (var x = 0; x<cellArray.length; x++) {
+      html+="<tr>";
+      for (var z = 0; z<cellArray[x].length; z++) {
+        html+=cellArray[x][z];
+      };
+      html+="</tr>";
+    };
+    html+= '</table>'; 
+    return $sce.trustAsHtml(html);
+  };
 });

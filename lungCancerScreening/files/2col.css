@@ -316,3 +316,26 @@ a {
     margin-top: 0;
     margin-bottom: 15px;
 }
+
+.yourresults table{
+    border:.01em solid #000;
+}
+
+.yourresults td {
+    border: .01em solid #000;
+    width:10px !important;
+}
+
+.yourresults tr {
+    height:10px !important;
+}
+
+.yourresults td.filled {
+    background-color:#c6e1ec;
+}
+
+p.yourresults  {
+  margin-top:-20px;
+  padding:10px;
+  margin-bottom:-10px;
+}
