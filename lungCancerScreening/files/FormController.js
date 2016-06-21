@@ -271,7 +271,7 @@ app.controller("MyController", function($scope, $sce, $http) {
         paramsArray = [],
         qtyears,
         // url = 'http://' + window.location.hostname + ':9982/lungCancerRest/';
-        url = 'http://localhost:9982/lungCancerRest/';
+        url = 'http://' + window.location.hostname + '/lungCancerRest/';
 
     /* Reset summary property to disable results/download results button */
     $scope.myForm.summary = '';
