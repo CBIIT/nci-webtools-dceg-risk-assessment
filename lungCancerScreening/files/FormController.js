@@ -142,7 +142,7 @@ app.controller("MyController", function($scope, $sce, $http) {
       $scope.myForm.heightPrimary = 'Meter(s)';
       $scope.myForm.heightSecondary = 'Centimeter(s)';
       $scope.myForm.weightUnits = 'Kilogram(s)';
-      $scope.myForm.heightWarning = 'Please ensure, that meters are greater than 0 and less than or equal to 3, and centimeters are greater than or equal to 0 and less than 30. Please ensure that the values above do not include any non-numeric characters.';
+      $scope.myForm.heightWarning = 'Please ensure, that centimeters are greater than 30.48. Please ensure that the value above does not include any non-numeric characters.';
     }
 
     convertHeightWeight();
@@ -153,16 +153,19 @@ app.controller("MyController", function($scope, $sce, $http) {
     var isNumeric = numRegExp.test($scope.myForm.pHeight);
     var primary = parseFloat($scope.myForm.pHeight);
 
-    if ($scope.myForm.pHeight === '' || $scope.myForm.pHeight === undefined) {
+    if (($scope.myForm.pHeight === '' || $scope.myForm.pHeight === undefined || !$scope.myForm.pHeight) && !$scope.myForm.subHeight) {
       $scope.myForm.pHeightCriteria = false;
       return;
     }
-
-    if ($scope.myForm.units === 'us') {
-      $scope.myForm.pHeightCriteria = primary <= 0 || primary > 10 || !isNumeric;
-    } else {
-      $scope.myForm.pHeightCriteria = primary <= 0 || primary > 3 || !isNumeric;
+    else {
+      if ($scope.myForm.units === 'us') {
+        $scope.myForm.pHeightCriteria = primary <= 0 || primary > 10 || !isNumeric;
+      } else {
+        $scope.myForm.pHeightCriteria = false;
+      }      
     }
+
+
   });
 
   /* Switch height range validation based on US or Metric units (for cm/inches) */
@@ -170,16 +173,22 @@ app.controller("MyController", function($scope, $sce, $http) {
     var isNumeric = numRegExp.test($scope.myForm.subHeight);
     var sub = parseFloat($scope.myForm.subHeight);
 
-    if ($scope.myForm.subHeight === '' || $scope.myForm.subHeight === undefined) {
+    if ($scope.myForm.subHeight === '' || $scope.myForm.subHeight === undefined || !$scope.myForm.subHeight) {
       $scope.myForm.subHeightCriteria = false;
       return;
     }
-
-    if ($scope.myForm.units === 'us') {
-      $scope.myForm.subHeightCriteria = sub < 0 || sub >= 12 || !isNumeric;
-    } else {
-      $scope.myForm.subHeightCriteria = sub < 0 || sub > 30 || !isNumeric;
+    else if ($scope.myForm.subHeight < 30.48 && $scope.myForm.units != 'us') {
+      $scope.myForm.subHeightCriteria = true;
     }
+    else {
+      if ($scope.myForm.units === 'us') {
+        $scope.myForm.subHeightCriteria = sub < 0 || sub >= 12 || !isNumeric;
+      } else {
+        $scope.myForm.subHeightCriteria = sub < 0 || !isNumeric;
+      }      
+    }
+
+
   });
 
   $scope.$watch('myForm.weight', function() {
@@ -270,8 +279,8 @@ app.controller("MyController", function($scope, $sce, $http) {
         params,
         paramsArray = [],
         qtyears,
-        // url = 'http://' + window.location.hostname + ':9982/lungCancerRest/';
-        url = 'http://' + window.location.hostname + '/lungCancerRest/';
+        url = 'http://' + window.location.hostname + ':9982/lungCancerRest/';
+        // url = 'http://' + window.location.hostname + '/lungCancerRest/';
 
     /* Reset summary property to disable results/download results button */
     $scope.myForm.summary = '';
@@ -386,15 +395,24 @@ app.controller("MyController", function($scope, $sce, $http) {
     var sub = parseFloat($scope.myForm.subHeight);
     var weight = parseFloat($scope.myForm.weight);
 
-    if (primary) {
-      $scope.myForm.pHeight = ($scope.myForm.units === 'us') ? primary * 3.28084 : primary / 3.28084;
-      $scope.myForm.pHeight = Math.round($scope.myForm.pHeight * 100) / 100;
+    if ($scope.myForm.units == 'us') { // convert metric to imperial //
+      var subInches = sub / 2.54; // convert cm to inches
+      primary = 0;
+      while (subInches>=12) { // calculate feet based on total inches //
+        primary+=1;
+        subInches-=12;
+      };
+      $scope.myForm.subHeight = (subInches === 0) ? NaN : Math.round(subInches * 100) / 100; // set inches for secondary input field //
+      $scope.myForm.pHeight = (primary === 0) ? NaN : primary; // set feet for primary input field //
     }
-
-    if (sub) {
-      $scope.myForm.subHeight = ($scope.myForm.units === 'us') ? sub / 2.54 : sub * 2.54;
-      $scope.myForm.subHeight = Math.round($scope.myForm.subHeight * 100) / 100;
-    }
+    else { // convert imperial to metric //
+      $scope.myForm.pHeightCriteria = false; // set primary height criteria to false, no longer needed for metric //
+      sub = (!sub) ? 0 : sub;
+      primary = (!primary) ? 0 : primary;
+      var cm = (primary*12+sub)* 2.54;
+      $scope.myForm.subHeight = (cm === 0) ? NaN : Math.round(cm * 100) / 100; // set secondary units (cm) //
+      $scope.myForm.pHeight = 0; // set primary metric units, not needed but bypasses errors //
+    };
 
     if (weight) {
       $scope.myForm.weight = ($scope.myForm.units === 'us') ? weight * 2.20462 : weight / 2.20462;
