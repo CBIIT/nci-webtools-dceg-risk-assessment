@@ -7,8 +7,10 @@
     <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">    
     <link href="files/2col.css" rel="stylesheet" type="text/css" media="all">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
     <script src="files/FormController.js"></script>
@@ -213,7 +215,13 @@
                                     </div>0
                                     -->
                                     <div class="form-group">
-                                        <label for="disease" class="col-xs-12 col-md-6 control-label">Lung disease?</label>
+                                        <span class="col-xs-12 col-md-6 control-label">
+                                            <label for="disease" class="control-label">Lung disease?</label><br />
+                                            <div class="btn btn-primary button-enabled copd" ng-click="openCopdDialog()">Info</div>
+                                            <div id="copd_dialog" title="Lung disease" style="display:none">
+                                                <p>COPD stands for <a href="https://www.nlm.nih.gov/medlineplus/copd.html" target="_blank">chronic obstructive pulmonary disease</a>.  <a href="https://www.nlm.nih.gov/medlineplus/emphysema.html" target="_blank">Emphysema</a> is a type of COPD.</p>
+                                            </div>
+                                        </span>
                                         <div class="col-xs-12 col-md-6">
                                             <select name="disease" id="disease" class="form-control input-sm" ng-model="myForm.disease" ng-required="true">
                                                 <option value="">Select...</option>

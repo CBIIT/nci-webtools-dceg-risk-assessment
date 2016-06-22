@@ -454,4 +454,11 @@ app.controller("MyController", function($scope, $sce, $http) {
     html+= '</table>'; 
     return $sce.trustAsHtml(html);
   };
+
+  $scope.openCopdDialog = function() {
+    $("#copd_dialog").dialog({
+      modal: true
+    }
+    );
+  };
 });

@@ -339,3 +339,30 @@ p.yourresults  {
   padding:10px;
   margin-bottom:-10px;
 }
+
+.ui-dialog-titlebar-close::after{
+    content:'x';
+    position:relative;
+    top:-3px !important;
+    left:-1px !important;
+}
+@media screen and (-webkit-min-device-pixel-ratio:0) {  
+    .ui-dialog-titlebar-close::after{
+        left:0px !important;
+    }
+}
+.ui-widget-header {
+    border: 1px solid #aaaaaa;
+    background: #c6e1ec url("images/ui-bg_highlight-soft_75_cccccc_1x100.png") 50% 50% repeat-x;
+    color: #222222;
+    font-weight: bold;
+}
+.btn.copd{
+    font-size:11px !important;
+    width:40px;
+    margin-top:5px;
+}
+
+a {
+   outline: 0 !important;
+}
