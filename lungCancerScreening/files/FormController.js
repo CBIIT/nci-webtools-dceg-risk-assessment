@@ -272,6 +272,13 @@ app.controller("MyController", function($scope, $sce, $http) {
   };
 
   $scope.myForm.submit = function() {
+    /* add port for localhost testing purposes */
+    if (window.location.hostname=='localhost') {
+      url = 'http://' + window.location.hostname + ':9982/lungCancerRest/';
+    }
+    else {
+      url = 'http://' + window.location.hostname + '/lungCancerRest/';
+    };
     var bmi = 0,
         h,
         w,
@@ -279,8 +286,7 @@ app.controller("MyController", function($scope, $sce, $http) {
         params,
         paramsArray = [],
         qtyears,
-        url = 'http://' + window.location.hostname + ':9982/lungCancerRest/';
-        // url = 'http://' + window.location.hostname + '/lungCancerRest/';
+        url
 
     /* Reset summary property to disable results/download results button */
     $scope.myForm.summary = '';
