@@ -360,8 +360,9 @@ p.yourresults  {
 }
 .btn.copd{
     font-size:11px !important;
-    width:40px;
-    margin-top:5px;
+    width:30px;
+    height:21px;
+    margin-top:0px;
 }
 
 a {
@@ -400,4 +401,13 @@ top:-1px;
 .legend span {
 display:inline-block;
 padding-right:10px;
+}
+
+
+div.diseasesection {
+display:inline-block;
+}
+
+div.diseasesection select {
+width:200px;
 }
