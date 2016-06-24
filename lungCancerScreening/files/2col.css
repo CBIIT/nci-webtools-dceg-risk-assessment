@@ -367,8 +367,11 @@ a {
    outline: 0 !important;
 }
 
-.results {
+div.yourresults {
 margin:10px;
+}
+div.yourresults div{
+margin:0px;
 }
 
 .yourresults {
@@ -382,4 +385,18 @@ display:inline-block;
 width:400px;
 vertical-align:top;
 margin:0px 100px 0px 0px;
+}
+
+
+.legend img {
+border:1px solid #000;
+height:10px;
+width:10px;
+position:relative;
+top:-1px;
+}
+
+.legend span {
+display:inline-block;
+padding-right:10px;
 }
