@@ -29,7 +29,7 @@ app.controller("ResultController", function($scope, $window, $sce, $http, $local
           row.push('<td class="f"><img src="files/cellfill.png"></td>');
         }
         else {
-          row.push('<td></td>');
+          row.push('<td><img src="files/cellempty.png"></td>');
         };
         units-=1;
       };
