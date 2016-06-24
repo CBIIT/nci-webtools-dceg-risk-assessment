@@ -20,10 +20,11 @@
 
 </head>
 <body ng-app="myapp">
-
     <div ng-controller="ResultController">
-    	<div class="yourresults">
-                <div ng-bind-html="drawGraph(45)"></div>
-            </div>
+        <div class="yourresults">
+                <div class="col left" ng-bind-html="drawGraph(45)"></div>
+                <div class="col right" ng-bind-html="drawGraph(45)"></div>
         </div>
+    </div>
+options = {'page-size': 'Letter', 'page-width': '900pt', 'margin-top': '0.75in', 'no-outline': None, 'margin-right': '0.75in', 'page-height': '595pt', 'margin-left': '0.75in', 'encoding': 'UTF-8', 'margin-bottom': '0.75in'}
  </body></html>
