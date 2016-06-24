@@ -28,7 +28,7 @@ def index():
 def lungCancerRest():
         # Get the parsed contents of the form data
 
-        data = request.json
+        data = request.json            
         age = data["age"];
         bmi = data["bmi"];
         cpd = data["cpd"];
@@ -38,6 +38,8 @@ def lungCancerRest():
         qtyears = data["qtyears"];
         smkyears = data["smkyears"];
         race = data["race"];
+        if race==4: # set other to white #
+            race = 0 
         edu6 = data["edu6"];
         pkyrcat = data["pkyr.cat"];
 

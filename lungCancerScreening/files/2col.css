@@ -366,3 +366,20 @@ p.yourresults  {
 a {
    outline: 0 !important;
 }
+
+.results {
+margin:10px;
+}
+
+.yourresults {
+width:100%;
+}
+.yourresults td img {
+width:10px; height:10px;
+}
+.yourresults .col {
+display:inline-block;
+width:400px;
+vertical-align:top;
+margin:0px 100px 0px 0px;
+}

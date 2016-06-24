@@ -13,7 +13,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+    <script src="files/ngStorage.js"></script>
     <script src="files/FormController.js"></script>
+    <script src="files/resultController.js"></script>
 </head>
 <body ng-app="myapp">
     <div class="header">
@@ -58,7 +60,7 @@
             </div>
         </div>
     </div>
-    <div class="container" ng-controller="MyController">
+        <div class="container" ng-controller="MyController">
         <div class="row">
 <!--             <div class="col-xs-12">
                 <p>The National Lung Screening Trial (NLST) compared the efficacy of low-dose helical CT with that of standard chest X-ray for detecting lung cancer.  Low-dose CT resulted in 20% reduction in lung cancer mortality, and the <a href="http://www.uspreventiveservicestaskforce.org/Page/Topic/recommendation-summary/lung-cancer-screening" target="_blank" title="USPSTF (U.S. Preventive Services Task Force)">US Preventive Services Task Force (USPSTF)</a> recommends CT lung screening for those 50-80 years of age, minimum 30 pack-years of smoking, and no more than 15 years since quitting.  The Risk-based NLST Outcomes Tool (RNOT) provides chance of diagnosis and death from lung cancer, and risk of false-positive CT screen, based on data from the NLST.</p>
@@ -306,7 +308,7 @@
                                                 <option value="1">Black or African-American</option>
                                                 <option value="2">Hispanic</option>
                                                 <option value="3">Asian or Pacific Islander</option>
-                                                <option value="0">Other</option>
+                                                <option value="4">Other</option>
                                             </select>
                                         </div>
                                     </div>                                    
@@ -326,118 +328,7 @@
             </div>
             <div class="col-xs-12 col-md-6">
                 <div class="loading" ng-show="myForm.loading"></div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <div class="panel-title">Your Results</div>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <p ng-bind="myForm.summary"></p>
-                                <div class="has-error" ng-show="myForm.error">
-                                    <h5 class="help-block">Error</h5>
-                                    <span class="help-block">
-                                        There was a problem returning results due to the service being down. Please try to submit the form again.
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <fieldset ng-disabled="!myForm.summary" ng-class="{'disabled': !myForm.summary}">
-                                    <section class="ac-container">
-                                        <div>
-                                            <p>
-                                                You are
-                                                <span ng-if="myForm.eligibility">ELIGIBLE for CT lung screening according to US Preventive Services Task Force recommendations.</span>
-                                                <span ng-if="!myForm.eligibility">INELIGIBLE for CT lung screening according to US Preventive Services Task Force recommendations, due to the following reason(s):</span>
 
-                                                <ul>
-                                                    <li ng-show="myForm.ageCriteria">
-                                                        This tool calculates risk for men and women 50 to 80 years of age
-                                                    </li>
-                                                    <li ng-show="myForm.quitCriteria">
-                                                        The <a href="http://www.uspreventiveservicestaskforce.org/uspstf/uspslung.htm" target="_blank" title="U.S. Preventive Services Task Force">U.S. Preventive Services Task Force</a> does NOT recommend that you get screened if you quitted smoking for more than 15 years.
-                                                    </li>
-                                                    <li ng-show="myForm.cigsCriteria">
-                                                        The <a href="http://www.uspreventiveservicestaskforce.org/uspstf/uspslung.htm" target="_blank" title="U.S. Preventive Services Task Force">U.S. Preventive Services Task Force</a> does NOT recommend that you get screened unless you have a minimum 30 pack-years of smoking.
-                                                    </li>
-                                                </ul>
-                                            </p>
-                                        </div>
-                                        <div>
-                                            <input id="ac-1" name="accordion-1" type="checkbox" ng-checked="myForm.summary" />
-                                            <label for="ac-1" ng-class="{'cursor-disabled': !myForm.summary}"> Lung cancer death</label>
-                                            <article class="ac-medium">
-                                                <p>Chance of dying from lung cancer within 5 years in the absence of screening: {{myForm.result0}} out of 1000.</p>
-                                                <p class="yourresults" ng-bind-html="drawGraph(myForm.result0)">
-                                                </p>
-                                                <p ng-show="myForm.unstableRisk">This risk is unstable</p>
-                                                <p>Among 1000 people in the US with this risk-factor profile, {{myForm.result0}} will die from lung cancer within 5 years, if they do not attend screening.</p>
-                                            </article>
-                                            <article class="ac-medium">
-                                                <p>Reduction in 5-year lung cancer death risk, due to screening: {{myForm.result1}} out of 1000</p>
-                                                <p class="yourresults" ng-bind-html="drawGraph(myForm.result1)">
-
-                                                <p>In the NLST, those who underwent 3 rounds of annual CT screening had their risk reduced by 20%. Therefore, among the {{myForm.result0}} out of 1000 people who would have died from lung cancer in 5 years, {{myForm.result1}} people would not die from lung cancer within 5 years, if they undergo 3 yearly CT lung screens as in the NLST.</p>
-                                            </article>
-                                            <!--
-                                            <article class="ac-medium">
-                                                <p>Of those eligible for lung screening, number who have less reduction: {{myForm.result5}} out of 1000</p>
-                                                <p>Out of 1000 people eligible for lung screening according to US Preventive Services Task Force recommendations, {{myForm.result5}} are estimated to have less reduction in lung cancer death than someone with this risk factor profile.</p>
-                                            </article>
-                                            -->
-                                        </div>
-                                        <div>
-                                            <input id="ac-4" name="accordion-4" type="checkbox" ng-model="myForm.cbResult2" />
-                                            <label for="ac-4" ng-class="{'cursor-disabled': !myForm.summary}">Lung cancer diagnosis</label>
-                                            <article class="ac-medium">
-                                                <p>The chance of lung cancer diagnosis within 5 years in the absence of screening: {{myForm.result2}} out of 1000</p>
-                                                <p class="yourresults" ng-bind-html="drawGraph(myForm.result2)">                                                
-                                                <p ng-show="myForm.unstableRisk">This risk is unstable</p>
-                                                <p>Among 1000 people in the US with this risk-factor profile, {{myForm.result2}} will be diagnosed with lung cancer within 5 years, if they do not attend screening.</p>
-                                            </article>
-                                            <article class="ac-medium">
-                                                <p>Increase in 5-year lung cancer diagnoses, due to screening: {{myForm.result3}} out of 1000</p>
-                                                <p class="yourresults" ng-bind-html="drawGraph(myForm.result3)">
-
-                                                <p>In the NLST, those who underwent CT screening had 12.4% more lung cancers diagnosed, all of which require treatment. Therefore, among 1000 people with this risk-factor profile, {{myForm.result3}} extra lung cancer would be diagnosed within 5 years, if they undergo 3 yearly CT lung screens as in the NLST.</p>
-                                            </article>
-                                        </div>
-                                        <div>
-                                            <input id="ac-5" name="accordion-5" type="checkbox" ng-model="myForm.cbResult4" />
-                                            <label for="ac-5" ng-class="{'cursor-disabled': !myForm.summary}">False-positive CT lung screen</label>
-                                            <article class="ac-medium">
-                                                <p>Chance of false-positive CT lung screen: {{myForm.result4}} out of 1000</p>
-                                                <p class="yourresults" ng-bind-html="drawGraph(myForm.result4)">
-                                                <p>Out of 1000 NLST participants with this risk profile, {{myForm.result4}} had at least one false-positive CT screen out of 3 CT screens.</p>
-                                            </article>
-                                        </div>
-                                    </section>
-                                </fieldset>
-                                <!-- Comment Out Until Needed Again -->
-                                <!--
-                                    <table cellspacing="0" class="utility-table">
-                                        <tr valign="middle">
-                                            <td class="icon">
-                                                <img src="files/print.png" alt="Print" title="Print">
-                                            </td>
-                                            <td class="text">
-                                                <strong><a href="#" ng-click="myForm.printPage()">Print</a></strong>
-                                            </td>
-                                            <td class="icon" ng-class="{'disabled': !myForm.summary}">
-                                                <img ng-show="myForm.summary" src="files/download.png" alt="Download Results" title="Download Results">
-                                            </td>
-                                            <td class="text">
-                                                <a ng-show="myForm.summary" ng-href="{{myForm.resultsFileLink}}" target="_blank">Download Results</a>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-title">Further Information</div>

@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>National Lung Screening Trial</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="files/bootstrap.min.css">
+    <link rel="stylesheet" href="files/jquery-ui.css">    
+    <link href="files/2col.css" rel="stylesheet" type="text/css" media="all">
+    <script src="files/jquery.min.js"></script>
+    <script src="files/jquery-ui.min.js"></script>
+    <script src="files/bootstrap.min.js"></script>
+    <script src="files/angular.min.js"></script>
+    <script src="files/ngStorage.js"></script>
+    <script src="files/FormController.js"></script>
+    <script src="files/resultService.js"></script>
+    <script src="files/resultController.js"></script>
+    <link href="files/pdf.css" rel="stylesheet" type="text/css" media="all">
+
+</head>
+<body ng-app="myapp">
+
+    <div ng-controller="ResultController">
+    	<div class="yourresults">
+                <div ng-bind-html="drawGraph(45)"></div>
+            </div>
+        </div>
+ </body></html>

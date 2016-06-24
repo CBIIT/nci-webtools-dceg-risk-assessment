@@ -1,9 +1,8 @@
-var app = angular.module("myapp", []);
+var app = angular.module("myapp", ['ngStorage']);
 
-app.controller("MyController", function($scope, $sce, $http) {
+app.controller("MyController", function($scope, $sce, $http, $localStorage) {
   /* These globals are used in multiple ajax calls in different functions */
   var GLOBAL_DATA;
-
   /* RegEx for numerical field validation */
   var numPattern = '^[0-9]+(\.[0-9]{1,9})?$';
   var numRegExp = new RegExp(numPattern, 'i');
@@ -249,7 +248,8 @@ app.controller("MyController", function($scope, $sce, $http) {
         '0': 'White',
         '1': 'Black or African-American',
         '2': 'Hispanic',
-        '3': 'Asian or Pacific Islander'
+        '3': 'Asian or Pacific Islander',
+        '4': 'Other'
       }
     };
 
@@ -341,6 +341,7 @@ app.controller("MyController", function($scope, $sce, $http) {
             $scope.myForm.resultsFileLink = data.pop();
             $scope.myForm.setResultValues(data);
             $scope.myForm.summary = $scope.myForm.createSummary(params.bmi);
+            console.log(data,params)
          }
        })
        .error(function(data, status, headers, config) {
@@ -350,6 +351,9 @@ app.controller("MyController", function($scope, $sce, $http) {
        .finally(function(data) {
          $scope.myForm.isInvalid = false;
          $scope.myForm.loading = false;
+         $localStorage.params = params;
+         $localStorage.myForm = $scope.myForm;
+         window.open("results.html")
     	 });
   };
 
@@ -429,14 +433,14 @@ app.controller("MyController", function($scope, $sce, $http) {
   /* Draws a simple table with 1000 cells filled in based on units out of 1000 */
   $scope.drawGraph = function(units) {
     var cellArray = [];
-    var html = '<table cellspacing="0" cellpadding="0">';
+    var html = '<table cellspacing="0" cellpadding="0" border="1">';
 
     /* create rows and columns filled in with color based on units until units is zero */
     for (var x=0; x<25; x++) {
       var row = [];
       for (var z=1; z<41; z++) {
         if (units>0) {
-          row.push('<td class="filled"></td>');
+          row.push('<td class="filled"><img src="files/cellfill.png"></td>');
         }
         else {
           row.push('<td></td>');
