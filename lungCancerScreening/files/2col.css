@@ -324,6 +324,7 @@ a {
 .yourresults td {
     border: .01em solid #000;
     width:10px !important;
+    min-width:10px;
 }
 
 .yourresults tr {
