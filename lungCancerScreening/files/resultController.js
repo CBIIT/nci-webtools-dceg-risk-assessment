@@ -53,6 +53,13 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
   }; 
 
   $scope.exportPDF = function() {
+    if (window.location.hostname=='localhost') {
+      url = 'http://' + window.location.hostname + ':9982/exportPDF/';
+    }
+    else {
+      url = 'http://' + window.location.hostname + '/exportPDF/';
+    };
+    var data = "";
     var results = $("#results").html();
     var html = "";
     html+= '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
@@ -68,6 +75,27 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
     html+= results;
     html+= '</body>';
     html+= '</html>';
-    console.log(html)
+
+    $http({method: 'POST', url: url,headers: { 'Accept':'application/json, text/plain, * / *'}, data: html}).
+            success(function(data) {
+              console.log("SUCCESS")
+            })
+            .error(function(data) {
+              console.log("FAIL")
+            })
+      console.log("redirect and to actual file and have a cron job delete files?")
+    // $http.post(url, data)
+    //    .success(function(data) {
+    //     window.d = data;
+    //     var file  = new Blob([data], {type: 'application/pdf'});
+    //     var fileURL = URL.createObjectURL(file);
+    //      // window.open(fileURL);        
+    //    })
+    //    .error(function(data) {
+    //     console.log("ERROR")
+    //    })
+    //    .finally(function(data) {
+    //     console.log("FINALLY")
+    //    });
   };
 });
