@@ -78,7 +78,7 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
 
     $http({method: 'POST', url: url,headers: { 'Accept':'application/json, text/plain, * / *'}, data: html}).
             success(function(data) {
-              console.log("SUCCESS")
+              window.location.replace(url+"?dir="+data)
             })
             .error(function(data) {
               console.log("FAIL")
