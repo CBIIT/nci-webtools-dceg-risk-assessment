@@ -373,10 +373,15 @@ p.yourresults  {
 a {
    outline: 0 !important;
 }
-
 div.yourresults {
-margin:10px;
+margin-top:30px;
 }
+
+div.yourresults p.title {
+font-weight:bold;
+padding:0px;
+}
+
 div.yourresults div{
 margin:0px;
 }
@@ -395,12 +400,16 @@ margin:0px 100px 0px 0px;
 }
 
 
+.legend {
+margin-top:5px;
+}
+
 .legend img {
 border:1px solid #000;
 height:10px;
 width:10px;
 position:relative;
-top:-1px;
+top:0px;
 }
 
 .legend span {

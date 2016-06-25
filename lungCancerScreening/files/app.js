@@ -20,7 +20,11 @@ app.config(function ($routeProvider) {
       .when('/results', {
         templateUrl: 'results.html',
         controller: 'ResultCtrl'
-      })         
+      })  
+      .when('/pdf', {
+        templateUrl: 'pdf.html',
+        controller: 'ResultCtrl'
+      })                  
       .otherwise({
         redirectTo: '/'
       });
