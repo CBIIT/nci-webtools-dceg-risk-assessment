@@ -1,6 +1,6 @@
 var app = angular.module("myapp");
 
-app.controller("ResultController", function($scope, $window, $sce, $http, $localStorage) {
+app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorage) {
   /* These globals are used in multiple ajax calls in different functions */
   $scope.session = $localStorage;
   $scope.raceMap = {
@@ -10,7 +10,6 @@ app.controller("ResultController", function($scope, $window, $sce, $http, $local
     3: 'an Asian or Pacific Islander',
     4: 'an Other'
   };
-
   $scope.gender = {
     0: 'male',
     1: 'female'

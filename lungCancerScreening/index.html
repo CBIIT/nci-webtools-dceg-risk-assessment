@@ -13,11 +13,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+    <script src="files/angular-route.js"></script>
+    <script src="files/app.js"></script>
     <script src="files/ngStorage.js"></script>
+    <script src="files/MainController.js"></script>
     <script src="files/FormController.js"></script>
     <script src="files/resultController.js"></script>
 </head>
-<body ng-app="myapp">
+<body ng-app="myapp" ng-controller="MainCtrl">
     <div class="header">
         <div class="container">
             <a href="http://dceg.cancer.gov/" target="dceg" title="National Cancer Institute: Division of Cancer Epidemiology and Genetics" class="header-logo"></a>
@@ -44,12 +47,11 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="lcs-navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About the Tool</a></li>
-                    <li><a href="risk.html">Risk Factor</a></li>
+                <ul class="nav navbar-nav">{{showResults}}
+                    <li><button alt="home" ng-click="changeUrl('/')" ng-disabled="false" ng-class="{active: active=='/'}">Home</button></li>
+                    <li><button alt="Your Results" ng-click="changeUrl('/results')" ng-disabled="resultsDisabled" ng-class="{active: active=='/results'}">Your Results</button></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quick Links <span class="caret"></span></a>
+                        <a href="#/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quick Links <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Link 1</a></li>
                             <li><a href="#">Link 2</a></li>
@@ -60,293 +62,8 @@
             </div>
         </div>
     </div>
-        <div class="container" ng-controller="MyController">
-        <div class="row">
-<!--             <div class="col-xs-12">
-                <p>The National Lung Screening Trial (NLST) compared the efficacy of low-dose helical CT with that of standard chest X-ray for detecting lung cancer.  Low-dose CT resulted in 20% reduction in lung cancer mortality, and the <a href="http://www.uspreventiveservicestaskforce.org/Page/Topic/recommendation-summary/lung-cancer-screening" target="_blank" title="USPSTF (U.S. Preventive Services Task Force)">US Preventive Services Task Force (USPSTF)</a> recommends CT lung screening for those 50-80 years of age, minimum 30 pack-years of smoking, and no more than 15 years since quitting.  The Risk-based NLST Outcomes Tool (RNOT) provides chance of diagnosis and death from lung cancer, and risk of false-positive CT screen, based on data from the NLST.</p>
-                <p class="text-bold">The best way to lower your risk of lung cancer, and all smoking-related diseases, is to quit smoking. Learn more by visiting <a href="http://smokefree.gov" target="smokefree">smokefree.gov</a> and the CDC page on <a href="http://www.cdc.gov/tobacco/quit_smoking/" target="cdcSmokeFree">quitting smoking</a>.</p>
-            </div> -->
-            <div class="col-xs-12">
-                <p>The National Lung Screening Trial (NLST) compared two ways of finding out whether someone has lung cancer: <a href="http://www.cancer.gov/types/lung/patient/lung-screening-pdq#section/_13" target="_blank">low-dose helical computed tomography (CT) (also known as spiral CT) and a standard chest X-ray</a>. The study found that CT lung screening reduced lung cancer death.  As a result, the <a href="http://www.uspreventiveservicestaskforce.org/Page/Document/UpdateSummaryFinal/lung-cancer-screening " target="_blank">US Preventative Services Task Force </a>(a group of experts who make recommendations about prevention) recommends CT lung screening for those 55-80 years of age, who smoked at least <a href="http://www.cancer.gov/publications/dictionaries/cancer-terms?cdrid=306510" target="_blank">30 pack-years</a>, and no more than 15 years since quitting.  This online tool, the Risk-based NLST Outcomes tool (RNOT), uses data from the NLST to give information about whether someone like you would be recommended to have screening.  The RNOT also predicts your chance of getting a lung cancer diagnosis, your chance of dying from lung cancer, and your risk of a <a href="http://www.cancer.gov/publications/dictionaries/cancer-terms?cdrid=340929">false</a> alarm (a person has a positive screening test but does not actually have lung cancer) using some basic information you provide about yourself and your smoking behavior.
-                </p>
-                <p class="text-bold">The best way to lower your risk of lung cancer, and all smoking-related diseases, is to quit smoking. Learn more by visiting <a href="http://smokefree.gov" target="smokefree">smokefree.gov</a> and the CDC page on <a href="http://www.cdc.gov/tobacco/quit_smoking/" target="cdcSmokeFree">quitting smoking</a> or call 1-800-QUIT-NOW.</p>                
-            </div>            
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-md-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <div class="panel-title">Risk Tool</div>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <p>
-                                    <strong>
-                                         CT lung screening is <a href="http://www.uspreventiveservicestaskforce.org/Page/Document/UpdateSummaryFinal/lung-cancer-screening" target="_blank">not recommended</a> if (1) you are younger than 55 or older than 80, (2) you have never smoked, (3) you are a current smoker, but you have smoked less than 30 <a href="http://www.cancer.gov/publications/dictionaries/cancer-terms?cdrid=306510" target="_blank">pack-years</a> (such as those who smoked 1 pack per day for 30 years or 2 packs per day for 15 years), or (3) you are a former smoker who quit more than 15 years ago.
-                                    </strong>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <form class="form form-horizontal" name="lcsForm" ng-submit="myForm.submit(lcsForm.$valid)">
-                                    <div class="form-group" ng-class="{'has-error': myForm.ageNumericCriteria }">
-                                        <label for="age" class="col-xs-12 col-md-6 control-label">Age</label>
-                                        <div class="col-xs-12 col-md-6">
-                                            <input class="form-control input-sm" type="text" name="age" id="name" ng-model="myForm.age" ng-model-options="{ updateOn: 'blur' }" ng-required="true">
-                                        </div>
-                                    </div>
-                                    <div ng-show="myForm.ageNumericCriteria" class="row">
-                                        <div class="col-xs-12 has-error">
-                                            <span class="help-block">{{myForm.numericValidationMessage}}</span>
-                                        </div>
-                                    </div>
-                                    <div ng-show="myForm.ageCriteria" class="row">
-                                        <div class="col-xs-12 has-error">
-                                            <span class="help-block">
-                                                <p>This tool calculates risk for men and women 50 to 80 years of age only, because the <a href="http://www.uspreventiveservicestaskforce.org/Page/Document/UpdateSummaryFinal/lung-cancer-screening" target="_blank">U.S. Preventive Services Task Force</a> does NOT recommend that you get screened unless you are between the age of 55 and 80, because the harms of a false alarm are higher than the benefits for screening people in your age group.</p>
-                                                <p class="text-bold">The best way to lower your risk of lung cancer, and all smoking-related diseases, is to quit smoking. Learn more by visiting <a href="http://smokefree.gov" target="_blank">smokefree.gov</a> and the CDC page on <a href="http://www.cdc.gov/tobacco/quit_smoking/" target="_blank">quitting smoking</a> or call 1-800-QUIT-NOW</p>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="" class="col-xs-12 col-md-6 control-label">Gender</label>
-                                        <div class="col-xs-12 col-md-6">
-                                            <select name="gender" id="gender" class="form-control input-sm" ng-model="myForm.gender" required>
-                                                <option value="">Select...</option>
-                                                <option value="0">Male</option>
-                                                <option value="1">Female</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="smoker_type" class="col-xs-12 col-md-6 control-label">Type of Smoker?</label>
-                                        <div class="col-xs-12 col-md-6">
-                                            <select name="smoker_type" id="smoker_type" class="form-control input-sm" ng-change="myForm.changeType()" ng-model="myForm.type" ng-required="true">
-                                                <option value="">Select...</option>
-                                                <option value="current">Current Smoker</option>
-                                                <option value="former">Former Smoker</option>
-                                                <option value="non">Non Smoker</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div ng-show="myForm.typeCriteria" class="row">
-                                        <div class="col-xs-12 has-error">
-                                            <span class="help-block">
-                                                You are <a href="http://www.uspreventiveservicestaskforce.org/Page/Document/UpdateSummaryFinal/lung-cancer-screening" target="_blank">NOT recommended</a> to get screened because you are not a smoker, because the harms of a false alarm are higher than the benefits for screening a non-smoker.
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group" ng-class="{'has-error': myForm.startNumericCriteria || myForm.startAgeCriteria }" ng-show="myForm.type === 'current' || myForm.type === 'former'">
-                                        <div class="col-xs-12 col-md-2"></div>
-                                        <label for="start" class="col-xs-12 col-md-4 control-label">What age did you start smoking?</label>
-                                        <div class="col-xs-12 col-md-6">
-                                            <input class="form-control input-sm" type="text" name="start" id="start" ng-model="myForm.start" ng-model-options="{ updateOn: 'blur' }" ng-required="myForm.type == 'current' || myForm.type === 'former'">
-                                        </div>
-                                    </div>
-                                    <div class="form-group" ng-class="{'has-error': myForm.quitNumericCriteria || myForm.quitAgeCriteria }" ng-show="myForm.type === 'former'">
-                                        <div class="col-xs-12 col-md-2"></div>
-                                        <label for="quit" class="col-xs-12 col-md-4 control-label">How old were you when you quit successfully?</label>
-                                        <div class="col-xs-12 col-md-6">
-                                            <input class="form-control input-sm" type="text" name="quit" id="quit" ng-model="myForm.quit" ng-model-options="{ updateOn: 'blur' }" ng-required="myForm.type == 'former'">
-                                        </div>
-                                    </div>
-                                    <div ng-show="myForm.startNumericCriteria" class="row">
-                                        <div class="col-xs-12 has-error">
-                                            <span class="help-block">{{myForm.numericValidationMessage}}</span>
-                                        </div>
-                                    </div>
-                                    <div ng-show="myForm.startAgeCriteria" class="row">
-                                        <div class="col-xs-12 has-error">
-                                            <span class="help-block">Please ensure that the starting age is greater than 0 and less than or equal to age.</span>
-                                        </div>
-                                    </div>
-                                    <div ng-show="myForm.quitNumericCriteria" class="row">
-                                        <div class="col-xs-12 has-error">
-                                            <span class="help-block">{{myForm.numericValidationMessage}}</span>
-                                        </div>
-                                    </div>
-                                    <div ng-show="myForm.quitAgeCriteria" class="row">
-                                        <div class="col-xs-12 has-error">
-                                            <span class="help-block">Please ensure that the quitting age value is less than age and greater than or equal to starting age.</span>
-                                        </div>
-                                    </div>
-                                    <!--
-                                    <div ng-show="myForm.quitCriteria" class="row">
-                                        <div class="col-xs-12 has-error">
-                                            <span class="help-block">
-                                                The <a href="http://www.uspreventiveservicestaskforce.org/uspstf/uspslung.htm" target="_blank" title="U.S. Preventive Services Task Force">U.S. Preventive Services Task Force</a> does NOT recommend that
-                                                you get screened if you quitted smoking for more than 15 years.
-                                            </span>
-                                        </div>
-                                    </div>
-                                    -->
-                                    <div class="form-group" ng-class="{'has-error': myForm.cigsNumericCriteria }" ng-show="myForm.smokeShow">
-                                        <div class="col-xs-12 col-md-2"></div>
-                                        <label for="cigs" class="col-xs-12 col-md-4 control-label" ng-show="myForm.type === 'current'">On a typical day, how many cigarettes do you smoke?</label>
-                                        <label for="cigs" class="col-xs-12 col-md-4 control-label" ng-show="myForm.type === 'former'">On a typical day, how many cigarettes did you smoke before you quit for good?</label>
-                                        <div class="col-xs-12 col-md-6">
-                                            <input class="form-control input-sm" type="text" name="cigs" id="cigs" ng-model="myForm.cigs" ng-model-options="{ updateOn: 'blur' }" ng-required="myForm.smokeShow">
-                                        </div>
-                                    </div>
-                                    <div ng-show="myForm.cigsNumericCriteria" class="row">
-                                        <div class="col-xs-12 has-error">
-                                            <span class="help-block">
-                                                Please ensure that the number of cigarettes per day entered above does not contain any non-numeric characters.
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <!--
-                                    <div ng-show="myForm.cigsCriteria" class="row">
-                                        <div class="col-xs-12 has-error">
-                                            <span class="help-block">
-                                                The <a href="http://www.uspreventiveservicestaskforce.org/uspstf/uspslung.htm" target="_blank" title="U.S. Preventive Services Task Force">U.S. Preventive Services Task Force</a> does NOT recommend that you get screened unless you have a minimum 30 pack-years of smoking.
-                                            </span>
-                                        </div>
-                                    </div>
-                                    -->
-                                    <!--
-                                    <div ng-show="myForm.groupCriteria" class="row">
-                                        <div class="col-xs-12 has-error">
-                                            <span class="help-block">
-                                                The <a href="http://www.uspreventiveservicestaskforce.org/uspstf/uspslung.htm" target="_blank" title="U.S. Preventive Services Task Force">U.S. Preventive Services Task Force</a> does NOT recommend that
-                                                you get screened because you are not a smoker.
-                                            </span>
-                                        </div>
-                                    </div>0
-                                    -->
-                                    <div class="form-group">
-                                        <span class="col-xs-12 col-md-6 control-label">
-                                            <label for="disease" class="control-label">Lung disease?</label><br />
-                                            <div class="btn btn-primary button-enabled copd" ng-click="openCopdDialog()">Info</div>
-                                            <div id="copd_dialog" title="Lung disease" style="display:none">
-                                                <p>COPD stands for <a href="https://www.nlm.nih.gov/medlineplus/copd.html" target="_blank">chronic obstructive pulmonary disease</a>.  <a href="https://www.nlm.nih.gov/medlineplus/emphysema.html" target="_blank">Emphysema</a> is a type of COPD.</p>
-                                            </div>
-                                        </span>
-                                        <div class="col-xs-12 col-md-6">
-                                            <select name="disease" id="disease" class="form-control input-sm" ng-model="myForm.disease" ng-required="true">
-                                                <option value="">Select...</option>
-                                                <option value="1">COPD or Emphysema</option>
-                                                <option value="0">None</option>
-                                                <option value="0">I don't know</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="history" class="col-xs-12 col-md-6 control-label">Parents' history of lung cancer (must be blood relative)?</label>
-                                        <div class="col-xs-12 col-md-6">
-                                            <select name="history" id="history" class="form-control input-sm" ng-model="myForm.history" ng-required="true">
-                                                <option value="">Select...</option>
-                                                <option value="0">No parent had lung cancer</option>
-                                                <option value="1">One parent had lung cancer</option>
-                                                <option value="2">Both parents had lung cancer</option>
-                                                <option value="0">I don't know</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="units" class="col-xs-12 col-md-6 control-label">Units for entering height and weight</label>
-                                        <div class="col-xs-12 col-md-6">
-                                            <select name="units" id="units" class="form-control input-sm" ng-model="myForm.units">
-                                                <option value="metric">Metric (e.g., 175 cm or 60 kg)</option>
-                                                <option value="us" selected>US (e.g., 5 feet 9 inches or 115 pounds)</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group" ng-class="{'has-error': myForm.pHeightCriteria || myForm.subHeightCriteria }">
-                                        <label for="height_feet" class="col-xs-12 col-md-6 control-label">Height?</label>
-                                        <div class="col-xs-12 col-md-3" ng-show="myForm.units==='us'">
-                                            <input name="height_feet" id="height_feet" class="form-control input-sm" type="text" ng-model="myForm.pHeight" ng-model-options="{ updateOn: 'blur' }" ng-required="true">
-                                            <span>{{myForm.heightPrimary}}</span>
-                                        </div>
-                                        <div class="col-xs-12 col-md-3">
-                                            <input name="height_inches" id="height_inches" class="form-control input-sm" type="text" ng-model-options="{ updateOn: 'blur' }" ng-model="myForm.subHeight">
-                                            <span>{{myForm.heightSecondary}}</span>
-                                        </div>
-                                    </div>
-                                    <div ng-show="myForm.pHeightCriteria || myForm.subHeightCriteria" class="row">
-                                        <div class="col-xs-12 has-error">
-                                            <span class="help-block">{{myForm.heightWarning}}</span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group" ng-class="{'has-error': myForm.weightCriteria }">
-                                        <label for="weight" class="col-xs-12 col-md-6 control-label">Weight?</label>
-                                        <div class="col-xs-12 col-md-6">
-                                            <input name="weight" id="weight" class="form-control input-sm" type="text" ng-model="myForm.weight" ng-model-options="{ updateOn: 'blur' }" ng-required="true">
-                                            <span>{{myForm.weightUnits}}</span>
-                                        </div>
-                                    </div>
-                                    <div ng-show="myForm.weightCriteria" class="row">
-                                        <div class="col-xs-12 has-error">
-                                            <span class="help-block">
-                                                Please ensure that the weight value above is greater than 0 and does not include any non-numeric characters.
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="education" class="col-xs-12 col-md-6 control-label">Education?</label>
-                                        <div class="col-xs-12 col-md-6">
-                                            <select name="education" id="education" class="form-control input-sm" ng-model="myForm.education" ng-required="true">
-                                                <option value="">Select...</option>
-                                                <option value="1">Less than high school</option>
-                                                <option value="1">High school, but did not graduate</option>
-                                                <option value="2">High school graduate</option>
-                                                <option value="3">Vocation/technical school, but no college</option>
-                                                <option value="4">Associate Degree or some college</option>
-                                                <option value="5">Bachelors (college) degree</option>
-                                                <option value="6">Graduate degree</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="race_group" class="col-xs-12 col-md-6 control-label">Race or Ethnic Group</label>
-                                        <div class="col-xs-12 col-md-6">
-                                            <select name="race_group" id="race_group" class="form-control input-sm" ng-model="myForm.group" ng-required="true">
-                                                <option value="">Select...</option>
-                                                <option value="0">White</option>
-                                                <option value="1">Black or African-American</option>
-                                                <option value="2">Hispanic</option>
-                                                <option value="3">Asian or Pacific Islander</option>
-                                                <option value="4">Other</option>
-                                            </select>
-                                        </div>
-                                    </div>                                    
-                                    <div class="form-group">
-                                        <div class="col-xs-12">
-                                            <div class="btn-toolbar pull-right">
-                                                <button class="btn btn-primary button-disabled" ng-class="{'button-enabled': !myForm.isInvalid}" ng-disabled="myForm.isInvalid">Calculate</button>
-                                                <button class="btn btn-default" type="reset" ng-click="myForm.resetForm()">Reset</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-md-6">
-                <div class="loading" ng-show="myForm.loading"></div>
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <div class="panel-title">Further Information</div>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <p>Learning about lung cancer and its treatment can help you prepare for your appointments, understand different types of treatment, and prevent and manage any side effects.</p>
-                                <p>
-                                   <u>Resources</u><br />
-                                    <a href="http://nomograms.mskcc.org/Lung/Screening.aspx" target="mskcc">MSKCC Lung Cancer Screening Decision Tool</a><br />
-                                    <a href="http://www.shouldiscreen.com/lung-cancer-risk-calculator" target="sis">SIS Lung Cancer Screening Tool</a><br />
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="container">
+        <div class="row" ng-view="">
         </div>
     </div>
     <div class="container footer">
@@ -379,4 +96,5 @@
         </div>
     </div>
 </body>
+
 </html>
