@@ -12,7 +12,7 @@ from rpy2.robjects.vectors import IntVector, FloatVector
 from socket import gethostname
 import pdfkit,tempfile, os
 import random
-import os
+import os, base64
 
 with open ('LCWrapper.R') as fh:
         rcode = os.linesep.join(fh.readlines())
@@ -93,25 +93,30 @@ def lungCancerRest():
 # This route will return a list in JSON format
 @app.route('/exportPDF/', methods=['POST', 'GET'])
 def exportPDF():
-
-    # PDF Options
-    if request.method=='GET':
-        f = open(request.args['dir'], 'rb')
-        data = f.read()
-        f.close()
-        os.remove(f.name)
-        response = make_response(data)
-        response.headers["Content-Disposition"] = "attachment; filename=test.pdf"
-        response.headers["Content-type"] = "application/pdf"
-    else:
-        temp_file = tempfile.NamedTemporaryFile(mode="w+b",delete=False)
-        response = make_response(temp_file.name)
-        options = {'page-size': 'Letter', 'page-width': '900pt', 'margin-top': '0.75in', 'no-outline': None, 'margin-right': '0.75in', 'page-height': '595pt', 'margin-left': '0.75in', 'encoding': 'UTF-8', 'margin-bottom': '0.75in'}
-        pdfkit.from_string(request.data, temp_file.name, options=options)
-        temp_file.close()
+    temp_file = tempfile.NamedTemporaryFile(mode="w+b+r",delete=False)
+    options = {'page-size': 'Letter', 'page-width': '900pt', 'margin-top': '0.75in', 'no-outline': None, 'margin-right': '0.75in', 'page-height': '595pt', 'margin-left': '0.75in', 'encoding': 'UTF-8', 'margin-bottom': '0.75in'}
+    pdfkit.from_string(request.data, temp_file.name, options=options)
+    response = make_response(base64.b64encode(temp_file.read()))
+    temp_file.close()
+    response.headers["Content-type"] = "application/pdf"
+    response.headers['Content-Transfer-Encoding'] = 'binary'
     return response
 
 
+    # if request.method=='GET':
+    #     f = open(request.args['dir'], 'rb')
+    #     data = f.read()
+    #     f.close()
+    #     os.remove(f.name)
+    #     response = make_response(data)
+    #     response.headers["Content-Disposition"] = "attachment; filename=test.pdf"
+    #     response.headers["Content-type"] = "application/pdf"
+    # else:
+    #     temp_file = tempfile.NamedTemporaryFile(mode="w+b",delete=False)
+    #     response = make_response(temp_file.name)
+    #     options = {'page-size': 'Letter', 'page-width': '900pt', 'margin-top': '0.75in', 'no-outline': None, 'margin-right': '0.75in', 'page-height': '595pt', 'margin-left': '0.75in', 'encoding': 'UTF-8', 'margin-bottom': '0.75in'}
+    #     pdfkit.from_string(request.data, temp_file.name, options=options)
+    #     temp_file.close()
 
 
 @app.after_request

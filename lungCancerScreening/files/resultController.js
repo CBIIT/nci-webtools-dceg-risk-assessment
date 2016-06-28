@@ -76,26 +76,24 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
     html+= '</body>';
     html+= '</html>';
 
-    $http({method: 'POST', url: url,headers: { 'Accept':'application/json, text/plain, * / *'}, data: html}).
-            success(function(data) {
-              window.location.replace(url+"?dir="+data)
-            })
-            .error(function(data) {
-              console.log("FAIL")
-            })
-      console.log("redirect and to actual file and have a cron job delete files?")
-    // $http.post(url, data)
-    //    .success(function(data) {
-    //     window.d = data;
-    //     var file  = new Blob([data], {type: 'application/pdf'});
-    //     var fileURL = URL.createObjectURL(file);
-    //      // window.open(fileURL);        
-    //    })
-    //    .error(function(data) {
-    //     console.log("ERROR")
-    //    })
-    //    .finally(function(data) {
-    //     console.log("FINALLY")
-    //    });
+    $http({
+        method: 'POST', 
+        url: url,
+        data: html,        
+        headers: { 'Accept':'application/json, text/plain, * / *'}
+      }).success(function(data) {
+          var byteCharacters = atob(data);
+          var byteNumbers = new Array(byteCharacters.length);
+          for (var i = 0; i < byteCharacters.length; i++) {
+              byteNumbers[i] = byteCharacters.charCodeAt(i);
+          };
+          var byteArray = new Uint8Array(byteNumbers);
+          var blob = new Blob([byteArray], {type: 'application/pdf'});
+          fileURL = URL.createObjectURL(blob)
+          window.open(fileURL)
+          // window.location.replace(url+"?dir="+data) /* Use this if decided to go with static files on server */
+      }).error(function(data) {
+          console.log("FAIL")
+      })
   };
 });
