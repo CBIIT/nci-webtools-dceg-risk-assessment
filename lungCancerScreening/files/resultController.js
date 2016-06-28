@@ -59,6 +59,7 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
     else {
       url = 'http://' + window.location.hostname + '/exportPDF/';
     };
+
     var data = "";
     var results = $("#results").html();
     var html = "";
@@ -90,7 +91,7 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
           var byteArray = new Uint8Array(byteNumbers);
           var blob = new Blob([byteArray], {type: 'application/pdf'});
           fileURL = URL.createObjectURL(blob)
-          window.open(fileURL)
+          window.location.replace(fileURL)
           // window.location.replace(url+"?dir="+data) /* Use this if decided to go with static files on server */
       }).error(function(data) {
           console.log("FAIL")
