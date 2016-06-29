@@ -61,21 +61,7 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
     };
 
     var data = "";
-    var results = $("#results").html();
-    var html = "";
-    html+= '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
-    html+= '<html xmlns="http://www.w3.org/1999/xhtml">';
-    html+= '  <head>';
-    html+= '  <title>National Lung Screening Trial</title>';
-    html+= '  <meta http-equiv="X-UA-Compatible" content="IE=edge" />';
-    html+= '  <meta http-equiv="Content-type" content="text/html; charset=UTF-8">';
-    html+= '  <link href="' + $scope.base_url + '/files/2col.css" rel="stylesheet" type="text/css" media="all">';
-    html+= '  <link href="' + $scope.base_url + '/files/pdf.css" rel="stylesheet" type="text/css" media="all">';
-    html+= '  </head>';
-    html+= '  <body>';
-    html+= results;
-    html+= '</body>';
-    html+= '</html>';
+    var html = createPrintablePage();
 
     $http({
         method: 'POST', 
@@ -96,5 +82,30 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
       }).error(function(data) {
           console.log("FAIL")
       })
+  };
+
+  $scope.print = function() {
+    print(createPrintablePage())
+  };
+
+  function createPrintablePage() {
+    var html = "";
+    var source  = $("#results .ng-hide").remove()
+    var results = $("#results").html()
+
+    html+= '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
+    html+= '<html xmlns="http://www.w3.org/1999/xhtml">';
+    html+= '  <head>';
+    html+= '  <title>National Lung Screening Trial</title>';
+    html+= '  <meta http-equiv="X-UA-Compatible" content="IE=edge" />';
+    html+= '  <meta http-equiv="Content-type" content="text/html; charset=UTF-8">';
+    html+= '  <link href="' + $scope.base_url + '/files/2col.css" rel="stylesheet" type="text/css" media="all">';
+    html+= '  <link href="' + $scope.base_url + '/files/pdf.css" rel="stylesheet" type="text/css" media="all">';
+    html+= '  </head>';
+    html+= '  <body>';
+    html+= results;
+    html+= '</body>';
+    html+= '</html>';
+    return html;
   };
 });

@@ -10,6 +10,7 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
 
   function init() {
     $scope.myForm.ageCriteria = false;
+    $scope.myForm.bmiCriteria = false;
     $scope.myForm.ageNumericCriteria = false;
     $scope.myForm.typeCriteria = false;
     $scope.myForm.startAgeCriteria = false;
@@ -186,8 +187,12 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
         $scope.myForm.subHeightCriteria = sub < 0 || !isNumeric;
       }      
     }
+  });
 
-
+  /* Calculate BMI to show warning if bmi is outside range 15-50 */
+  $scope.$watchGroup(['myForm.weight','myForm.subHeight','myForm.pHeight'],function() {
+    bmi = calculateBMI();
+    $scope.myForm.bmiCriteria = (bmi>50||bmi<15)
   });
 
   $scope.$watch('myForm.weight', function() {
@@ -471,5 +476,18 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
       modal: true
     }
     );
+  };
+
+  function calculateBMI() {
+    if ($scope.myForm.units === 'us') {
+      h = (parseFloat($scope.myForm.pHeight) * 12) + parseFloat($scope.myForm.subHeight ? $scope.myForm.subHeight : '0');
+      w = parseFloat($scope.myForm.weight);
+      bmi = (w * 703) / Math.pow(h, 2);
+    } else {
+      h = (parseFloat($scope.myForm.subHeight) / 100) + parseFloat($scope.myForm.pHeight);
+      w = parseFloat($scope.myForm.weight);
+      bmi = w / Math.pow(h, 2);
+    };
+    return bmi
   };
 });
