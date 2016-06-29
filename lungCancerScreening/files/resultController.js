@@ -69,16 +69,16 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
         data: html,        
         headers: { 'Accept':'application/json, text/plain, * / *'}
       }).success(function(data) {
-          var byteCharacters = atob(data);
-          var byteNumbers = new Array(byteCharacters.length);
-          for (var i = 0; i < byteCharacters.length; i++) {
-              byteNumbers[i] = byteCharacters.charCodeAt(i);
-          };
-          var byteArray = new Uint8Array(byteNumbers);
-          var blob = new Blob([byteArray], {type: 'application/pdf'});
-          fileURL = URL.createObjectURL(blob)
-          window.location.replace(fileURL)
-          // window.location.replace(url+"?dir="+data) /* Use this if decided to go with static files on server */
+          // var byteCharacters = atob(data);
+          // var byteNumbers = new Array(byteCharacters.length);
+          // for (var i = 0; i < byteCharacters.length; i++) {
+          //     byteNumbers[i] = byteCharacters.charCodeAt(i);
+          // };
+          // var byteArray = new Uint8Array(byteNumbers);
+          // var blob = new Blob([byteArray], {type: 'application/pdf'});
+          // fileURL = URL.createObjectURL(blob)
+          // window.location.replace(fileURL)
+          window.location.replace(url+"?dir="+data) /* Use this if decided to go with static files on server */
       }).error(function(data) {
           console.log("FAIL")
       })
