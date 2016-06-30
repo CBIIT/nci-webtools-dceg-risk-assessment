@@ -94,7 +94,7 @@ def lungCancerRest():
 @app.route('/exportPDF/', methods=['POST', 'GET'])
 def exportPDF():
     # temp_file = tempfile.NamedTemporaryFile(mode="w+b+r",delete=True)
-    # options = {'page-size': 'Letter', 'page-width': '900pt', 'margin-top': '0.75in', 'no-outline': None, 'margin-right': '0.75in', 'page-height': '595pt', 'margin-left': '0.75in', 'encoding': 'UTF-8', 'margin-bottom': '0.75in'}
+    # options = {'page-size': 'Letter', 'page-width': '900pt', 'margin-top': '0.50in', 'no-outline': None, 'margin-right': '0.75in', 'page-height': '595pt', 'margin-left': '0.75in', 'encoding': 'UTF-8', 'margin-bottom': '0.75in'}
     # pdfkit.from_string(request.data, temp_file.name, options=options)
     # response = make_response(base64.b64encode(temp_file.read()))
     # temp_file.close()
