@@ -11,7 +11,7 @@
         <div class="yourresults">
             <div class="col left" ng-show="chart1">
                 <p class="title">IF YOU DO NOT GET CT LUNG SCREENING</p>
-                <p class="description">If you do not get CT lung screening, <u>your chance of dying</u> from lung cancer within 5 years is {{session.myForm.result0}} out of 1000.</p>
+                <p class="description"><strong>If you do not get CT lung screening</strong>, <u>your chance of dying</u> from lung cancer within 5 years is {{session.myForm.result0}} out of 1000.</p>
                 <div ng-bind-html="drawGraph(session.myForm.result0)"></div>
                 <p class="legend">
                     <span>
@@ -27,7 +27,7 @@
 
             <div class="col right" ng-show="chart2">
                 <p class="title">IF YOU DO GET CT LUNG SCREENING</p>
-                <p class="description">If you receive yearly CT lung screening, the <u>chance of dying</u> from lung cancer within 5 years will be reduced by: {{session.myForm.result1}} out of 1000 people.</p>
+                <p class="description"><strong>If you receive yearly CT lung screening</strong>, the <u>chance of dying</u> from lung cancer within 5 years will be reduced by: {{session.myForm.result1}} out of 1000 people.</p>
                 <div ng-bind-html="drawGraph(session.myForm.result1)"></div>
                 <p class="legend">
                     <span>
@@ -44,7 +44,7 @@
 
         <div class="yourresults">
             <div class="col left" ng-show="chart3">
-                <p class="title">If you do not get CT lung screening, the <u>chance of lung cancer diagnosis</u> within 5 years is {{session.myForm.result2}} out of 1000.</p>
+                <p class="title"><strong>If you do not get CT lung screening</strong>, the <u>chance of lung cancer diagnosis</u> within 5 years is {{session.myForm.result2}} out of 1000.</p>
                 <div ng-bind-html="drawGraph(session.myForm.result2)"></div>
                 <p class="legend">
                     <span>
