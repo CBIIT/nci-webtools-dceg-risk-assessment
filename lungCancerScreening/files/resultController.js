@@ -55,6 +55,7 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
   }; 
 
   $scope.exportPDF = function() {
+    $scope.loading = true;
     if (window.location.hostname=='localhost') {
       url = 'http://' + window.location.hostname + ':9982/exportPDF/';
     }
@@ -82,8 +83,10 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
           // window.location.replace(fileURL)
           window.location.replace(url+"?dir="+data) /* Use this if decided to go with static files on server */
       }).error(function(data) {
-          console.log("FAIL")
-      })
+
+      }).finally(function(data) {
+        $scope.loading = false;
+      });
   };
 
   $scope.print = function() {

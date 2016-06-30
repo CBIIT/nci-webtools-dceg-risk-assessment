@@ -102,5 +102,6 @@
 </div>
 <div ng-show="next5">We know that was a lot of information, you may save or print the summary report</div><br />
 <div class="summaryButtons">
-    <button ng-click="exportPDF()" ng-show="next5">Save Summary Report</button>   
+       <p class="pdf_loading" ng-show="loading"></p>
+ <button ng-click="exportPDF()" ng-show="next5">Save Summary Report</button>   
 </div>
