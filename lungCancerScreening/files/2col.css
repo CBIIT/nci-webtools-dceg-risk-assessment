@@ -359,3 +359,27 @@ div.diseasesection { display: inline-block }
     border-radius: 10px;
     background: url('/common/images/loading.gif') no-repeat;
 }
+
+
+/* IE 10 and 11 styles only */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+.results {
+    margin:10px;
+}
+
+.yourresults table{
+    border:1px solid #777;
+}
+
+div.yourresults { margin-top: 12px }
+
+
+.yourresults td {
+    border: 1px solid #777;
+    width:10px !important;
+    min-width:10px;
+}
+
+
+}
+
