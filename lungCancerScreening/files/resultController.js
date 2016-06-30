@@ -2,8 +2,10 @@ var app = angular.module("myapp");
 
 app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorage, $location) {
   /* These globals are used in multiple ajax calls in different functions */
-  $scope.base_url = window.location.origin;
+
   $scope.session = $localStorage;
+  $scope.base_url = window.location.origin + window.location.pathname
+
   $scope.raceMap = {
     0: 'a White',
     1: 'a Black or African-American',
@@ -27,10 +29,10 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
       var row = [];
       for (var z=1; z<41; z++) {
         if (units>0) {
-          row.push('<td class="f"><img src="' + $scope.base_url + '/files/cellfill.png"></td>');
+          row.push('<td class="f"><img src="' + $scope.base_url + 'files/cellfill.png"></td>');
         }
         else {
-          row.push('<td><img src="' + $scope.base_url + '/files/cellempty.png"></td>');
+          row.push('<td><img src="' + $scope.base_url + 'files/cellempty.png"></td>');
         };
         units-=1;
       };
@@ -99,8 +101,8 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
     html+= '  <title>National Lung Screening Trial</title>';
     html+= '  <meta http-equiv="X-UA-Compatible" content="IE=edge" />';
     html+= '  <meta http-equiv="Content-type" content="text/html; charset=UTF-8">';
-    html+= '  <link href="' + $scope.base_url + '/files/2col.css" rel="stylesheet" type="text/css" media="all">';
-    html+= '  <link href="' + $scope.base_url + '/files/pdf.css" rel="stylesheet" type="text/css" media="all">';
+    html+= '  <link href="' + $scope.base_url + 'files/2col.css" rel="stylesheet" type="text/css" media="all">';
+    html+= '  <link href="' + $scope.base_url + 'files/pdf.css" rel="stylesheet" type="text/css" media="all">';
     html+= '  </head>';
     html+= '  <body>';
     html+= results;
