@@ -355,5 +355,5 @@ div.diseasesection { display: inline-block }
     height: 100%;
     z-index: 999;
     border-radius: 10px;
-    background: url('/common/imgaes/loading.gif') no-repeat;
+    background: url('/common/images/loading.gif') no-repeat;
 }
