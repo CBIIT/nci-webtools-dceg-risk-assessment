@@ -240,6 +240,8 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
     $scope.myForm.resultsFileLink= '#';
     $scope.myForm.unstableRisk = false;
     $scope.myForm.eligibility = true;
+    $scope.myForm.packYears = NaN;
+    $scope.myForm.bmiCriteria = false;
   };
 
   /* Create BMI summary that displays in results section of UI */
