@@ -27,7 +27,7 @@
 
             <div class="col right" ng-show="chart2">
                 <p class="title">IF YOU DO GET CT LUNG SCREENING</p>
-                <p class="description"><strong>If you receive yearly CT lung screening</strong>, the <u>chance of dying</u> from lung cancer within 5 years will be reduced by: {{session.myForm.result1}} out of 1000 people.</p>
+                <p class="description"><strong>If you receive yearly CT lung screening</strong>, the <u>chance of dying</u> from lung cancer within 5 years will be <u>reduced</u> by: {{session.myForm.result1}} out of 1000 people.</p>
                 <div ng-bind-html="drawGraph(session.myForm.result0-session.myForm.result1)"></div>
                 <p class="legend">
                     <span>
@@ -59,7 +59,7 @@
             </div>
 
             <div class="col right" ng-show="chart4">
-                <p class="title">If you receive CT lung screening, the <u>chance of being diagnosed</u> with lung cancer within 5 years would increase by {{session.myForm.result3}} out of 1000.</p>
+                <p class="title">If you receive CT lung screening, the <u>chance of being diagnosed</u> with lung cancer within 5 years would <u>increase</u> by {{session.myForm.result3}} out of 1000.</p>
                 <div ng-bind-html="drawGraph(session.myForm.result3)"></div>
                 <p class="legend">
                     <span>
