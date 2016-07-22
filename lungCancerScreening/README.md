@@ -8,6 +8,7 @@
 - flask
 - mod_wsgi
 - rpy2
+- pdfkit
 
 #####R Packages
 - coxph.risk (https://github.com/skoval/coxph.risk)
