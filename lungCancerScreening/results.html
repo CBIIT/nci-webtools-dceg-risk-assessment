@@ -2,12 +2,12 @@
 <div id="results">
         <div>
             <h2>Your Results</h2>
-            <p>According to your responses, you are {{raceMap[session.params.race]}} {{gender[session.params.gender]}} of {{session.params.age}} years of age with a <a href="http://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html" target="_blank">body mass index</a> or BMI={{session.params.bmi}}.  You will receive four pieces of information: (1) whether you are recommended for CT lung screening by the <a href="http://www.uspreventiveservicestaskforce.org/Page/Document/UpdateSummaryFinal/lung-cancer-screening" target="_blank">US Preventative Services Task Force</a> (a group of experts who make recommendations about prevention), (2) risk of dying from lung cancer, (3) risk of being diagnosed with lung cancer and (4) risk of a false alarm  (you have a positive screening test but do not actually have lung cancer).</p>
+            <p>According to your responses, you are {{raceMap[session.params.race]}} {{gender[session.params.gender]}} of {{session.params.age}} years of age with a <a href="http://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html" target="_blank">body mass index</a> or BMI={{session.params.bmi}}.  You will receive four pieces of information: (1) whether you are recommended for CT lung screening by the <a href="http://www.uspreventiveservicestaskforce.org/Page/Document/UpdateSummaryFinal/lung-cancer-screening" target="_blank">US Preventive Services Task Force</a> (a group of experts who make recommendations about prevention), (2) risk of dying from lung cancer, (3) risk of being diagnosed with lung cancer and (4) risk of a false alarm  (you have a positive screening test but do not actually have lung cancer).</p>
 
             <p ng-show="!seeresults">To obtain these results, click here: <button ng-click="recommends=true; seeresults=true">SEE MY RESULTS</button></p>
 
         </div>
-        <div ng-show="recommends">The <a href="http://www.uspreventiveservicestaskforce.org/Page/Document/UpdateSummaryFinal/lung-cancer-screening" target="_blank">US Preventative Services Task Force</a> (a group of experts who make recommendations about prevention) RECOMMENDS CT lung screening for someone like you.<p ng-show="!next1"><button ng-click="chart1=true;next1=true">Next</button></p></div>
+        <div ng-show="recommends">The <a href="http://www.uspreventiveservicestaskforce.org/Page/Document/UpdateSummaryFinal/lung-cancer-screening" target="_blank">US Preventive Services Task Force</a> (a group of experts who make recommendations about prevention) RECOMMENDS CT lung screening for someone like you.<p ng-show="!next1"><button ng-click="chart1=true;next1=true">Next</button></p></div>
         <div class="yourresults">
             <div class="col left" ng-show="chart1">
                 <p class="title">IF YOU DO NOT GET CT LUNG SCREENING</p>
