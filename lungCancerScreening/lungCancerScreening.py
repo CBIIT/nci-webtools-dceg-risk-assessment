@@ -47,13 +47,7 @@ def lungCancerRest():
         pkyrcat = data["pkyr.cat"];
 
         # Create results file and link to results file
-        apache_root = "/analysistools/"
-
-        # check if URL contains the keyword sandbox
-        if 'sandbox' in request.url_root:
-                apache_root = "/analysistools-sandbox/"
-
-        apache_tmp_dir = apache_root+"public_html/apps/lungCancerScreening/tmp/"
+        apache_tmp_dir = "tmp"
 
         # Ensure apache tmp directory exists
         if not os.path.exists(apache_tmp_dir):
