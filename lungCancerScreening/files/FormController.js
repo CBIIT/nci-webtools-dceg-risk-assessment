@@ -284,7 +284,7 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
       url = 'http://' + window.location.hostname + ':9982/lungCancerRest/';
     }
     else {
-      url = 'http://' + window.location.hostname + '/lungCancerRest/';
+      url = 'http://' + window.location.hostname + '/lungCancerScreening/lungCancerRest/';
     };
     var bmi = 0,
         h,
