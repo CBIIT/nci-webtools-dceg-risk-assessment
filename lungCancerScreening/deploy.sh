@@ -10,7 +10,7 @@ mkdir -p deploy/app deploy/logs deploy/wsgi && cd deploy
 
 rm -rf /tmp/lcs_tmp
 git clone $LCS_REPO /tmp/lcs_tmp
-cp -r /tmp/lcs_tmp/lungCancerScreening/* app/*
+cp -r /tmp/lcs_tmp/lungCancerScreening/* app/
 
 mod_wsgi-express setup-server app/$LCS_NAME.wsgi \
 --port 8150 \
@@ -23,7 +23,7 @@ mod_wsgi-express setup-server app/$LCS_NAME.wsgi \
 --log-directory logs \
 --rotate-logs
 
-echo "wsgi/apachctl start" > start-$LCS_NAME.sh
-echo "wsgi/apachctl stop" > stop-$LCS_NAME.sh
+echo "wsgi/apachectl start" > start-$LCS_NAME.sh
+echo "wsgi/apachectl stop" > stop-$LCS_NAME.sh
 
 echo "Finished generating scripts. It is only necessary to start the application server once - the server will automatically restart upon detecting any changes in the python application files."
