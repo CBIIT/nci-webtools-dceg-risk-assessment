@@ -60,7 +60,7 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
       url = 'http://' + window.location.hostname + ':9982/exportPDF/';
     }
     else {
-      url = 'http://' + window.location.hostname + '/exportPDF/';
+      url = 'http://' + window.location.hostname + '/lungCancerScreening/exportPDF/';
     };
 
     var data = "";
