@@ -62,7 +62,7 @@
             <div class="col right" ng-show="chart4">
                 <p class="title">IF YOU DO GET CT LUNG SCREENING</p>            
                 <p class="description"><strong>If you receive CT lung screening</strong>, the <u>chance of being diagnosed</u> with lung cancer within 5 years would <u>increase</u> by {{session.myForm.result3}} out of 1000.</p>
-                <div ng-bind-html="drawGraph(session.myForm.result3)"></div>
+                <div ng-bind-html="drawGraph(session.myForm.result3+session.myForm.result2)"></div>
                 <p class="legend">
                     <span>
                         <img ng-src="{{base_url}}files/cellfill.png" title="filled cell" alt="filled cell"> Diagnosed with lung cancer
