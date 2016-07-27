@@ -30,7 +30,6 @@ def index():
 @app.route('/lungCancerRest/', methods=['POST'])
 def lungCancerRest():
         # Get the parsed contents of the form data
-
         data = request.json            
         age = data["age"];
         bmi = data["bmi"];
@@ -43,9 +42,16 @@ def lungCancerRest():
         race = data["race"];
         if race==4: # set other to white #
             race = 0 
+        if emp==2: # set other to white #
+            emp = 0  
+        if famlungtrend == 3:
+            famlungtrend = 0           
         edu6 = data["edu6"];
-        pkyrcat = data["pkyr.cat"];
+        if edu6 == 0:
+            edu6 = 1
 
+        pkyrcat = data["pkyr.cat"];
+        print famlungtrend
         # Create results file and link to results file
         apache_tmp_dir = "tmp"
 

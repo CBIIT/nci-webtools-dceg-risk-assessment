@@ -60,6 +60,27 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
     $scope.myForm.isInvalid = flag;
   });
 
+  // add dropdown value to myForm data object //
+  $scope.$watch('myForm.disease',function() {
+    $scope.myForm.diseaseDesc = $("#disease option:selected").text();
+  });
+
+  $scope.$watch('myForm.history',function() {
+    $scope.myForm.historyDesc = $("#history option:selected").text();
+  }); 
+
+  $scope.$watch('myForm.education',function() {
+    $scope.myForm.educationDesc = $("#education option:selected").text();
+  });   
+
+  $scope.$watch('myForm.type',function() {
+    $scope.myForm.typeDesc = $("#smoker_type option:selected").text();
+  });    
+
+  $scope.$watch('myForm.group',function() {
+    $scope.myForm.groupDesc = $("#race_group option:selected").text();
+  });      
+
   $scope.$watch('myForm.age', function() {
     validateAges();
   });

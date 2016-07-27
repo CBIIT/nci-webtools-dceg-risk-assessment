@@ -6,18 +6,42 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
   $scope.session = $localStorage;
   $scope.base_url = window.location.origin + window.location.pathname
 
-  $scope.raceMap = {
-    0: 'a White',
-    1: 'a Black or African-American',
-    2: 'a Hispanic',
-    3: 'an Asian or Pacific Islander',
-    4: 'a'
-  };
   $scope.gender = {
-    0: 'male',
-    1: 'female'
+    0: 'Male',
+    1: 'Female'
   };
 
+  // parse pack years to readable number //
+  $scope.parsePackYears = function() {
+    return parseFloat($scope.session.myForm.packYears).toFixed(2);
+  };
+
+  // calculate eligibility of person based on certain criteria //
+  $scope.calculateEligibility = function() {
+    console.log($scope.session.params.age-$scope.session.myForm.quit)
+    if ($scope.session.params.age<55||$scope.session.params.age>80||$scope.session.myForm.packYears<30||$scope.session.params.age-$scope.session.myForm.quit>15) {
+      return false;
+    };
+    return true;
+  };
+
+  // create statement for ineligible person //
+  $scope.createEligibilityStatement = function() {
+    statement = 'You are age ' + $scope.session.params.age;
+    if ($scope.session.myForm.type=='current') {
+      statement+= ' and have smoked ' + $scope.parsePackYears() + ' pack-years.';
+    }
+    else {
+      statement+= ' and have smoked ' + $scope.parsePackYears() + ' pack-years';
+      if (parseInt($scope.session.params.age)-parseInt($scope.session.myForm.quit)>15) {
+        statement+= ' and have quit for more than 15 years.';
+      }
+      else {
+        statement+= ' and have quit for no longer than 15 years.';
+      };
+    };
+    return statement;
+  };
 
   /* Draws a simple table with 1000 cells filled in based on units out of 1000 */
   $scope.drawGraph = function(units) {

@@ -2,12 +2,79 @@
 <div id="results">
         <div>
             <h2>Your Results</h2>
-            <p>According to your responses, you are {{raceMap[session.params.race]}} {{gender[session.params.gender]}} of {{session.params.age}} years of age with a <a href="http://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html" target="_blank">body mass index</a> or BMI={{session.params.bmi}}.  You will receive four pieces of information: (1) whether you are recommended for CT lung screening by the <a href="http://www.uspreventiveservicestaskforce.org/Page/Document/UpdateSummaryFinal/lung-cancer-screening" target="_blank">US Preventive Services Task Force</a> (a group of experts who make recommendations about prevention), (2) risk of dying from lung cancer, (3) risk of being diagnosed with lung cancer and (4) risk of a false alarm  (you have a positive screening test but do not actually have lung cancer).</p>
-
+            <p>According to your inputs, you are:
+                <table class="results_summary" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td>Age</td><td>{{session.params.age}}</td>
+                    </tr>
+                    <tr>
+                        <td>Gender</td><td>{{gender[session.params.gender]}}</td>
+                    </tr>
+                    <tr>
+                        <td>Type of Smoker</td><td>{{session.myForm.typeDesc}}</td>
+                    </tr>
+                    <!-- current smoker -->
+                    <tr ng-if-start="session.myForm.type=='current'">
+                        <td class="indent">What age did you start smoking?</td><td>{{session.myForm.start}}</td>
+                    </tr>
+                    <tr ng-if-end>
+                        <td class="indent">On a typical day, how many cigarettes do you smoke?</td><td>{{session.myForm.cigs}}</td>
+                    </tr>
+                    <!-- current smoker -->
+                    <!-- former smoker -->
+                    <tr ng-if-start="session.myForm.type=='former'">
+                        <td class="indent">What your age did you start smoking?</td><td>{{session.myForm.start}}</td>
+                    </tr>
+                    <tr>
+                        <td class="indent">How old where you when you quit successfully?</td><td>{{session.myForm.quit}}</td>
+                    </tr>
+                    <tr ng-if-end>
+                        <td class="indent">On a typical day, how many cigarettes do you smoke?</td><td>{{session.myForm.cigs}}</td>
+                    </tr>                    
+                    <!-- current smoker -->                    
+                    <tr>
+                        <td>Lung Disease</td><td>{{session.myForm.diseaseDesc}}</td>
+                    </tr>
+                    <tr>
+                        <td>Parents' history of lung cancer (must be blood relative)</td><td>{{session.myForm.historyDesc}}</td>
+                    </tr>
+                    <tr>
+                        <td>Height</td>
+                        <td>
+                            <span ng-if="session.myForm.pHeight">
+                                {{session.myForm.pHeight}} {{session.myForm.heightPrimary.replace('(s)','s')}}
+                            </span>
+                            <span ng-if="session.myForm.subHeight">{{session.myForm.subHeight}} {{session.myForm.heightSecondary.replace('(s)','s')}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Weight</td><td>{{session.myForm.weight}} {{session.myForm.weightUnits.replace('(s)','s')}}</td>
+                    </tr>
+                    <tr>
+                        <td>Education</td><td>{{session.myForm.educationDesc}}</td>
+                    </tr>
+                    <tr>
+                        <td>Race or Ethnic Group</td><td>{{session.myForm.groupDesc}}</td>
+                    </tr>
+                    <tr>
+                        <td>BMI</td><td>{{session.params.bmi}}</td>
+                    </tr>
+                    <tr>
+                        <td>Pack-years</td><td>{{parsePackYears()}}</td>
+                    </tr>
+                </table>
+                <br /> You will receive four pieces of information: (1) whether you are recommended for CT lung screening by the <a href="http://www.uspreventiveservicestaskforce.org/Page/Document/UpdateSummaryFinal/lung-cancer-screening" target="_blank">US Preventive Services Task Force</a> (a group of experts who make recommendations about prevention), (2) risk of dying from lung cancer, (3) risk of being diagnosed with lung cancer and (4) risk of a false alarm  (you have a positive screening test but do not actually have lung cancer).</p>
             <p ng-show="!seeresults">To obtain these results, click here: <button ng-click="recommends=true; seeresults=true">SEE MY RESULTS</button></p>
 
         </div>
-        <div ng-show="recommends">The <a href="http://www.uspreventiveservicestaskforce.org/Page/Document/UpdateSummaryFinal/lung-cancer-screening" target="_blank">US Preventive Services Task Force</a> (a group of experts who make recommendations about prevention) RECOMMENDS CT lung screening for someone like you.<p ng-show="!next1"><button ng-click="chart1=true;next1=true">Next</button></p></div>
+        <div ng-show="recommends">
+                <p ng-if="calculateEligibility()">
+                    The <a href="http://www.uspreventiveservicestaskforce.org/Page/Document/UpdateSummaryFinal/lung-cancer-screening" target="_blank">US Preventive Services Task Force</a> RECOMMENDS CT lung screening for someone like you
+                </p>
+                <p ng-if="!calculateEligibility()">
+                    The <a href="http://www.uspreventiveservicestaskforce.org/Page/Document/UpdateSummaryFinal/lung-cancer-screening" target="_blank">US Preventive Services Task Force</a> does NOT recommend CT lung screening for someone like you.  They recommend screening for those who are ages 55 to 80, have smoked at least 30 pack-years, and have quit for no longer than 15 years. <span>{{createEligibilityStatement()}}</span>
+                </p>                
+                <p ng-show="!next1"><button ng-click="chart1=true;next1=true">Next</button></p></div>
         <div class="yourresults">
             <div class="col left" ng-show="chart1">
                 <p class="title">IF YOU DO NOT GET CT LUNG SCREENING</p>
@@ -62,7 +129,7 @@
             <div class="col right" ng-show="chart4">
                 <p class="title">IF YOU DO GET CT LUNG SCREENING</p>            
                 <p class="description"><strong>If you receive CT lung screening</strong>, the <u>chance of being diagnosed</u> with lung cancer within 5 years would <u>increase</u> by {{session.myForm.result3}} out of 1000.</p>
-                <div ng-bind-html="drawGraph(session.myForm.result3+session.myForm.result2)"></div>test
+                <div ng-bind-html="drawGraph(session.myForm.result3+session.myForm.result2)"></div>
                 <p class="legend">
                     <span>
                         <img ng-src="{{base_url}}files/cellfill.png" title="filled cell" alt="filled cell"> Diagnosed with lung cancer
