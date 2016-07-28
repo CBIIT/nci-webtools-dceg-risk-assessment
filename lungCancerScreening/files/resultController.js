@@ -32,7 +32,7 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
       statement+= ' and have smoked ' + $scope.parsePackYears() + ' pack-years.';
     }
     else {
-      statement+= ' and have smoked ' + $scope.parsePackYears() + ' pack-years';
+      statement+= ', have smoked ' + $scope.parsePackYears() + ' pack-years';
       if (parseInt($scope.session.params.age)-parseInt($scope.session.myForm.quit)>15) {
         statement+= ' and have quit for more than 15 years.';
       }

@@ -94,7 +94,7 @@
 
             <div class="col right" ng-show="chart2">
                 <p class="title">IF YOU DO GET CT LUNG SCREENING</p>
-                <p class="description"><strong>If you receive yearly CT lung screening</strong>, the <u>chance of dying</u> from lung cancer within 5 years will be <u>reduced</u> by: {{session.myForm.result1}} out of 1000 people.</p>
+                <p class="description"><strong>If you receive yearly CT lung screening</strong>, the <u>chance of dying</u> from lung cancer within 5 years will be <u>REDUCED</u> by: {{session.myForm.result1}} out of 1000 people.</p>
                 <div ng-bind-html="drawGraph(session.myForm.result0-session.myForm.result1)"></div>
                 <p class="legend">
                     <span>
@@ -128,7 +128,7 @@
 
             <div class="col right" ng-show="chart4">
                 <p class="title">IF YOU DO GET CT LUNG SCREENING</p>            
-                <p class="description"><strong>If you receive CT lung screening</strong>, the <u>chance of being diagnosed</u> with lung cancer within 5 years would <u>increase</u> by {{session.myForm.result3}} out of 1000.</p>
+                <p class="description"><strong>If you receive CT lung screening</strong>, the <u>chance of being diagnosed</u> with lung cancer within 5 years would <u>INCREASE</u> by {{session.myForm.result3}} out of 1000.</p>
                 <div ng-bind-html="drawGraph(session.myForm.result3+session.myForm.result2)"></div>
                 <p class="legend">
                     <span>
@@ -138,7 +138,7 @@
                         <img ng-src="{{base_url}}files/cellempty.png" title="empty cell" alt="empty cell"> NOT diagnosed with lung cancer
                     </span>
                 </p>
-                <p>This means that if 1000 people answer the questions the same way as you, {{session.myForm.result3+session.myForm.result2}} more people would be diagnosed with lung cancer within 5 years if they receive annual CT lung screening.</p>
+                <p>This means that if 1000 people answer the questions the same way as you, {{session.myForm.result3}} more people would be diagnosed with lung cancer within 5 years if they receive annual CT lung screening.</p>
                 <p ng-show="!next5"><button ng-click="chart5=true; next5=true">Next</button></p>
             </div>        
         </div>  
