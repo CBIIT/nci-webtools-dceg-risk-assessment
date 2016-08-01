@@ -469,7 +469,7 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
       var row = [];
       for (var z=1; z<41; z++) {
         if (units>0) {
-          row.push('<td class="filled"><img src="files/cellfill.png"></td>');
+          row.push('<td class="filled"><img src="files/cellfill.png" title="filled cell" alt="filled cell"></td>');
         }
         else {
           row.push('<td></td>');

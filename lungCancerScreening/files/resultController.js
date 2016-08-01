@@ -53,10 +53,10 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
       var row = [];
       for (var z=1; z<41; z++) {
         if (units>0) {
-          row.push('<td class="f"><img src="' + $scope.base_url + 'files/cellfill.png"></td>');
+          row.push('<td class="f"><img src="' + $scope.base_url + 'files/cellfill.png" title="filled cell" alt="filled cell"></td>');
         }
         else {
-          row.push('<td><img src="' + $scope.base_url + 'files/cellempty.png"></td>');
+          row.push('<td><img src="' + $scope.base_url + 'files/cellempty.png" title="empty cell" alt="empty cell"></td>');
         };
         units-=1;
       };
