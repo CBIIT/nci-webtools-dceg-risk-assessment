@@ -18,9 +18,16 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
 
   // calculate eligibility of person based on certain criteria //
   $scope.calculateEligibility = function() {
-    console.log($scope.session.params.age-$scope.session.myForm.quit)
-    if ($scope.session.params.age<55||$scope.session.params.age>80||$scope.session.myForm.packYears<30||$scope.session.params.age-$scope.session.myForm.quit>15) {
-      return false;
+    var quit = parseInt($scope.session.myForm.quit);
+    if (quit) {
+      if ($scope.session.params.age<55||$scope.session.params.age>80||$scope.session.myForm.packYears<30)||$scope.session.params.age-quit>15) {
+        return false;
+      };
+    }
+    else {  
+      if ($scope.session.params.age<55||$scope.session.params.age>80||$scope.session.myForm.packYears<30) {
+        return false;
+      };
     };
     return true;
   };
@@ -56,7 +63,7 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
           row.push('<td class="f"><img src="' + $scope.base_url + 'files/cellfill.png" title="filled cell" alt="filled cell"></td>');
         }
         else {
-          row.push('<td><img src="' + $scope.base_url + 'files/cellempty.png" title="empty cell" alt="empty cell"></td>');
+          row.push('<td><img src="' + $scope.base_url + 'files/cellempty.png" title="empty cell" alt="emptyø cell"></td>');
         };
         units-=1;
       };
