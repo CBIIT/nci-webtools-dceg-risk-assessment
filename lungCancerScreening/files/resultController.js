@@ -20,7 +20,7 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
   $scope.calculateEligibility = function() {
     var quit = parseInt($scope.session.myForm.quit);
     if (quit) {
-      if ($scope.session.params.age<55||$scope.session.params.age>80||$scope.session.myForm.packYears<30)||$scope.session.params.age-quit>15) {
+      if ($scope.session.params.age<55||$scope.session.params.age>80||$scope.session.myForm.packYears<30||$scope.session.params.age-quit>15) {
         return false;
       };
     }
