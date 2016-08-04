@@ -63,7 +63,7 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
           row.push('<td class="f"><img src="' + $scope.base_url + 'files/cellfill.png" title="filled cell" alt="filled cell"></td>');
         }
         else {
-          row.push('<td><img src="' + $scope.base_url + 'files/cellempty.png" title="empty cell" alt="emptyø cell"></td>');
+          row.push('<td><img src="' + $scope.base_url + 'files/cellempty.png" title="empty cell" alt="empty cell"></td>');
         };
         units-=1;
       };
