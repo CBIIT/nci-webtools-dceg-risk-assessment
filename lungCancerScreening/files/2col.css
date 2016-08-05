@@ -237,7 +237,7 @@ a { cursor: pointer }
 }
     .footer ul { text-align: center }
         .footer ul li a { color: #444 }
-.text-bold { font-weight: bold }
+.text-bold { font-weight: bold; font-size:120%;}
 .input-sm,
 select.input-sm {
     height: 22px;
