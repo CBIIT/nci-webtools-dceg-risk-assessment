@@ -79,6 +79,9 @@
                                             <span class="help-block">
                                                 You are <a href="http://www.uspreventiveservicestaskforce.org/Page/Document/UpdateSummaryFinal/lung-cancer-screening" target="_blank">NOT recommended</a> to get screened because you are not a smoker, because the harms of a false alarm are higher than the benefits for screening a non-smoker.
                                             </span>
+                                            <span class="help-block">
+                                                We provide no risk estimates for non-smokers.
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="form-group" ng-class="{'has-error': myForm.startNumericCriteria || myForm.startAgeCriteria }" ng-show="myForm.type === 'current' || myForm.type === 'former'">
@@ -137,6 +140,7 @@
                                         <div class="col-xs-12 col-md-12 has-error">
                                             <span class="help-block">
                                                 <p>Number of pack-years is outside the range of 10-70.</p>
+                                                <p>Please be sure you have entered smoking history and age correctly.</p>
                                             </span>
                                         </div>
                                     </div>                                    
@@ -282,6 +286,7 @@
                                                 <button class="btn btn-default" type="reset" ng-click="myForm.resetForm()">Reset</button>
                                             </div>
                                         </div>
+                                        <div class="loading_text" ng-show="myForm.loading">The tool is working...</div>                                            
                                     </div>
                                 </form>
                             </div>
@@ -290,7 +295,8 @@
                 </div>
             </div>
             <div class="col-xs-12 col-md-6">
-                <div class="loading" ng-show="myForm.loading"></div>
+                <div class="loading" ng-show="myForm.loading">
+                </div>
 
                 <div class="panel panel-default">
                     <div class="panel-heading">

@@ -2,7 +2,6 @@ var app = angular.module("myapp");
 
 app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorage, $location) {
   /* These globals are used in multiple ajax calls in different functions */
-
   $scope.session = $localStorage;
   $scope.base_url = window.location.origin + window.location.pathname
 
