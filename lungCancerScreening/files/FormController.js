@@ -288,7 +288,7 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
     for (var i = 0; i < data.length; i++) {
       /* Round to 2 decimal places and assign results to UI properties */
       /* $scope.myForm['result' + i] = Math.round(data[i] * 100) / 100; */
-      $scope.myForm['result' + i] = Math.ceil(data[i]);
+      $scope.myForm['result' + i] = Math.round(data[i]);
 
       /* GLOBAL_RESULTS['result' + i] = $scope.myForm['result' + i]; */
     }
