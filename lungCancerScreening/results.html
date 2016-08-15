@@ -120,6 +120,7 @@
                 <p class="description"><strong>If you do not get CT lung screening</strong>, the <u>chance of lung cancer diagnosis</u> within 5 years is 
                     <span ng-if="session.myForm.result2==0">less than 1</span>
                     <span ng-if="session.myForm.result2>0">{{session.myForm.result2}}</span> out of 1000.</p>
+                    <br ng-if="session.myForm.result3==0" />
                 <div ng-bind-html="drawGraph(session.myForm.result2)"></div>
                 <p class="legend">
                     <span>
