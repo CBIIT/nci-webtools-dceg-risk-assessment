@@ -14,11 +14,13 @@ def AbsoluteRisk(race, currentAge, projectionAge, menarcheAge, numberOfBiopsy, f
     numberOfBiopsy = 1
   else:
     numberOfBiopsy = 2
+  if firstLiveBirthAge == 98:
+    firstLiveBirthAge == 98
   if firstLiveBirthAge == 99 or firstLiveBirthAge < 20:
     firstLiveBirthAge = 0
   elif firstLiveBirthAge < 25:
     firstLiveBirthAge = 1
-  elif firstLiveBirthAge == 98 or firstLiveBirthAge < 30:
+  elif firstLiveBirthAge < 30:
     firstLiveBirthAge = 2
   else:
     firstLiveBirthAge = 3
@@ -39,10 +41,20 @@ def AverageRisk(race, currentAge, projectionAge, menarcheAge, numberOfBiopsy, fi
 def RiskCalculation(riskType, race, currentAge, projectionAge, menarcheAge, numberOfBiopsy, firstLiveBirthAge, firstDegRelatives, rhyp):
   if projectionAge <= currentAge:
     raise RuntimeError("projectionAge must be greater than the current age")
-  if (race == "Black" and menarcheAge == 2):
-    menarcheAge = 1
+  if (race in ['Foreign Hispanic','US Hispanic']):
+    if (numberOfBiopsy > 1):
+        numberOfBiopsy = 1
+    if (firstLiveBirthAge != 98 and firstLiveBirthAge > 1):
+        firstLiveBirthAge -= 1
+  if (firstLiveBirthAge == 98):
+    numberOfBiopsy = 2
+  if (race == "US Hispanic"):
+    menarcheAge = 0
+  if (race == "Black"):
     firstLiveBirthAge = 0
-  if (race in ["Chinese", "Japanese", "Filipino", "Hawaiian", "Islander", "Asian"] and firstDegRelatives > 1):
+    if (menarcheAge > 1):
+        menarcheAge = 1
+  if (race in ['Foreign Hispanic','US Hispanic',"Chinese", "Japanese", "Filipino", "Hawaiian", "Islander", "Asian"] and firstDegRelatives > 1):
     firstDegRelatives = 1
   covariateBreakdown = [
     # age of menarchy                   0=[14, 39] U 99 (unknown)
