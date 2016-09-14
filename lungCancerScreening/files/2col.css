@@ -4,6 +4,9 @@
 /* ===[ Custom, iPhone Retina ]===
    ================================================== */
 @media only screen and (min-width:320px) { 
+    .yourresults .center {
+        text-align:left;
+    }    
     .header-logo {
         display: block;
         width: 296px;
@@ -19,6 +22,11 @@
 /* ===[ Extra Small Devices, Phones ]===
    ================================================== */
 @media only screen and (min-width:480px) { 
+    .yourresults .center.chart{
+        margin-left:0px;
+        width:475px;
+        text-align:left;     
+    }     
     .header-logo {
         display: block;
         width: 389px;
@@ -30,6 +38,23 @@
 /* ===[ Small Devices, Tablets ]===
    ================================================== */
 @media only screen and (min-width:768px) { 
+    .yourresults .center {
+        text-align:center;
+        width:950px;
+        font-size:110%;
+        padding:10px;        
+    }      
+    .yourresults .center.chart{
+        margin-left:250px;
+        width:475px;
+        text-align:left;     
+    }       
+    .yourresults .center.title{
+        border:1px solid #777;
+        width:40%;
+        margin-left:245px;
+        margin-bottom:10px;
+    }         
     .header-logo {
         display: block;
         width: 608px;
@@ -397,3 +422,8 @@ table.results_summary td {
 padding-right:20px !important;
 padding-bottom:3px !important;
 }
+
+.yourresults .center {
+    font-size:110%;
+    padding:10px;        
+}      

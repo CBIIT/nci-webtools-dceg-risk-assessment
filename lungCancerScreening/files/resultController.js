@@ -49,6 +49,31 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
     return statement;
   };
 
+  // gets value of 1 if value of result is 0 also gets the word less if that value is 0 //
+  $scope.getResult = function(num, type) {
+    if (type) {
+      if ($scope.session.myForm[num]==0) {
+        return 1;
+      }
+      else {
+        return $scope.session.myForm[num]
+      };
+    }
+    else {
+      if ($scope.session.myForm[num]==0) {
+        return " (or less)"
+      }; 
+    };
+  };
+
+  // gets the word people vs person if result is 1 //
+  $scope.getPeopleOrPerson = function(val) {
+    if (val==1) {
+      return "person";
+    };
+    return "people";
+  };
+
   /* Draws a simple table with 1000 cells filled in based on units out of 1000 */
   $scope.drawGraph = function(units) {
     var cellArray = [];

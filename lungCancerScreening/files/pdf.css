@@ -12,3 +12,24 @@ div.yourresults { margin-top: 0px }
     width:10px !important;
     min-width:10px;
 }
+
+.yourresults .center {
+	margin-top:250px;
+    text-align:center;
+    width:950px;
+    padding:10px;
+    font-size:110%;
+}    
+
+    .yourresults .center.chart{
+        margin-top:0px;
+        margin-left:250px;
+        width:475px;
+        text-align:left;     
+    }    
+    .yourresults .center.title{
+        border:1px solid #777;
+        width:40%;
+        margin-left:245px;
+        margin-bottom:10px;
+    }        

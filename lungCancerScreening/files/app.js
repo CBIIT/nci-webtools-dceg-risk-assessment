@@ -24,7 +24,10 @@ app.config(function ($routeProvider) {
       .when('/pdf', {
         templateUrl: 'pdf.html',
         controller: 'ResultCtrl'
-      })                  
+      })     
+      .when('/about', {
+        templateUrl: 'about.html'
+      })                        
       .otherwise({
         redirectTo: '/'
       });
