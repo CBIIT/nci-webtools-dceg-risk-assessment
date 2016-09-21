@@ -16,7 +16,7 @@ def AbsoluteRisk(race, currentAge, projectionAge, menarcheAge, numberOfBiopsy, f
     numberOfBiopsy = 2
   if firstLiveBirthAge == 98:
     firstLiveBirthAge == 98
-  if firstLiveBirthAge == 99 or firstLiveBirthAge < 20:
+  elif firstLiveBirthAge == 99 or firstLiveBirthAge < 20:
     firstLiveBirthAge = 0
   elif firstLiveBirthAge < 25:
     firstLiveBirthAge = 1
@@ -47,7 +47,7 @@ def RiskCalculation(riskType, race, currentAge, projectionAge, menarcheAge, numb
     if (firstLiveBirthAge != 98 and firstLiveBirthAge > 1):
         firstLiveBirthAge -= 1
   if (firstLiveBirthAge == 98):
-    numberOfBiopsy = 2
+    firstLiveBirthAge = 2
   if (race == "US Hispanic"):
     menarcheAge = 0
   if (race == "Black"):
