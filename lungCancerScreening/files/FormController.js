@@ -67,19 +67,19 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
 
   $scope.$watch('myForm.history',function() {
     $scope.myForm.historyDesc = $("#history option:selected").text();
-  }); 
+  });
 
   $scope.$watch('myForm.education',function() {
     $scope.myForm.educationDesc = $("#education option:selected").text();
-  });   
+  });
 
   $scope.$watch('myForm.type',function() {
     $scope.myForm.typeDesc = $("#smoker_type option:selected").text();
-  });    
+  });
 
   $scope.$watch('myForm.group',function() {
     $scope.myForm.groupDesc = $("#race_group option:selected").text();
-  });      
+  });
 
   $scope.$watch('myForm.age', function() {
     validateAges();
@@ -183,7 +183,7 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
         $scope.myForm.pHeightCriteria = primary <= 0 || primary > 10 || !isNumeric;
       } else {
         $scope.myForm.pHeightCriteria = false;
-      }      
+      }
     }
 
 
@@ -206,7 +206,7 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
         $scope.myForm.subHeightCriteria = sub < 0 || sub >= 12 || !isNumeric;
       } else {
         $scope.myForm.subHeightCriteria = sub < 0 || !isNumeric;
-      }      
+      }
     }
   });
 
@@ -305,7 +305,7 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
       url = 'http://' + window.location.hostname + ':9982/lungCancerRest/';
     }
     else {
-      url = 'http://' + window.location.hostname + '/lungCancerScreening/lungCancerRest/';
+      url = 'https://' + window.location.hostname + '/lungCancerScreening/lungCancerRest/';
     };
     var bmi = 0,
         h,
@@ -481,7 +481,7 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
 
     /* reverse rows so colors fill in from bottom of chart */
     cellArray.reverse();
-    
+
     /* loop through row array and create actual html to be dislpayed on page */
     for (var x = 0; x<cellArray.length; x++) {
       html+="<tr>";
@@ -490,7 +490,7 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
       };
       html+="</tr>";
     };
-    html+= '</table>'; 
+    html+= '</table>';
     return $sce.trustAsHtml(html);
   };
 
