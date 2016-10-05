@@ -112,10 +112,10 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
   $scope.exportPDF = function() {
     $scope.loading = true;
     if (window.location.hostname=='localhost') {
-      url = 'https://' + window.location.hostname + ':9982/exportPDF/';
+      url = 'http://' + window.location.hostname + ':9982/exportPDF/';
     }
     else {
-      url = 'https://' + window.location.hostname + '/lungCancerScreening/exportPDF/';
+      url = '/lungCancerScreening/exportPDF/';
     };
 
     var data = "";
