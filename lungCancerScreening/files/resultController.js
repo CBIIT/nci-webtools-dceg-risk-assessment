@@ -23,7 +23,7 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
         return false;
       };
     }
-    else {  
+    else {
       if ($scope.session.params.age<55||$scope.session.params.age>80||$scope.session.myForm.packYears<30) {
         return false;
       };
@@ -62,7 +62,7 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
     else {
       if ($scope.session.myForm[num]==0) {
         return " (or less)"
-      }; 
+      };
     };
   };
 
@@ -96,7 +96,7 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
 
     /* reverse rows so colors fill in from bottom of chart */
     cellArray.reverse();
-    
+
     /* loop through row array and create actual html to be dislpayed on page */
     for (var x = 0; x<cellArray.length; x++) {
       html+="<tr>";
@@ -105,26 +105,26 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
       };
       html+="</tr>";
     };
-    html+= '</table>'; 
+    html+= '</table>';
     return $sce.trustAsHtml(html);
-  }; 
+  };
 
   $scope.exportPDF = function() {
     $scope.loading = true;
     if (window.location.hostname=='localhost') {
-      url = 'http://' + window.location.hostname + ':9982/exportPDF/';
+      url = 'https://' + window.location.hostname + ':9982/exportPDF/';
     }
     else {
-      url = 'http://' + window.location.hostname + '/lungCancerScreening/exportPDF/';
+      url = 'https://' + window.location.hostname + '/lungCancerScreening/exportPDF/';
     };
 
     var data = "";
     var html = createPrintablePage();
 
     $http({
-        method: 'POST', 
+        method: 'POST',
         url: url,
-        data: html,        
+        data: html,
         headers: { 'Accept':'application/json, text/plain, * / *'}
       }).success(function(data) {
           // var byteCharacters = atob(data);
