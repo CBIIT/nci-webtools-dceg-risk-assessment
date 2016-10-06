@@ -79,7 +79,7 @@
             <div ng-show="chart1" class="center title">Benefits of Lung Cancer Screening</div>
             <div class="col left" ng-show="chart1">
                 <p class="title">IF YOU DO NOT GET CT LUNG SCREENING</p>
-                <p class="description"><strong>If you do not get CT lung screening</strong>, <u>your chance of dying</u> from lung cancer within 5 years is {{getResult("result0", 1)}} out of 1000 people{{getResult("result0")}}.</p><br />
+                <p class="description line1"><strong>If you do not get CT lung screening</strong>, <u>your chance of dying</u> from lung cancer within 5 years is {{getResult("result0", 1)}} out of 1000 people{{getResult("result0")}}.</p>
                 <div ng-bind-html="drawGraph(session.myForm.result0)"></div>
                 <p class="legend">
                     <span>
@@ -95,7 +95,7 @@
 
             <div class="col right" ng-show="chart2">
                 <p class="title">IF YOU DO GET CT LUNG SCREENING</p>
-                <p class="description"><strong>If you receive yearly CT lung screening</strong>, your <u>chances of dying</u> from lung cancer within 5 years will be <u>REDUCED</u> from 
+                <p class="description line1"><strong>If you receive yearly CT lung screening</strong>, your <u>chances of dying</u> from lung cancer within 5 years will be <u>REDUCED</u> from 
                     {{getResult("result0", 1)}} out of 1000 people{{getResult("result1")}} to  
                     {{session.myForm.result0-session.myForm.result1}}
                      out of 1000 people: a decrease of {{getResult("result1", 1)}} out of 1000 people{{getResult("result1")}}.</p>
@@ -136,8 +136,7 @@
             <div ng-show="chart4" class="center title">Other Information about Lung Cancer Screening</div>
             <div class="col left" ng-show="chart4">
                 <p class="title">IF YOU DO NOT GET CT LUNG SCREENING</p>
-                <p class="description"><strong>If you do not get CT lung screening</strong>, your <u>chances of lung cancer diagnosis</u> within 5 years is {{getResult("result2", 1)}} out of 1000 people{{getResult("result2")}}.</p>
-                    <br />
+                <p class="description line2"><strong>If you do not get CT lung screening</strong>, your <u>chances of lung cancer diagnosis</u> within 5 years is {{getResult("result2", 1)}} out of 1000 people{{getResult("result2")}}.</p>
                 <div ng-bind-html="drawGraph(session.myForm.result2)"></div>
                 <p class="legend">
                     <span>
@@ -153,7 +152,7 @@
 
             <div class="col right" ng-show="chart5">
                 <p class="title">IF YOU DO GET CT LUNG SCREENING</p>            
-                <p class="description"><strong>If you receive CT lung screening</strong>, your <u>chances of being diagnosed</u> with lung cancer within 5 years will <u>INCREASE</u> from {{getResult("result2", 1)}} out of 1000 people{{getResult("result2")}} to {{session.myForm.result3+session.myForm.result2}} out of 1000 people: an increase of {{session.myForm.result3}} out of 1000 people.</p>
+                <p class="description line2"><strong>If you receive CT lung screening</strong>, your <u>chances of being diagnosed</u> with lung cancer within 5 years will <u>INCREASE</u> from {{getResult("result2", 1)}} out of 1000 people{{getResult("result2")}} to {{session.myForm.result3+session.myForm.result2}} out of 1000 people: an increase of {{session.myForm.result3}} out of 1000 people.</p>
                 <div ng-bind-html="drawGraph(session.myForm.result3+session.myForm.result2)"></div>
                 <p class="legend">
                     <span>

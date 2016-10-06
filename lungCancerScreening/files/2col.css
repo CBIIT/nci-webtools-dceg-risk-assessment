@@ -426,4 +426,12 @@ padding-bottom:3px !important;
 .yourresults .center {
     font-size:110%;
     padding:10px;        
-}      
+}     
+
+.line1 {
+    height:65px;
+}
+
+.line2 {
+    height:55px;
+} 
