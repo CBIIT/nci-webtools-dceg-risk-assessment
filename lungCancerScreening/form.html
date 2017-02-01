@@ -130,10 +130,10 @@
                                     -->
                                     <div class="form-group" ng-class="{'has-error': myForm.cigsNumericCriteria }" ng-show="myForm.smokeShow">
                                         <div class="col-xs-12 col-md-2"></div>
-                                        <label for="cigs" class="col-xs-12 col-md-4 control-label" ng-if="myForm.type === 'current'">On a typical day, how many cigarettes do you smoke?</label>
-                                        <label for="cigs" class="col-xs-12 col-md-4 control-label" ng-if="myForm.type === 'former'">On a typical day, how many cigarettes did you smoke before you quit for good?</label>
+                                        <label  class="col-xs-12 col-md-4 control-label" ng-if="myForm.type === 'current'">On a typical day, how many cigarettes do you smoke?</label>
+                                        <label  class="col-xs-12 col-md-4 control-label" ng-if="myForm.type === 'former'">On a typical day, how many cigarettes did you smoke before you quit for good?</label>
                                         <div class="col-xs-12 col-md-6">
-                                            <input class="form-control input-sm" type="text" name="cigs" id="cigs" ng-model="myForm.cigs" ng-model-options="{ updateOn: 'blur' }" ng-required="myForm.smokeShow">
+                                            <input aria-label="{{ myForm.cigsPerDayAriaLabel }}" class="form-control input-sm" type="text" name="cigs" id="cigs" ng-model="myForm.cigs" ng-model-options="{ updateOn: 'blur' }" ng-required="myForm.smokeShow">
                                         </div>
                                     </div>
                                     <div ng-show="myForm.packYears<10||myForm.packYears>70" class="row">
