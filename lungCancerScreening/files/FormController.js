@@ -42,6 +42,7 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
     $scope.myForm.resultsFileLink = '#';
     $scope.myForm.unstableRisk = false;
     $scope.myForm.eligibility = true;
+    $scope.myForm.cigsPerDayAriaLabel = 'Number of cigarettes smoked per day'
   }
   init();
 
@@ -108,6 +109,19 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
     $scope.myForm.quitNumericCriteria = false;
     $scope.myForm.cigsCriteria = false;
     $scope.myForm.cigsNumericCriteria = false;
+    
+    if($scope.myForm.type === 'current') {
+      console.log('selected current')
+      $scope.myForm.cigsPerDayAriaLabel = 'On a typical day, how many cigarettes do you smoke?'
+
+      $('#cigs').attr('aria-label', 'On a typical day, how many cigarettes do you smoke?');
+    }
+    if($scope.myForm.type === 'former') {
+      console.log('selected former')
+      $scope.myForm.cigsPerDayAriaLabel = 'On a typical day, how many cigarettes did you smoke before you quit for good?'
+      $('#cigs').attr('aria-label', 'On a typical day, how many cigarettes did you smoke before you quit for good?');
+    }
+
   };
 
   $scope.$watch('myForm.start', function() {
@@ -513,4 +527,8 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
     };
     return bmi
   };
+});
+
+$("#smoker_type").change(function() {
+  alert("test")
 });
