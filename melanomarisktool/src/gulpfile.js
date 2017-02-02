@@ -1,26 +1,11 @@
-var stripComments, notifier, parentDir, gulp, gulpConcat, gutil, gulpStylus, streamqueue,  gulpPlumber, nib, jshint, gutil, plumber, gulpJade, gulpFilter;
+var baseDir = '..';
 
-require('matchdep').filterDev('gulp-*').forEach(function(module){
-    global[module.replace(/^gulp-/, '')] = require(module);
-});
-
-parentDir = '..';
-
-stripComments = require('gulp-strip-comments');
-notifier = require('node-notifier');
-gulp = require('gulp');
-gulpConcat = require('gulp-concat');
-gutil = require('gulp-util');
-gulpStylus = require('gulp-stylus');
-gulpJade = require('gulp-jade');
-streamqueue = require('streamqueue');
-gulpPlumber = require('gulp-plumber');
-nib = require('nib');
-jshint = require('gulp-jshint');
-gulpFilter = require('gulp-filter');
-
-plumber = function(){
-    return gulpPlumber({
+var gulp = require('gulp');
+var load = require('gulp-load-plugins')();
+var nib = require('nib');
+var notifier = require('node-notifier');
+var plumber = function(){
+    return load.plumber({
         errorHandler: function(it){
             gutil.beep();
             return gutil.log(gutil.colors.red(it.toString()));
@@ -28,113 +13,49 @@ plumber = function(){
     });
 };
 
-gulp.task('default',['build']);
+gulp.task('default', ['build']);
 
-gulp.task('build', ['jade-compile', 'js:copy', 'css','commons'], function(){
+gulp.task('build', [ 'compile:pug', 'compile:stylus','copy:js' ], function(){
     notifier.notify({
         title: 'Compilation Complete',
         message: "The code has been compiled in the project's root directory"
     });
 });
 
-gulp.task('commons', [ 'common-images:copy', 'common-js:copy',
-'common-css:copy', 'rat-common:copy' ]);
-
-// task for rendering jade files to HTML
-gulp.task('jade-compile', function() {
-    // only return the compiled index to root
-    return gulp.src(['app/jade/pages/mrat/index.jade']).pipe(gulpJade({
-        pretty: true,
-        basedir: parentDir
-    })).pipe(gulp.dest(parentDir));
+gulp.task('compile:pug', function () {
+    return gulp.src(['pug/index.pug'])
+    .pipe(
+        load.pug({
+            pretty: true,
+            baseDir: baseDir
+        })
+    )
+    .pipe(gulp.dest( baseDir ));;
 });
 
-gulp.task('js:copy', function(){
-    var s;
-    s = streamqueue({
-        objectMode: true
-    });
-    gulp.src('app/scripts/**/*.json')
-        .pipe(gulp.dest(parentDir));
-
-    gulp.src(['app/scripts/**/*.js'])
-        .pipe(stripComments())
-        .pipe(jshint())
-        .pipe(jshint.reporter('jshint-stylish'))
-        .pipe(gulp.dest(parentDir));
-    return s.done();
+gulp.task('compile:stylus', function () {
+    return gulp.src(['stylus/mrat.styl'])
+    .pipe(
+        load.stylus({
+            use: [ nib() ],
+            'import': [ 'nib' ]
+        })
+    )
+    .pipe(load.concat( 'styles.css' ))
+    .pipe(gulp.dest( baseDir ));
 });
 
-gulp.task('css', function(){
-    var styl, s;
-    styl = gulp.src(['app/stylus/base-styles.styl', 'app/stylus/mobile-styles.styl']).pipe(gulpFilter(function(it) {
-        return !/\/_[^/]+\.styl$/.test(it.path);
-    })).pipe(gulpStylus({
-        use: [nib()],
-        'import': ['nib']
-    })).pipe(gulpConcat('styles.css')).pipe(gulp.dest(parentDir));
-
-    return s = streamqueue({
-        objectMode: true
-    });
+gulp.task('copy:js', function () {
+    return gulp.src(['scripts/**/*.js'])
+    .pipe(
+        gulp.dest( baseDir )
+    );
 });
 
-// tasks to copy common features across all RATs
-gulp.task('common-images:copy', function(){
-
-    gulp.src([ 'common-resources/images/**/*.png',
-             'common-resources/images/**/*.svg',
-             'common-resources/images/**/*.gif',
-             'common-resources/images/**/*.jpg' ])
-        .pipe(gulp.dest(parentDir+"/rat-commons/images"));
+gulp.task('checkstandards', function () {
+    return gulp.src([
+        baseDir + '/*.html', 
+        baseDir + '/*.css', 
+        baseDir + '/*.js' ])
+    .pipe(load.webstandards());
 });
-
-gulp.task('common-js:copy', function(){
-    var s;
-    s = streamqueue({
-        objectMode: true
-    });
-    gulp.src('common-resources/scripts/**/*.json')
-        .pipe(gulp.dest(parentDir+"/rat-commons"));
-
-    gulp.src(['common-resources/scripts/**/*.js'])
-        .pipe(stripComments())
-        .pipe(jshint())
-        .pipe(jshint.reporter('jshint-stylish'))
-        .pipe(gulpConcat("rat-script.js"))
-        .pipe(gulp.dest(parentDir+"/rat-commons/js"));
-    return s.done();
-});
-
-gulp.task('common-css:copy', function(){
-    var styl, s;
-    styl = gulp.src(['common-resources/stylus/rat-styles.styl', 'common-resources/stylus/rat-mobile.styl'
-                    ]).pipe(gulpFilter(function(it) {
-        return !/\/_[^/]+\.styl$/.test(it.path);
-    })).pipe(gulpStylus({
-        use: [nib()],
-        'import': ['nib']
-    })).pipe(gulpConcat('styles.css')).pipe(gulp.dest(parentDir+"/rat-commons/css"));
-
-    gulp.src('common-resources/stylus/fonts/**/*').pipe(
-        gulp.dest(parentDir+"/rat-commons/css/fonts"));
-
-    return s = streamqueue({
-        objectMode: true
-    });
-});
-
-gulp.task('rat-common:copy', function(){
-    var s;
-    s = streamqueue({
-        objectMode: true
-    });
-    gulp.src(parentDir+"/rat-commons/**/*")
-        .pipe(gulp.dest(parentDir+"/"+parentDir+"/colorectalcancerrisk/rat-commons"));
-    gulp.src(parentDir+"/rat-commons/**/*")
-        .pipe(gulp.dest(parentDir+"/"+parentDir+"/bcrisktool/rat-commons"));
-
-    return s.done();
-});
-
-

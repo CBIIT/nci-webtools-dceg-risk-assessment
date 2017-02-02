@@ -1,0 +1,151 @@
+.container
+	#form-steps.hidden-xs
+		ol
+			li.active 
+				a(href="#demo-section") Demographics
+			li 
+				a(href="#skin-section") Skin Characteristics
+			li 
+				a(href="#physical-section") Physical Exam
+	form#riskForm(method="POST", action="/melanomarisktool/rest/calculate/")
+		section#demo-section
+			//- a.toggleTool.pull-right Back to Summary
+			h3.sectionTitle Demographics
+			label.questions(for="race") What is the patient's race?
+			.responseOptions
+				label
+					input(type="radio", name="race", value='0', required)
+					| Non-Hispanic White
+			.responseOptions
+				label
+					input(type="radio", name="race", value='1', required)
+					| Other
+			label.questions(for="age") What is the patient's age?
+			.responseOptions
+				select#age(name='age', type="number", min="20", max="70", placeholder="Enter patient's age", required)
+					option(value="") Select Age
+					- var i = 20;
+					while i < 71
+						option(value=i)= i++
+			.pull-left
+				.col-xs-12.col-sm-6
+					label.questions
+						| Does the patient live in the Northern, Central, or Southern United States?
+						em The model on which this tool is based is valid only for residents of the continental United States. This map is only a guide.
+					.responseOptions
+						label
+							input(type="radio", name="region", value='1', required)
+							| Northern
+					.responseOptions
+						label
+							input(type="radio", name="region", value='0', required)
+							| Central
+					.responseOptions
+						label
+							input(type="radio", name="region", value='2', required)
+							| Southern
+				.col-xs-12.col-sm-6
+					img#map.show(src="images/us-map.png", longdesc="The map is divided into three distinct areas.	Northern United States which includes Washington, Oregon, Montana, North Dakota, South Dakota, Minnesota, Wisconsin, Michigan, Iowa, Illinois, Indiana, Ohio, Maryland, Pennsylvania, New York, New Jersey, Vermont, Rhode Island, Connecticut, Massachusetts, New Hampshire, and Maine. Central United States which includes Northern California, Idaho, Utah, Wyoming, Nebraska, Kansas, Oklahoma, Arkansas, Missouri, Tennessee, Kentucky, West Virginia, Virginia, Delaware, North Carolina, and South Carolina. Southern United States which includes Southern California, Nevada, Arizona, New Mexico, Colorado, Texas, Louisiana, Mississippi, Alabama, Georgia, and Florida.")
+					a#state-listing View state listings by area.
+					#listings.info-dialog.col-xs-12
+						button.btn-sm.pull-right
+							.dialog-icon
+								| &times;
+								.sr-only close
+						p The map is divided into three distinct areas:
+						p
+							b Northern United States: 
+							| Washington, Oregon, Montana, North Dakota, South Dakota, Minnesota, Wisconsin, Michigan, Iowa, Illinois, Indiana, Ohio,
+							| Maryland, Pennsylvania, New York, New Jersey, Vermont, Rhode Island, Connecticut, Massachusetts, New Hampshire, and Maine.
+						p
+							b Central United States: 
+							| Northern California, Idaho, Utah, Wyoming, Nebraska, Kansas, Oklahoma, Arkansas, Missouri, Tennessee, Kentucky, 
+							| West Virginia, Virginia, Delaware, North Carolina, and South Carolina.
+						p
+							b Southern United States: 
+							| Southern California, Nevada, Arizona, New Mexico, Colorado, Texas, Louisiana, Mississippi, Alabama, Georgia, and Florida.
+			label.questions(for="gender") What is the patient's gender?
+			.responseOptions
+				label
+					input(type="radio", name="gender", value='0', required)
+					| Male
+			.responseOptions
+				label
+					input(type="radio", name="gender", value='1', required)
+					| Female
+		section#skin-section
+			h3.sectionTitle Skin Characteristics
+			label.questions(for="complexion") Is the patient’s complexion light, medium, or dark?
+			.responseOptions
+				label
+					input(type="radio", name="complexion", value='1', required)
+					| Light
+			.responseOptions
+				label
+					input(type="radio", name="complexion", value='0', required)
+					| Medium
+			.responseOptions
+				label
+					input(type="radio", name="complexion", value='2', required)
+					| Dark
+			.male
+				label.questions(for="sunburn") Has the patient ever gotten a blistering sunburn?
+				.responseOptions
+					label
+						input(type="radio", name='sunburn', value='0', required)
+						| Yes
+				.responseOptions
+					label
+						input(type="radio", name='sunburn', value='1', required)
+						| No
+			.female
+				label.questions(for="tan") 
+					| Ask the patient: After repeated and prolonged exposure to sunlight, at the age you are now, 
+					| would your skin become very brown and deeply tanned, moderately tanned, lightly tanned, or not tan at all?
+				.responseOptions
+					label
+						input(type="radio", name='tan', value='0', required) 
+						| Very brown and deeply tanned
+				.responseOptions
+					label
+						input(type="radio", name='tan', value='1', required) 
+						| Moderately tanned				
+				.responseOptions
+					label
+						input(type="radio", name='tan', value='2', required) 
+						| Lightly tanned
+				.responseOptions
+					label
+						input(type="radio", name='tan', value='3', required) 
+						| No tan at all
+
+		section#physical-section
+			h3.sectionTitle Physical Exam
+			.male
+				label.questions How many moles larger than 5mm in diameter are on the patient's back?
+				.responseOptions
+					label
+						input(type="radio", name='big-moles', value='0', required)
+						| Less than two
+				.responseOptions
+					label
+						input(type="radio", name='big-moles', value='1', required)
+						| Two or more
+			.male
+				label.questions How many moles less than or equal to 5mm in diameter are on the patient's back?
+				.responseOptions
+					label
+						input(type="radio", name="small-moles", value='0', required)
+						| Less than seven
+				.responseOptions
+					label
+						input(type="radio", name="small-moles", value='1', required)
+						| Seven to sixteen
+				.responseOptions
+					label
+						input(type="radio", name="small-moles", value='2', required)
+						| Seventeen or more
+		.center-block
+			.col-xs-12.col-sm-3.col-sm-push-5
+				button.btn-sm.btn-block#reset(type="reset") Reset
+				button.btn-sm.btn-form.btn-block#calculate(type="submit") Calculate Risk

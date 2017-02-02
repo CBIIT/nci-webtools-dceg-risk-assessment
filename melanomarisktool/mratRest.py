@@ -39,15 +39,15 @@ class MelanomaRiskAssessmentTool:
         parameters[field] = parameters[field][0]
       requiredParameters = ['race','age']
       errorObject = {'missing':[],'nonnumeric':[]}
-      if parameters['state'] == '':
-        errorObject['missing'] += ['state']
-      elif isinstance(MratConstants.RegionIndex[parameters['state']],dict):
+      if parameters['region'] == '':
+        errorObject['missing'] += ['region']
+      elif isinstance(MratConstants.RegionIndex[parameters['region']],dict):
         if parameters['county'] == '':
           errorObject['missing'] += ['county']
         else:
-          region = MratConstants.RegionIndex[parameters['state']][parameters['county']]
+          region = MratConstants.RegionIndex[parameters['region']][parameters['county']]
       else:
-        region = MratConstants.RegionIndex[parameters['state']]
+        region = MratConstants.RegionIndex[parameters['region']]
       if (parameters['gender'] == 'Male'):
         sex = 0
         requiredParameters += ['sunburn','complexion','big-moles','small-moles','freckling','damage']

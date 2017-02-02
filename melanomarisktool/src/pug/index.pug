@@ -1,0 +1,22 @@
+doctype html
+html(lang="en")
+	head
+		title Melanoma Risk Assessment Tool (MRAT)
+		meta(http-equiv="X-UA-Compatible", content="IE=edge")
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+		link(href='https://fonts.googleapis.com/css?family=Noto+Sans', rel='stylesheet', type='text/css')
+		link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+		link(href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css", rel="stylesheet", type="text/css")
+		link(href="/common/css/style.css", rel="stylesheet", type="text/css")
+		link(href="styles.css", rel="stylesheet", type="text/css")
+		script(src='https://code.jquery.com/jquery-2.1.4.min.js', type='application/javascript')
+		script(type='text/javascript', src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+		script(type='text/javascript', src='rat.js')
+		script(type='text/javascript', src='mrat.js')
+	body
+		include shared/header
+		#main.tab-content(tabindex="-1")
+			include about
+			include calculator
+			include contact
+		include shared/footer
