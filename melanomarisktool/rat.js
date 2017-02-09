@@ -1,5 +1,5 @@
 var validationMessages = {
-	state: {
+	region: {
 		required: "The state in which the patient resides must be selected."
 	},
 	county: {
@@ -37,67 +37,95 @@ var validationMessages = {
 	}
 };
 
-$(function() {
-	$(".toggleTool").on("click", toggleFormDisplay);
-	$(document).on('click keypress', 'a#state-listing', function(e) {
-		e.preventDefault();
-		$("#map, #listings").toggleClass('show');
-	});
+var validationRules = {
+	region: {
+		required: true
+	},
+	county: {
+		required: {
+			depends: function(el) {
+				return $('#state').val() == 'CA';
+			}
+		}
+	},
+	gender: {
+		required: true
+	},
+	race: {
+		required: true
+	},
+	age: {
+		required: true
+	},
+	sunburn: {
+		required: {
+			depends: function(el) {
+				return $('#gender').val() == "Male";
+			}
+		}
+	},
+	complexion: {
+		required: true
+	},
+	"big-moles": {
+		required: {
+			depends: function(el) {
+				return $('#gender').val() == "Male";
+			}
+		}
+	},
+	"small-moles": {
+		required: true
+	},
+	tan: {
+		required: {
+			depends: function(el) {
+				return $('#gender').val() == "Female";
+			}
+		}
+	},
+	freckling: {
+		required: true
+	},
+	damage: {
+		required: {
+			depends: function(el) {
+				return $('#gender').val() == "Male";
+			}
+		}
+	}
+};
 
-	$(document).on('click keypress', "#listings button", function(event) {
-		$("#state-listing").trigger('click')
-	});
-	$(window).scroll(function(e) {
-		e.preventDefault();
-		fixedToTop();
-		formScrollSpy();
-	});
-
-	$(document.forms.riskForm).on("submit", function(e) {
-		alert('submitted');
-		console.log(e.target);
-		processSubmission();
-	});
-
-});
-function processSubmission(){
-
-	    $.ajax({
-        url: riskForm.action,
-        type: riskForm.method,
-        data: new FormData(riskForm),
-        processData: false,
-        contentType: false,
-        dataType: 'json'
-    }).done(function (data) {
-        if (data.success) {
-            displayResult(data.message);
-        } else {
-            var message = "";
-            if (data.message) {
-                message += "<p>" + data.message + "</p>";
-            }
-            var index;
-            for (index in data.missing) {
-                $('#' + data.missing[index]).addClass('error');
-                message += "<p>The " + data.missing[index] + " question was not answered.</p>";
-            }
-            for (index in data.nonnumeric) {
-                $('#' + data.nonnumeric[index]).addClass('error');
-                message += "<p>The " + data.nonnumeric[index] + " question contained a nonnumeric answer.</p>";
-            }
-            $('#error').append(message).css('display', 'block');
-            document.getElementById("main").scrollIntoView();
-        }
-    }).fail(function (data) {
-        if (data.responseJSON)
-            $('#error').append("<p>" + data.responseJSON.message + "</p>").css('display', 'block');
-        else
-            $('#error').append("<p>" + data.responseText + "</p>").css('display', 'block');
-
-        document.getElementById("main").scrollIntoView();
-    });
+function invalidForm(e, validator) {
+	$(document.forms.riskForm).addClass('submitted');
 }
+
+function processSubmission(form){
+	var fd = new FormData(form);
+
+	$.ajax({
+		url: form.action,
+		type: form.method,
+		dataType: 'json',
+		processData:false,
+		contentType: false,
+		data: fd,
+		errorLabelContainer: '#error',
+		wrapper: 'p',
+	}).done(resultsDisplay)
+	.fail(function() {
+		console.log("error");
+	})
+	.always(function() {
+		console.log("complete");
+	});
+}
+function resultsDisplay(response, textStatus, xhr) { 
+	document.getElementById("main").scrollIntoView();
+	$("#results").addClass('show').html(response.message);
+
+}
+
 function formScrollSpy() {
 	var window_top = $(window).scrollTop();
 
@@ -109,7 +137,6 @@ function formScrollSpy() {
 			$("#form-steps li:eq(" + ind + ")").addClass('active');
 		}
 	});
-
 }
 
 function fixedToTop() {
@@ -135,3 +162,94 @@ function toggleFormDisplay(e) {
 		return this;
 	});
 }
+
+function toggleGender(e){
+	var value = $(e.target).val();
+	if (value == "Male") {
+		$(".female").removeClass('show').find("input, select").removeAttr("required");
+		$(".male").addClass('show').find("input, select").attr("required");
+
+	}
+	else if(value == "Female") {
+		$(".male").removeClass('show').find("input, select").removeAttr("required");
+		$(".female").addClass('show').find("input, select").attr("required");
+	}
+	else {
+		$(".male, .female").removeClass('show').find("input, select").removeAttr("required");
+	}
+}
+
+$(window).scroll(function(e) {
+	e.preventDefault();
+	fixedToTop();
+	formScrollSpy();
+});
+
+$(function() {
+	$(document).on('click', "[type='reset']", function(e) {
+		$(document.forms.riskForm).removeClass('submitted');
+		$("#results").empty().removeClass('show');
+		$(document.forms.riskForm).validate().resetForm();
+		window.scrollTo(0, 0);
+	});
+
+	$(".toggleTool").on("click", toggleFormDisplay);
+	$("label.radio").on('click keypress', function(e) {
+		if(e.type == "keypress") {
+			if ((e.keyCode == 13) || (e.keyCode == 32)){
+				$(e.target).prev().trigger('click');
+			}
+		}
+		if(e.type == "click") {
+			$(e.target).parents('.radio').prev().trigger('click');
+		}
+	});
+
+	$("button.select").on('click keypress', function(e) {
+		if(e.type == "keypress") {
+			if ((e.keyCode == 13) || (e.keyCode == 32)) {
+				$(e.target).prev().trigger('click');
+			}
+		}
+		if(e.type == "click") {
+			$(e.target).prev().trigger('click');
+		}
+	});
+
+	$("input[name='gender']").on("change", toggleGender);
+	$("input[name='race']").on("change", function() {
+		$("form :input").not("[name='race']").removeAttr('disabled');
+		if(this.value == 1){
+			$("#raceModal").modal("show");
+			$("form :input").not("[name='race']").attr('disabled', true);
+		}
+	});
+
+	$(document).on('hidden.bs.tab', 'a[data-toggle="tab"]', function(e) {
+		if($("nav.navbar-collapse").hasClass('in'))
+			$('button[data-toggle="collapse"]').trigger("click");
+	});
+
+	$(document).on('click keypress', 'a#state-listing', function(e) {
+		e.preventDefault();
+		$("#map, #listings").toggleClass('show');
+	});
+
+	$(document).on('click keypress', "#listings > button", function(e) {
+		$("#state-listing").trigger('click')
+	});
+
+	$(document.forms.riskForm).validate({
+		debug: true,
+		rules: validationRules,
+		messages: validationMessages,
+		errorLabelContainer: '#error',
+		wrapper: 'p',
+		submitHandler: processSubmission,
+		invalidHandler: invalidForm,
+		showErrors: function() {
+
+		}
+	});
+
+});

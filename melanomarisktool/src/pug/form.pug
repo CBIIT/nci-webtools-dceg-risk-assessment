@@ -1,5 +1,5 @@
 .container
-	#form-steps.hidden-xs
+	#form-steps
 		ol
 			li.active 
 				a(href="#demo-section") Demographics
@@ -7,18 +7,21 @@
 				a(href="#skin-section") Skin Characteristics
 			li 
 				a(href="#physical-section") Physical Exam
+	#results
 	form#riskForm(method="POST", action="/melanomarisktool/rest/calculate/")
 		section#demo-section
 			//- a.toggleTool.pull-right Back to Summary
 			h3.sectionTitle Demographics
 			label.questions(for="race") What is the patient's race?
 			.responseOptions
-				label
-					input(type="radio", name="race", value='0', required)
+				input(type="radio", name="race", value='0', required)
+				label.radio(tabindex="0")
+					span
 					| Non-Hispanic White
 			.responseOptions
-				label
-					input(type="radio", name="race", value='1', required)
+				input(type="radio", name="race", value='1', required)
+				label.radio(tabindex="0")
+					span
 					| Other
 			label.questions(for="age") What is the patient's age?
 			.responseOptions
@@ -33,25 +36,25 @@
 						| Does the patient live in the Northern, Central, or Southern United States?
 						em The model on which this tool is based is valid only for residents of the continental United States. This map is only a guide.
 					.responseOptions
-						label
-							input(type="radio", name="region", value='1', required)
+						input(type="radio", name="region", value='north', required)
+						label.radio(tabindex="0")
+							span 
 							| Northern
 					.responseOptions
-						label
-							input(type="radio", name="region", value='0', required)
+						input(type="radio", name="region", value='central', required)
+						label.radio(tabindex="0")
+							span 
 							| Central
 					.responseOptions
-						label
-							input(type="radio", name="region", value='2', required)
+						input(type="radio", name="region", value='south', required)
+						label.radio(tabindex="0")
+							span 
 							| Southern
 				.col-xs-12.col-sm-6
-					img#map.show(src="images/us-map.png", longdesc="The map is divided into three distinct areas.	Northern United States which includes Washington, Oregon, Montana, North Dakota, South Dakota, Minnesota, Wisconsin, Michigan, Iowa, Illinois, Indiana, Ohio, Maryland, Pennsylvania, New York, New Jersey, Vermont, Rhode Island, Connecticut, Massachusetts, New Hampshire, and Maine. Central United States which includes Northern California, Idaho, Utah, Wyoming, Nebraska, Kansas, Oklahoma, Arkansas, Missouri, Tennessee, Kentucky, West Virginia, Virginia, Delaware, North Carolina, and South Carolina. Southern United States which includes Southern California, Nevada, Arizona, New Mexico, Colorado, Texas, Louisiana, Mississippi, Alabama, Georgia, and Florida.")
-					a#state-listing View state listings by area.
-					#listings.info-dialog.col-xs-12
-						button.btn-sm.pull-right
-							.dialog-icon
-								| &times;
-								.sr-only close
+					img#map.img-responsive.show(src="images/us-map.png", alt="The map is divided into three distinct areas.	Northern United States which includes Washington, Oregon, Montana, North Dakota, South Dakota, Minnesota, Wisconsin, Michigan, Iowa, Illinois, Indiana, Ohio, Maryland, Pennsylvania, New York, New Jersey, Vermont, Rhode Island, Connecticut, Massachusetts, New Hampshire, and Maine. Central United States which includes Northern California, Idaho, Utah, Wyoming, Nebraska, Kansas, Oklahoma, Arkansas, Missouri, Tennessee, Kentucky, West Virginia, Virginia, Delaware, North Carolina, and South Carolina. Southern United States which includes Southern California, Nevada, Arizona, New Mexico, Colorado, Texas, Louisiana, Mississippi, Alabama, Georgia, and Florida.")
+					#listings.info-dialog
+						button.btn-sm.pull-right(type="button", aria-label="close")
+							span.dialog-icon &times;
 						p The map is divided into three distinct areas:
 						p
 							b Northern United States: 
@@ -64,87 +67,119 @@
 						p
 							b Southern United States: 
 							| Southern California, Nevada, Arizona, New Mexico, Colorado, Texas, Louisiana, Mississippi, Alabama, Georgia, and Florida.
+					a#state-listing View state listings by area.
+
 			label.questions(for="gender") What is the patient's gender?
 			.responseOptions
-				label
-					input(type="radio", name="gender", value='0', required)
+				input(type="radio", name="gender", value='Male', required)
+				label.radio(tabindex="0")
+					span
 					| Male
 			.responseOptions
-				label
-					input(type="radio", name="gender", value='1', required)
+				input(type="radio", name="gender", value='Female', required)
+				label.radio(tabindex="0")
+					span
 					| Female
 		section#skin-section
 			h3.sectionTitle Skin Characteristics
 			label.questions(for="complexion") Is the patient’s complexion light, medium, or dark?
 			.responseOptions
-				label
-					input(type="radio", name="complexion", value='1', required)
+				input(type="radio", name="complexion", value='1', required)
+				label.radio(tabindex="0")
+					span
 					| Light
 			.responseOptions
-				label
-					input(type="radio", name="complexion", value='0', required)
+				input(type="radio", name="complexion", value='0', required)
+				label.radio(tabindex="0")
+					span
 					| Medium
 			.responseOptions
-				label
-					input(type="radio", name="complexion", value='2', required)
+				input(type="radio", name="complexion", value='2', required)
+				label.radio(tabindex="0")
+					span
 					| Dark
 			.male
 				label.questions(for="sunburn") Has the patient ever gotten a blistering sunburn?
 				.responseOptions
-					label
-						input(type="radio", name='sunburn', value='0', required)
+					input(type="radio", name='sunburn', value='0', required)
+					label.radio(tabindex="0")
+						span
 						| Yes
 				.responseOptions
-					label
-						input(type="radio", name='sunburn', value='1', required)
+					input(type="radio", name='sunburn', value='1', required)
+					label.radio(tabindex="0")
+						span
 						| No
 			.female
 				label.questions(for="tan") 
 					| Ask the patient: After repeated and prolonged exposure to sunlight, at the age you are now, 
 					| would your skin become very brown and deeply tanned, moderately tanned, lightly tanned, or not tan at all?
 				.responseOptions
-					label
-						input(type="radio", name='tan', value='0', required) 
+					input(type="radio", name='tan', value='0', required) 
+					label.radio(tabindex="0")
+						span
 						| Very brown and deeply tanned
 				.responseOptions
-					label
-						input(type="radio", name='tan', value='1', required) 
-						| Moderately tanned				
+					input(type="radio", name='tan', value='1', required) 
+					label.radio(tabindex="0")
+						span
+						| Moderately tanned
 				.responseOptions
-					label
-						input(type="radio", name='tan', value='2', required) 
+					input(type="radio", name='tan', value='2', required) 
+					label.radio(tabindex="0")
+						span
 						| Lightly tanned
 				.responseOptions
-					label
-						input(type="radio", name='tan', value='3', required) 
+					input(type="radio", name='tan', value='3', required) 
+					label.radio(tabindex="0")
+						span
 						| No tan at all
-
 		section#physical-section
 			h3.sectionTitle Physical Exam
 			.male
 				label.questions How many moles larger than 5mm in diameter are on the patient's back?
 				.responseOptions
-					label
-						input(type="radio", name='big-moles', value='0', required)
+					input(type="radio", name='big-moles', value='0', required)
+					label.radio(tabindex="0")
+						span 
 						| Less than two
 				.responseOptions
-					label
-						input(type="radio", name='big-moles', value='1', required)
+					input(type="radio", name='big-moles', value='1', required)
+					label.radio(tabindex="0")
+						span
 						| Two or more
+			label.questions How many moles less than or equal to 5mm in diameter are on the patient's back?
+			.responseOptions
+				input(type="radio", name="small-moles", value='0')
+				label.radio(tabindex="0")
+					span
+					| Less than seven
+			.responseOptions
+				input(type="radio", name="small-moles", value='1')
+				label.radio(tabindex="0")
+					span
+					| Seven to sixteen
+			.responseOptions
+				input(type="radio", name="small-moles", value='2')
+				label.radio(tabindex="0")
+					span
+					| Seventeen or more
+
+			label.questions(for="freckling") How extensive is the freckling on the patient's back and shoulders?
+			.responseOptions
+				select#freckling(name='freckling')
+					option(value='') Select
+					option(value='0') Absent
+					option(value='1') Mild
+					option(value='2') Moderate
+					option(value='3') Severe
 			.male
-				label.questions How many moles less than or equal to 5mm in diameter are on the patient's back?
+				label.questions(for="damage") Does the patient have severe solar damage on the shoulders?
 				.responseOptions
-					label
-						input(type="radio", name="small-moles", value='0', required)
-						| Less than seven
-				.responseOptions
-					label
-						input(type="radio", name="small-moles", value='1', required)
-						| Seven to sixteen
-				.responseOptions
-					label
-						input(type="radio", name="small-moles", value='2', required)
-						| Seventeen or more
+					select#damage(name='damage')
+						option(value='') Select
+						option(value='0') Yes
+						option(value='1') No
 		.center-block
 			.col-xs-12.col-sm-3.col-sm-push-5
 				button.btn-sm.btn-block#reset(type="reset") Reset

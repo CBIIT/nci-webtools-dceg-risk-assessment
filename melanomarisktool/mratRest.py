@@ -30,11 +30,13 @@ class MelanomaRiskAssessmentTool:
     response.status_code = 200
     return response
 
-  @app.route('/melanomarisktool/rest/calculate', methods=['POST'])
-  @app.route('/melanomarisktool/rest/calculate/', methods=['POST'])
+  @app.route('/rest/calculate', methods=['POST'])
+  @app.route('/rest/calculate/', methods=['POST'])
   def mratRisk():
     try:
       parameters = dict(request.form)
+      print "parameters"
+      print parameters
       for field in parameters:
         parameters[field] = parameters[field][0]
       requiredParameters = ['race','age']
@@ -92,7 +94,18 @@ class MelanomaRiskAssessmentTool:
         h22 = MratConstants.MORTALITY[sex][ageIndex+1]
         risk += h12*r*math.exp((age-t2)*(h11*r+h21))*(1-math.exp((t1-age)*(h12*r+h22)))/(h12*r+h22)
       risk = round(risk*10000)/100
-      return MelanomaRiskAssessmentTool.buildSuccess(str(risk))
+      ratio = round((risk * 0.01) * 1000)
+      regionKey = ""
+      for key, value in MratConstants.RegionIndex.items():
+        if value is region:
+          regionKey = key
+          if value is not "central":
+            regionKey = regionKey + "ern"
+
+      message = "The Five-Year Absolute Risk of Melanoma is {0}%. For every 1,000 {1}s living in the {2} region with these characteristics, on average {3} will develop melanoma in the next 5 years.".format(
+        risk, str(parameters['gender']).lower(), regionKey, int(ratio) )
+
+      return MelanomaRiskAssessmentTool.buildSuccess(message)
     except Exception as e:
       exc_type, exc_obj, exc_tb = sys.exc_info()
       fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
@@ -109,5 +122,5 @@ if __name__ == '__main__':
   parser.add_argument("--debug", action="store_true")
 
   args = parser.parse_args()
-  port_num = int(args.port_number);
+  port_num = int(args.port_number)
   MelanomaRiskAssessmentTool(port_num, args.debug)
