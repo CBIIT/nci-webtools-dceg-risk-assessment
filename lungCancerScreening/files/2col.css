@@ -468,6 +468,7 @@ table.results_content th {
 }
 
 table.results_content td {
+    width: 50%;
     border: 1px;
     background-color: lightblue;
     border-color: #777;
@@ -499,6 +500,7 @@ table.results_legend th {
 }
 
 table.results_legend td {
+    width: 50%;
     border: 1px;
     background-color: lightblue;
     border-color: #777;
