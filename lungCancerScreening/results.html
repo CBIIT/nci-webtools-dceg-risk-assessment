@@ -97,8 +97,20 @@
         </p>
         <p ng-show="!next1"><button ng-click="chart1=true;next1=true">Next</button></p>
     </div>
+    
+    <div style="page-break-after: always"></div>
+
     <div class="yourresults">
-        <div ng-show="chart1" class="center title">Benefits of Lung Cancer Screening</div>
+        <!--<div ng-show="chart1" class="center title">Benefits of Lung Cancer Screening</div>-->
+        <div ng-show="chart1">
+         <table class="results_title">
+            <tbody>
+            <tr>
+                <th>Benefits of Lung Cancer Screening</th>
+            </tr>
+            </tbody>
+        </table>
+        </div>
         <table class="results_content">
             <tbody>
                 <tr>
