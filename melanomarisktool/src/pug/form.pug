@@ -84,12 +84,12 @@
 			h3.sectionTitle Skin Characteristics
 			label.questions(for="complexion") Is the patient’s complexion light, medium, or dark?
 			.responseOptions
-				input(type="radio", name="complexion", value='1', required)
+				input(type="radio", name="complexion", value='0', required)
 				label.radio(tabindex="0")
 					span
 					| Light
 			.responseOptions
-				input(type="radio", name="complexion", value='0', required)
+				input(type="radio", name="complexion", value='1', required)
 				label.radio(tabindex="0")
 					span
 					| Medium
@@ -113,7 +113,7 @@
 			.female
 				label.questions(for="tan") 
 					| Ask the patient: After repeated and prolonged exposure to sunlight, at the age you are now, 
-					| would your skin become very brown and deeply tanned, moderately tanned, lightly tanned, or not tan at all?
+					| would your skin become very brown and deeply tanned, moderately tanned, lightly tanned, or no tan at all?
 				.responseOptions
 					input(type="radio", name='tan', value='0', required) 
 					label.radio(tabindex="0")
