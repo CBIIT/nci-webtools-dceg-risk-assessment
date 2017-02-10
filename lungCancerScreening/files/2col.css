@@ -418,7 +418,7 @@ table.results_summary td.indent {
 padding-left:30px !important;
 }
 
-table.results_summary td {
+table.results_summary td, th {
 padding-right:20px !important;
 padding-bottom:3px !important;
 }
