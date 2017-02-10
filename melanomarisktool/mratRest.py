@@ -99,7 +99,7 @@ class MelanomaRiskAssessmentTool:
       for key, value in MratConstants.RegionIndex.items():
         if value is region:
           regionKey = key
-          if value is not "central":
+          if value is not 1:
             regionKey = regionKey + "ern"
 
       message = "The Five-Year Absolute Risk of Melanoma is {0}%. For every 1,000 {1}s living in the {2} region with these characteristics, on average {3} will develop melanoma in the next 5 years.".format(
