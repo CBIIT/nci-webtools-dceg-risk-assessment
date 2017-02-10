@@ -114,16 +114,16 @@
         <table class="results_content">
             <tbody>
                 <tr>
-                    <th ng-show="chart1">IF YOU DO NOT GET CT LUNG SCREENING - TEST</th>
-                    <th ng-show="chart2">IF YOU DO GET CT LUNG SCREENING - TEST</th>
+                    <th><span ng-show="chart1">IF YOU DO NOT GET CT LUNG SCREENING - TEST </span></th>
+                    <th><span ng-show="chart2">IF YOU DO GET CT LUNG SCREENING - TEST</span></th>
                 </tr>
                 <tr>
-                    <td valign="top" ng-show="chart1">
-                         <p class="description line1"><b>If you do not get CT lung screening</b>,
+                    <td valign="top">
+                         <p ng-show="chart1" class="description line1"><b>If you do not get CT lung screening</b>,
                 <u>your chance of dying</u> from lung cancer within 5 years is {{getResult("result0", 1)}} out of 1000 people{{getResult("result0")}}.</p>
                     </td>
-                    <td valign="top" ng-show="chart2">
-                         <p class="description line1"><b>If you receive yearly CT lung screening</b>, your
+                    <td valign="top">
+                         <p ng-show="chart2" class="description line1"><b>If you receive yearly CT lung screening</b>, your
                 <u>chances of dying</u> from lung cancer within 5 years will be
                 <u>REDUCED</u> from {{getResult("result0", 1)}} out of 1000 people{{getResult("result1")}} to {{session.myForm.result0-session.myForm.result1}}
                 out of 1000 people: a decrease of {{getResult("result1", 1)}} out of 1000 people{{getResult("result1")}}.</p>
@@ -134,11 +134,11 @@
         <table class="results_grid" cellspacing="0" cellpadding="0">
             <tbody>
                 <tr>
-                    <td ng-show="chart1">
-                        <div ng-bind-html="drawGraph(session.myForm.result0)"></div>
+                    <td>
+                        <div ng-show="chart1" ng-bind-html="drawGraph(session.myForm.result0)"></div>
                     </td>
-                    <td ng-show="chart2">
-                        <div ng-bind-html="drawGraph(session.myForm.result0-session.myForm.result1)"></div>
+                    <td>
+                        <div ng-show="chart2" ng-bind-html="drawGraph(session.myForm.result0-session.myForm.result1)"></div>
                     </td>
                 </tr>
             </tbody>
@@ -146,29 +146,29 @@
         <table class="results_legend">
             <tbody>
                 <tr>
-                    <th ng-show="chart1"> <span>
+                    <th> <span ng-show="chart1">
                         <img style="width:10px;height:10px" ng-src="https://analysistools-dev.nci.nih.gov/lungCancerScreening/files/cellfill.png" title="filled cell" alt="filled cell"  src="https://analysistools-dev.nci.nih.gov/lungCancerScreening/files/cellfill.png" /> Death from lung cancer
                     </span>
-                        <span>
+                        <span ng-show="chart1">
                         <img style="width:10px;height:10px" ng-src="https://analysistools-dev.nci.nih.gov/lungCancerScreening/files/cellempty.png" title="empty cell" alt="empty cell"  src="https://analysistools-dev.nci.nih.gov/lungCancerScreening/files/cellempty.png" /> Alive (with or without lung cancer)
                     </span>
                     </th>
-                    <th ng-show="chart2"> <span>
+                    <th > <span ng-show="chart2">
                         <img style="width:10px;height:10px" ng-src="https://analysistools-dev.nci.nih.gov/lungCancerScreening/files/cellfill.png" title="filled cell" alt="filled cell"  src="https://analysistools-dev.nci.nih.gov/lungCancerScreening/files/cellfill.png" /> Death from lung cancer
-                    </span>
+                    </span ng-show="chart2">
                         <span>
                         <img style="width:10px;height:10px" ng-src="https://analysistools-dev.nci.nih.gov/lungCancerScreening/files/cellempty.png" title="empty cell" alt="empty cell"  src="https://analysistools-dev.nci.nih.gov/lungCancerScreening/files/cellempty.png" /> Alive (with or without lung cancer)
                     </span>
                     </th>
                 </tr>
                 <tr>
-                    <td valign="top" ng-show="chart1">
-                        <p class="ng-binding">This means that if 1000 people answered these questions just like you did, {{session.myForm.result0}} of them
+                    <td valign="top">
+                        <p ng-show="chart1" class="ng-binding">This means that if 1000 people answered these questions just like you did, {{session.myForm.result0}} of them
                 would die from lung cancer in the next 5 years if they did not receive CT lung screening.</p>
                 <p ng-show="!next2"><button ng-click="chart2=true; next2=true">Next</button></p>
                     </td>
-                    <td valign="top" ng-show="chart2">
-                        <p class="ng-binding">This means that if 1000 people answered the questions the same way as you, {{session.myForm.result0-session.myForm.result1}}
+                    <td valign="top" >
+                        <p ng-show="chart2" class="ng-binding">This means that if 1000 people answered the questions the same way as you, {{session.myForm.result0-session.myForm.result1}}
                 instead of {{session.myForm.result0}} {{getPeopleOrPerson(session.myForm.result0)}} are likely to die from
                 lung cancer because of CT screening.</p>
                 <p ng-show="!next3"><button ng-click="chart3=true; next3=true">Next</button></p>
