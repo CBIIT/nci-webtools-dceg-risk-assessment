@@ -84,10 +84,10 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
       var row = [];
       for (var z=1; z<41; z++) {
         if (units>0) {
-          row.push('<td style="border: 1px solid #777; width:10px !important; min-width:10px;"><img src="' + $scope.base_url + 'files/cellfill.png" title="filled cell" alt="filled cell"></td>');
+          row.push('<td style="border: 1px solid #777; width:10px !important; min-width:10px;"><img src="' + $scope.base_url + 'files/cellfill.png" title="filled cell" alt="filled cell" /></td>');
         }
         else {
-          row.push('<td style="border: 1px solid #777; width:10px !important; min-width:10px;"><img src="' + $scope.base_url + 'files/cellempty.png" title="empty cell" alt="empty cell"></td>');
+          row.push('<td style="border: 1px solid #777; width:10px !important; min-width:10px;"><img src="' + $scope.base_url + 'files/cellempty.png" title="empty cell" alt="empty cell" /></td>');
         };
         units-=1;
       };
@@ -157,10 +157,10 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
     html+= '<html xmlns="http://www.w3.org/1999/xhtml">';
     html+= '  <head>';
     html+= '  <title>National Lung Screening Trial</title>';
-    html+= '  <meta http-equiv="X-UA-Compatible" content="IE=edge" />';
-    html+= '  <meta http-equiv="Content-type" content="text/html; charset=UTF-8">';
-    html+= '  <link href="' + $scope.base_url + 'files/2col.css" rel="stylesheet" type="text/css" media="all">';
-    html+= '  <link href="' + $scope.base_url + 'files/pdf.css" rel="stylesheet" type="text/css" media="all">';
+    // html+= '  <meta http-equiv="X-UA-Compatible" content="IE=edge" />';
+    // html+= '  <meta http-equiv="Content-type" content="text/html; charset=UTF-8">';
+    // html+= '  <link href="' + $scope.base_url + 'files/2col.css" rel="stylesheet" type="text/css" media="all">';
+    // html+= '  <link href="' + $scope.base_url + 'files/pdf.css" rel="stylesheet" type="text/css" media="all">';
     html+= '  </head>';
     html+= '  <body>';
     html+= results;
