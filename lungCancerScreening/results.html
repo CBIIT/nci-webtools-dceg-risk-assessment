@@ -128,9 +128,47 @@
                                 1)}} out of 1000 people{{getResult("result1")}}.</p>
                         </td>
                     </tr>
+                     <tr>
+                        <td>
+                            <div ng-show="chart1" ng-bind-html="drawGraph(session.myForm.result0)"></div>
+                        </td>
+                        <td>
+                            <div ng-show="chart2" ng-bind-html="drawGraph(session.myForm.result0-session.myForm.result1)"></div>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td> <span ng-show="chart1">
+                        <img style="width:10px;height:10px" ng-src="https://analysistools-dev.nci.nih.gov/lungCancerScreening/files/cellfill.png" title="filled cell" alt="filled cell"  src="https://analysistools-dev.nci.nih.gov/lungCancerScreening/files/cellfill.png" /> Death from lung cancer
+                    </span>
+                            <span ng-show="chart1">
+                        <img style="width:10px;height:10px" ng-src="https://analysistools-dev.nci.nih.gov/lungCancerScreening/files/cellempty.png" title="empty cell" alt="empty cell"  src="https://analysistools-dev.nci.nih.gov/lungCancerScreening/files/cellempty.png" /> Alive (with or without lung cancer)
+                    </span>
+                        </td>
+                        <td> <span ng-show="chart2">
+                        <img style="width:10px;height:10px" ng-src="https://analysistools-dev.nci.nih.gov/lungCancerScreening/files/cellfill.png" title="filled cell" alt="filled cell"  src="https://analysistools-dev.nci.nih.gov/lungCancerScreening/files/cellfill.png" /> Death from lung cancer
+                    </span ng-show="chart2">
+                        <span ng-show="chart2">
+                        <img style="width:10px;height:10px" ng-src="https://analysistools-dev.nci.nih.gov/lungCancerScreening/files/cellempty.png" title="empty cell" alt="empty cell"  src="https://analysistools-dev.nci.nih.gov/lungCancerScreening/files/cellempty.png" /> Alive (with or without lung cancer)
+                    </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top">
+                            <p ng-show="chart1" class="ng-binding">This means that if 1000 people answered these questions just like you did, {{session.myForm.result0}}
+                                of them would die from lung cancer in the next 5 years if they did not receive CT lung screening.</p>
+                            <p ng-show="chart1 && !next2"><button ng-click="chart2=true; next2=true">Next</button></p>
+                        </td>
+                        <td valign="top">
+                            <p ng-show="chart2" class="ng-binding">This means that if 1000 people answered the questions the same way as you, {{session.myForm.result0-session.myForm.result1}}
+                                instead of {{session.myForm.result0}} {{getPeopleOrPerson(session.myForm.result0)}} are likely
+                                to die from lung cancer because of CT screening.</p>
+                            <p ng-show="chart2 && !next3"><button ng-click="chart3=true; next3=true">Next</button></p>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
-            <table class="results_grid" cellspacing="0" cellpadding="0">
+
+            <!--<table class="results_grid" cellspacing="0" cellpadding="0">
                 <tbody>
                     <tr>
                         <td>
@@ -174,7 +212,7 @@
                         </td>
                     </tr>
                 </tbody>
-            </table>
+            </table>-->
         </div>
         <!--<div class="col left" ng-show="chart1">
             <p class="title">IF YOU DO NOT GET CT LUNG SCREENING</p>
