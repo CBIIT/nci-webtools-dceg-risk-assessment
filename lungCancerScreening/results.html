@@ -80,29 +80,92 @@
             </tbody>
         </table>
         <p> You will receive four pieces of information: (1) whether you are recommended for CT lung screening by the
-        <a href="http://www.uspreventiveservicestaskforce.org/Page/Document/UpdateSummaryFinal/lung-cancer-screening" target="_blank">US Preventive Services Task Force</a>        (a group of experts who make recommendations about prevention), (2) risk of dying from lung cancer, (3) risk of a
-        false alarm (you have a positive screening test but do not actually have lung cancer), and (4) risk of being diagnosed
-        with lung cancer.</p>
+            <a href="http://www.uspreventiveservicestaskforce.org/Page/Document/UpdateSummaryFinal/lung-cancer-screening" target="_blank">US Preventive Services Task Force</a>            (a group of experts who make recommendations about prevention), (2) risk of dying from lung cancer, (3) risk
+            of a false alarm (you have a positive screening test but do not actually have lung cancer), and (4) risk of being
+            diagnosed with lung cancer.</p>
         <p ng-show="!seeresults">To obtain these results, click here: <button ng-click="recommends=true; seeresults=true">SEE MY RESULTS</button></p>
     </div>
     <div ng-show="recommends">
         <p class="text-bold" ng-if="calculateEligibility()">
             The
-            <a href="http://www.uspreventiveservicestaskforce.org/Page/Document/UpdateSummaryFinal/lung-cancer-screening"
-                target="_blank">US Preventive Services Task Force</a> RECOMMENDS CT lung screening for someone like you
+            <a href="http://www.uspreventiveservicestaskforce.org/Page/Document/UpdateSummaryFinal/lung-cancer-screening" target="_blank">US Preventive Services Task Force</a>            RECOMMENDS CT lung screening for someone like you
         </p>
         <p class="text-bold" ng-if="!calculateEligibility()">
             The
-            <a href="http://www.uspreventiveservicestaskforce.org/Page/Document/UpdateSummaryFinal/lung-cancer-screening"
-                target="_blank">US Preventive Services Task Force</a> does NOT recommend CT lung screening for someone like you.  They recommend
-                screening for those who are ages 55 to 80, have smoked at least 30 pack-years, and have quit for no longer
-                than 15 years. <span>{{createEligibilityStatement()}}</span>
+            <a href="http://www.uspreventiveservicestaskforce.org/Page/Document/UpdateSummaryFinal/lung-cancer-screening" target="_blank">US Preventive Services Task Force</a>            does NOT recommend CT lung screening for someone like you.  They recommend screening for those who are ages 55
+            to 80, have smoked at least 30 pack-years, and have quit for no longer than 15 years. <span>{{createEligibilityStatement()}}</span>
         </p>
         <p ng-show="!next1"><button ng-click="chart1=true;next1=true">Next</button></p>
     </div>
     <div class="yourresults">
         <div ng-show="chart1" class="center title">Benefits of Lung Cancer Screening</div>
-        <div class="col left" ng-show="chart1">
+        <table class="results_content">
+            <tbody>
+                <tr>
+                    <th ng-show="chart1">IF YOU DO NOT GET CT LUNG SCREENING</th>
+                    <th ng-show="chart2">IF YOU DO GET CT LUNG SCREENING</th>
+                </tr>
+                <tr>
+                    <td valign="top" ng-show="chart1">
+                         <p class="description line1"><b>If you do not get CT lung screening</b>,
+                <u>your chance of dying</u> from lung cancer within 5 years is {{getResult("result0", 1)}} out of 1000 people{{getResult("result0")}}.</p>
+                    </td>
+                    <td valign="top" ng-show="chart2">
+                         <p class="description line1"><b>If you receive yearly CT lung screening</b>, your
+                <u>chances of dying</u> from lung cancer within 5 years will be
+                <u>REDUCED</u> from {{getResult("result0", 1)}} out of 1000 people{{getResult("result1")}} to {{session.myForm.result0-session.myForm.result1}}
+                out of 1000 people: a decrease of {{getResult("result1", 1)}} out of 1000 people{{getResult("result1")}}.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="results_grid" cellspacing="0" cellpadding="0">
+            <tbody>
+                <tr>
+                    <td ng-show="chart1">
+                        <div ng-bind-html="drawGraph(session.myForm.result0)"></div>
+                    </td>
+                    <td ng-show="chart2">
+                        <div ng-bind-html="drawGraph(session.myForm.result0-session.myForm.result1)"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="results_legend">
+            <tbody>
+                <tr>
+                    <th ng-show="chart1"> <span>
+                        <img style="width:10px;height:10px" ng-src="https://analysistools-dev.nci.nih.gov/lungCancerScreening/files/cellfill.png" title="filled cell" alt="filled cell"  src="https://analysistools-dev.nci.nih.gov/lungCancerScreening/files/cellfill.png" /> Death from lung cancer
+                    </span>
+                        <span>
+                        <img style="width:10px;height:10px" ng-src="https://analysistools-dev.nci.nih.gov/lungCancerScreening/files/cellempty.png" title="empty cell" alt="empty cell"  src="https://analysistools-dev.nci.nih.gov/lungCancerScreening/files/cellempty.png" /> Alive (with or without lung cancer)
+                    </span>
+                    </th>
+                    <th ng-show="chart2"> <span>
+                        <img style="width:10px;height:10px" ng-src="https://analysistools-dev.nci.nih.gov/lungCancerScreening/files/cellfill.png" title="filled cell" alt="filled cell"  src="https://analysistools-dev.nci.nih.gov/lungCancerScreening/files/cellfill.png" /> Death from lung cancer
+                    </span>
+                        <span>
+                        <img style="width:10px;height:10px" ng-src="https://analysistools-dev.nci.nih.gov/lungCancerScreening/files/cellempty.png" title="empty cell" alt="empty cell"  src="https://analysistools-dev.nci.nih.gov/lungCancerScreening/files/cellempty.png" /> Alive (with or without lung cancer)
+                    </span>
+                    </th>
+                </tr>
+                <tr>
+                    <td valign="top" ng-show="chart1">
+                        <p class="ng-binding">This means that if 1000 people answered these questions just like you did, {{session.myForm.result0}} of them
+                would die from lung cancer in the next 5 years if they did not receive CT lung screening.</p>
+                <p ng-show="!next2"><button ng-click="chart2=true; next2=true">Next</button></p>
+                    </td>
+                    <td valign="top" ng-show="chart2">
+                        <p class="ng-binding">This means that if 1000 people answered the questions the same way as you, {{session.myForm.result0-session.myForm.result1}}
+                instead of {{session.myForm.result0}} {{getPeopleOrPerson(session.myForm.result0)}} are likely to die from
+                lung cancer because of CT screening.</p>
+                <p ng-show="!next3"><button ng-click="chart3=true; next3=true">Next</button></p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!--<div class="col left" ng-show="chart1">
             <p class="title">IF YOU DO NOT GET CT LUNG SCREENING</p>
             <p class="description line1"><strong>If you do not get CT lung screening</strong>,
                 <u>your chance of dying</u> from lung cancer within 5 years is {{getResult("result0", 1)}} out of 1000 people{{getResult("result0")}}.</p>
@@ -139,7 +202,8 @@
                 lung cancer because of CT screening.</p>
             <p ng-show="!next3"><button ng-click="chart3=true; next3=true">Next</button></p>
         </div>
-    </div>
+    </div>-->
+
     <div class="yourresults">
         <div ng-show="chart3" class="center title">Harms of Lung Cancer Screening</div>
         <div class="col left" ng-show="chart3"></div>
