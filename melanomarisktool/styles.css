@@ -239,7 +239,6 @@ select {
   padding: 0 0.4em;
   height: 2.5em;
 }
-select:hover,
 select:focus {
   background: #cacacf;
   border-color: #2b7bba;
@@ -269,13 +268,27 @@ input[type="radio"] + label.radio span {
   color: #f2f2f2;
   cursor: pointer;
 }
-input[type="radio"] + label.radio:focus span,
 input[type="radio"] + label.radio:hover span {
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+  background: #fff;
+  border-color: #2b7bba;
+}
+input[type="radio"] + label.radio:focus span {
   border-style: double;
   border-color: #2b7bba;
   background: #2b7bba;
 }
-input[type="radio"]:checked + label span {
+input[type="radio"]:checked + label.radio:hover span,
+input[type="radio"]:checked + label.radio:span span {
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+  background: #fff;
+  border-color: #2b7bba;
+}
+input[type="radio"]:checked + label.radio span {
   border-style: double;
   background: #2b7bba;
 }

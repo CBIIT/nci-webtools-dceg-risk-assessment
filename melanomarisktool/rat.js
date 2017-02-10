@@ -194,16 +194,36 @@ $(function() {
 	});
 
 	$(".toggleTool").on("click", toggleFormDisplay);
-	$("label.radio").on('click keypress', function(e) {
-		if(e.type == "keypress") {
-			if ((e.keyCode == 13) || (e.keyCode == 32)){
-				$(e.target).prev().trigger('click');
-			}
+
+	$(document).on('click keypress', ".responseOptions > label.radio", function(e) {
+		if ($(e.target).hasClass('radio')) {
+			$(e.target).prev().trigger('click');
 		}
-		if(e.type == "click") {
+		else if ($(e.target).parents('.radio')) {
 			$(e.target).parents('.radio').prev().trigger('click');
 		}
+		else {
+			if(e.type == "keypress") {
+				if ((e.keyCode == 13) || (e.keyCode == 32)){
+					$(e.target).children(".radio").prev().trigger('click');
+				}
+			}
+			if(e.type == "click") {
+					$(e.target).children('.radio').prev().trigger('click');
+			}
+		}
 	});
+
+	// $("label.radio").on('click keypress', function(e) {
+	// 	if(e.type == "keypress") {
+	// 		if ((e.keyCode == 13) || (e.keyCode == 32)){
+	// 			$(e.target).prev().trigger('click');
+	// 		}
+	// 	}
+	// 	if(e.type == "click") {
+	// 		$(e.target).parents('.radio').prev().trigger('click');
+	// 	}
+	// });
 
 	$("button.select").on('click keypress', function(e) {
 		if(e.type == "keypress") {

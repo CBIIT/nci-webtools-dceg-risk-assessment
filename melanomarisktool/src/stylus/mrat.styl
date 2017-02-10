@@ -166,7 +166,7 @@ select
 	background #f2f2f3
 	padding 0 0.4em
 	height 2.5em
-	&:hover, &:focus
+	&:focus
 		background #cacacf
 		border-color blue_2B
 	&:disabled
@@ -191,14 +191,25 @@ input[type="radio"]
 			background #fff
 			color #f2f2f2
 			cursor pointer
-		&:focus, &:hover
+		&:hover
+			span
+				opacity 0.5
+				background #FFF
+				border-color #2b7bba
+		&:focus
 			span
 				border-style double
 				border-color #2b7bba
 				background #2b7bba
-	&:checked + label span
-		border-style double
-		background blue_2B
+	&:checked + label.radio
+		&:hover, &:span
+			span
+				opacity 0.5
+				background #FFF
+				border-color #2b7bba
+		span
+			border-style double
+			background blue_2B
 select, input
 	&:disabled
 		cursor not-allowed
