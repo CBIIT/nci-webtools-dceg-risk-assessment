@@ -136,19 +136,29 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="results_legend"> <div ng-show="chart1" style="border:1px solid #777;padding-right:10px">
-                        <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellfill.png" title="filled cell" alt="filled cell" /> Death from lung cancer<br />
-                    </div>
-                            <div ng-show="chart1" style="border:1px solid #777;padding-right:10px">
-                        <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellempty.png" title="empty cell" alt="empty cell" /> Alive (with or without lung cancer)
-                    </div>
+                        <td class="results_legend">
+                            <div ng-show="chart1">
+                                <div style="border:1px solid #777;padding-right:10px">
+                                    <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellfill.png" title="filled cell" alt="filled cell" /></div>
+                                Death from lung cancer<br />
+                            </div>
+                            <div ng-show="chart1">
+                                <div style="border:1px solid #777;padding-right:10px">
+                                    <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellempty.png" title="empty cell" alt="empty cell" /></div>
+                                Alive (with or without lung cancer)
+                            </div>
                         </td>
-                        <td class="results_legend"> <div ng-show="chart2" style="border:1px solid #777;padding-right:10px">
-                        <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellfill.png" title="filled cell" alt="filled cell" /> Death from lung cancer<br />
-                    </div>
-                            <div ng-show="chart2" style="border:1px solid #777;padding-right:10px">
-                        <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellempty.png" title="empty cell" alt="empty cell" /> Alive (with or without lung cancer)
-                    </div>
+                        <td class="results_legend">
+                            <div ng-show="chart2">
+                                <div style="border:1px solid #777;padding-right:10px">
+                                    <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellfill.png" title="filled cell" alt="filled cell" /></div>
+                                Death from lung cancer<br />
+                            </div>
+                            <div ng-show="chart2">
+                                <div style="border:1px solid #777;padding-right:10px">
+                                    <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellempty.png" title="empty cell" alt="empty cell" /></div>
+                                Alive (with or without lung cancer)
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -197,11 +207,13 @@
                         <td class="results_legend"> <span ng-show="chart3">
                         
                         </td>
-                        <td class="results_legend"> <div ng-show="chart3" style="border:1px solid #777;padding-right:10px">
-                        <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellfill.png" title="filled cell" alt="filled cell" /> Had a false alarm (positive screening test but does not actually have lung cancer)<br />
+                        <td class="results_legend"> <div ng-show="chart3">
+                            <div style="border:1px solid #777;padding-right:10px">
+                        <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellfill.png" title="filled cell" alt="filled cell" /></div> Had a false alarm (positive screening test but does not actually have lung cancer)<br />
                     </div ng-show="chart3">
-                        <div ng-show="chart3" style="border:1px solid #777;padding-right:10px">
-                        <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellempty.png" title="empty cell" alt="empty cell" /> Did NOT have a false alarm
+                        <div ng-show="chart3">
+                            <div style="border:1px solid #777;padding-right:10px">
+                        <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellempty.png" title="empty cell" alt="empty cell" /></div> Did NOT have a false alarm
                     </div>
                         </td>
                     </tr>
@@ -233,7 +245,7 @@
                 <tbody>
                     <tr>
                         <th class="results_title"><span ng-show="chart4">IF YOU DO NOT GET CT LUNG SCREENING</span></th>
-                        <th class="results_title"><span ng-show="chart5">IF YOU DO GET CT LUNG SCREENING</span></th>
+                            <th class="results_title"><span ng-show="chart5">IF YOU DO GET CT LUNG SCREENING</span></th>
                     </tr>
                     <tr>
                         <td class="results_desc" valign="top">
@@ -258,19 +270,29 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="results_legend"> <div ng-show="chart4" style="border:1px solid #777;padding-right:10px">
-                        <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellfill.png" title="filled cell" alt="filled cell" /> Diagnosed with lung cancer<br />
-                    </div>
-                            <div ng-show="chart4" style="border:1px solid #777;padding-right:10px">
-                        <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellempty.png" title="empty cell" alt="empty cell" /> NOT diagnosed with lung cancer
-                    </div>
+                        <td class="results_legend">
+                            <div ng-show="chart4">
+                                <div style="border:1px solid #777;padding-right:10px">
+                                    <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellfill.png" title="filled cell" alt="filled cell" /></div>
+                                Diagnosed with lung cancer<br />
+                            </div>
+                            <div ng-show="chart4">
+                                <div style="border:1px solid #777;padding-right:10px">
+                                    <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellempty.png" title="empty cell" alt="empty cell" /></div>
+                                NOT diagnosed with lung cancer
+                            </div>
                         </td>
-                        <td class="results_legend"> <div ng-show="chart5" style="border:1px solid #777;padding-right:10px">
-                        <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellfill.png" title="filled cell" alt="filled cell" /> Diagnosed with lung cancer<br />
-                    </div>
-                            <div ng-show="chart5" style="border:1px solid #777;padding-right:10px">
-                        <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellempty.png" title="empty cell" alt="empty cell" /> NOT diagnosed with lung cancer
-                    </div>
+                        <td class="results_legend">
+                            <div ng-show="chart5">
+                                <div style="border:1px solid #777;padding-right:10px">
+                                    <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellfill.png" title="filled cell" alt="filled cell" /></div>
+                                Diagnosed with lung cancer<br />
+                            </div>
+                            <div ng-show="chart5">
+                                <div style="border:1px solid #777;padding-right:10px">
+                                    <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellempty.png" title="empty cell" alt="empty cell" /></div>
+                                NOT diagnosed with lung cancer
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -290,7 +312,6 @@
             </table>
         </div>
     </div>
-
     <div ng-show="next5">
         <p class="text-bold">
             <b>Remember that the very best way</b> to lower your risk of lung cancer, and all smoking-related diseases, is
