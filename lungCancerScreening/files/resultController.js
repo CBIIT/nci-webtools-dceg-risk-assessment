@@ -152,9 +152,9 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
     var html = "";
     var source  = $("#results .ng-hide").remove()
     var results = $("#results").html()
-    results.replace('<br', '<br />');
-    results.replace('alt="filled cell"', 'alt="filled cell" /');
-    results.replace('alt="empty cell"', 'alt="empty cell" /');
+    results = results.replace('<br', '<br />');
+    results = results.replace('alt="filled cell"', 'alt="filled cell" /');
+    results = results.replace('alt="empty cell"', 'alt="empty cell" /');
 
     html+= '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
     html+= '<html xmlns="http://www.w3.org/1999/xhtml">';
