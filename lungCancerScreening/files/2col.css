@@ -660,7 +660,7 @@ div.yourresults div {
         height: 10px;
     }
     
-    th.results_cell {
+    th .results_cell {
         border: 1px solid #777;
         width: 10px !important;
         min-width: 10px;
