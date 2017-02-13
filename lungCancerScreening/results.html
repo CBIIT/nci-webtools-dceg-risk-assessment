@@ -138,27 +138,27 @@
                     <tr>
                         <td class="results_legend">
                             <div ng-show="chart1">
-                                <div style="border:1px solid #777;padding-right:10px">
-                                    <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellfill.png" title="filled cell" alt="filled cell" /></div>
+                                <span>
+                                    <img style="width:10px;height:10px;border:1px solid #777;margin-right:10px" ng-src="{{base_url}}files/cellfill.png" title="filled cell" alt="filled cell" />
                                 Death from lung cancer<br />
-                            </div>
-                            <div ng-show="chart1">
-                                <div style="border:1px solid #777;padding-right:10px">
-                                    <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellempty.png" title="empty cell" alt="empty cell" /></div>
+                            </span>
+                                <div ng-show="chart1">
+                                    <span>
+                                    <img style="width:10px;height:10px;border:1px solid #777;margin-right:10px" ng-src="{{base_url}}files/cellempty.png" title="empty cell" alt="empty cell" />
                                 Alive (with or without lung cancer)
-                            </div>
+                            </span>
                         </td>
                         <td class="results_legend">
                             <div ng-show="chart2">
-                                <div style="border:1px solid #777;padding-right:10px">
-                                    <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellfill.png" title="filled cell" alt="filled cell" /></div>
+                                <span>
+                                    <img style="width:10px;height:10px;border:1px solid #777;margin-right:10px" ng-src="{{base_url}}files/cellfill.png" title="filled cell" alt="filled cell" />
                                 Death from lung cancer<br />
-                            </div>
-                            <div ng-show="chart2">
-                                <div style="border:1px solid #777;padding-right:10px">
-                                    <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellempty.png" title="empty cell" alt="empty cell" /></div>
+                            </span>
+                                <div ng-show="chart2">
+                                    <span>
+                                    <img style="width:10px;height:10px;border:1px solid #777;margin-right:10px" ng-src="{{base_url}}files/cellempty.png" title="empty cell" alt="empty cell" />
                                 Alive (with or without lung cancer)
-                            </div>
+                            </span>
                         </td>
                     </tr>
                     <tr>
@@ -176,46 +176,47 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
-    </div>
-    <div style="page-break-after: always"></div>
-    <div class="yourresults">
-        <div ng-show="chart3">
-            <table class="results_header">
-                <tbody>
-                    <tr>
-                        <th>Harms of Lung Cancer Screening</th>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="results_table">
-                <tbody>
-                    <tr>
-                        <th class="results_title"><span ng-show="chart3"></span></th>
-                        <th class="results_title"><span ng-show="chart3"> <p><b>If you receive yearly CT lung screening for 3 years</b>, your chances of receiving at least
+            </div>
+            </div>
+            <div style="page-break-after: always"></div>
+            <div class="yourresults">
+                <div ng-show="chart3">
+                    <table class="results_header">
+                        <tbody>
+                            <tr>
+                                <th>Harms of Lung Cancer Screening</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="results_table">
+                        <tbody>
+                            <tr>
+                                <th class="results_title"><span ng-show="chart3"></span></th>
+                                <th class="results_title"><span ng-show="chart3"> <p><b>If you receive yearly CT lung screening for 3 years</b>, your chances of receiving at least
                     one "false alarm" (a false positive result) are {{session.myForm.result4}} out of 1000 people.</p></span></th>
-                    </tr>
-                    <tr>
-                        <td class="results_grid">
-                            <div ng-show="chart3"></div>
-                        </td>
-                        <td class="results_grid">
-                            <div ng-show="chart3" ng-bind-html="drawGraph(session.myForm.result4)"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="results_legend"> <span ng-show="chart3">
+                            </tr>
+                            <tr>
+                                <td class="results_grid">
+                                    <div ng-show="chart3"></div>
+                                </td>
+                                <td class="results_grid">
+                                    <div ng-show="chart3" ng-bind-html="drawGraph(session.myForm.result4)"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="results_legend"> <span ng-show="chart3">
                         
                         </td>
                         <td class="results_legend"> <div ng-show="chart3">
-                            <div style="border:1px solid #777;padding-right:10px">
-                        <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellfill.png" title="filled cell" alt="filled cell" /></div> Had a false alarm (positive screening test but does not actually have lung cancer)<br />
-                    </div ng-show="chart3">
-                        <div ng-show="chart3">
-                            <div style="border:1px solid #777;padding-right:10px">
-                        <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellempty.png" title="empty cell" alt="empty cell" /></div> Did NOT have a false alarm
-                    </div>
-                        </td>
+                            <span>
+                        <img style="width:10px;height:10px;border:1px solid #777;margin-right:10px" ng-src="{{base_url}}files/cellfill.png" title="filled cell" alt="filled cell" /> 
+                        Had a false alarm (positive screening test but does not actually have lung cancer)<br /></span>
+                </div ng-show="chart3">
+                <div ng-show="chart3">
+                    <span>
+                        <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellempty.png" title="empty cell" alt="empty cell" /> Did NOT have a false alarm
+                    </span>
+                    </td>
                     </tr>
                     <tr>
                         <td class="results_legend" valign="top">
@@ -227,112 +228,112 @@
                             <p ng-show="chart3 && !next4"><button ng-click="chart4=true; next4=true">Next</button></p>
                         </td>
                     </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-     <div style="page-break-after: always"></div>
-    <div class="yourresults">
-        <div ng-show="chart4">
-            <table class="results_header">
-                <tbody>
-                    <tr>
-                        <th>Other Information about Lung Cancer Screening</th>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="results_table">
-                <tbody>
-                    <tr>
-                        <th class="results_title"><span ng-show="chart4">IF YOU DO NOT GET CT LUNG SCREENING</span></th>
-                            <th class="results_title"><span ng-show="chart5">IF YOU DO GET CT LUNG SCREENING</span></th>
-                    </tr>
-                    <tr>
-                        <td class="results_desc" valign="top">
-                            <p ng-show="chart4" class="description line1"><b>If you do not get CT lung screening</b>, your
-                                <u>chances of lung cancer diagnosis</u> within 5 years is {{getResult("result2", 1)}} out of
-                                1000 people{{getResult("result2")}}.</p>
-                        </td>
-                        <td class="results_desc" valign="top">
-                            <p ng-show="chart5" class="description line1"><b>If you receive CT lung screening</b>, your
-                                <u>chances of being diagnosed</u> with lung cancer within 5 years will
-                                <u>INCREASE</u> from {{getResult("result2", 1)}} out of 1000 people{{getResult("result2")}}
-                                to {{session.myForm.result3+session.myForm.result2}} out of 1000 people: an increase of {{session.myForm.result3}}
-                                out of 1000 people.</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="results_grid">
-                            <div ng-show="chart4" ng-bind-html="drawGraph(session.myForm.result2)"></div>
-                        </td>
-                        <td class="results_grid">
-                            <div ng-show="chart5" ng-bind-html="drawGraph(session.myForm.result3+session.myForm.result2)"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="results_legend">
-                            <div ng-show="chart4">
-                                <div style="border:1px solid #777;padding-right:10px">
-                                    <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellfill.png" title="filled cell" alt="filled cell" /></div>
-                                Diagnosed with lung cancer<br />
-                            </div>
-                            <div ng-show="chart4">
-                                <div style="border:1px solid #777;padding-right:10px">
-                                    <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellempty.png" title="empty cell" alt="empty cell" /></div>
-                                NOT diagnosed with lung cancer
-                            </div>
-                        </td>
-                        <td class="results_legend">
-                            <div ng-show="chart5">
-                                <div style="border:1px solid #777;padding-right:10px">
-                                    <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellfill.png" title="filled cell" alt="filled cell" /></div>
-                                Diagnosed with lung cancer<br />
-                            </div>
-                            <div ng-show="chart5">
-                                <div style="border:1px solid #777;padding-right:10px">
-                                    <img style="width:10px;height:10px" ng-src="{{base_url}}files/cellempty.png" title="empty cell" alt="empty cell" /></div>
-                                NOT diagnosed with lung cancer
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="results_legend" valign="top">
-                            <p ng-show="chart4" class="ng-binding">This means that if 1000 people answered questions just like you, {{session.myForm.result2}} {{getPeopleOrPerson(session.myForm.result2)}}
-                                would be diagnosed with lung cancer in the next 5 years if they did not receive CT lung screening.</p>
-                            <p ng-show="chart4 && !next5"><button ng-click="chart5=true; next5=true">Next</button></p>
-                        </td>
-                        <td class="results_legend" valign="top">
-                            <p ng-show="chart5" class="ng-binding">This means that if 1000 people answer the questions the same way as you, {{session.myForm.result3}}
-                                more {{getPeopleOrPerson(session.myForm.result3)}} would be diagnosed with lung cancer within
-                                5 years if they receive annual CT lung screening.</p>
-                            <p ng-show="chart5 && !next5"><button ng-click="chart5=true; next5=true">Next</button></p>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div ng-show="next5">
-        <p class="text-bold">
-            <b>Remember that the very best way</b> to lower your risk of lung cancer, and all smoking-related diseases, is
-            to quit smoking. Learn more by visiting <a href="https://smokefree.gov" target="_blank">smokefree.gov</a> and
-            the CDC page on <a href="http://www.cdc.gov/tobacco/quit_smoking/" target="_blank">quitting smoking</a>. Or call
-            1-800-QUIT-NOW.
-        </p>
-        <p>
-            Learning about lung cancer and its treatment can help you prepare for your doctors' appointments. For more information about
-            lung cancer screening, check out the following websites:<br />
-            <a href="http://nomograms.mskcc.org/Lung/Screening.aspx" target="_blank">MSKCC Lung Cancer Screening Decision Tool</a><br
-            />
-            <a href="http://www.shouldiscreen.com/lung-cancer-risk-calculator" target="_blank">SIS Lung Cancer Screening Tool</a><br
-            />
-            <a href="https://www.effectivehealthcare.ahrq.gov/tools-and-resources/patient-decision-aids/lung-cancer-screening/patient/"
-                target="_blank">AHRQ Lung Cancer Screening Decision Tool</a><br />
-        </p>
-    </div>
-</div>
-<div ng-show="next5">We know that was a lot of information, you may save or print the summary report</div><br />
-<div class="summaryButtons">
-    <p class="pdf_loading" ng-show="loading"></p>
-    <button ng-click="exportPDF()" ng-show="next5">Save Summary Report</button>
-</div>
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+            <div style="page-break-after: always"></div>
+            <div class="yourresults">
+                <div ng-show="chart4">
+                    <table class="results_header">
+                        <tbody>
+                            <tr>
+                                <th>Other Information about Lung Cancer Screening</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="results_table">
+                        <tbody>
+                            <tr>
+                                <th class="results_title"><span ng-show="chart4">IF YOU DO NOT GET CT LUNG SCREENING</span></th>
+                                <th class="results_title"><span ng-show="chart5">IF YOU DO GET CT LUNG SCREENING</span></th>
+                            </tr>
+                            <tr>
+                                <td class="results_desc" valign="top">
+                                    <p ng-show="chart4" class="description line1"><b>If you do not get CT lung screening</b>, your
+                                        <u>chances of lung cancer diagnosis</u> within 5 years is {{getResult("result2", 1)}}
+                                        out of 1000 people{{getResult("result2")}}.</p>
+                                </td>
+                                <td class="results_desc" valign="top">
+                                    <p ng-show="chart5" class="description line1"><b>If you receive CT lung screening</b>, your
+                                        <u>chances of being diagnosed</u> with lung cancer within 5 years will
+                                        <u>INCREASE</u> from {{getResult("result2", 1)}} out of 1000 people{{getResult("result2")}}
+                                        to {{session.myForm.result3+session.myForm.result2}} out of 1000 people: an increase
+                                        of {{session.myForm.result3}} out of 1000 people.</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="results_grid">
+                                    <div ng-show="chart4" ng-bind-html="drawGraph(session.myForm.result2)"></div>
+                                </td>
+                                <td class="results_grid">
+                                    <div ng-show="chart5" ng-bind-html="drawGraph(session.myForm.result3+session.myForm.result2)"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="results_legend">
+                                    <div ng-show="chart4">
+                                        <span>
+                                            <img style="width:10px;height:10px;border:1px solid #777;margin-right:10px" ng-src="{{base_url}}files/cellfill.png" title="filled cell" alt="filled cell" />
+                                        Diagnosed with lung cancer<br />
+                                    </span>
+                                        <div ng-show="chart4">
+                                            <span>
+                                            <img style="width:10px;height:10px;border:1px solid #777;margin-right:10px" ng-src="{{base_url}}files/cellempty.png" title="empty cell" alt="empty cell" />
+                                        NOT diagnosed with lung cancer
+                                    </span>
+                                </td>
+                                <td class="results_legend">
+                                    <div ng-show="chart5">
+                                        <span>
+                                            <img style="width:10px;height:10px;border:1px solid #777;margin-right:10px" ng-src="{{base_url}}files/cellfill.png" title="filled cell" alt="filled cell" />
+                                        Diagnosed with lung cancer<br />
+                                    </span>
+                                        <div ng-show="chart5">
+                                            <span>
+                                            <img style="width:10px;height:10px;border:1px solid #777;margin-right:10px" ng-src="{{base_url}}files/cellempty.png" title="empty cell" alt="empty cell" />
+                                        NOT diagnosed with lung cancer
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="results_legend" valign="top">
+                                    <p ng-show="chart4" class="ng-binding">This means that if 1000 people answered questions just like you, {{session.myForm.result2}}
+                                        {{getPeopleOrPerson(session.myForm.result2)}} would be diagnosed with lung cancer
+                                        in the next 5 years if they did not receive CT lung screening.</p>
+                                    <p ng-show="chart4 && !next5"><button ng-click="chart5=true; next5=true">Next</button></p>
+                                </td>
+                                <td class="results_legend" valign="top">
+                                    <p ng-show="chart5" class="ng-binding">This means that if 1000 people answer the questions the same way as you, {{session.myForm.result3}}
+                                        more {{getPeopleOrPerson(session.myForm.result3)}} would be diagnosed with lung cancer
+                                        within 5 years if they receive annual CT lung screening.</p>
+                                    <p ng-show="chart5 && !next5"><button ng-click="chart5=true; next5=true">Next</button></p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    </div>
+                    <div ng-show="next5">
+                        <p class="text-bold">
+                            <b>Remember that the very best way</b> to lower your risk of lung cancer, and all smoking-related
+                            diseases, is to quit smoking. Learn more by visiting <a href="https://smokefree.gov" target="_blank">smokefree.gov</a>                            and the CDC page on <a href="http://www.cdc.gov/tobacco/quit_smoking/" target="_blank">quitting smoking</a>.
+                            Or call 1-800-QUIT-NOW.
+                        </p>
+                        <p>
+                            Learning about lung cancer and its treatment can help you prepare for your doctors' appointments. For more information about
+                            lung cancer screening, check out the following websites:<br />
+                            <a href="http://nomograms.mskcc.org/Lung/Screening.aspx" target="_blank">MSKCC Lung Cancer Screening Decision Tool</a><br
+                            />
+                            <a href="http://www.shouldiscreen.com/lung-cancer-risk-calculator" target="_blank">SIS Lung Cancer Screening Tool</a><br
+                            />
+                            <a href="https://www.effectivehealthcare.ahrq.gov/tools-and-resources/patient-decision-aids/lung-cancer-screening/patient/"
+                                target="_blank">AHRQ Lung Cancer Screening Decision Tool</a><br />
+                        </p>
+                    </div>
+                    </div>
+                    <div ng-show="next5">We know that was a lot of information, you may save or print the summary report</div><br />
+                    <div class="summaryButtons">
+                        <p class="pdf_loading" ng-show="loading"></p>
+                        <button ng-click="exportPDF()" ng-show="next5">Save Summary Report</button>
+                    </div>
