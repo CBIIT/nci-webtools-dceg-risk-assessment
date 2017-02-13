@@ -445,20 +445,20 @@ table.results_header {
 }
 
 table.results_header th {
-    border: 1px;
-    border-color: #777;
+    /*border: 1px; */
+    border-color: #777; 
     padding: 10px;
     text-align: center;
 }
 
 table.results_table {
     width: 100%;
-    border: 1px solid red;
+    /*border: 1px solid red;*/
 }
 
 table.results_table th.results_title {
     width: 50%;
-    border: 1px;
+    /*border: 1px;*/
     background-color: lightgreen;
     border-color: #777;
     padding: 10px 0px;
@@ -469,7 +469,7 @@ table.results_table th.results_title {
 
 table.results_table td.results_desc {
     width: 50%;
-    border: 1px;
+    /*border: 1px;*/
     background-color: lightblue;
     border-color: #777;
     text-align: left;
@@ -485,7 +485,7 @@ table.results_table td.results_grid {
 
 table.results_table td.results_legend {
     width: 50%;
-    border: 1px;
+    /*border: 1px;*/
     background-color: lightblue;
     border-color: #777;
     text-align: left;
