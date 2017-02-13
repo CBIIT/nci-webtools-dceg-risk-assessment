@@ -664,5 +664,5 @@ div.yourresults div {
         border: 1px solid #777;
         width: 10px !important;
         min-width: 10px;
-        max-width: 10px;
+        padding: 0;
     }
