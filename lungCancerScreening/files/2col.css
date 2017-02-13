@@ -409,11 +409,11 @@ div.diseasesection { display: inline-block }
 /*div.yourresults { margin-top: 12px }*/
 
 
-/*.yourresults td {
+.yourresults td {
     border: 1px solid #777;
     width:10px !important;
     min-width:10px;
-}*/
+}
 
 table.results_summary td.indent {
 padding-left:30px !important;
@@ -443,6 +443,7 @@ table.results_summary td.indent, th.indent {
 
 table.results_header {
     width: 100%;
+    border:1px solid #777;
 }
 
 table.results_header th {
