@@ -77,23 +77,17 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
   /* Draws a simple table with 1000 cells filled in based on units out of 1000 */
   $scope.drawGraph = function(units) {
     var cellArray = [];
-    var html = '<table cellspacing="0" cellpadding="0" border="1">';
-
-    var row = [];
-    for (var z = 0; z < 40; z++) {
-      row.push('<th></th>');
-    }
-    cellArray.push(row);
+    var html = '<table class="grid_table" cellspacing="0" cellpadding="0" border="1">';
 
     /* create rows and columns filled in with color based on units until units is zero */
     for (var x=0; x<25; x++) {
       var row = [];
       for (var z=1; z<41; z++) {
         if (units>0) {
-          row.push('<td style="border: 1px solid #777; width:10px !important; min-width:10px;"><img src="' + $scope.base_url + 'files/cellfill.png" title="filled cell" alt="filled cell" /></td>');
+          row.push('<th style="border: 1px solid #777; width:10px !important; min-width:10px;"><img src="' + $scope.base_url + 'files/cellfill.png" title="filled cell" alt="filled cell" /></th>');
         }
         else {
-          row.push('<td style="border: 1px solid #777; width:10px !important; min-width:10px;"><img src="' + $scope.base_url + 'files/cellempty.png" title="empty cell" alt="empty cell" /></td>');
+          row.push('<th style="border: 1px solid #777; width:10px !important; min-width:10px;"><img src="' + $scope.base_url + 'files/cellempty.png" title="empty cell" alt="empty cell" /></th>');
         };
         units-=1;
       };
