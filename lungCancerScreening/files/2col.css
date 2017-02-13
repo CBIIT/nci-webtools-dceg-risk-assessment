@@ -38,7 +38,7 @@
 /* ===[ Small Devices, Tablets ]===
    ================================================== */
 @media only screen and (min-width:768px) { 
-    .yourresults .center {
+    /*.yourresults .center {
         text-align:center;
         width:950px;
         font-size:110%;
@@ -54,7 +54,7 @@
         width:40%;
         margin-left:245px;
         margin-bottom:10px;
-    }         
+    }         */
     .header-logo {
         display: block;
         width: 608px;
@@ -299,7 +299,7 @@ select.input-sm {
     margin-top: 0;
     margin-bottom: 15px;
 }
-.yourresults table { border: .01em solid #777 }
+/*.yourresults table { border: .01em solid #777 }
 .yourresults td {
     border: .01em solid #777;
     width: 10px !important;
@@ -311,7 +311,7 @@ p.yourresults {
     margin-top: -20px;
     padding: 10px;
     margin-bottom: -10px;
-}
+}*/
 .ui-dialog-titlebar-close::after {
     content: 'x';
     position: relative;
@@ -335,7 +335,7 @@ p.yourresults {
     margin-left: 10px;
 }
 a { outline: 0 !important }
-div.yourresults { margin-top: 30px }
+/*div.yourresults { margin-top: 30px }
     div.yourresults p.title {
         font-weight: bold;
         padding: 0px;
@@ -351,7 +351,7 @@ div.yourresults { margin-top: 30px }
         width: 400px;
         vertical-align: top;
         margin: 0px 100px 0px 0px;
-    }
+    }*/
 .legend { margin-top: 5px }
     .legend img {
         border: 1px solid #000;
@@ -406,7 +406,7 @@ div.diseasesection { display: inline-block }
 }
 */
 
-div.yourresults { margin-top: 12px }
+/*div.yourresults { margin-top: 12px }*/
 
 
 /*.yourresults td {
@@ -446,8 +446,8 @@ table.results_header {
 }
 
 table.results_header th {
-    /*border: 1px; */
-    /*border-color: #777; */
+    border: 1px;
+    border-color: #777;
     padding: 10px;
     text-align: center;
 }
