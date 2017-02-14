@@ -121,7 +121,7 @@ def exportPDF():
         os.system('java -jar html-pdf.jar ' + html_input_file + ' ' + pdf_output_file + ' pdf.css')
         os.remove(html_input_file)
         response = make_response(pdf_output_file)
-        return response
+    return response
 
 @app.after_request
 def after_request(response):
