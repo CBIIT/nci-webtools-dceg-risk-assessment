@@ -120,7 +120,7 @@ def exportPDF():
         pdf_output_file = './tmp/results_' + str(token_id) + '.pdf'
         os.system('java -jar html-pdf.jar ' + html_input_file + ' ' + pdf_output_file + ' pdf.css')
         response = make_response(pdf_output_file)
-    return response
+        os.remove(html_input_file)   return response
 
 @app.after_request
 def after_request(response):
