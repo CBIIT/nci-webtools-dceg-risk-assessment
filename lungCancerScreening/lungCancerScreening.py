@@ -115,7 +115,8 @@ def exportPDF():
         temp_file = tempfile.NamedTemporaryFile(mode="w+b",delete=False)
         response = make_response(temp_file.name)
         options = {'page-size': 'Letter', 'page-width': '900pt', 'margin-top': '0.75in', 'no-outline': None, 'margin-right': '0.75in', 'page-height': '595pt', 'margin-left': '0.75in', 'encoding': 'UTF-8', 'margin-bottom': '0.75in'}
-        pdfkit.from_string(request.data, temp_file.name, options=options)
+        os.system("java -jar html-pdf.jar "+ request.data + " " +  temp_file.name + " " + pdf.css)
+        # pdfkit.from_string(request.data, temp_file.name, options=options)
         temp_file.close()
     return response
 
