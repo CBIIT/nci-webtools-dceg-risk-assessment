@@ -84,10 +84,10 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
       var row = [];
       for (var z=1; z<41; z++) {
         if (units>0) {
-          row.push('<th style="background-color: #777777;border: 1px solid #777; width:10px !important; min-width:10px;"></th>');
+          row.push('<th style="background-color: #317593;border: 1px solid #777; width:10px !important; min-width:10px;height:10px !important; min-height:10px"></th>');
         }
         else {
-          row.push('<th style="border: 1px solid #777; width:10px !important; min-width:10px;"></th>');
+          row.push('<th style="border: 1px solid #777; width:10px !important; min-width:10px;height:10px !important; min-height:10px"></th>');
         };
         units-=1;
       };
