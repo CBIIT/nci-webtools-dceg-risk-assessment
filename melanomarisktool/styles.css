@@ -41,9 +41,14 @@
   src: url("fonts/Montserrat-BoldItalic.ttf");
 }
 /* Color Scheme */
+html {
+  background: #235e88;
+}
 body {
   font-family: "Noto Sans", "Montserrat";
   font-size: 13pt;
+  min-width: 460px;
+  background: #fff;
 }
 h1,
 h2,
@@ -121,6 +126,9 @@ nav#main-nav ul.nav.nav-tabs li.active a {
 .nav-tabs {
   border: none;
 }
+button.btn-sm {
+  font-size: 0.8em;
+}
 button:disabled {
   cursor: not-allowed;
 }
@@ -130,10 +138,12 @@ button.btn-form {
   border-color: #1dc799;
   border-radius: 0;
   font-weight: bold;
+  font-size: inherit;
 }
 button.btn-form:hover,
 button.btn-form:focus {
   background-color: #1f8566;
+  color: #fff;
 }
 button.btn-form:disabled {
   background-color: #238769;
@@ -142,6 +152,7 @@ button.btn-form:disabled {
 #summary:not(.show),
 #riskForm:not(.show),
 #results:not(.show),
+#errors:not(.show),
 #form-steps:not(.show),
 #map:not(.show),
 #listings:not(.show),
@@ -150,7 +161,8 @@ button.btn-form:disabled {
   display: none;
 }
 #main {
-  margin-top: 10px;
+  margin-top: 3em;
+  margin-bottom: 6em;
 }
 .tab-pane {
   line-height: 1.5;
@@ -219,6 +231,12 @@ button.btn-form:disabled {
   width: 45px;
   text-align: center;
 }
+.no-margin {
+  margin: 0;
+}
+.no-padding {
+  padding: 0;
+}
 .questions,
 .responseOptions {
   font-weight: normal;
@@ -239,8 +257,8 @@ select {
   padding: 0 0.4em;
   height: 2.5em;
 }
-select:focus {
-  background: #cacacf;
+select:focus,
+select:hover {
   border-color: #2b7bba;
 }
 select:disabled {
@@ -269,16 +287,15 @@ input[type="radio"] + label.radio span {
   cursor: pointer;
 }
 input[type="radio"] + label.radio:hover span {
-  opacity: 0.5;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-  filter: alpha(opacity=50);
-  background: #fff;
-  border-color: #2b7bba;
+  background: #2b7bba;
+  border-color: #fff;
+  border-style: double;
+  padding: 0.5em;
 }
 input[type="radio"] + label.radio:focus span {
-  border-style: double;
   border-color: #2b7bba;
   background: #2b7bba;
+  border-style: double;
 }
 input[type="radio"]:checked + label.radio:hover span,
 input[type="radio"]:checked + label.radio:span span {
@@ -317,16 +334,16 @@ input:disabled[type="radio"] + label.radio:focus span {
   border: none;
   background: #d3d3d3;
 }
-form.submitted select:invalid,
-form.submitted input:invalid {
+form.submitted select.error,
+form.submitted input.error {
   border-color: #bb0e3d;
 }
-form.submitted select:invalid + label.radio,
-form.submitted input:invalid + label.radio {
+form.submitted select.error + label.radio,
+form.submitted input.error + label.radio {
   color: #bb0e3d;
 }
-form.submitted select:invalid + label.radio span,
-form.submitted input:invalid + label.radio span {
+form.submitted select.error + label.radio span,
+form.submitted input.error + label.radio span {
   border-color: #bb0e3d;
 }
 .footer {
@@ -383,13 +400,13 @@ form.submitted input:invalid + label.radio span {
   justify-content: center;
   margin: 0 auto;
 }
-@media (max-width: 990px) {
+@media (max-width: 770px) {
   header img#logo {
-    padding: 1em;
+    padding: 1em 0 1em 1em;
     width: 100%;
   }
   header #toolTitle {
-    padding-left: 2em;
+    padding-left: 1em;
   }
   nav#main-nav {
     background: #fff;
@@ -435,6 +452,7 @@ form.submitted input:invalid + label.radio span {
   }
   section {
     padding: 1em;
+    font-size: 1.2em;
   }
   .tab-pane {
     padding: 0 1em;

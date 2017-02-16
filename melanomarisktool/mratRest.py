@@ -82,48 +82,54 @@ class MelanomaRiskAssessmentTool:
 
     @staticmethod
     def getAbsoluteRisk(parameters, age, sex, region):
-        sex = None
-        if parameters['gender'] == 'Male':
-            sex = 0
-        elif (parameters['gender'] == 'Female'):
-            sex = 1
+        try:
+            sex = None
+            if parameters['gender'] == 'Male':
+                sex = 0
+            elif (parameters['gender'] == 'Female'):
+                sex = 1
 
-        r = 1
-        if sex == 0:
-            r *= MratConstants.SUNBURN[int(parameters['sunburn'] )]
-            r *= MratConstants.MALE_COMPLEXION[int(parameters['complexion'] )]
-            r *= MratConstants.BIG_MOLES[int(parameters['big-moles'] )]
-            r *= MratConstants.MALE_SMALL_MOLES[int(parameters['small-moles'] )]
-            r *= MratConstants.MALE_FRECKLING[int(parameters['freckling'] )]
-            r *= MratConstants.DAMAGE[int(parameters['damage'] )]
-        else:
-            r *= MratConstants.TAN[int(parameters['tan'] )]
-            r *= MratConstants.FEMALE_COMPLEXION[int(parameters['complexion'] )]
-            r *= MratConstants.FEMALE_SMALL_MOLES[int(parameters['small-moles'] )]
-            r *= MratConstants.FEMALE_FRECKLING[int(parameters['freckling'] )]
-        ageIndex = int((age-20)/5)
-        t1 = ageIndex*5+20
-        t2 = t1+5
-        h11 = MratConstants.SEX[sex]*MratConstants.INCIDENCE[sex][ageIndex][region]
-        h21 = MratConstants.MORTALITY[sex][ageIndex]
-        risk = h11*r*(1-math.exp((age-t2)*(h11*r+h21)))/(h11*r+h21)
-        if age != t1:
-            h12 = MratConstants.SEX[sex]*MratConstants.INCIDENCE[sex][ageIndex+1][region]
-            h22 = MratConstants.MORTALITY[sex][ageIndex+1]
-            risk += h12*r*math.exp((age-t2)*(h11*r+h21))*(1-math.exp((t1-age)*(h12*r+h22)))/(h12*r+h22)
-        risk = round(risk*10000)/100
-        ratio = round((risk * 0.01) * 1000)
-        regionKey = ""
-        for key, value in MratConstants.RegionIndex.items():
-            if value is region:
-                regionKey = key
-            if value is not 1:
-                regionKey = regionKey + "ern"
-        result = "The Five-Year Absolute Risk of Melanoma is {0}%. For every 1,000 {1}s living in the {2} region with these characteristics, on average {3} will develop melanoma in the next 5 years.".format(
-            risk, str(parameters['gender'] ).lower(), regionKey, int(ratio) )
+            r = 1
+            if sex == 0:
+                r *= MratConstants.SUNBURN[int(parameters['sunburn'] )]
+                r *= MratConstants.MALE_COMPLEXION[int(parameters['complexion'] )]
+                r *= MratConstants.BIG_MOLES[int(parameters['big-moles'] )]
+                r *= MratConstants.MALE_SMALL_MOLES[int(parameters['small-moles'] )]
+                r *= MratConstants.MALE_FRECKLING[int(parameters['freckling'] )]
+                r *= MratConstants.DAMAGE[int(parameters['damage'] )]
+            else:
+                r *= MratConstants.TAN[int(parameters['tan'] )]
+                r *= MratConstants.FEMALE_COMPLEXION[int(parameters['complexion'] )]
+                r *= MratConstants.FEMALE_SMALL_MOLES[int(parameters['small-moles'] )]
+                r *= MratConstants.FEMALE_FRECKLING[int(parameters['freckling'] )]
+            ageIndex = int((age-20)/5)
+            t1 = ageIndex*5+20
+            t2 = t1+5
+            h11 = MratConstants.SEX[sex]*MratConstants.INCIDENCE[sex][ageIndex][region]
+            h21 = MratConstants.MORTALITY[sex][ageIndex]
+            risk = h11*r*(1-math.exp((age-t2)*(h11*r+h21)))/(h11*r+h21)
+            if age != t1:
+                h12 = MratConstants.SEX[sex]*MratConstants.INCIDENCE[sex][ageIndex+1][region]
+                h22 = MratConstants.MORTALITY[sex][ageIndex+1]
+                risk += h12*r*math.exp((age-t2)*(h11*r+h21))*(1-math.exp((t1-age)*(h12*r+h22)))/(h12*r+h22)
+            risk = round(risk*10000)/100
+            ratio = round((risk * 0.01) * 1000)
+            regionKey = ""
+            for key, value in MratConstants.RegionIndex.items():
+                if value is region:
+                    regionKey = key
+                if value is not 1:
+                    regionKey = regionKey + "ern"
+            result = "The Five-Year Absolute Risk of Melanoma is {0}%. For every 1,000 {1}s living in the {2} region with these characteristics, on average about {3} will develop melanoma in the next 5 years.".format(
+                risk, str(parameters['gender'] ).lower(), regionKey, int(ratio) )
 
-        print "\n{0}".format(result)
-        return result
+            print "\n{0}".format(result)
+            return result
+        except Exception as e:
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print("EXCEPTION------------------------------", e, exc_type, fname, exc_tb.tb_lineno)
+            return e
 
     @app.route('/rest/calculate', methods=['POST'] )
     @app.route('/rest/calculate/', methods=['POST'] )

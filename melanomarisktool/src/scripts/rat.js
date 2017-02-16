@@ -97,7 +97,11 @@ var validationRules = {
 };
 
 function invalidForm(e, validator) {
+
 	$(document.forms.riskForm).addClass('submitted');
+	$("#errors").addClass('alert alert-danger');
+	document.getElementById("errors").scrollIntoView();
+
 }
 
 function processSubmission(form){
@@ -107,11 +111,9 @@ function processSubmission(form){
 		url: form.action,
 		type: form.method,
 		dataType: 'json',
-		processData:false,
+		processData: false,
 		contentType: false,
 		data: fd,
-		errorLabelContainer: '#error',
-		wrapper: 'p',
 	}).done(resultsDisplay)
 	.fail(function() {
 		console.log("error");
@@ -130,7 +132,7 @@ function formScrollSpy() {
 	var window_top = $(window).scrollTop();
 
 	$.each($("#riskForm section"), function(ind, el) {	
-		var div_top = $(el).offset().top - 20 ;
+		var div_top = $(el).offset().top - $(el)[0].scrollHeight;
 
 		if ( window_top > div_top ){
 			$("#form-steps li").removeClass('active');
@@ -214,17 +216,6 @@ $(function() {
 		}
 	});
 
-	// $("label.radio").on('click keypress', function(e) {
-	// 	if(e.type == "keypress") {
-	// 		if ((e.keyCode == 13) || (e.keyCode == 32)){
-	// 			$(e.target).prev().trigger('click');
-	// 		}
-	// 	}
-	// 	if(e.type == "click") {
-	// 		$(e.target).parents('.radio').prev().trigger('click');
-	// 	}
-	// });
-
 	$("button.select").on('click keypress', function(e) {
 		if(e.type == "keypress") {
 			if ((e.keyCode == 13) || (e.keyCode == 32)) {
@@ -260,16 +251,38 @@ $(function() {
 	});
 
 	$(document.forms.riskForm).validate({
-		debug: true,
 		rules: validationRules,
 		messages: validationMessages,
-		errorLabelContainer: '#error',
+		ignore: ".skipValidate",
+		errorLabelContainer: '#errors ',
+		errorContainer: "#errors",
 		wrapper: 'p',
 		submitHandler: processSubmission,
 		invalidHandler: invalidForm,
-		showErrors: function() {
-
-		}
+		// errorPlacement: function(error, el) {
+		// 	console.log(error);
+		// 	console.log(el);
+		// },
+		// highlight: function(el, errorClass) {
+		// 	this.labelContainer.addClass(errorClass);
+		// },
+		// unhighlight: function(el, errorClass) {
+		// 	this.labelContainer.removeClass(errorClass);
+		// },
+		// showErrors: function(errors, errorList) {
+		// 	if(errorList.length > 0) {
+		// 		this.labelContainer.addClass('show alert alert-danger');
+		// 		this.labelContainer.empty();
+		// 		$.each(this.errorMap, function(key, message) {
+		// 			li = $("<li></li>").append(message);
+		// 			$("#errors").append(li);
+		// 		});
+		// 		// this.defaultShowErrors();
+		// 	}
+		// 	else {
+		// 		this.labelContainer.empty().removeClass('show alert alert-danger');
+		// 	}
+		// }
 	});
 
 });

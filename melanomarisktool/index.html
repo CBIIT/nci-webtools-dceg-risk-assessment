@@ -108,6 +108,7 @@
             </ol>
           </div>
           <div id="results"></div>
+          <div id="errors"></div>
           <form id="riskForm" method="POST" action="/melanomarisktool/rest/calculate/">
             <section id="demo-section">
               <h3 class="sectionTitle">Demographics</h3>
@@ -122,7 +123,7 @@
               </div>
               <label class="questions" for="age">What is the patient's age?</label>
               <div class="responseOptions">
-                <select id="age" name="age" type="number" min="20" max="70" placeholder="Enter patient's age" required>
+                <select id="age" name="age" placeholder="Enter patient's age" required>
                   <option value="">Select Age</option>
                   <option value="20">20</option>
                   <option value="21">21</option>
@@ -178,8 +179,8 @@
                 </select>
               </div>
               <div class="pull-left">
-                <div class="col-xs-12 col-sm-6">
-                  <label class="questions">Does the patient live in the Northern, Central, or Southern United States?<em>The model on which this tool is based is valid only for residents of the continental United States. This map is only a guide.</em></label>
+                <div class="col-xs-12 col-sm-6 no-padding">
+                  <label class="questions">Does the patient live in the Northern, Central, or Southern United States?<em> The model on which this tool is based is valid only for residents of the continental United States. This map is only a guide.</em></label>
                   <div class="responseOptions">
                     <input type="radio" name="region" value="north" required>
                     <label class="radio" tabindex="0"><span> </span>Northern</label>
@@ -193,7 +194,7 @@
                     <label class="radio" tabindex="0"><span> </span>Southern</label>
                   </div>
                 </div>
-                <div class="col-xs-12 col-sm-6"><img class="img-responsive show" id="map" src="images/us-map.png" alt="The map is divided into three distinct areas.	Northern United States which includes Washington, Oregon, Montana, North Dakota, South Dakota, Minnesota, Wisconsin, Michigan, Iowa, Illinois, Indiana, Ohio, Maryland, Pennsylvania, New York, New Jersey, Vermont, Rhode Island, Connecticut, Massachusetts, New Hampshire, and Maine. Central United States which includes Northern California, Idaho, Utah, Wyoming, Nebraska, Kansas, Oklahoma, Arkansas, Missouri, Tennessee, Kentucky, West Virginia, Virginia, Delaware, North Carolina, and South Carolina. Southern United States which includes Southern California, Nevada, Arizona, New Mexico, Colorado, Texas, Louisiana, Mississippi, Alabama, Georgia, and Florida.">
+                <div class="col-xs-12 col-sm-6 no-padding"><img class="img-responsive show" id="map" src="images/us-map.png" alt="The map is divided into three distinct areas.	Northern United States which includes Washington, Oregon, Montana, North Dakota, South Dakota, Minnesota, Wisconsin, Michigan, Iowa, Illinois, Indiana, Ohio, Maryland, Pennsylvania, New York, New Jersey, Vermont, Rhode Island, Connecticut, Massachusetts, New Hampshire, and Maine. Central United States which includes Northern California, Idaho, Utah, Wyoming, Nebraska, Kansas, Oklahoma, Arkansas, Missouri, Tennessee, Kentucky, West Virginia, Virginia, Delaware, North Carolina, and South Carolina. Southern United States which includes Southern California, Nevada, Arizona, New Mexico, Colorado, Texas, Louisiana, Mississippi, Alabama, Georgia, and Florida.">
                   <div class="info-dialog" id="listings">
                     <button class="btn-sm pull-right" type="button" aria-label="close"><span class="dialog-icon">&times;</span></button>
                     <p>The map is divided into three distinct areas:</p>
@@ -237,11 +238,11 @@
               <div class="male">
                 <label class="questions" for="sunburn">Has the patient ever gotten a blistering sunburn?</label>
                 <div class="responseOptions">
-                  <input type="radio" name="sunburn" value="0" required>
+                  <input type="radio" name="sunburn" value="0">
                   <label class="radio" tabindex="0"><span></span>Yes</label>
                 </div>
                 <div class="responseOptions">
-                  <input type="radio" name="sunburn" value="1" required>
+                  <input type="radio" name="sunburn" value="1">
                   <label class="radio" tabindex="0"><span></span>No</label>
                 </div>
               </div>
@@ -273,30 +274,30 @@
               <div class="male">
                 <label class="questions">How many moles larger than 5mm in diameter are on the patient's back?</label>
                 <div class="responseOptions">
-                  <input type="radio" name="big-moles" value="0" required>
+                  <input type="radio" name="big-moles" value="0">
                   <label class="radio" tabindex="0"><span> </span>Less than two</label>
                 </div>
                 <div class="responseOptions">
-                  <input type="radio" name="big-moles" value="1" required>
+                  <input type="radio" name="big-moles" value="1">
                   <label class="radio" tabindex="0"><span></span>Two or more</label>
                 </div>
               </div>
               <label class="questions">How many moles less than or equal to 5mm in diameter are on the patient's back?</label>
               <div class="responseOptions">
-                <input type="radio" name="small-moles" value="0">
+                <input type="radio" name="small-moles" value="0" required>
                 <label class="radio" tabindex="0"><span></span>Less than seven</label>
               </div>
               <div class="responseOptions">
-                <input type="radio" name="small-moles" value="1">
+                <input type="radio" name="small-moles" value="1" required>
                 <label class="radio" tabindex="0"><span></span>Seven to sixteen</label>
               </div>
               <div class="responseOptions">
-                <input type="radio" name="small-moles" value="2">
+                <input type="radio" name="small-moles" value="2" required>
                 <label class="radio" tabindex="0"><span></span>Seventeen or more</label>
               </div>
               <label class="questions" for="freckling">How extensive is the freckling on the patient's back and shoulders?</label>
               <div class="responseOptions">
-                <select id="freckling" name="freckling">
+                <select id="freckling" name="freckling" required>
                   <option value="">Select</option>
                   <option value="0">Absent</option>
                   <option value="1">Mild</option>

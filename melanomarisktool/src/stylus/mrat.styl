@@ -16,9 +16,14 @@ green_DB = #DBF2F8
 green_2D = #4D4D4D
 green_33 = #339FBD
 
+html
+	background blue_23
+
 body
 	font-family "Noto Sans", "Montserrat"
 	font-size 13pt
+	min-width 460px
+	background #fff
 	
 h1, h2, h3, h4, h5, h6, h7, .sectionTitle
 	color grey_60
@@ -78,6 +83,8 @@ nav#main-nav
 .nav-tabs
 	border none
 button
+	&.btn-sm
+		font-size 0.8em
 	&:disabled
 		cursor not-allowed		
 	&.btn-form
@@ -86,17 +93,20 @@ button
 		border-color #1DC799
 		border-radius 0
 		font-weight bold
+		font-size inherit
 		&:hover, &:focus
 			background-color #1f8566
+			color #fff
 		&:disabled
 			background-color #238769
 			color #d9d9d9
 	
-#summary, #riskForm, #results, #form-steps, #map, #listings, .male, .female
+#summary, #riskForm, #results, #errors, #form-steps, #map, #listings, .male, .female
 	&:not(.show)
 		display none
 #main
-	margin-top 10px
+	margin-top 3em
+	margin-bottom 6em
 .tab-pane
 	line-height 1.5
 	padding 0 5em
@@ -151,7 +161,10 @@ button
 					color #FFF
 					width 45px
 					text-align center
-
+.no-margin
+	margin 0
+.no-padding
+	padding 0
 .questions, .responseOptions
 	font-weight normal
 	line-height 3
@@ -166,8 +179,8 @@ select
 	background #f2f2f3
 	padding 0 0.4em
 	height 2.5em
-	&:focus
-		background #cacacf
+	&:focus, &:hover
+		// background #cacacf
 		border-color blue_2B
 	&:disabled
 		background grey_D3
@@ -193,14 +206,15 @@ input[type="radio"]
 			cursor pointer
 		&:hover
 			span
-				opacity 0.5
-				background #FFF
-				border-color #2b7bba
+				background #2b7bba
+				border-color #fff
+				border-style double
+				padding 0.5em
 		&:focus
 			span
-				border-style double
 				border-color #2b7bba
 				background #2b7bba
+				border-style double
 	&:checked + label.radio
 		&:hover, &:span
 			span
@@ -230,7 +244,7 @@ select, input
 						background  grey_D3
 form.submitted
 	select, input
-		&:invalid
+		&.error
 			border-color red_BB
 			+ label.radio
 				color red_BB 
