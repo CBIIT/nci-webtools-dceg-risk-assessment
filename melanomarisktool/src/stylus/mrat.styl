@@ -83,6 +83,8 @@ nav#main-nav
 .nav-tabs
 	border none
 button
+	font-weight bold
+	font-size 0.8em
 	&.btn-sm
 		font-size 0.8em
 	&:disabled
@@ -92,8 +94,6 @@ button
 		background-color #2DC799
 		border-color #1DC799
 		border-radius 0
-		font-weight bold
-		font-size inherit
 		&:hover, &:focus
 			background-color #1f8566
 			color #fff
@@ -136,6 +136,7 @@ button
 		list-style none
 		text-align center
 		font-weight bold
+		margin 0
 		li
 			display inline-block
 			counter-increment item
@@ -236,12 +237,14 @@ select, input
 				color #c0c0c0
 				cursor not-allowed
 				span
-					background grey_D3
-					border none
+					background none
+					border 3px solid blue_2B
+					opacity 0.5
 				&:hover, &:focus
 					span
-						border none
-						background  grey_D3
+						background none
+						border 3px solid blue_2B
+						opacity 0.5
 form.submitted
 	select, input
 		&.error

@@ -1,4 +1,5 @@
 .container
+	#errors
 	#form-steps
 		ol
 			li.active 
@@ -8,7 +9,6 @@
 			li 
 				a(href="#physical-section") Physical Exam
 	#results
-	#errors
 	form#riskForm(method="POST", action="/melanomarisktool/rest/calculate/")
 		section#demo-section
 			//- a.toggleTool.pull-right Back to Summary

@@ -97,17 +97,15 @@ var validationRules = {
 };
 
 function invalidForm(e, validator) {
-
+	document.getElementById("errors").scrollIntoView();
 	$(document.forms.riskForm).addClass('submitted');
 	$("#errors").addClass('alert alert-danger');
-	document.getElementById("errors").scrollIntoView();
-
 }
 
 function processSubmission(form){
 	var fd = new FormData(form);
 
-	$.ajax({
+	return $.ajax({
 		url: form.action,
 		type: form.method,
 		dataType: 'json',
@@ -119,13 +117,12 @@ function processSubmission(form){
 		console.log("error");
 	})
 	.always(function() {
-		console.log("complete");
+		document.getElementById("errors").scrollIntoView();
 	});
 }
-function resultsDisplay(response, textStatus, xhr) { 
-	document.getElementById("main").scrollIntoView();
-	$("#results").addClass('show').html(response.message);
 
+function resultsDisplay(response, textStatus, xhr) {
+	$("#results").addClass('show').html(response.message);
 }
 
 function formScrollSpy() {
@@ -165,19 +162,39 @@ function toggleFormDisplay(e) {
 	});
 }
 
-function toggleGender(e){
+function toggleGender(e) {
 	var value = $(e.target).val();
 	if (value == "Male") {
-		$(".female").removeClass('show').find("input, select").removeAttr("required");
-		$(".male").addClass('show').find("input, select").attr("required");
+		$.each($(".female").find("input, select"), function(index, el) {
+			$(el).rules("remove", "required");
+		});
 
+		$.each($(".male").find("input, select"), function(index, el) {
+			$(el).rules("add", { required: true });
+		});
+
+		$(".female").removeClass('show');
+		$(".male").addClass('show');
 	}
 	else if(value == "Female") {
-		$(".male").removeClass('show').find("input, select").removeAttr("required");
-		$(".female").addClass('show').find("input, select").attr("required");
+		$.each($(".male").find("input, select"), function(index, el) {
+			$(el).rules("remove", "required");
+			if($("[name='" + el.name + "']").val().length > 0)
+				$("[name='" + el.name + "']").val("");
+		});
+
+		$.each($(".female").find("input, select"), function(index, el) {
+			$(el).rules("add", { required: true });
+		});
+		
+		$(".male").removeClass('show');
+		$(".female").addClass('show');
 	}
 	else {
 		$(".male, .female").removeClass('show').find("input, select").removeAttr("required");
+		$.each($(".male, .female").find("input, select"), function(index, el) {
+			$(el).rules("remove", "required");
+		});
 	}
 }
 
@@ -192,7 +209,7 @@ $(function() {
 		$(document.forms.riskForm).removeClass('submitted');
 		$("#results").empty().removeClass('show');
 		$(document.forms.riskForm).validate().resetForm();
-		window.scrollTo(0, 0);
+		document.getElementById("errors").scrollIntoView();
 	});
 
 	$(".toggleTool").on("click", toggleFormDisplay);
@@ -211,7 +228,7 @@ $(function() {
 				}
 			}
 			if(e.type == "click") {
-					$(e.target).children('.radio').prev().trigger('click');
+				$(e.target).children('.radio').prev().trigger('click');
 			}
 		}
 	});
@@ -247,42 +264,18 @@ $(function() {
 	});
 
 	$(document).on('click keypress', "#listings > button", function(e) {
-		$("#state-listing").trigger('click')
+		$("#state-listing").trigger('click');
 	});
 
 	$(document.forms.riskForm).validate({
 		rules: validationRules,
 		messages: validationMessages,
 		ignore: ".skipValidate",
-		errorLabelContainer: '#errors ',
+		errorLabelContainer: '#errors',
 		errorContainer: "#errors",
 		wrapper: 'p',
 		submitHandler: processSubmission,
-		invalidHandler: invalidForm,
-		// errorPlacement: function(error, el) {
-		// 	console.log(error);
-		// 	console.log(el);
-		// },
-		// highlight: function(el, errorClass) {
-		// 	this.labelContainer.addClass(errorClass);
-		// },
-		// unhighlight: function(el, errorClass) {
-		// 	this.labelContainer.removeClass(errorClass);
-		// },
-		// showErrors: function(errors, errorList) {
-		// 	if(errorList.length > 0) {
-		// 		this.labelContainer.addClass('show alert alert-danger');
-		// 		this.labelContainer.empty();
-		// 		$.each(this.errorMap, function(key, message) {
-		// 			li = $("<li></li>").append(message);
-		// 			$("#errors").append(li);
-		// 		});
-		// 		// this.defaultShowErrors();
-		// 	}
-		// 	else {
-		// 		this.labelContainer.empty().removeClass('show alert alert-danger');
-		// 	}
-		// }
+		invalidHandler: invalidForm
 	});
 
 });

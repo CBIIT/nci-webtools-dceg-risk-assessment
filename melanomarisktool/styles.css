@@ -126,6 +126,10 @@ nav#main-nav ul.nav.nav-tabs li.active a {
 .nav-tabs {
   border: none;
 }
+button {
+  font-weight: bold;
+  font-size: 0.8em;
+}
 button.btn-sm {
   font-size: 0.8em;
 }
@@ -137,8 +141,6 @@ button.btn-form {
   background-color: #2dc799;
   border-color: #1dc799;
   border-radius: 0;
-  font-weight: bold;
-  font-size: inherit;
 }
 button.btn-form:hover,
 button.btn-form:focus {
@@ -199,6 +201,7 @@ button.btn-form:disabled {
   list-style: none;
   text-align: center;
   font-weight: bold;
+  margin: 0;
 }
 #form-steps ol li {
   display: inline-block;
@@ -324,15 +327,21 @@ input:disabled[type="radio"] + label.radio {
 }
 select:disabled[type="radio"] + label.radio span,
 input:disabled[type="radio"] + label.radio span {
-  background: #d3d3d3;
-  border: none;
+  background: none;
+  border: 3px solid #2b7bba;
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
 }
 select:disabled[type="radio"] + label.radio:hover span,
 input:disabled[type="radio"] + label.radio:hover span,
 select:disabled[type="radio"] + label.radio:focus span,
 input:disabled[type="radio"] + label.radio:focus span {
-  border: none;
-  background: #d3d3d3;
+  background: none;
+  border: 3px solid #2b7bba;
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
 }
 form.submitted select.error,
 form.submitted input.error {
@@ -399,6 +408,7 @@ form.submitted input.error + label.radio span {
   -webkit-justify-content: center;
   justify-content: center;
   margin: 0 auto;
+  text-transform: uppercase;
 }
 @media (max-width: 770px) {
   header img#logo {
