@@ -75,8 +75,7 @@ table.results_table td.results_desc {
 
 table.results_table td.results_grid {
      width: 50%;
-     text-align: center;
-     padding:15px;
+     text-align: left;
 }
 
 table.results_table td.results_legend {

@@ -642,7 +642,7 @@ div.yourresults div {
     
     table.results_table td.results_grid {
         width: 50%;
-        text-align: center;
+        text-align: left;
     }
     
     table.results_table td.results_legend {
