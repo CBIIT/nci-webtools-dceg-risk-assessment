@@ -488,7 +488,7 @@ div.yourresults div {
     margin: 0px 100px 0px 0px;
 }*/
     
-    .legend {
+    /*.legend {
         margin-top: 5px
     }
     
@@ -503,7 +503,7 @@ div.yourresults div {
     .legend span {
         display: inline-block;
         padding-right: 10px;
-    }
+    }*/
     
     div.diseasesection {
         display: inline-block
@@ -655,10 +655,10 @@ div.yourresults div {
         padding: 10px 0px;
     }
     
-    table.results_table img {
+    /*table.results_table img {
         width: 10px;
         height: 10px;
-    }
+    }*/
     
     table.grid_table th {
         border: 1px solid #777;
