@@ -405,105 +405,10 @@
         margin-top: 0;
         margin-bottom: 15px;
     }
-    /*.yourresults table {
-    border: .01em solid #777
-}
-
-.yourresults td {
-    border: .01em solid #777;
-    width: 10px !important;
-    min-width: 10px;
-}
-
-.yourresults tr {
-    height: 10px !important
-}
-
-.yourresults td.filled {
-    background-color: #c6e1ec
-}
-
-p.yourresults {
-    margin-top: -20px;
-    padding: 10px;
-    margin-bottom: -10px;
-}
-    
-    .ui-dialog-titlebar-close::after {
-        content: 'x';
-        position: relative;
-        top: -3px !important;
-        left: -1px !important;
-    }
-    
-    @media screen and (-webkit-min-device-pixel-ratio:0) {
-        .ui-dialog-titlebar-close::after {
-            left: 0px !important
-        }
-    }
-    
-    .ui-widget-header {
-        border: 1px solid #aaaaaa;
-        background: #c6e1ec url("images/ui-bg_highlight-soft_75_cccccc_1x100.png") 50% 50% repeat-x;
-        color: #222222;
-        font-weight: bold;
-    }
-    
-    .btn.copd {
-        font-size: 11px !important;
-        width: 30px;
-        height: 21px;
-        margin-top: 0px;
-        margin-left: 10px;
-    }
-    
-    a {
-        outline: 0 !important
-    }
-    /*div.yourresults {
-    margin-top: 30px
-}
-
-div.yourresults p.title {
-    font-weight: bold;
-    padding: 0px;
-}
-
-div.yourresults div {
-    margin: 0px
-}*/
     
     .yourresults {
         width: 100%
     }
-    /*
-.yourresults td img {
-    width: 10px;
-    height: 10px;
-}*/
-    /*.yourresults .col {
-    display: inline-block;
-    width: 400px;
-    vertical-align: top;
-    margin: 0px 100px 0px 0px;
-}*/
-    
-    /*.legend {
-        margin-top: 5px
-    }
-    
-    .legend img {
-        border: 1px solid #000;
-        height: 10px;
-        width: 10px;
-        position: relative;
-        top: 0px;
-    }
-    
-    .legend span {
-        display: inline-block;
-        padding-right: 10px;
-    }*/
     
     div.diseasesection {
         display: inline-block
@@ -616,14 +521,10 @@ div.yourresults div {
     
     table.results_table {
         width: 100%;
-        /*border: 1px solid red;*/
     }
     
     table.results_table th.results_title {
         width: 50%;
-        /*border: 1px;*/
-        /*background-color: lightgreen;*/
-        /*border-color: #777;*/
         padding: 10px 0px;
         text-align: left;
         font-weight: bold;
@@ -632,9 +533,6 @@ div.yourresults div {
     
     table.results_table td.results_desc {
         width: 50%;
-        /*border: 1px;*/
-        /*background-color: lightblue;*/
-        /*border-color: #777;*/
         text-align: left;
         font-size: 10pt;
         padding: 10px 0px;
@@ -647,18 +545,10 @@ div.yourresults div {
     
     table.results_table td.results_legend {
         width: 50%;
-        /*border: 1px;*/
-        /*background-color: lightblue;*/
-        /*border-color: #777;*/
         text-align: left;
         font-size: 10pt;
         padding: 10px 0px;
     }
-    
-    /*table.results_table img {
-        width: 10px;
-        height: 10px;
-    }*/
     
     table.grid_table th {
         border: 1px solid #777;

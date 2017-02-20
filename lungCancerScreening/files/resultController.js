@@ -153,21 +153,12 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
     var source  = $("#results .ng-hide").remove()
     var results = $("#results").html()
     results = results.replace(new RegExp('<br>', 'g'), '<br />');
-    // results = results.replace(new RegExp('alt="filled cell">', 'g'), 'alt="filled cell" />');
-    // results = results.replace(new RegExp('alt="empty cell">', 'g'), 'alt="empty cell" />');
-    // results = results.replace(new RegExp('cellempty.png">', 'g'), 'cellempty.png"/>');
-    // results = results.replace(new RegExp('cellfill.png">', 'g'), 'cellfill.png"/>');
     results = results.replace(new RegExp('(<img("[^"]*"|[^\/">])*)>', 'g'), '$1/>');
-
 
     html+= '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
     html+= '<html xmlns="http://www.w3.org/1999/xhtml">';
     html+= '  <head>';
     html+= '  <title>National Lung Screening Trial</title>';
-    // html+= '  <meta http-equiv="X-UA-Compatible" content="IE=edge" />';
-    // html+= '  <meta http-equiv="Content-type" content="text/html; charset=UTF-8">';
-    // html+= '  <link href="' + $scope.base_url + 'files/2col.css" rel="stylesheet" type="text/css" media="all">';
-    // html+= '  <link href="' + $scope.base_url + 'files/pdf.css" rel="stylesheet" type="text/css" media="all">';
     html+= '  </head>';
     html+= '  <body>';
     html+= results;

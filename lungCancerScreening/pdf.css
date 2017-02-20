@@ -53,9 +53,6 @@ table.results_table {
 
 table.results_table th.results_title {
     width: 50%;
-    /*border: 1px;
-    background-color: lightgreen;
-    border-color: #777;*/
     padding: 10px 0px;
     text-align: left;
     font-weight: bold;
@@ -64,9 +61,6 @@ table.results_table th.results_title {
 
 table.results_table td.results_desc {
     width: 50%;
-    /*border: 1px;
-    background-color: lightblue;
-    border-color: #777;*/
     text-align: left;
     font-size: 10pt;
     padding: 10px 0px;
@@ -80,9 +74,6 @@ table.results_table td.results_grid {
 
 table.results_table td.results_legend {
     width: 50%;
-    /*border: 1px;
-    background-color: lightblue;
-    border-color: #777;*/
     text-align: left;
     font-size: 10pt;
     padding: 10px 0px;
