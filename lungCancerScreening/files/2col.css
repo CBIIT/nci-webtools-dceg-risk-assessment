@@ -462,14 +462,14 @@
         .results {
             margin: 10px;
         }
-        .yourresults table {
+        /*.yourresults table {
             border: 1px solid #777;
-        }
+        }*/
         div.yourresults {
             margin-top: 12px
         }
         .yourresults td {
-            border: 1px solid #777;
+            /*border: 1px solid #777;*/
             width: 10px !important;
             min-width: 10px;
         }
