@@ -116,11 +116,11 @@
                     <tr>
                         <td class="results_desc" valign="top">
                             <p ng-show="chart1" class="description line1"><b>If you do not get CT lung screening</b>,
-                                <u>your chance of dying</u> from lung cancer within 5 years is {{getResult("result0", 1)/10}}%.</p>
+                                <u>your chance of dying</u> from lung cancer within 5 years is {{getResult("result0", 1)/10}}%{{getResult("result0")}}.</p>
                         </td>
                         <td class="results_desc" valign="top">
                             <p ng-show="chart2" class="description line1"><b>If you receive yearly CT lung screening</b>, your
-                                <u>chances of dying</u> from lung cancer within 5 years is {{session.myForm.result0-session.myForm.result1/10}}%.</p>
+                                <u>chances of dying</u> from lung cancer within 5 years is{{getResult("result1")}} {{session.myForm.result0-session.myForm.result1/10}}%{{getResult("result1")}}.</p>
                         </td>
                     </tr>
                     <tr>
@@ -247,12 +247,12 @@
                 <tr>
                     <td class="results_desc" valign="top">
                         <p ng-show="chart4" class="description line1"><b>If you do not get CT lung screening</b>, your
-                            <u>chances of lung cancer diagnosis</u> within 5 years is {{getResult("result2", 1)/10}}%.
+                            <u>chances of lung cancer diagnosis</u> within 5 years is {{getResult("result2", 1)/10}}%{{getResult("result2")}}.
                         </p>
                     </td>
                     <td class="results_desc" valign="top">
                         <p ng-show="chart5" class="description line1"><b>If you receive CT lung screening</b>, your
-                            <u>chances of being diagnosed</u> with lung cancer within 5 years is {{session.myForm.result3+session.myForm.result2/10}}%.
+                            <u>chances of being diagnosed</u> with lung cancer within 5 years is {{getResult("result2")}} {{session.myForm.result3+session.myForm.result2/10}}%{{getResult("result2")}}.
                     </td>
                 </tr>
                 <tr>
