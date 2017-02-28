@@ -166,7 +166,9 @@
                                 instead of {{session.myForm.result0}} {{getPeopleOrPerson(session.myForm.result0)}} are likely
                                 to die from lung cancer because of CT screening: a
                                 <u>decrease</u> of {{getResult("result1", 1)}} out of 1000 people. </p>
-                            <p><b>In other words, if you receive yearly CT lung screening, your <u>chances of dying</u> from lung cancer within 5 years will be <u>reduced</u> by {{getResult("result1", 1) / 10}} percentage points.</b></p>
+                            <p ng-show="chart2" class="ng-binding"><b>In other words, if you receive yearly CT lung screening</b>, your
+                                <u>chances of dying</u> from lung cancer within 5 years will be
+                                <u>reduced</u> by {{getResult("result1", 1) / 10}} percentage points.</p>
 
                             <p ng-show="chart2 && !next3"><button ng-click="chart3=true; next3=true">Next</button></p>
                         </td>
@@ -299,9 +301,9 @@
                             5 years if they receive annual CT lung screening: an
                             <u>increase</u> of {{session.myForm.result3}} out of 1000 people.</p>
 
-                        <p><b>In other words, if you receive yearly CT lung screening</b>, your
+                        <p ng-show="chart5" class="ng-binding"><b>In other words, if you receive yearly CT lung screening</b>, your
                             <u>chances of being diagnosed</u> with lung cancer withing 5 years will be increased by {{session.myForm.result3
-                            / }} percentage points.</p>
+                            / 10 }} percentage points.</p>
                         <p ng-show="chart5 && !next5"><button ng-click="chart5=true; next5=true">Next</button></p>
                     </td>
                 </tr>
