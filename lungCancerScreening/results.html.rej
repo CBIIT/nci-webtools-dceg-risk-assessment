@@ -1,0 +1,9 @@
+diff a/lungCancerScreening/results.html b/lungCancerScreening/results.html	(rejected hunks)
+@@ -323,6 +323,5 @@
+ </div>
+ <div ng-show="summary">We know that was a lot of information, you may save or print the summary report</div><br />
+ <div class="summaryButtons">
+-    <p class="pdf_loading" ng-show="loading"></p>
+     <button ng-click="exportPDF()" ng-show="summary">Save Summary Report</button>
+ </div>
+\ No newline at end of file

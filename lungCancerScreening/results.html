@@ -219,8 +219,8 @@
             <td class="results_legend" valign="top">
                 <p class="ng-binding">This means that if 1000 people answered the questions the same as you, {{session.myForm.result4}} {{getPeopleOrPerson(session.myForm.result4)}}
                     would receive a false alarm in the next 3 years if they received yearly CT lung screening.</p>
-                <p ng-show="!summary"><button ng-click="chart_row_1=true; chart_row_2=false">Back</button></p>
-                <p ng-show="!summary"><button ng-click="chart_row_3=true; summary=true; chart_row_2=false">Next</button></p>
+                <p ng-show="!summary"><button ng-click="chart_row_1=true; chart_row_2=false">Back</button><button ng-click="chart_row_3=true; summary=true; chart_row_2=false">Next</button></p>
+
             </td>
         </tr>
         </tbody>
@@ -326,5 +326,6 @@
 </div>
 <div ng-show="summary">We know that was a lot of information, you may save or print the summary report</div><br />
 <div class="summaryButtons">
-    <button ng-click="chart_row_1=true; chart_row_2=true; chart_row_3=true; exportPDF()" ng-show="summary">Save Summary Report</button>
+    <p class="pdf_loading" ng-show="loading"></p>
+    <button ng-click="chart_row_1=true && chart_row_2=true && chart_row_3=true && exportPDF()" ng-show="summary">Save Summary Report</button>
 </div>
