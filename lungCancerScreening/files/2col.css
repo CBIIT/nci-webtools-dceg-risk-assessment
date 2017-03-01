@@ -500,10 +500,6 @@
     table.results_summary td.indent {
         padding-left: 30px !important;
     }
-
-     table.results_summary th.indent {
-        padding-left: 30px !important;
-    }
     
     table.results_summary td,
     th {
