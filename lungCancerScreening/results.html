@@ -128,8 +128,8 @@
                             <img ng-src="{{base_url}}files/grid_images/chart_rl_{{session.myForm.result0}}.png" title="chart1" alt="chart1" />
                         </td>
                         <td class="results_grid">
-                            <img ng-show="chart2" ng-src="{{base_url}}files/grid_images/chart{{session.myForm.result0-session.myForm.result1}}.png" title="chart2"
-                                alt="chart2" />
+                            <img ng-src="{{base_url}}files/grid_images/chart{{session.myForm.result0-session.myForm.result1}}.png" title="chart2" alt="chart2"
+                            />
                         </td>
                     </tr>
                     <tr>
@@ -219,6 +219,7 @@
             <td class="results_legend" valign="top">
                 <p class="ng-binding">This means that if 1000 people answered the questions the same as you, {{session.myForm.result4}} {{getPeopleOrPerson(session.myForm.result4)}}
                     would receive a false alarm in the next 3 years if they received yearly CT lung screening.</p>
+                <p ng-show="!summary"><button ng-click="chart_row_1=true; chart_row_2=false">Back</button></p>
                 <p ng-show="!summary"><button ng-click="chart_row_3=true; summary=true; chart_row_2=false">Next</button></p>
             </td>
         </tr>
@@ -298,6 +299,8 @@
                         <p class="ng-binding"><b>In other words, if you receive yearly CT lung screening</b>, your
                             <u>chances of being diagnosed</u> with lung cancer withing 5 years will be
                             <u>increased</u> by {{session.myForm.result3/10 }} percentage points.</p>
+
+                        <p ng-show="!summary"><button ng-click="summary=false; chart_row_3=false; chart_row_2=true">Back</button></p>
                     </td>
                 </tr>
             </tbody>
@@ -323,5 +326,5 @@
 </div>
 <div ng-show="summary">We know that was a lot of information, you may save or print the summary report</div><br />
 <div class="summaryButtons">
-    <button ng-click="exportPDF()" ng-show="summary">Save Summary Report</button>
+    <button ng-click="chart_row_1=true; chart_row_2=true; chart_row_3=true; exportPDF()" ng-show="summary">Save Summary Report</button>
 </div>
