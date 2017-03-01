@@ -110,6 +110,10 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $localStorag
   };
 
   $scope.exportPDF = function() {
+    $scope.export = true;
+    $scope.chart_row_1 = true;
+    $scope.chart_row_2 = true;
+    $scope.chart_row_3 = true;
     $scope.loading = true;
     if (window.location.hostname=='localhost') {
       url = 'http://' + window.location.hostname + ':9982/exportPDF/';
