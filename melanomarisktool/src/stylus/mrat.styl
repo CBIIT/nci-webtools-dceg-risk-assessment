@@ -22,7 +22,7 @@ html
 body
 	font-family "Noto Sans", "Montserrat"
 	font-size 13pt
-	min-width 460px
+	min-width 375px
 	background #fff
 	
 h1, h2, h3, h4, h5, h6, h7, .sectionTitle
@@ -140,8 +140,7 @@ button
 		li
 			display inline-block
 			counter-increment item
-			margin-bottom 1em
-			margin 0.5em 2em 0.5em 5em
+			margin 0em 2em
 			color grey_86
 			&.active
 				color purple_61
@@ -245,14 +244,14 @@ select, input
 						background none
 						border 3px solid blue_2B
 						opacity 0.5
-form.submitted
-	select, input
-		&.error
-			border-color red_BB
-			+ label.radio
-				color red_BB 
-				span
-					border-color red_BB
+select, input
+	&.error
+		border-color red_BB
+		+ label.radio
+			color red_BB 
+			span
+				border-color red_BB
+
 .footer
 	background-color blue_23
 	line-height 4

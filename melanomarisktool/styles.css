@@ -47,7 +47,7 @@ html {
 body {
   font-family: "Noto Sans", "Montserrat";
   font-size: 13pt;
-  min-width: 460px;
+  min-width: 375px;
   background: #fff;
 }
 h1,
@@ -206,8 +206,7 @@ button.btn-form:disabled {
 #form-steps ol li {
   display: inline-block;
   counter-increment: item;
-  margin-bottom: 1em;
-  margin: 0.5em 2em 0.5em 5em;
+  margin: 0em 2em;
   color: #868686;
 }
 #form-steps ol li.active {
@@ -343,16 +342,16 @@ input:disabled[type="radio"] + label.radio:focus span {
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
   filter: alpha(opacity=50);
 }
-form.submitted select.error,
-form.submitted input.error {
+select.error,
+input.error {
   border-color: #bb0e3d;
 }
-form.submitted select.error + label.radio,
-form.submitted input.error + label.radio {
+select.error + label.radio,
+input.error + label.radio {
   color: #bb0e3d;
 }
-form.submitted select.error + label.radio span,
-form.submitted input.error + label.radio span {
+select.error + label.radio span,
+input.error + label.radio span {
   border-color: #bb0e3d;
 }
 .footer {
@@ -451,7 +450,7 @@ form.submitted input.error + label.radio span {
     padding: 0;
   }
   #form-steps ol li {
-    margin: 0.5em 0.3em;
+    margin: 0.5em 0.1em;
   }
   #form-steps ol li a {
     font-size: 0.7em;
@@ -459,6 +458,10 @@ form.submitted input.error + label.radio span {
   #form-steps ol li a:after {
     padding: 0.6em;
     width: 35px;
+  }
+  #errors {
+    font-size: 0.8em;
+    margin: 1em 0;
   }
   section {
     padding: 1em;

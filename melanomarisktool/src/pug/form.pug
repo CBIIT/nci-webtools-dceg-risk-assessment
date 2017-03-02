@@ -9,9 +9,8 @@
 			li 
 				a(href="#physical-section") Physical Exam
 	#results
-	form#riskForm(method="POST", action="/melanomarisktool/rest/calculate/")
+	form#riskForm(name="riskForm", method="POST", action="/melanomarisktool/rest/calculate/", autocomplete="off")
 		section#demo-section
-			//- a.toggleTool.pull-right Back to Summary
 			h3.sectionTitle Demographics
 			label.questions(for="race") What is the patient's race?
 			.responseOptions
@@ -54,7 +53,7 @@
 				.col-xs-12.col-sm-6.no-padding
 					img#map.img-responsive.show(src="images/us-map.png", alt="The map is divided into three distinct areas.	Northern United States which includes Washington, Oregon, Montana, North Dakota, South Dakota, Minnesota, Wisconsin, Michigan, Iowa, Illinois, Indiana, Ohio, Maryland, Pennsylvania, New York, New Jersey, Vermont, Rhode Island, Connecticut, Massachusetts, New Hampshire, and Maine. Central United States which includes Northern California, Idaho, Utah, Wyoming, Nebraska, Kansas, Oklahoma, Arkansas, Missouri, Tennessee, Kentucky, West Virginia, Virginia, Delaware, North Carolina, and South Carolina. Southern United States which includes Southern California, Nevada, Arizona, New Mexico, Colorado, Texas, Louisiana, Mississippi, Alabama, Georgia, and Florida.")
 					#listings.info-dialog
-						button.btn-sm.pull-right(type="button", aria-label="close")
+						button.mapDetails.btn-sm.pull-right(type="button", aria-label="close")
 							span.dialog-icon &times;
 						p The map is divided into three distinct areas:
 						p
@@ -68,7 +67,7 @@
 						p
 							b Southern United States: 
 							| Southern California, Nevada, Arizona, New Mexico, Colorado, Texas, Louisiana, Mississippi, Alabama, Georgia, and Florida.
-					a#state-listing View state listings by area.
+					a#state-listing.mapDetails View state listings by area.
 
 			label.questions(for="gender") What is the patient's gender?
 			.responseOptions

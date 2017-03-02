@@ -60,7 +60,7 @@ var validationRules = {
 	sunburn: {
 		required: {
 			depends: function(el) {
-				return $('#gender').val() == "Male";
+				return ($("#gender").val().length > 0) && ($('#gender').val() == "Male");
 			}
 		}
 	},
@@ -70,7 +70,7 @@ var validationRules = {
 	"big-moles": {
 		required: {
 			depends: function(el) {
-				return $('#gender').val() == "Male";
+				return ($("#gender").val().length > 0) && ($('#gender').val() == "Male");
 			}
 		}
 	},
@@ -80,7 +80,7 @@ var validationRules = {
 	tan: {
 		required: {
 			depends: function(el) {
-				return $('#gender').val() == "Female";
+				return ($("ender')").val().length > 0) && ($('#gender').val() == "Female");
 			}
 		}
 	},
@@ -90,22 +90,29 @@ var validationRules = {
 	damage: {
 		required: {
 			depends: function(el) {
-				return $('#gender').val() == "Male";
+				return ($("#gender").val().length > 0) && ($('#gender').val() == "Male");
 			}
 		}
 	}
 };
 
+function toTop(){
+	if (document.getElementById("main-nav").scrollIntoView) {
+		document.getElementById("main-nav").scrollIntoView();
+	}
+	else
+		$('html,body').scrollTop(0);
+}
+
 function invalidForm(e, validator) {
-	document.getElementById("errors").scrollIntoView();
-	$(document.forms.riskForm).addClass('submitted');
 	$("#errors").addClass('alert alert-danger');
+	toTop();
 }
 
 function processSubmission(form){
 	var fd = new FormData(form);
 
-	return $.ajax({
+	$.ajax({
 		url: form.action,
 		type: form.method,
 		dataType: 'json',
@@ -117,7 +124,7 @@ function processSubmission(form){
 		console.log("error");
 	})
 	.always(function() {
-		document.getElementById("errors").scrollIntoView();
+		toTop();
 	});
 }
 
@@ -128,10 +135,10 @@ function resultsDisplay(response, textStatus, xhr) {
 function formScrollSpy() {
 	var window_top = $(window).scrollTop();
 
-	$.each($("#riskForm section"), function(ind, el) {	
+	$.each($("#riskForm section"), function(ind, el) {
 		var div_top = $(el).offset().top - $(el)[0].scrollHeight;
 
-		if ( window_top > div_top ){
+		if ( window_top > div_top ) {
 			$("#form-steps li").removeClass('active');
 			$("#form-steps li:eq(" + ind + ")").addClass('active');
 		}
@@ -150,71 +157,87 @@ function fixedToTop() {
 
 function toggleFormDisplay(e) {
 	e.preventDefault();
-
-	$("#riskForm, #summary, #form-steps").toggleClass(function() {
-		if($(this).hasClass('show')) {
-			$(this).removeClass('show');
-		}
-		else {
-			$(this).addClass('show');
-		}
-		return this;
-	});
+ 
+ 	if (e.type == "keypress") {
+ 		$(e.target).trigger('click');
+ 	}
+ 	else {
+		$("#riskForm, #summary, #form-steps").toggleClass(function() {
+			if($(this).hasClass('show')) {
+				$(this).removeClass('show');
+			}
+			else {
+				$(this).addClass('show');
+			}
+			return this;
+		});
+	}
 }
 
 function toggleGender(e) {
 	var value = $(e.target).val();
-	if (value == "Male") {
-		$.each($(".female").find("input, select"), function(index, el) {
-			$(el).rules("remove", "required");
-		});
+	switch (value) {
+		case "Male":
+			$.each($(".female").find("input, select"), function(index, el) {
+				$(el).rules("remove", "required");
+				$("#riskForm").validate().element(el);
+			});
 
-		$.each($(".male").find("input, select"), function(index, el) {
-			$(el).rules("add", { required: true });
-		});
+			$.each($(".male").find("input, select"), function(index, el) {
+				$(el).rules("add", { required: true });
+			});
 
-		$(".female").removeClass('show');
-		$(".male").addClass('show');
-	}
-	else if(value == "Female") {
-		$.each($(".male").find("input, select"), function(index, el) {
+			$(".female").removeClass('show');
+			$(".male").addClass('show');
+			break;
+		case "Female":
+			$.each($(".male").find("input, select"), function(index, el) {
 			$(el).rules("remove", "required");
 			if($("[name='" + el.name + "']").val().length > 0)
-				$("[name='" + el.name + "']").val("");
-		});
+					$("[name='" + el.name + "']").val("");
+			});
 
-		$.each($(".female").find("input, select"), function(index, el) {
-			$(el).rules("add", { required: true });
-		});
-		
-		$(".male").removeClass('show');
-		$(".female").addClass('show');
-	}
-	else {
-		$(".male, .female").removeClass('show').find("input, select").removeAttr("required");
-		$.each($(".male, .female").find("input, select"), function(index, el) {
-			$(el).rules("remove", "required");
-		});
+			$.each($(".female").find("input, select"), function(index, el) {
+				$(el).rules("add", { required: true });
+			});
+			
+			$(".male").removeClass('show');
+			$(".female").addClass('show');
+			break;
+		default:
+			$(".male, .female").removeClass('show').find("input, select").removeAttr("required");
+			$.each($(".male, .female").find("input, select"), function(index, el) {
+				$(el).rules("remove", "required");
+			});
+			break;
 	}
 }
 
 $(window).scroll(function(e) {
-	e.preventDefault();
+	// e.preventDefault();
 	fixedToTop();
 	formScrollSpy();
 });
 
-$(function() {
-	$(document).on('click', "[type='reset']", function(e) {
-		$(document.forms.riskForm).removeClass('submitted');
-		$("#results").empty().removeClass('show');
-		$(document.forms.riskForm).validate().resetForm();
-		document.getElementById("errors").scrollIntoView();
+$(window).load(function(e) {
+	$("[type='reset']").on('click keypress', function(e) {
+		if(e.type == "keypress") {
+			if ((e.keyCode == 13) || (e.keyCode == 32)){
+				$(e.target).trigger('click');
+			}
+		}
+		else {
+			$(document.forms.riskForm).removeClass('submitted');
+			$("#results, .male, .female").removeClass("show");
+			$("#results").empty();
+			$("#riskForm").validate().resetForm();
+			toTop();
+		}
 	});
 
-	$(".toggleTool").on("click", toggleFormDisplay);
+	$(".toggleTool").on("click keypress", toggleFormDisplay);
 
-	$(document).on('click keypress', ".responseOptions > label.radio", function(e) {
+	$(".responseOptions > label.radio").on('click keypress', function(e) {
 		if ($(e.target).hasClass('radio')) {
 			$(e.target).prev().trigger('click');
 		}
@@ -246,28 +269,34 @@ $(function() {
 
 	$("input[name='gender']").on("change", toggleGender);
 	$("input[name='race']").on("change", function() {
-		$("form :input").not("[name='race']").removeAttr('disabled');
 		if(this.value == 1){
 			$("#raceModal").modal("show");
 			$("form :input").not("[name='race']").attr('disabled', true);
 		}
+		else {
+			$("form :input").not("[name='race']").removeAttr('disabled');
+		}
 	});
 
-	$(document).on('hidden.bs.tab', 'a[data-toggle="tab"]', function(e) {
+	$('a[data-toggle="tab"]').on('hidden.bs.tab', function(e) {
 		if($("nav.navbar-collapse").hasClass('in'))
 			$('button[data-toggle="collapse"]').trigger("click");
 	});
 
-	$(document).on('click keypress', 'a#state-listing', function(e) {
-		e.preventDefault();
-		$("#map, #listings").toggleClass('show');
+	$('.mapDetails').on('click keypress', function(e) {
+		if(e.type == "keypress") {
+			if ((e.keyCode == 13) || (e.keyCode == 32))
+				$(e.target).trigger('click');
+		}
+		else
+			$("#map, #listings").toggleClass('show');
 	});
+});
 
-	$(document).on('click keypress', "#listings > button", function(e) {
-		$("#state-listing").trigger('click');
-	});
+$(function() {
 
-	$(document.forms.riskForm).validate({
+
+	$("#riskForm").validate({
 		rules: validationRules,
 		messages: validationMessages,
 		ignore: ".skipValidate",
@@ -275,7 +304,13 @@ $(function() {
 		errorContainer: "#errors",
 		wrapper: 'p',
 		submitHandler: processSubmission,
-		invalidHandler: invalidForm
+		invalidHandler: invalidForm,
+		highlight: function(el, errorClass) {
+			$("[name='" + el.name + "']").addClass(errorClass);
+		},
+		unhighlight: function(el, errorClass) {
+			$("[name='" + el.name + "']").removeClass(errorClass);
+		}
 	});
 
 });
