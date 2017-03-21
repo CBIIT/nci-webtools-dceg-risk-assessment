@@ -294,18 +294,10 @@ input[type="radio"] + label.radio:hover span {
   border-style: double;
   padding: 0.5em;
 }
-input[type="radio"] + label.radio:focus span {
-  border-color: #2b7bba;
-  background: #2b7bba;
-  border-style: double;
-}
-input[type="radio"]:checked + label.radio:hover span,
-input[type="radio"]:checked + label.radio:span span {
+input[type="radio"]:checked + label.radio:hover span {
   opacity: 0.5;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
   filter: alpha(opacity=50);
-  background: #fff;
-  border-color: #2b7bba;
 }
 input[type="radio"]:checked + label.radio span {
   border-style: double;

@@ -2,9 +2,6 @@ var validationMessages = {
 	region: {
 		required: "The state in which the patient resides must be selected."
 	},
-	county: {
-		required: "The county in which the patient resides must also be selected."
-	},
 	gender: {
 		required: "The patient's gender must be selected."
 	},
@@ -41,13 +38,6 @@ var validationRules = {
 	region: {
 		required: true
 	},
-	county: {
-		required: {
-			depends: function(el) {
-				return $('#state').val() == 'CA';
-			}
-		}
-	},
 	gender: {
 		required: true
 	},
@@ -60,7 +50,7 @@ var validationRules = {
 	sunburn: {
 		required: {
 			depends: function(el) {
-				return ($("#gender").val().length > 0) && ($('#gender').val() == "Male");
+				return $(el).val().length == 0 && $('[name="gender"]').val() == "Male";
 			}
 		}
 	},
@@ -70,7 +60,7 @@ var validationRules = {
 	"big-moles": {
 		required: {
 			depends: function(el) {
-				return ($("#gender").val().length > 0) && ($('#gender').val() == "Male");
+				return $(el).val().length == 0 && $('[name="gender"]').val() == "Male";
 			}
 		}
 	},
@@ -80,7 +70,7 @@ var validationRules = {
 	tan: {
 		required: {
 			depends: function(el) {
-				return ($("ender')").val().length > 0) && ($('#gender').val() == "Female");
+				return $(el).val().length == 0 && $('[name="gender"]').val() == "Female";
 			}
 		}
 	},
@@ -90,7 +80,7 @@ var validationRules = {
 	damage: {
 		required: {
 			depends: function(el) {
-				return ($("#gender").val().length > 0) && ($('#gender').val() == "Male");
+				return $(el).val().length == 0 && $('[name="gender"]').val() == "Male";
 			}
 		}
 	}
