@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Melanoma Risk Assessment Tool (MRAT) - Risk Calculator</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/common/css/style.css" rel="stylesheet" type="text/css">
+    <link href="styles.css" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js" type="application/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js" type="application/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods.js" type="application/javascript"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="rat.js" type="text/javascript"></script>
+  </head>
+  <body><a class="sr-only sr-only-focusable" href="#main">Skip to main content</a>
+    <header><a href="http://cancer.gov" target="_blank"><img id="logo" src="/common/images/nci-logo-full.svg" alt="go to cancer.gov"></a>
+      <div id="toolTitle"><a href="index.html">Melanoma Risk Assessment Tool</a>
+        <button class="navbar-toggle collapsed" type="button" aria-controls="main-nav" aria-expanded="false" data-target="#main-nav" data-toggle="collapse"><span class="sr-only">Toggle navigation</span>
+          <div class="glyphicon glyphicon-menu-hamburger"></div>
+        </button>
+      </div>
+      <nav class="navbar-collapse collapse" id="main-nav" aria-expanded="false">
+        <ul class="nav nav-tabs">
+          <li role="presentation"><a href="calculator.html">Risk Calculator</a></li>
+          <li role="presentation"><a href="about.html">About the Model &amp; Source Code</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div id="main">
+      <div class="container">
+        <div id="errors"></div>
+        <div id="form-steps">
+          <ol>
+            <li class="active"> <a href="#demo-section">Demographics</a><a href="#demo-section">1</a></li><span class="spacer">-----------------</span>
+            <li> <a href="#skin-section">Skin Characteristics</a><a href="#skin-section">2</a></li><span class="spacer">-----------------</span>
+            <li> <a href="#physical-section">Physical Exam</a><a href="#physical-section">3</a></li>
+          </ol>
+        </div>
+        <div id="results"></div>
+        <form id="riskForm" name="riskForm" method="POST" action="/melanomarisktool/rest/calculate/" autocomplete="off">
+          <h2 class="sectionTitle">Demographics</h2>
+          <section id="demo-section">
+            <label class="questions" for="race">What is the patient's race?</label>
+            <div class="responseOptions">
+              <input type="radio" name="race" value="0" required>
+              <label class="radio" tabindex="0"><span></span>Non-Hispanic White</label>
+            </div>
+            <div class="responseOptions">
+              <input type="radio" name="race" value="1" required>
+              <label class="radio" tabindex="0"><span></span>Other</label>
+            </div>
+            <label class="questions" for="age">What is the patient's age?</label>
+            <div class="responseOptions">
+              <select id="age" name="age" placeholder="Enter patient's age" required>
+                <option value="">Select Age</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+                <option value="32">32</option>
+                <option value="33">33</option>
+                <option value="34">34</option>
+                <option value="35">35</option>
+                <option value="36">36</option>
+                <option value="37">37</option>
+                <option value="38">38</option>
+                <option value="39">39</option>
+                <option value="40">40</option>
+                <option value="41">41</option>
+                <option value="42">42</option>
+                <option value="43">43</option>
+                <option value="44">44</option>
+                <option value="45">45</option>
+                <option value="46">46</option>
+                <option value="47">47</option>
+                <option value="48">48</option>
+                <option value="49">49</option>
+                <option value="50">50</option>
+                <option value="51">51</option>
+                <option value="52">52</option>
+                <option value="53">53</option>
+                <option value="54">54</option>
+                <option value="55">55</option>
+                <option value="56">56</option>
+                <option value="57">57</option>
+                <option value="58">58</option>
+                <option value="59">59</option>
+                <option value="60">60</option>
+                <option value="61">61</option>
+                <option value="62">62</option>
+                <option value="63">63</option>
+                <option value="64">64</option>
+                <option value="65">65</option>
+                <option value="66">66</option>
+                <option value="67">67</option>
+                <option value="68">68</option>
+                <option value="69">69</option>
+                <option value="70">70</option>
+              </select>
+            </div>
+            <div class="pull-left">
+              <div class="col-xs-12 col-sm-6 no-padding">
+                <label class="questions">Does the patient live in the Northern, Central, or Southern United States?<em> The model on which this tool is based is valid only for residents of the continental United States. This map is only a guide.</em></label>
+                <div class="responseOptions">
+                  <input type="radio" name="region" value="north" required>
+                  <label class="radio" tabindex="0"><span> </span>Northern</label>
+                </div>
+                <div class="responseOptions">
+                  <input type="radio" name="region" value="central" required>
+                  <label class="radio" tabindex="0"><span> </span>Central</label>
+                </div>
+                <div class="responseOptions">
+                  <input type="radio" name="region" value="south" required>
+                  <label class="radio" tabindex="0"><span> </span>Southern</label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 no-padding"><img class="img-responsive show" id="map" src="images/us-map.png" alt="The map is divided into three distinct areas.	Northern United States which includes Washington, Oregon, Montana, North Dakota, South Dakota, Minnesota, Wisconsin, Michigan, Iowa, Illinois, Indiana, Ohio, Maryland, Pennsylvania, New York, New Jersey, Vermont, Rhode Island, Connecticut, Massachusetts, New Hampshire, and Maine. Central United States which includes Northern California, Idaho, Utah, Wyoming, Nebraska, Kansas, Oklahoma, Arkansas, Missouri, Tennessee, Kentucky, West Virginia, Virginia, Delaware, North Carolina, and South Carolina. Southern United States which includes Southern California, Nevada, Arizona, New Mexico, Colorado, Texas, Louisiana, Mississippi, Alabama, Georgia, and Florida."><a id="state-listing" data-toggle="modal" data-target="#mapModal">View state listings by area.</a></div>
+            </div>
+            <label class="questions" for="gender">What is the patient's gender?</label>
+            <div class="responseOptions">
+              <input type="radio" name="gender" value="Male" required>
+              <label class="radio" tabindex="0"><span></span>Male</label>
+            </div>
+            <div class="responseOptions">
+              <input type="radio" name="gender" value="Female" required>
+              <label class="radio" tabindex="0"><span></span>Female</label>
+            </div>
+          </section>
+          <h2 class="sectionTitle">Skin Characteristics</h2>
+          <section id="skin-section">
+            <label class="questions" for="complexion">Is the patient’s complexion light, medium, or dark?</label>
+            <div class="responseOptions">
+              <input type="radio" name="complexion" value="0" required>
+              <label class="radio" tabindex="0"><span></span>Light</label>
+            </div>
+            <div class="responseOptions">
+              <input type="radio" name="complexion" value="1" required>
+              <label class="radio" tabindex="0"><span></span>Medium</label>
+            </div>
+            <div class="responseOptions">
+              <input type="radio" name="complexion" value="2" required>
+              <label class="radio" tabindex="0"><span></span>Dark</label>
+            </div>
+            <div class="male">
+              <label class="questions" for="sunburn">Has the patient ever gotten a blistering sunburn?</label>
+              <div class="responseOptions">
+                <input type="radio" name="sunburn" value="0">
+                <label class="radio" tabindex="0"><span></span>Yes</label>
+              </div>
+              <div class="responseOptions">
+                <input type="radio" name="sunburn" value="1">
+                <label class="radio" tabindex="0"><span></span>No</label>
+              </div>
+            </div>
+            <div class="female">
+              <label class="questions" for="tan"> 
+                Ask the patient: After repeated and prolonged exposure to sunlight, at the age you are now, 
+                would your skin become very brown and deeply tanned, moderately tanned, lightly tanned, or no tan at all?
+              </label>
+              <div class="responseOptions">
+                <input type="radio" name="tan" value="0" required>
+                <label class="radio" tabindex="0"><span></span>Very brown and deeply tanned</label>
+              </div>
+              <div class="responseOptions">
+                <input type="radio" name="tan" value="1" required>
+                <label class="radio" tabindex="0"><span></span>Moderately tanned</label>
+              </div>
+              <div class="responseOptions">
+                <input type="radio" name="tan" value="2" required>
+                <label class="radio" tabindex="0"><span></span>Lightly tanned</label>
+              </div>
+              <div class="responseOptions">
+                <input type="radio" name="tan" value="3" required>
+                <label class="radio" tabindex="0"><span></span>No tan at all</label>
+              </div>
+            </div>
+          </section>
+          <h2 class="sectionTitle">Physical Exam</h2>
+          <section id="physical-section">
+            <div class="male">
+              <label class="questions">How many moles larger than 5mm in diameter are on the patient's back?</label>
+              <div class="responseOptions">
+                <input type="radio" name="big-moles" value="0">
+                <label class="radio" tabindex="0"><span> </span>Less than two</label>
+              </div>
+              <div class="responseOptions">
+                <input type="radio" name="big-moles" value="1">
+                <label class="radio" tabindex="0"><span></span>Two or more</label>
+              </div>
+            </div>
+            <label class="questions">How many moles less than or equal to 5mm in diameter are on the patient's back?</label>
+            <div class="responseOptions">
+              <input type="radio" name="small-moles" value="0" required>
+              <label class="radio" tabindex="0"><span></span>Less than seven</label>
+            </div>
+            <div class="responseOptions">
+              <input type="radio" name="small-moles" value="1" required>
+              <label class="radio" tabindex="0"><span></span>Seven to sixteen</label>
+            </div>
+            <div class="responseOptions">
+              <input type="radio" name="small-moles" value="2" required>
+              <label class="radio" tabindex="0"><span></span>Seventeen or more</label>
+            </div>
+            <label class="questions" for="freckling">How extensive is the freckling on the patient's back and shoulders?</label>
+            <div class="responseOptions">
+              <select id="freckling" name="freckling" required>
+                <option value="">Select</option>
+                <option value="0">Absent</option>
+                <option value="1">Mild</option>
+                <option value="2">Moderate</option>
+                <option value="3">Severe</option>
+              </select>
+            </div>
+            <div class="male">
+              <label class="questions" for="damage">Does the patient have severe solar damage on the shoulders?</label>
+              <div class="responseOptions">
+                <select id="damage" name="damage">
+                  <option value="">Select</option>
+                  <option value="0">Yes</option>
+                  <option value="1">No</option>
+                </select>
+              </div>
+            </div>
+          </section>
+          <div class="center-block">
+            <div class="col-xs-12 col-sm-3 col-sm-push-5">
+              <button class="btn-sm btn-block" id="reset" type="reset">Reset</button>
+              <button class="btn-sm btn-form btn-block" id="calculate" type="submit">Calculate Risk</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="center-block">
+        <ul class="list-inline">
+          <li><a target="_blank" title="Home" href="http://www.cancer.gov/">Home</a></li>
+          <li>|</li>
+          <li><a target="_top" title="Support" href="mailto:NCIMeansToRiskWebAdmin@mail.nih.gov?subject=Biomarker%20Tools">Support</a></li>
+          <li>|</li>
+          <li><a target="_blank" title="Policies" href="http://www.cancer.gov/global/web/policies">Policies</a></li>
+          <li>|</li>
+          <li><a target="_blank" title="Accessibility" href="http://www.cancer.gov/global/web/policies/accessibility">Accessibility</a></li>
+          <li>|</li>
+          <li><a target="_blank" title="Viewing Files" href="http://cancer.gov/global/viewing-files">Viewing Files</a></li>
+          <li>|</li>
+          <li><a target="_blank" title="FOIA" href="http://www.cancer.gov/global/web/policies/foia">FOIA</a></li>
+        </ul>
+        <ul class="list-inline">
+          <li><a target="_blank" href="http://www.hhs.gov/">U.S. Department of Health and Human Services</a></li>
+          <li>|</li>
+          <li><a target="_blank" href="http://www.nih.gov">National Institutes of Health</a></li>
+          <li>|</li>
+          <li><a target="_blank" href="http://www.cancer.gov/">National Cancer Institute</a></li>
+          <li>|</li>
+          <li><a target="_blank" href="http://usa.gov">USA.gov</a></li>
+        </ul>
+        <div class="text-center"><span>NIH ... Turning Discovery Into Health</span><sup>®</sup></div>
+      </div>
+    </div>
+    <div class="modal error-dialog fade" id="raceModal" tabindex="-1" role="dialog" data-backdrop="false">
+      <div class="modal-dialog" role="document">
+        <div class="modal-header">
+          <button class="close" type="button" data-dismiss="modal" aria-label="close modal">×</button>
+        </div>
+        <div class="modal-content">
+          <div class="modal-body"><img src="images/symbols-warning.png" alt="warning icon">
+            <p>This tool can only accurately calculate melanoma risk for patients who are non-Hispanic whites.</p>
+            <button class="btn btn-primary" type="button" data-dismiss="modal">Ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal demo-dialog fade" id="mapModal" tabindex="-1" role="dialog" data-backdrop="false">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button class="close" type="button" data-dismiss="modal" aria-label="close modal">×</button>
+          </div>
+          <div class="modal-body">
+            <p>The map is divided into three distinct areas:</p>
+            <p><b>Northern United States: </b>
+              Washington, Oregon, Montana, North Dakota, South Dakota, Minnesota, Wisconsin, Michigan, Iowa, Illinois, Indiana, Ohio,
+              Maryland, Pennsylvania, New York, New Jersey, Vermont, Rhode Island, Connecticut, Massachusetts, New Hampshire, and Maine.
+            </p>
+            <p><b>Central United States: </b>
+              Northern California, Idaho, Utah, Wyoming, Nebraska, Kansas, Oklahoma, Arkansas, Missouri, Tennessee, Kentucky, 
+              West Virginia, Virginia, Delaware, North Carolina, and South Carolina.
+            </p>
+            <p><b>Southern United States: </b>Southern California, Nevada, Arizona, New Mexico, Colorado, Texas, Louisiana, Mississippi, Alabama, Georgia, and Florida.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

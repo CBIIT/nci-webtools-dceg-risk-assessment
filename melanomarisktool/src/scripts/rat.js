@@ -1,6 +1,6 @@
 var validationMessages = {
 	region: {
-		required: "The state in which the patient resides must be selected."
+		required: "The region in which the patient resides must be selected."
 	},
 	gender: {
 		required: "The patient's gender must be selected."
@@ -50,7 +50,7 @@ var validationRules = {
 	sunburn: {
 		required: {
 			depends: function(el) {
-				return $(el).val().length == 0 && $('[name="gender"]').val() == "Male";
+				return  $('[name="gender"]').val() == "Male";
 			}
 		}
 	},
@@ -60,7 +60,7 @@ var validationRules = {
 	"big-moles": {
 		required: {
 			depends: function(el) {
-				return $(el).val().length == 0 && $('[name="gender"]').val() == "Male";
+				return $('[name="gender"]').val() == "Male";
 			}
 		}
 	},
@@ -70,7 +70,7 @@ var validationRules = {
 	tan: {
 		required: {
 			depends: function(el) {
-				return $(el).val().length == 0 && $('[name="gender"]').val() == "Female";
+				return $('[name="gender"]').val() == "Female";
 			}
 		}
 	},
@@ -80,7 +80,7 @@ var validationRules = {
 	damage: {
 		required: {
 			depends: function(el) {
-				return $(el).val().length == 0 && $('[name="gender"]').val() == "Male";
+				return $('[name="gender"]').val() == "Male";
 			}
 		}
 	}
@@ -137,7 +137,7 @@ function formScrollSpy() {
 
 function fixedToTop() {
 	var window_top = $(window).scrollTop();
-	var div_top = $(document.forms.riskForm).offset().top;
+	var div_top = $("#main-nav").offset().top;
 
 	if ( window_top > div_top )
 		$("#form-steps").addClass('fixed');
@@ -148,9 +148,9 @@ function fixedToTop() {
 function toggleFormDisplay(e) {
 	e.preventDefault();
  
- 	if (e.type == "keypress") {
- 		$(e.target).trigger('click');
- 	}
+	if (e.type == "keypress") {
+		$(e.target).trigger('click');
+	}
  	else {
 		$("#riskForm, #summary, #form-steps").toggleClass(function() {
 			if($(this).hasClass('show')) {
@@ -182,8 +182,8 @@ function toggleGender(e) {
 			break;
 		case "Female":
 			$.each($(".male").find("input, select"), function(index, el) {
-			$(el).rules("remove", "required");
-			if($("[name='" + el.name + "']").val().length > 0)
+				$(el).rules("remove", "required");
+				if($("[name='" + el.name + "']").val().length > 0)
 					$("[name='" + el.name + "']").val("");
 			});
 
@@ -195,7 +195,6 @@ function toggleGender(e) {
 			$(".female").addClass('show');
 			break;
 		default:
-			$(".male, .female").removeClass('show').find("input, select").removeAttr("required");
 			$.each($(".male, .female").find("input, select"), function(index, el) {
 				$(el).rules("remove", "required");
 			});
@@ -273,17 +272,44 @@ $(window).load(function(e) {
 			$('button[data-toggle="collapse"]').trigger("click");
 	});
 
-	$('.mapDetails').on('click keypress', function(e) {
-		if(e.type == "keypress") {
-			if ((e.keyCode == 13) || (e.keyCode == 32))
-				$(e.target).trigger('click');
-		}
-		else
-			$("#map, #listings").toggleClass('show');
-	});
+	// $('.mapDetails').on('click keypress', function(e) {
+	// 	if(e.type == "keypress") {
+	// 		if ((e.keyCode == 13) || (e.keyCode == 32))
+	// 			$(e.target).trigger('click');
+	// 	}
+	// 	else
+	// 		$("#map, #listings").toggleClass('show');
+	// });
 });
 
+function currentPage() {
+	 var path = window.location.pathname;
+	 var filename = path.substring(path.lastIndexOf('/')+1);
+	 if(filename.indexOf('index') == -1)
+	 	$("nav li a[href='" + filename + "']").parent().addClass('active');
+
+}
+function smoothScroll(e) {
+	if (e.type == "keypress") {
+		if ((e.keyCode == 13) || (e.keyCode == 32))
+			$(e.target).trigger('click');
+	}
+ 	if(location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+		var target = $(this.hash);
+		target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+		if (target.length) {
+			$('html, body').animate({
+	    		scrollTop: (target.offset().top - target[0].scrollHeight)
+	    	}, 1000);
+	    	return false;
+	    }
+	}
+}
+
 $(function() {
+	currentPage();
+	// smooth scrolling to element on page
+	$('a[href*="#"]:not([href="#"])').on("click keypress", smoothScroll);
 
 
 	$("#riskForm").validate({
@@ -291,7 +317,6 @@ $(function() {
 		messages: validationMessages,
 		ignore: ".skipValidate",
 		errorLabelContainer: '#errors',
-		errorContainer: "#errors",
 		wrapper: 'p',
 		submitHandler: processSubmission,
 		invalidHandler: invalidForm,

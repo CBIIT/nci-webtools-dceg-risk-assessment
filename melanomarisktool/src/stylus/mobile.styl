@@ -31,32 +31,44 @@
 			position inherit
 		ol
 			padding 0
+			span.spacer
+				margin 0
 			li
 				margin 0.5em 0.1em
-				a
-					font-size 0.7em
-					&:after
-						padding 0.6em
-						width 35px
+				a:first-child
+					display none
 	#errors
 		font-size 0.8em
 		margin 1em 0
 	section
 		padding 1em
-		font-size 1.2em
 	.tab-pane
 		padding 0 1em
 	#main
-		margin 0
+		margin 0 0 1.5em 0
+		padding 0
+		.container
+			padding inherit
 	.questions,.responseOptions
-		line-height 2
-	select
+		line-height 1.5
+	select, input[type="radio"] + label.radio
 		width 100%
 	.box
 		margin 1em auto
+	.btn-block
+		margin 0 auto
 	.footer
-		line-height 2
-		ul li
-			display block
-			&:nth-child(even)
-				display none
+		line-height initial
+		
+		ul
+			margin 1em 0 1em 2em
+			li
+				display block
+				text-align left
+				max-width 60%
+				margin 0.3em 0
+				&:nth-child(even)
+					display none
+					margin 0
+					padding 0
+					max-width 0

@@ -3,15 +3,13 @@ header
 	a(href="http://cancer.gov", target="_blank")
 		img#logo(src="/common/images/nci-logo-full.svg", alt="go to cancer.gov")
 	#toolTitle
-		| Melanoma Risk Assessment Tool
+		a(href="index.html") Melanoma Risk Assessment Tool
 		button.navbar-toggle.collapsed(type='button', aria-controls='main-nav', aria-expanded='false', data-target='#main-nav', data-toggle='collapse')
 			span.sr-only Toggle navigation
 			.glyphicon.glyphicon-menu-hamburger
 	nav#main-nav.navbar-collapse.collapse(aria-expanded="false")
-		ul.nav.nav-tabs(role="tablist")
+		ul.nav.nav-tabs
 			li(role="presentation")
-				a(href="#tool", role="tab", data-toggle="tab", aria-controls="tool") Risk Calculator
-			li.active(role="presentation")
-				a(href="#about", role="tab", data-toggle="tab", aria-controls="about") About the Model &amp; Source Code
+				a(href="calculator.html") Risk Calculator
 			li(role="presentation")
-				a(href="#contact", role="tab", data-toggle="tab", aria-controls="contact") Contact Us
+				a(href="about.html") About the Model &amp; Source Code

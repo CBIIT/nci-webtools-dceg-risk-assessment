@@ -1,22 +1,42 @@
-#about.tab-pane.active(role="tabpanel")
-	h1 About the Model and Source Code
-	p The Melanoma Risk Assessment Tool is based on a statistical model. The model uses patients’ self-reported history and results 
-		| from a brief physical exam by a health care professional. Data from a case-control study involved 1663 non-Hispanic 
-		| white patients from clinics in Philadelphia, PA, and San Francisco, CA, were used in developing the model. This model has not
-		| been tested in large populations. In other words, the model has not been “validated” for all non-Hispanic whites. Researchers 
-		| are conducting additional studies and welcome partnerships to validate this tool.
-	h2 Download the Source Code
-	p The Melanoma Risk Assessment Tool may be updated periodically as new data or research becomes available. 
-		| The system is currently on statistical model version 1 and software version 2.0.
-	p The source code and documentation can be accessed via the 
-		a(href="https://github.com/CBIIT/nci-webtools-dceg-risk-assessment", target="_blank") GitHub Repository
-		| . By downloading, you accept our 
-		a(href="") Terms & Conditions
-		| .
-	h3 References
-	ol
-		li
-			| Fears TR, Guerry D IV, Pfeiffer RM, et al: Identifying Individuals at High Risk of Melanoma: A Practical Predictor of Absolute Risk. 
-			| J Clin Oncol 24(22): pp-pp, 2006.  [
-			a(href="http://www.ncbi.nlm.nih.gov/pubmed/16728488", target="_blank") PubMed Abstract
-			| ]
+doctype html
+html(lang="en")
+	head
+		title Melanoma Risk Assessment Tool (MRAT) - About the Model and Source Code
+		meta(http-equiv="X-UA-Compatible", content="IE=edge")
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+		link(href='https://fonts.googleapis.com/css?family=Noto+Sans', rel='stylesheet', type='text/css')
+		link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+		link(href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css", rel="stylesheet", type="text/css")
+		link(href="/common/css/style.css", rel="stylesheet", type="text/css")
+		link(href="styles.css", rel="stylesheet", type="text/css")
+		script(src='https://code.jquery.com/jquery-2.1.4.min.js', type='application/javascript')
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js", type="application/javascript")
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods.js", type="application/javascript")
+		script(type='text/javascript', src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+		script(src='rat.js', type='text/javascript')
+	body
+		include shared/header
+		#main
+			.container-fluid
+				h1 About the Model and Source Code
+				p The Melanoma Risk Assessment Tool is based on a statistical model. The model uses patients’ self-reported history and results 
+					| from a brief physical exam by a health care professional. Data from a case-control study involved 1663 non-Hispanic 
+					| white patients from clinics in Philadelphia, PA, and San Francisco, CA, were used in developing the model. This model has not
+					| been tested in large populations. In other words, the model has not been “validated” for all non-Hispanic whites. Researchers 
+					| are conducting additional studies and welcome partnerships to validate this tool.
+				h2 Download the Source Code
+				p The Melanoma Risk Assessment Tool may be updated periodically as new data or research becomes available. 
+					| The system is currently on statistical model version 1 and software version 2.0.
+				p The source code and documentation can be accessed via the 
+					a(href="https://github.com/CBIIT/nci-webtools-dceg-risk-assessment", target="_blank") GitHub Repository
+					| . By downloading, you accept our 
+					a(href="") Terms & Conditions
+					| .
+				h3 References
+				ol
+					li
+						| Fears TR, Guerry D IV, Pfeiffer RM, et al: Identifying Individuals at High Risk of Melanoma: A Practical Predictor of Absolute Risk. 
+						| J Clin Oncol 24(22): pp-pp, 2006.  [
+						a(href="http://www.ncbi.nlm.nih.gov/pubmed/16728488", target="_blank") PubMed Abstract
+						| ]
+		include shared/footer

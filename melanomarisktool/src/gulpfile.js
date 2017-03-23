@@ -23,7 +23,7 @@ gulp.task('build', [ 'compile:pug', 'compile:stylus','copy:js' ], function(){
 });
 
 gulp.task('compile:pug', function () {
-    return gulp.src(['pug/index.pug'])
+    return gulp.src(['pug/*.pug',])
     .pipe(
         load.pug({
             pretty: true,

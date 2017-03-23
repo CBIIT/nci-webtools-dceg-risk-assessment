@@ -15,21 +15,39 @@ teal_14 = #14819B
 green_DB = #DBF2F8
 green_2D = #4D4D4D
 green_33 = #339FBD
+light_teal = #339FBE
 
 html
 	background blue_23
 
 body
 	font-family "Noto Sans", "Montserrat"
-	font-size 13pt
+	font-size 16pt
 	min-width 375px
 	background #fff
 	
-h1, h2, h3, h4, h5, h6, h7, .sectionTitle
+h1, h2, h3, h4, h5, h6, h7
 	color grey_60
 	font-weight bold
 	margin 0.5em auto
 	
+p
+	margin 0
+	margin-bottom 1em
+	
+.sectionTitle
+	color white
+	padding 20px
+	margin-bottom 0
+	
+.sectionTitle
+	&:first-child
+		background light_teal
+	&:nth-child(3)
+		background #6150A3
+	&:nth-child(5)
+		background #2D73A5
+		
 header, .tab-content, .footer
 	display block
 	
@@ -37,6 +55,7 @@ section
 	border 1px solid grey_D3
 	padding 2em
 	margin 1em 0
+	margin-top 0
 	
 header
 	margin 0 auto
@@ -46,6 +65,8 @@ header
 		font-weight bold
 		padding 0.5em 0 
 		padding-left 5em
+		a
+			color inherit
 		.navbar-toggle
 			margin-top -0.3em
 			margin-bottom 0
@@ -82,9 +103,9 @@ nav#main-nav
 
 .nav-tabs
 	border none
-button
+button, a.btn
 	font-weight bold
-	font-size 0.8em
+	max-width 250px
 	&.btn-sm
 		font-size 0.8em
 	&:disabled
@@ -101,22 +122,20 @@ button
 			background-color #238769
 			color #d9d9d9
 	
-#summary, #riskForm, #results, #errors, #form-steps, #map, #listings, .male, .female
+#results, #errors, #map, #listings, .male, .female
 	&:not(.show)
 		display none
 #main
-	margin-top 3em
+	margin-top 2em
 	margin-bottom 6em
-.tab-pane
+	padding-left 5em
 	line-height 1.5
-	padding 0 5em
-	margin-bottom 100px
 	ul li
 		line-height 2
 .box
+	max-width 600px
 	background-color green_DB
 	padding 1.5em
-	margin 0 0 1em 0.5em
 #results
 	font-size 1.2em
 	text-align center
@@ -126,8 +145,10 @@ button
 	padding 1em
 #form-steps
 	background-color #FFF
+	padding 10px 0
 	&.fixed
 		position fixed
+		box-shadow 0 0 20px grey
 		z-index 1
 		width 100%
 		top 0
@@ -137,37 +158,65 @@ button
 		text-align center
 		font-weight bold
 		margin 0
+		
+		/* style rules for the form "checkpoints" bar */
+		span.spacer
+			margin 0 -50px
+			min-width 10%
+			display inline-block
+			color grey_86
+			font-weight bold
+			vertical-align middle
+			letter-spacing 5px
 		li
 			display inline-block
-			counter-increment item
-			margin 0em 2em
 			color grey_86
-			&.active
-				color purple_61
-				a
-					color inherit
-					&:after
-						background purple_61
-						color #FFF
 			a
+				display block
 				color inherit
-				&:after
-					display block
-					margin 0 auto
-					padding 10px
-					content counter(item)
-					background grey_86
-					border-radius 100%
-					color #FFF
-					width 45px
+				&:nth-child(2)
+					border-radius 25px
+					width 35px
+					height 35px
 					text-align center
+					margin 0 auto
+					padding 0
+			&.active
+				font-size 1.1em
+				&:first-child
+					a
+						&:first-child
+							color light_teal
+						&:nth-child(2)
+							color #fff
+							background light_teal
+				&:nth-child(3)
+					a
+						&:first-child
+							color #6150A3
+						&:nth-child(2)
+							color #fff
+							background #6150A3
+				&:nth-child(5)
+					a
+						&:first-child
+							color #2D73A5
+						&:nth-child(2)
+							color #fff
+							background #2D73A5
+
 .no-margin
 	margin 0
 .no-padding
 	padding 0
-.questions, .responseOptions
+	
+label.questions
+	font-weight bold
+	
+.responseOptions
 	font-weight normal
 	line-height 3
+	margin-left 1em
 	label
 		font-weight inherit
 .responseOptions input[type="radio"]
@@ -192,6 +241,7 @@ input[type="radio"]
 	+ label.radio
 		color #000
 		font-weight normal
+		width 50%
 		span
 			display inline-block
 			width 1.5em
@@ -216,8 +266,6 @@ input[type="radio"]
 		// 		background blue_2B
 		// 		border-style double
 	&:checked + label.radio
-		&:hover span
-			opacity 0.5
 		span
 			border-style double
 			background blue_2B
@@ -236,7 +284,7 @@ select, input
 					background none
 					border 3px solid blue_2B
 					opacity 0.5
-				&:hover, &:focus
+				&:focus
 					span
 						background none
 						border 3px solid blue_2B
@@ -252,6 +300,8 @@ select, input
 .footer
 	background-color blue_23
 	line-height 4
+	a
+		font-weight bold
 	*, ul li a
 		color #FFF
 
