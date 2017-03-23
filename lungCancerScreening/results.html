@@ -110,17 +110,15 @@
             <table class="results_table">
                 <tbody>
                     <tr>
-                        <th class="results_title"><span ng-show="chart1">IF YOU DO NOT GET CT LUNG SCREENING</span></th>
-                        <th class="results_title"><span ng-show="chart2">IF YOU DO GET CT LUNG SCREENING</span></th>
+                        <th class="results_title">IF YOU DO NOT GET CT LUNG SCREENING</th>
+                        <th class="results_title">IF YOU DO GET CT LUNG SCREENING</th>
                     </tr>
                     <tr>
                         <td class="results_desc" valign="top">
-                            <p class="description line1"><b>If you do not get CT lung screening</b>,
-                                <u>your chance of dying</u> from lung cancer within 5 years is {{getResult("result0", 1)/10}}%.</p>
+                            <p class="description line1">Your chance of dying from lung cancer within 5 years is {{getResult("result0", 1)/10}}%.</p>
                         </td>
                         <td class="results_desc" valign="top">
-                            <p class="description line1"><b>If you receive yearly CT lung screening</b>, your
-                                <u>chances of dying</u> from lung cancer within 5 years is {{(session.myForm.result0-session.myForm.result1)/10}}%.</p>
+                            <p class="description line1">Your chances of dying from lung cancer within 5 years is {{(session.myForm.result0-session.myForm.result1)/10}}%.</p>
                         </td>
                     </tr>
                     <tr>
@@ -156,18 +154,17 @@
                     </tr>
                     <tr>
                         <td class="results_legend" valign="top">
-                            <p class="ng-binding">This means that if 1000 people answered these questions just like you did, {{session.myForm.result0}}
+                            <p class="ng-binding">This means that if 1000 people answer the questions just like you, {{session.myForm.result0}}
                                 of them would die from lung cancer in the next 5 years if they did not receive CT lung screening.</p>
                             <!--<p ng-show="chart1 && !next2"><button ng-click="chart2=true; next2=true">Next</button></p>-->
                         </td>
                         <td class="results_legend" valign="top">
-                            <p class="ng-binding">This means that if 1000 people answered the questions the same way as you, {{session.myForm.result0-session.myForm.result1}}
+                            <p class="ng-binding">This means that if 1000 people answer the questions just like you, {{session.myForm.result0-session.myForm.result1}}
                                 instead of {{session.myForm.result0}} {{getPeopleOrPerson(session.myForm.result0)}} are likely
                                 to die from lung cancer because of CT screening: a
                                 <u>decrease</u> of {{getResult("result1", 1)}} out of 1000 people. </p>
-                            <p class="ng-binding"><b>In other words, if you receive yearly CT lung screening</b>, your
-                                <u>chances of dying</u> from lung cancer within 5 years will be
-                                <u>reduced</u> by {{getResult("result1", 1) / 10}} percentage points.</p>
+                            <p class="ng-binding">Your chances of dying from lung cancer within 5 years will be
+                                <u>reduced</u> by {{getResult("result1", 1) / 10}}%.</p>
 
                             <p ng-show="export === false"><button ng-click="chart_row2=true; chart_row1=false">Next</button></p>
                         </td>
@@ -190,8 +187,12 @@
                 <tbody>
                     <tr>
                         <th class="results_title"></th>
-                        <th class="results_title">
-                            <p><b>If you receive yearly CT lung screening for 3 years</b>, your chances of receiving at least
+                        <th class="results_title">IF YOU DO GET CT LUNG SCREENING</th>
+                    </tr>
+                    <tr>
+                        <th class="results_desc"></th>
+                        <th class="results_desc" valign="top">
+                            <p class="description line1">If you receive yearly CT lung screening for 3 years, your chances of receiving at least
                                 one "false alarm" (a false positive result) are {{session.myForm.result4}} out of 1000 people.</p>
                         </th>
                     </tr>
@@ -220,7 +221,7 @@
                         <td class="results_legend" valign="top">
                         </td>
                         <td class="results_legend" valign="top">
-                            <p class="ng-binding">This means that if 1000 people answered the questions the same as you, {{session.myForm.result4}}
+                            <p class="ng-binding">This means that if 1000 people answer the questions just like you, {{session.myForm.result4}}
                                 {{getPeopleOrPerson(session.myForm.result4)}} would receive a false alarm in the next 3 years
                                 if they received yearly CT lung screening.</p>
                             <p ng-show="export === false"> <button ng-click="chart_row1=true; summary=false; chart_row2=false">Back</button> <button ng-click="chart_row3=true; summary=true; chart_row2=false">Next</button></p>
@@ -249,13 +250,11 @@
                     </tr>
                     <tr>
                         <td class="results_desc" valign="top">
-                            <p class="description line1"><b>If you do not get CT lung screening</b>, your
-                                <u>chances of lung cancer diagnosis</u> within 5 years is {{getResult("result2", 1)/10}}%.
+                            <p class="description line1">Your chances of lung cancer diagnosis within 5 years is {{getResult("result2", 1)/10}}%.
                             </p>
                         </td>
                         <td class="results_desc" valign="top">
-                            <p class="description line1"><b>If you receive CT lung screening</b>, your
-                                <u>chances of being diagnosed</u> with lung cancer within 5 years is {{(session.myForm.result3+session.myForm.result2)/10}}%.
+                            <p class="description line1">Your chances of being diagnosed with lung cancer within 5 years is {{(session.myForm.result3+session.myForm.result2)/10}}%.
                         </td>
                     </tr>
                     <tr>
@@ -291,19 +290,18 @@
                     </tr>
                     <tr>
                         <td class="results_legend" valign="top">
-                            <p class="ng-binding">This means that if 1000 people answered questions just like you, {{session.myForm.result2}} {{getPeopleOrPerson(session.myForm.result2)}}
+                            <p class="ng-binding">This means that if 1000 people answer the questions just like you, {{session.myForm.result2}} {{getPeopleOrPerson(session.myForm.result2)}}
                                 would be diagnosed with lung cancer in the next 5 years if they did not receive CT lung screening.</p>
 
                         </td>
                         <td class="results_legend" valign="top">
-                            <p class="ng-binding">This means that if 1000 people answer the questions the same way as you, {{session.myForm.result3}}
+                            <p class="ng-binding">This means that if 1000 people answer the questions just like you, {{session.myForm.result3}}
                                 more {{getPeopleOrPerson(session.myForm.result3)}} would be diagnosed with lung cancer within
                                 5 years if they receive annual CT lung screening: an
                                 <u>increase</u> of {{session.myForm.result3}} out of 1000 people.</p>
 
-                                <p class="ng-binding"><b>In other words, if you receive yearly CT lung screening</b>, your
-                                    <u>chances of being diagnosed</u> with lung cancer withing 5 years will be
-                                    <u>increased</u> by {{session.myForm.result3/10 }} percentage points.</p>
+                                <p class="ng-binding">Your chances of being diagnosed with lung cancer within 5 years will be
+                                    <u>increased</u> by {{session.myForm.result3/10 }}%.</p>
                                 <p ng-show="export === false"><button ng-click="chart_row2=true; chart_row3=false; summary=false">Back</button></p>
                         </td>
                     </tr>
