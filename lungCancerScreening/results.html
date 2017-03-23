@@ -162,9 +162,9 @@
                             <p class="ng-binding">This means that if 1000 people answer the questions just like you, {{session.myForm.result0-session.myForm.result1}}
                                 instead of {{session.myForm.result0}} {{getPeopleOrPerson(session.myForm.result0)}} are likely
                                 to die from lung cancer because of CT screening: a
-                                <u>decrease</u> of {{getResult("result1", 1)}} out of 1000 people. </p>
+                                decrease of {{getResult("result1", 1)}} out of 1000 people. </p>
                             <p class="ng-binding">Your chances of dying from lung cancer within 5 years will be
-                                <u>reduced</u> by {{getResult("result1", 1) / 10}}%.</p>
+                                reduced by {{getResult("result1", 1) / 10}}%.</p>
 
                             <p ng-show="export === false"><button ng-click="chart_row2=true; chart_row1=false">Next</button></p>
                         </td>
@@ -298,10 +298,10 @@
                             <p class="ng-binding">This means that if 1000 people answer the questions just like you, {{session.myForm.result3}}
                                 more {{getPeopleOrPerson(session.myForm.result3)}} would be diagnosed with lung cancer within
                                 5 years if they receive annual CT lung screening: an
-                                <u>increase</u> of {{session.myForm.result3}} out of 1000 people.</p>
+                                increase of {{session.myForm.result3}} out of 1000 people.</p>
 
                                 <p class="ng-binding">Your chances of being diagnosed with lung cancer within 5 years will be
-                                    <u>increased</u> by {{session.myForm.result3/10 }}%.</p>
+                                    increased by {{session.myForm.result3/10 }}%.</p>
                                 <p ng-show="export === false"><button ng-click="chart_row2=true; chart_row3=false; summary=false">Back</button></p>
                         </td>
                     </tr>
