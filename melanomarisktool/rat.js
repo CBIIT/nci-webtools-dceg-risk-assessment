@@ -127,7 +127,6 @@ function formScrollSpy() {
 
 	$.each($("#riskForm section"), function(ind, el) {
 		var div_top = $(el).offset().top - $(el)[0].scrollHeight;
-
 		if ( window_top > div_top ) {
 			$("#form-steps li").removeClass('active');
 			$("#form-steps li:eq(" + ind + ")").addClass('active');
@@ -135,15 +134,21 @@ function formScrollSpy() {
 	});
 }
 
+
+
 function fixedToTop() {
 	var window_top = $(window).scrollTop();
 	var div_top = $("#main-nav").offset().top;
 
-	if ( window_top > div_top )
+	if ( window_top > div_top ){
+		console.log("fixing_desktop")
 		$("#form-steps").addClass('fixed');
+	}
 	else
 		$("#form-steps").removeClass('fixed');
 }
+
+
 
 function toggleFormDisplay(e) {
 	e.preventDefault();
@@ -202,12 +207,21 @@ function toggleGender(e) {
 	}
 }
 
-$(window).scroll(function(e) {
-	// e.preventDefault();
-	fixedToTop();
-	formScrollSpy();
-});
+if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+	$(window).scroll(function(e) {
+		// e.preventDefault();
+		fixedToTop();
+		formScrollSpy();
+	});
 
+}
+else if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+	$(window).on('touchmove', function(event) {
+		formScrollSpy();
+
+	});
+
+}
 $(window).load(function(e) {
 	$("[type='reset']").on('click keypress', function(e) {
 		if(e.type == "keypress") {
@@ -280,6 +294,19 @@ $(window).load(function(e) {
 	// 	else
 	// 		$("#map, #listings").toggleClass('show');
 	// });
+	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+ 		console.log("mobile");
+ 		 $("header").addClass('fixed');
+ 		 $("#form-steps").addClass('fixed');
+ 		 var header_height=$('header').outerHeight();
+ 		 console.log(header_height);
+ 		 var form_steps_height=$('#form-steps').height();
+ 		 $("#main").css("margin-top",header_height+form_steps_height+10+"px"); 
+ 		 $("#form-steps").css("margin-top",header_height+"px");
+ 		 $("header").css("background","white"); 
+ 		 $("#main").removeClass("container-fluid");
+
+	}
 });
 
 function currentPage() {

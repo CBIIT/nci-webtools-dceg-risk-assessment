@@ -46,8 +46,7 @@ html {
 }
 body {
   font-family: "Noto Sans", "Montserrat";
-  font-size: 16pt;
-  min-width: 375px;
+  font-size: 12pt;
   background: #fff;
 }
 h1,
@@ -212,6 +211,8 @@ a.btn.btn-form:disabled {
 #form-steps {
   background-color: #fff;
   padding: 10px 0;
+  -webkit-box-shadow: 0 0 20px #808080;
+  box-shadow: 0 0 20px #808080;
 }
 #form-steps.fixed {
   position: fixed;
@@ -466,13 +467,20 @@ input.error + label.radio span {
   margin: 0 auto;
   text-transform: uppercase;
 }
-@media (max-width: 770px) {
+@media (max-width: 768px) {
   header img#logo {
     padding: 1em 0 1em 1em;
     width: 100%;
   }
   header #toolTitle {
     padding-left: 1em;
+  }
+  header.fixed {
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    top: 0;
+    left: 0;
   }
   nav#main-nav {
     background: #fff;
@@ -501,7 +509,10 @@ input.error + label.radio span {
     border: none;
   }
   #form-steps.fixed {
-    position: inherit;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    left: 0;
   }
   #form-steps ol {
     padding: 0;

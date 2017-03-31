@@ -1,4 +1,4 @@
-@media (max-width 770px)
+@media (max-width 768px)
 	header 
 		img
 			&#logo
@@ -6,6 +6,12 @@
 				width 100%
 		#toolTitle
 			padding-left 1em
+		&.fixed
+			position fixed
+			z-index 1
+			width 100%
+			top 0
+			left 0
 	nav#main-nav
 		background #fff
 		padding 0
@@ -28,7 +34,10 @@
 							border none
 	#form-steps
 		&.fixed
-			position inherit
+			position fixed
+			z-index 1
+			width 100%
+			left 0
 		ol
 			padding 0
 			span.spacer

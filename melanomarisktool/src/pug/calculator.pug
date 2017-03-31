@@ -16,8 +16,20 @@ html(lang="en")
 		script(src='rat.js', type='text/javascript')
 	body
 		include shared/header
-		#main
-			.container
+		#form-steps
+					ol
+						li.active 
+							a.hidden-xs.hidden-sm(href="#demo-section") Demographics
+							a(href="#demo-section") 1
+						span.spacer ------
+						li 
+							a.hidden-xs.hidden-sm(href="#skin-section") Skin Characteristics
+							a(href="#skin-section") 2
+						span.spacer ------
+						li 
+							a.hidden-xs.hidden-sm(href="#physical-section") Physical Exam
+							a(href="#physical-section") 3
+		#main.container-fluid
 				#errors
 				//- #form-steps
 				//- 	ol
@@ -27,19 +39,7 @@ html(lang="en")
 				//- 			a(href="#skin-section") Skin Characteristics
 				//- 		li 
 				//- 			a(href="#physical-section") Physical Exam
-				#form-steps
-					ol
-						li.active 
-							a(href="#demo-section") Demographics
-							a(href="#demo-section") 1
-						span.spacer -----------------
-						li 
-							a(href="#skin-section") Skin Characteristics
-							a(href="#skin-section") 2
-						span.spacer -----------------
-						li 
-							a(href="#physical-section") Physical Exam
-							a(href="#physical-section") 3
+				
 				#results
 				form#riskForm(name="riskForm", method="POST", action="/melanomarisktool/rest/calculate/", autocomplete="off")
 
@@ -210,7 +210,7 @@ html(lang="en")
 					button.close(type='button', data-dismiss='modal', aria-label="close modal") ×
 				.modal-content
 					.modal-body
-						img(src="images/symbols-warning.png", alt="warning icon")
+						img(src="images/stop.png", alt="stop icon")
 						p This tool can only accurately calculate melanoma risk for patients who are non-Hispanic whites.
 						button.btn.btn-primary(type='button', data-dismiss='modal') Ok
 		#mapModal.modal.demo-dialog.fade(tabindex='-1', role='dialog', data-backdrop="false")
