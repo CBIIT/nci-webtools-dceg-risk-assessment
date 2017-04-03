@@ -200,9 +200,10 @@ html(lang="en")
 									option(value='0') Yes
 									option(value='1') No
 					.center-block
-						.col-xs-12.col-sm-3.col-sm-push-5
-							button.btn-sm.btn-block#reset(type="reset") Reset
-							button.btn-sm.btn-form.btn-block#calculate(type="submit") Calculate Risk
+						#buttons
+							.col-xs-12.col-sm-3.col-sm-push-5
+								button.btn-sm.btn-block#reset(type="reset") Reset
+								button.btn-sm.btn-form.btn-block#calculate(type="submit") Calculate Risk
 		include shared/footer
 		#raceModal.modal.error-dialog.fade(tabindex='-1', role='dialog', data-backdrop="false")
 			.modal-dialog(role='document')

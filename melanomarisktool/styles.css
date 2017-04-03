@@ -107,12 +107,10 @@ header #toolTitle .navbar-toggle {
   margin-bottom: 0;
   padding: 0.3em 0.2em;
 }
-header #toolTitle .navbar-toggle:hover .glyphicon,
-header #toolTitle .navbar-toggle:focus .glyphicon {
-  color: #fafafa;
-  text-shadow: 5px 2px 2px #000;
+#side_nav {
+  display: none;
 }
-header img#logo {
+#side_nav img#logo {
   max-width: 600px;
   padding: 1em 0 1em 5em;
 }
@@ -189,7 +187,8 @@ a.btn.btn-form:disabled {
 #main {
   margin-top: 2em;
   margin-bottom: 6em;
-  padding-left: 5em;
+  padding-left: 25%;
+  padding-right: 25%;
   line-height: 1.5;
 }
 #main ul li {
@@ -477,7 +476,7 @@ input.error + label.radio span {
   }
   header.fixed {
     position: fixed;
-    z-index: 1;
+    z-index: 100;
     width: 100%;
     top: 0;
     left: 0;
@@ -510,9 +509,10 @@ input.error + label.radio span {
   }
   #form-steps.fixed {
     position: fixed;
-    z-index: 1;
+    z-index: 0;
     width: 100%;
     left: 0;
+    margin-bottom: 10px;
   }
   #form-steps ol {
     padding: 0;
@@ -574,5 +574,43 @@ input.error + label.radio span {
     margin: 0;
     padding: 0;
     max-width: 0;
+  }
+  #side_nav.sidenav {
+    width: 0;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    background-color: #f3f3f2;
+    overflow-x: hidden;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -o-transition: 0.5s;
+    -ms-transition: 0.5s;
+    transition: 0.5s;
+    display: inline;
+    -webkit-box-shadow: -15px 0px 15px -15px rgba(0,0,0,0.6) inset;
+    box-shadow: -15px 0px 15px -15px rgba(0,0,0,0.6) inset;
+    text-transform: uppercase;
+  }
+  #side_nav.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #818181;
+    display: block;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    -ms-transition: 0.3s;
+    transition: 0.3s;
+    white-space: nowrap;
+  }
+  #side_nav.sidenav a.active a {
+    color: #fff;
+    background-color: #bb0e3d;
+  }
+  #buttons {
+    display: -webkit-box;
   }
 }

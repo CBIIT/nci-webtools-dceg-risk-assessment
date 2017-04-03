@@ -223,6 +223,8 @@ else if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(na
 
 }
 $(window).load(function(e) {
+	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+		$("#About").find("a").text("About the Model")
 	$("[type='reset']").on('click keypress', function(e) {
 		if(e.type == "keypress") {
 			if ((e.keyCode == 13) || (e.keyCode == 32)){
@@ -298,13 +300,22 @@ $(window).load(function(e) {
  		console.log("mobile");
  		 $("header").addClass('fixed');
  		 $("#form-steps").addClass('fixed');
+ 		 if($("#side_nav").width()>0)
+ 		 	$("#form-steps").css("z-index","999")
+ 		 else{
+ 		 	$("#form-steps").css("z-index","1")
+ 		 }
  		 var header_height=$('header').outerHeight();
  		 console.log(header_height);
- 		 var form_steps_height=$('#form-steps').height();
- 		 $("#main").css("margin-top",header_height+form_steps_height+10+"px"); 
+ 		 var form_steps_height=$('#form-steps').outerHeight();
+ 		 $("#main").css("margin-top",header_height+form_steps_height+"px"); 
  		 $("#form-steps").css("margin-top",header_height+"px");
  		 $("header").css("background","white"); 
  		 $("#main").removeClass("container-fluid");
+
+ 		 var top=$("#toolTitle").position().top
+ 		 $("#side_nav").css("margin-top",top)
+		$("#About").find("a").text("About the Model")
 
 	}
 });
@@ -354,5 +365,21 @@ $(function() {
 			$("[name='" + el.name + "']").removeClass(errorClass);
 		}
 	});
-
+ 
 });
+
+function toggle_menu(){
+    
+    if($("#side_nav").width()>0){
+    	$("#side_nav").css("width","0%")
+    	setTimeout(function(){ $("#form-steps").css("z-index","1"); }, 500);
+
+    }
+	
+	else{
+		$("#form-steps").css("z-index","99")
+		$("#side_nav").css("width","70%")
+
+	}
+
+}

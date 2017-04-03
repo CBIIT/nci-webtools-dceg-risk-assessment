@@ -8,10 +8,11 @@
 			padding-left 1em
 		&.fixed
 			position fixed
-			z-index 1
+			z-index 100
 			width 100%
 			top 0
 			left 0
+
 	nav#main-nav
 		background #fff
 		padding 0
@@ -35,9 +36,10 @@
 	#form-steps
 		&.fixed
 			position fixed
-			z-index 1
+			z-index 0
 			width 100%
 			left 0
+			margin-bottom 10px
 		ol
 			padding 0
 			span.spacer
@@ -81,3 +83,30 @@
 					margin 0
 					padding 0
 					max-width 0
+	#side_nav
+		&.sidenav 
+			width 0
+			position fixed
+			z-index 9999
+			top 0
+			left 0
+			background-color #f3f3f2
+			overflow-x hidden
+			transition 0.5s
+			display inline
+			box-shadow -15px 0px 15px -15px rgba(0,0,0,0.6) inset
+			text-transform uppercase
+			a
+				padding 8px 8px 8px 32px
+				text-decoration none
+				font-size 16px
+				color #818181
+				display block
+				transition 0.3s
+				white-space nowrap
+				&.active a
+					color #fff
+					background-color #BB0E3D
+	#buttons
+		display -webkit-box
+

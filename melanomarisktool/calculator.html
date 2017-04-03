@@ -18,7 +18,7 @@
   <body><a class="sr-only sr-only-focusable" href="#main">Skip to main content</a>
     <header><a href="http://cancer.gov" target="_blank"><img id="logo" src="/common/images/nci-logo-full.svg" alt="go to cancer.gov"></a>
       <div id="toolTitle"><a href="index.html">Melanoma Risk Assessment Tool</a>
-        <button class="navbar-toggle collapsed" type="button" aria-controls="main-nav" aria-expanded="false" data-target="#main-nav" data-toggle="collapse"><span class="sr-only">Toggle navigation</span>
+        <button class="navbar-toggle collapsed" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()"><span class="sr-only">Toggle navigation</span>
           <div class="glyphicon glyphicon-menu-hamburger"></div>
         </button>
       </div>
@@ -28,6 +28,16 @@
           <li role="presentation"><a href="about.html">About the Model &amp; Source Code</a></li>
         </ul>
       </nav>
+      <div class="sidenav" id="side_nav">
+        <ul class="nav nav-tabs">
+          <li role="presentation">
+            <div id="Risk"><a href="calculator.html">Risk Calculator</a></div>
+          </li>
+          <li role="presentation">
+            <div id="About"><a href="about.html">About the Model &amp; Source Code</a></div>
+          </li>
+        </ul>
+      </div>
     </header>
     <div id="form-steps">
       <ol>
@@ -233,9 +243,11 @@
           </div>
         </section>
         <div class="center-block">
-          <div class="col-xs-12 col-sm-3 col-sm-push-5">
-            <button class="btn-sm btn-block" id="reset" type="reset">Reset</button>
-            <button class="btn-sm btn-form btn-block" id="calculate" type="submit">Calculate Risk</button>
+          <div id="buttons">
+            <div class="col-xs-12 col-sm-3 col-sm-push-5">
+              <button class="btn-sm btn-block" id="reset" type="reset">Reset</button>
+              <button class="btn-sm btn-form btn-block" id="calculate" type="submit">Calculate Risk</button>
+            </div>
           </div>
         </div>
       </form>
