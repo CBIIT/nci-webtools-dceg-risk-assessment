@@ -255,7 +255,7 @@ a.btn.btn-form:disabled {
   padding: 0;
 }
 #form-steps ol li.active {
-  font-size: 1.1em;
+  font-size: 24px;
 }
 #form-steps ol li.active:first-child a:first-child {
   color: #339fbe;
