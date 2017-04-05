@@ -175,12 +175,16 @@ button, a.btn
 				display block
 				color inherit
 				&:nth-child(2)
-					border-radius 25px
+					font-size 20px
+					background grey_86
+					color white
+					border-radius 22px
 					width 35px
 					height 35px
 					text-align center
 					margin 0 auto
-					padding 0
+					padding 2px
+					position relative
 			&.active
 				font-size 24px
 				&:first-child
@@ -304,6 +308,13 @@ select, input
 		font-weight bold
 	*, ul li a
 		color #FFF
+.line 
+	position absolute
+	width 100%
+	margin-bottom 20px
+	border 0
+	border-top 2px dotted #868686
+	margin-top 0
 
 @import dialogs
 @import mobile

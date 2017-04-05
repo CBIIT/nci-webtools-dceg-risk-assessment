@@ -1,4 +1,4 @@
-@media (max-width 768px)
+@media (max-width 992px)
 	header 
 		img
 			&#logo
@@ -21,22 +21,21 @@
 			&.nav.nav-tabs
 				display block
 				li
-					width 65%
+					width 50%
 					float right
 					&.active a
-						color #FFFFFF
-						background blue_23
-						border none
+						color: #356b91;
+						background: #fff;
 					a
-						background #FFF
-						color blue_23
+						background blue_23
+						color #FFF
 						border none
 						&:hover, &:focus
 							border none
 	#form-steps
 		&.fixed
 			position fixed
-			z-index 0
+			z-index 1
 			width 100%
 			left 0
 			margin-bottom 10px
@@ -46,6 +45,7 @@
 				margin 0
 			li
 				margin 0.5em 0.1em
+				border-radius 20px
 				a:first-child
 					display none
 	#errors

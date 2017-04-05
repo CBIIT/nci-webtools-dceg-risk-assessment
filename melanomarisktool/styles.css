@@ -247,12 +247,16 @@ a.btn.btn-form:disabled {
   color: inherit;
 }
 #form-steps ol li a:nth-child(2) {
-  border-radius: 25px;
+  font-size: 20px;
+  background: #868686;
+  color: #fff;
+  border-radius: 22px;
   width: 35px;
   height: 35px;
   text-align: center;
   margin: 0 auto;
-  padding: 0;
+  padding: 2px;
+  position: relative;
 }
 #form-steps ol li.active {
   font-size: 24px;
@@ -398,6 +402,14 @@ input.error + label.radio span {
 .footer ul li a {
   color: #fff;
 }
+.line {
+  position: absolute;
+  width: 100%;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 2px dotted #868686;
+  margin-top: 0;
+}
 .modal-header {
   border: none;
 }
@@ -466,7 +478,7 @@ input.error + label.radio span {
   margin: 0 auto;
   text-transform: uppercase;
 }
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   header img#logo {
     padding: 1em 0 1em 1em;
     width: 100%;
@@ -490,17 +502,16 @@ input.error + label.radio span {
     display: block;
   }
   nav#main-nav ul.nav.nav-tabs li {
-    width: 65%;
+    width: 50%;
     float: right;
   }
   nav#main-nav ul.nav.nav-tabs li.active a {
-    color: #fff;
-    background: #235e88;
-    border: none;
+    color: #356b91;
+    background: #fff;
   }
   nav#main-nav ul.nav.nav-tabs li a {
-    background: #fff;
-    color: #235e88;
+    background: #235e88;
+    color: #fff;
     border: none;
   }
   nav#main-nav ul.nav.nav-tabs li a:hover,
@@ -509,7 +520,7 @@ input.error + label.radio span {
   }
   #form-steps.fixed {
     position: fixed;
-    z-index: 0;
+    z-index: 1;
     width: 100%;
     left: 0;
     margin-bottom: 10px;
@@ -522,6 +533,7 @@ input.error + label.radio span {
   }
   #form-steps ol li {
     margin: 0.5em 0.1em;
+    border-radius: 20px;
   }
   #form-steps ol li a:first-child {
     display: none;
