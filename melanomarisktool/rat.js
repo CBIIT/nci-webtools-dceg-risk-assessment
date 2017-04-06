@@ -124,14 +124,15 @@ function resultsDisplay(response, textStatus, xhr) {
 
 function formScrollSpy() {
 	var window_top = $(window).scrollTop();
-
 	$.each($("#riskForm section"), function(ind, el) {
 		var div_top = $(el).offset().top - $(el)[0].scrollHeight;
 		if ( window_top > div_top ) {
 			$("#form-steps li").removeClass('active');
 			$("#form-steps li:eq(" + ind + ")").addClass('active');
+			adjust_line_width(ind);
 		}
 	});
+
 }
 
 
@@ -337,16 +338,22 @@ $( window ).resize(function() {
  	}
 
 });
-function adjust_line_width(){
-	var header_height=$('header').outerHeight();
- 	var form_steps_height=$('#form-steps').outerHeight();
+function adjust_line_width(ind){
  	var first_dot=$("#form-steps").find("a")[1]
  	var first_dot_left=$(first_dot).position().left
- 	var dot_width=$(first_dot).outerWidth(true)
+ 	var first_dot_width=$(first_dot).outerWidth(true)
  	var last_dot=$("#form-steps").find("a")[$("#form-steps").find("a").length-1]
  	var last_dot_left=$(last_dot).position().left
- 	$("#line").find("hr").css("left",first_dot_left+dot_width/2-17)
-    $("#line").find("hr").css("width",last_dot_left-first_dot_left-dot_width/4+18)
+ 	var last_dot_width=$(last_dot).outerWidth(true)
+ 	$("#line").find("hr").css("left",first_dot_left+first_dot_width/2)
+    
+    $("#line").find("hr").css("width",last_dot_left-first_dot_left-last_dot_width/2)
+	if(ind==1)
+		$("#line").find("hr").css("width",last_dot_left-first_dot_left)
+
+    else if(ind==2)
+    	$("#line").find("hr").css("width",last_dot_left-first_dot_left+last_dot_width/4)
+
 
     
 }

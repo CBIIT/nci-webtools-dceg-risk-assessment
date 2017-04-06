@@ -210,12 +210,11 @@ html(lang="en")
 		#raceModal.modal.error-dialog.fade(tabindex='-1', role='dialog', data-backdrop="false")
 			.modal-dialog(role='document')
 				.modal-header
-					button.close(type='button', data-dismiss='modal', aria-label="close modal") ×
 				.modal-content
 					.modal-body
-						img(src="images/stop.png", alt="stop icon")
-						p This tool can only accurately calculate melanoma risk for patients who are non-Hispanic whites.
-						button.btn.btn-primary(type='button', data-dismiss='modal') Ok
+						img(src="images/stop.png", alt="stop icon").imgsize
+						p.modaltext This tool can only accurately calculate melanoma risk for patients who are non-Hispanic whites.
+						button.btn.btn-primary.btn-size(type='button', data-dismiss='modal') Ok
 		#mapModal.modal.demo-dialog.fade(tabindex='-1', role='dialog', data-backdrop="false")
 			.modal-dialog(role='document')
 				.modal-content

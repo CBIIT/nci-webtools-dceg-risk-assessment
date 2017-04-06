@@ -247,27 +247,27 @@ a.btn.btn-form:disabled {
   color: inherit;
 }
 #form-steps ol li a:nth-child(2) {
-  font-size: 17px;
+  font-size: 20px;
   background: #868686;
   color: #fff;
   border-radius: 22px;
-  width: 28px;
-  height: 28px;
+  width: 33px;
+  height: 33px;
   text-align: center;
   margin: 0 auto;
   padding: 2px;
   position: relative;
 }
 #form-steps ol li.active {
-  font-size: 24px;
+  font-size: 29px;
 }
 #form-steps ol li.active:first-child a:first-child {
   color: #339fbe;
 }
 #form-steps ol li.active:first-child a:nth-child(2) {
-  width: 35px;
-  height: 35px;
-  font-size: 20px;
+  width: 45px;
+  height: 45px;
+  font-size: 25px;
   color: #fff;
   background: #339fbe;
 }
@@ -275,9 +275,9 @@ a.btn.btn-form:disabled {
   color: #6150a3;
 }
 #form-steps ol li.active:nth-child(3) a:nth-child(2) {
-  width: 35px;
-  height: 35px;
-  font-size: 20px;
+  width: 45px;
+  height: 45px;
+  font-size: 25px;
   color: #fff;
   background: #6150a3;
 }
@@ -285,9 +285,9 @@ a.btn.btn-form:disabled {
   color: #2d73a5;
 }
 #form-steps ol li.active:nth-child(5) a:nth-child(2) {
-  width: 35px;
-  height: 35px;
-  font-size: 20px;
+  width: 45px;
+  height: 45px;
+  font-size: 25px;
   color: #fff;
   background: #2d73a5;
 }
@@ -425,6 +425,16 @@ input.error + label.radio span {
 .modal {
   top: 33%;
 }
+.imgsize {
+  height: 70px;
+}
+.btn-size {
+  height: 35px;
+  width: 85px;
+}
+.modaltext {
+  padding-left: 16%;
+}
 .modal-header {
   border: none;
 }
@@ -466,9 +476,9 @@ input.error + label.radio span {
   border: 5px solid #268db2;
 }
 .error-dialog .modal-content {
-  border: solid 4px #bb0e3d;
+  border: solid 4px #14819b;
   background-color: #fff F;
-  border: 3px solid #bb0e3d;
+  border: 3px solid #14819b;
   border-radius: 0;
 }
 .error-dialog img {
