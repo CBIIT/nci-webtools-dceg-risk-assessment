@@ -247,12 +247,12 @@ a.btn.btn-form:disabled {
   color: inherit;
 }
 #form-steps ol li a:nth-child(2) {
-  font-size: 20px;
+  font-size: 17px;
   background: #868686;
   color: #fff;
   border-radius: 22px;
-  width: 35px;
-  height: 35px;
+  width: 28px;
+  height: 28px;
   text-align: center;
   margin: 0 auto;
   padding: 2px;
@@ -265,6 +265,9 @@ a.btn.btn-form:disabled {
   color: #339fbe;
 }
 #form-steps ol li.active:first-child a:nth-child(2) {
+  width: 35px;
+  height: 35px;
+  font-size: 20px;
   color: #fff;
   background: #339fbe;
 }
@@ -272,6 +275,9 @@ a.btn.btn-form:disabled {
   color: #6150a3;
 }
 #form-steps ol li.active:nth-child(3) a:nth-child(2) {
+  width: 35px;
+  height: 35px;
+  font-size: 20px;
   color: #fff;
   background: #6150a3;
 }
@@ -279,6 +285,9 @@ a.btn.btn-form:disabled {
   color: #2d73a5;
 }
 #form-steps ol li.active:nth-child(5) a:nth-child(2) {
+  width: 35px;
+  height: 35px;
+  font-size: 20px;
   color: #fff;
   background: #2d73a5;
 }
@@ -409,6 +418,12 @@ input.error + label.radio span {
   border: 0;
   border-top: 2px dotted #868686;
   margin-top: 0;
+}
+.modal-body {
+  overflow-y: hidden;
+}
+.modal {
+  top: 33%;
 }
 .modal-header {
   border: none;

@@ -346,7 +346,7 @@ function adjust_line_width(){
  	var last_dot=$("#form-steps").find("a")[$("#form-steps").find("a").length-1]
  	var last_dot_left=$(last_dot).position().left
  	$("#line").find("hr").css("left",first_dot_left+dot_width/2-17)
-    $("#line").find("hr").css("width",last_dot_left-first_dot_left-dot_width/4+17)
+    $("#line").find("hr").css("width",last_dot_left-first_dot_left-dot_width/4+18)
 
     
 }
