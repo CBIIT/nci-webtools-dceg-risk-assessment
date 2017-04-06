@@ -110,7 +110,7 @@ header #toolTitle .navbar-toggle {
 #side_nav {
   display: none;
 }
-#side_nav img#logo {
+img#logo {
   max-width: 600px;
   padding: 1em 0 1em 5em;
 }
