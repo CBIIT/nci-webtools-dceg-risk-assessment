@@ -205,11 +205,11 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="units" class="col-xs-12 col-md-6 control-label">Height and Weight, or BMI?</label>
+                                        <label for="units" class="col-xs-12 col-md-6 control-label" ng-change="myForm.changeBmiSelection()">Height and Weight, or BMI?</label>
                                         <div class="col-xs-12 col-md-6">
                                             <select name="bmiSelection" id="bmiSelection" class="form-control input-sm" ng-model="myForm.bmiSelection">
                                                 <option value="">Select...</option>
-                                                <option value="unknown">Unkonwn</option>
+                                                <option value="unknown">Unknown</option>
                                                 <option value="bmi">BMI known</option>
                                                 <option value="hw">Height and Weight known</option>
                                             </select>
