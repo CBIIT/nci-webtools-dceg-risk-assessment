@@ -142,6 +142,10 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $localStorage, $locati
     $scope.myForm.bmiLowCriteria = false;
     $scope.myForm.bmiHighCriteria = false;
     $scope.myForm.bmi = '';
+    $scope.myForm.units = 'us';
+    $scope.myForm.pHeight = '';
+    $scope.myForm.subHeight = '';
+    $scope.myForm.weight = '';
   };
 
   $scope.$watchCollection('[myForm.age, myForm.cigs, myForm.start, myForm.quit]', function (newValues) {
