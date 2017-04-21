@@ -22,7 +22,8 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $localStorage, $locati
     $scope.myForm.pHeightCriteria = false;
     $scope.myForm.subHeightCriteria = false;
     $scope.myForm.weightCriteria = false;
-    $scope.myForm.bmiCriteria = false;
+    $scope.myForm.bmiLowCriteria = false;
+    $scope.myForm.bmiHighCriteria = false;
     $scope.myForm.units = 'us';
     $scope.myForm.numericValidationMessage = 'Please ensure the age entered above does not have any non-numeric characters.';
     $scope.myForm.bmiNumericValidationMessage = 'Please ensure the BMI entered above does not have any non-numeric characters.';
@@ -229,7 +230,8 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $localStorage, $locati
   /* Calculate BMI to show warning if bmi is outside range 15-50 */
   $scope.$watchGroup(['myForm.weight', 'myForm.subHeight', 'myForm.pHeight'], function () {
     bmi = calculateBMI();
-    $scope.myForm.bmiCriteria = (bmi > 50 || bmi < 15)
+    $scope.myForm.bmiLowCriteria = bmi < 15;
+    $scope.myForm.bmiHighCriteria = bmi > 50;
   });
 
   $scope.$watch('myForm.weight', function () {
@@ -279,7 +281,8 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $localStorage, $locati
     $scope.myForm.unstableRisk = false;
     $scope.myForm.eligibility = true;
     $scope.myForm.packYears = NaN;
-    $scope.myForm.bmiCriteria = false;
+    $scope.myForm.bmiLowCriteria = false;
+    $scope.myForm.bmiHighCriteria = false;
   };
 
   /* Create BMI summary that displays in results section of UI */
@@ -346,6 +349,7 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $localStorage, $locati
     }
     if ($scope.myForm.bmiSelection === "bmi") {
       bmi = parseFloat($scope.myForm.bmi);
+
     } else {
 
       if ($scope.myForm.units === 'us') {
@@ -356,6 +360,12 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $localStorage, $locati
         h = (parseFloat($scope.myForm.subHeight) / 100) + parseFloat($scope.myForm.pHeight);
         w = parseFloat($scope.myForm.weight);
         bmi = w / Math.pow(h, 2);
+      }
+
+      if (bmi < 15) {
+        bmi = 15;
+      } else if (bmi > 50) {
+        bmi = 50;
       }
     }
     qtyears = $scope.myForm.quit ? Math.round($scope.myForm.age - parseFloat($scope.myForm.quit)) : 0;
@@ -458,11 +468,9 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $localStorage, $locati
 
     if (!$scope.myForm.bmiNumericCriteria) {
       bmi = parseFloat($scope.myForm.bmi);
-      $scope.myForm.bmiCriteria = (bmi < 15 || bmi > 50);
-    } else {
-      $scope.myForm.bmiCriteria = false;
+      $scope.myForm.bmiLowCriteria = bmi < 15;
+      $scope.myForm.bmiHighCriteria = bmi > 50;
     }
-
   }
 
   /* Calculates weight in US or Metric units when toggling 'unit' dropdown in UI */

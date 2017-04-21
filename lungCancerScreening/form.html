@@ -231,17 +231,10 @@
                                         <div class="col-xs-12 col-md-6"></div>
                                         <div class="col-xs-12 col-md-6 has-error">
                                             <span class="help-block">
-                                                <p>A BMI of 28 will be used for the risk calculation.</p>
+                                                <p>Your BMI is unknown, the following risks are calculated based on BMI=28.</p>
                                             </span>
                                         </div>
                                     </div>      
-                                    <!--<div ng-show="myForm.bmiCriteria" class="row">
-                                        <div class="col-xs-12 has-error">
-                                            <span class="help-block">
-                                                BMI is outside the range of 15-50.
-                                            </span>
-                                        </div>
-                                    </div>-->
 
                                     <div class="form-group" ng-show="myForm.bmiSelection === 'hw'">
                                         <label for="units" class="col-xs-12 col-md-6 control-label">Units for entering height and weight</label>
@@ -283,14 +276,23 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="form-group" ng-show="myForm.bmiCriteria">
+                                    <div class="form-group" ng-show="myForm.bmiLowCriteria">
                                         <div class="col-xs-12 col-md-6"></div>
                                         <div class="col-xs-12 col-md-6 has-error">
                                             <span class="help-block">
-                                                <p>BMI is outside the range of 15-50.</p>
+                                                <p>Your BMI is less than 15, the following risks are calculated based on BMI=15.</p>
                                             </span>
                                         </div>
-                                    </div>                                                                     
+                                    </div>   
+
+                                    <div class="form-group" ng-show="myForm.bmiHighCriteria">
+                                        <div class="col-xs-12 col-md-6"></div>
+                                        <div class="col-xs-12 col-md-6 has-error">
+                                            <span class="help-block">
+                                                <p>Your BMI is greater than 50, the following risks are calculared based on BMI=50.</p>
+                                            </span>
+                                        </div>
+                                    </div>                                                            
                                     <div class="form-group">
                                         <label for="education" class="col-xs-12 col-md-6 control-label">Education?</label>
                                         <div class="col-xs-12 col-md-6">
