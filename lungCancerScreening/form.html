@@ -227,13 +227,13 @@
                                             <span class="help-block">{{myForm.bmiNumericValidationMessage}}</span>
                                         </div>
                                     </div>
-                                    <div ng-show="myForm.bmiCriteria" class="row">
+                                    <!--<div ng-show="myForm.bmiCriteria" class="row">
                                         <div class="col-xs-12 has-error">
                                             <span class="help-block">
                                                 BMI is outside the range of 15-50.
                                             </span>
                                         </div>
-                                    </div>
+                                    </div>-->
 
                                     <div class="form-group" ng-show="myForm.bmiSelection === 'hw'">
                                         <label for="units" class="col-xs-12 col-md-6 control-label">Units for entering height and weight</label>
@@ -275,7 +275,7 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="form-group" ng-show="myForm.bmiViaHeight_WeightCriteria">
+                                    <div class="form-group" ng-show="myForm.bmiCriteria">
                                         <div class="col-xs-12 col-md-6"></div>
                                         <div class="col-xs-12 col-md-6 has-error">
                                             <span class="help-block">
