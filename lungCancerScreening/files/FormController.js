@@ -107,6 +107,7 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
     $scope.myForm.start = '';
     $scope.myForm.quit = '';
     $scope.myForm.cigs = '';
+    $scope.myForm.bmiSelection = '';
     $scope.myForm.startAgeCriteria = false;
     $scope.myForm.startNumericCriteria = false;
     $scope.myForm.quitCriteria = false;
@@ -252,6 +253,7 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
     $scope.myForm.type = '';
     $scope.myForm.quit = '';
     $scope.myForm.start = '';
+    $scope.myForm.bmiSelection = '';
     $scope.myForm.cigs = '';
     $scope.myForm.group = '';
     $scope.myForm.gender = '';
