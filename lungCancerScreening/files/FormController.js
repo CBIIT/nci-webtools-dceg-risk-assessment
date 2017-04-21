@@ -455,7 +455,7 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
 
      if (!$scope.myForm.bmiNumericCriteria) {
       bmi = parseFloat($scope.myForm.bmi);
-      $scope.myForm.bmiCriteria = (bmi < 15 || age > 50);
+      $scope.myForm.bmiCriteria = (bmi < 15 || bmi > 50);
     } else {
       $scope.myForm.bmiCriteria = false;
     }
