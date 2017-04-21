@@ -362,7 +362,6 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $localStorage, $locati
         bmi = w / Math.pow(h, 2);
       }
     }
-        
     if (bmi < 15) {
       bmi = 15;
     } else if (bmi > 50) {
