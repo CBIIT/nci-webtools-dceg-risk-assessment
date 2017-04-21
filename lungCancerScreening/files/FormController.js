@@ -10,6 +10,7 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
 
   function init() {
     $scope.myForm.ageCriteria = false;
+    $scope.myForm.bmiViaHeight_WeightCriteria = false;
     $scope.myForm.bmiCriteria = false;
     $scope.myForm.ageNumericCriteria = false;
     $scope.myForm.typeCriteria = false;
@@ -91,7 +92,7 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
     validateBMI();
   });
 
-  $scope.$watchCollection('[myForm.quitCriteria, myForm.cigsCriteria, myForm.ageCriteria, myForm.bmiCriteria]', function(newValues) {
+  $scope.$watchCollection('[myForm.quitCriteria, myForm.cigsCriteria, myForm.ageCriteria]', function(newValues) {
       $scope.myForm.eligibility = !newValues[0] && !newValues[1] && !newValues[2];
 
       console.log('eligibility is: ', $scope.myForm.eligibility);
@@ -233,7 +234,7 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
   /* Calculate BMI to show warning if bmi is outside range 15-50 */
   $scope.$watchGroup(['myForm.weight','myForm.subHeight','myForm.pHeight'],function() {
     bmi = calculateBMI();
-    $scope.myForm.bmiCriteria = (bmi>50||bmi<15)
+    $scope.myForm.bmiViaHeight_WeightCriteria = (bmi>50||bmi<15)
   });
 
   $scope.$watch('myForm.weight', function() {
@@ -284,6 +285,7 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
     $scope.myForm.eligibility = true;
     $scope.myForm.packYears = NaN;
     $scope.myForm.bmiCriteria = false;
+    $scope.myForm.bmiViaHeight_WeightCriteria = false;
   };
 
   /* Create BMI summary that displays in results section of UI */
