@@ -361,13 +361,14 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $localStorage, $locati
         w = parseFloat($scope.myForm.weight);
         bmi = w / Math.pow(h, 2);
       }
-
-      if (bmi < 15) {
-        bmi = 15;
-      } else if (bmi > 50) {
-        bmi = 50;
-      }
     }
+        
+    if (bmi < 15) {
+      bmi = 15;
+    } else if (bmi > 50) {
+      bmi = 50;
+    }
+
     qtyears = $scope.myForm.quit ? Math.round($scope.myForm.age - parseFloat($scope.myForm.quit)) : 0;
 
     params = {
