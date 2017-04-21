@@ -203,6 +203,38 @@
                                             </select>
                                         </div>
                                     </div>
+
+                                    <div class="form-group">
+                                        <label for="units" class="col-xs-12 col-md-6 control-label">Height and Weight, or BMI?</label>
+                                        <div class="col-xs-12 col-md-6">
+                                            <select name="bmiSelection" id="bmiSelection" class="form-control input-sm" ng-model="myForm.bmiSelection">
+                                                <option value="">Select...</option>
+                                                <option value="0">Unkonwn</option>
+                                                <option value="1">BMI known</option>
+                                                <option value="2">Height and Weight known</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" ng-class="{'has-error': myForm.bmiNumericCriteria }">
+                                        <label for="bmi" class="col-xs-12 col-md-6 control-label">BMI</label>
+                                        <div class="col-xs-12 col-md-6">
+                                            <input class="form-control input-sm" type="text" name="bmi" id="bmi" ng-model="myForm.bmi" ng-model-options="{ updateOn: 'blur' }" ng-required="true">
+                                        </div>
+                                    </div>
+                                    <div ng-show="myForm.bmiNumericCriteria" class="row">
+                                        <div class="col-xs-12 has-error">
+                                            <span class="help-block">{{myForm.bmiNumericValidationMessage}}</span>
+                                        </div>
+                                    </div>
+                                    <div ng-show="myForm.bmiCriteria" class="row">
+                                        <div class="col-xs-12 has-error">
+                                            <span class="help-block">
+                                                Please ensure that the BMI value above is greater than 14 and less than 51 and does not include any non-numeric characters.
+                                            </span>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group">
                                         <label for="units" class="col-xs-12 col-md-6 control-label">Units for entering height and weight</label>
                                         <div class="col-xs-12 col-md-6">
@@ -263,6 +295,7 @@
                                                 <option value="4">Associate Degree or some college</option>
                                                 <option value="5">Bachelors (college) degree</option>
                                                 <option value="6">Graduate degree</option>
+                                                <option value="7">I don't know</option>
                                             </select>
                                         </div>
                                     </div>
@@ -276,6 +309,7 @@
                                                 <option value="2">Hispanic</option>
                                                 <option value="3">Asian or Pacific Islander</option>
                                                 <option value="4">Other</option>
+                                                <option valus="5">I don't know</option>
                                             </select>
                                         </div>
                                     </div>                                    

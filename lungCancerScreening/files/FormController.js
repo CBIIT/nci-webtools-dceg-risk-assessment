@@ -25,6 +25,7 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
     $scope.myForm.weightCriteria = false;
     $scope.myForm.units = 'us';
     $scope.myForm.numericValidationMessage = 'Please ensure the age entered above does not have any non-numeric characters.';
+    $scope.myForm.bmiNumericValidationMessage = 'Please ensure the BMI entered above does not have any non-numeric characters.';
     $scope.myForm.isInvalid = false;
     $scope.myForm.summary = '';
     $scope.myForm.result0 = 0;
@@ -49,7 +50,7 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
 
   /* $watchCollection allows watching of multiple properties and changing form state (valid/invalid) based on properties' values */
   /* scope.$watchCollection('[myForm.ageCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function(newValues) { */
-  $scope.$watchCollection('[myForm.ageCriteria, myForm.typeCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function(newValues) {
+  $scope.$watchCollection('[myForm.bmiCriteria, myForm.bmiNumericCriteria, myForm.ageCriteria, myForm.typeCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function(newValues) {
 
     var flag = false;
 
@@ -86,7 +87,11 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
     validateAges();
   });
 
-  $scope.$watchCollection('[myForm.quitCriteria, myForm.cigsCriteria, myForm.ageCriteria]', function(newValues) {
+   $scope.$watch('myForm.bmi', function() {
+    validateBMI();
+  });
+
+  $scope.$watchCollection('[myForm.quitCriteria, myForm.cigsCriteria, myForm.ageCriteria, myForm.bmiCriteria]', function(newValues) {
       $scope.myForm.eligibility = !newValues[0] && !newValues[1] && !newValues[2];
 
       console.log('eligibility is: ', $scope.myForm.eligibility);
@@ -440,6 +445,19 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
         $scope.myForm.startAgeCriteria = false;
       }
     }
+  }
+
+  function validateBMI() {
+    var bmi;
+    $scope.myForm.bmiNumericCriteria = !numRegExp.test($scope.myForm.bmi ? $scope.myForm.bmi : '0');
+
+     if (!$scope.myForm.bmiNumericCriteria) {
+      bmi = parseFloat($scope.myForm.bmi);
+      $scope.myForm.bmiCriteria = (bmi < 15 || age > 50);
+    } else {
+      $scope.myForm.bmiCriteria = false;
+    }
+
   }
 
   /* Calculates weight in US or Metric units when toggling 'unit' dropdown in UI */
