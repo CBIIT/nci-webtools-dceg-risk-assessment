@@ -51,7 +51,7 @@ app.controller("FormCtrl", function($scope, $sce, $http, $localStorage, $locatio
 
   /* $watchCollection allows watching of multiple properties and changing form state (valid/invalid) based on properties' values */
   /* scope.$watchCollection('[myForm.ageCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function(newValues) { */
-  $scope.$watchCollection('[myForm.bmiCriteria, myForm.bmiNumericCriteria, myForm.ageCriteria, myForm.typeCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function(newValues) {
+  $scope.$watchCollection('[myForm.bmiCriteria, myForm.bmiNumericCriteria, myForm.bmiViaHeight_WeightCriteria, myForm.ageCriteria, myForm.typeCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function(newValues) {
 
     var flag = false;
 
