@@ -141,7 +141,7 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $localStorage, $locati
   $scope.myForm.changeBmiSelection = function () {
     $scope.myForm.bmiLowCriteria = false;
     $scope.myForm.bmiHighCriteria = false;
-  }
+  };
 
   $scope.$watchCollection('[myForm.age, myForm.cigs, myForm.start, myForm.quit]', function (newValues) {
     $scope.myForm.cigsNumericCriteria = !numRegExp.test($scope.myForm.cigs ? $scope.myForm.cigs : '0');
