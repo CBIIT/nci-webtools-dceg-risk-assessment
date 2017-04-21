@@ -227,6 +227,14 @@
                                             <span class="help-block">{{myForm.bmiNumericValidationMessage}}</span>
                                         </div>
                                     </div>
+                                    <div class="form-group" ng-show="myForm.bmiSelection === 'unknown'">
+                                        <div class="col-xs-12 col-md-6"></div>
+                                        <div class="col-xs-12 col-md-6 has-error">
+                                            <span class="help-block">
+                                                <p>A BMI of 28 will be used for the risk calculation.</p>
+                                            </span>
+                                        </div>
+                                    </div>      
                                     <!--<div ng-show="myForm.bmiCriteria" class="row">
                                         <div class="col-xs-12 has-error">
                                             <span class="help-block">
