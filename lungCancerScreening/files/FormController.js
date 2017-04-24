@@ -379,14 +379,13 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $localStorage, $locati
     }
 
     qtyears = $scope.myForm.quit ? Math.round($scope.myForm.age - parseFloat($scope.myForm.quit)) : 0;
-    var race = parseInt($scope.myForm.group);
-    if (race === 4 || race ===5) {
+    var race = parseInt($scope.myForm.group, 10);
+    if (race === 4 || race === 5) {
       // default to white
       race = 0;
     }
 
-    var edu = parseInt($scope.myForm.education);
-
+    var edu = parseInt($scope.myForm.education, 10);
     if (edu === 7) {
       // default to high school
       edu = 2;
