@@ -51,15 +51,20 @@
                 <tr>
                     <th>Height</th>
                     <td>
-                        <span ng-if="session.myForm.pHeight">
+                        <span ng-if="session.myForm.bmiSelection !== 'hw'">unknown</span>
+                        <span ng-if="session.myForm.bmiSelection === 'hw' && session.myForm.pHeight">
                                 {{session.myForm.pHeight}} {{session.myForm.heightPrimary.replace('(s)','s')}}
-                            </span>
-                        <span ng-if="session.myForm.subHeight">{{session.myForm.subHeight}} {{session.myForm.heightSecondary.replace('(s)','s')}}</span>
+                        </span>
+                        <span ng-if="session.myForm.bmiSelection === 'hw' && session.myForm.subHeight">{{session.myForm.subHeight}} {{session.myForm.heightSecondary.replace('(s)','s')}}</span>
                     </td>
                 </tr>
                 <tr>
                     <th>Weight</th>
-                    <td>{{session.myForm.weight}} {{session.myForm.weightUnits.replace('(s)','s')}}</td>
+                    <td>
+                        <span ng-if="session.myForm.bmiSelection !== 'hw'">unknown</span>
+                        <span ng-if="sesson.myForm.bmiSelection === 'hw'"
+                            {{session.myForm.weight}} {{session.myForm.weightUnits.replace('(s)','s')}}</td>
+                        </span>
                 </tr>
                 <tr>
                     <th>Education</th>
@@ -71,7 +76,14 @@
                 </tr>
                 <tr>
                     <th>BMI</th>
-                    <td>{{session.params.bmi}}</td>
+                    <td>
+                        <span ng-if="session.myForm.bmiSelection === 'unknown'">
+                            {{session.params.bmi}} (default value, since 'unkown' was selected)
+                        </span>
+                        <span ng-if="session.myForm.bmiSelection !== 'unknown'">
+                            {{session.params.bmi}}
+                        </span>
+                        </td>
                 </tr>
                 <tr>
                     <th>Pack-years</th>
