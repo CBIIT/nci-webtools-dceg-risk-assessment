@@ -379,6 +379,18 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $localStorage, $locati
     }
 
     qtyears = $scope.myForm.quit ? Math.round($scope.myForm.age - parseFloat($scope.myForm.quit)) : 0;
+    var race = parseInt($scope.myForm.group);
+    if (race === 4 || race ===5) {
+      // default to white
+      race = 0;
+    }
+
+    var edu = parseInt($scope.myForm.education);
+
+    if (edu === 7) {
+      // default to high school
+      edu = 2;
+    }
 
     params = {
       'age': Math.round($scope.myForm.age),
@@ -390,8 +402,8 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $localStorage, $locati
       'gender': parseInt($scope.myForm.gender, 10),
       'qtyears': qtyears,
       'smkyears': 0,
-      'race': parseInt($scope.myForm.group, 10),
-      'edu6': parseInt($scope.myForm.education),
+      'race': race,
+      'edu6': edu,
       'pkyr.cat': $scope.myForm.packYears
     };
 
