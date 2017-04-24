@@ -69,10 +69,10 @@
                 <tr>
                     <th>Education</th>
                     <td>
-                        <span ng-if="session.myForm.education !== 7">
+                        <span ng-if="session.myForm.education != 7">
                             {{session.myForm.educationDesc}}
                         </span>
-                        <span ng-if="session.myForm.education === 7">
+                        <span ng-if="session.myForm.education == 7">
                             unknown
                         </span>
                         </td>
@@ -80,10 +80,10 @@
                 <tr>
                     <th>Race or Ethnic Group</th>
                     <td>
-                        <span ng-if="session.myForm.group !== 5">
+                        <span ng-if="session.myForm.group != 5">
                             {{session.myForm.groupDesc}}
                         </span>
-                        <span ng-if="session.myForm.group !== 5">
+                        <span ng-if="session.myForm.group == 5">
                             unknown
                         </span>
                         </td>
