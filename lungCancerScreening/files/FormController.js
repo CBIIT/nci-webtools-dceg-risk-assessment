@@ -354,14 +354,10 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $localStorage, $locati
     /* Reset results file link prior to calculation */
     $scope.myForm.resultsFileLink = '#';
 
-    if ($scope.myForm.bmiSelection === "unknown") {
-      bmi = 28;
-    }
     if ($scope.myForm.bmiSelection === "bmi") {
       bmi = parseFloat($scope.myForm.bmi);
 
-    } else {
-
+    } else if ($scope.myForm.bmiSelection === 'hw') {
       if ($scope.myForm.units === 'us') {
         h = (parseFloat($scope.myForm.pHeight) * 12) + parseFloat($scope.myForm.subHeight ? $scope.myForm.subHeight : '0');
         w = parseFloat($scope.myForm.weight);
@@ -371,7 +367,11 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $localStorage, $locati
         w = parseFloat($scope.myForm.weight);
         bmi = w / Math.pow(h, 2);
       }
+    } else {
+      // unknown
+      bmi = 28;
     }
+
     if (bmi < 15) {
       bmi = 15;
     } else if (bmi > 50) {
