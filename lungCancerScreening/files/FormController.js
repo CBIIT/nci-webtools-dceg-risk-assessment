@@ -371,7 +371,7 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $localStorage, $locati
       // unknown
       bmi = 28;
     }
-
+    var realBmi = bmi;
     if (bmi < 15) {
       bmi = 15;
     } else if (bmi > 50) {
@@ -394,6 +394,7 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $localStorage, $locati
     params = {
       'age': Math.round($scope.myForm.age),
       'bmi': Math.round(bmi * 100) / 100,
+      'realBmi': Math.round(realBmi * 100) / 100,
       /* Measure to two decimal places */
       'cpd': parseFloat($scope.myForm.cigs),
       'emp': parseInt($scope.myForm.disease, 10),
