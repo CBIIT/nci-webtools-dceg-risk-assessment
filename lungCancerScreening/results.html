@@ -95,7 +95,7 @@
                             {{session.params.bmi}} (default value, since 'unkown' was selected)
                         </span>
                         <span ng-if="session.myForm.bmiSelection !== 'unknown'">
-                            {{session.params.bmi}} <span ng-if="session.params.bmi != session.params.realBmi">(your BMI is {{session.params.realBmi}}, which is outside of the supported 15-50 range. A default value of {{session.params.bmi}} was used for the risk calculation.)</span>
+                            {{session.params.bmi}} <span ng-if="session.params.bmi != session.params.realBmi">(your BMI is {{session.params.realBmi}}, which is outside of the supported 15-50 range. A default value of {{session.params.bmi}} was used for the risk calculation)</span>
                         </span>       
                         </td>
                 </tr>
