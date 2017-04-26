@@ -51,27 +51,53 @@
                 <tr>
                     <th>Height</th>
                     <td>
-                        <span ng-if="session.myForm.pHeight">
+                        <span ng-if="session.myForm.bmiSelection !== 'hw'">unknown</span>
+                        <span ng-if="session.myForm.bmiSelection === 'hw' && session.myForm.pHeight">
                                 {{session.myForm.pHeight}} {{session.myForm.heightPrimary.replace('(s)','s')}}
-                            </span>
-                        <span ng-if="session.myForm.subHeight">{{session.myForm.subHeight}} {{session.myForm.heightSecondary.replace('(s)','s')}}</span>
+                        </span>
+                        <span ng-if="session.myForm.bmiSelection === 'hw' && session.myForm.subHeight">{{session.myForm.subHeight}} {{session.myForm.heightSecondary.replace('(s)','s')}}</span>
                     </td>
                 </tr>
                 <tr>
                     <th>Weight</th>
-                    <td>{{session.myForm.weight}} {{session.myForm.weightUnits.replace('(s)','s')}}</td>
+                    <td>
+                        <span ng-if="session.myForm.bmiSelection !== 'hw'">unknown</span>
+                        <span ng-if="session.myForm.bmiSelection === 'hw'">
+                            {{session.myForm.weight}} {{session.myForm.weightUnits.replace('(s)','s')}}</td>
+                        </span>
                 </tr>
                 <tr>
                     <th>Education</th>
-                    <td>{{session.myForm.educationDesc}}</td>
+                    <td>
+                        <span ng-if="session.myForm.education != 7">
+                            {{session.myForm.educationDesc}}
+                        </span>
+                        <span ng-if="session.myForm.education == 7">
+                            High School Graduate (default value, since 'unknown' was selected)
+                        </span>
+                        </td>
                 </tr>
                 <tr>
                     <th>Race or Ethnic Group</th>
-                    <td>{{session.myForm.groupDesc}}</td>
+                    <td>
+                        <span ng-if="session.myForm.group != 5">
+                            {{session.myForm.groupDesc}}
+                        </span>
+                        <span ng-if="session.myForm.group == 5">
+                            White (default value, since 'unknown' was selected)
+                        </span>
+                        </td>
                 </tr>
                 <tr>
                     <th>BMI</th>
-                    <td>{{session.params.bmi}}</td>
+                    <td>
+                        <span ng-if="session.myForm.bmiSelection === 'unknown'">
+                            {{session.params.bmi}} (default value, since 'unkown' was selected)
+                        </span>
+                        <span ng-if="session.myForm.bmiSelection !== 'unknown'">
+                            {{session.params.bmi}} <span ng-if="session.params.bmi != session.params.realBmi">(your BMI is {{session.params.realBmi}}, which is outside of the 15-50 range. A default value of {{session.params.bmi}} was used for the risk calculation)</span>
+                        </span>       
+                        </td>
                 </tr>
                 <tr>
                     <th>Pack-years</th>
@@ -115,10 +141,10 @@
                     </tr>
                     <tr> 
                         <td class="results_desc" valign="top">
-                            <p class="description line1">Your chance of dying from lung cancer within 5 years is {{getResult("result0", 1)/10}}%.</p>
+                            <p class="description line1">Your chances of dying from lung cancer within 5 years are {{getResult("result0", 1)/10}}%.</p>
                         </td>
                         <td class="results_desc" valign="top">
-                            <p class="description line1">Your chances of dying from lung cancer within 5 years is {{(session.myForm.result0-session.myForm.result1)/10}}%.</p>
+                            <p class="description line1">Your chances of dying from lung cancer within 5 years are {{(session.myForm.result0-session.myForm.result1)/10}}%.</p>
                         </td>
                     </tr>
                     <tr>
@@ -186,7 +212,7 @@
             <table class="results_table">
                 <tbody>
                     <tr>
-                        <th class="results_title"></th>
+                        <td class="results_title"></td>
                         <th class="results_title">IF YOU DO GET CT LUNG SCREENING</th>
                     </tr>
                     <tr>
@@ -250,11 +276,11 @@
                     </tr>
                     <tr>
                         <td class="results_desc" valign="top">
-                            <p class="description line1">Your chances of lung cancer diagnosis within 5 years is {{getResult("result2", 1)/10}}%.
+                            <p class="description line1">Your chances of being diagnosed with lung cancer within 5 years are {{getResult("result2", 1)/10}}%.
                             </p>
                         </td>
                         <td class="results_desc" valign="top">
-                            <p class="description line1">Your chances of being diagnosed with lung cancer within 5 years is {{(session.myForm.result3+session.myForm.result2)/10}}%.
+                            <p class="description line1">Your chances of being diagnosed with lung cancer within 5 years are {{(session.myForm.result3+session.myForm.result2)/10}}%.
                         </td>
                     </tr>
                     <tr>

@@ -16,6 +16,10 @@ p {
 }
 
 table.results_summary {
+    width: 100%;
+}
+
+table.results_summary {
     font-size: 10pt;
 }
 
