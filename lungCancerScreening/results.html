@@ -160,8 +160,8 @@
                         </td>
                         <td class="results_legend" valign="top">
                             <p class="ng-binding">This means that if 1000 people answer the questions just like you, {{session.myForm.result0-session.myForm.result1}}
-                                instead of {{session.myForm.result0}} {{getPeopleOrPerson(session.myForm.result0)}} are likely
-                                to die from lung cancer because of CT screening: a
+                                instead of {{session.myForm.result0}} {{getPeopleOrPerson(session.myForm.result0)}} would
+                                die from lung cancer if they receive yearly CT screening: a
                                 decrease of {{getResult("result1", 1)}} out of 1000 people. </p>
                             <p class="ng-binding">Your chances of dying from lung cancer within 5 years will be
                                 reduced by {{getResult("result1", 1) / 10}}%.</p>
@@ -295,9 +295,11 @@
 
                         </td>
                         <td class="results_legend" valign="top">
-                            <p class="ng-binding">This means that if 1000 people answer the questions just like you, {{session.myForm.result3}}
-                                more {{getPeopleOrPerson(session.myForm.result3)}} would be diagnosed with lung cancer within
-                                5 years if they receive annual CT lung screening: an
+                            <p class="ng-binding">This means that if 1000 people answer the questions just like you,
+                                {{session.myForm.result2-session.myForm.result3}}
+                                instead of {{session.myForm.result2}} {{getPeopleOrPerson(session.myForm.result2)}}
+                                would be diagnosed with lung cancer
+                                if they receive yearly CT lung screening: an
                                 increase of {{session.myForm.result3}} out of 1000 people.</p>
 
                                 <p class="ng-binding">Your chances of being diagnosed with lung cancer within 5 years will be
