@@ -51,7 +51,7 @@
                 <tr>
                     <th>Height</th>
                     <td>
-                        <span ng-if="session.myForm.bmiSelection !== 'hw'">unknown</span>
+                        <span ng-if="session.myForm.bmiSelection !== 'hw'">Unknown</span>
                         <span ng-if="session.myForm.bmiSelection === 'hw' && session.myForm.pHeight">
                                 {{session.myForm.pHeight}} {{session.myForm.heightPrimary.replace('(s)','s')}}
                         </span>
@@ -61,7 +61,7 @@
                 <tr>
                     <th>Weight</th>
                     <td>
-                        <span ng-if="session.myForm.bmiSelection !== 'hw'">unknown</span>
+                        <span ng-if="session.myForm.bmiSelection !== 'hw'">Unknown</span>
                         <span ng-if="session.myForm.bmiSelection === 'hw'">
                             {{session.myForm.weight}} {{session.myForm.weightUnits.replace('(s)','s')}}</td>
                         </span>
