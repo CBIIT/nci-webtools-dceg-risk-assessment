@@ -73,7 +73,7 @@
                             {{session.myForm.educationDesc}}
                         </span>
                         <span ng-if="session.myForm.education == 7">
-                            High School Graduate (default value, since 'unknown' was selected)
+                            Unknown
                         </span>
                         </td>
                 </tr>
@@ -84,15 +84,15 @@
                             {{session.myForm.groupDesc}}
                         </span>
                         <span ng-if="session.myForm.group == 5">
-                            White (default value, since 'unknown' was selected)
+                           This risk assessment was based on data for whites
                         </span>
                         </td>
                 </tr>
                 <tr>
                     <th>BMI</th>
                     <td>
-                        <span ng-if="session.myForm.bmiSelection === 'unknown'">
-                            {{session.params.bmi}} (default value, since 'unknown' was selected)
+                        <span ng-if="session.myForm.bmiSelection === 'unknown'"> 
+                            Unknown
                         </span>
                         <span ng-if="session.myForm.bmiSelection !== 'unknown'">
                             {{session.params.bmi}} <span ng-if="session.params.bmi != session.params.realBmi">(your BMI is {{session.params.realBmi}}, which is outside of the 15-50 range. A default value of {{session.params.bmi}} was used for the risk calculation)</span>
