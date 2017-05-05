@@ -1,11 +1,11 @@
 import math
 import os
 import sys
-
+import json
 from flask import Flask, Response, request, jsonify
 from MratConstants import MratConstants
 
-app = Flask(__name__, static_folder="", static_url_path="")
+app = Flask(__name__, static_folder='', static_url_path='/') 
 
 class MelanomaRiskAssessmentTool:
     @staticmethod
@@ -120,19 +120,25 @@ class MelanomaRiskAssessmentTool:
                     regionKey = key
                 if value is not 1:
                     regionKey = regionKey + "ern"
+
             result = "The Five-Year Absolute Risk of Melanoma is {0}%. For every 1,000 {1}s living in the {2} region with these characteristics, on average about {3} will develop melanoma in the next 5 years.".format(
                 risk, str(parameters['gender'] ).lower(), regionKey, int(ratio) )
 
+            results={}
+            results['risk']=risk
+            results['gender']=str(parameters['gender'] ).lower()
+            results['regionKey']=regionKey
+            results['ratio']=int(ratio)
+            json_data=json.dumps(results) 
             print "\n{0}".format(result)
-            return result
+            return json_data
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print("EXCEPTION------------------------------", e, exc_type, fname, exc_tb.tb_lineno)
             return e
 
-    @app.route('/rest/calculate', methods=['POST'] )
-    @app.route('/rest/calculate/', methods=['POST'] )
+    @app.route('/calculate', methods=['POST'] )
     def mratRisk():
         try:
             parameters = dict(request.form)
@@ -151,15 +157,3 @@ class MelanomaRiskAssessmentTool:
             print("EXCEPTION------------------------------", exc_type, fname, exc_tb.tb_lineno)
             return MelanomaRiskAssessmentTool.buildFailure(e)
 
-    def __init__(self, port, debug):
-        app.run(host='0.0.0.0', port=port, debug=debug)
-
-if __name__ == '__main__':
-    import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-p", dest="port_number", default="8030", help="Sets the Port")
-    parser.add_argument("--debug", action="store_true")
-
-    args = parser.parse_args()
-    port_num = int(args.port_number)
-    MelanomaRiskAssessmentTool(port_num, args.debug)

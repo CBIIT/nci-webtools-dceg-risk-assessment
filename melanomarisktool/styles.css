@@ -194,18 +194,48 @@ a.btn.btn-form:disabled {
 #main ul li {
   line-height: 2;
 }
+#main_home {
+  margin-top: 2em;
+  margin-bottom: 6em;
+  padding-left: 5%;
+  padding-right: 5%;
+  line-height: 1.5;
+}
+#main_home ul li {
+  line-height: 2;
+}
 .box {
   max-width: 600px;
   background-color: #dbf2f8;
   padding: 1.5em;
 }
-#results {
-  font-size: 1.2em;
+#results_box {
+  margin-top: 10%;
   text-align: center;
-  border-radius: 10px;
-  border: 0.3em solid #d3d3d3;
-  background: #fafafa;
+  font-size: 18px;
+  border: 7px #6150a3 solid;
+  background: #7163ad;
   padding: 1em;
+  color: #fff;
+  margin-bottom: 2%;
+}
+.results_header {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 2%;
+  font-size: 34px;
+}
+.patient_header {
+  text-align: center;
+  color: #fff;
+  font-size: 24px;
+}
+.risk_header {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 2%;
+  font-weight: bold;
+  font-size: 48px;
 }
 #form-steps {
   background-color: #fff;

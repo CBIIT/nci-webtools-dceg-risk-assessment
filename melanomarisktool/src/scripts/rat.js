@@ -119,9 +119,63 @@ function processSubmission(form){
 }
 
 function resultsDisplay(response, textStatus, xhr) {
-	$("#results").addClass('show').html(response.message);
+	var results=JSON.parse(response.message)
+	var message="Based on the information provided, the patient’s estimated risk for developing melanoma over the next 5 years is "+results.risk+"%. For every 1,000 "+ results.gender+"s living in the " +results.regionKey+" region with these characteristics, on average about "+ results.ratio+" will develop melanoma in the next 5 years";
+
+
+
+	$('#main').addClass('hide')
+	$('#form-steps').addClass('hide')
+	$("#results").addClass('show')
+	$("#results_text").append(message);
+	$("#Risk").html(results.risk+"%");
+	make_pie_chart(results.risk);
+
 }
 
+function make_pie_chart(percent){
+	(function(d3) {
+
+        'use strict';
+
+        var dataset = [
+          { label: 'Risk', count: percent },
+          { label: 'Total', count: 100-percent },
+        ];
+
+        var width = 360;
+        var height = 360;
+        var radius = Math.min(width, height) / 2;
+
+        var color = d3.scaleOrdinal().range(['#2dc799','#EFEFEF']);
+
+        var svg = d3.select('#results_graph')
+          .append('svg')
+          .attr('width', width)
+          .attr('height', height)
+          .append('g')
+          .attr('transform', 'translate(' + (width / 2) +
+            ',' + (height / 2) + ')');
+
+        var arc = d3.arc()
+          .innerRadius(0)
+          .outerRadius(radius);
+
+        var pie = d3.pie()
+          .value(function(d) { return d.count; })
+          .sort(null);
+
+        var path = svg.selectAll('path')
+          .data(pie(dataset))
+          .enter()
+          .append('path')
+          .attr('d', arc)
+          .attr('fill', function(d) {
+            return color(d.data.label);
+          });
+
+      })(window.d3);
+}
 function formScrollSpy() {
 	var window_top = $(window).scrollTop();
 	$.each($("#riskForm section"), function(ind, el) {
