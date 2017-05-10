@@ -253,8 +253,6 @@ function toggleGender(e) {
 		case "Female":
 			$.each($(".male").find("input, select"), function(index, el) {
 				$(el).rules("remove", "required");
-				if($("[name='" + el.name + "']").val().length > 0)
-					$("[name='" + el.name + "']").val("");
 			});
 
 			$.each($(".female").find("input, select"), function(index, el) {
