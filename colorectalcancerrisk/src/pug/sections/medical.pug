@@ -1,0 +1,101 @@
+section#medical-section
+    h3.sectionTitle Medical History
+    label.questions(for="exam") During the past 10 years, did the patient have a colonoscopy, sigmoidoscopy, or both?
+    .responseOptions
+        input(type="radio", name="exam", value='0', aria-label="Yes")
+        label.radio
+            span
+            | Yes
+        input(type="radio", name="exam", value='1', aria-label="No")
+        label.radio
+            span
+            | No
+        input(type="radio", name="exam", value='3', aria-label="Doesn't know")
+        label.radio
+            span
+            | Doesn't know
+    label.questions(for="polyp") In the past 10 years, did a healthcare provider tell the patient that he or she had a colon or rectal polyp?
+    .responseOptions
+        input(type="radio", name='polyp', value='2', aria-label="Yes")
+        label.radio
+            span
+            | Yes
+        input(type="radio", name='polyp', value='0', aria-label="No")
+        label.radio
+            span
+            | No
+        input(type="radio", name='polyp', value='3', aria-label="Doesn't know") 
+        label.radio
+            span
+            | Doesn't know
+    label.questions(for="aspirin") 
+        | During the past 30 days, did the patient take medications that do not contain aspirin at least 3 times a week, such as:
+        ul
+            li Advil
+            li Aleve
+            li Celebrex
+            li Ibuprofen
+            li Motrin
+            li Naproxen
+            li Nuprin
+        | Do NOT include Tylenol
+    .responseOptions
+        input(type="radio", name='aspirin', value='2', aria-label="yes")
+        label.radio
+            span
+            | Yes
+        input(type="radio", name='aspirin', value='0', aria-label="no")
+        label.radio
+            span
+            | No
+        input(type="radio", name='aspirin', value='3', aria-label="doesn't know") 
+        label.radio
+            span
+            | Doesn't know
+    .female
+        label.questions(for="period") Does the patient still have periods?
+        .responseOptions
+            input(type="radio", name='period', value='2', aria-label="yes")
+            label.radio
+                span
+                | Yes
+            input(type="radio", name='period', value='0', aria-label="no")
+            label.radio
+                span
+                | No
+    .female
+        label.questions(for="last_period") Does the patient still have periods?
+        .responseOptions
+            select(name='last_period')
+                option(value="") - Select -
+                option(value='0') Within the last year
+                option(value='1') Between 1 and 2 years ago
+                option(value='2') 2 or more years ago
+    //- .question
+    //-     label.questions(for="aspirin") During
+    //-         u  the past 30 days,
+    //-         |  have you taken medications that
+    //-         | &nbsp;
+    //-         i.termToDefine(data-term="aspirin") contain aspirin
+    //-         |  at least 3 times a week?
+    //-     em NOTE: Do NOT include TYLENOL
+    //-     .responseOptions
+    //-         select#aspirin(name='aspirin')
+    //-             option(value='') -select-
+    //-             option(value='0') Yes
+    //-             option(value='1') No
+    //-             option(value='0') Doesn't know
+    //- .question
+    //-     label.questions(for="non_aspirin") During
+    //-         i  the past 30 days,
+    //-         |  have you taken medications that
+    //-         | &nbsp;
+    //-         i.termToDefine(data-term="non_aspirin") DO NOT contain aspirin
+    //-         |  at least 3 times a week?
+    //-     em NOTE: Do NOT include TYLENOL
+    //-     .responseOptions
+    //-         select#non_aspirin(name='non_aspirin')
+    //-             option(value='') -select-
+    //-             option(value='0') Yes
+    //-             option(value='1') No
+    //-             option(value='0') Doesn't know

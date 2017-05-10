@@ -1,26 +1,11 @@
-var stripComments, notifier, parentDir, gulp, gulpConcat, gutil, gulpStylus, streamqueue,  gulpPlumber, nib, jshint, gutil, plumber, gulpJade, gulpFilter;
+var baseDir = '..';
 
-require('matchdep').filterDev('gulp-*').forEach(function(module){
-    global[module.replace(/^gulp-/, '')] = require(module);
-});
-
-parentDir = '..';
-
-stripComments = require('gulp-strip-comments');
-notifier = require('node-notifier');
-gulp = require('gulp');
-gulpConcat = require('gulp-concat');
-gutil = require('gulp-util');
-gulpStylus = require('gulp-stylus');
-gulpJade = require('gulp-jade');
-streamqueue = require('streamqueue');
-gulpPlumber = require('gulp-plumber');
-nib = require('nib');
-jshint = require('gulp-jshint');
-gulpFilter = require('gulp-filter');
-
-plumber = function(){
-    return gulpPlumber({
+var gulp = require('gulp');
+var load = require('gulp-load-plugins')();
+var nib = require('nib');
+var notifier = require('node-notifier');
+var plumber = function(){
+    return load.plumber({
         errorHandler: function(it){
             gutil.beep();
             return gutil.log(gutil.colors.red(it.toString()));
@@ -28,56 +13,49 @@ plumber = function(){
     });
 };
 
-gulp.task('default',['build']);
+gulp.task('default', ['build']);
 
-gulp.task('build', ['jade-compile', 'js:copy', 'css'], function(){
+gulp.task('build', [ 'compile:pug', 'compile:stylus','copy:js' ], function(){
     notifier.notify({
         title: 'Compilation Complete',
         message: "The code has been compiled in the project's root directory"
     });
 });
 
-gulp.task('dev', ['jade-compile', 'js:copy', 'ls:app', 'css'], function(done){
-    gulp.watch(['app/jade/pages/*.jade'], ['jade-compile']);
-    return gulp.watch('app/stylus/**/*.styl', ['css']);
+gulp.task('compile:pug', function () {
+    return gulp.src(['pug/index.pug'])
+    .pipe(
+        load.pug({
+            pretty: true,
+            baseDir: baseDir
+        })
+    )
+    .pipe(gulp.dest( baseDir ));;
 });
 
-
-// task for rendering jade files to HTML
-gulp.task('jade-compile', function(){
-    // only return the compiled index to root
-    return gulp.src(['app/jade/pages/index.jade']).pipe(gulpJade({
-        pretty: true,
-        basedir: parentDir
-    })).pipe(gulp.dest(parentDir));
+gulp.task('compile:stylus', function () {
+    return gulp.src(['stylus/**/*.styl'])
+    .pipe(
+        load.stylus({
+            use: [ nib() ],
+            'import': [ 'nib' ]
+        })
+    )
+    .pipe(load.concat( 'styles.css' ))
+    .pipe(gulp.dest( baseDir ));
 });
 
-gulp.task('js:copy', function(){
-    var s;
-    s = streamqueue({
-        objectMode: true
-    });
-    gulp.src('app/scripts/**/*.json')
-        .pipe(gulp.dest(parentDir));
-
-    gulp.src(['app/scripts/**/*.js'])
-        .pipe(stripComments())
-        .pipe(jshint())
-        .pipe(jshint.reporter('jshint-stylish'))
-        .pipe(gulp.dest(parentDir));
-    return s.done();
+gulp.task('copy:js', function () {
+    return gulp.src(['scripts/**/*.js'])
+    .pipe(
+        gulp.dest( baseDir )
+    );
 });
 
-gulp.task('css', function(){
-    var styl, s;
-    styl = gulp.src(['app/stylus/base-styles.styl', 'app/stylus/mobile-styles.styl']).pipe(gulpFilter(function(it) {
-        return !/\/_[^/]+\.styl$/.test(it.path);
-    })).pipe(gulpStylus({
-        use: [nib()],
-        'import': ['nib']
-    })).pipe(gulpConcat('styles.css')).pipe(gulp.dest(parentDir));
-
-    return s = streamqueue({
-        objectMode: true
-    });
+gulp.task('checkstandards', function () {
+    return gulp.src([
+        baseDir + '/*.html', 
+        baseDir + '/*.css', 
+        baseDir + '/*.js' ])
+    .pipe(load.webstandards());
 });

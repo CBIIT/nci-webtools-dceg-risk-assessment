@@ -1,0 +1,22 @@
+.container
+	#errors
+	#form-steps
+		ol
+			li.active 
+				a(href="#demo-section") Demographics
+			li 
+				a(href="#activity-section") Diet &amp; Physical Activity
+			li 
+				a(href="#medical-section") Medical History
+			li
+				a(href="#family-section") Family History
+	#results
+	form#riskForm(method="POST", action="/colorectalcancerrisk/rest/calculate/", autocomplete="off")
+		include sections/demographics
+		include sections/activity
+		include sections/medical
+		include sections/family
+		.center-block
+			.col-xs-12.col-sm-3.col-sm-push-5
+				button.btn-sm.btn-block#reset(type="reset") Reset
+				button.btn-sm.btn-form.btn-block#calculate(type="submit") Calculate Risk

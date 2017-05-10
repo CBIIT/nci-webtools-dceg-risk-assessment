@@ -1,34 +1,3 @@
-$.validator.addMethod("lessThan", function(value,element,params) {
-  var compareTo = params;
-  var allowEqual = false;
-  if (typeof params === 'object') {
-    compareTo = $(params.element).val();
-    allowEqual = params.allowEqual===undefined?false:params.allowEqual;
-  }
-  value = Number(value);
-  compareTo = Number(compareTo);
-  if (allowEqual) {
-    return value <= compareTo;
-  } else {
-    return value < compareTo;
-  }
-});
-$.validator.addMethod("greaterThan", function(value,element,params) {
-  var compareTo = params;
-  var allowEqual = false;
-  if (typeof params === 'object') {
-    compareTo = $(params.element).val();
-    allowEqual = params.allowEqual===undefined?false:params.allowEqual;
-  }
-  value = Number(value);
-  compareTo = Number(compareTo);
-  if (allowEqual) {
-    return value >= compareTo;
-  } else {
-    return value > compareTo;
-  }
-});
-
 var validationRules = {
     race: {
         required: true
@@ -254,29 +223,7 @@ var validationMessages = {
         required: "You must specify whether you are taking any female hormones"
     }
 };
-function toggleInputs(input) {
-    if ($(input).attr("disabled"))
-        $(input).removeAttr('disabled');
-    else
-        $(input).attr('disabled' ,true);
-}
 
-function resetInputs(index, input) {
-    switch (input.type) {
-        case "radio":
-            $("[name='" + input.name + "']").removeAttr('checked');
-            break;
-        case "checkbox":
-            $("[name='" + input.name + "']").removeAttr('checked');
-            break;
-        case "select":
-            $(input).val("");
-            break;
-        default:
-            // statements_def
-            break;
-   }
-}
 
 function invalidForm(e, validator) {
 	document.getElementById("errors").scrollIntoView();
@@ -287,7 +234,7 @@ function invalidForm(e, validator) {
 function processSubmission(form){
 	var fd = new FormData(form);
 
-	$.ajax({
+	return $.ajax({
 		url: form.action,
 		type: form.method,
 		dataType: 'json',
@@ -346,41 +293,39 @@ function toggleFormDisplay(e) {
 }
 
 function toggleGender(e) {
-    var value = $(e.target).val();
-    switch (value) {
-        case "Male":
-            $.each($(".female").find("input, select"), function(index, el) {
-                $(el).rules("remove", "required");
-            });
+	var value = $(e.target).val();
+	if (value == "Male") {
+		$.each($(".female").find("input, select"), function(index, el) {
+			$(el).rules("remove", "required");
+		});
 
-            $.each($(".male").find("input, select"), function(index, el) {
-                $(el).rules("add", { required: true });
-            });
+		$.each($(".male").find("input, select"), function(index, el) {
+			$(el).rules("add", { required: true });
+		});
 
-            $(".female").removeClass('show');
-            $(".male").addClass('show');
-            break;
-        case "Female":
-            $.each($(".male").find("input, select"), function(index, el) {
-            $(el).rules("remove", "required");
-            if($("[name='" + el.name + "']").val().length > 0)
-                    $("[name='" + el.name + "']").val("");
-            });
+		$(".female").removeClass('show');
+		$(".male").addClass('show');
+	}
+	else if(value == "Female") {
+		$.each($(".male").find("input, select"), function(index, el) {
+			$(el).rules("remove", "required");
+			if($("[name='" + el.name + "']").val().length > 0)
+				$("[name='" + el.name + "']").val("");
+		});
 
-            $.each($(".female").find("input, select"), function(index, el) {
-                $(el).rules("add", { required: true });
-            });
-            
-            $(".male").removeClass('show');
-            $(".female").addClass('show');
-            break;
-        default:
-            $(".male, .female").removeClass('show').find("input, select").removeAttr("required");
-            $.each($(".male, .female").find("input, select"), function(index, el) {
-                $(el).rules("remove", "required");
-            });
-            break;
-    }
+		$.each($(".female").find("input, select"), function(index, el) {
+			$(el).rules("add", { required: true });
+		});
+		
+		$(".male").removeClass('show');
+		$(".female").addClass('show');
+	}
+	else {
+		$(".male, .female").removeClass('show').find("input, select").removeAttr("required");
+		$.each($(".male, .female").find("input, select"), function(index, el) {
+			$(el).rules("remove", "required");
+		});
+	}
 }
 
 $(window).scroll(function(e) {
@@ -431,147 +376,12 @@ $(function() {
 
 	$("input[name='gender']").on("change", toggleGender);
 	$("input[name='race']").on("change", function() {
-		// $("form :input").not("[name='race']").removeAttr('disabled');
-
-        switch (this.value) {
-            case 1:
-                $('#af-notice').addClass('show');
-                break;
-            case 2:
-                $('#as-notice').addClass('show');
-                break;
-            default:
-                return;
-        }
-        $("#raceModal").modal("show");
+		$("form :input").not("[name='race']").removeAttr('disabled');
+		if(this.value == 1){
+			$("#raceModal").modal("show");
+			$("form :input").not("[name='race']").attr('disabled', true);
+		}
 	});
-
-    $("input[name='hispanic']").on("change", function (el) {
-
-        if (this.value != "") {
-            $.each(document.getElementsByName("race"), resetInputs);
-
-            if (this.value == "0") {
-                $("#hisp-notice").addClass("show");
-                $("#raceModal").modal("show");
-            }
-
-            $.each( $("#riskForm :input").not("[name='" + el.target.name + "']"), function (i, input) {
-                toggleInputs(input);
-            });
-
-        }
-
-    });
-
-    $("input[name='moderate_months']").on("blur", function () {
-        $.each($("#subquestion-moderate-hours").find("select,input"), resetInputs);
-
-        if (this.value > "0") {
-            $("#subquestion-moderate-hours").addClass("show");
-        }
-        else {
-            $("#subquestion-moderate-hours").removeClass("show");
-        }
-    });
-
-    $("input[name='vigorous_months']").on("blur", function () {
-        $.each($("#subquestion-vigorous_months").find("select,input"), resetInputs);
-
-        if (this.value > "0") {
-            $("#subquestion-vigorous_months").addClass("show");
-        } else {
-            $("#subquestion-vigorous_months").removeClass("show");
-        }
-    });
-
-    $("select[name='veg_servings']").on("change", function () {
-        $.each($("#subquestion-veg").find("select,input"), resetInputs);
-
-        if (this.value > 0) {
-            $("#subquestion-veg").addClass("show");
-        } else {
-            $("#subquestion-veg").removeClass("show");
-        }
-    });
-
-    $("select[name='exam']").on("change", function () {
-        $.each($("#subquestion-exam").find("select,input"), resetInputs);
-
-        if (this.value == "0") {
-            $("#subquestion-exam").addClass("show");
-        } else {
-            $("#subquestion-exam").removeClass("show");
-        }
-    });
-
-    $("input[name='smoked']").on("change", function () {
-        $.each($("#subquestion-smoke-age").find("select,input"), resetInputs);
-
-        if(this.value == "0"){
-            $("#subquestion-smoke-age").addClass("show");
-        }
-        else {
-            $("#subquestion-smoke-age").removeClass("show");
-        }
-    });
-
-    $("select[name='cigarettes']").on("change", function () {
-        $.each($("#subquestion-smoke-age").find("select,input"), resetInputs);
-
-        if (this.value === "0")
-            $("#subquestion-smoke-age").addClass("show");
-        else {
-            $("#subquestion-smoke-age").removeClass("show");
-            $("#subquestion-smoke-now").removeClass("show");
-            $("#subquestion-smoke-quit").removeClass("show");
-        }
-    });
-
-    $("select[name='smoke_age']").on("change", function () {
-        $.each($("#subquestion-smoke-now").find("select,input"), resetInputs);
-
-        if (this.value >= 6)
-            $("#subquestion-smoke-now").addClass("show");
-        else
-            $("#subquestion-smoke-now").removeClass("show");
-    });
-
-    $("input[name='smoke_now']").on("change", function () {
-        $.each($("#subquestion-smoke-quit").find("select,input"), resetInputs);
-
-        if (this.value === "0")
-            $("#subquestion-smoke-quit").addClass("show");
-        else
-            $("#subquestion-smoke-quit").removeClass("show");
-    });
-
-    $("input[name='period']").on("change", function () {
-        $.each($("#subquestion-period, #subquestion-hormones").find("select,input"), resetInputs);
-
-        if (this.value == "0")
-            $("#subquestion-period, #subquestion-hormones").removeClass("show");
-        else
-            $("#subquestion-period").addClass("show");
-    });
-
-    $("select[name='last_period']").on("change", function () {
-        if (this.value == "2")
-            $("#subquestion-hormones").addClass("show");
-        else
-            $("#subquestion-hormones").removeClass("show");
-    });
-
-    $("select[name='family_cancer']").on("change", function () {
-        $.each($("#subquestion-family-cancer").find("select,input"), resetInputs);
-
-        if (this.value === "1") {
-            $("#subquestion-family-cancer").addClass("show");
-        } else {
-            $("#subquestion-family-cancer").removeClass("show");
-        }
-    });
-
 
 	$(document).on('hidden.bs.tab', 'a[data-toggle="tab"]', function(e) {
 		if($("nav.navbar-collapse").hasClass('in'))
