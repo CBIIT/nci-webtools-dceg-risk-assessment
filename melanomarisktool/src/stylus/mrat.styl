@@ -133,16 +133,22 @@ button, a.btn
 		line-height 2
 #main_home
 	margin-top 2em
-	margin-bottom 6em
-	padding-left 5%
-	padding-right 5%
+	max-width 1099px
+	margin-bottom 2em
 	line-height 1.5
+	margin-right auto
+	margin-left auto
 	ul li
 		line-height 2
 .box
 	max-width 600px
 	background-color green_DB
 	padding 1.5em
+#results_text
+	text-align left
+	max-width 365px
+	margin-top 15%
+	margin-left 20%
 #results_box
 	margin-top 10%	
 	text-align center
@@ -186,7 +192,6 @@ button, a.btn
 		
 		/* style rules for the form "checkpoints" bar */
 		span.spacer
-			margin 0 -50px
 			min-width 10%
 			display inline-block
 			color grey_86
@@ -196,11 +201,12 @@ button, a.btn
 		li
 			display inline-block
 			color grey_86
+			margin-right 3%
 			a
 				display block
 				color inherit
 				&:nth-child(2)
-					font-size 20px
+					font-size 19px
 					background grey_86
 					color white
 					border-radius 22px
@@ -211,7 +217,7 @@ button, a.btn
 					padding 2px
 					position relative
 			&.active
-				font-size 29px
+				font-size 24px
 				&:first-child
 					a
 						&:first-child

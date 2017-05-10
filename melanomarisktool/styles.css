@@ -196,10 +196,11 @@ a.btn.btn-form:disabled {
 }
 #main_home {
   margin-top: 2em;
-  margin-bottom: 6em;
-  padding-left: 5%;
-  padding-right: 5%;
+  max-width: 1099px;
+  margin-bottom: 2em;
   line-height: 1.5;
+  margin-right: auto;
+  margin-left: auto;
 }
 #main_home ul li {
   line-height: 2;
@@ -208,6 +209,12 @@ a.btn.btn-form:disabled {
   max-width: 600px;
   background-color: #dbf2f8;
   padding: 1.5em;
+}
+#results_text {
+  text-align: left;
+  max-width: 365px;
+  margin-top: 15%;
+  margin-left: 20%;
 }
 #results_box {
   margin-top: 10%;
@@ -260,7 +267,6 @@ a.btn.btn-form:disabled {
 /* style rules for the form "checkpoints" bar */
 }
 #form-steps ol span.spacer {
-  margin: 0 -50px;
   min-width: 10%;
   display: inline-block;
   color: #868686;
@@ -271,13 +277,14 @@ a.btn.btn-form:disabled {
 #form-steps ol li {
   display: inline-block;
   color: #868686;
+  margin-right: 3%;
 }
 #form-steps ol li a {
   display: block;
   color: inherit;
 }
 #form-steps ol li a:nth-child(2) {
-  font-size: 20px;
+  font-size: 19px;
   background: #868686;
   color: #fff;
   border-radius: 22px;
@@ -289,7 +296,7 @@ a.btn.btn-form:disabled {
   position: relative;
 }
 #form-steps ol li.active {
-  font-size: 29px;
+  font-size: 24px;
 }
 #form-steps ol li.active:first-child a:first-child {
   color: #339fbe;
@@ -548,6 +555,18 @@ input.error + label.radio span {
     top: 0;
     left: 0;
   }
+  #main_home {
+    margin-top: 6em;
+  }
+  #results {
+    padding: 1em;
+  }
+  #results_text {
+    text-align: left;
+    max-width: 365px;
+    margin-top: 15%;
+    margin-left: 0;
+  }
   nav#main-nav {
     background: #fff;
     padding: 0;
@@ -589,6 +608,8 @@ input.error + label.radio span {
   #form-steps ol li {
     margin: 0.5em 0.1em;
     border-radius: 20px;
+    margin-left: 6%;
+    margin-right: 6%;
   }
   #form-steps ol li a:first-child {
     display: none;

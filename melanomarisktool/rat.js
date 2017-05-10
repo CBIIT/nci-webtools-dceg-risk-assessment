@@ -23,7 +23,7 @@ var validationMessages = {
 	"small-moles": {
 		required: "The number of moles less than or equal to 5mm in diameter on the patient's back must be selected."
 	},
-	tan: {
+	"tan": {
 		required: "The level to which the patient presents a tan must be selected."
 	},
 	freckling: {
@@ -67,7 +67,7 @@ var validationRules = {
 	"small-moles": {
 		required: true
 	},
-	tan: {
+	"tan": {
 		required: {
 			depends: function(el) {
 				return $('[name="gender"]').val() == "Female";
@@ -120,19 +120,26 @@ function processSubmission(form){
 
 function resultsDisplay(response, textStatus, xhr) {
 	var results=JSON.parse(response.message)
-	var message="Based on the information provided, the patient’s estimated risk for developing melanoma over the next 5 years is "+results.risk+"%. For every 1,000 "+ results.gender+"s living in the " +results.regionKey+" region with these characteristics, on average about "+ results.ratio+" will develop melanoma in the next 5 years";
+	var message="Based on the information provided, the patient’s estimated risk for developing melanoma over the next 5 years is "+results.risk+"%. For every 1,000 "+ results.gender+"s living in the " +results.regionKey+" region with these characteristics, on average about "+ results.ratio+" will develop melanoma in the next 5 years.";
 
 
 
 	$('#main').addClass('hide')
 	$('#form-steps').addClass('hide')
 	$("#results").addClass('show')
-	$("#results_text").append(message);
-	$("#Risk").html(results.risk+"%");
+	$("#results_text").html(message);
+	$(".risk_header").text(results.risk+"%");
 	make_pie_chart(results.risk);
 
 }
-
+function goback_tocalc(){
+	$('#main').removeClass('hide')
+	$('#form-steps').removeClass('hide')
+	$("#results").removeClass('show')
+	$("#results_text").html("");
+	$("#Pie_chart").html("");
+	$(window).scrollTop(0);
+}
 function make_pie_chart(percent){
 	(function(d3) {
 
@@ -143,13 +150,13 @@ function make_pie_chart(percent){
           { label: 'Total', count: 100-percent },
         ];
 
-        var width = 360;
-        var height = 360;
+        var width = 206;
+        var height = 206;
         var radius = Math.min(width, height) / 2;
 
         var color = d3.scaleOrdinal().range(['#2dc799','#EFEFEF']);
 
-        var svg = d3.select('#results_graph')
+        var svg = d3.select('#Pie_chart')
           .append('svg')
           .attr('width', width)
           .attr('height', height)
@@ -399,7 +406,7 @@ function adjust_line_width(ind){
  	var last_dot=$("#form-steps").find("a")[$("#form-steps").find("a").length-1]
  	var last_dot_left=$(last_dot).position().left
  	var last_dot_width=$(last_dot).outerWidth(true)
- 	$("#line").find("hr").css("left",first_dot_left+first_dot_width/2)
+ 	$("#line").find("hr").css("left",first_dot_left+first_dot_width/2+10)
     
     $("#line").find("hr").css("width",last_dot_left-first_dot_left-last_dot_width/2)
 	if(ind==1)

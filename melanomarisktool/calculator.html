@@ -41,7 +41,7 @@
       </div>
     </header>
     <div id="results">
-      <div id="main_home"><a href="calculator.html">< Back to Calculator</a>
+      <div id="main_home"><a href="javascript:goback_tocalc()">< Back to Calculator</a>
         <h2>Personalized Results</h2>
         <div class="row">
           <div class="col-xs-12 col-md-12">
@@ -56,17 +56,17 @@
           <div class="container-fluid">
             <h3 class="results_header">5 Year Absolute Risk of Developing Melanoma</h3>
             <div class="row">
-              <div class="col-xs-3 col-md-3">
-                <div id="results_graph"><span class="patient_header">Patient Risk</span>
-                  <div id="Risk"> <span class="risk_header">0.29%</span></div>
+              <div class="col-xs-12 col-md-3">
+                <div id="results_graph"><span class="patient_header">Patient Risk</span><br><span class="risk_header" id="Risk"></span>
+                  <div id="Pie_chart"> </div>
                 </div>
               </div>
-              <div class="col-xs-9 col-md-9">
+              <div class="col-xs-12 col-md-9">
                 <div id="results_text"></div>
               </div>
             </div>
           </div>
-        </div><a class="btn btn-lg btn-form center-block" href="calculator.html">Start Over</a>
+        </div><br><a class="btn btn-lg btn-form center-block" href="calculator.html">Start Over</a>
       </div>
     </div>
     <div id="form-steps">
@@ -210,19 +210,19 @@
               would your skin become very brown and deeply tanned, moderately tanned, lightly tanned, or no tan at all?
             </label>
             <div class="responseOptions">
-              <input type="radio" name="tan" value="0" required>
+              <input type="radio" name="tan" value="0">
               <label class="radio" tabindex="0"><span></span>Very brown and deeply tanned</label>
             </div>
             <div class="responseOptions">
-              <input type="radio" name="tan" value="1" required>
+              <input type="radio" name="tan" value="1">
               <label class="radio" tabindex="0"><span></span>Moderately tanned</label>
             </div>
             <div class="responseOptions">
-              <input type="radio" name="tan" value="2" required>
+              <input type="radio" name="tan" value="2">
               <label class="radio" tabindex="0"><span></span>Lightly tanned</label>
             </div>
             <div class="responseOptions">
-              <input type="radio" name="tan" value="3" required>
+              <input type="radio" name="tan" value="3">
               <label class="radio" tabindex="0"><span></span>No tan at all</label>
             </div>
           </div>

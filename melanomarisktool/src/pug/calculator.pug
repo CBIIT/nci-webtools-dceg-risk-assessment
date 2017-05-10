@@ -20,7 +20,7 @@ html(lang="en")
 		include shared/header
 		#results
 			#main_home
-				a(href="calculator.html") < Back to Calculator
+				a(href="javascript:goback_tocalc()") < Back to Calculator
 				h2 Personalized Results
 				.row
 					.col-xs-12.col-md-12
@@ -35,14 +35,16 @@ html(lang="en")
 					.container-fluid
 						h3.results_header 5 Year Absolute Risk of Developing Melanoma
 						.row
-							.col-xs-3.col-md-3
+							.col-xs-12.col-md-3
 								#results_graph
 									span.patient_header Patient Risk
-									#Risk 
-										span.risk_header 0.29%
+									br
+									span.risk_header#Risk
+									#Pie_chart 
 
-							.col-xs-9.col-md-9
+							.col-xs-12.col-md-9
 								#results_text
+				br
 				a.btn.btn-lg.btn-form.center-block(href="calculator.html") Start Over
 		#form-steps
 					#line
@@ -162,22 +164,22 @@ html(lang="en")
 								| Ask the patient: After repeated and prolonged exposure to sunlight, at the age you are now, 
 								| would your skin become very brown and deeply tanned, moderately tanned, lightly tanned, or no tan at all?
 							.responseOptions
-								input(type="radio", name='tan', value='0', required) 
+								input(type="radio", name='tan', value='0') 
 								label.radio(tabindex="0")
 									span
 									| Very brown and deeply tanned
 							.responseOptions
-								input(type="radio", name='tan', value='1', required) 
+								input(type="radio", name='tan', value='1') 
 								label.radio(tabindex="0")
 									span
 									| Moderately tanned
 							.responseOptions
-								input(type="radio", name='tan', value='2', required) 
+								input(type="radio", name='tan', value='2') 
 								label.radio(tabindex="0")
 									span
 									| Lightly tanned
 							.responseOptions
-								input(type="radio", name='tan', value='3', required) 
+								input(type="radio", name='tan', value='3') 
 								label.radio(tabindex="0")
 									span
 									| No tan at all
