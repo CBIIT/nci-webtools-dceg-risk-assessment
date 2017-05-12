@@ -378,23 +378,18 @@ input[type="radio"] + label.radio span {
   width: 1.5em;
   height: 1.5em;
   margin: 0 0.5em 0 0;
-  padding: 2px;
   vertical-align: middle;
-  border: 3px solid #2b7bba;
-  border-radius: 20px;
-  background: #fff;
+  background: url("./images/Radio_Button_Unselected.png");
   color: #f2f2f2;
   cursor: pointer;
 }
 input[type="radio"] + label.radio:hover span {
-  background: #2b7bba;
-  border-color: #fff;
-  border-style: double;
-  padding: 0.5em;
+  background: url("./images/Radio_Button_Selected.png");
+  background-repeat: no-repeat;
 }
 input[type="radio"]:checked + label.radio span {
-  border-style: double;
-  background: #2b7bba;
+  background: url("./images/Radio_Button_Selected.png");
+  background-repeat: no-repeat;
 }
 select:disabled,
 input:disabled {
@@ -510,13 +505,13 @@ input.error + label.radio span {
   color: #2b7bba;
 }
 .demo-dialog .modal-content {
-  border: 5px solid #268db2;
+  border: 3px solid #268db2;
+  border-radius: 0px;
 }
 .error-dialog .modal-content {
   border: solid 4px #14819b;
   background-color: #fff F;
   border: 3px solid #14819b;
-  border-radius: 0;
 }
 .error-dialog img {
   float: left;
