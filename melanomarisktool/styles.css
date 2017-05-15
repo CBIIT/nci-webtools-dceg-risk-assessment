@@ -64,6 +64,9 @@ p {
   margin: 0;
   margin-bottom: 1em;
 }
+a {
+  color: #2b7bba;
+}
 .sectionTitle {
   color: #fff;
   padding: 20px;
@@ -157,24 +160,16 @@ button:disabled,
 a.btn:disabled {
   cursor: not-allowed;
 }
-button.btn-form,
-a.btn.btn-form {
-  color: #fff;
-  background-color: #2dc799;
-  border-color: #1dc799;
-  border-radius: 0;
+.btn-form {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
-button.btn-form:hover,
-a.btn.btn-form:hover,
-button.btn-form:focus,
-a.btn.btn-form:focus {
-  background-color: #1f8566;
-  color: #fff;
-}
-button.btn-form:disabled,
-a.btn.btn-form:disabled {
-  background-color: #238769;
-  color: #d9d9d9;
+.btn-form:hover,
+.btn-form:focus {
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
 }
 #results:not(.show),
 #errors:not(.show),
@@ -336,6 +331,7 @@ a.btn.btn-form:disabled {
 }
 label.questions {
   font-weight: bold;
+  color: #2e2e2e;
 }
 .responseOptions {
   font-weight: normal;
@@ -369,7 +365,7 @@ input[type="radio"] {
   display: none;
 }
 input[type="radio"] + label.radio {
-  color: #000;
+  color: #606060;
   font-weight: normal;
   width: 50%;
 }
@@ -378,23 +374,18 @@ input[type="radio"] + label.radio span {
   width: 1.5em;
   height: 1.5em;
   margin: 0 0.5em 0 0;
-  padding: 2px;
   vertical-align: middle;
-  border: 3px solid #2b7bba;
-  border-radius: 20px;
-  background: #fff;
+  background: url("./images/Radio_Button_Unselected.png");
   color: #f2f2f2;
   cursor: pointer;
 }
 input[type="radio"] + label.radio:hover span {
-  background: #2b7bba;
-  border-color: #fff;
-  border-style: double;
-  padding: 0.5em;
+  background: url("./images/Radio_Button_Selected.png");
+  background-repeat: no-repeat;
 }
 input[type="radio"]:checked + label.radio span {
-  border-style: double;
-  background: #2b7bba;
+  background: url("./images/Radio_Button_Selected.png");
+  background-repeat: no-repeat;
 }
 select:disabled,
 input:disabled {
@@ -476,13 +467,13 @@ input.error + label.radio span {
   border: none;
 }
 .modal-header .close {
-  background: #2b7bba;
-  padding: 5px 9px;
-  border-radius: 25px;
+  background: url("./images/Exit.png");
+  padding: 8px 9px;
   color: #fff;
   opacity: initial;
   -ms-filter: initial;
   filter: initial;
+  background-repeat: no-repeat;
 }
 .modal-header .close:hover,
 .modal-header .close:focus {
@@ -510,20 +501,19 @@ input.error + label.radio span {
   color: #2b7bba;
 }
 .demo-dialog .modal-content {
-  border: 5px solid #268db2;
+  border: 3px solid #339fbe;
+  border-radius: 0px;
 }
 .error-dialog .modal-content {
-  border: solid 4px #14819b;
   background-color: #fff F;
-  border: 3px solid #14819b;
-  border-radius: 0;
+  border: 3px solid #339fbe;
 }
 .error-dialog img {
   float: left;
 }
 .error-dialog button {
   color: #fff;
-  background-color: #14819b;
+  background-color: #339fbe;
   font-weight: bold;
   display: -webkit-box;
   display: -moz-box;
@@ -539,6 +529,7 @@ input.error + label.radio span {
   justify-content: center;
   margin: 0 auto;
   text-transform: uppercase;
+  border: none;
 }
 @media (max-width: 992px) {
   header img#logo {

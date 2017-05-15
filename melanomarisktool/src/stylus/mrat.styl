@@ -108,18 +108,13 @@ button, a.btn
 		font-size 0.8em
 	&:disabled
 		cursor not-allowed		
-	&.btn-form
-		color #fff
-		background-color #2DC799
-		border-color #1DC799
-		border-radius 0
-		&:hover, &:focus
-			background-color #1f8566
-			color #fff
-		&:disabled
-			background-color #238769
-			color #d9d9d9
-	
+&.btn-form
+	display block
+	margin-left auto
+	margin-right auto
+	&:hover, &:focus
+		opacity 0.5
+
 #results, #errors, #map, #listings, .male, .female
 	&:not(.show)
 		display none
@@ -291,28 +286,22 @@ input[type="radio"]
 			width 1.5em
 			height 1.5em
 			margin 0 0.5em 0 0
-			padding 2px
 			vertical-align middle
-			border 3px solid blue_2B
-			border-radius 20px
-			background #fff
+			    background: url(./images/Radio_Button_Unselected.png);
 			color #f2f2f2
 			cursor pointer
 		&:hover
 			span
-				background blue_2B
-				border-color #fff
-				border-style double
-				padding 0.5em
-		// &:focus
+				background url(./images/Radio_Button_Selected.png);
+				background-repeat no-repeat
 		// 	span
 		// 		border-color blue_2B
 		// 		background blue_2B
 		// 		border-style double
 	&:checked + label.radio
 		span
-			border-style double
-			background blue_2B
+			background url(./images/Radio_Button_Selected.png);
+			background-repeat no-repeat
 select, input
 	&:disabled
 		cursor not-allowed
