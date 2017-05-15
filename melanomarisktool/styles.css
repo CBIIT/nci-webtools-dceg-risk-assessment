@@ -501,20 +501,19 @@ input.error + label.radio span {
   color: #2b7bba;
 }
 .demo-dialog .modal-content {
-  border: 3px solid #268db2;
+  border: 3px solid #339fbe;
   border-radius: 0px;
 }
 .error-dialog .modal-content {
-  border: solid 4px #14819b;
   background-color: #fff F;
-  border: 3px solid #14819b;
+  border: 3px solid #339fbe;
 }
 .error-dialog img {
   float: left;
 }
 .error-dialog button {
   color: #fff;
-  background-color: #14819b;
+  background-color: #339fbe;
   font-weight: bold;
   display: -webkit-box;
   display: -moz-box;
@@ -530,6 +529,7 @@ input.error + label.radio span {
   justify-content: center;
   margin: 0 auto;
   text-transform: uppercase;
+  border: none;
 }
 @media (max-width: 992px) {
   header img#logo {
