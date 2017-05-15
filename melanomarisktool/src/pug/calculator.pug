@@ -98,7 +98,7 @@ html(lang="en")
 							.col-xs-12.col-sm-6.no-padding
 								label.questions
 									| Does the patient live in the Northern, Central, or Southern United States?
-									em  The model on which this tool is based is valid only for residents of the continental United States. This map is only a guide.
+								|The model on which this tool is based is valid only for residents of the continental United States. This map is only a guide.
 								.responseOptions
 									input(type="radio", name="region", value='north', required)
 									label.radio(tabindex="0")
@@ -232,9 +232,10 @@ html(lang="en")
 									option(value='1') No
 					.center-block
 						#buttons
-							.col-xs-12.col-sm-3.col-sm-push-5
-								button.btn-sm.btn-block#reset(type="reset") Reset
-								button.btn-sm.btn-form.btn-block#calculate(type="submit") Calculate Risk
+							.col-xs-12
+								input.btn-sm.btn-form#reset(type="image"  src="./images/Reset_Button.svg")
+								
+								input.btn-sm.btn-form#calculate(type="image" src="./images/Calculate_Risk_Button.svg") 
 		include shared/footer
 		#raceModal.modal.error-dialog.fade(tabindex='-1', role='dialog', data-backdrop="false")
 			.modal-dialog(role='document')
@@ -248,7 +249,7 @@ html(lang="en")
 			.modal-dialog(role='document')
 				.modal-content
 					.modal-header
-						button.close(type='button', data-dismiss='modal', aria-label="close modal") x
+						button.close(type='button', data-dismiss='modal', aria-label="close modal") 
 					.modal-body
 						p The map is divided into three distinct areas:
 						p

@@ -157,24 +157,16 @@ button:disabled,
 a.btn:disabled {
   cursor: not-allowed;
 }
-button.btn-form,
-a.btn.btn-form {
-  color: #fff;
-  background-color: #2dc799;
-  border-color: #1dc799;
-  border-radius: 0;
+.btn-form {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
-button.btn-form:hover,
-a.btn.btn-form:hover,
-button.btn-form:focus,
-a.btn.btn-form:focus {
-  background-color: #1f8566;
-  color: #fff;
-}
-button.btn-form:disabled,
-a.btn.btn-form:disabled {
-  background-color: #238769;
-  color: #d9d9d9;
+.btn-form:hover,
+.btn-form:focus {
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
 }
 #results:not(.show),
 #errors:not(.show),
@@ -471,13 +463,14 @@ input.error + label.radio span {
   border: none;
 }
 .modal-header .close {
-  background: #2b7bba;
-  padding: 5px 9px;
+  background: url("./images/Exit.png");
+  padding: 8px 9px;
   border-radius: 25px;
   color: #fff;
   opacity: initial;
   -ms-filter: initial;
   filter: initial;
+  background-repeat: no-repeate;
 }
 .modal-header .close:hover,
 .modal-header .close:focus {
