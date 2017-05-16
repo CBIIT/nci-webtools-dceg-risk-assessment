@@ -536,13 +536,6 @@ input.error + label.radio span {
   header #toolTitle {
     padding-left: 1em;
   }
-  header.fixed {
-    position: fixed;
-    z-index: 100;
-    width: 100%;
-    top: 0;
-    left: 0;
-  }
   #main_home {
     margin-top: 6em;
   }
