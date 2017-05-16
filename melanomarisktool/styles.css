@@ -132,6 +132,7 @@ nav#main-nav ul.nav.nav-tabs li a {
   border-radius: 0px;
   margin: 0;
   padding: 0.7em;
+  padding-left: 0px;
 }
 nav#main-nav ul.nav.nav-tabs li a:hover,
 nav#main-nav ul.nav.nav-tabs li a:focus {
