@@ -200,8 +200,10 @@ function formScrollSpy() {
 
 function fixedToTop() {
 	var window_top = $(window).scrollTop();
-	var div_top = $("#main-nav").offset().top;
+	var div_top = $("#header").height();
 	var form_steps_height=$('#form-steps').outerHeight();
+	console.log("window_top "+window_top)
+	console.log("div_top "+ div_top)
 	if ( window_top > div_top ){
 		$("#form-steps").addClass('fixed');
 
@@ -372,7 +374,7 @@ $(window).load(function(e) {
  		 	$("#form-steps").css("z-index","1")
  		 }
 
- 		 $("#main").css("margin-top",header_height+form_steps_height+"px"); 
+ 		 $("#main").css("margin-top",header_height+"px"); 
  		 $("#form-steps").css("margin-top",header_height+"px");
  		 $("header").css("background","white"); 
  		 $("#main").removeClass("container-fluid");
