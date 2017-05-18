@@ -69,7 +69,7 @@ a {
 }
 .sectionTitle {
   color: #fff;
-  padding: 20px;
+  padding: 13px;
   margin-bottom: 0;
 }
 .sectionTitle:first-child {
@@ -326,17 +326,21 @@ a.btn:disabled {
 .no-margin {
   margin: 0;
 }
+.no-margin-top {
+  margin-top: 0px !important;
+}
 .no-padding {
   padding: 0;
 }
 label.questions {
   font-weight: bold;
   color: #2e2e2e;
+  margin-top: 50px;
 }
 .responseOptions {
   font-weight: normal;
-  line-height: 3;
   margin-left: 1em;
+  margin-top: 16px;
 }
 .responseOptions label {
   font-weight: inherit;
@@ -616,10 +620,6 @@ input.error + label.radio span {
   .questions,
   .responseOptions {
     line-height: 1.5;
-  }
-  select,
-  input[type="radio"] + label.radio {
-    width: 100%;
   }
   .box {
     margin: 1em auto;

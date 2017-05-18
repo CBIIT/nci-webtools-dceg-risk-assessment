@@ -84,7 +84,7 @@
       <form id="riskForm" name="riskForm" method="POST" action="calculate" autocomplete="off">
         <h2 class="sectionTitle">Demographics</h2>
         <section id="demo-section">
-          <label class="questions" for="race">What is the patient's race?</label>
+          <label class="questions no-margin-top" for="race">What is the patient's race?</label>
           <div class="responseOptions">
             <input type="radio" name="race" value="0" required>
             <label class="radio" tabindex="0"><span></span>Non-Hispanic White</label>
@@ -180,7 +180,7 @@
         </section>
         <h2 class="sectionTitle">Skin Characteristics</h2>
         <section id="skin-section">
-          <label class="questions" for="complexion">Is the patient's complexion light, medium, or dark?</label>
+          <label class="no-margin-top questions" for="complexion">Is the patient's complexion light, medium, or dark?</label>
           <div class="responseOptions">
             <input type="radio" name="complexion" value="0" required>
             <label class="radio" tabindex="0"><span></span>Light</label>
@@ -194,7 +194,7 @@
             <label class="radio" tabindex="0"><span></span>Dark</label>
           </div>
           <div class="male">
-            <label class="questions" for="sunburn">Has the patient ever gotten a blistering sunburn?</label>
+            <label class="questions no-margin-top" for="sunburn">Has the patient ever gotten a blistering sunburn?</label>
             <div class="responseOptions">
               <input type="radio" name="sunburn" value="0">
               <label class="radio" tabindex="0"><span></span>Yes</label>
@@ -230,7 +230,7 @@
         <h2 class="sectionTitle">Physical Exam</h2>
         <section id="physical-section">
           <div class="male">
-            <label class="questions">How many moles larger than 5mm in diameter are on the patient's back?</label>
+            <label class="no-margin-top questions" id="large_moles">How many moles larger than 5mm in diameter are on the patient's back?</label>
             <div class="responseOptions">
               <input type="radio" name="big-moles" value="0">
               <label class="radio" tabindex="0"><span> </span>Less than two</label>
@@ -240,7 +240,7 @@
               <label class="radio" tabindex="0"><span></span>Two or more</label>
             </div>
           </div>
-          <label class="questions">How many moles less than or equal to 5mm in diameter are on the patient's back?</label>
+          <label class="questions no-margin-top" id="small_moles">How many moles less than or equal to 5mm in diameter are on the patient's back?</label>
           <div class="responseOptions">
             <input type="radio" name="small-moles" value="0" required>
             <label class="radio" tabindex="0"><span></span>Less than seven</label>
