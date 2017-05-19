@@ -107,6 +107,8 @@ header #toolTitle {
 }
 header #toolTitle a {
   color: inherit;
+  font-size: 17px;
+  font-family: 'Montserrat', sans-serif;
 }
 header #toolTitle .navbar-toggle {
   margin-top: -0.3em;
@@ -123,7 +125,9 @@ img#logo {
 nav#main-nav {
   text-transform: uppercase;
   background-color: #235e88;
-  padding-left: 5em;
+  padding-left: 4.5em;
+  font-size: 18px;
+  font-family: 'Montserrat', sans-serif;
 }
 nav#main-nav ul.nav.nav-tabs li {
   border: none;
@@ -135,7 +139,6 @@ nav#main-nav ul.nav.nav-tabs li a {
   border-radius: 0px;
   margin: 0;
   padding: 0.7em;
-  padding-left: 0px;
 }
 nav#main-nav ul.nav.nav-tabs li a:hover,
 nav#main-nav ul.nav.nav-tabs li a:focus {
@@ -325,6 +328,9 @@ a.btn:disabled {
   font-size: 25px;
   color: #fff;
   background: #2d73a5;
+}
+.no-padding-left {
+  padding-left: 0px !important;
 }
 .no-margin {
   margin: 0;
