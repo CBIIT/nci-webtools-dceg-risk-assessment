@@ -197,7 +197,6 @@ function formScrollSpy() {
 }
 
 
-
 function fixedToTop(div_top,use_mobile) {
 	var header_height=$('header').outerHeight();
 	var window_top = $(window).scrollTop();
@@ -207,8 +206,8 @@ function fixedToTop(div_top,use_mobile) {
 	//	var div_top = $("#main-nav").offset().top;
 
 	var form_steps_height=$('#form-steps').outerHeight();
-	console.log("window_top "+window_top)
-	console.log("div_top "+ div_top)
+	//console.log("window_top "+window_top)
+	//console.log("div_top "+ div_top)
 	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
 			$("#main").css("margin-top",0+"px"); 
  			$("#form-steps").css("margin-top",0+"px");
@@ -350,7 +349,10 @@ $(window).load(function(e) {
 			}
 		}
 	});
-
+	$("#reset_form").on("click",function(){
+		$('form').trigger('reset')
+	 	$(window).scrollTop(0);
+	});
 	$("button.select").on('click keypress', function(e) {
 		if(e.type == "keypress") {
 			if ((e.keyCode == 13) || (e.keyCode == 32)) {
