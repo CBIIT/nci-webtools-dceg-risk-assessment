@@ -198,20 +198,31 @@ function formScrollSpy() {
 
 
 
-function fixedToTop() {
+function fixedToTop(div_top,use_mobile) {
+	var header_height=$('header').outerHeight();
 	var window_top = $(window).scrollTop();
-	var div_top = $("#header").height();
+	var div_top = $("#"+div_top).offset().top;
+	//var div_top = $("#header").height();
+	//var div_top = $("#toolTitle").offset().top;
+	//	var div_top = $("#main-nav").offset().top;
+
 	var form_steps_height=$('#form-steps').outerHeight();
 	console.log("window_top "+window_top)
 	console.log("div_top "+ div_top)
+	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+			$("#main").css("margin-top",0+"px"); 
+ 			$("#form-steps").css("margin-top",0+"px");
+		}
 	if ( window_top > div_top ){
 		$("#form-steps").addClass('fixed');
 
 		$("#line").find("hr").css("top",form_steps_height-30)
+		
 	}
 	else{
 		$("#form-steps").removeClass('fixed');
-	adjust_line_height_dekstop()
+		adjust_line_height_dekstop()
+		
 	}
 }
 
@@ -240,6 +251,8 @@ function toggleGender(e) {
 	var value = $(e.target).val();
 	switch (value) {
 		case "Male":
+			$("#small_moles").removeClass("no-margin-top")
+			$("#small_moles").css("margin-top", "50px")
 			$.each($(".female").find("input, select"), function(index, el) {
 				$(el).rules("remove", "required");
 				$("#riskForm").validate().element(el);
@@ -253,6 +266,7 @@ function toggleGender(e) {
 			$(".male").addClass('show');
 			break;
 		case "Female":
+			$("#small_moles").addClass("no-margin-top")
 			$.each($(".male").find("input, select"), function(index, el) {
 				$(el).rules("remove", "required");
 			});
@@ -275,13 +289,24 @@ function toggleGender(e) {
 if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 	$(window).scroll(function(e) {
 		// e.preventDefault();
-		fixedToTop();
+		if($(window).width()>=753)
+			var top_div="main-nav"
+		else
+			var top_div="toolTitle"
+		
+		fixedToTop(top_div);
 		formScrollSpy();
 	});
 
 }
 else if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
 	$(window).on('touchmove', function(event) {
+		if($(window).width()>=753)
+			var top_div="main-nav"
+		else
+			var top_div="toolTitle"
+		
+		fixedToTop(top_div,true);
 		formScrollSpy();
 
 	});
