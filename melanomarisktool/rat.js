@@ -248,6 +248,10 @@ function toggleFormDisplay(e) {
 
 function toggleGender(e) {
 	var value = $(e.target).val();
+	$("#skin-section").removeClass("no_display")
+	$("#skin").removeClass("no_display")
+	$("#physical-section").removeClass("no_display")
+	$("#physical").removeClass("no_display")
 	switch (value) {
 		case "Male":
 			$("#small_moles").removeClass("no-margin-top")

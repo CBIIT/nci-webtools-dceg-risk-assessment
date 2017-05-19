@@ -169,6 +169,7 @@
             <div class="col-xs-12 col-sm-6 no-padding"><img class="img-responsive show" id="map" src="images/us-map.png" alt="The map is divided into three distinct areas.	Northern United States which includes Washington, Oregon, Montana, North Dakota, South Dakota, Minnesota, Wisconsin, Michigan, Iowa, Illinois, Indiana, Ohio, Maryland, Pennsylvania, New York, New Jersey, Vermont, Rhode Island, Connecticut, Massachusetts, New Hampshire, and Maine. Central United States which includes Northern California, Idaho, Utah, Wyoming, Nebraska, Kansas, Oklahoma, Arkansas, Missouri, Tennessee, Kentucky, West Virginia, Virginia, Delaware, North Carolina, and South Carolina. Southern United States which includes Southern California, Nevada, Arizona, New Mexico, Colorado, Texas, Louisiana, Mississippi, Alabama, Georgia, and Florida."><a id="state-listing" data-toggle="modal" data-target="#mapModal">View state listings by area.</a></div>
           </div>
           <label class="questions" for="gender">What is the patient's gender?</label>
+          <p>This tool uses gender-specific risk models. It requires different information of male patients than female patients. The answer to this question will determine what other questions are asked below.</p>
           <div class="responseOptions">
             <input type="radio" name="gender" value="Male" required>
             <label class="radio" tabindex="0"><span></span>Male</label>
@@ -178,8 +179,8 @@
             <label class="radio" tabindex="0"><span></span>Female</label>
           </div>
         </section>
-        <h2 class="sectionTitle">Skin Characteristics</h2>
-        <section id="skin-section">
+        <h2 class="sectionTitle no_display" id="skin">Skin Characteristics</h2>
+        <section class="no_display" id="skin-section">
           <label class="no-margin-top questions" for="complexion">Is the patient's complexion light, medium, or dark?</label>
           <div class="responseOptions">
             <input type="radio" name="complexion" value="0" required>
@@ -227,8 +228,8 @@
             </div>
           </div>
         </section>
-        <h2 class="sectionTitle">Physical Exam</h2>
-        <section id="physical-section">
+        <h2 class="sectionTitle no_display" id="physical">Physical Exam</h2>
+        <section class="no_display" id="physical-section">
           <div class="male">
             <label class="no-margin-top questions" id="large_moles">How many moles larger than 5mm in diameter are on the patient's back?</label>
             <div class="responseOptions">

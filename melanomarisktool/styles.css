@@ -81,6 +81,9 @@ a {
 .sectionTitle:nth-child(5) {
   background: #2d73a5;
 }
+.no_display {
+  display: none;
+}
 header,
 .tab-content,
 .footer {
