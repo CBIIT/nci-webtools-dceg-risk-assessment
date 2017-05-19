@@ -71,6 +71,8 @@ a {
   color: #fff;
   padding: 13px;
   margin-bottom: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 28px;
 }
 .sectionTitle:first-child {
   background: #339fbe;
