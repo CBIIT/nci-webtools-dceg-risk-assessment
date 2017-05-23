@@ -127,7 +127,7 @@ img#logo {
 nav#main-nav {
   text-transform: uppercase;
   background-color: #235e88;
-  padding-left: 4.5em;
+  padding-left: 3.8em;
   font-size: 18px;
   font-family: 'Montserrat', sans-serif;
 }
@@ -252,6 +252,7 @@ a.btn:disabled {
   padding: 10px 0;
   -webkit-box-shadow: 0 0 20px #808080;
   box-shadow: 0 0 20px #808080;
+  font-family: 'Montserrat', sans-serif;
 }
 #form-steps.fixed {
   position: fixed;
@@ -281,13 +282,13 @@ a.btn:disabled {
   display: inline-block;
   color: #868686;
   margin-right: 3%;
+  font-size: 19px;
 }
 #form-steps ol li a {
   display: block;
   color: inherit;
 }
 #form-steps ol li a:nth-child(2) {
-  font-size: 19px;
   background: #868686;
   color: #fff;
   border-radius: 22px;
@@ -297,6 +298,7 @@ a.btn:disabled {
   margin: 0 auto;
   padding: 2px;
   position: relative;
+  font-size: 23px;
 }
 #form-steps ol li.active {
   font-size: 24px;
@@ -307,7 +309,7 @@ a.btn:disabled {
 #form-steps ol li.active:first-child a:nth-child(2) {
   width: 45px;
   height: 45px;
-  font-size: 25px;
+  font-size: 31px;
   color: #fff;
   background: #339fbe;
 }
@@ -317,7 +319,7 @@ a.btn:disabled {
 #form-steps ol li.active:nth-child(3) a:nth-child(2) {
   width: 45px;
   height: 45px;
-  font-size: 25px;
+  font-size: 31px;
   color: #fff;
   background: #6150a3;
 }
@@ -327,7 +329,7 @@ a.btn:disabled {
 #form-steps ol li.active:nth-child(5) a:nth-child(2) {
   width: 45px;
   height: 45px;
-  font-size: 25px;
+  font-size: 31px;
   color: #fff;
   background: #2d73a5;
 }
@@ -546,11 +548,16 @@ input.error + label.radio span {
 }
 @media (max-width: 992px) {
   header img#logo {
-    padding: 1em 0 1em 1em;
+    padding: 1em 1em 1em;
     width: 100%;
   }
   header #toolTitle {
     padding-left: 1em;
+    padding-top: 7px;
+    padding-bottom: 7px;
+  }
+  header #toolTitle a {
+    font-size: 12px;
   }
   #main_home {
     margin-top: 6em;
@@ -589,6 +596,13 @@ input.error + label.radio span {
   nav#main-nav ul.nav.nav-tabs li a:focus {
     border: none;
   }
+  #form-steps {
+    background-color: #fff;
+    padding: 10px 0;
+    -webkit-box-shadow: 0 0 20px #808080;
+    box-shadow: 0 0 20px #808080;
+    font-family: 'Montserrat', sans-serif;
+  }
   #form-steps.fixed {
     position: fixed;
     z-index: 1;
@@ -610,6 +624,55 @@ input.error + label.radio span {
   }
   #form-steps ol li a:first-child {
     display: none;
+  }
+  #form-steps ol li a {
+    display: block;
+    color: inherit;
+  }
+  #form-steps ol li a:nth-child(2) {
+    background: #868686;
+    color: #fff;
+    border-radius: 22px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 2px;
+    position: relative;
+    font-size: 17px;
+  }
+  #form-steps ol li.active {
+    font-size: 24px;
+  }
+  #form-steps ol li.active:first-child a:first-child {
+    color: #339fbe;
+  }
+  #form-steps ol li.active:first-child a:nth-child(2) {
+    width: 35px;
+    height: 35px;
+    font-size: 24px;
+    color: #fff;
+    background: #339fbe;
+  }
+  #form-steps ol li.active:nth-child(3) a:first-child {
+    color: #6150a3;
+  }
+  #form-steps ol li.active:nth-child(3) a:nth-child(2) {
+    width: 35px;
+    height: 35px;
+    font-size: 24px;
+    color: #fff;
+    background: #6150a3;
+  }
+  #form-steps ol li.active:nth-child(5) a:first-child {
+    color: #2d73a5;
+  }
+  #form-steps ol li.active:nth-child(5) a:nth-child(2) {
+    width: 35px;
+    height: 35px;
+    font-size: 24px;
+    color: #fff;
+    background: #2d73a5;
   }
   #errors {
     font-size: 0.8em;
@@ -694,4 +757,7 @@ input.error + label.radio span {
   #buttons {
     display: -webkit-box;
   }
+}
+.modal-content {
+  border-radius: 0px;
 }
