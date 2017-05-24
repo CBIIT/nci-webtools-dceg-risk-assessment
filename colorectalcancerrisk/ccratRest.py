@@ -5,7 +5,7 @@ import sys
 from flask import Flask, Response, request, jsonify, send_from_directory
 from CcratRunFunction import AbsRisk
 
-app = Flask(__name__, static_folder='', static_url_path='/')
+app = Flask(__name__, static_folder='', static_url_path='/') 
 
 class ColorectalRiskAssessmentTool:
   @staticmethod
@@ -47,7 +47,7 @@ class ColorectalRiskAssessmentTool:
       hormoneUsage = 0
       if (parameters['gender'] == 'Male'):
         sex = 0
-#        requiredParameters += ['cigarettes']
+        requiredParameters += ['cigarettes']
       elif (parameters['gender'] == 'Female'):
         sex = 1
         requiredParameters += ['period']
@@ -67,41 +67,41 @@ class ColorectalRiskAssessmentTool:
         age = int(parameters['age'])
         if (age < 50 or age > 89):
           errorObject['message'] += ["This tool cannot be used to assess risk for those under the age of 50 or over the age of 89."]
-      if sex == 1:
-#       if 'cigarettes' not in errorObject['missing'] and parameters['cigarettes'] == '0':
-#         if 'smoke_age' not in parameters or parameters['smoke_age'] == '':
-#           errorObject['missing'] += ['smoke_age']
-#         elif not parameters['smoke_age'].isnumeric():
-#           errorObject['nonnumeric'] += ['smoke_age']
-#         elif parameters['smoke_age'] != '0':
-#           smoke_age = int(parameters['smoke_age'])
-#           if smoke_age > age:
-#             errorObject['message'] += ["You are not old enough to have started smoke at age "+str(smoke_age)]
-#           else:
-#             if 'cigarettes_num' not in parameters or parameters['cigarettes_num'] == '':
-#               errorObject['missing'] += ['cigarettes_num']
-#             elif not parameters['cigarettes_num'].isnumeric():
-#               errorObject['nonnumeric'] += ['cigarettes_num']
-#             else:
-#               cigarettesPerDay = int(parameters['cigarettes_num'])
-#             if 'smoke_now' not in parameters or parameters['smoke_now'] == '':
-#               errorObject['missing'] += ['smoke_now']
-#             elif parameters['smoke_now'] == '1':
-#               yearsSmoking = age - smoke_age
-#             elif parameters['smoke_now'] == '0':
-#               if 'smoke_quit' not in parameters or parameters['smoke_quit'] == '':
-#                 errorObject['missing'] += ['smoke_quit']
-#               elif not parameters['smoke_quit'].isnumeric():
-#                 errorObject['nonnumeric'] += ['smoke_quit']
-#               else:
-#                 quit_age = int(parameters['smoke_quit'])
-#                 if quit_age < smoke_age:
-#                   errorObject['message'] += ["You can't have quit smoking before you started"]
-#                 else:
-#                   yearsSmoking = quit_age - smoke_age
-#             else:
-#               errorObject['missing'] += ['smoke_now']
-#      else:
+      if sex == 0:
+        if 'cigarettes' not in errorObject['missing'] and parameters['cigarettes'] == '0':
+          if 'smoke_age' not in parameters or parameters['smoke_age'] == '':
+            errorObject['missing'] += ['smoke_age']
+          elif not parameters['smoke_age'].isnumeric():
+            errorObject['nonnumeric'] += ['smoke_age']
+          elif parameters['smoke_age'] != '0':
+            smoke_age = int(parameters['smoke_age'])
+            if smoke_age > age:
+              errorObject['message'] += ["You are not old enough to have started smoke at age "+str(smoke_age)]
+            else:
+              if 'cigarettes_num' not in parameters or parameters['cigarettes_num'] == '':
+                errorObject['missing'] += ['cigarettes_num']
+              elif not parameters['cigarettes_num'].isnumeric():
+                errorObject['nonnumeric'] += ['cigarettes_num']
+              else:
+                cigarettesPerDay = int(parameters['cigarettes_num'])
+              if 'smoke_now' not in parameters or parameters['smoke_now'] == '':
+                errorObject['missing'] += ['smoke_now']
+              elif parameters['smoke_now'] == '1':
+                yearsSmoking = age - smoke_age
+              elif parameters['smoke_now'] == '0':
+                if 'smoke_quit' not in parameters or parameters['smoke_quit'] == '':
+                  errorObject['missing'] += ['smoke_quit']
+                elif not parameters['smoke_quit'].isnumeric():
+                  errorObject['nonnumeric'] += ['smoke_quit']
+                else:
+                  quit_age = int(parameters['smoke_quit'])
+                  if quit_age < smoke_age:
+                    errorObject['message'] += ["You can't have quit smoking before you started"]
+                  else:
+                    yearsSmoking = quit_age - smoke_age
+              else:
+                errorObject['missing'] += ['smoke_now']
+      else:
         hormoneUsage = 0
         if 'period' not in errorObject['missing'] and 'period' not in errorObject['nonnumeric'] and parameters['period'] == '1':
           if 'last_period' not in parameters or parameters['last_period'] == "":
@@ -186,14 +186,11 @@ class ColorectalRiskAssessmentTool:
       nonAspirin = int(parameters['non_aspirin'])
       nsaidRegimine = min(aspirin,nonAspirin)
       aspirinOnly = nonAspirin
-      cigarettesperDay = 0
-      risk = AbsRisk("Male" if sex == 0 else "Female",race, age, min(age+5,90), screening, yearsSmoking, cigarettesPerDay, nsaidRegimine, aspirinOnly, family_cancer, exercise, veggies, bmi, hormoneUsage)
+      risk = AbsRisk("Male" if sex == 0 else "Female",race,age,min(age+5,90),screening,yearsSmoking,cigarettesPerDay,nsaidRegimine,aspirinOnly,family_cancer,exercise,veggies,bmi,hormoneUsage)
       risk = round(risk*100,1)
       return ColorectalRiskAssessmentTool.buildSuccess(str(risk))
     except Exception as e:
-	print ("Args = ", e.args);
-	print("Message --> ", e.message)
-	exc_type, exc_obj, exc_tb = sys.exc_info()
-	fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-	print("EXCEPTION------------------------------", exc_type, fname, exc_tb.tb_lineno)
-	return ColorectalRiskAssessmentTool.buildFailure(str(e))
+      exc_type, exc_obj, exc_tb = sys.exc_info()
+      fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+      print("EXCEPTION------------------------------", exc_type, fname, exc_tb.tb_lineno)
+      return ColorectalRiskAssessmentTool.buildFailure(str(e))
