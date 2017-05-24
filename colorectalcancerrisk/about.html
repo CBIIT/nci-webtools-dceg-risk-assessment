@@ -16,7 +16,7 @@
   </head>
   <body>
     <header><a href="http://cancer.gov" target="_blank"><img id="logo" src="/common/images/nci-logo-full.svg" alt="go to cancer.gov"></a>
-      <div id="toolTitle">Colorectal Cancer Risk Assessment Tool
+      <div id="toolTitle"><a href="index.html">Colorectal Cancer Risk Assessment Tool</a>
         <button class="navbar-toggle collapsed" type="button" aria-controls="main-nav" aria-expanded="false" data-target="#main-nav" data-toggle="collapse"><span class="sr-only">Toggle navigation</span>
           <div class="glyphicon glyphicon-menu-hamburger"></div>
         </button>
@@ -36,6 +36,12 @@
     <div id="main">
       <div class="container-fluid">
         <h1>About the Model and Source Code</h1>
+        <p>The Cancer Colorectal Risk Assessment Tool(CCRAT) is based on the first absolute risk model for the colorectal cancer incidence.  The model was developed using data from:
+          <ul>
+            <li>two large U.S population-based case-control studies of colon and rectal cancer,</li>
+            <li>incidence data from 13 NCI Surveillance, Epidemiology, and End Results (SEER) registries, and</li>
+            <li>from national mortality rates</li>
+          </ul>
         <p>The tool uses the answers about risk and preventive factors to calculate a person’s absolute risk of colorectal cancer for a specific time period.</p>
         <p>The model was tested in a large population and has been shown to be accurate in predicting absolute risk.
           Because the majority of participants in the case-control studies were non-Hispanic whites, relative risks for other racial or ethnic groups could not be estimated.
@@ -43,13 +49,12 @@
           and Hispanic/Latino populations to enable the tool to be applicable for men and women in these populations.
           As more data becomes available, researchers will be able to test and validate the tool for these populations.
         </p>
-        <p>The <a href="/">risk calculator </a>will be updated periodically as new data or research becomes available. In addition, the tool may prove useful to researchers who are designing research intervention studies.</p>
+        <p>The <a href="calculator.html">risk calculator </a>will be updated periodically as new data or research becomes available. In addition, the tool may prove useful to researchers who are designing research intervention studies.</p>
         <h2>Download the Source Code</h2>
         <p>The CCRAT may be updated periodically as new data or research becomes available. The algorithm was last updated in October 2014. The current software version is 1.1.</p>
         <p>To project absolute colon cancer risk, according to the NCI CCRAT algorithm, download the SAS macro or Gauss file.
           Both have separate files for the models for men and women, useful for research purposes when one needs risk projections for an entire study population.
           The Gauss Program also computes 95% confidence intervals for risk projections.
-        <p>The source code and documentation can be accessed via the <a href="https://github.com/CBIIT/nci-webtools-dceg-risk-assessment" target="_blank">GitHub Repository</a>  By downloading, you accept our <a href="">Terms &amp; Conditions</a></p>
         <h3>References</h3>
         <ol>
           <li>
@@ -64,6 +69,7 @@
           </li>
         </ol>
       </div>
+    </div>
 
     <!------------------------------------------------------------------------->
     <!-- End Content                                                           ->

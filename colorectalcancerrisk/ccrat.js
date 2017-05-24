@@ -30,6 +30,9 @@ $.validator.addMethod("greaterThan", function(value,element,params) {
 });
 
 var validationRules = {
+    hispanic: {
+        required: true
+    },
     race: {
         required: true
     },
@@ -41,9 +44,13 @@ var validationRules = {
     gender: {
         required: true
     },
-    height_feet: {
+    height_ft: {
         required: true,
         max: 9
+    },
+    height_in: {
+      required: true,
+      max: 9
     },
     weight: {
         required: true,
@@ -100,59 +107,7 @@ var validationRules = {
         }
     },
     veg_amount: {
-        required: {
-            depends: function (el) {
-                return $("[name='veg_servings']").val() > 0;
-            }
-        }
-    },
-    cigarettes: {
-        required: {
-            depends: function (el) {
-                return $("[name='gender']:checked").val() == "Male";
-            }
-        }
-    },
-    smoke_age: {
-        required: {
-            depends: function (el) {
-                return $("[name='gender']:checked").val() == "Male" && $("#cigarettes").val() === "0";
-            }
-        },
-        lessThan: { "element": "[name='age']", "allowEqual": true }
-    },
-    cigarettes_num: {
-        required: {
-            depends: function (el) {
-                return $("[name='gender']:checked").val() == "Male" && $("#cigarettes").val() === "0" && $("#smoke_age").val() > 0;
-            }
-        }
-    },
-    smoke_now: {
-        required: {
-            depends: function (el) {
-                return $("[name='gender']:checked").val() == "Male" && $("#cigarettes").val() === "0" && $("#smoke_age").val() > 0;
-            }
-        }
-    },
-    smoke_quit: {
-        required: {
-            depends: function (el) {
-                return $("[name='gender']:checked").val() == "Male" && $("#cigarettes").val() === "0" && $("#smoke_age").val() > 0 && $("[name='smoke_now']:checked").val() == "0";
-            }
-        },
-        lessThan: {
-            depends: function (el) {
-                return $("[name='gender']:checked").val() == "Male" && $("#cigarettes").val() === "0" && $("#smoke_age").val() > 0 && $("[name='smoke_now']:checked").val() == "0";
-            },
-            param: { "element": "[name='age']", "allowEqual": true }
-        },
-        greaterThan: {
-            depends: function (el) {
-                return $("[name='gender']:checked").val() == "Male" && $("#cigarettes").val() === "0" && $("#smoke_age").val() > 0 && $("[name='smoke_now']:checked").val() == "0";
-            },
-            param: { "element": "[name='smoke_age']", "allowEqual": true }
-        }
+        required: true
     },
     period: {
         required: {
@@ -178,23 +133,30 @@ var validationRules = {
 };
 
 var validationMessages = {
+    hispanic: {
+        required: "You must specify whether you are Hispanic or not"
+    },
     race: {
-        required: "Your race must be selected"
+        required: "You must specify your race"
     },
     age: {
-        required: "Age is required",
+        required: "You must specify you age",
         min: "This calculator can only be used by people between the ages 50 and 85",
         max: "This calculator can only be used by people between the ages 50 and 85"
     },
     gender: {
-        required: "Gender must be selected"
+        required: "You must speicfy your gender"
     },
-    height_feet: {
-        required: "Enter height in feet and inches"
+    height_ft: {
+        required: "You must specify the feet portion of the height"
+    },
+    height_in: {
+        required: "You must specify the inches portion of the height"
     },
     weight: {
-        required: "Weight is required",
-        min: "Weight must be greater than 50"
+        required: "you must specify your weight",
+        min: "The calculator can only be used by people at or over 50 pounds",
+        max: "The calculator can only be used by people at or below 700 pounds"
     },
     veg_servings: {
         required: "You must specify how many servings of vegetables you had in the past month"
@@ -226,24 +188,6 @@ var validationMessages = {
     "family_count": {
         required: "You must specify how many relatives had colorectal cancer"
     },
-    cigarettes: {
-        required: "You must specify whether you have smoked cigarettes"
-    },
-    cigarettes_num: {
-        required: "You must specify the amount of cigarettes you have smoked regularly"
-    },
-    "smoke_age": {
-        required: "You must specify the age you began smoking",
-        lessThan: "Cigarette smoking \"start age\" cannot be greater than ACTUAL age. Please select an appropriate age."
-    },
-    "smoke_now": {
-        required: "You must specify whether you currently smoke",
-    },
-    smoke_quit: {
-        required: "You must specify the age at which you last quit smoking",
-        lessThan: "Smoking cigarettes \"quit age\" cannot be greater than the ACTUAL age. Please select an appropriate age.",
-        greaterThan: "Smoking cigarettes \"quit age\" cannot be less than the smoking cigarettes \"start age\". Please select an appropriate age."
-    },
     period: {
         required: "You must specify whether you still have periods"
     },
@@ -260,6 +204,7 @@ function toggleInputs(input) {
     else
         $(input).attr('disabled' ,true);
 }
+
 
 function resetInputs(index, input) {
     switch (input.type) {
@@ -308,27 +253,78 @@ function resultsDisplay(response, textStatus, xhr) {
 	$("#results").addClass('show').html(response.message);
 }
 
-function formScrollSpy() {
-	var window_top = $(window).scrollTop();
-
-	$.each($("#riskForm section"), function(ind, el) {	
-		var div_top = $(el).offset().top;
-
-		if ( window_top > div_top ){
-			$("#form-steps li").removeClass('active');
-			$("#form-steps li:eq(" + ind + ")").addClass('active');
-		}
-	});
+function goback_tocalc(){
+	$('#main').removeClass('hide')
+	$('#form-steps').removeClass('hide')
+	$("#results").removeClass('show')
+	$("#results_text").html("");
+	$("#Pie_chart").html("");
+	$(window).scrollTop(0);
 }
 
-function fixedToTop() {
-	var window_top = $(window).scrollTop();
-	var div_top = $(document.forms.riskForm).offset().top;
+function formScrollSpy() {
+	// var window_top = $(window).scrollTop();
+  //
+	// $.each($("#riskForm section"), function(ind, el) {
+	// 	var div_top = $(el).offset().top;
+  //
+	// 	if ( window_top > div_top ){
+	// 		$("#form-steps li").removeClass('active');
+	// 		$("#form-steps li:eq(" + ind + ")").addClass('active');
+	// 	}
+	// });
+  var window_top = $(window).scrollTop();
+  $.each($("#riskForm section"), function(ind, el) {
+    var div_top = $(el).offset().top - $(el)[0].scrollHeight;
+    if ( window_top > div_top ) {
+      console.log("ind = " + ind);
+      $("#form-steps li").removeClass('active');
+      console.log( "Html Object = " + $("#form-steps li:eq(" + ind + ")").innertTex );
+      $("#form-steps li:eq(" + ind + ")").addClass('active');
+      adjust_line_width(ind);
+    }
+  });
+  console.log("fromScrollSpy -------------------------------------------------");
+}
 
-	if ( window_top > div_top )
+function fixedToTop(div_top,use_mobile) {
+	// var window_top = $(window).scrollTop();
+	// var div_top = $(document.forms.riskForm).offset().top;
+  //
+	// if ( window_top > div_top )
+	// 	$("#form-steps").addClass('fixed');
+	// else
+	// 	$("#form-steps").removeClass('fixed');
+  console.log("fixedToTop ------------------------------------------------------");
+  var header_height=$('header').outerHeight();
+	var window_top = $(window).scrollTop();
+	var div_top = $("#"+div_top).offset().top;
+  console.log("header_height = " + header_height);
+  console.log("window_top = " + window_top);
+  console.log("div_top = " + div_top);
+	//var div_top = $("#header").height();
+	//var div_top = $("#toolTitle").offset().top;
+	//	var div_top = $("#main-nav").offset().top;
+
+	var form_steps_height=$('#form-steps').outerHeight();
+	//console.log("window_top "+window_top)
+	//console.log("div_top "+ div_top)
+	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+			$("#main").css("margin-top",0+"px");
+ 			$("#form-steps").css("margin-top",0+"px");
+		}
+	if ( window_top > div_top ){
 		$("#form-steps").addClass('fixed');
-	else
+
+		$("#line").find("hr").css("top",form_steps_height-30)
+
+	}
+	else{
 		$("#form-steps").removeClass('fixed');
+		adjust_line_height_dekstop()
+
+	}
+  console.log("fixedToTop ------------------------------------------------------");
 }
 
 function toggleFormDisplay(e) {
@@ -370,7 +366,7 @@ function toggleGender(e) {
             $.each($(".female").find("input, select"), function(index, el) {
                 $(el).rules("add", { required: true });
             });
-            
+
             $(".male").removeClass('show');
             $(".female").addClass('show');
             break;
@@ -383,13 +379,106 @@ function toggleGender(e) {
     }
 }
 
-$(window).scroll(function(e) {
-	e.preventDefault();
-	fixedToTop();
-	formScrollSpy();
-});
+if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+	$(window).scroll(function(e) {
+		// e.preventDefault();
+		if($(window).width()>=753)
+			var top_div="main-nav"
+		else
+			var top_div="toolTitle"
 
-$(function() {
+		fixedToTop(top_div);
+		formScrollSpy();
+	});
+
+}
+else if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+	$(window).on('touchmove', function(event) {
+		if($(window).width()>=753)
+			var top_div="main-nav"
+		else
+			var top_div="toolTitle"
+
+		fixedToTop(top_div,true);
+		formScrollSpy();
+
+	});
+}
+
+function adjust_line_width(ind){
+  console.log("adjust line widhth ------------------------------------------");
+ 	var first_dot=$("#form-steps").find("a")[1]
+ 	var first_dot_left=$(first_dot).position().left
+ 	var first_dot_width=$(first_dot).outerWidth(true)
+
+ 	var last_dot=$("#form-steps").find("a")[$("#form-steps").find("a").length-1]
+ 	var last_dot_left=$(last_dot).position().left
+ 	var last_dot_width=$(last_dot).outerWidth(true)
+
+ 	$("#line").find("hr").css("left",first_dot_left+first_dot_width/2)
+  //$("#line").find("hr").css("width",last_dot_left-first_dot_left-last_dot_width/2+30)
+  $("#line").find("hr").css("width",( last_dot_left- first_dot_left) - (last_dot_width /10) )
+
+  if ( ind == 3) {
+      $("#line").find("hr").css("width",( last_dot_left- first_dot_left) + 5)
+  }
+
+
+
+
+	//if(ind==1)
+	//	$("#line").find("hr").css("width",last_dot_left-first_dot_left)
+  //else if(ind==2)
+  //  	$("#line").find("hr").css("width",last_dot_left-first_dot_left+last_dot_width/4-10)
+
+  //console.log("first_dot = " + first_dot);
+  //console.log("first_dot_left = " + first_dot_left);
+  //console.log("first_dot_width = " + first_dot_width);
+  //console.log("last_dot = " + last_dot);
+  //console.log("last_dot_left = " + last_dot_left);
+  //console.log("last_dot_width = " + last_dot_width)
+  //console.log("left = " + first_dot_left+first_dot_width/2);
+  //console.log("ind = 0, width = " + last_dot_left-first_dot_left-last_dot_width/2+30);
+  //console.log("ind = 1, width = " + last_dot_left-first_dot_left);
+  //console.log("ind = 2, width = " + last_dot_left-first_dot_left+last_dot_width/4-10);
+}
+
+function adjust_line_height_dekstop(){
+
+
+	var header_height=$('header').outerHeight();
+ 	var form_steps_height=$('#form-steps').outerHeight();
+  var header_top = $('#form-steps').offset().top;
+
+  console.log("header outerHeight = " + header_height);
+  console.log("form steps height = " + form_steps_height);
+  console.log("window innerrWidth = " + window.innerWidth);
+  console.log("header position = " + header_top);
+  var test2 = header_height+form_steps_height/2
+  console.log("first equations = " +test2);
+  var test = header_height+form_steps_height-30;
+  console.log("2nd equation = " + test);
+	if(window.innerWidth<992)
+  {
+	 	//$("#line").find("hr").css("top",header_height+(form_steps_height / 2));
+    var top = $("#form-steps").offset().top - $(document).scrollTop();
+    $("#line").find("hr").css("top",top);
+  }
+	else
+	 	$("#line").find("hr").css("top",form_steps_height-30)
+
+}
+
+
+
+//$(window).scroll(function(e) {
+//	e.preventDefault();
+//	fixedToTop();
+//	formScrollSpy();
+//});
+
+//$(function() {
+$(window).load(function(e) {
 	$(document).on('click', "[type='reset']", function(e) {
 		$(document.forms.riskForm).removeClass('submitted');
 		$("#results").empty().removeClass('show');
@@ -429,6 +518,13 @@ $(function() {
 		}
 	});
 
+  $('#hisp-notice').on("click", function() {
+    $.each( $("#riskForm :input"), function (i, input) {
+      toggleInputs(input);
+    });
+  });
+
+
 	$("input[name='gender']").on("change", toggleGender);
 	$("input[name='race']").on("change", function() {
 		// $("form :input").not("[name='race']").removeAttr('disabled');
@@ -446,21 +542,19 @@ $(function() {
         $("#raceModal").modal("show");
 	});
 
-    $("input[name='hispanic']").on("change", function (el) {
+  //
 
-        if (this.value != "") {
-            $.each(document.getElementsByName("race"), resetInputs);
+    $("input[name='hispanic']").on("change", function (el) {
 
             if (this.value == "0") {
                 $("#hisp-notice").addClass("show");
                 $("#raceModal").modal("show");
+
+                $.each( $("#riskForm :input"), function (i, input) {
+                    toggleInputs(input);
+                });
             }
 
-            $.each( $("#riskForm :input").not("[name='" + el.target.name + "']"), function (i, input) {
-                toggleInputs(input);
-            });
-
-        }
 
     });
 
@@ -597,5 +691,32 @@ $(function() {
 		submitHandler: processSubmission,
 		invalidHandler: invalidForm
 	});
+
+  var header_height=$('header').outerHeight();
+  var form_steps_height=$('#form-steps').outerHeight();
+    $("#side_nav").css("margin-top",header_height+"px");
+  if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    console.log("mobile");
+     $("header").addClass('fixed');
+     $("#form-steps").addClass('fixed');
+     if($("#side_nav").width()>0)
+      $("#form-steps").css("z-index","999")
+     else{
+      $("#form-steps").css("z-index","1")
+     }
+
+     $("#main").css("margin-top",header_height+"px");
+     $("#form-steps").css("margin-top",header_height+"px");
+     $("header").css("background","white");
+     $("#main").removeClass("container-fluid");
+
+    $("#line").find("hr").css("top",form_steps_height/2)
+    $("#About").find("a").text("About the Model")
+  }
+
+  else{
+    adjust_line_height_dekstop()
+  }
+  adjust_line_width()
 
 });
