@@ -349,6 +349,11 @@ label.questions {
   font-weight: bold;
   color: #2e2e2e;
   margin-top: 50px;
+  font-size: 16px;
+}
+.questions_secondary {
+  color: #2e2e2e;
+  font-size: 14px;
 }
 .responseOptions {
   font-weight: normal;

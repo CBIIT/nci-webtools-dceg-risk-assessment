@@ -95,7 +95,8 @@
             <label class="radio" tabindex="0"><span></span>Other</label>
           </div>
           <label class="questions" for="age">What is the patient's age?</label>
-          <p>This tool calculates risk for patients between 20 and 70 years of age.</p>
+          <p class="questions_secondary">
+             This tool calculates risk for patients between 20 and 70 years of age.</p>
           <div class="responseOptions">
             <select id="age" name="age" placeholder="Enter patient's age" required>
               <option value="">Select Age</option>
@@ -154,7 +155,8 @@
           </div>
           <div class="pull-left">
             <div class="col-xs-12 col-sm-6 no-padding">
-              <label class="questions">Does the patient live in the Northern, Central, or Southern United States?</label>The model on which this tool is based is valid only for residents of the continental United States. This map is only a guide.
+              <label class="questions">Does the patient live in the Northern, Central, or Southern United States?</label>
+              <p class="questions_secondary">The model on which this tool is based is valid only for residents of the continental United States. This map is only a guide.</p>
               <div class="responseOptions">
                 <input type="radio" name="region" value="north" required>
                 <label class="radio" tabindex="0"><span> </span>Northern</label>
@@ -171,7 +173,7 @@
             <div class="col-xs-12 col-sm-6 no-padding"><img class="img-responsive show" id="map" src="images/us-map.png" alt="The map is divided into three distinct areas.	Northern United States which includes Washington, Oregon, Montana, North Dakota, South Dakota, Minnesota, Wisconsin, Michigan, Iowa, Illinois, Indiana, Ohio, Maryland, Pennsylvania, New York, New Jersey, Vermont, Rhode Island, Connecticut, Massachusetts, New Hampshire, and Maine. Central United States which includes Northern California, Idaho, Utah, Wyoming, Nebraska, Kansas, Oklahoma, Arkansas, Missouri, Tennessee, Kentucky, West Virginia, Virginia, Delaware, North Carolina, and South Carolina. Southern United States which includes Southern California, Nevada, Arizona, New Mexico, Colorado, Texas, Louisiana, Mississippi, Alabama, Georgia, and Florida."><a id="state-listing" data-toggle="modal" data-target="#mapModal">View state listings by area.</a></div>
           </div>
           <label class="questions" for="gender">What is the patient's gender?</label>
-          <p>This tool uses gender-specific risk models. It requires different information of male patients than female patients. The answer to this question will determine what other questions are asked below.</p>
+          <p class="questions_secondary">This tool uses gender-specific risk models. It requires different information of male patients than female patients. The answer to this question will determine what other questions are asked below.</p>
           <div class="responseOptions">
             <input type="radio" name="gender" value="Male" required>
             <label class="radio" tabindex="0"><span></span>Male</label>
