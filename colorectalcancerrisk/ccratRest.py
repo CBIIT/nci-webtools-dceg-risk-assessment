@@ -37,7 +37,7 @@ class ColorectalRiskAssessmentTool:
       for field in parameters:
         parameters[field] = parameters[field][0]
       errorObject = {'missing':[],'nonnumeric':[],'message':[]}
-      requiredParameters = ['age','height_feet','height_inches','weight','veg_servings','exam','aspirin','non_aspirin','vigorous_months','family_cancer']
+      requiredParameters = ['age','height_ft','height_in','weight','veg_servings','exam','aspirin','non_aspirin','vigorous_months','family_cancer']
       if ('race' not in parameters):
         errorObject['missing'] += ['race']
       else:
@@ -167,7 +167,7 @@ class ColorectalRiskAssessmentTool:
       veggies = 1
       if servingsPerDay > 5:
         veggies = 0
-      height = (int(parameters['height_feet'])*12+int(parameters['height_inches']))*.0254
+      height = (int(parameters['height_ft'])*12+int(parameters['height_in']))*.0254
       weight = int(parameters['weight'])*0.453592
       bmi = weight/height/height
       if sex == 0:
