@@ -67,6 +67,10 @@ p {
 a {
   color: #2b7bba;
 }
+a:hover,
+a:focus {
+  color: #2b7bba;
+}
 .sectionTitle {
   color: #fff;
   padding: 13px;

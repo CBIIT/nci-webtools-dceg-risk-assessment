@@ -120,6 +120,8 @@ function processSubmission(form){
 
 function resultsDisplay(response, textStatus, xhr) {
 	var results=JSON.parse(response.message)
+	console.log(response.message)
+	console.log(results)
 	var message="Based on the information provided, the patient's estimated risk for developing melanoma over the next 5 years is "+results.risk+"%. For every 1,000 "+ results.gender+"s living in the " +results.regionKey+" region with these characteristics, on average about "+ results.ratio+" will develop melanoma in the next 5 years.";
 
 
@@ -197,19 +199,33 @@ function formScrollSpy() {
 }
 
 
-
-function fixedToTop() {
+function fixedToTop(div_top,use_mobile) {
+	var header_height=$('header').outerHeight();
 	var window_top = $(window).scrollTop();
-	var div_top = $("#main-nav").offset().top;
+	var div_top = $("#"+div_top).offset().top;
+	//var div_top = $("#header").height();
+	//var div_top = $("#toolTitle").offset().top;
+	//	var div_top = $("#main-nav").offset().top;
+
 	var form_steps_height=$('#form-steps').outerHeight();
+	//console.log("window_top "+window_top)
+	//console.log("div_top "+ div_top)
+	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+			$("#main").css("margin-top",0+"px"); 
+ 			$("#form-steps").css("margin-top",0+"px");
+		}
 	if ( window_top > div_top ){
 		$("#form-steps").addClass('fixed');
-
-		$("#line").find("hr").css("top",form_steps_height-30)
+		if($(window).width()>=992)
+			$("#line").find("hr").css("top",form_steps_height-30)
+		else
+			$("#line").find("hr").css("top",form_steps_height-37)
+		
 	}
 	else{
 		$("#form-steps").removeClass('fixed');
-	adjust_line_height_dekstop()
+		adjust_line_height_dekstop()
+		
 	}
 }
 
@@ -236,8 +252,14 @@ function toggleFormDisplay(e) {
 
 function toggleGender(e) {
 	var value = $(e.target).val();
+	$("#skin-section").removeClass("no_display")
+	$("#skin").removeClass("no_display")
+	$("#physical-section").removeClass("no_display")
+	$("#physical").removeClass("no_display")
 	switch (value) {
 		case "Male":
+			$("#small_moles").removeClass("no-margin-top")
+			$("#small_moles").css("margin-top", "50px")
 			$.each($(".female").find("input, select"), function(index, el) {
 				$(el).rules("remove", "required");
 				$("#riskForm").validate().element(el);
@@ -251,6 +273,7 @@ function toggleGender(e) {
 			$(".male").addClass('show');
 			break;
 		case "Female":
+			$("#small_moles").addClass("no-margin-top")
 			$.each($(".male").find("input, select"), function(index, el) {
 				$(el).rules("remove", "required");
 			});
@@ -273,13 +296,24 @@ function toggleGender(e) {
 if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 	$(window).scroll(function(e) {
 		// e.preventDefault();
-		fixedToTop();
+		if($(window).width()>=753)
+			var top_div="main-nav"
+		else
+			var top_div="toolTitle"
+		
+		fixedToTop(top_div);
 		formScrollSpy();
 	});
 
 }
 else if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
 	$(window).on('touchmove', function(event) {
+		if($(window).width()>=753)
+			var top_div="main-nav"
+		else
+			var top_div="toolTitle"
+		
+		fixedToTop(top_div,true);
 		formScrollSpy();
 
 	});
@@ -288,20 +322,7 @@ else if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(na
 $(window).load(function(e) {
 	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
 		$("#About").find("a").text("About the Model")
-	$("[type='reset']").on('click keypress', function(e) {
-		if(e.type == "keypress") {
-			if ((e.keyCode == 13) || (e.keyCode == 32)){
-				$(e.target).trigger('click');
-			}
-		}
-		else {
-			$(document.forms.riskForm).removeClass('submitted');
-			$("#results, .male, .female").removeClass("show");
-			$("#results").empty();
-			$("#riskForm").validate().resetForm();
-			toTop();
-		}
-	});
+
 
 	$(".toggleTool").on("click keypress", toggleFormDisplay);
 
@@ -323,7 +344,16 @@ $(window).load(function(e) {
 			}
 		}
 	});
+	$("#reset_form").on("click",function(){
+		$('form').trigger('reset')
+	 	$(window).scrollTop(0);
+	 	$("#skin-section").addClass("no_display")
+		$("#skin").addClass("no_display")
+		$("#physical-section").addClass("no_display")
+		$("#physical").addClass("no_display")
+		$("form :input").attr('disabled', false);
 
+	});
 	$("button.select").on('click keypress', function(e) {
 		if(e.type == "keypress") {
 			if ((e.keyCode == 13) || (e.keyCode == 32)) {
@@ -372,7 +402,7 @@ $(window).load(function(e) {
  		 	$("#form-steps").css("z-index","1")
  		 }
 
- 		 $("#main").css("margin-top",header_height+form_steps_height+"px"); 
+ 		 $("#main").css("margin-top",header_height+"px"); 
  		 $("#form-steps").css("margin-top",header_height+"px");
  		 $("header").css("background","white"); 
  		 $("#main").removeClass("container-fluid");
@@ -404,14 +434,17 @@ function adjust_line_width(ind){
  	var last_dot=$("#form-steps").find("a")[$("#form-steps").find("a").length-1]
  	var last_dot_left=$(last_dot).position().left
  	var last_dot_width=$(last_dot).outerWidth(true)
- 	$("#line").find("hr").css("left",first_dot_left+first_dot_width/2+7)
+ 	$("#line").find("hr").css("left",first_dot_left+first_dot_width/2+10)
     
-    $("#line").find("hr").css("width",last_dot_left-first_dot_left-last_dot_width/2)
+    if($(window).width()<992)
+    	$("#line").find("hr").css("width",last_dot_left-first_dot_left-last_dot_width/2+10)
+    else
+    	$("#line").find("hr").css("width",last_dot_left-first_dot_left-last_dot_width/2+20)
 	if(ind==1)
 		$("#line").find("hr").css("width",last_dot_left-first_dot_left)
 
     else if(ind==2)
-    	$("#line").find("hr").css("width",last_dot_left-first_dot_left+last_dot_width/4)
+    	$("#line").find("hr").css("width",last_dot_left-first_dot_left+last_dot_width/4-20)
 
 
     

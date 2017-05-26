@@ -9,6 +9,7 @@ html(lang="en")
 		link(href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css", rel="stylesheet", type="text/css")
 		link(href="/common/css/style.css", rel="stylesheet", type="text/css")
 		link(href="styles.css", rel="stylesheet", type="text/css")
+		link(href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet")
 		script(src='https://code.jquery.com/jquery-2.1.4.min.js', type='application/javascript')
 		script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js", type="application/javascript")
 		script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods.js", type="application/javascript")
@@ -76,7 +77,7 @@ html(lang="en")
 
 					h2.sectionTitle Demographics
 					section#demo-section
-						label.questions(for="race") What is the patient's race?
+						label.questions.no-margin-top(for="race") What is the patient's race?
 						.responseOptions
 							input(type="radio", name="race", value='0', required)
 							label.radio(tabindex="0")
@@ -88,6 +89,9 @@ html(lang="en")
 								span
 								| Other
 						label.questions(for="age") What is the patient's age?
+						p.questions_secondary 
+							|This tool calculates risk for patients between 20 and 70 years of age.
+
 						.responseOptions
 							select#age(name='age', placeholder="Enter patient's age", required)
 								option(value="") Select Age
@@ -98,7 +102,8 @@ html(lang="en")
 							.col-xs-12.col-sm-6.no-padding
 								label.questions
 									| Does the patient live in the Northern, Central, or Southern United States?
-								|The model on which this tool is based is valid only for residents of the continental United States. This map is only a guide.
+								p.questions_secondary
+									|The model on which this tool is based is valid only for residents of the continental United States. This map is only a guide.
 								.responseOptions
 									input(type="radio", name="region", value='north', required)
 									label.radio(tabindex="0")
@@ -119,6 +124,8 @@ html(lang="en")
 								a#state-listing(data-toggle="modal", data-target="#mapModal") View state listings by area.
 
 						label.questions(for="gender") What is the patient's gender?
+						p.questions_secondary
+							|This tool uses gender-specific risk models. It requires different information of male patients than female patients. The answer to this question will determine what other questions are asked below.
 						.responseOptions
 							input(type="radio", name="gender", value='Male', required)
 							label.radio(tabindex="0")
@@ -129,9 +136,9 @@ html(lang="en")
 							label.radio(tabindex="0")
 								span
 								| Female
-					h2.sectionTitle Skin Characteristics
-					section#skin-section
-						label.questions(for="complexion") Is the patient's complexion light, medium, or dark?
+					h2.sectionTitle.no_display#skin Skin Characteristics
+					section.no_display#skin-section
+						label.no-margin-top.questions(for="complexion") Is the patient's complexion light, medium, or dark?
 						.responseOptions
 							input(type="radio", name="complexion", value='0', required)
 							label.radio(tabindex="0")
@@ -184,10 +191,10 @@ html(lang="en")
 									span
 									| No tan at all
 
-					h2.sectionTitle Physical Exam
-					section#physical-section
+					h2.sectionTitle.no_display#physical Physical Exam
+					section.no_display#physical-section
 						.male
-							label.questions How many moles larger than 5mm in diameter are on the patient's back?
+							label.no-margin-top.questions#large_moles How many moles larger than 5mm in diameter are on the patient's back?
 							.responseOptions
 								input(type="radio", name='big-moles', value='0')
 								label.radio(tabindex="0")
@@ -198,7 +205,7 @@ html(lang="en")
 								label.radio(tabindex="0")
 									span
 									| Two or more
-						label.questions How many moles less than or equal to 5mm in diameter are on the patient's back?
+						label.questions.no-margin-top#small_moles How many moles less than or equal to 5mm in diameter are on the patient's back?
 						.responseOptions
 							input(type="radio", name="small-moles", value='0', required)
 							label.radio(tabindex="0")
@@ -233,9 +240,9 @@ html(lang="en")
 					.center-block
 						#buttons
 							.col-xs-12
-								input.btn-sm.btn-form#reset(type="image"  src="./images/Reset_Button.svg")
 								
-								input.btn-sm.btn-form#calculate(type="image" src="./images/Calculate_Risk_Button.svg") 
+								img.btn-sm.btn-form#reset_form(src="./images/Reset_Button.png" alt="reset")
+								input.btn-sm.btn-form#calculate(type="image" src="./images/Calculate_Risk_Button.png") 
 		include shared/footer
 		#raceModal.modal.error-dialog.fade(tabindex='-1', role='dialog', data-backdrop="false")
 			.modal-dialog(role='document')

@@ -33,11 +33,14 @@ h1, h2, h3, h4, h5, h6, h7
 p
 	margin 0
 	margin-bottom 1em
-	
+a
+	color #2B7BBA	
 .sectionTitle
 	color white
-	padding 20px
+	padding 13px
 	margin-bottom 0
+	font-family: 'Montserrat', sans-serif;
+	font-size 28px
 
 .sectionTitle
 	&:first-child
@@ -46,7 +49,8 @@ p
 		background #6150A3
 	&:nth-child(5)
 		background #2D73A5
-		
+.no_display
+	display none	
 header, .tab-content, .footer
 	display block
 	
@@ -67,6 +71,9 @@ header
 
 		a
 			color inherit
+			font-size 17px
+			font-family: 'Montserrat', sans-serif;
+
 		.navbar-toggle
 			margin-top -0.3em
 			margin-bottom 0
@@ -80,7 +87,10 @@ img#logo
 nav#main-nav
 	text-transform uppercase
 	background-color blue_23
-	padding-left 5em
+	padding-left 3.8em
+	font-size 18px
+	font-family: 'Montserrat', sans-serif;
+
 	ul.nav.nav-tabs li
 		border none
 		margin-bottom 0
@@ -91,7 +101,6 @@ nav#main-nav
 			margin 0
 			padding 0.7em
 			&:hover, &:focus
-				border-bottom 7px inset #FFF
 				background #fff
 				color teal_14
 		&.active a
@@ -107,7 +116,8 @@ button, a.btn
 	&.btn-sm
 		font-size 0.8em
 	&:disabled
-		cursor not-allowed		
+		cursor not-allowed
+		url(./images/Radio_Button_Unselected.png)		
 &.btn-form
 	display block
 	margin-left auto
@@ -172,6 +182,7 @@ button, a.btn
 	background-color #FFF
 	padding 10px 0
 	box-shadow 0 0 20px grey
+	font-family: 'Montserrat', sans-serif;
 	&.fixed
 		position fixed
 		box-shadow 0 0 20px grey
@@ -197,11 +208,11 @@ button, a.btn
 			display inline-block
 			color grey_86
 			margin-right 3%
+			font-size 19px
 			a
 				display block
 				color inherit
 				&:nth-child(2)
-					font-size 19px
 					background grey_86
 					color white
 					border-radius 22px
@@ -211,6 +222,7 @@ button, a.btn
 					margin 0 auto
 					padding 2px
 					position relative
+					font-size 23px
 			&.active
 				font-size 24px
 				&:first-child
@@ -220,7 +232,7 @@ button, a.btn
 						&:nth-child(2)
 							width 45px
 							height 45px
-							font-size 25px
+							font-size 31px
 							color #fff
 							background light_teal
 				&:nth-child(3)
@@ -230,7 +242,7 @@ button, a.btn
 						&:nth-child(2)
 							width 45px
 							height 45px
-							font-size 25px
+							font-size 31px
 							color #fff
 							background #6150A3
 				&:nth-child(5)
@@ -240,22 +252,32 @@ button, a.btn
 						&:nth-child(2)
 							width 45px
 							height 45px
-							font-size 25px
+							font-size 31px
 							color #fff
 							background #2D73A5
-
+.no-padding-left
+	padding-left 0px !important
 .no-margin
 	margin 0
+.no-margin-top
+	margin-top 0px !important
 .no-padding
 	padding 0
 	
 label.questions
 	font-weight bold
+	color #2e2e2e
+	margin-top 50px
+	font-size 16px
+
+.questions_secondary
+	color #2e2e2e
+	font-size 14px
 	
 .responseOptions
 	font-weight normal
-	line-height 3
 	margin-left 1em
+	margin-top 16px
 	label
 		font-weight inherit
 .responseOptions input[type="radio"]
@@ -278,7 +300,7 @@ select
 input[type="radio"]
 	display none
 	+ label.radio
-		color #000
+		color #606060
 		font-weight normal
 		width 50%
 		span
@@ -314,8 +336,6 @@ select, input
 				color #c0c0c0
 				cursor not-allowed
 				span
-					background none
-					border 3px solid blue_2B
 					opacity 0.5
 				&:focus
 					span
@@ -358,3 +378,7 @@ select, input
 	padding-left 16%
 @import dialogs
 @import mobile
+
+.modal-content {
+    border-radius 0px
+}

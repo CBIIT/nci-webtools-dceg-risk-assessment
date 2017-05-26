@@ -120,6 +120,8 @@ function processSubmission(form){
 
 function resultsDisplay(response, textStatus, xhr) {
 	var results=JSON.parse(response.message)
+	console.log(response.message)
+	console.log(results)
 	var message="Based on the information provided, the patient's estimated risk for developing melanoma over the next 5 years is "+results.risk+"%. For every 1,000 "+ results.gender+"s living in the " +results.regionKey+" region with these characteristics, on average about "+ results.ratio+" will develop melanoma in the next 5 years.";
 
 
@@ -214,8 +216,10 @@ function fixedToTop(div_top,use_mobile) {
 		}
 	if ( window_top > div_top ){
 		$("#form-steps").addClass('fixed');
-
-		$("#line").find("hr").css("top",form_steps_height-30)
+		if($(window).width()>=992)
+			$("#line").find("hr").css("top",form_steps_height-30)
+		else
+			$("#line").find("hr").css("top",form_steps_height-37)
 		
 	}
 	else{
@@ -430,14 +434,17 @@ function adjust_line_width(ind){
  	var last_dot=$("#form-steps").find("a")[$("#form-steps").find("a").length-1]
  	var last_dot_left=$(last_dot).position().left
  	var last_dot_width=$(last_dot).outerWidth(true)
- 	$("#line").find("hr").css("left",first_dot_left+first_dot_width/2)
+ 	$("#line").find("hr").css("left",first_dot_left+first_dot_width/2+10)
     
-    $("#line").find("hr").css("width",last_dot_left-first_dot_left-last_dot_width/2+30)
+    if($(window).width()<992)
+    	$("#line").find("hr").css("width",last_dot_left-first_dot_left-last_dot_width/2+10)
+    else
+    	$("#line").find("hr").css("width",last_dot_left-first_dot_left-last_dot_width/2+20)
 	if(ind==1)
 		$("#line").find("hr").css("width",last_dot_left-first_dot_left)
 
     else if(ind==2)
-    	$("#line").find("hr").css("width",last_dot_left-first_dot_left+last_dot_width/4-10)
+    	$("#line").find("hr").css("width",last_dot_left-first_dot_left+last_dot_width/4-20)
 
 
     
