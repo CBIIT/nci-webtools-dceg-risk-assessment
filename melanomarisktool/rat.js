@@ -194,6 +194,12 @@ function formScrollSpy() {
 			$("#form-steps li:eq(" + ind + ")").addClass('active');
 			adjust_line_width(ind);
 		}
+		else if($(window).scrollTop() + $(window).height() == $(document).height() && !$("#skin-section").hasClass("no_display")
+) {
+			$("#form-steps li").removeClass('active');
+			$("#form-steps li:eq(" + 2 + ")").addClass('active');
+			adjust_line_width(2);
+		}
 	});
 
 }
