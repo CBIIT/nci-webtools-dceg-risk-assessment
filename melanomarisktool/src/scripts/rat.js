@@ -370,9 +370,12 @@ $(window).load(function(e) {
 		if(this.value == 1){
 			$("#raceModal").modal("show");
 			$("form :input").not("[name='race']").attr('disabled', true);
+			$("[class*='questions']").css("color","#2e2e2e")
 		}
 		else {
 			$("form :input").not("[name='race']").removeAttr('disabled');
+			$("[class*='questions']").css("color","#6c6c6c")
+
 		}
 	});
 
