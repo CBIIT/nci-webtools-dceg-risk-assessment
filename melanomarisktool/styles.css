@@ -725,7 +725,7 @@ input.error + label.radio span {
     position: fixed;
     z-index: 9999;
     top: 0;
-    left: 0;
+    right: 0;
     background-color: #f3f3f2;
     overflow-x: hidden;
     -webkit-transition: 0.5s;
@@ -734,8 +734,8 @@ input.error + label.radio span {
     -ms-transition: 0.5s;
     transition: 0.5s;
     display: inline;
-    -webkit-box-shadow: -15px 0px 15px -15px rgba(0,0,0,0.6) inset;
-    box-shadow: -15px 0px 15px -15px rgba(0,0,0,0.6) inset;
+    -webkit-box-shadow: 15px 0px 15px -15px rgba(0,0,0,0.6) inset;
+    box-shadow: 15px 0px 15px -15px rgba(0,0,0,0.6) inset;
     text-transform: uppercase;
   }
   #side_nav.sidenav a {
