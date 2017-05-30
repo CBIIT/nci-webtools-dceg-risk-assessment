@@ -34,7 +34,10 @@ p
 	margin 0
 	margin-bottom 1em
 a
-	color #2B7BBA	
+	color #2B7BBA
+	&:hover, &:focus
+		color #2B7BBA
+
 .sectionTitle
 	color white
 	padding 13px
@@ -78,6 +81,14 @@ header
 			margin-top -0.3em
 			margin-bottom 0
 			padding 0.3em 0.2em
+
+.navbar-toggle_innermenu
+	margin-top 0 
+	margin-bottom 0
+	padding 0 0
+	margin-right 10px
+
+
 #side_nav
 	display none
 				
@@ -106,7 +117,7 @@ nav#main-nav
 		&.active a
 			color #356B91
 			background #fff
-			border-bottom 7px inset #1A84A8
+			border-bottom 7px solid #1A84A8
 
 .nav-tabs
 	border none
@@ -137,7 +148,6 @@ button, a.btn
 	ul li
 		line-height 2
 #main_home
-	margin-top 2em
 	max-width 1099px
 	margin-bottom 2em
 	line-height 1.5
@@ -337,11 +347,7 @@ select, input
 				cursor not-allowed
 				span
 					opacity 0.5
-				&:focus
-					span
-						background none
-						border 3px solid blue_2B
-						opacity 0.5
+
 select, input
 	&.error
 		border-color red_BB

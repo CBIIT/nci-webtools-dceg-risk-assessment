@@ -121,6 +121,12 @@ header #toolTitle .navbar-toggle {
   margin-bottom: 0;
   padding: 0.3em 0.2em;
 }
+.navbar-toggle_innermenu {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0 0;
+  margin-right: 10px;
+}
 #side_nav {
   display: none;
 }
@@ -202,7 +208,6 @@ a.btn:disabled {
   line-height: 2;
 }
 #main_home {
-  margin-top: 2em;
   max-width: 1099px;
   margin-bottom: 2em;
   line-height: 1.5;
@@ -560,9 +565,6 @@ input.error + label.radio span {
   header #toolTitle a {
     font-size: 12px;
   }
-  #main_home {
-    margin-top: 6em;
-  }
   #results {
     padding: 1em;
   }
@@ -726,7 +728,6 @@ input.error + label.radio span {
     z-index: 9999;
     top: 0;
     right: 0;
-    background-color: #f3f3f2;
     overflow-x: hidden;
     -webkit-transition: 0.5s;
     -moz-transition: 0.5s;
@@ -734,30 +735,41 @@ input.error + label.radio span {
     -ms-transition: 0.5s;
     transition: 0.5s;
     display: inline;
-    -webkit-box-shadow: 15px 0px 15px -15px rgba(0,0,0,0.6) inset;
-    box-shadow: 15px 0px 15px -15px rgba(0,0,0,0.6) inset;
     text-transform: uppercase;
+    -webkit-box-shadow: 0px 2px 4px 0 rgba(0,0,0,0.5);
+    box-shadow: 0px 2px 4px 0 rgba(0,0,0,0.5);
+    background: #fff;
   }
   #side_nav.sidenav a {
-    padding: 8px 8px 8px 32px;
+    padding: 8px 8px 8px 15px;
     text-decoration: none;
-    font-size: 16px;
-    color: #818181;
+    font-weight: bold;
+    font-size: 14px;
+    color: #235e88;
     display: block;
     -webkit-transition: 0.3s;
     -moz-transition: 0.3s;
     -o-transition: 0.3s;
     -ms-transition: 0.3s;
     transition: 0.3s;
-    white-space: nowrap;
+    font-family: 'Montserrat', sans-serif;
   }
   #side_nav.sidenav a.active a {
-    color: #fff;
-    background-color: #bb0e3d;
+    color: #2b7bba;
   }
   #buttons {
     display: -webkit-box;
   }
+}
+#inner_menu {
+  color: #fff;
+  background: #235e88;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  padding: 6px 8px 8px 15px;
+}
+#Risk {
+  width: 100%;
 }
 .modal-content {
   border-radius: 0px;

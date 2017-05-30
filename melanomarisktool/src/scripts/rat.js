@@ -194,6 +194,12 @@ function formScrollSpy() {
 			$("#form-steps li:eq(" + ind + ")").addClass('active');
 			adjust_line_width(ind);
 		}
+		else if($(window).scrollTop() + $(window).height() == $(document).height() && !$("#skin-section").hasClass("no_display")
+) {
+			$("#form-steps li").removeClass('active');
+			$("#form-steps li:eq(" + 2 + ")").addClass('active');
+			adjust_line_width(2);
+		}
 	});
 
 }
@@ -321,7 +327,6 @@ else if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(na
 }
 $(window).load(function(e) {
 	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
-		$("#About").find("a").text("About the Model")
 
 
 	$(".toggleTool").on("click keypress", toggleFormDisplay);
@@ -370,11 +375,11 @@ $(window).load(function(e) {
 		if(this.value == 1){
 			$("#raceModal").modal("show");
 			$("form :input").not("[name='race']").attr('disabled', true);
-			$("[class*='questions']").css("color","#2e2e2e")
+			$("[class*='questions']").css("color","#6c6c6c")
 		}
 		else {
 			$("form :input").not("[name='race']").removeAttr('disabled');
-			$("[class*='questions']").css("color","#6c6c6c")
+			$("[class*='questions']").css("color","#2e2e2e")
 
 		}
 	});
@@ -394,7 +399,8 @@ $(window).load(function(e) {
 	// });
 	var header_height=$('header').outerHeight();
  	var form_steps_height=$('#form-steps').outerHeight();
-	 	$("#side_nav").css("margin-top",header_height+"px");
+ 	var logo_height=$('#logo').outerHeight();
+	$("#side_nav").css("margin-top",logo_height+"px");
 	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
  		console.log("mobile");
  		 $("header").addClass('fixed');
@@ -411,7 +417,6 @@ $(window).load(function(e) {
  		 $("#main").removeClass("container-fluid");
 
  		$("#line").find("hr").css("top",form_steps_height/2)
-		$("#About").find("a").text("About the Model")
 	}
 
  	else{

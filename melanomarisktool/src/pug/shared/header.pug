@@ -15,10 +15,14 @@ header
 				a(href="about.html") About the Model &amp; Source Code
 
 	#side_nav.sidenav
+		#inner_menu.div
+			span Menu
+			button.navbar-toggle.collapsed.navbar-toggle_innermenu(type='button', aria-controls='main-nav', aria-expanded='false', data-toggle='collapse' onclick="toggle_menu()")
+				span.sr-only Toggle navigation
+				.glyphicon.glyphicon-menu-hamburger
 		ul.nav.nav-tabs
-			li(role="presentation")
-				#Risk
+			#Risk.li(role="presentation")
 					a(href="calculator.html") Risk Calculator
-			li(role="presentation")
-				#About
+
+			#About.li(role="presentation")
 					a(href="about.html") About the Model &amp; Source Code
