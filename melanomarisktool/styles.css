@@ -154,7 +154,7 @@ nav#main-nav ul.nav.nav-tabs li a:focus {
 nav#main-nav ul.nav.nav-tabs li.active a {
   color: #356b91;
   background: #fff;
-  border-bottom: 7px inset #1a84a8;
+  border-bottom: 7px solid #1a84a8;
 }
 .nav-tabs {
   border: none;
@@ -428,14 +428,6 @@ input:disabled[type="radio"] + label.radio {
 }
 select:disabled[type="radio"] + label.radio span,
 input:disabled[type="radio"] + label.radio span {
-  opacity: 0.5;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-  filter: alpha(opacity=50);
-}
-select:disabled[type="radio"] + label.radio:focus span,
-input:disabled[type="radio"] + label.radio:focus span {
-  background: none;
-  border: 3px solid #2b7bba;
   opacity: 0.5;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
   filter: alpha(opacity=50);
