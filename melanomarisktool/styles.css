@@ -151,11 +151,14 @@ nav#main-nav ul.nav.nav-tabs li a {
   border-radius: 0px;
   margin: 0;
   padding: 0.7em;
+  padding-bottom: 7px;
+  border-bottom: 7px solid transparent;
 }
 nav#main-nav ul.nav.nav-tabs li a:hover,
 nav#main-nav ul.nav.nav-tabs li a:focus {
   background: #fff;
   color: #14819b;
+  border-bottom: 7px solid #fff;
 }
 nav#main-nav ul.nav.nav-tabs li.active a {
   color: #356b91;
@@ -584,7 +587,7 @@ input.error + label.radio span {
   }
   nav#main-nav ul.nav.nav-tabs li {
     width: 50%;
-    float: right;
+    float: left;
   }
   nav#main-nav ul.nav.nav-tabs li.active a {
     color: #356b91;
@@ -752,6 +755,7 @@ input.error + label.radio span {
     -o-transition: 0.3s;
     -ms-transition: 0.3s;
     transition: 0.3s;
+    white-space: nowrap;
     font-family: 'Montserrat', sans-serif;
   }
   #side_nav.sidenav a.active a {

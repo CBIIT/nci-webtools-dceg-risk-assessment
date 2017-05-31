@@ -422,17 +422,20 @@ $(window).load(function(e) {
  	else{
 	 	adjust_line_height_dekstop()
  	}
+ 	
 	adjust_line_width()
 });
 
 $( window ).resize(function() {
+	if(window.location.pathname=="./calculator.html"){
+	 	adjust_line_width()
+	 	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
+	 		$("#line").find("hr").css("top",form_steps_height/2)
+	 	else{
+		 	adjust_line_height_dekstop();
 
- 	adjust_line_width()
- 	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
- 		$("#line").find("hr").css("top",form_steps_height/2)
- 	else{
-	 	adjust_line_height_dekstop();
- 	}
+	 	}
+	 }
 
 });
 function adjust_line_width(ind){
