@@ -10,12 +10,6 @@
     <link href="/common/css/style.css" rel="stylesheet" type="text/css">
     <link href="styles.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js" type="application/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js" type="application/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods.js" type="application/javascript"></script>
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://d3js.org/d3.v4.min.js" type="application/javascript"></script>
-    <script src="rat.js" type="text/javascript"></script>
   </head>
   <body><a class="sr-only sr-only-focusable" href="#main">Skip to main content</a>
     <header><a href="http://cancer.gov" target="_blank"><img id="logo" src="/common/images/nci-logo-full.svg" alt="go to cancer.gov"></a>
@@ -283,7 +277,7 @@
         <div class="center-block">
           <div id="buttons">
             <div class="col-xs-12"><img class="btn-sm btn-form" id="reset_form" src="./images/Reset_Button.png" alt="reset">
-              <input class="btn-sm btn-form" id="calculate" type="image" src="./images/Calculate_Risk_Button.png">
+              <input class="btn-sm btn-form" id="calculate" type="image" src="./images/Disabled_Calculate_Risk_Button.png" disabled="disabled">
             </div>
           </div>
         </div>
@@ -343,10 +337,16 @@
               Northern California, Idaho, Utah, Wyoming, Nebraska, Kansas, Oklahoma, Arkansas, Missouri, Tennessee, Kentucky, 
               West Virginia, Virginia, Delaware, North Carolina, and South Carolina.
             </p>
-            <p><b>Southern United States: </b>Southern California, Nevada, Arizona, New Mexico, Colorado, Texas, Louisiana, Mississippi, Alabama, Georgia, and Florida.</p>
-          </div>
+            <p><b>Southern United States: </b></p>
+          </div>Southern California, Nevada, Arizona, New Mexico, Colorado, Texas, Louisiana, Mississippi, Alabama, Georgia, and Florida.
         </div>
       </div>
     </div>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js" type="application/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js" type="application/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods.js" type="application/javascript"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js" type="application/javascript"></script>
+    <script src="rat.js" type="text/javascript"></script>
   </body>
 </html>

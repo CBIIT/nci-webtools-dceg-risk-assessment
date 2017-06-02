@@ -77,7 +77,7 @@ var validationRules = {
 	freckling: {
 		required: true
 	},
-	damage: {
+	"damage": {
 		required: {
 			depends: function(el) {
 				return $('[name="gender"]').val() == "Male";
@@ -95,8 +95,8 @@ function toTop(){
 }
 
 function invalidForm(e, validator) {
-	$("#errors").addClass('alert alert-danger');
-	toTop();
+//	$("#errors").addClass('alert alert-danger');
+	//toTop();
 }
 
 function processSubmission(form){
@@ -267,12 +267,12 @@ function toggleGender(e) {
 			$("#small_moles").removeClass("no-margin-top")
 			$("#small_moles").css("margin-top", "50px")
 			$.each($(".female").find("input, select"), function(index, el) {
-				$(el).rules("remove", "required");
+				$(el).prop("required", false);
 				$("#riskForm").validate().element(el);
 			});
 
 			$.each($(".male").find("input, select"), function(index, el) {
-				$(el).rules("add", { required: true });
+				$(el).prop("required", true);
 			});
 
 			$(".female").removeClass('show');
@@ -281,11 +281,12 @@ function toggleGender(e) {
 		case "Female":
 			$("#small_moles").addClass("no-margin-top")
 			$.each($(".male").find("input, select"), function(index, el) {
-				$(el).rules("remove", "required");
+				$(el).prop("required", false);
+
 			});
 
 			$.each($(".female").find("input, select"), function(index, el) {
-				$(el).rules("add", { required: true });
+				$(el).prop("required", true);
 			});
 			
 			$(".male").removeClass('show');
@@ -293,7 +294,7 @@ function toggleGender(e) {
 			break;
 		default:
 			$.each($(".male, .female").find("input, select"), function(index, el) {
-				$(el).rules("remove", "required");
+				$(el).prop("required", false);
 			});
 			break;
 	}
@@ -422,17 +423,20 @@ $(window).load(function(e) {
  	else{
 	 	adjust_line_height_dekstop()
  	}
+
 	adjust_line_width()
 });
 
 $( window ).resize(function() {
+	if(window.location.pathname=="./calculator.html"){
+	 	adjust_line_width()
+	 	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
+	 		$("#line").find("hr").css("top",form_steps_height/2)
+	 	else{
+		 	adjust_line_height_dekstop();
 
- 	adjust_line_width()
- 	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
- 		$("#line").find("hr").css("top",form_steps_height/2)
- 	else{
-	 	adjust_line_height_dekstop();
- 	}
+	 	}
+	 }
 
 });
 function adjust_line_width(ind){
@@ -499,7 +503,6 @@ $(function() {
 
 	$("#riskForm").validate({
 		rules: validationRules,
-		messages: validationMessages,
 		ignore: ".skipValidate",
 		errorLabelContainer: '#errors',
 		wrapper: 'p',
@@ -512,6 +515,16 @@ $(function() {
 			$("[name='" + el.name + "']").removeClass(errorClass);
 		}
 	});
+
+/*	$("#riskForm").validate({
+		rules: validationRules,
+		submitHandler: processSubmission,		
+		success: function() {
+    		enablebutton();
+  		},
+  		invalidHandler: disablebutton
+		
+	});*/
  
 });
 
@@ -530,3 +543,46 @@ function toggle_menu(){
 	}
 
 }
+function enablebutton(){
+	$("#calculate").prop('disabled', false);
+	$("#calculate").attr("src","./images/Calculate_Risk_Button.png");
+}
+
+function disablebutton(){
+	$("#calculate").prop('disabled', true);
+	$("#calculate").attr("src","./images/Disabled_Calculate_Risk_Button.png");
+}
+$(document).ready(function(){
+
+/*	$("#riskForm").validate({
+		rules: validationRules,
+		ignore: ".skipValidate",
+		wrapper: 'p',
+		submitHandler: enablebutton,
+		invalidHandler: disablebutton,
+		
+	});*/
+
+	$("#riskForm").click(function() {
+		var newVal = $(this).val();
+		var inputs = $("form#riskForm input, form#riskForm select");
+		valid=true
+		inputs.each(function(index) {
+    		var input = $(this);
+    		if(input[0].required==true){
+    			name=input[0].name
+    			if(($('input[name=' + name +']').is('input') && $('input[name=' + name + ']:checked').length==0) || ($('select[name=' + name +']').is('select') && input[0].selectedIndex==0)){
+      				disablebutton()
+      				valid=false
+      			}
+    		}
+		});
+		if(valid==true)
+			enablebutton();
+
+	});
+
+
+
+});
+

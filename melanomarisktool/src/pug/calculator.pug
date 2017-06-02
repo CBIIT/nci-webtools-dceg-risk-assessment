@@ -10,13 +10,8 @@ html(lang="en")
 		link(href="/common/css/style.css", rel="stylesheet", type="text/css")
 		link(href="styles.css", rel="stylesheet", type="text/css")
 		link(href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet")
-		script(src='https://code.jquery.com/jquery-2.1.4.min.js', type='application/javascript')
-		script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js", type="application/javascript")
-		script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods.js", type="application/javascript")
-		script(type='text/javascript', src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
-		script(src="https://d3js.org/d3.v4.min.js", type="application/javascript")
+
 				
-		script(src='rat.js', type='text/javascript')
 	body
 		include shared/header
 		#results
@@ -242,7 +237,7 @@ html(lang="en")
 							.col-xs-12
 								
 								img.btn-sm.btn-form#reset_form(src="./images/Reset_Button.png" alt="reset")
-								input.btn-sm.btn-form#calculate(type="image" src="./images/Calculate_Risk_Button.png") 
+								input.btn-sm.btn-form#calculate(type="image" src="./images/Disabled_Calculate_Risk_Button.png" disabled="disabled") 
 		include shared/footer
 		#raceModal.modal.error-dialog.fade(tabindex='-1', role='dialog', data-backdrop="false")
 			.modal-dialog(role='document')
@@ -269,4 +264,10 @@ html(lang="en")
 							| West Virginia, Virginia, Delaware, North Carolina, and South Carolina.
 						p
 							b Southern United States: 
-							| Southern California, Nevada, Arizona, New Mexico, Colorado, Texas, Louisiana, Mississippi, Alabama, Georgia, and Florida.
+					| Southern California, Nevada, Arizona, New Mexico, Colorado, Texas, Louisiana, Mississippi, Alabama, Georgia, and Florida.
+		script(src='https://code.jquery.com/jquery-2.1.4.min.js', type='application/javascript')
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js", type="application/javascript")
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods.js", type="application/javascript")
+		script(type='text/javascript', src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+		script(src="https://d3js.org/d3.v4.min.js", type="application/javascript")
+		script(src='rat.js', type='text/javascript')
