@@ -95,8 +95,8 @@ function toTop(){
 }
 
 function invalidForm(e, validator) {
-//	$("#errors").addClass('alert alert-danger');
-	//toTop();
+	$("#errors").addClass('alert alert-danger');
+	toTop();
 }
 
 function processSubmission(form){
@@ -282,7 +282,7 @@ function toggleGender(e) {
 			$("#small_moles").addClass("no-margin-top")
 			$.each($(".male").find("input, select"), function(index, el) {
 				$(el).prop("required", false);
-
+				$("#riskForm").validate().element(el);
 			});
 
 			$.each($(".female").find("input, select"), function(index, el) {
@@ -502,12 +502,9 @@ $(function() {
 
 
 	$("#riskForm").validate({
-		rules: validationRules,
 		ignore: ".skipValidate",
-		errorLabelContainer: '#errors',
 		wrapper: 'p',
 		submitHandler: processSubmission,
-		invalidHandler: invalidForm,
 		highlight: function(el, errorClass) {
 			$("[name='" + el.name + "']").addClass(errorClass);
 		},
