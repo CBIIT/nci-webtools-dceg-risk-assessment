@@ -465,7 +465,7 @@ function adjust_line_width(ind){
 function adjust_line_height_dekstop(){
 	var header_height=$('header').outerHeight();
  	var form_steps_height=$('#form-steps').outerHeight();
-	if($(window).width()>=992)
+	if($(window).width()<992)
 	 	$("#line").find("hr").css("top",header_height+form_steps_height/2)
 	else
 	 	$("#line").find("hr").css("top",header_height+form_steps_height-30)
