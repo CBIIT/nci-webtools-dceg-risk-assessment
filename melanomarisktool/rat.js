@@ -328,8 +328,6 @@ else if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(na
 }
 $(window).load(function(e) {
 	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
-
-
 	$(".toggleTool").on("click keypress", toggleFormDisplay);
 
 	$(".responseOptions > label.radio").on('click keypress', function(e) {
@@ -554,6 +552,8 @@ function disablebutton(){
 	$("#calculate").attr("src","./images/Disabled_Calculate_Risk_Button.png");
 }
 $(document).ready(function(){
+	currentPage()
+
 	$("#riskForm").click(function() {
 		var newVal = $(this).val();
 		var inputs = $("form#riskForm input, form#riskForm select");
