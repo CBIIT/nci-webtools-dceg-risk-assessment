@@ -743,7 +743,10 @@ input.error + label.radio span {
     box-shadow: 0px 2px 4px 0 rgba(0,0,0,0.5);
     background: #fff;
   }
-  #side_nav.sidenav a {
+  #side_nav.sidenav ul.nav.nav-tabs li {
+    width: 100%;
+  }
+  #side_nav.sidenav ul.nav.nav-tabs li a {
     padding: 8px 8px 8px 15px;
     text-decoration: none;
     font-weight: bold;
@@ -758,8 +761,14 @@ input.error + label.radio span {
     white-space: nowrap;
     font-family: 'Montserrat', sans-serif;
   }
-  #side_nav.sidenav a.active a {
-    color: #2b7bba;
+  #side_nav.sidenav ul.nav.nav-tabs li a:hover,
+  #side_nav.sidenav ul.nav.nav-tabs li a:focus {
+    color: #fff;
+    background: #14819b;
+  }
+  #side_nav.sidenav ul.nav.nav-tabs li.active a {
+    color: #fff;
+    background: #14819b;
   }
   #buttons {
     display: -webkit-box;
