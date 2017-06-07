@@ -194,7 +194,7 @@ function formScrollSpy() {
 			$("#form-steps li:eq(" + ind + ")").addClass('active');
 			adjust_line_width(ind);
 		}
-		else if($(window).scrollTop() + $(window).height() == $(document).height() && !$("#skin-section").hasClass("no_display")
+		else if(Math.ceil($(window).scrollTop() + $(window).height()) == $(document).height() && !$("#skin-section").hasClass("no_display")
 ) {
 			$("#form-steps li").removeClass('active');
 			$("#form-steps li:eq(" + 2 + ")").addClass('active');
@@ -427,8 +427,8 @@ $(window).load(function(e) {
 	adjust_line_width()
 });
 
-$( window ).resize(function() {
-	if(window.location.pathname=="./calculator.html"){
+$(window).resize(function() {
+	if(window.location.pathname=="/melanomarisktool/calculator.html"){
 	 	adjust_line_width()
 	 	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
 	 		$("#line").find("hr").css("top",form_steps_height/2)
@@ -448,7 +448,7 @@ function adjust_line_width(ind){
  	var last_dot_width=$(last_dot).outerWidth(true)
  	$("#line").find("hr").css("left",first_dot_left+first_dot_width/2+10)
     
-    if($(window).width()<992)
+    if($(window).width()<992 ||navigator.userAgent.search("Firefox")>-1)
     	$("#line").find("hr").css("width",last_dot_left-first_dot_left-last_dot_width/2+10)
     else
     	$("#line").find("hr").css("width",last_dot_left-first_dot_left-last_dot_width/2+20)
@@ -465,7 +465,7 @@ function adjust_line_width(ind){
 function adjust_line_height_dekstop(){
 	var header_height=$('header').outerHeight();
  	var form_steps_height=$('#form-steps').outerHeight();
-	if(window.innerWidth<992)
+	if($(window).width()>=992)
 	 	$("#line").find("hr").css("top",header_height+form_steps_height/2)
 	else
 	 	$("#line").find("hr").css("top",header_height+form_steps_height-30)
@@ -474,8 +474,12 @@ function adjust_line_height_dekstop(){
 function currentPage() {
 	 var path = window.location.pathname;
 	 var filename = path.substring(path.lastIndexOf('/')+1);
-	 if(filename.indexOf('index') == -1)
-	 	$("nav li a[href='" + filename + "']").parent().addClass('active');
+	 if(filename.indexOf('index') == -1){
+	 	if($(window).width()>=992)
+	 		$("nav li a[href='" + filename + "']").parent().addClass('active');
+	 	else
+	 		$("#side_nav li a[href='" + filename + "']").parent().addClass('active');
+	 }
 
 }
 function smoothScroll(e) {
@@ -550,16 +554,6 @@ function disablebutton(){
 	$("#calculate").attr("src","./images/Disabled_Calculate_Risk_Button.png");
 }
 $(document).ready(function(){
-
-/*	$("#riskForm").validate({
-		rules: validationRules,
-		ignore: ".skipValidate",
-		wrapper: 'p',
-		submitHandler: enablebutton,
-		invalidHandler: disablebutton,
-		
-	});*/
-
 	$("#riskForm").click(function() {
 		var newVal = $(this).val();
 		var inputs = $("form#riskForm input, form#riskForm select");
