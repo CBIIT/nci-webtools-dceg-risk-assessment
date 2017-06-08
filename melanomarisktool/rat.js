@@ -554,7 +554,7 @@ function disablebutton(){
 $(document).ready(function(){
 	currentPage()
 
-	$("#riskForm").click(function() {
+	$("#riskForm").change(function() {
 		var newVal = $(this).val();
 		var inputs = $("form#riskForm input, form#riskForm select");
 		valid=true
