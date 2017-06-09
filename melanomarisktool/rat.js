@@ -264,8 +264,9 @@ function toggleGender(e) {
 	$("#physical").removeClass("no_display")
 	switch (value) {
 		case "Male":
-			$("#small_moles").removeClass("no-margin-top")
-			$("#small_moles").css("margin-top", "50px")
+			$('.small_mole_answer')[0].innerHTML="Less than seven"
+			$('.small_mole_answer')[1].innerHTML="Seven to sixteen"
+			$('.small_mole_answer')[2].innerHTML="Seventeen or more"
 			$.each($(".female").find("input, select"), function(index, el) {
 				$(el).prop("required", false);
 				$("#riskForm").validate().element(el);
@@ -274,12 +275,13 @@ function toggleGender(e) {
 			$.each($(".male").find("input, select"), function(index, el) {
 				$(el).prop("required", true);
 			});
-
 			$(".female").removeClass('show');
 			$(".male").addClass('show');
 			break;
 		case "Female":
-			$("#small_moles").addClass("no-margin-top")
+			$('.small_mole_answer')[0].innerHTML="Less than five"
+			$('.small_mole_answer')[1].innerHTML="Seven to eleven"
+			$('.small_mole_answer')[2].innerHTML="Twelve or more"
 			$.each($(".male").find("input, select"), function(index, el) {
 				$(el).prop("required", false);
 				$("#riskForm").validate().element(el);

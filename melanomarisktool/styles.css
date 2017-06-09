@@ -787,3 +787,6 @@ input.error + label.radio span {
 .modal-content {
   border-radius: 0px;
 }
+.small_mole_answer {
+  display: inline;
+}

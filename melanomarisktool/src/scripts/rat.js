@@ -265,7 +265,7 @@ function toggleGender(e) {
 	switch (value) {
 		case "Male":
 			$("#small_moles").removeClass("no-margin-top")
-			$("#small_moles").css("margin-top", "50px")
+			$("#small_moles").css("margin-top", "50px !important")
 			$.each($(".female").find("input, select"), function(index, el) {
 				$(el).prop("required", false);
 				$("#riskForm").validate().element(el);
