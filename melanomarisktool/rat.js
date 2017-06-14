@@ -280,7 +280,7 @@ function toggleGender(e) {
 			break;
 		case "Female":
 			$('.small_mole_answer')[0].innerHTML="Less than five"
-			$('.small_mole_answer')[1].innerHTML="Seven to eleven"
+			$('.small_mole_answer')[1].innerHTML="Five to eleven"
 			$('.small_mole_answer')[2].innerHTML="Twelve or more"
 			$.each($(".male").find("input, select"), function(index, el) {
 				$(el).prop("required", false);
