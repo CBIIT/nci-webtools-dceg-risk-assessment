@@ -44,7 +44,11 @@
 html {
   background: #235e88;
 }
-body {
+*{margin:0;}
+
+
+
+html,body {
   font-family: "Noto Sans", "Montserrat";
   font-size: 12pt;
   background: #fff;
@@ -167,6 +171,7 @@ nav#main-nav ul.nav.nav-tabs li.active a {
 }
 .nav-tabs {
   border: none;
+  overflow-y: hidden
 }
 button,
 a.btn {
