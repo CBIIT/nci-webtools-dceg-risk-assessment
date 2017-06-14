@@ -760,6 +760,7 @@ input.error + label.radio span {
     transition: 0.3s;
     white-space: nowrap;
     font-family: 'Montserrat', sans-serif;
+    border-radius: 0
   }
   #side_nav.sidenav ul.nav.nav-tabs li a:hover,
   #side_nav.sidenav ul.nav.nav-tabs li a:focus {
