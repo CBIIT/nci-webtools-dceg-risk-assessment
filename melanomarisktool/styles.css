@@ -417,6 +417,7 @@ input[type="radio"] + label.radio span {
   background: url("./images/Radio_Button_Unselected.png");
   color: #f2f2f2;
   cursor: pointer;
+  background-repeat: no-repeat;
 }
 input[type="radio"] + label.radio:hover span {
   background: url("./images/Radio_Button_Selected.png");
