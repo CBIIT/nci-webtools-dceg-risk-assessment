@@ -44,7 +44,11 @@
 html {
   background: #235e88;
 }
-body {
+*{margin:0;}
+
+
+
+html,body {
   font-family: "Noto Sans", "Montserrat";
   font-size: 12pt;
   background: #fff;
@@ -59,6 +63,8 @@ h7 {
   color: #606060;
   font-weight: bold;
   margin: 0.5em auto;
+  font-family: 'Montserrat', sans-serif;
+
 }
 p {
   margin: 0;
@@ -167,6 +173,7 @@ nav#main-nav ul.nav.nav-tabs li.active a {
 }
 .nav-tabs {
   border: none;
+  overflow-y: hidden
 }
 button,
 a.btn {
@@ -412,14 +419,18 @@ input[type="radio"] + label.radio span {
   background: url("./images/Radio_Button_Unselected.png");
   color: #f2f2f2;
   cursor: pointer;
+  background-repeat: no-repeat;
 }
 input[type="radio"] + label.radio:hover span {
   background: url("./images/Radio_Button_Selected.png");
   background-repeat: no-repeat;
+
+
 }
 input[type="radio"]:checked + label.radio span {
   background: url("./images/Radio_Button_Selected.png");
   background-repeat: no-repeat;
+
 }
 select:disabled,
 input:disabled {
@@ -492,7 +503,7 @@ input.error + label.radio span {
 }
 .modal-header .close {
   background: url("./images/Exit.png");
-  padding: 8px 9px;
+  padding: 9px 9px;
   color: #fff;
   opacity: initial;
   -ms-filter: initial;
@@ -760,6 +771,7 @@ input.error + label.radio span {
     transition: 0.3s;
     white-space: nowrap;
     font-family: 'Montserrat', sans-serif;
+    border-radius: 0
   }
   #side_nav.sidenav ul.nav.nav-tabs li a:hover,
   #side_nav.sidenav ul.nav.nav-tabs li a:focus {
