@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Colorectal Cander Risk Assessment Tool (CCRAT) - Risk Calculator</title>
+    <title>Melanoma Risk Assessment Tool (MRAT) - Risk Calculator</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" type="text/css">
@@ -9,16 +9,11 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="/common/css/style.css" rel="stylesheet" type="text/css">
     <link href="styles.css" rel="stylesheet" type="text/css">
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js" type="application/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js" type="application/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods.js" type="application/javascript"></script>
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://d3js.org/d3.v4.min.js" type="application/javascript"></script>
-    <script src="ccrat.js" type="text/javascript"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   </head>
   <body><a class="sr-only sr-only-focusable" href="#main">Skip to main content</a>
     <header><a href="http://cancer.gov" target="_blank"><img id="logo" src="/common/images/nci-logo-full.svg" alt="go to cancer.gov"></a>
-      <div id="toolTitle"><a href="index.html">Colorectal Cancer Risk Assessment Tool</a>
+      <div id="toolTitle"><a href="index.html">Melanoma Risk Assessment Tool</a>
         <button class="navbar-toggle collapsed" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()"><span class="sr-only">Toggle navigation</span>
           <div class="glyphicon glyphicon-menu-hamburger"></div>
         </button>
@@ -30,27 +25,26 @@
         </ul>
       </nav>
       <div class="sidenav" id="side_nav">
+        <div class="div" id="inner_menu"><span>Menu</span>
+          <button class="navbar-toggle collapsed navbar-toggle_innermenu" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()"><span class="sr-only">Toggle navigation</span>
+            <div class="glyphicon glyphicon-menu-hamburger"></div>
+          </button>
+        </div>
         <ul class="nav nav-tabs">
-          <li role="presentation">
-            <div id="Risk"><a href="calculator.html">Risk Calculator</a></div>
-          </li>
-          <li role="presentation">
-            <div id="About"><a href="about.html">About the Model &amp; Source Code</a></div>
-          </li>
+          <li role="presentation" id="Risk"><a href="calculator.html">Risk Calculator</a></li>
+          <li role="presentation" id="About"><a href="about.html"><span>About the Model &amp;</span><br><span>Source Code</span></a></li>
         </ul>
       </div>
     </header>
-
-    <!-- Work on later once you have the input page working -->
     <div id="results">
       <div id="main_home"><a href="javascript:goback_tocalc()">< Back to Calculator</a>
         <h2>Personalized Results</h2>
         <div class="row">
           <div class="col-xs-12 col-md-12">
             <div class="content">
-              <p>Although a patient’s risk may be accurately estimated, these predictions do not allow one to say precisely which patient will develop melanoma. In fact, some patients who do not develop melanoma have higher risk estimates than some patients who do develop the disease.</p>
+              <p>Atlthough a patient's risk may be accurately estimated, these predictions do not allow one to say precisely which patient will develop melanoma. In fact, some patients who do not develop melanoma have higher risk estimates than some patients who do develop the disease.</p>
               <p>As a reminder, this tool was designed for use by health professionals. If you are not a health professional, you are encouraged to print these results and discuss them with your health care provider. </p>
-              <p>The tool uses the answers provided to estimate 5-year absolute risk of developing melanoma. This includes the patient’s personal medical history, risk factor information, and an examination of the skin on the patient’s back and shoulders.</p>
+              <p>The tool uses the answers provided to estimate 5-year absolute risk of developing melanoma. This includes the patient's personal medical history, risk factor information, and an examination of the skin on the patient's back and shoulders.</p>
             </div>
           </div>
         </div>
@@ -71,81 +65,58 @@
         </div><br><a class="btn btn-lg btn-form center-block" href="calculator.html">Start Over</a>
       </div>
     </div>
-
-    <!-- End Work on later once you have the input page working -->
-
-    <!-- ----------------------------------------------------- -->
-    <!-- Steps                                          -->
-    <!-- ----------------------------------------------------- -->
     <div id="form-steps">
       <div id="line">
         <hr class="line">
       </div>
-        <ol>
-          <li class="active">
-              <a class="hidden-xs hidden-sm" href="#demo-section">Demographics</a>
-              <a href="#demo-section">1</a>
-          </li>
-          <span class="spacer"></span>
-          <li>
-              <a href="#activity-section" class="hidden-xs hidden-sm">Diet &amp;Physical Activity</a>
-              <a href="#activity-section">2</a>
-          </li>
-          <span class="spacer"></span>
-          <li>
-              <a href="#medical-section" class="hidden-xs hidden-sm">Medical History</a>
-              <a href="#medical-section">3</a>
-          </li>
-          <span class="spacer" ></span>
-          <li>
-              <a href="#family-section" class="hidden-xs hidden-sm">Family History</a>
-              <a href="#family-section">4</a>
-          </li>
-          <span class="spacer"></span>
-        </ol>
+      <ol>
+        <li class="active"> <a class="hidden-xs hidden-sm" href="#demo-section">Demographics</a><a href="#demo-section">1</a></li><span class="spacer"></span>
+        <li> <a class="hidden-xs hidden-sm" href="#activity-section">Diet And Physical Activity</a><a href="#activity-section">2</a></li><span class="spacer"></span>
+        <li> <a class="hidden-xs hidden-sm" href="#medical-section">Medical History</a><a href="#medical-section">3</a></li><span class="spacer"></span>
+        <li> <a class="hidden-xs hidden-sm" href="#family-section">Family History</a><a href="#family-section">4</a></li>
+      </ol>
     </div>
-
     <div class="container-fluid" id="main">
       <div id="errors"></div>
       <form id="riskForm" name="riskForm" method="POST" action="calculate" autocomplete="off">
 
-        <!-- ----------------------------------------------------- -->
-        <!-- Demographics                                          -->
-        <!-- ----------------------------------------------------- -->
-        <h3 class="sectionTitle">Demographics</h3>
+        <!-- --------------------------------------------------------------  -->
+        <!-- Demographics                                                    -->
+        <!-- --------------------------------------------------------------  -->
+        <h2 class="sectionTitle">Demographics</h2>
         <section id="demo-section">
-          <label class="questions no-margin-top spaceAfterQuestionBeforeAnswers" for="hispanic">Is the patient Hispanic or Latino?</label>
+          <label class="questions no-margin-top" for="hispanic">Is the patient Hispanic or Latino?</label>
           <div class="responseOptions ">
-            <input class="no-margin-top" type="radio" name="hispanic" value="0" aria-label="Yes" >
+            <input class="no-margin-top" type="radio" name="hispanic" value="0" aria-label="Yes" />
             <label class="no-margin-top radio" tabindex="0"><span></span>Yes</label>
           </div>
           <div class="responseOptions ">
-            <input class="no-margin-bottom" type="radio" name="hispanic" value="1" aria-label="No" >
+            <input class="no-margin-bottom" type="radio" name="hispanic" value="1" aria-label="No" />
             <label class="no-margin-bottom radio" tabindex="0"><span></span>No</label>
           </div>
-          <label class="questions space" for="race">To which of the following does the patient identify</label>
-          <div class="extraInformationAboutTheQuestion spaceAfterQuestionBeforeAnswers">
+          <label class="questions" for="race">To which of the following does the patient identify</label>
+          <p class="questions_secondary">
             This tool does not yet apply to American Indians and Alaska Natives
-          </div>
+          </p>
           <div class="responseOptions">
-            <input class="no-margin-top" type="radio" name="race" value="0" aria-label="White" >
+            <input class="no-margin-top" type="radio" name="race" value="White" aria-label="White" />
             <label class="no-margin-top radio" tabindex="0"><span></span>White</label>
           </div>
           <div class="responseOptions">
-            <input type="radio" name="race" value="1" aria-label="Black or African American" >
+            <input type="radio" name="race" value="Black" aria-label="Black or African American" />
             <label class="radio" tabindex="0"><span></span>Black or African American</label>
           </div>
           <div class="responseOptions ">
-            <input class="no-margin-bottom" type="radio" name="race" value="2" aria-label="Asian or Pacific Islander" >
+            <input class="no-margin-bottom" type="radio" name="race" value="Asian" aria-label="Asian or Pacific Islander" />
             <label class="no-margin-bottom radio" tabindex="0"><span></span>Asian or Pacific Islander</label>
           </div>
           <label class="questions " for="age">
              What is the patient's age?
           </label>
-          <div class="extraInformationAboutTheQuestion spaceAfterQuestionBeforeAnswers">
-            This tool calculates risk for men and women 50 to 85 years of age.</em></label>
-          </div>
-          <div class="no-margintop cresponseOptions ">
+          <p class="extraInformationAboutTheQuestion spaceAfterQuestionBeforeAnswers">
+            This tool calculates risk for men and women 50 to 85 years of age.
+          </p>
+          <div class="responseOptions">
             <select id="age" name="age" placeholder="Enter patient's age" >
               <option value="">Select Age</option>
               <option value="50">50</option>
@@ -186,20 +157,20 @@
               <option value="85">85</option>
             </select>
           </div>
-          <label class="questions spaceAfterQuestionBeforeAnswers" for="gender">What is the patient's sex?</label>
+          <label class="questions" for="gender">What is the patient's sex?</label>
           <div class="responseOptions">
-            <input class="no-margin-top" type="radio" name="gender" value="Male" aria-label="Male" d>
+            <input class="no-margin-top" type="radio" name="gender" value="Male" aria-label="Male" />
             <label class="no-margin-top radio" tabindex="0"><span></span>Male</label>
           </div>
           <div class="responseOptions ">
-            <input class="no-margin-bottom" type="radio" name="gender" value="Female" aria-label="Female">
+            <input class="no-margin-bottom" type="radio" name="gender" value="Female" aria-label="Female" />
             <label class="no-maring-bottom radio" tabindex="0"><span></span>Female</label>
           </div>
-          <label class="questions spaceAfterQuestionBeforeAnswers">What is the patient’s height and weight without shoes?</label>
+          <label class="questions">What is the patients height and weight without shoes?</label>
           <div class="row">
             <div class="col-xs-12 col-sm-4">
               <div class="responseOptions">
-                <input class="numberField" type="number" name="height_ft" min="2" max="9" aria-label="height feet" >
+                <input class="numberField" type="number" name="height_ft" min="2" max="9" aria-label="height feet" />
                 <span>
                   ft.
                 </span>
@@ -207,7 +178,7 @@
             </div>
             <div class="col-xs-12 col-sm-4">
               <div class="responseOptions">
-                <input class="numberField" type="number" name="height_in" min="0" max="11" aria-label="height inches" >
+                <input class="numberField" type="number" name="height_in" min="0" max="11" aria-label="height inches" />
                 <span>
                   in.
                 <span>
@@ -215,7 +186,7 @@
             </div>
             <div class="col-xs-12 col-sm-4">
               <div class="responseOptions">
-                <input class="numberField" type="number" name="weight" min="50" max="700" aria-label="weight in pounds" >
+                <input class="numberField" type="number" name="weight" min="50" max="700" aria-label="weight in pounds" />
                 <span>
                   lbs
                 <span>
@@ -228,39 +199,39 @@
         <!-- Diet and Physical Activity                            -->
         <!-- ----------------------------------------------------- -->
         <h3 class="sectionTitle">Diet &amp; Physical Activity</h3>
-          <section id="activity-section">
-              <label class="questions no-margin-top" for="veg_servings">In the past 30 days, about how many servings per week of vegetables or leafy green salads did the patient eat?</label>
-              <div class="extraInformationAboutTheQuestion">
-                 <b>Includes</b> leafy green salads and raw, cooked, canned, and frozen vegetables (including beans)
-              </div>
-              <div class="extraInformationAboutTheQuestion spaceAfterQuestionBeforeAnswers">
-                <b>Does not include</b> fried vegetables like French fries or fried potatoes.
-              </div>
-              <div class="responseOptions ">
-                <select id="veg_servings" name="veg_servings">
+        <section id="activity-section">
+            <label class="questions no-margin-top" for="veg_servings">In the past 30 days, about how many servings per week of vegetables or leafy green salads did the patient eat?</label>
+            <div class="extraInformationAboutTheQuestion">
+               <b>Includes</b> leafy green salads and raw, cooked, canned, and frozen vegetables (including beans)
+            </div>
+            <div class="extraInformationAboutTheQuestion spaceAfterQuestionBeforeAnswers">
+              <b>Does not include</b> fried vegetables like French fries or fried potatoes.
+            </div>
+            <div class="responseOptions ">
+              <select id="veg_servings" name="veg_servings">
+                <option value="">- select -</option>
+                <option value="0">None</option>
+                <option value=".5">Less than 1 serving per week</option>
+                <option value="1.5">1-2 servings per week</option>
+                <option value="3.5">3-4 servings per week</option>
+                <option value="5.5">5-6 servings per week</option>
+                <option value="8.5">7-10 servings per week</option>
+                <option value="11">More than 10 servings per week</option>
+              </select>
+            </div>
+            <div class="col-xs-offset-1 col-md-offset-1 ">
+              <label class="questions" for="veg_amount">In the past 30 days, how much did the patient usually eat in each serving of vegetables or leafy green salads?</label>
+              <div class="responseOptions subquestions">
+                <select id="veg_amount" name="veg_amount">
                   <option value="">- select -</option>
-                  <option value="0">None</option>
-                  <option value=".5">Less than 1 serving per week</option>
-                  <option value="1.5">1-2 servings per week</option>
-                  <option value="3.5">3-4 servings per week</option>
-                  <option value="5.5">5-6 servings per week</option>
-                  <option value="8.5">7-10 servings per week</option>
-                  <option value="11">More than 10 servings per week</option>
+                  <option value=".25">1/2 cup or less</option>
+                  <option value="1">Between 1/2 cup and 1 1/2 cups</option>
+                  <option value="2.25">Between 1 1/2 cups and 3 cups</option>
+                  <option value="4">Between 3 cups and 5 cups</option>
+                  <option value="6">More than 5 cups</option>
                 </select>
               </div>
-              <div class="col-xs-offset-1 col-md-offset-1 ">
-                <label class="questions subquestions spaceAfterQuestionBeforeAnswers" for="veg_amount">In the past 30 days, how much did the patient usually eat in each serving of vegetables or leafy green salads?</label>
-                  <div class="responseOptions subquestions">
-                    <select id="veg_amount" name="veg_amount">
-                      <option value="">- select -</option>
-                      <option value=".25">1/2 cup or less</option>
-                      <option value="1">Between 1/2 cup and 1 1/2 cups</option>
-                      <option value="2.25">Between 1 1/2 cups and 3 cups</option>
-                      <option value="4">Between 3 cups and 5 cups</option>
-                      <option value="6">More than 5 cups</option>
-                    </select>
-                  </div>
-              </div>
+            </div>
 
             <label class="questions" for="moderate_months">Over the past 12 months, in how many months, if any, did the patient do any kind of moderate physical activity?</label>
             <div class="extraInformationAboutTheQuestion spaceAfterQuestionBeforeAnswers">
@@ -282,7 +253,7 @@
                 <option value="10">10</option>
                 <option value="11">11</option>
                 <option value="12">12</option>
-             </select>
+                </select>
              </div>
 
             <div class="col-xs-offset-1 col-md-offset-1 subquestion" id="subquestion-moderate-hours">
@@ -337,6 +308,7 @@
                   </select>
                 </div>
             </div>
+
         </section>
 
         <!-- ----------------------------------------------------- -->
@@ -446,12 +418,11 @@
                     <label class="no-margin-bottom radio"><span></span>No</label>
                 </div>
             </div>
-
           </section>
 
-        <!-- ----------------------------------------------------- -->
-        <!-- Family History                                        -->
-        <!-- ----------------------------------------------------- -->
+          <!-- ----------------------------------------------------- -->
+          <!-- Family History                                        -->
+          <!-- ----------------------------------------------------- -->
           <h3 class="sectionTitle">Family History </h3>
           <section id="family-section">
             <label class="questions spaceAfterQuestionBeforeAnswers no-margin-top" for="family_cancer">
@@ -464,38 +435,30 @@
               <input type="radio" name="family_cancer" value="0" aria-label="no">
               <label class="radio" tabindex="0"><span></span>No</label>
               <input class="no-margin-bottom" type="radio" name="family_cancer" value="0" aria-label="doesn't know">
-              <label class="no-margin-bottom" radio" tabindex="0"><span></span>Doesn't know</label>
+              <label class="no-margin-bottom" type="radio" tabindex="0"><span></span>Doesn't know</label>
             </div>
             <div class="subquestion col-xs-offset-1 col-md-offset-1">
-                <label class="questions spaceAfterQuestionBeforeAnswers" for="family_count">How many of these relatives had cancer of the colon or rectum (cancer of the lower intestine)?</label>
-                <div class="responseOptions">
-                  <input class="no-margin-top" type="radio" value="0" name="family_count" aria-label="1">
-                  <label class="no-margin-top radio" tabindex="0"><span></span>1</label>
-                  <input type="radio" value="1" name="family_count" aria-label="2 or more">
-                  <label class="radio" tabindex="0"><span></span>2 or more</label>
-                  <input type="radio" value="0" name="family_count" aria-label="doesn't know">
-                  <label class="radio" tabindex="0"><span></span>Doesn't know</label>
-                </div>
+                  <label class="questions spaceAfterQuestionBeforeAnswers" for="family_count">How many of these relatives had cancer of the colon or rectum (cancer of the lower intestine)?</label>
+                  <div class="responseOptions">
+                    <input class="no-margin-top" type="radio" value="0" name="family_count" aria-label="1">
+                    <label class="no-margin-top radio" tabindex="0"><span></span>1</label>
+                    <input type="radio" value="1" name="family_count" aria-label="2 or more">
+                    <label class="radio" tabindex="0"><span></span>2 or more</label>
+                    <input type="radio" value="0" name="family_count" aria-label="doesn't know">
+                    <label class="radio" tabindex="0"><span></span>Doesn't know</label>
+                  </div>
+              </div>
+          </section>
+
+          <div class="center-block">
+            <div class="col-xs-12 col-sm-3 col-sm-push-5">
+              <input class="btn-sm btn-form" id="calculate" type="image" src="./images/Calculate_Risk_Button.svg">
             </div>
+          </div>
 
 
-        </section>
-
-        <!-- ----------------------------------------------------- -->
-        <!-- Buttons                                               -->
-        <!-- ----------------------------------------------------- -->
-      <div class="center-block">
-        <div class="col-xs-12 col-sm-3 col-sm-push-5">
-          <input class="btn-sm btn-form" id="calculate" type="image" src="./images/Calculate_Risk_Button.svg">
-          <!-- <a href="calculator.html"><img class="btn-form" src="./images/Calculate_Risk_Button.svg"></a> -->
-        </div>
-      </div>
       </form>
     </div>
-
-    <!-- ----------------------------------------------------- -->
-    <!-- Footer                                                -->
-    <!-- ----------------------------------------------------- -->
     <div class="footer">
       <div class="center-block">
         <ul class="list-inline">
@@ -517,12 +480,13 @@
           <li><a target="_blank" href="http://www.nih.gov">National Institutes of Health</a></li>
           <li>|</li>
           <li><a target="_blank" href="http://www.cancer.gov/">National Cancer Institute</a></li>
-          <li>|</li>margin
+          <li>|</li>
           <li><a target="_blank" href="http://usa.gov">USA.gov</a></li>
         </ul>
         <div class="text-center"><span>NIH ... Turning Discovery Into Health</span><sup>®</sup></div>
       </div>
     </div>
+    <script language="JavaScript" type="text/javascript" src="//static.cancer.gov/webanalytics/WA_RAT_PageLoad.js"></script>
 
     <!-- ------------------------------------------------------ -->
     <!-- Modal Dialogs                                          -->
@@ -550,6 +514,11 @@
       </div>
     </div>
 
-
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js" type="application/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js" type="application/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods.js" type="application/javascript"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js" type="application/javascript"></script>
+    <script src="ccrat.js" type="text/javascript"></script>
   </body>
 </html>

@@ -16,7 +16,6 @@
   font-style: normal;
   src: url("fonts/NotoSans-Bold.ttf");
 }
-
 @font-face {
   font-family: 'Noto Sans';
   font-weight: bold;
@@ -47,41 +46,43 @@ html {
 }
 body {
   font-family: "Noto Sans", "Montserrat";
-  font-size: 16px;
+  font-size: 12pt;
   background: #fff;
-  color: #2E2E2E;
 }
+h2,
+h3,
+h4,
+h5,
+h6,
+h7 {
+  color: #606060;
+  font-weight: bold;
+  margin: 0.5em auto;
+}
+
 h1 {
   color: #606060;
-  font-weight: bold;
+  font-family: 'Montserrat'
   font-size: 28px;
-  font-family: Montserrat;
-  line-height : 30.8px;
-}
-
-h2 {
-  color: #606060;
-  font-weight: bold;
-  font-family: Montserrat;
-  font-size:23;
-}
-
-h4 {
-  color: #606060;
-  font-weight: bold;
-  font-family: Montserrat;
-  font-size:18;
 }
 
 p {
   margin: 0;
   margin-bottom: 1em;
 }
+a {
+  color: #2b7bba;
+}
+a:hover,
+a:focus {
+  color: #2b7bba;
+}
 .sectionTitle {
   color: #fff;
-  padding: 20px;
+  padding: 13px;
   margin-bottom: 0;
-  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 28px;
 }
 .sectionTitle:first-child {
   background: #339fbe;
@@ -92,11 +93,13 @@ p {
 .sectionTitle:nth-child(5) {
   background: #2d73a5;
 }
-
 .sectionTitle:nth-child(7) {
   background: #1095a1;
 }
 
+.no_display {
+  display: none;
+}
 header,
 .tab-content,
 .footer {
@@ -128,6 +131,12 @@ header #toolTitle .navbar-toggle {
   margin-bottom: 0;
   padding: 0.3em 0.2em;
 }
+.navbar-toggle_innermenu {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0 0;
+  margin-right: 10px;
+}
 #side_nav {
   display: none;
 }
@@ -138,8 +147,8 @@ img#logo {
 nav#main-nav {
   text-transform: uppercase;
   background-color: #235e88;
-  padding-left: 4.5em;
-  font-size:18px;
+  padding-left: 3.8em;
+  font-size: 18px;
   font-family: 'Montserrat', sans-serif;
 }
 nav#main-nav ul.nav.nav-tabs li {
@@ -152,17 +161,19 @@ nav#main-nav ul.nav.nav-tabs li a {
   border-radius: 0px;
   margin: 0;
   padding: 0.7em;
-  padding-left:0px;
+  padding-bottom: 7px;
+  border-bottom: 7px solid transparent;
 }
 nav#main-nav ul.nav.nav-tabs li a:hover,
 nav#main-nav ul.nav.nav-tabs li a:focus {
   background: #fff;
   color: #14819b;
+  border-bottom: 7px solid #fff;
 }
 nav#main-nav ul.nav.nav-tabs li.active a {
   color: #356b91;
   background: #fff;
-  border-bottom: 7px inset #1a84a8;
+  border-bottom: 7px solid #1a84a8;
 }
 .nav-tabs {
   border: none;
@@ -179,25 +190,6 @@ a.btn.btn-sm {
 button:disabled,
 a.btn:disabled {
   cursor: not-allowed;
-}
-button.btn-form,
-a.btn.btn-form {
-  color: #fff;
-  background-color: #2dc799;
-  border-color: #1dc799;
-  border-radius: 0;
-}
-button.btn-form:hover,
-a.btn.btn-form:hover,
-button.btn-form:focus,
-a.btn.btn-form:focus {
-  background-color: #1f8566;
-  color: #fff;
-}
-button.btn-form:disabled,
-a.btn.btn-form:disabled {
-  background-color: #238769;
-  color: #d9d9d9;
 }
 .btn-form {
   display: block;
@@ -229,8 +221,7 @@ a.btn.btn-form:disabled {
   line-height: 2;
 }
 #main_home {
-  margin-top: 2em;
-  max-width: 1147px;
+  max-width: 1099px;
   margin-bottom: 2em;
   line-height: 1.5;
   margin-right: auto;
@@ -240,8 +231,8 @@ a.btn.btn-form:disabled {
   line-height: 2;
 }
 .box {
-  max-width: 450px;
-  background-color: #DBF2F8;
+  max-width: 600px;
+  background-color: #dbf2f8;
   padding: 1.5em;
 }
 #results_text {
@@ -278,14 +269,13 @@ a.btn.btn-form:disabled {
   font-weight: bold;
   font-size: 48px;
 }
-
 #form-steps {
   background-color: #fff;
   padding: 10px 0;
   -webkit-box-shadow: 0 0 20px #808080;
   box-shadow: 0 0 20px #808080;
+  font-family: 'Montserrat', sans-serif;
 }
-
 #form-steps.fixed {
   position: fixed;
   -webkit-box-shadow: 0 0 20px #808080;
@@ -295,40 +285,33 @@ a.btn.btn-form:disabled {
   top: 0;
   left: 0;
 }
-
-
 #form-steps ol {
   list-style: none;
   text-align: center;
   font-weight: bold;
   margin: 0;
+/* style rules for the form "checkpoints" bar */
 }
-
-/* style rules for the form "checkpoints bar */
 #form-steps ol span.spacer {
-  min-width: 10%;
+  min-width: 2%;
+  max-width: 2%;
   display: inline-block;
   color: #868686;
   font-weight: bold;
   vertical-align: middle;
   letter-spacing: 5px;
 }
-
-
 #form-steps ol li {
   display: inline-block;
   color: #868686;
   margin-right: 3%;
+  font-size: 19px;
 }
 #form-steps ol li a {
   display: block;
   color: inherit;
 }
-
-
-
 #form-steps ol li a:nth-child(2) {
-  font-size: 19px;
   background: #868686;
   color: #fff;
   border-radius: 22px;
@@ -338,22 +321,18 @@ a.btn.btn-form:disabled {
   margin: 0 auto;
   padding: 2px;
   position: relative;
+  font-size: 23px;
 }
-
-
-
 #form-steps ol li.active {
   font-size: 24px;
 }
-
-
 #form-steps ol li.active:first-child a:first-child {
   color: #339fbe;
 }
 #form-steps ol li.active:first-child a:nth-child(2) {
   width: 45px;
   height: 45px;
-  font-size: 25px;
+  font-size: 31px;
   color: #fff;
   background: #339fbe;
 }
@@ -363,7 +342,7 @@ a.btn.btn-form:disabled {
 #form-steps ol li.active:nth-child(3) a:nth-child(2) {
   width: 45px;
   height: 45px;
-  font-size: 25px;
+  font-size: 31px;
   color: #fff;
   background: #6150a3;
 }
@@ -373,53 +352,57 @@ a.btn.btn-form:disabled {
 #form-steps ol li.active:nth-child(5) a:nth-child(2) {
   width: 45px;
   height: 45px;
-  font-size: 25px;
+  font-size: 31px;
   color: #fff;
   background: #2d73a5;
 }
 
 #form-steps ol li.active:nth-child(7) a:first-child {
-  color: #2d73a5;
+  color: #1095a1;
 }
 #form-steps ol li.active:nth-child(7) a:nth-child(2) {
   width: 45px;
   height: 45px;
-  font-size: 25px;
+  font-size: 31px;
   color: #fff;
-  background: #2d73a5;
+  background: #1095a1
 }
 
-
+.no-padding-left {
+  padding-left: 0px !important;
+}
 .no-margin {
   margin: 0;
+}
+.no-margin-top {
+  margin-top: 0px !important;
 }
 .no-padding {
   padding: 0;
 }
-
-/* margin-top specifies the space between the qeustion and the last answer for the previoius question */
 label.questions {
   font-weight: bold;
   color: #2e2e2e;
-  margin-top:50px;
-  margin-bottom:0px;
+  margin-top: 50px;
+  font-size: 16px;
+}
+.questions_secondary {
+  color: #2e2e2e;
+  font-size: 14px;
 }
 .responseOptions {
   font-weight: normal;
   margin-left: 1em;
+  margin-top: 16px;
 }
 .responseOptions label {
   font-weight: inherit;
 }
-
-/*
 .responseOptions input[type="radio"] {
   margin: 0 0.5em;
-  margin-top:0em;
   width: 1em;
   height: 1em;
 }
-*/
 select {
   border: 2px solid #d3d3d3;
   background: #f2f2f3;
@@ -435,7 +418,6 @@ select:disabled {
   color: #000;
   cursor: not-allowed;
 }
-
 input[type="radio"] {
   display: none;
 }
@@ -477,14 +459,6 @@ input:disabled[type="radio"] + label.radio {
 }
 select:disabled[type="radio"] + label.radio span,
 input:disabled[type="radio"] + label.radio span {
-  opacity: 0.5;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-  filter: alpha(opacity=50);
-}
-select:disabled[type="radio"] + label.radio:focus span,
-input:disabled[type="radio"] + label.radio:focus span {
-  background: none;
-  border: 3px solid #2b7bba;
   opacity: 0.5;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
   filter: alpha(opacity=50);
@@ -540,13 +514,13 @@ input.error + label.radio span {
   border: none;
 }
 .modal-header .close {
-  background: #2b7bba;
-  padding: 5px 9px;
-  border-radius: 25px;
+  background: url("./images/Exit.png");
+  padding: 8px 9px;
   color: #fff;
   opacity: initial;
   -ms-filter: initial;
   filter: initial;
+  background-repeat: no-repeat;
 }
 .modal-header .close:hover,
 .modal-header .close:focus {
@@ -574,20 +548,19 @@ input.error + label.radio span {
   color: #2b7bba;
 }
 .demo-dialog .modal-content {
-  border: 5px solid #268db2;
+  border: 3px solid #339fbe;
+  border-radius: 0px;
 }
 .error-dialog .modal-content {
-  border: solid 4px #14819b;
   background-color: #fff F;
-  border: 3px solid #14819b;
-  border-radius: 0;
+  border: 3px solid #339fbe;
 }
 .error-dialog img {
   float: left;
 }
 .error-dialog button {
   color: #fff;
-  background-color: #14819b;
+  background-color: #339fbe;
   font-weight: bold;
   display: -webkit-box;
   display: -moz-box;
@@ -603,29 +576,20 @@ input.error + label.radio span {
   justify-content: center;
   margin: 0 auto;
   text-transform: uppercase;
+  border: none;
 }
 @media (max-width: 992px) {
   header img#logo {
-    padding: 1em 0 1em 1em;
+    padding: 1em 1em 1em;
     width: 100%;
   }
   header #toolTitle {
     padding-left: 1em;
+    padding-top: 7px;
+    padding-bottom: 7px;
   }
-
-  /*
-  Remoteved since it was anerror that a colleuge got dinged for.
-  header.fixed {
-    position: fixed;
-    z-index: 100;
-    width: 100%;
-    top: 0;
-    left: 0;
-  }
-  */
-
-  #main_home {
-    margin-top: 6em;
+  header #toolTitle a {
+    font-size: 12px;
   }
   #results {
     padding: 1em;
@@ -646,12 +610,11 @@ input.error + label.radio span {
   }
   nav#main-nav ul.nav.nav-tabs li {
     width: 50%;
-    float: right;
+    float: left;
   }
   nav#main-nav ul.nav.nav-tabs li.active a {
     color: #356b91;
     background: #fff;
-    border-bottom: 7px inset #1a84a8
   }
   nav#main-nav ul.nav.nav-tabs li a {
     background: #235e88;
@@ -660,8 +623,14 @@ input.error + label.radio span {
   }
   nav#main-nav ul.nav.nav-tabs li a:hover,
   nav#main-nav ul.nav.nav-tabs li a:focus {
-    background #fff;
-    color: #14819b;
+    border: none;
+  }
+  #form-steps {
+    background-color: #fff;
+    padding: 10px 0;
+    -webkit-box-shadow: 0 0 20px #808080;
+    box-shadow: 0 0 20px #808080;
+    font-family: 'Montserrat', sans-serif;
   }
   #form-steps.fixed {
     position: fixed;
@@ -669,9 +638,6 @@ input.error + label.radio span {
     width: 100%;
     left: 0;
     margin-bottom: 10px;
-    background: #FFFFFF;
-    box-shadow: 0 4px 12px 0;
-    color: rgba(0,0,0,0.18);
   }
   #form-steps ol {
     padding: 0;
@@ -682,11 +648,58 @@ input.error + label.radio span {
   #form-steps ol li {
     margin: 0.5em 0.1em;
     border-radius: 20px;
-    margin-left: 6%;
-    margin-right: 6%;
   }
   #form-steps ol li a:first-child {
     display: none;
+  }
+  #form-steps ol li a {
+    display: block;
+    color: inherit;
+  }
+  #form-steps ol li a:nth-child(2) {
+    background: #868686;
+    color: #fff;
+    border-radius: 22px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 2px;
+    position: relative;
+    font-size: 17px;
+  }
+  #form-steps ol li.active {
+    font-size: 24px;
+  }
+  #form-steps ol li.active:first-child a:first-child {
+    color: #339fbe;
+  }
+  #form-steps ol li.active:first-child a:nth-child(2) {
+    width: 35px;
+    height: 35px;
+    font-size: 24px;
+    color: #fff;
+    background: #339fbe;
+  }
+  #form-steps ol li.active:nth-child(3) a:first-child {
+    color: #6150a3;
+  }
+  #form-steps ol li.active:nth-child(3) a:nth-child(2) {
+    width: 35px;
+    height: 35px;
+    font-size: 24px;
+    color: #fff;
+    background: #6150a3;
+  }
+  #form-steps ol li.active:nth-child(5) a:first-child {
+    color: #2d73a5;
+  }
+  #form-steps ol li.active:nth-child(5) a:nth-child(2) {
+    width: 35px;
+    height: 35px;
+    font-size: 24px;
+    color: #fff;
+    background: #2d73a5;
   }
   #errors {
     font-size: 0.8em;
@@ -705,20 +718,10 @@ input.error + label.radio span {
   #main .container {
     padding: inherit;
   }
-
-  /*
   .questions,
   .responseOptions {
     line-height: 1.5;
   }
-  */
-
-/*
-  select,
-  input[type="radio"] + label.radio {
-    width: 100%;
-  }
-  */
   .box {
     margin: 1em auto;
   }
@@ -748,8 +751,7 @@ input.error + label.radio span {
     position: fixed;
     z-index: 9999;
     top: 0;
-    left: 0;
-    background-color: #f3f3f2;
+    right: 0;
     overflow-x: hidden;
     -webkit-transition: 0.5s;
     -moz-transition: 0.5s;
@@ -757,15 +759,20 @@ input.error + label.radio span {
     -ms-transition: 0.5s;
     transition: 0.5s;
     display: inline;
-    -webkit-box-shadow: -15px 0px 15px -15px rgba(0,0,0,0.6) inset;
-    box-shadow: -15px 0px 15px -15px rgba(0,0,0,0.6) inset;
     text-transform: uppercase;
+    -webkit-box-shadow: 0px 2px 4px 0 rgba(0,0,0,0.5);
+    box-shadow: 0px 2px 4px 0 rgba(0,0,0,0.5);
+    background: #fff;
   }
-  #side_nav.sidenav a {
-    padding: 8px 8px 8px 32px;
+  #side_nav.sidenav ul.nav.nav-tabs li {
+    width: 100%;
+  }
+  #side_nav.sidenav ul.nav.nav-tabs li a {
+    padding: 8px 8px 8px 15px;
     text-decoration: none;
-    font-size: 16px;
-    color: #818181;
+    font-weight: bold;
+    font-size: 14px;
+    color: #235e88;
     display: block;
     -webkit-transition: 0.3s;
     -moz-transition: 0.3s;
@@ -773,76 +780,34 @@ input.error + label.radio span {
     -ms-transition: 0.3s;
     transition: 0.3s;
     white-space: nowrap;
+    font-family: 'Montserrat', sans-serif;
   }
-  #side_nav.sidenav a.active a {
+  #side_nav.sidenav ul.nav.nav-tabs li a:hover,
+  #side_nav.sidenav ul.nav.nav-tabs li a:focus {
     color: #fff;
-    background-color: #bb0e3d;
+    background: #14819b;
+  }
+  #side_nav.sidenav ul.nav.nav-tabs li.active a {
+    color: #fff;
+    background: #14819b;
   }
   #buttons {
     display: -webkit-box;
   }
 }
-
-<!--
-.access-risk-button {
-  font-family: Montserral-Regular;
-  font-size: 15px;
-  background-color: #FFFFFF;
+#inner_menu {
+  color: #fff;
+  background: #235e88;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  padding: 6px 8px 8px 15px;
 }
--->
-
-.box-cannont-determine-risk-for {
-  letter-spacing : 0;
-  line-height: 22px;
-  margin-top: .5%;
+#Risk {
+  width: 100%;
 }
-
-/* Puts the first question at the top of the section */
-.no-margin-top {
-  margin-top: 0px !Important;
+.modal-content {
+  border-radius: 0px;
 }
-
-.no-margin-bottom {
-    margin-bottom: 0px !Important;
-}
-
-/*
-
-/* Proivde space beetween the end of the question and the start of tha answer */
-.spaceAfterQuestionBeforeAnswers {
-  padding-bottom: 16px;
-}
-
-/* Provide space betwwen the 1st part of the question and the next part */
-.spaceAfterPartOfQuestion {
-  padding-bottom:3%;
-}
-
-/* Describes a block of text describing extra information about the question */
-.extraInformationAboutTheQuestion {
-  font-size: 14px;
-  color: #2E2E2E;
-  padding-top:0px;
-  line-height:19px;
-}
-
-
-
-/* *** Hack *** */
-/* The page uses the design contstraints for the main page.  This will be changed  */
-/* in the future, but in the essense of time I need to make the changes to the list */
-/* item here */
-.forAsprinsUnorderedList {
-  padding-top:16px;
-  padding-left:3%;
-}
-
-.forAsprinListItem {
-  line-height:1.2    !important;
-}
-
-/* Handles the text entry field for numbers */
-/* padding->right : Move the unit of measurement away from the right side of the entry box */
-.numberField {
-    -margin-right:10px  !important;
+.small_mole_answer {
+  display: inline;
 }

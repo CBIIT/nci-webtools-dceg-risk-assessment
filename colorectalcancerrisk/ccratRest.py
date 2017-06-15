@@ -5,7 +5,7 @@ import sys
 from flask import Flask, Response, request, jsonify, send_from_directory
 from CcratRunFunction import AbsRisk
 
-app = Flask(__name__, static_folder='', static_url_path='/') 
+app = Flask(__name__, static_folder='', static_url_path='/')
 
 class ColorectalRiskAssessmentTool:
   @staticmethod
@@ -186,7 +186,20 @@ class ColorectalRiskAssessmentTool:
       nonAspirin = int(parameters['non_aspirin'])
       nsaidRegimine = min(aspirin,nonAspirin)
       aspirinOnly = nonAspirin
-      risk = AbsRisk("Male" if sex == 0 else "Female",race,age,min(age+5,90),screening,yearsSmoking,cigarettesPerDay,nsaidRegimine,aspirinOnly,family_cancer,exercise,veggies,bmi,hormoneUsage)
+      risk = AbsRisk("Male" if sex == 0 else "Female",
+        race,
+        age,
+        min(age+5,90),
+        screening,
+        yearsSmoking,
+        cigarettesPerDay,
+        nsaidRegimine,
+        aspirinOnly,
+        family_cancer,
+        exercise,
+        veggies,
+        bmi,
+        hormoneUsage)
       risk = round(risk*100,1)
       return ColorectalRiskAssessmentTool.buildSuccess(str(risk))
     except Exception as e:

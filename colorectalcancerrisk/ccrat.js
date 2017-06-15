@@ -60,20 +60,7 @@ var validationRules = {
     veg_servings: {
         required: true
     },
-    exam: {
-        required: true
-    },
-    polyp: {
-        required: {
-            depends: function (el) {
-                return $("[name='exam']").val() == "0";
-            }
-        }
-    },
-    aspirin: {
-        required: true
-    },
-    non_aspirin: {
+    veg_amount: {
         required: true
     },
     moderate_months: {
@@ -96,7 +83,23 @@ var validationRules = {
             }
         }
     },
-    "family_cancer": {
+    exam: {
+        required: true
+    },
+    polyp: {
+        required: {
+            depends: function (el) {
+                return $("[name='exam']").val() == "0";
+            }
+        }
+    },
+    aspirin: {
+        required: true
+    },
+    non_aspirin: {
+        required: true
+    },
+    family_cancer: {
         required: true
     },
     family_count: {
@@ -105,9 +108,6 @@ var validationRules = {
                 return $("[name='family_cancer']").val() == "1";
             }
         }
-    },
-    veg_amount: {
-        required: true
     },
     period: {
         required: {
@@ -134,7 +134,7 @@ var validationRules = {
 
 var validationMessages = {
     hispanic: {
-        required: "You must specify whether you are Hispanic or not"
+        required: "You must specify whether you are Hispanic or Latino"
     },
     race: {
         required: "You must specify your race"
@@ -145,7 +145,7 @@ var validationMessages = {
         max: "This calculator can only be used by people between the ages 50 and 85"
     },
     gender: {
-        required: "You must speicfy your gender"
+        required: "You must specify your gender"
     },
     height_ft: {
         required: "You must specify the feet portion of the height"
@@ -164,6 +164,18 @@ var validationMessages = {
     veg_amount: {
         required: "You must specify the serving size of the vegetables"
     },
+    moderate_months: {
+        required: "You must specify how many months you have participated in moderate exercise"
+    },
+    moderate_hours: {
+        required: "You must specify how many hours per week, you have participated in moderate exercise"
+    },
+    vigorous_months: {
+        required: "You must specify how many months you have participated in vigorous exercise"
+    },
+    vigorous_hours: {
+        required: "You must specify how many hous per week you participated in vigorous exercise"
+    },
     exam: {
         required: "You must specify whether you had a colonoscopy or sigmoidoscopy exam in the last decade"
     },
@@ -176,16 +188,10 @@ var validationMessages = {
     non_aspirin: {
         required: "You must specify whether you have taken any medications not containing asprin in the past month"
     },
-    moderate_months: {
-        required: "You must specify how many months you have participated in moderate exercise"
-    },
-    vigorous_months: {
-        required: "You must specify how many months you have participated in vigorous exercise"
-    },
-    "family_cancer": {
+    family_cancer: {
         required: "You must specify whether any relatives had colorectal cancer"
     },
-    "family_count": {
+    family_count: {
         required: "You must specify how many relatives had colorectal cancer"
     },
     period: {
@@ -232,6 +238,11 @@ function invalidForm(e, validator) {
 function processSubmission(form){
 	var fd = new FormData(form);
 
+  fd.append("cigarettes", "0");
+  fd.append("smoke_age", "25");
+  fd.append("cigarettes_num", "2");
+  fd.append("smoke_now", 1);
+
 	$.ajax({
 		url: form.action,
 		type: form.method,
@@ -250,16 +261,71 @@ function processSubmission(form){
 }
 
 function resultsDisplay(response, textStatus, xhr) {
-	$("#results").addClass('show').html(response.message);
+  console.log("In Results Display");
+
+  var results=JSON.parse(response.message)
+  console.log(response.message)
+  var message="Based on the information provided, the patient's estimated risk for developing melanoma over the next 5 years is "+results.risk+"%. For every 1,000 "+ results.gender+"s living in the " +results.regionKey+" region with these characteristics, on average about "+ results.ratio+" will develop melanoma in the next 5 years.";
+
+  $('#main').addClass('hide')
+  $('#form-steps').addClass('hide')
+  $("#results").addClass('show')
+  $("#results_text").html(message);
+  $(".risk_header").text(response.message+"%");
+  make_pie_chart(response.message);
 }
 
-function goback_tocalc(){
-	$('#main').removeClass('hide')
-	$('#form-steps').removeClass('hide')
-	$("#results").removeClass('show')
-	$("#results_text").html("");
-	$("#Pie_chart").html("");
-	$(window).scrollTop(0);
+function goback_tocalc() {
+  $('#main').removeClass('hide')
+  $('#form-steps').removeClass('hide')
+  $("#results").removeClass('show')
+  $("#results_text").html("");
+  $("#Pie_chart").html("");
+  $(window).scrollTop(0);
+}
+
+function make_pie_chart(percent){
+  console.log(percent);
+  (function(d3) {
+      'use strict';
+
+      var dataset = [
+        { label: 'Risk', count: percent },
+        { label: 'Total', count: 100-percent },
+      ];
+
+      var width = 206;
+      var height = 206;
+      var radius = Math.min(width, height) / 2;
+
+      var color = d3.scaleOrdinal().range(['#2dc799','#EFEFEF']);
+
+      var svg = d3.select('#Pie_chart')
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height)
+        .append('g')
+        .attr('transform', 'translate(' + (width / 2) +
+          ',' + (height / 2) + ')');
+
+      var arc = d3.arc()
+        .innerRadius(0)
+        .outerRadius(radius);
+
+      var pie = d3.pie()
+        .value(function(d) { return d.count; })
+        .sort(null);
+
+      var path = svg.selectAll('path')
+        .data(pie(dataset))
+        .enter()
+        .append('path')
+        .attr('d', arc)
+        .attr('fill', function(d) {
+          return color(d.data.label);
+        });
+
+    })(window.d3);
 }
 
 function formScrollSpy() {
@@ -273,58 +339,75 @@ function formScrollSpy() {
 	// 		$("#form-steps li:eq(" + ind + ")").addClass('active');
 	// 	}
 	// });
+
+
+
+
+  var formStepsHeight = $('#form-steps').height() + 50;
+
+  var activeIndex = 0;
+  $('#riskForm section').each(function(index, el) {
+    var rect = el.getBoundingClientRect();
+
+    if (rect.top - formStepsHeight < 0 && rect.bottom > 0) {
+      activeIndex = index;
+    }
+  })
+  $('#form-steps li').removeClass('active');
+
+
+  if(Math.ceil($(window).scrollTop() + $(window).height()) == $(document).height()) {
+    activeIndex = 3;
+  }
+
+  $("#form-steps li:eq(" + activeIndex + ")").addClass('active');
+  adjust_line_width(activeIndex);
+
+  /*
   var window_top = $(window).scrollTop();
+  console.log("---------------------------------------------------------");
   $.each($("#riskForm section"), function(ind, el) {
     var div_top = $(el).offset().top - $(el)[0].scrollHeight;
+    console.log("The current seciton is " + $(el).attr("id"));
+    console.log("In formScrollSpy : with window_top = " + window_top + " and div_top = " + div_top );
+    console.log("IN formScrollSpy : offset = " + $(el).offset().top + " and scrollHeight = " + $(el)[0].scrollHeight);
+    //if ( div_top < 0 ) { div_top = div_top * 1; }
     if ( window_top > div_top ) {
-      console.log("ind = " + ind);
+      //console.log("ind = " + ind);
       $("#form-steps li").removeClass('active');
-      console.log( "Html Object = " + $("#form-steps li:eq(" + ind + ")").innertTex );
+      // console.log( "Html Object = " + $("#form-steps li:eq(" + ind + ")"));
       $("#form-steps li:eq(" + ind + ")").addClass('active');
       adjust_line_width(ind);
     }
   });
-  console.log("fromScrollSpy -------------------------------------------------");
+  */
+  //console.log("fromScrollSpy -------------------------------------------------");
 }
 
 function fixedToTop(div_top,use_mobile) {
-	// var window_top = $(window).scrollTop();
-	// var div_top = $(document.forms.riskForm).offset().top;
-  //
-	// if ( window_top > div_top )
-	// 	$("#form-steps").addClass('fixed');
-	// else
-	// 	$("#form-steps").removeClass('fixed');
-  console.log("fixedToTop ------------------------------------------------------");
   var header_height=$('header').outerHeight();
 	var window_top = $(window).scrollTop();
 	var div_top = $("#"+div_top).offset().top;
-  console.log("header_height = " + header_height);
-  console.log("window_top = " + window_top);
-  console.log("div_top = " + div_top);
-	//var div_top = $("#header").height();
-	//var div_top = $("#toolTitle").offset().top;
-	//	var div_top = $("#main-nav").offset().top;
-
 	var form_steps_height=$('#form-steps').outerHeight();
-	//console.log("window_top "+window_top)
-	//console.log("div_top "+ div_top)
 	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
 			$("#main").css("margin-top",0+"px");
  			$("#form-steps").css("margin-top",0+"px");
-		}
-	if ( window_top > div_top ){
-		$("#form-steps").addClass('fixed');
-
-		$("#line").find("hr").css("top",form_steps_height-30)
-
 	}
-	else{
+
+  //console.log("Currently in fixedToTop with div_top = " + div_top);
+  //console.log("window_top = " + window_top);
+  //console.log("result = " + (window_top > div_top));
+
+  if ( window_top > div_top ) {
+		  $("#form-steps").addClass('fixed');
+      if($(window).width()>=992)
+        $("#line").find("hr").css("top",form_steps_height-30)
+      else
+        $("#line").find("hr").css("top",form_steps_height-37)
+	} else{
 		$("#form-steps").removeClass('fixed');
 		adjust_line_height_dekstop()
-
 	}
-  console.log("fixedToTop ------------------------------------------------------");
 }
 
 function toggleFormDisplay(e) {
@@ -406,67 +489,74 @@ else if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(na
 }
 
 function adjust_line_width(ind){
-  console.log("adjust line widhth ------------------------------------------");
- 	var first_dot=$("#form-steps").find("a")[1]
- 	var first_dot_left=$(first_dot).position().left
- 	var first_dot_width=$(first_dot).outerWidth(true)
+  	var first_dot=$("#form-steps").find("a")[1]
+  	var first_dot_left    = parseInt($(first_dot).position().left);
+  	var first_dot_width   = parseInt($(first_dot).outerWidth(true));
+  	var last_dot=$("#form-steps").find("a")[$("#form-steps").find("a").length-1]
+  	var last_dot_left     = parseInt($(last_dot).position().left);
+  	var last_dot_width    = parseInt($(last_dot).outerWidth(true));
+    var left = first_dot_left + first_dot_width/2 + 10;
+    $("#line").find("hr").css("left", left);
 
- 	var last_dot=$("#form-steps").find("a")[$("#form-steps").find("a").length-1]
- 	var last_dot_left=$(last_dot).position().left
- 	var last_dot_width=$(last_dot).outerWidth(true)
+   if($(window).width()<992 ||navigator.userAgent.search("Firefox")>-1) {
+     $("#line").find("hr").css("width",last_dot_left-first_dot_left-last_dot_width/2+10)
+   } else {
+     $("#line").find("hr").css("width",last_dot_left-first_dot_left-last_dot_width/2+20);
+   }
 
- 	$("#line").find("hr").css("left",first_dot_left+first_dot_width/2)
-  //$("#line").find("hr").css("width",last_dot_left-first_dot_left-last_dot_width/2+30)
-  $("#line").find("hr").css("width",( last_dot_left- first_dot_left) - (last_dot_width /10) )
-
-  if ( ind == 3) {
-      $("#line").find("hr").css("width",( last_dot_left- first_dot_left) + 5)
+   console.log("Currently working with inx = " + ind);
+   if (ind == 0 ) {
+     $("#line").find("hr").css("width",last_dot_left-first_dot_left -15 );
+   } else if(ind==1) {
+     $("#line").find("hr").css("width",last_dot_left-first_dot_left)
+   } else if (ind==2) {
+     $("#line").find("hr").css("width",last_dot_left-first_dot_left+last_dot_width/4-30)
+   } else if (ind==3) {
+     $("#line").find("hr").css("width", last_dot_left-first_dot_left+last_dot_width/4 - 15);
   }
 
+  //console.log("adjust line widhth ------------------------------------------");
+  //var first_dot=$("#form-steps").find("a")[1]
+  //var first_dot_left=$(first_dot).position().left
+  //var first_dot_width=$(first_dot).outerWidth(true)
 
+  //var last_dot=$("#form-steps").find("a")[$("#form-steps").find("a").length-1]
+  //var last_dot_left=$(last_dot).position().left
+  //var last_dot_width=$(last_dot).outerWidth(true)
 
+  //$("#line").find("hr").css("left",first_dot_left+first_dot_width/2)
+  //$("#line").find("hr").css("width",last_dot_left-first_dot_left-last_dot_width/2+30)
+  //$("#line").find("hr").css("width",( last_dot_left- first_dot_left) - (last_dot_width /10) )
 
-	//if(ind==1)
-	//	$("#line").find("hr").css("width",last_dot_left-first_dot_left)
-  //else if(ind==2)
-  //  	$("#line").find("hr").css("width",last_dot_left-first_dot_left+last_dot_width/4-10)
+  //if ( ind == 3) {
+  //    $("#line").find("hr").css("width",( last_dot_left- first_dot_left) + 5)
+  //}
 
-  //console.log("first_dot = " + first_dot);
-  //console.log("first_dot_left = " + first_dot_left);
-  //console.log("first_dot_width = " + first_dot_width);
-  //console.log("last_dot = " + last_dot);
-  //console.log("last_dot_left = " + last_dot_left);
-  //console.log("last_dot_width = " + last_dot_width)
-  //console.log("left = " + first_dot_left+first_dot_width/2);
-  //console.log("ind = 0, width = " + last_dot_left-first_dot_left-last_dot_width/2+30);
-  //console.log("ind = 1, width = " + last_dot_left-first_dot_left);
-  //console.log("ind = 2, width = " + last_dot_left-first_dot_left+last_dot_width/4-10);
 }
 
 function adjust_line_height_dekstop(){
+  //console.log("Currently in adjust_line_height_dekstop");
+	var header_height=parseInt($('header').outerHeight());
+ 	var form_steps_height=parseInt($('#form-steps').outerHeight());
+  //console.log("Currently scrollable top is at " + $(window).scrollTop());
+  //console.log("Currently in adjust_line_height_desktop with width = " + $(window).width());
+  //console.log("Currently in adjust_line_height_desktop with header_heigth = " + header_height);
+  //console.log("Currently in adjust_line_height_desktop with form_steps_height = " + form_steps_height);
+  //console.log("Currently in adjust_line_height_desktop with top = " + header_height + form_steps_height/2 );
 
-
-	var header_height=$('header').outerHeight();
- 	var form_steps_height=$('#form-steps').outerHeight();
-  var header_top = $('#form-steps').offset().top;
-
-  console.log("header outerHeight = " + header_height);
-  console.log("form steps height = " + form_steps_height);
-  console.log("window innerrWidth = " + window.innerWidth);
-  console.log("header position = " + header_top);
-  var test2 = header_height+form_steps_height/2
-  console.log("first equations = " +test2);
-  var test = header_height+form_steps_height-30;
-  console.log("2nd equation = " + test);
-	if(window.innerWidth<992)
+  console.log("Header height = " + header_height + " Scroll Top = " + $(window).scrollTop());
+  if ( $(window).scrollTop() > header_height)
   {
-	 	//$("#line").find("hr").css("top",header_height+(form_steps_height / 2));
-    var top = $("#form-steps").offset().top - $(document).scrollTop();
-    $("#line").find("hr").css("top",top);
+      header_height = 0;
   }
-	else
-	 	$("#line").find("hr").css("top",form_steps_height-30)
 
+  if($(window).width()<992) {
+    var top = header_height + form_steps_height / 2;
+    $("#line").find("hr").css("top", (header_height + form_steps_height / 2));
+  }
+  else
+    $("#line").find("hr").css("top",header_height+form_steps_height-30)
+  //console.log("height = " +   $("#line").find("hr").css("top"));
 }
 
 
@@ -713,10 +803,28 @@ $(window).load(function(e) {
     $("#line").find("hr").css("top",form_steps_height/2)
     $("#About").find("a").text("About the Model")
   }
-
   else{
+    //console.log("Currently adjusting line height");
     adjust_line_height_dekstop()
   }
   adjust_line_width()
 
 });
+
+$(window).resize(function() {
+  //console.log("Currently in the Resize Function");
+	if(window.location.pathname=="/calculator.html");
+    //console.log("Curretnly passed /calculator.html");
+    //var activeElement = $(".active").index();
+    //console.log("Active Element Index = " + activeElement);
+    //adjust_line_width(activeElement);
+    adjust_line_width();
+	 	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      //console.log("Considering it a mobile phone");
+      var form_steps_height=$('#form-steps').outerHeight();
+	 		$("#line").find("hr").css("top",form_steps_height/2);
+	 	} else{
+      //console.log("resize: Considering it a desktop");
+		 	adjust_line_height_dekstop();
+	 	}
+	 });
