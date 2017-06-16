@@ -46,8 +46,9 @@ html {
 }
 body {
   font-family: "Noto Sans", "Montserrat";
-  font-size: 12pt;
+  font-size: 16px;
   background: #fff;
+  color: #2E2E2E;
 }
 h2,
 h3,
@@ -62,8 +63,9 @@ h7 {
 
 h1 {
   color: #606060;
-  font-family: 'Montserrat'
+  font-family: 'Montserrat';
   font-size: 28px;
+  font-weight: bold;
 }
 
 p {
@@ -251,6 +253,7 @@ a.btn:disabled {
   color: #fff;
   margin-bottom: 2%;
 }
+
 .results_header {
   text-align: center;
   color: #fff;
@@ -385,6 +388,7 @@ label.questions {
   color: #2e2e2e;
   margin-top: 50px;
   font-size: 16px;
+  margin-bottom: 0px;
 }
 .questions_secondary {
   color: #2e2e2e;
@@ -810,4 +814,23 @@ input.error + label.radio span {
 }
 .small_mole_answer {
   display: inline;
+}
+
+/**
+ * For the Bullets containing examples of items containing asprin or not
+ * containing asprin.
+ */
+#main * .forAsprinsUnorderedList li {
+  line-height: 1.2;
+}
+
+#main * .forAsprinsUnorderedList {
+  padding-left: 1em;
+  maring-left: 0px;
+}
+
+.vertical-align {
+  display: flex;
+  display: -ms-flexbox;
+  align-items: center;
 }

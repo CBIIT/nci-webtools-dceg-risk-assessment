@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Melanoma Risk Assessment Tool (MRAT) - Risk Calculator</title>
+    <title>Colorectal Risk Assessment Tool (CRAT) - Risk Calculator</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" type="text/css">
@@ -42,26 +42,72 @@
         <div class="row">
           <div class="col-xs-12 col-md-12">
             <div class="content">
-              <p>Atlthough a patient's risk may be accurately estimated, these predictions do not allow one to say precisely which patient will develop melanoma. In fact, some patients who do not develop melanoma have higher risk estimates than some patients who do develop the disease.</p>
+              <p>Atlthough a patient's risk may be accurately estimated, these predictions do not allow one to say precisely which patient will develop colorectal cancer.
+                In fact, some patients who do not develop colorectal cancer have higher risk estimates than some patients who do develop colorectal.</p>
               <p>As a reminder, this tool was designed for use by health professionals. If you are not a health professional, you are encouraged to print these results and discuss them with your health care provider. </p>
-              <p>The tool uses the answers provided to estimate 5-year absolute risk of developing melanoma. This includes the patient's personal medical history, risk factor information, and an examination of the skin on the patient's back and shoulders.</p>
+              <p>The tool uses a patient's medical history and the history of colorectal cancer among their first-degree relatives ( fathers, mothers, brothers, sitsers, sons, daughters) to estimate absolute
+                colorectal cancer risk-their change of probability of developing colorectal cancer in a defined age individual</p>
             </div>
           </div>
         </div>
-        <div id="results_box">
-          <div class="container-fluid">
+        <div class="container-fluid">
+          <div id="results_box">
             <h3 class="results_header">5 Year Absolute Risk of Developing Melanoma</h3>
-            <div class="row">
+            <div class="row vertical-align">
               <div class="col-xs-12 col-md-3">
-                <div id="results_graph"><span class="patient_header">Patient Risk</span><br><span class="risk_header" id="Risk"></span>
-                  <div id="Pie_chart"> </div>
-                </div>
+                <span id="results_graph_1"><span class="patient_header">Patient Risk</span><br><span class="risk_header" id="Risk"></span>
+                  <div id="Pie_chart1"> </div>
+                </span>
               </div>
-              <div class="col-xs-12 col-md-9">
-                <div id="results_text"></div>
+              <div class="col xs-12 col-md-3">
+                <span id="results_graph_2"><span class="patient_header">Average Risk</span><br><span class="risk_header" id="Risk"></span>
+                  <div id="Pie_chart4"> </div>
+                </span>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div id="results_text_5_years"></div>
               </div>
             </div>
           </div>
+
+          <div id="results_box">
+            <h3 class="results_header">10 Year Absolute Risk of Developing Melanoma</h3>
+            <div class="row vertical-align">
+              <div class="col-xs-12 col-md-3">
+                <span id="results_graph_1"><span class="patient_header">Patient Risk</span><br><span class="risk_header" id="Risk"></span>
+                  <div id="Pie_chart2"> </div>
+                </span>
+              </div>
+              <div class="col xs-12 col-md-3">
+                <span id="results_graph_2"><span class="patient_header">Average Risk</span><br><span class="risk_header" id="Risk"></span>
+                  <div id="Pie_chart5"> </div>
+                </span>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div id="results_text_10_years"></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="results_box">
+            <h3 class="results_header">Lifetime Risk of Developing Melanoma</h3>
+            <div class="row vertical-align">
+              <div class="col-xs-12 col-md-3">
+                <span id="results_graph_1"><span class="patient_header">Patient Risk</span><br><span class="risk_header" id="Risk"></span>
+                  <div id="Pie_chart3"> </div>
+                </span>
+              </div>
+              <div class="col xs-12 col-md-3">
+                <span id="results_graph_2"><span class="patient_header">Average Risk</span><br><span class="risk_header" id="Risk"></span>
+                  <div id="Pie_chart6"> </div>
+                </span>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div id="results_text_lifetime"></div>
+              </div>
+            </div>
+          </div>
+
         </div><br><a class="btn btn-lg btn-form center-block" href="calculator.html">Start Over</a>
       </div>
     </div>
@@ -113,7 +159,7 @@
           <label class="questions " for="age">
              What is the patient's age?
           </label>
-          <p class="extraInformationAboutTheQuestion spaceAfterQuestionBeforeAnswers">
+          <p class="questions_secondary">
             This tool calculates risk for men and women 50 to 85 years of age.
           </p>
           <div class="responseOptions">
@@ -168,15 +214,15 @@
           </div>
           <label class="questions">What is the patients height and weight without shoes?</label>
           <div class="row">
-            <div class="col-xs-12 col-sm-4">
+            <div class="col-xs-12 col-sm-2">
               <div class="responseOptions">
-                <input class="numberField" type="number" name="height_ft" min="2" max="9" aria-label="height feet" />
+                <input class="numberField" type="number" name="height_ft" min="2" max="17" aria-label="height feet" />
                 <span>
                   ft.
                 </span>
               </div>
             </div>
-            <div class="col-xs-12 col-sm-4">
+            <div class="col-xs-12 col-sm-2">
               <div class="responseOptions">
                 <input class="numberField" type="number" name="height_in" min="0" max="11" aria-label="height inches" />
                 <span>
@@ -184,7 +230,7 @@
                 <span>
               </div>
             </div>
-            <div class="col-xs-12 col-sm-4">
+            <div class="col-xs-12 col-sm-2">
               <div class="responseOptions">
                 <input class="numberField" type="number" name="weight" min="50" max="700" aria-label="weight in pounds" />
                 <span>
@@ -201,10 +247,10 @@
         <h3 class="sectionTitle">Diet &amp; Physical Activity</h3>
         <section id="activity-section">
             <label class="questions no-margin-top" for="veg_servings">In the past 30 days, about how many servings per week of vegetables or leafy green salads did the patient eat?</label>
-            <div class="extraInformationAboutTheQuestion">
+            <div class="questions_secondary">
                <b>Includes</b> leafy green salads and raw, cooked, canned, and frozen vegetables (including beans)
             </div>
-            <div class="extraInformationAboutTheQuestion spaceAfterQuestionBeforeAnswers">
+            <div class="questions_secondary">
               <b>Does not include</b> fried vegetables like French fries or fried potatoes.
             </div>
             <div class="responseOptions ">
@@ -234,7 +280,7 @@
             </div>
 
             <label class="questions" for="moderate_months">Over the past 12 months, in how many months, if any, did the patient do any kind of moderate physical activity?</label>
-            <div class="extraInformationAboutTheQuestion spaceAfterQuestionBeforeAnswers">
+            <div class="questions_secondary">
               Moderate activities DO NOT cause you to sweat or breathe hard. Some examples include vacuuming, gardening, easy walking for exercise, and so on.
             </div>
             <div class="responseOptions ">
@@ -257,7 +303,7 @@
              </div>
 
             <div class="col-xs-offset-1 col-md-offset-1 subquestion" id="subquestion-moderate-hours">
-              <label class="questions spaceAfterQuestionBeforeAnswers" for="moderate_hours">During those months, on average, about how many hours per week did the patient do moderate physical activities?</label>
+              <label class="questions" for="moderate_hours">During those months, on average, about how many hours per week did the patient do moderate physical activities?</label>
               <div class="responseOptions ">
                 <select id="moderate_hours" name="moderate_hours">
                   <option value="">-select-</option>
@@ -271,7 +317,7 @@
             </div>
 
             <label class="questions" for="vigorous_months">Over the past 12 months, in how many months, if any, did the patient do any kind of vigorous physical activity?</label>
-            <div class="extraInformationAboutTheQuestion spaceAfterQuestionBeforeAnswers">
+            <div class="questions_secondary">
                 Vigorous activities include all activities that DO cause you to sweat or breathe hard.
                 Some examples include racquet sports, basketball, running, fast biking, exercise class,
                 weight lifting, backpacking, swimming, and heavy labor such as shoveling dirt.
@@ -296,7 +342,7 @@
             </div>
 
             <div class ="col-xs-offset-1 col-md-offset-1 ">
-                <label class="questions spaceAfterQuestionBeforeAnswers" for="vigorous_hours">During those months, on average, about how many hours per week did the patient do vigorous physical activities?</label>
+                <label class="questions" for="vigorous_hours">During those months, on average, about how many hours per week did the patient do vigorous physical activities?</label>
                 <div class="responseOptions">
                   <select id="vigorous_hours" name="vigorous_hours">
                     <option value="">-select-</option>
@@ -316,7 +362,7 @@
         <!-- ----------------------------------------------------- -->
           <h3 class="sectionTitle">Medical History</h3>
           <section id="medical-section">
-            <label class="questions no-margin-top spaceAfterQuestionBeforeAnswers" for="exam">During the past 10 years, did the patient have a colonoscopy, sigmoidoscopy, or both?</label>
+            <label class="questions no-margin-top" for="exam">During the past 10 years, did the patient have a colonoscopy, sigmoidoscopy, or both?</label>
             <div class="responseOptions ">
               <input class="no-margin-top" type="radio" name="exam" value="0" aria-label="Yes">
               <label class="no-margin-top radio"><span></span>Yes</label>
@@ -325,7 +371,7 @@
               <input class="no-margin-bottom" type="radio" name="exam" value="3" aria-label="Doesn't know">
               <label class="no-margin-bottom radio"><span></span>Doesn't know</label>
             </div>
-            <label class="questions spaceAfterQuestionBeforeAnswers" for="polyp">In the past 10 years, did a healthcare provider tell the patient that he or she had a colon or rectal polyp?</label>
+            <label class="questions" for="polyp">In the past 10 years, did a healthcare provider tell the patient that he or she had a colon or rectal polyp?</label>
             <div class="responseOptions ">
               <input class="no-margin-top" type="radio" name="polyp" value="2" aria-label="Yes">
               <label class="no-margin-top radio"><span></span>Yes</label>
@@ -334,7 +380,7 @@
               <input class="no-margin-bottom" type="radio" name="polyp" value="3" aria-label="Doesn't know">
               <label class="no-margin-bottom radio"><span></span>Doesn't know</label>
             </div>
-            <label class="questions spaceAfterQuestionBeforeAnswers" for="asprin">
+            <label class="questions" for="asprin">
               <div>
                 During the past 30 days, did the patient take medications  containing aspirin at least 3 times a week, such as:
               </div>
@@ -382,7 +428,7 @@
               <label class="no-margin-bottom radio"><span></span>Doesn't know</label>
             </div>
             <div class="female ">
-              <label class="questions spaceAfterPartOfQuestion" for="period">Does the patient still have periods?</label>
+              <label class="questions" for="period">Does the patient still have periods?</label>
               <div class="responseOptions">
                 <input class="no-margin-top" type="radio" name="period" value="2" aria-label="yes">
                 <label class="no-margin-top radio"><span></span>Yes</label>
@@ -405,7 +451,7 @@
 
             <div class ="female col-xs-offset-2 col-md-offset-2 ">
                 <label class="questions" for="vigorous_hours">During the past two years, have you used estrogen, progestin, or other female hormones</label>
-                <div class="extraInformationAboutTheQuestion spaceAfterQuestionBeforeAnswers">
+                <div class="question_secondary">
                     Vigorous activities include all activities that DO cause you to sweat or breathe hard.
                     Some examples include racquet sports, basketball, running, fast biking, exercise class,
                     weight lifting, backpacking, swimming, and heavy labor such as shoveling dirt.
@@ -425,7 +471,7 @@
           <!-- ----------------------------------------------------- -->
           <h3 class="sectionTitle">Family History </h3>
           <section id="family-section">
-            <label class="questions spaceAfterQuestionBeforeAnswers no-margin-top" for="family_cancer">
+            <label class="questions no-margin-top" for="family_cancer">
               Does the patient have any immediate relatives (biological mother and father, full brothers and sisters,
               and/or biological sons or daugthers) who, at any time in their lives, have ever had cancer of the colon or rectum (cancer of the lower intestine)?
             </label>
@@ -434,11 +480,12 @@
               <label class="no-margin-top radio" tabindex="0"><span></span>Yes</label>
               <input type="radio" name="family_cancer" value="0" aria-label="no">
               <label class="radio" tabindex="0"><span></span>No</label>
-              <input class="no-margin-bottom" type="radio" name="family_cancer" value="0" aria-label="doesn't know">
-              <label class="no-margin-bottom" type="radio" tabindex="0"><span></span>Doesn't know</label>
+              <input type="radio" value="0" name="family_cancer" aria-label="doesn't know">
+              <label class="radio" tabindex="0"><span></span>Doesn't know</label>
+
             </div>
             <div class="subquestion col-xs-offset-1 col-md-offset-1">
-                  <label class="questions spaceAfterQuestionBeforeAnswers" for="family_count">How many of these relatives had cancer of the colon or rectum (cancer of the lower intestine)?</label>
+                  <label class="questions" for="family_count">How many of these relatives had cancer of the colon or rectum (cancer of the lower intestine)?</label>
                   <div class="responseOptions">
                     <input class="no-margin-top" type="radio" value="0" name="family_count" aria-label="1">
                     <label class="no-margin-top radio" tabindex="0"><span></span>1</label>

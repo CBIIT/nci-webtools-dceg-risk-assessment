@@ -217,7 +217,7 @@ function fixedToTop(div_top,use_mobile) {
 	//console.log("window_top "+window_top)
 	//console.log("div_top "+ div_top)
 	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-			$("#main").css("margin-top",0+"px"); 
+			$("#main").css("margin-top",0+"px");
  			$("#form-steps").css("margin-top",0+"px");
 		}
 	if ( window_top > div_top ){
@@ -226,12 +226,12 @@ function fixedToTop(div_top,use_mobile) {
 			$("#line").find("hr").css("top",form_steps_height-30)
 		else
 			$("#line").find("hr").css("top",form_steps_height-37)
-		
+
 	}
 	else{
 		$("#form-steps").removeClass('fixed');
 		adjust_line_height_dekstop()
-		
+
 	}
 }
 
@@ -239,7 +239,7 @@ function fixedToTop(div_top,use_mobile) {
 
 function toggleFormDisplay(e) {
 	e.preventDefault();
- 
+
 	if (e.type == "keypress") {
 		$(e.target).trigger('click');
 	}
@@ -290,7 +290,7 @@ function toggleGender(e) {
 			$.each($(".female").find("input, select"), function(index, el) {
 				$(el).prop("required", true);
 			});
-			
+
 			$(".male").removeClass('show');
 			$(".female").addClass('show');
 			break;
@@ -309,7 +309,7 @@ if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navig
 			var top_div="main-nav"
 		else
 			var top_div="toolTitle"
-		
+
 		fixedToTop(top_div);
 		formScrollSpy();
 	});
@@ -321,7 +321,7 @@ else if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(na
 			var top_div="main-nav"
 		else
 			var top_div="toolTitle"
-		
+
 		fixedToTop(top_div,true);
 		formScrollSpy();
 
@@ -412,9 +412,9 @@ $(window).load(function(e) {
  		 	$("#form-steps").css("z-index","1")
  		 }
 
- 		 $("#main").css("margin-top",header_height+"px"); 
+ 		 $("#main").css("margin-top",header_height+"px");
  		 $("#form-steps").css("margin-top",header_height+"px");
- 		 $("header").css("background","white"); 
+ 		 $("header").css("background","white");
  		 $("#main").removeClass("container-fluid");
 
  		$("#line").find("hr").css("top",form_steps_height/2)
@@ -447,7 +447,7 @@ function adjust_line_width(ind){
  	var last_dot_left=$(last_dot).position().left
  	var last_dot_width=$(last_dot).outerWidth(true)
  	$("#line").find("hr").css("left",first_dot_left+first_dot_width/2+10)
-    
+
     if($(window).width()<992 ||navigator.userAgent.search("Firefox")>-1)
     	$("#line").find("hr").css("width",last_dot_left-first_dot_left-last_dot_width/2+10)
     else
@@ -459,7 +459,7 @@ function adjust_line_width(ind){
     	$("#line").find("hr").css("width",last_dot_left-first_dot_left+last_dot_width/4-20)
 
 
-    
+
 }
 
 function adjust_line_height_dekstop(){
@@ -519,24 +519,24 @@ $(function() {
 
 /*	$("#riskForm").validate({
 		rules: validationRules,
-		submitHandler: processSubmission,		
+		submitHandler: processSubmission,
 		success: function() {
     		enablebutton();
   		},
   		invalidHandler: disablebutton
-		
+
 	});*/
- 
+
 });
 
 function toggle_menu(){
-    
+
     if($("#side_nav").width()>0){
     	$("#side_nav").css("width","0%")
     	setTimeout(function(){ $("#form-steps").css("z-index","1"); }, 500);
 
     }
-	
+
 	else{
 		$("#form-steps").css("z-index","99")
 		$("#side_nav").css("width","70%")
@@ -572,10 +572,14 @@ $(document).ready(function(){
 		});
 		if(valid==true)
 			enablebutton();
-
 	});
-
-
-
 });
 
+// Purpose : When the user clicks on the Risk Calculator, About the Model & Source code
+// The bottom part of the menu item should be changed to a different color.  This is
+// done by inserting the active command.
+function currentPage() {
+	 var path = window.location.pathname;
+	 var filename = path.substring(path.lastIndexOf('/')+1);
+	 $("nav li a[href='" + filename + "']").parent().addClass('active');
+}

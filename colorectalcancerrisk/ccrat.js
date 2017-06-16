@@ -261,18 +261,35 @@ function processSubmission(form){
 }
 
 function resultsDisplay(response, textStatus, xhr) {
-  console.log("In Results Display");
 
   var results=JSON.parse(response.message)
-  console.log(response.message)
-  var message="Based on the information provided, the patient's estimated risk for developing melanoma over the next 5 years is "+results.risk+"%. For every 1,000 "+ results.gender+"s living in the " +results.regionKey+" region with these characteristics, on average about "+ results.ratio+" will develop melanoma in the next 5 years.";
+  var messageBeginning = "Based on the information provided, the patient's estimated risk for developing colorectal cancer over "
+  var message5years    = "the next 5 years is FillIn compared to a risk of FillIn "
+  var message10years   = "the next 10 years is FillIn compareed to a risk of FillInc"
+  var messageLifeTime  = "their lifetime ( to age 90) is <Fill in> compared to a risk of <Fill In>"
+  var messageEnding= "for a patient of the same age and race/ethnicity from the general US population.";
 
   $('#main').addClass('hide')
   $('#form-steps').addClass('hide')
+
   $("#results").addClass('show')
-  $("#results_text").html(message);
+
+  $("#results_text_5_years").html(messageBeginning + message5years + messageEnding);
+  $("#results_text_10_years").html(messageBeginning + message10years + messageEnding);
+  $("#results_text_lifetime").html(messageBeginning + messageLifeTime + messageEnding);
+
+  $("[id^='results_text']").css("text-align", "left");
+
+
   $(".risk_header").text(response.message+"%");
-  make_pie_chart(response.message);
+
+  make_pie_chart(response.message, "#Pie_chart1");
+  make_pie_chart(response.message, "#Pie_chart2");
+  make_pie_chart(response.message, "#Pie_chart3");
+  make_pie_chart(response.message, "#Pie_chart4");
+  make_pie_chart(response.message, "#Pie_chart5");
+  make_pie_chart(response.message, "#Pie_chart6");
+
 }
 
 function goback_tocalc() {
@@ -284,7 +301,7 @@ function goback_tocalc() {
   $(window).scrollTop(0);
 }
 
-function make_pie_chart(percent){
+function make_pie_chart(percent,id){
   console.log(percent);
   (function(d3) {
       'use strict';
@@ -300,7 +317,7 @@ function make_pie_chart(percent){
 
       var color = d3.scaleOrdinal().range(['#2dc799','#EFEFEF']);
 
-      var svg = d3.select('#Pie_chart')
+      var svg = d3.select(id)
         .append('svg')
         .attr('width', width)
         .attr('height', height)
@@ -329,20 +346,6 @@ function make_pie_chart(percent){
 }
 
 function formScrollSpy() {
-	// var window_top = $(window).scrollTop();
-  //
-	// $.each($("#riskForm section"), function(ind, el) {
-	// 	var div_top = $(el).offset().top;
-  //
-	// 	if ( window_top > div_top ){
-	// 		$("#form-steps li").removeClass('active');
-	// 		$("#form-steps li:eq(" + ind + ")").addClass('active');
-	// 	}
-	// });
-
-
-
-
   var formStepsHeight = $('#form-steps').height() + 50;
 
   var activeIndex = 0;
@@ -362,26 +365,6 @@ function formScrollSpy() {
 
   $("#form-steps li:eq(" + activeIndex + ")").addClass('active');
   adjust_line_width(activeIndex);
-
-  /*
-  var window_top = $(window).scrollTop();
-  console.log("---------------------------------------------------------");
-  $.each($("#riskForm section"), function(ind, el) {
-    var div_top = $(el).offset().top - $(el)[0].scrollHeight;
-    console.log("The current seciton is " + $(el).attr("id"));
-    console.log("In formScrollSpy : with window_top = " + window_top + " and div_top = " + div_top );
-    console.log("IN formScrollSpy : offset = " + $(el).offset().top + " and scrollHeight = " + $(el)[0].scrollHeight);
-    //if ( div_top < 0 ) { div_top = div_top * 1; }
-    if ( window_top > div_top ) {
-      //console.log("ind = " + ind);
-      $("#form-steps li").removeClass('active');
-      // console.log( "Html Object = " + $("#form-steps li:eq(" + ind + ")"));
-      $("#form-steps li:eq(" + ind + ")").addClass('active');
-      adjust_line_width(ind);
-    }
-  });
-  */
-  //console.log("fromScrollSpy -------------------------------------------------");
 }
 
 function fixedToTop(div_top,use_mobile) {
@@ -393,10 +376,6 @@ function fixedToTop(div_top,use_mobile) {
 			$("#main").css("margin-top",0+"px");
  			$("#form-steps").css("margin-top",0+"px");
 	}
-
-  //console.log("Currently in fixedToTop with div_top = " + div_top);
-  //console.log("window_top = " + window_top);
-  //console.log("result = " + (window_top > div_top));
 
   if ( window_top > div_top ) {
 		  $("#form-steps").addClass('fixed');
@@ -504,7 +483,6 @@ function adjust_line_width(ind){
      $("#line").find("hr").css("width",last_dot_left-first_dot_left-last_dot_width/2+20);
    }
 
-   console.log("Currently working with inx = " + ind);
    if (ind == 0 ) {
      $("#line").find("hr").css("width",last_dot_left-first_dot_left -15 );
    } else if(ind==1) {
@@ -514,37 +492,14 @@ function adjust_line_width(ind){
    } else if (ind==3) {
      $("#line").find("hr").css("width", last_dot_left-first_dot_left+last_dot_width/4 - 15);
   }
-
-  //console.log("adjust line widhth ------------------------------------------");
-  //var first_dot=$("#form-steps").find("a")[1]
-  //var first_dot_left=$(first_dot).position().left
-  //var first_dot_width=$(first_dot).outerWidth(true)
-
-  //var last_dot=$("#form-steps").find("a")[$("#form-steps").find("a").length-1]
-  //var last_dot_left=$(last_dot).position().left
-  //var last_dot_width=$(last_dot).outerWidth(true)
-
-  //$("#line").find("hr").css("left",first_dot_left+first_dot_width/2)
-  //$("#line").find("hr").css("width",last_dot_left-first_dot_left-last_dot_width/2+30)
-  //$("#line").find("hr").css("width",( last_dot_left- first_dot_left) - (last_dot_width /10) )
-
-  //if ( ind == 3) {
-  //    $("#line").find("hr").css("width",( last_dot_left- first_dot_left) + 5)
-  //}
-
 }
 
 function adjust_line_height_dekstop(){
-  //console.log("Currently in adjust_line_height_dekstop");
 	var header_height=parseInt($('header').outerHeight());
  	var form_steps_height=parseInt($('#form-steps').outerHeight());
-  //console.log("Currently scrollable top is at " + $(window).scrollTop());
-  //console.log("Currently in adjust_line_height_desktop with width = " + $(window).width());
-  //console.log("Currently in adjust_line_height_desktop with header_heigth = " + header_height);
-  //console.log("Currently in adjust_line_height_desktop with form_steps_height = " + form_steps_height);
-  //console.log("Currently in adjust_line_height_desktop with top = " + header_height + form_steps_height/2 );
 
-  console.log("Header height = " + header_height + " Scroll Top = " + $(window).scrollTop());
+  // When the window is scrolled enought the header is no longer shown, so we
+  // remove it from the calculation
   if ( $(window).scrollTop() > header_height)
   {
       header_height = 0;
@@ -559,16 +514,8 @@ function adjust_line_height_dekstop(){
   //console.log("height = " +   $("#line").find("hr").css("top"));
 }
 
-
-
-//$(window).scroll(function(e) {
-//	e.preventDefault();
-//	fixedToTop();
-//	formScrollSpy();
-//});
-
-//$(function() {
 $(window).load(function(e) {
+  currentPage();
 	$(document).on('click', "[type='reset']", function(e) {
 		$(document.forms.riskForm).removeClass('submitted');
 		$("#results").empty().removeClass('show');
@@ -804,7 +751,6 @@ $(window).load(function(e) {
     $("#About").find("a").text("About the Model")
   }
   else{
-    //console.log("Currently adjusting line height");
     adjust_line_height_dekstop()
   }
   adjust_line_width()
@@ -812,19 +758,21 @@ $(window).load(function(e) {
 });
 
 $(window).resize(function() {
-  //console.log("Currently in the Resize Function");
 	if(window.location.pathname=="/calculator.html");
-    //console.log("Curretnly passed /calculator.html");
-    //var activeElement = $(".active").index();
-    //console.log("Active Element Index = " + activeElement);
-    //adjust_line_width(activeElement);
     adjust_line_width();
 	 	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-      //console.log("Considering it a mobile phone");
       var form_steps_height=$('#form-steps').outerHeight();
 	 		$("#line").find("hr").css("top",form_steps_height/2);
 	 	} else{
-      //console.log("resize: Considering it a desktop");
 		 	adjust_line_height_dekstop();
 	 	}
 	 });
+
+   // Purpose : When the user clicks on the Risk Calculator, About the Model & Source code
+   // The bottom part of the menu item should be changed to a different color.  This is
+   // done by inserting the active command.
+   function currentPage() {
+   	 var path = window.location.pathname;
+   	 var filename = path.substring(path.lastIndexOf('/')+1);
+   	 $("nav li a[href='" + filename + "']").parent().addClass('active');
+   }
