@@ -53,19 +53,40 @@ html,body {
   font-size: 12pt;
   background: #fff;
 }
-h1,
-h2,
 h3,
-h4,
 h5,
 h6,
 h7 {
   color: #606060;
   font-weight: bold;
   margin: 0.5em auto;
-  font-family: 'Montserrat', sans-serif;
-
+  font-family: 'Montserrat-Bold', sans-serif;
 }
+
+h1 {
+  color: #606060;
+  font-weight: bold;
+  margin: 0.5em auto;
+  font-family: 'Montserrat-Bold', sans-serif;
+  font-size: 28px;
+}
+
+h2 {
+  color: #606060;
+  font-weight: bold;
+  margin: 0.5em auto;
+  font-family: 'Montserrat-Bold', sans-serif;
+  font-size: 23px;
+}
+
+h4 {
+  color: #606060;
+  font-weight: bold;
+  margin: 0.5em auto;
+  font-family: 'Montserrat-Bold', sans-serif;
+  font-size: 18px;
+}
+
 p {
   margin: 0;
   margin-bottom: 1em;
@@ -218,7 +239,6 @@ a.btn:disabled {
   line-height: 2;
 }
 #main_home {
-  max-width: 1099px;
   margin-bottom: 2em;
   line-height: 1.5;
   margin-right: auto;
@@ -233,6 +253,7 @@ a.btn:disabled {
   padding: 1.5em;
 }
 #results_text {
+}
   text-align: left;
   max-width: 365px;
   margin-top: 15%;
@@ -473,6 +494,7 @@ input.error + label.radio span {
 .footer *,
 .footer ul li a {
   color: #fff;
+  font-size: 15px;
 }
 .line {
   position: absolute;
@@ -566,7 +588,8 @@ input.error + label.radio span {
   text-transform: uppercase;
   border: none;
 }
-@media (max-width: 992px) {
+
+/* @media (max-width: 992px) {
   header img#logo {
     padding: 1em 1em 1em;
     width: 100%;
@@ -793,6 +816,7 @@ input.error + label.radio span {
   font-weight: bold;
   padding: 6px 8px 8px 15px;
 }
+
 #Risk {
   width: 100%;
 }
@@ -801,4 +825,20 @@ input.error + label.radio span {
 }
 .small_mole_answer {
   display: inline;
+}
+
+*/
+
+/* A class for styling the content on the main page                           */
+.content {
+  font-size: 16px;
+  font-family: 'Noto Sans'
+}
+
+/* Code to line up the text in the Navigation Bar with the titles in the      */
+/* in the content section.  If you change the poistion of the titles in the   */
+/* content section then you will need to change the positoin of the titles    */
+/* in the navigation bar                                                      */
+.container-fluid{
+  padding-left: 5em;
 }
