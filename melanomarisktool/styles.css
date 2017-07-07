@@ -538,7 +538,7 @@ input.error + label.radio span {
   background: url("./images/Exit.png");
   padding: 9px 9px;
   color: #fff;
-  opacity: initial;
+  opacity: 1.0;
   -ms-filter: initial;
   filter: initial;
   background-repeat: no-repeat;
@@ -600,18 +600,12 @@ input.error + label.radio span {
   border: none;
 }
 
-/***********************************************************/
-/* Used for specific changes when the width exceeds 993    */
-/***********************************************************/
 @media (min-width: 993px) {
   .container-fluid {
     padding-left: 5em;
   }
 }
 
-/***********************************************************/
-/* Used for specific changes when the width less then 993  */
-/***********************************************************/
 @media (max-width: 992px) {
 
   .container-fluid {
@@ -861,7 +855,6 @@ input.error + label.radio span {
   font-family: 'Noto Sans'
 }
 
-/* The specificiation for the Start Over Button                               */ 
 .startOverButton {
   background-color: #2DC799;
   border-radius: 3px;
