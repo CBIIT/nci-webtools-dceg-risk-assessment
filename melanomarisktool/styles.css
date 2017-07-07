@@ -244,6 +244,16 @@ a.btn:disabled {
   margin-right: auto;
   margin-left: auto;
 }
+
+/* Design specification for the Results Page                                  */
+#results_home {
+  margin-bottom: 2em;
+  line-height: 1.5;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 1099px;
+}
+
 #main_home ul li {
   line-height: 2;
 }
@@ -253,7 +263,6 @@ a.btn:disabled {
   padding: 1.5em;
 }
 #results_text {
-}
   text-align: left;
   max-width: 365px;
   margin-top: 15%;
@@ -279,6 +288,7 @@ a.btn:disabled {
   text-align: center;
   color: #fff;
   font-size: 24px;
+  font-family: 'Montserrat-Regular';
 }
 .risk_header {
   text-align: center;
@@ -286,6 +296,7 @@ a.btn:disabled {
   margin-bottom: 2%;
   font-weight: bold;
   font-size: 48px;
+  font-family: 'Montserrat-Bold'
 }
 #form-steps {
   background-color: #fff;
@@ -589,7 +600,24 @@ input.error + label.radio span {
   border: none;
 }
 
-/* @media (max-width: 992px) {
+/***********************************************************/
+/* Used for specific changes when the width exceeds 993    */
+/***********************************************************/
+@media (min-width: 993px) {
+  .container-fluid {
+    padding-left: 5em;
+  }
+}
+
+/***********************************************************/
+/* Used for specific changes when the width less then 993  */
+/***********************************************************/
+@media (max-width: 992px) {
+
+  .container-fluid {
+    padding-left: 1em;
+  }
+
   header img#logo {
     padding: 1em 1em 1em;
     width: 100%;
@@ -620,7 +648,7 @@ input.error + label.radio span {
     display: block;
   }
   nav#main-nav ul.nav.nav-tabs li {
-    width: 50%;
+    width: 50% ;
     float: left;
   }
   nav#main-nav ul.nav.nav-tabs li.active a {
@@ -827,18 +855,17 @@ input.error + label.radio span {
   display: inline;
 }
 
-*/
-
 /* A class for styling the content on the main page                           */
 .content {
   font-size: 16px;
   font-family: 'Noto Sans'
 }
 
-/* Code to line up the text in the Navigation Bar with the titles in the      */
-/* in the content section.  If you change the poistion of the titles in the   */
-/* content section then you will need to change the positoin of the titles    */
-/* in the navigation bar                                                      */
-.container-fluid{
-  padding-left: 5em;
+/* The specificiation for the Start Over Button                               */ 
+.startOverButton {
+  background-color: #2DC799;
+  border-radius: 3px;
+  font-size: 15px;
+  font-family: 'Montserrat-Regular';
+  color: #FFFFFF;
 }
