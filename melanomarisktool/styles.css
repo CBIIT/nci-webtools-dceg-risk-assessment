@@ -855,6 +855,14 @@ input.error + label.radio span {
   font-family: 'Noto Sans'
 }
 
+/* Specific Styling for the Back to Calculator on the Front Page              */
+.result_page_anchor {
+  font-size: 16px;
+  font-family: 'Noto Sans';
+}
+
+
+/* Specific Button for the Start Over Button on the Result Pages */
 .startOverButton {
   background-color: #2DC799;
   border-radius: 3px;
