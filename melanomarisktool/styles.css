@@ -870,3 +870,14 @@ input.error + label.radio span {
   font-family: 'Montserrat-Regular';
   color: #FFFFFF;
 }
+
+/* Disable a link */
+a.disabled {
+   pointer-events: none;
+   color: #c0c0c0;
+}
+
+/* Make a picture disabled by reducing the opacity. */
+.image_disabled {
+  opacity: .2;
+}
