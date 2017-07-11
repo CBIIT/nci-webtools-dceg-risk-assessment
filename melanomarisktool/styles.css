@@ -603,6 +603,7 @@ input.error + label.radio span {
 @media (min-width: 993px) {
   .container-fluid {
     padding-left: 5em;
+    padding-right: 5em;
   }
 }
 
@@ -610,6 +611,7 @@ input.error + label.radio span {
 
   .container-fluid {
     padding-left: 1em;
+    padding-right: 1em;
   }
 
   header img#logo {
@@ -880,4 +882,9 @@ a.disabled {
 /* Make a picture disabled by reducing the opacity. */
 .image_disabled {
   opacity: .2;
+}
+
+/* Spacer betweeen Access Patient Risk Button and Paragraph beneath it.      */
+.spaceBetweenAccessPatientRiskButtonAndParagraph {
+  margin-top : 2em;
 }
