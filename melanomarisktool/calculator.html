@@ -37,7 +37,7 @@
         </ul>
       </div>
     </header>
-    <div id="results">
+    <div id="results" class="container-fluid">
       <div id="results_home"><a class="result_page_anchor" href="javascript:goback_tocalc()">< Back to Calculator</a>
         <h1>Personalized Results</h1>
         <div class="row">
@@ -49,21 +49,22 @@
             </div>
           </div>
         </div>
-        <div id="results_box">
-          <div class="container-fluid">
-            <h3 class="results_header">5 Year Absolute Risk of Developing Melanoma</h3>
-            <div class="row">
-              <div class="col-xs-12 col-md-3">
-                <div id="results_graph"><span class="patient_header">Patient Risk</span><br><span class="risk_header" id="Risk"></span>
-                  <div id="Pie_chart"> </div>
+          <div id="results_box" class="row ">
+                <h3 class="results_header">5 Year Absolute Risk of Developing Melanoma</h3>
+                <div class="row vertical_alignment">
+                  <div class="col-xs-12 col-md-3">
+                    <div id="results_graph"><span class="patient_header">Patient Risk</span><br><span class="risk_header" id="Risk"></span>
+                      <div id="Pie_chart"> </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-md-3">
+                    <div id="results_text"></div>
+                  </div>
                 </div>
-              </div>
-              <div class="col-xs-12 col-md-9">
-                <div id="results_text"></div>
-              </div>
             </div>
+          <div>
+            <a href="calculator.html"><img class="center-block btn-form" src="./images/Start_Over_Button.png"></a>
           </div>
-        </div><br><a class="btn btn-lg btn-form center-block startOverButton" href="calculator.html">Start Over</a>
       </div>
     </div>
     <div id="form-steps">

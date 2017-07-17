@@ -251,7 +251,6 @@ a.btn:disabled {
   line-height: 1.5;
   margin-right: auto;
   margin-left: auto;
-  max-width: 1099px;
 }
 
 #main_home ul li {
@@ -264,12 +263,10 @@ a.btn:disabled {
 }
 #results_text {
   text-align: left;
-  max-width: 365px;
-  margin-top: 15%;
-  margin-left: 20%;
+  /* max-width: 365px; */
+  padding-left : 1em;
 }
 #results_box {
-  margin-top: 10%;
   text-align: center;
   font-size: 18px;
   border: 7px #6150a3 solid;
@@ -277,6 +274,7 @@ a.btn:disabled {
   padding: 1em;
   color: #fff;
   margin-bottom: 2%;
+  margin-top: 2%;
 }
 .results_header {
   text-align: center;
@@ -605,6 +603,12 @@ input.error + label.radio span {
     padding-left: 5em;
     padding-right: 5em;
   }
+
+  .vertical_alignment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 992px) {
@@ -612,6 +616,10 @@ input.error + label.radio span {
   .container-fluid {
     padding-left: 1em;
     padding-right: 1em;
+  }
+
+  .vertical_alignment {
+
   }
 
   header img#logo {
@@ -631,8 +639,7 @@ input.error + label.radio span {
   }
   #results_text {
     text-align: left;
-    max-width: 365px;
-    margin-top: 15%;
+    /* width: 365px; */
     margin-left: 0;
   }
   nav#main-nav {
