@@ -1,0 +1,44 @@
+li
+    .question-group-title Family
+    .question-illustrations
+        img.stock-images(src="images/family.jpg", alt="family together")
+    .question
+        .notice
+            | If you have close relatives (parents, brothers, sisters,
+            |  or children) who have had colorectal cancer, your risk
+            |  of colorectcal cancer is slightly higher. This is more
+            |  true if the relative had the cancer at a young age. If
+            |  you have many close relatives who have had colorectal
+            |  cancer, the risk can be even higher.
+        label.question-text(for="family_cancer") Think only about your
+            u
+                | biological mother and father, full brothers and sisters,
+                |  and your biological sons or daughters
+            | . At
+            u  any time in their lives
+            |  , did any of these relatives ever
+            |  have
+            u  cancer of the colon or rectum
+            |  (cancer of the lower intestine)?
+            include ../../templates/notice-anchor
+        .input
+            select#family_cancer(name='family_cancer')
+                option(value='') -select-
+                option(value='1') Yes
+                option(value='0') No
+                option(value='0')
+                  | I don't know
+    ol
+        li#subquestion-family-cancer.subquestion
+            .question
+                label.question-text(for="family_count")
+                    u How many
+                    |  of these relatives had cancer of the
+                    |  colon or rectum (cancer of the lower intestine)?
+                .input
+                    select#family_count(name='family_count')
+                        option(value='') -select-
+                        option(value='0') 1
+                        option(value='1') 2 or more
+                        option(value='0')
+                          | I don't know

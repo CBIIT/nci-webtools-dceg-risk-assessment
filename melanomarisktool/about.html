@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Melanoma Risk Assessment Tool (MRAT) - About the Model and Source Code</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/common/css/style.css" rel="stylesheet" type="text/css">
+    <link href="styles.css" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js" type="application/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js" type="application/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods.js" type="application/javascript"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="rat.js" type="text/javascript"></script>
+  </head>
+  <body><a class="sr-only sr-only-focusable" href="#main">Skip to main content</a>
+    <header><a href="http://cancer.gov" target="_blank"><img id="logo" src="/common/images/nci-logo-full.svg" alt="go to cancer.gov"></a>
+      <div id="toolTitle"><a href="index.html">Melanoma Risk Assessment Tool</a>
+        <button class="navbar-toggle collapsed" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()"><span class="sr-only">Toggle navigation</span>
+          <div class="glyphicon glyphicon-menu-hamburger"></div>
+        </button>
+      </div>
+      <nav class="navbar-collapse collapse" id="main-nav" aria-expanded="false">
+        <ul class="nav nav-tabs">
+          <li role="presentation"><a href="calculator.html">Risk Calculator</a></li>
+          <li role="presentation"><a href="about.html">About the Model &amp; Source Code</a></li>
+        </ul>
+      </nav>
+      <div class="sidenav" id="side_nav">
+        <div class="div" id="inner_menu"><span>Menu</span>
+          <button class="navbar-toggle collapsed navbar-toggle_innermenu" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()"><span class="sr-only">Toggle navigation</span>
+            <div class="glyphicon glyphicon-menu-hamburger"></div>
+          </button>
+        </div>
+        <ul class="nav nav-tabs">
+          <li role="presentation" id="Risk"><a href="calculator.html">Risk Calculator</a></li>
+          <li role="presentation" id="About"><a href="about.html"><span>About the Model &amp;</span><br><span>Source Code</span></a></li>
+        </ul>
+      </div>
+    </header>
+    <div id="main_home">
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+            <h1>About the Model and Source Code</h1>
+            <p>The Melanoma Risk Assessment Tool is based on a statistical model. The model uses patients' self-reported history and results
+              from a brief physical exam by a health care professional. Data from a case-control study involved 1663 non-Hispanic
+              white patients from clinics in Philadelphia, PA, and San Francisco, CA, were used in developing the model. This model has not
+              been tested in large populations. In other words, the model has not been "validated” for all non-Hispanic whites. Researchers
+              are conducting additional studies and welcome partnerships to validate this tool.
+            </p>
+            <h2>Download the Source Code</h2>
+            <p>
+              The Melanoma Risk Assessment Tool may be updated periodically as new data or research becomes available. The system is currently on statistical model version 1 and software version 2.0.</p>
+            <p>The source code and documentation can be accessed via the <a href="https://github.com/CBIIT/nci-webtools-dceg-risk-assessment" target="_blank">GitHub Repository</a>. By downloading, you accept our <a href="https://www.cancer.gov/melanomarisktool/code-conditions.html">Terms & Conditions</a>.</p>
+            <h4>References</h4>
+            <ol>
+              <li>
+                Fears TR, Guerry D IV, Pfeiffer RM, et al: Identifying Individuals at High Risk of Melanoma: A Practical Predictor of Absolute Risk.
+                J Clin Oncol 24(22): pp-pp, 2006.  [<a href="http://www.ncbi.nlm.nih.gov/pubmed/16728488" target="_blank">PubMed Abstract</a>]
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="center-block">
+        <ul class="list-inline">
+          <li><a target="_blank" title="Home" href="http://www.cancer.gov/">Home</a></li>
+          <li>|</li>
+          <li><a target="_top" title="Support" href="mailto:NCIMeansToRiskWebAdmin@mail.nih.gov?subject=Biomarker%20Tools">Support</a></li>
+          <li>|</li>
+          <li><a target="_blank" title="Policies" href="http://www.cancer.gov/global/web/policies">Policies</a></li>
+          <li>|</li>
+          <li><a target="_blank" title="Accessibility" href="http://www.cancer.gov/global/web/policies/accessibility">Accessibility</a></li>
+          <li>|</li>
+          <li><a target="_blank" title="Viewing Files" href="http://cancer.gov/global/viewing-files">Viewing Files</a></li>
+          <li>|</li>
+          <li><a target="_blank" title="FOIA" href="http://www.cancer.gov/global/web/policies/foia">FOIA</a></li>
+        </ul>
+        <ul class="list-inline">
+          <li><a target="_blank" href="http://www.hhs.gov/">U.S. Department of Health and Human Services</a></li>
+          <li>|</li>
+          <li><a target="_blank" href="http://www.nih.gov">National Institutes of Health</a></li>
+          <li>|</li>
+          <li><a target="_blank" href="http://www.cancer.gov/">National Cancer Institute</a></li>
+          <li>|</li>
+          <li><a target="_blank" href="http://usa.gov">USA.gov</a></li>
+        </ul>
+        <div class="text-center"><span>NIH ... Turning Discovery Into Health</span><sup>®</sup></div>
+      </div>
+    </div>
+    <script language="JavaScript" type="text/javascript" src="//static.cancer.gov/webanalytics/WA_RAT_PageLoad.js"></script>
+  </body>
+</html>

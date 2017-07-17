@@ -1,0 +1,104 @@
+li
+    .question-group-title Medical
+    .question-illustrations
+        img.stock-images(src="images/exam-patient.jpg", alt="doctor with patient")
+    .question
+        .notice
+            | In a sigmoidoscopy, your doctor looks inside your rectum
+            |  and the lower part of the colon with a lighted tube
+            |  called a sigmoidoscope. If anything unusual is in the
+            |  rectum or colon, like a small polyp or inflamed tissue,
+            |  your doctor can remove it using the sigmoidoscope. Then,
+            |  he or she will send that piece of tissue to the lab for
+            |  testing. In a colonoscopy, your doctor looks inside the
+            |  rectum and entire colon using a long, lighted tube called
+            |  a colonoscope. Using a colonoscope, your doctor can remove
+            |  any polyps he or she sees. The procedure to remove polyps
+            |  is called a polypectomy. Having this procedure will reduce
+            |  your risk of colorectal cancer because polyps that can grow
+            |  into cancer are removed.
+        label.question-text(for="exam") In
+            u  the past 10 years
+            |  did you have a
+            | &nbsp;
+            i.termToDefine(data-term="colon") colonoscopy
+            | ,
+            i.termToDefine(data-term="sig") sigmoidoscopy
+            | , or both?
+            include ../../templates/notice-anchor
+        .input
+            select#exam(name='exam')
+                option(value='') -select-
+                option(value='0') Yes
+                option(value='1') No
+                option(value='3')
+                  | I don't know
+    ol
+        li#subquestion-exam.subquestion
+            .question
+                .notice
+                    | Polyps are growths on the inner wall of the colon
+                    |  or rectum. They are common in people over age 50.
+                    |  Most polyps are not cancer, but some can become cancer.
+                    |  Finding and removing polyps may reduce the risk of colorectal cancer.
+                label.question-text(for="polyp") In
+                    u  the past 10 years
+                    | , did a healthcare provider tell you that you had
+                    u  a colon or rectal
+                    | &nbsp;
+                    i.termToDefine(data-term="polyp") polyp
+                    |?
+                    include ../../templates/notice-anchor
+                .input
+                    select#polyp(name='polyp')
+                        option(value='') -select-
+                        option(value='2') Yes
+                        option(value='0') No
+                        option(value='3')
+                          | I don't know
+li
+    .question-group-title Medical
+    .question-illustrations
+        img.stock-images(src="images/pharm.jpg", alt="woman with pharmacist")
+    .question
+        .notice
+            | Studies have shown that aspirin and drugs called NSAIDs
+            |  can lower the risk of colorectal adenomas (tumors that
+            |  are not cancer), and may lower the risk of colorectal
+            |  cancer. (NSAID stands for nonsteroidal anti-inflammatory drug.)
+        label.question-text(for="aspirin") During
+            u  the past 30 days,
+            |  have you taken medications that
+            | &nbsp;
+            i.termToDefine(data-term="aspirin") contain aspirin
+            |  at least 3 times a week?
+            include ../../templates/notice-anchor
+        em NOTE: Do NOT include TYLENOL
+        .input
+            select#aspirin(name='aspirin')
+                option(value='') -select-
+                option(value='0') Yes
+                option(value='1') No
+                option(value='0')
+                  | I don't know
+    .question
+        .notice
+            | Studies have shown that aspirin and drugs called NSAIDs
+            |  can lower the risk of colorectal adenomas (tumors that
+            |  are not cancer), and may lower the risk of colorectal
+            |  cancer. (NSAID stands for nonsteroidal anti-inflammatory drug.)
+        label.question-text(for="non_aspirin") During
+            i  the past 30 days,
+            |  have you taken medications that
+            | &nbsp;
+            i.termToDefine(data-term="non_aspirin") DO NOT contain aspirin
+            |  at least 3 times a week?
+            include ../../templates/notice-anchor
+        em NOTE: Do NOT include TYLENOL
+        .input
+            select#non_aspirin(name='non_aspirin')
+                option(value='') -select-
+                option(value='0') Yes
+                option(value='1') No
+                option(value='0')
+                  | I don't know

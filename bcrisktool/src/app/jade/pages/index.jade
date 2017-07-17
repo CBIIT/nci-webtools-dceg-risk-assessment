@@ -1,0 +1,24 @@
+
+doctype html
+html(lang="en")
+    head
+        block page-title
+            title Breast Cancer Risk Assessement Tool (BCRAT)
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+        include ../templates/stylesheets
+        block stylesheet
+    body
+        include ../templates/header
+        #content
+            span#top
+                ul#main-nav.nav
+                    include ../templates/navigation
+            include about
+            include calculator
+            include risk-factors
+            include source-code
+            include ../templates/footer
+        a#topButton.goTo(name="#top", title="back to top")
+            span.fa.fa-arrow-circle-up
+        script(type="application/javascript", src="require.js", data-main="require-config")

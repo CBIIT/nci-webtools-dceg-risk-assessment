@@ -1,0 +1,65 @@
+doctype html
+html(lang="en")
+	head
+		title Melanoma Risk Assessment Tool (MRAT)
+		meta(http-equiv="X-UA-Compatible", content="IE=edge")
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+		link(href='https://fonts.googleapis.com/css?family=Noto+Sans', rel='stylesheet', type='text/css')
+		link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+		link(href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css", rel="stylesheet", type="text/css")
+		link(href="/common/css/style.css", rel="stylesheet", type="text/css")
+		link(href="styles.css", rel="stylesheet", type="text/css")
+		script(src='https://code.jquery.com/jquery-2.1.4.min.js', type='application/javascript')
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js", type="application/javascript")
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods.js", type="application/javascript")
+		script(type='text/javascript', src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+		script(src='rat.js', type='text/javascript')
+	body
+		include shared/header
+		#main_home
+			.container-fluid
+				h2 The Melanoma Risk Assessment Tool
+				.row
+					.col-xs-12.col-md-6
+						.content
+							p The melanoma risk calculator was designed for use by health professionals to estimate a patient's absolute risk of developing invasive melanoma. 
+								| Absolute risk is the likelihood that a person will develop a specific type of cancer over a certain period of time, in this case 5 years.
+
+							p Although an individual's risk may be accurately estimated, these predictions cannot precisely determine who will develop melanoma. 
+								| If you are not a health professional, you are strongly encouraged to discuss your results and personal risk of melanoma with your doctor.
+							a(href="calculator.html")
+								img.center-block.btn-form( src="./images/Assess_Patient_Risk.png")
+					.box.col-xs-12.col-md-4.col-md-push-1
+						p Individuals who have had one of the following diagnoses should be in screening and surveillance programs and should not use this 
+							| tool to estimate melanoma risk:
+						ul
+							li Melanoma
+							li Melanoma-in-situ
+							li Non-melanoma skin cancer
+							li A family history of melanoma
+				.row
+					br
+					.col-xs-12.col-md-12
+						p
+							| The melanoma risk calculator was developed using data from a large case-control study in the United States. 
+							| Risks are estimated for non-Hispanic whites only between 20 and 70 years of age. Data for other
+							| races/ethnicities are too limited to accurately estimate risk.
+						p
+							| Individuals who have had one of the following diagnoses should be in screening and 
+							| surveillance programs and should not use this tool to estimate melanoma risk:
+							ul
+								li Melanoma
+								li Melanoma-in-situ
+								li Non-melanoma skin cancer
+								li A family history of melanoma
+				h2 Resources
+				ul.list-unstyled
+					li 
+						a(href="https://www.cancer.gov/types/skin/hp") Skin Cancer (Including Melanoma)&mdash;Health Professional Version
+					li
+						a(href="https://www.cancer.gov/types/skin/moles-fact-sheet") Common Moles, Dysplastic Nevi, and Risk of Melanoma
+					li 
+						a(href="https://www.cancer.gov/about-cancer/treatment/clinical-trials/search") Find NCI-Supported Clinical Trials	
+					li
+ 
+		include shared/footer

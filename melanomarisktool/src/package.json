@@ -1,0 +1,32 @@
+{
+  "name": "melanomarisktool",
+  "version": "1.1.0",
+  "description": "source code for the melanoma risk assessment tool",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CBIIT/nci-webtools-dceg-risk-assessment.git"
+  },
+  "author": "CBIIT",
+  "bugs": {
+    "url": "https://github.com/CBIIT/nci-webtools-dceg-risk-assessment/issues"
+  },
+  "devDependencies": {
+    "gulp-plumber": "~1.1.0",
+    "gulp-util": "~3.0.8",
+    "gulp-concat": "~2.6.1",
+    "gulp-load-plugins": "~1.4.0",
+    "gulp-cli": "~1.2.2",
+    "gulp": "~3.9.1",
+    "gulp-stylus": "~2.6.0",
+    "gulp-pug": "~3.2.0",
+    "gulp-uglify": "~2.0.1",
+    "autoprefixer": "~6.7.0",
+    "gulp-webstandards": "~0.1.1",
+    "node-notifier": "~4.6.1",
+    "nib": "~1.1.2"
+  }
+}

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Colorectal Risk Assessment Tool (CRAT) - Risk Calculator</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/common/css/style.css" rel="stylesheet" type="text/css">
+    <link href="styles.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  </head>
+  <body><a class="sr-only sr-only-focusable" href="#main">Skip to main content</a>
+    <header><a href="http://cancer.gov" target="_blank"><img id="logo" src="/common/images/nci-logo-full.svg" alt="go to cancer.gov"></a>
+      <div id="toolTitle"><a href="index.html">Melanoma Risk Assessment Tool</a>
+        <button class="navbar-toggle collapsed" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()"><span class="sr-only">Toggle navigation</span>
+          <div class="glyphicon glyphicon-menu-hamburger"></div>
+        </button>
+      </div>
+      <nav class="navbar-collapse collapse" id="main-nav" aria-expanded="false">
+        <ul class="nav nav-tabs">
+          <li role="presentation"><a href="calculator.html">Risk Calculator</a></li>
+          <li role="presentation"><a href="about.html">About the Model &amp; Source Code</a></li>
+        </ul>
+      </nav>
+      <div class="sidenav" id="side_nav">
+        <div class="div" id="inner_menu"><span>Menu</span>
+          <button class="navbar-toggle collapsed navbar-toggle_innermenu" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()"><span class="sr-only">Toggle navigation</span>
+            <div class="glyphicon glyphicon-menu-hamburger"></div>
+          </button>
+        </div>
+        <ul class="nav nav-tabs">
+          <li role="presentation" id="Risk"><a href="calculator.html">Risk Calculator</a></li>
+          <li role="presentation" id="About"><a href="about.html"><span>About the Model &amp;</span><br><span>Source Code</span></a></li>
+        </ul>
+      </div>
+    </header>
+    <div id="results">
+      <div id="main_home"><a href="javascript:goback_tocalc()">< Back to Calculator</a>
+        <h2>Personalized Results</h2>
+        <div class="row">
+          <div class="col-xs-12 col-md-12">
+            <div class="content">
+              <p>Atlthough a patient's risk may be accurately estimated, these predictions do not allow one to say precisely which patient will develop colorectal cancer.
+                In fact, some patients who do not develop colorectal cancer have higher risk estimates than some patients who do develop colorectal.</p>
+              <p>As a reminder, this tool was designed for use by health professionals. If you are not a health professional, you are encouraged to print these results and discuss them with your health care provider. </p>
+              <p>The tool uses a patient's medical history and the history of colorectal cancer among their first-degree relatives ( fathers, mothers, brothers, sitsers, sons, daughters) to estimate absolute
+                colorectal cancer risk-their change of probability of developing colorectal cancer in a defined age individual</p>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid">
+          <div id="results_box">
+            <h3 class="results_header">5 Year Absolute Risk of Developing Melanoma</h3>
+            <div class="row vertical-align">
+              <div class="col-xs-12 col-md-3">
+                <span id="results_graph_1"><span class="patient_header">Patient Risk</span><br><span class="risk_header" id="Risk"></span>
+                  <div id="Pie_chart1"> </div>
+                </span>
+              </div>
+              <div class="col xs-12 col-md-3">
+                <span id="results_graph_2"><span class="patient_header">Average Risk</span><br><span class="risk_header" id="Risk"></span>
+                  <div id="Pie_chart4"> </div>
+                </span>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div id="results_text_5_years"></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="results_box">
+            <h3 class="results_header">10 Year Absolute Risk of Developing Melanoma</h3>
+            <div class="row vertical-align">
+              <div class="col-xs-12 col-md-3">
+                <span id="results_graph_1"><span class="patient_header">Patient Risk</span><br><span class="risk_header" id="Risk"></span>
+                  <div id="Pie_chart2"> </div>
+                </span>
+              </div>
+              <div class="col xs-12 col-md-3">
+                <span id="results_graph_2"><span class="patient_header">Average Risk</span><br><span class="risk_header" id="Risk"></span>
+                  <div id="Pie_chart5"> </div>
+                </span>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div id="results_text_10_years"></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="results_box">
+            <h3 class="results_header">Lifetime Risk of Developing Melanoma</h3>
+            <div class="row vertical-align">
+              <div class="col-xs-12 col-md-3">
+                <span id="results_graph_1"><span class="patient_header">Patient Risk</span><br><span class="risk_header" id="Risk"></span>
+                  <div id="Pie_chart3"> </div>
+                </span>
+              </div>
+              <div class="col xs-12 col-md-3">
+                <span id="results_graph_2"><span class="patient_header">Average Risk</span><br><span class="risk_header" id="Risk"></span>
+                  <div id="Pie_chart6"> </div>
+                </span>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div id="results_text_lifetime"></div>
+              </div>
+            </div>
+          </div>
+
+        </div><br><a class="btn btn-lg btn-form center-block" href="calculator.html">Start Over</a>
+      </div>
+    </div>
+    <div id="form-steps">
+      <div id="line">
+        <hr class="line">
+      </div>
+      <ol>
+        <li class="active"> <a class="hidden-xs hidden-sm" href="#demo-section">Demographics</a><a href="#demo-section">1</a></li><span class="spacer"></span>
+        <li> <a class="hidden-xs hidden-sm" href="#activity-section">Diet And Physical Activity</a><a href="#activity-section">2</a></li><span class="spacer"></span>
+        <li> <a class="hidden-xs hidden-sm" href="#medical-section">Medical History</a><a href="#medical-section">3</a></li><span class="spacer"></span>
+        <li> <a class="hidden-xs hidden-sm" href="#family-section">Family History</a><a href="#family-section">4</a></li>
+      </ol>
+    </div>
+    <div class="container-fluid" id="main">
+      <div id="errors"></div>
+      <form id="riskForm" name="riskForm" method="POST" action="calculate" autocomplete="off">
+
+        <!-- --------------------------------------------------------------  -->
+        <!-- Demographics                                                    -->
+        <!-- --------------------------------------------------------------  -->
+        <h2 class="sectionTitle">Demographics</h2>
+        <section id="demo-section">
+          <label class="questions no-margin-top" for="hispanic">Is the patient Hispanic or Latino?</label>
+          <div class="responseOptions ">
+            <input class="no-margin-top" type="radio" name="hispanic" value="0" aria-label="Yes" />
+            <label class="no-margin-top radio" tabindex="0"><span></span>Yes</label>
+          </div>
+          <div class="responseOptions ">
+            <input class="no-margin-bottom" type="radio" name="hispanic" value="1" aria-label="No" />
+            <label class="no-margin-bottom radio" tabindex="0"><span></span>No</label>
+          </div>
+          <label class="questions" for="race">To which of the following does the patient identify</label>
+          <p class="questions_secondary">
+            This tool does not yet apply to American Indians and Alaska Natives
+          </p>
+          <div class="responseOptions">
+            <input class="no-margin-top" type="radio" name="race" value="White" aria-label="White" />
+            <label class="no-margin-top radio" tabindex="0"><span></span>White</label>
+          </div>
+          <div class="responseOptions">
+            <input type="radio" name="race" value="Black" aria-label="Black or African American" />
+            <label class="radio" tabindex="0"><span></span>Black or African American</label>
+          </div>
+          <div class="responseOptions ">
+            <input class="no-margin-bottom" type="radio" name="race" value="Asian" aria-label="Asian or Pacific Islander" />
+            <label class="no-margin-bottom radio" tabindex="0"><span></span>Asian or Pacific Islander</label>
+          </div>
+          <label class="questions " for="age">
+             What is the patient's age?
+          </label>
+          <p class="questions_secondary">
+            This tool calculates risk for men and women 50 to 85 years of age.
+          </p>
+          <div class="responseOptions">
+            <select id="age" name="age" placeholder="Enter patient's age" >
+              <option value="">Select Age</option>
+              <option value="50">50</option>
+              <option value="51">51</option>
+              <option value="52">52</option>
+              <option value="53">53</option>
+              <option value="54">54</option>
+              <option value="55">55</option>
+              <option value="56">56</option>
+              <option value="57">57</option>
+              <option value="58">58</option>
+              <option value="59">59</option>
+              <option value="60">60</option>
+              <option value="61">61</option>
+              <option value="62">62</option>
+              <option value="63">63</option>
+              <option value="64">64</option>
+              <option value="65">65</option>
+              <option value="66">66</option>
+              <option value="67">67</option>
+              <option value="68">68</option>
+              <option value="69">69</option>
+              <option value="70">70</option>
+              <option value="71">71</option>
+              <option value="72">72</option>
+              <option value="73">73</option>
+              <option value="74">74</option>
+              <option value="75">75</option>
+              <option value="76">76</option>
+              <option value="77">77</option>
+              <option value="78">78</option>
+              <option value="79">79</option>
+              <option value="80">80</option>
+              <option value="81">81</option>
+              <option value="82">82</option>
+              <option value="83">83</option>
+              <option value="84">84</option>
+              <option value="85">85</option>
+            </select>
+          </div>
+          <label class="questions" for="gender">What is the patient's sex?</label>
+          <div class="responseOptions">
+            <input class="no-margin-top" type="radio" name="gender" value="Male" aria-label="Male" />
+            <label class="no-margin-top radio" tabindex="0"><span></span>Male</label>
+          </div>
+          <div class="responseOptions ">
+            <input class="no-margin-bottom" type="radio" name="gender" value="Female" aria-label="Female" />
+            <label class="no-maring-bottom radio" tabindex="0"><span></span>Female</label>
+          </div>
+          <label class="questions">What is the patients height and weight without shoes?</label>
+          <div class="row">
+            <div class="col-xs-12 col-sm-2">
+              <div class="responseOptions">
+                <input class="numberField" type="number" name="height_ft" min="2" max="17" aria-label="height feet" />
+                <span>
+                  ft.
+                </span>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-2">
+              <div class="responseOptions">
+                <input class="numberField" type="number" name="height_in" min="0" max="11" aria-label="height inches" />
+                <span>
+                  in.
+                <span>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-2">
+              <div class="responseOptions">
+                <input class="numberField" type="number" name="weight" min="50" max="700" aria-label="weight in pounds" />
+                <span>
+                  lbs
+                <span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ----------------------------------------------------- -->
+        <!-- Diet and Physical Activity                            -->
+        <!-- ----------------------------------------------------- -->
+        <h3 class="sectionTitle">Diet &amp; Physical Activity</h3>
+        <section id="activity-section">
+            <label class="questions no-margin-top" for="veg_servings">In the past 30 days, about how many servings per week of vegetables or leafy green salads did the patient eat?</label>
+            <div class="questions_secondary">
+               <b>Includes</b> leafy green salads and raw, cooked, canned, and frozen vegetables (including beans)
+            </div>
+            <div class="questions_secondary">
+              <b>Does not include</b> fried vegetables like French fries or fried potatoes.
+            </div>
+            <div class="responseOptions ">
+              <select id="veg_servings" name="veg_servings">
+                <option value="">- select -</option>
+                <option value="0">None</option>
+                <option value=".5">Less than 1 serving per week</option>
+                <option value="1.5">1-2 servings per week</option>
+                <option value="3.5">3-4 servings per week</option>
+                <option value="5.5">5-6 servings per week</option>
+                <option value="8.5">7-10 servings per week</option>
+                <option value="11">More than 10 servings per week</option>
+              </select>
+            </div>
+            <div class="col-xs-offset-1 col-md-offset-1 ">
+              <label class="questions" for="veg_amount">In the past 30 days, how much did the patient usually eat in each serving of vegetables or leafy green salads?</label>
+              <div class="responseOptions subquestions">
+                <select id="veg_amount" name="veg_amount">
+                  <option value="">- select -</option>
+                  <option value=".25">1/2 cup or less</option>
+                  <option value="1">Between 1/2 cup and 1 1/2 cups</option>
+                  <option value="2.25">Between 1 1/2 cups and 3 cups</option>
+                  <option value="4">Between 3 cups and 5 cups</option>
+                  <option value="6">More than 5 cups</option>
+                </select>
+              </div>
+            </div>
+
+            <label class="questions" for="moderate_months">Over the past 12 months, in how many months, if any, did the patient do any kind of moderate physical activity?</label>
+            <div class="questions_secondary">
+              Moderate activities DO NOT cause you to sweat or breathe hard. Some examples include vacuuming, gardening, easy walking for exercise, and so on.
+            </div>
+            <div class="responseOptions ">
+              <select id="moderate_months" name="moderate_months">
+                <option value="">- select -</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                </select>
+             </div>
+
+            <div class="col-xs-offset-1 col-md-offset-1 subquestion" id="subquestion-moderate-hours">
+              <label class="questions" for="moderate_hours">During those months, on average, about how many hours per week did the patient do moderate physical activities?</label>
+              <div class="responseOptions ">
+                <select id="moderate_hours" name="moderate_hours">
+                  <option value="">-select-</option>
+                  <option value="0.5">Up to 1 hour per week</option>
+                  <option value="1.5">Between 1-2 hours per week</option>
+                  <option value="2.5">Between 2-3 hours per week</option>
+                  <option value="3.5">Between 3-4 hours per week</option>
+                  <option value="5">More than 4 hours per week</option>
+                  </select>
+              </div>
+            </div>
+
+            <label class="questions" for="vigorous_months">Over the past 12 months, in how many months, if any, did the patient do any kind of vigorous physical activity?</label>
+            <div class="questions_secondary">
+                Vigorous activities include all activities that DO cause you to sweat or breathe hard.
+                Some examples include racquet sports, basketball, running, fast biking, exercise class,
+                weight lifting, backpacking, swimming, and heavy labor such as shoveling dirt.
+            </div>
+            <div class="responseOptions ">
+              <select id="vigorous_months" name="vigorous_months">
+                <option value="">- select -</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+              </select>
+            </div>
+
+            <div class ="col-xs-offset-1 col-md-offset-1 ">
+                <label class="questions" for="vigorous_hours">During those months, on average, about how many hours per week did the patient do vigorous physical activities?</label>
+                <div class="responseOptions">
+                  <select id="vigorous_hours" name="vigorous_hours">
+                    <option value="">-select-</option>
+                    <option value="0.5">Up to 1 hour per week</option>
+                    <option value="1.5">Between 1-2 hours per week</option>
+                    <option value="2.5">Between 2-3 hours per week</option>
+                    <option value="3.5">Between 3-4 hours per week</option>
+                    <option value="5">More than 4 hours per week</option>
+                  </select>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ----------------------------------------------------- -->
+        <!-- Medical History                                       -->
+        <!-- ----------------------------------------------------- -->
+          <h3 class="sectionTitle">Medical History</h3>
+          <section id="medical-section">
+            <label class="questions no-margin-top" for="exam">During the past 10 years, did the patient have a colonoscopy, sigmoidoscopy, or both?</label>
+            <div class="responseOptions ">
+              <input class="no-margin-top" type="radio" name="exam" value="0" aria-label="Yes">
+              <label class="no-margin-top radio"><span></span>Yes</label>
+              <input type="radio" name="exam" value="1" aria-label="No">
+              <label class="radio"><span></span>No</label>
+              <input class="no-margin-bottom" type="radio" name="exam" value="3" aria-label="Doesn't know">
+              <label class="no-margin-bottom radio"><span></span>Doesn't know</label>
+            </div>
+            <label class="questions" for="polyp">In the past 10 years, did a healthcare provider tell the patient that he or she had a colon or rectal polyp?</label>
+            <div class="responseOptions ">
+              <input class="no-margin-top" type="radio" name="polyp" value="2" aria-label="Yes">
+              <label class="no-margin-top radio"><span></span>Yes</label>
+              <input type="radio" name="polyp" value="0" aria-label="No">
+              <label class="radio"><span></span>No</label>
+              <input class="no-margin-bottom" type="radio" name="polyp" value="3" aria-label="Doesn't know">
+              <label class="no-margin-bottom radio"><span></span>Doesn't know</label>
+            </div>
+            <label class="questions" for="asprin">
+              <div>
+                During the past 30 days, did the patient take medications  containing aspirin at least 3 times a week, such as:
+              </div>
+              <ul class="forAsprinsUnorderedList">
+                <li class="forAsprinListItem">Bufferin</li>
+                <li class="forAsprinListItem">Bayer</li>
+                <li class="forAsprinListItem">Excedrin</li>
+                <li class="forAsprinListItem">Other Generic Forms</li>
+              </ul>
+              <div class="questions">
+                Do not include Tylenol
+              </div>
+            </label>
+            <div class="responseOptions ">
+              <input class="no-margin-top" type="radio" name="aspirin" value="2" aria-label="yes">
+              <label class="no-margin-top radio"><span></span>Yes</label>
+              <input type="radio" name="aspirin" value="0" aria-label="no">
+              <label class="radio"><span></span>No</label>
+              <input class="no-margin-bottom" type="radio" name="aspirin" value="3" aria-label="doesn't know">
+              <label class="no-margin-bottom radio"><span></span>Doesn't know</label>
+            </div>
+            <label class="questions" for="medications">
+              <div>
+                 During the past 30 days, did the patient take medications that do not contain aspirin at least 3 times a week, such as:
+              </div>
+                <ul class="forAsprinsUnorderedList">
+                  <li class="forAsprinListItem">Advil</li>
+                  <li class="forAsprinListItem">Aleve</li>
+                  <li class="forAsprinListItem">Celebrex</li>
+                  <li class="forAsprinListItem">Ibuprofen</li>
+                  <li class="forAsprinListItem">Motrin</li>
+                  <li class="forAsprinListItem">Naproxen</li>
+                  <li class="forAsprinListItem">Nuprin</li>
+                </ul>
+                <div>
+                  Do not include Tylenol
+                </div>
+            </label>
+            <div class="responseOptions ">
+              <input class="no-margin-top" type="radio" name="non_aspirin" value="2" aria-label="yes">
+              <label class="no-margin-top radio"><span></span>Yes</label>
+              <input type="radio" name="non_aspirin" value="0" aria-label="no">
+              <label class="radio"><span></span>No</label>
+              <input class="no-margin-bottom" type="radio" name="non_aspirin" value="3" aria-label="doesn't know">
+              <label class="no-margin-bottom radio"><span></span>Doesn't know</label>
+            </div>
+            <div class="female ">
+              <label class="questions" for="period">Does the patient still have periods?</label>
+              <div class="responseOptions">
+                <input class="no-margin-top" type="radio" name="period" value="2" aria-label="yes">
+                <label class="no-margin-top radio"><span></span>Yes</label>
+                <input class="no-margin-bottom" type="radio" name="period" value="0" aria-label="no">
+                <label class="no-margin-bottom radio"><span></span>No</label>
+              </div>
+            </div>
+
+            <div class="female col-xs-offset-1 col-md-offset-1">
+              <label class="questions" for="last_period">when did the patient have her last period</label>
+              <div class="responseOptions">
+                <select name="last_period">
+                  <option value="">- Select -</option>
+                  <option value="0">Within the last year</option>
+                  <option value="1">Between 1 and 2 years ago</option>
+                  <option value="2">2 or more years ago</option>
+                </select>
+              </div>
+            </div>
+
+            <div class ="female col-xs-offset-2 col-md-offset-2 ">
+                <label class="questions" for="vigorous_hours">During the past two years, have you used estrogen, progestin, or other female hormones</label>
+                <div class="question_secondary">
+                    Vigorous activities include all activities that DO cause you to sweat or breathe hard.
+                    Some examples include racquet sports, basketball, running, fast biking, exercise class,
+                    weight lifting, backpacking, swimming, and heavy labor such as shoveling dirt.
+                </div>
+
+                <div class="responseOptions">
+                    <input class="no-margin-top" type="radio" name="usedHormones" value="2" aria-label="yes">
+                    <label class="no-margin-top radio"><span></span>Yes</label>
+                    <input class="no-margin-bottom" type="radio" name="usedHormones" value="0" aria-label="no">
+                    <label class="no-margin-bottom radio"><span></span>No</label>
+                </div>
+            </div>
+          </section>
+
+          <!-- ----------------------------------------------------- -->
+          <!-- Family History                                        -->
+          <!-- ----------------------------------------------------- -->
+          <h3 class="sectionTitle">Family History </h3>
+          <section id="family-section">
+            <label class="questions no-margin-top" for="family_cancer">
+              Does the patient have any immediate relatives (biological mother and father, full brothers and sisters,
+              and/or biological sons or daugthers) who, at any time in their lives, have ever had cancer of the colon or rectum (cancer of the lower intestine)?
+            </label>
+            <div class="responseOptions ">
+              <input class="no-margin-top" type="radio" name="family_cancer" value="1" aria-label="yes">
+              <label class="no-margin-top radio" tabindex="0"><span></span>Yes</label>
+              <input type="radio" name="family_cancer" value="0" aria-label="no">
+              <label class="radio" tabindex="0"><span></span>No</label>
+              <input type="radio" value="0" name="family_cancer" aria-label="doesn't know">
+              <label class="radio" tabindex="0"><span></span>Doesn't know</label>
+
+            </div>
+            <div class="subquestion col-xs-offset-1 col-md-offset-1">
+                  <label class="questions" for="family_count">How many of these relatives had cancer of the colon or rectum (cancer of the lower intestine)?</label>
+                  <div class="responseOptions">
+                    <input class="no-margin-top" type="radio" value="0" name="family_count" aria-label="1">
+                    <label class="no-margin-top radio" tabindex="0"><span></span>1</label>
+                    <input type="radio" value="1" name="family_count" aria-label="2 or more">
+                    <label class="radio" tabindex="0"><span></span>2 or more</label>
+                    <input type="radio" value="0" name="family_count" aria-label="doesn't know">
+                    <label class="radio" tabindex="0"><span></span>Doesn't know</label>
+                  </div>
+              </div>
+          </section>
+
+          <div class="center-block">
+            <div class="col-xs-12 col-sm-3 col-sm-push-5">
+              <input class="btn-sm btn-form" id="calculate" type="image" src="./images/Calculate_Risk_Button.svg">
+            </div>
+          </div>
+
+
+      </form>
+    </div>
+    <div class="footer">
+      <div class="center-block">
+        <ul class="list-inline">
+          <li><a target="_blank" title="Home" href="http://www.cancer.gov/">Home</a></li>
+          <li>|</li>
+          <li><a target="_top" title="Support" href="mailto:NCIMeansToRiskWebAdmin@mail.nih.gov?subject=Biomarker%20Tools">Support</a></li>
+          <li>|</li>
+          <li><a target="_blank" title="Policies" href="http://www.cancer.gov/global/web/policies">Policies</a></li>
+          <li>|</li>
+          <li><a target="_blank" title="Accessibility" href="http://www.cancer.gov/global/web/policies/accessibility">Accessibility</a></li>
+          <li>|</li>
+          <li><a target="_blank" title="Viewing Files" href="http://cancer.gov/global/viewing-files">Viewing Files</a></li>
+          <li>|</li>
+          <li><a target="_blank" title="FOIA" href="http://www.cancer.gov/global/web/policies/foia">FOIA</a></li>
+        </ul>
+        <ul class="list-inline">
+          <li><a target="_blank" href="http://www.hhs.gov/">U.S. Department of Health and Human Services</a></li>
+          <li>|</li>
+          <li><a target="_blank" href="http://www.nih.gov">National Institutes of Health</a></li>
+          <li>|</li>
+          <li><a target="_blank" href="http://www.cancer.gov/">National Cancer Institute</a></li>
+          <li>|</li>
+          <li><a target="_blank" href="http://usa.gov">USA.gov</a></li>
+        </ul>
+        <div class="text-center"><span>NIH ... Turning Discovery Into Health</span><sup>®</sup></div>
+      </div>
+    </div>
+    <script language="JavaScript" type="text/javascript" src="//static.cancer.gov/webanalytics/WA_RAT_PageLoad.js"></script>
+
+    <!-- ------------------------------------------------------ -->
+    <!-- Modal Dialogs                                          -->
+    <!-- ------------------------------------------------------ -->
+    <div class="modal error-dialog fade" id="raceModal" tabindex="-1" role="dialog" data-backdrop="false">
+      <div class="modal-dialog" role="document">
+        <div class="modal-header"></div>
+        <div class="modal-content">
+          <div class="modal-body"><img class="imgsize" src="./images/info.svg" alt="stop icon">
+            <p class="modaltext">
+              When we first developed this tool, we test it with white people and found it to be be accurate in estimating their risk of colorectal cancer.
+              If you are Hispanic/Latino, this tool can still estimate your risk. But, because there is not as much data available fro these groups, your
+              results may be less accurate.
+            </p>
+            <p class="modaltext">
+              In the future, we hope to make this tool more accurate for Hispanics/Latinos as researchers complete studies that will provide information to
+              update the tool for these groups.
+            </p>
+            <p class="modaltext">
+              Although the tool is not perfect, the information you learn from using it can still help you and your doctor better understand your risk of colorectal cancer
+            </p>
+            <button id="hisp-notice" cclass="btn btn-primary btn-size" type="button" data-dismiss="modal">Ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js" type="application/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js" type="application/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods.js" type="application/javascript"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js" type="application/javascript"></script>
+    <script src="ccrat.js" type="text/javascript"></script>
+  </body>
+</html>

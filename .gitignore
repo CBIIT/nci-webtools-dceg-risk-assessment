@@ -1,0 +1,8 @@
+*.pyc
+ColorectalCancerRiskAssessment/input2.txt
+ColorectalCancerRiskAssessment/test2.py
+ColorectalCancerRiskAssessment/commands.txt
+*/common/
+*/src/node_modules/
+test*.html
+localserver.py

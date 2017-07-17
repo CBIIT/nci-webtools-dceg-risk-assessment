@@ -1,0 +1,88 @@
+li
+    .question-group-title Demographics
+    .question-illustrations
+        img.stock-images(src="images/waiting-room-people.jpg", alt="people waiting")
+    .question
+        .notice
+            p When we first developed this tool, we tested it with white
+                |  people and found it to be accurate in estimating their risk of
+                | colorectal cancer. If you are Hispanic/Latino, this tool
+                | can still estimate your risk. But, because there
+                | is not as much data available for these groups,
+                | your results may be less accurate.
+            p In the future, we hope to make this tool more
+                | accurate for Hispanics/Latinos, as researchers
+                | complete studies that will provide information
+                | to update the tool for these groups.
+            p Although the tool is not perfect, the information
+                | you learn from using it can still help you
+                | and your doctor better understand your risk of colorectal cancer.
+        label.question-text(for="race")
+            | Which of the following do you consider yourself to be?
+            include ../../templates/notice-anchor
+        .input
+            label
+                input(type="radio", name="race", value='Hispanic')
+                | Hispanic or Latino
+            label
+                input(type="radio", name="race", value='White')
+                | White
+            label
+                input(type="radio", name="race", value='Black')
+                | Black or African-American
+            label
+                input(type="radio", name="race", value='Asian')
+                | Asian or Pacific Islander
+    .question
+        .notice
+            | As you get older, your risk of colorectal cancer
+            | gets higher. More than 90 percent of people with
+            | this disease are diagnosed after age 50. The
+            | average age at diagnosis is 72.
+        label.question-text(for="age")
+            | What is your age?
+            include ../../templates/notice-anchor
+        .input
+            input#age(name='age', type="number", min="50", max="85", placeholder="Enter your age", required)
+        em NOTE: This tool calculates risk for men and women 50 to 85 years of age.
+    .question
+        .notice
+            | The factors that can protect you from colorectal
+            | cancer or cause you to be at higher risk are
+            | different for men and women.
+
+        label.question-text(for="gender")
+            | Are you male or female?
+            include ../../templates/notice-anchor
+        .input
+            label
+                input(name="gender", type="radio", value='Male', required)
+                | Male
+            label
+                input(name="gender", type="radio", value='Female', required)
+                | Female
+li
+    .question-group-title Demographics
+    .question-illustrations
+        img.stock-images(src="images/scale.jpg", alt="bathroom scale")
+    .question
+        .notice
+            | Height and weight are used to determine your
+            | body mass index (BMI). It can also be used to
+            | measure total body fat and whether a person is
+            | a healthy weight. Obesity (a problem in which
+            | people have too much body fat) has been linked
+            | to a higher risk of colorectal cancer.
+        label.question-text
+            | How tall are you without shoes
+            include ../../templates/notice-anchor
+        .input
+            label(for="height_feet")
+                input#height_feet.height-group(type="number", name="height_feet", min="2", max="8", placeholder="feet",title="feet", required)
+            label(for="height_inches")
+                input#height_inches.height-group(type="number", name="height_inches", min="0", max="11",  placeholder="inches", title="inches")
+    .question
+        label.question-text(for="weight")
+            | How much do you weigh without shoes?
+        .input
+            input#weight(type="number", name="weight", min="50", placeholder="in pounds (lbs)", required)

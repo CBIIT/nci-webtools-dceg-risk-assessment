@@ -1,0 +1,393 @@
+@import fonts
+
+/* Color Scheme */
+black_2E = #2E2E2E
+grey_60 = #606060
+grey_D3 = #D3D3D3
+cream_F2 = #F2F2F3
+blue_2B = #2B7BBA
+blue_23 = #235E88
+red_BB = #BB0E3D
+grey_86 = #868686
+grey_A1 = #FAFAFA
+purple_61 = #6150A3
+teal_14 = #14819B
+green_DB = #DBF2F8
+green_2D = #4D4D4D
+green_33 = #339FBD
+light_teal = #339FBE
+
+html
+	background blue_23
+
+body
+	font-family "Noto Sans", "Montserrat"
+	font-size 12pt
+	background #fff
+	
+h1, h2, h3, h4, h5, h6, h7
+	color grey_60
+	font-weight bold
+	margin 0.5em auto
+	
+p
+	margin 0
+	margin-bottom 1em
+a
+	color #2B7BBA
+	&:hover, &:focus
+		color #2B7BBA
+
+.sectionTitle
+	color white
+	padding 13px
+	margin-bottom 0
+	font-family: 'Montserrat', sans-serif;
+	font-size 28px
+
+.sectionTitle
+	&:first-child
+		background light_teal
+	&:nth-child(3)
+		background #6150A3
+	&:nth-child(5)
+		background #2D73A5
+.no_display
+	display none	
+header, .tab-content, .footer
+	display block
+	
+section
+	border 1px solid grey_D3
+	padding 2em
+	margin 1em 0
+	margin-top 0
+	
+header
+	margin 0 auto
+	#toolTitle
+		background-color blue_2B
+		color #FFF
+		font-weight bold
+		padding 0.5em 0 
+		padding-left 5em
+
+		a
+			color inherit
+			font-size 17px
+			font-family: 'Montserrat', sans-serif;
+
+		.navbar-toggle
+			margin-top -0.3em
+			margin-bottom 0
+			padding 0.3em 0.2em
+
+.navbar-toggle_innermenu
+	margin-top 0 
+	margin-bottom 0
+	padding 0 0
+	margin-right 10px
+
+
+#side_nav
+	display none
+				
+img#logo
+		max-width 600px
+		padding 1em 0 1em 5em
+nav#main-nav
+	text-transform uppercase
+	background-color blue_23
+	padding-left 3.8em
+	font-size 18px
+	font-family: 'Montserrat', sans-serif;
+
+	ul.nav.nav-tabs li
+		border none
+		margin-bottom 0
+		a
+			font-weight bold
+			color #fff
+			border-radius 0px
+			margin 0
+			padding 0.7em
+			padding-bottom 7px
+			border-bottom 7px solid transparent
+			&:hover, &:focus
+				background #ffff
+				color teal_14
+				border-bottom 7px solid #ffff
+		&.active a
+			color #356B91
+			background #fff
+			border-bottom 7px solid #1A84A8
+
+.nav-tabs
+	border none
+button, a.btn
+	font-weight bold
+	max-width 250px
+	&.btn-sm
+		font-size 0.8em
+	&:disabled
+		cursor not-allowed
+		url(./images/Radio_Button_Unselected.png)		
+&.btn-form
+	display block
+	margin-left auto
+	margin-right auto
+	&:hover, &:focus
+		opacity 0.5
+
+#results, #errors, #map, #listings, .male, .female
+	&:not(.show)
+		display none
+#main
+	margin-top 2em
+	margin-bottom 6em
+	padding-left 25%
+	padding-right 25%
+	line-height 1.5
+	ul li
+		line-height 2
+#main_home
+	max-width 1099px
+	margin-bottom 2em
+	line-height 1.5
+	margin-right auto
+	margin-left auto
+	ul li
+		line-height 2
+.box
+	max-width 600px
+	background-color green_DB
+	padding 1.5em
+#results_text
+	text-align left
+	max-width 365px
+	margin-top 15%
+	margin-left 20%
+#results_box
+	margin-top 10%	
+	text-align center
+	font-size 18px
+	border 7px #6150A3 solid
+	background #7163AD
+	padding 1em
+	color #FFFFFF 
+	margin-bottom 2%
+.results_header
+	text-align center
+	color #FFFFFF
+	margin-bottom 2%
+	font-size 34px
+.patient_header
+	text-align center
+	color #FFFFFF
+	font-size 24px
+.risk_header
+	text-align center
+	color #FFFFFF
+	margin-bottom 2%
+	font-weight bold
+	font-size 48px
+#form-steps
+	background-color #FFF
+	padding 10px 0
+	box-shadow 0 0 20px grey
+	font-family: 'Montserrat', sans-serif;
+	&.fixed
+		position fixed
+		box-shadow 0 0 20px grey
+		z-index 1
+		width 100%
+		top 0
+		left 0
+	ol
+		list-style none
+		text-align center
+		font-weight bold
+		margin 0
+		
+		/* style rules for the form "checkpoints" bar */
+		span.spacer
+			min-width 10%
+			display inline-block
+			color grey_86
+			font-weight bold
+			vertical-align middle
+			letter-spacing 5px
+		li
+			display inline-block
+			color grey_86
+			margin-right 3%
+			font-size 19px
+			a
+				display block
+				color inherit
+				&:nth-child(2)
+					background grey_86
+					color white
+					border-radius 22px
+					width 33px
+					height 33px
+					text-align center
+					margin 0 auto
+					padding 2px
+					position relative
+					font-size 23px
+			&.active
+				font-size 24px
+				&:first-child
+					a
+						&:first-child
+							color light_teal
+						&:nth-child(2)
+							width 45px
+							height 45px
+							font-size 31px
+							color #fff
+							background light_teal
+				&:nth-child(3)
+					a
+						&:first-child
+							color #6150A3
+						&:nth-child(2)
+							width 45px
+							height 45px
+							font-size 31px
+							color #fff
+							background #6150A3
+				&:nth-child(5)
+					a
+						&:first-child
+							color #2D73A5
+						&:nth-child(2)
+							width 45px
+							height 45px
+							font-size 31px
+							color #fff
+							background #2D73A5
+.no-padding-left
+	padding-left 0px !important
+.no-margin
+	margin 0
+.no-margin-top
+	margin-top 0px !important
+.no-padding
+	padding 0
+	
+label.questions
+	font-weight bold
+	color #2e2e2e
+	margin-top 50px
+	font-size 16px
+
+.questions_secondary
+	color #2e2e2e
+	font-size 14px
+	
+.responseOptions
+	font-weight normal
+	margin-left 1em
+	margin-top 16px
+	label
+		font-weight inherit
+.responseOptions input[type="radio"]
+	margin 0 0.5em
+	width 1em
+	height 1em
+select
+	border 2px solid #d3d3d3
+	background #f2f2f3
+	padding 0 0.4em
+	height 2.5em
+	&:focus, &:hover
+		// background #cacacf
+		border-color blue_2B
+	&:disabled
+		background grey_D3
+		color black
+		cursor not-allowed
+
+input[type="radio"]
+	display none
+	+ label.radio
+		color #606060
+		font-weight normal
+		width 50%
+		span
+			display inline-block
+			width 1.5em
+			height 1.5em
+			margin 0 0.5em 0 0
+			vertical-align middle
+			    background: url(./images/Radio_Button_Unselected.png);
+			color #f2f2f2
+			cursor pointer
+		&:hover
+			span
+				background url(./images/Radio_Button_Selected.png);
+				background-repeat no-repeat
+		// 	span
+		// 		border-color blue_2B
+		// 		background blue_2B
+		// 		border-style double
+	&:checked + label.radio
+		span
+			background url(./images/Radio_Button_Selected.png);
+			background-repeat no-repeat
+select, input
+	&:disabled
+		cursor not-allowed
+		color #6c6c6c
+		border none
+		&[type="radio"] 
+			+ label.radio
+				background none
+				border none
+				color #c0c0c0
+				cursor not-allowed
+				span
+					opacity 0.5
+
+select, input
+	&.error
+		border-color red_BB
+		+ label.radio
+			color red_BB 
+			span
+				border-color red_BB
+
+.footer
+	background-color blue_23
+	line-height 4
+	a
+		font-weight bold
+	*, ul li a
+		color #FFF
+.line 
+	position absolute
+	width 100%
+	margin-bottom 20px
+	border 0
+	border-top 2px dotted #868686
+	margin-top 0
+.modal-body
+	overflow-y hidden
+
+.modal 
+	top 33%
+.imgsize
+	height 70px
+.btn-size
+	height 35px
+	width 85px
+.modaltext
+	padding-left 16%
+@import dialogs
+@import mobile
+
+.modal-content {
+    border-radius 0px
+}

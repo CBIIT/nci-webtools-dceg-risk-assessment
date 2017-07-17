@@ -1,0 +1,67 @@
+section#demo-section
+	//- a.toggleTool.pull-right Back to Summary
+	h3.sectionTitle Demographics
+	label.questions(for="hispanic") Is the patient Hispanic or Latino?
+	.responseOptions
+		input(type="radio", name="hispanic", value='0', aria-label="Yes", required)
+		label.radio(tabindex="0")
+			span
+			| Yes
+	.responseOptions
+		input(type="radio", name="hispanic", value='1', aria-label="No", required)
+		label.radio(tabindex="0")
+			span
+			| No
+	label.questions(for="race")
+		| To which of the following does the patient identify?
+		em This tool does not yet apply to American Indians and Alaska Natives
+
+	.responseOptions
+		input(type="radio", name="race", value='0', aria-label="White", required)
+		label.radio(tabindex="0")
+			span
+			| White
+	.responseOptions
+		input(type="radio", name="race", value='1', aria-label="Black or African American", required)
+		label.radio(tabindex="0")
+			span
+			| Black or African American
+	.responseOptions
+		input(type="radio", name="race", value='2', aria-label="Asian or Pacific Islander", required)
+		label.radio(tabindex="0")
+			span
+			| Asian or Pacific Islander
+	label.questions(for="age") 
+		| What is the patient's age?
+		em This tool calculates risk for men and women 50 to 85 years of age.
+	.responseOptions
+		select#age(name='age', placeholder="Enter patient's age", required)
+			option(value="") Select Age
+			- var i = 50;
+			while i < 86
+				option(value=i)= i++
+	label.questions(for="gender") What is the patient's sex?
+	.responseOptions
+		input(type="radio", name="gender", value='Male', aria-label="Male", required)
+		label.radio(tabindex="0")
+			span
+			| Male
+	.responseOptions
+		input(type="radio", name="gender", value='Female', aria-label="Female", required)
+		label.radio(tabindex="0")
+			span
+			| Female
+	label.questions What is the patient’s height and weight without shoes?
+	.row
+		.col-xs-12.col-sm-4
+			.responseOptions
+				input(type="number", name="height-ft", min="2", max="9", aria-label="height feet", required)
+				| ft.
+		.col-xs-12.col-sm-4
+			.responseOptions
+				input(type="number", name="height-in", min="0", max="11", aria-label="height inches", required)
+				| in.
+		.col-xs-12.col-sm-4
+			.responseOptions
+				input(type="number", name="weight", min="50", max="700", aria-label="weight in pounds", required)
+				| lbs

@@ -1,0 +1,41 @@
+li
+    .question-group-title Diet
+    .question-illustrations
+        img.stock-images(src="images/vegs.jpg", alt="vegetables")
+    .question
+        .notice
+            p Some studies suggest that people who eat a diet
+                | very low in vegetables may have a higher risk of colorectal cancer.
+        label.question-text(for="eaten_veg") In
+            u  the past 30 days
+            | , have you eaten any &nbsp;
+            i.termToDefine(data-term="vegetable") vegetables
+            |  or leafy green salads did you eat?
+            include ../../templates/notice-anchor
+        .input
+            select#veg_servings(name='veg_servings')
+                option(value='') -select-
+                option(value='0') None
+                option(value='.5') Less than 1 serving per week
+                option(value='1.5') 1-2 servings per week
+                option(value='3.5') 3-4 servings per week
+                option(value='5.5') 5-6 servings per week
+                option(value='8.5') 7-10 servings per week
+                option(value='11') More than 10 servings per week
+    ol#subquestion-veg.subquestion
+        li
+            .question
+                label.question-text(for="veg_amount") In
+                    u  the past 30 days
+                    | , how much did you usually eat in each serving
+                    | of &nbsp;
+                    i.termToDefine(data-term="vegetable") vegetables
+                    | &nbsp; or leafy green salads?
+                .input
+                    select#veg_amount(name='veg_amount')
+                        option(value='') -select-
+                        option(value='.25') 1/2 cup or less
+                        option(value='1') Between 1/2 cup and 1 1/2 cups
+                        option(value='2.25') Between 1 1/2 cups and 3 cups
+                        option(value='4') Between 3 cups and 5 cups
+                        option(value='6') More than 5 cups

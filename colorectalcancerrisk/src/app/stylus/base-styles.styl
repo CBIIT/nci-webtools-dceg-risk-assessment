@@ -1,0 +1,72 @@
+section form > ol > li
+    height 555px
+    ol
+        list-style none
+    .question
+        > .notice
+            border 1px solid
+            padding 10px
+            margin 5px auto
+            max-width 400px
+            display none
+            color #000
+            border-radius 5px
+            box-shadow 3px 2px 7px black
+            > p
+                margin 5px 0
+        > label
+            display inline-block
+            > *
+                vertical-align top
+            > a.notice-show
+                font-weight normal
+        > p
+            display inline-block
+        .input > label
+            display block
+
+    .subquestion
+        &:not(.show)
+            display none
+
+    input, select
+        padding 10px
+        &.error
+            border 2px solid #FC7878
+            background rgba(255, 0, 0, 0.25)
+
+
+.content-details,.question
+    a
+        text-decoration underline
+        color #BB0E3D
+        :hover
+            text-decoration none
+
+.section-description
+    text-align left
+
+.content-details
+    border-radius 10px
+    padding 10px 15px
+    margin 10px auto
+    border 2px solid #2A71A5
+    background white
+
+.question-group-title
+    text-align center
+    background #555554
+    color #FCFCFA
+    border-radius 5px
+    padding 3px 0
+
+.two-col
+    width 45%
+    ul
+        height 100px
+        li
+            width inherit
+
+[tab="risk-factors"]
+    p, ul
+        clear both

@@ -1,0 +1,33 @@
+section#family-section
+    h3.sectionTitle Family
+    label.questions(for="family_cancer") 
+        | Does the patient have any immediate relatives (biological mother and father, full brothers and sisters, 
+        | and/or biological sons or daugthers) who, at any time in their lives, have ever had cancer of the colon or rectum (cancer of the lower intestine)?
+    .responseOptions
+        input(type="radio", name="family_cancer", value='1', aria-label="yes")
+        label.radio(tabindex="0")
+            span
+            | Yes
+        input(type="radio", name="family_cancer", value='0', aria-label="no")
+        label.radio(tabindex="0")
+            span
+            | No
+        input(type="radio", name="family_cancer", value='0', aria-label="doesn't know") 
+        label.radio(tabindex="0")
+            span
+            | Doesn't know
+    .subquestion
+        label.questions(for="family_count") How many of these relatives had cancer of the colon or rectum (cancer of the lower intestine)?
+        .responseOptions
+            input(type="radio", value='0', name="family_count", aria-label="1")
+            label.radio(tabindex="0")
+                span
+                | 1
+            input(type="radio", value='1', name="family_count", aria-label="2 or more")
+            label.radio(tabindex="0")
+                span
+                | 2 or more
+            input(type="radio", value='0', name="family_count", aria-label="doesn't know")
+            label.radio(tabindex="0")
+                span
+                | Doesn't know
