@@ -423,7 +423,25 @@ select {
   background: #f2f2f3;
   padding: 0 0.4em;
   height: 2.5em;
+  font-family: NotoSans;
+  font-size: 16px;
+  color: #2E2E2E;
+  background-image: url('images/chevron_drop_down.png');
+  background-repeat: no-repeat;
+  background-position: right center;
+  width: 153px;
+  height: 28px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
 }
+
+select::-ms-expand {
+  display: none;
+}
+
 select:focus,
 select:hover {
   border-color: #2b7bba;
