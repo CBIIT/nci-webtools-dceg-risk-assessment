@@ -80,7 +80,7 @@
     <div class="container-fluid" id="main">
       <div id="errors"></div>
       <form id="riskForm" name="riskForm" method="POST" action="calculate" autocomplete="off">
-        <h2 class="sectionTitle">Demographics</h2>
+        <h2 id="demo" class="sectionTitle">Demographics</h2>
         <section id="demo-section">
           <label class="questions no-margin-top" for="race">What is the patient's race?</label>
           <div class="responseOptions">
@@ -284,8 +284,9 @@
         </section>
         <div class="center-block">
           <div id="buttons">
-            <div class="col-xs-12"><img class="btn-sm btn-form" id="reset_form" src="./images/Reset_Button.png" alt="reset">
+            <div class="col-xs-12">
               <input class="btn-sm btn-form" id="calculate" type="image" src="./images/Disabled_Calculate_Risk_Button.png" disabled="disabled">
+              <img class="btn-sm btn-form" id="reset_form" src="./images/Reset_Button.png" alt="reset">
             </div>
           </div>
         </div>
@@ -315,7 +316,7 @@
           <li>|</li>
           <li><a target="_blank" href="http://usa.gov">USA.gov</a></li>
         </ul>
-        <div class="text-center"><span>NIH ... Turning Discovery Into Health</span><sup>®</sup></div>
+        <div class="text-center"><span>NIH ... Turning Discovery Into Health</span><sup>&reg;</sup></div>
       </div>
     </div>
     <script language="JavaScript" type="text/javascript" src="//static.cancer.gov/webanalytics/WA_RAT_PageLoad.js"></script>
