@@ -120,11 +120,7 @@ function processSubmission(form){
 
 function resultsDisplay(response, textStatus, xhr) {
 	var results=JSON.parse(response.message)
-	console.log(response.message)
-	console.log(results)
 	var message="Based on the information provided, the patient's estimated risk for developing melanoma over the next 5 years is "+results.risk+"%. For every 1,000 "+ results.gender+"s living in the " +results.regionKey+" region with these characteristics, on average about "+ results.ratio+" will develop melanoma in the next 5 years.";
-
-
 
 	$('#main').addClass('hide')
 	$('#form-steps').addClass('hide')
@@ -187,21 +183,46 @@ function make_pie_chart(percent){
 }
 function formScrollSpy() {
 	var window_top = $(window).scrollTop();
+
 	$.each($("#riskForm section"), function(ind, el) {
 		var div_top = $(el).offset().top - $(el)[0].scrollHeight;
+		console.log("div_top = " + div_top);
 		if ( window_top > div_top ) {
+			console.log("In window_top > div_top");
 			$("#form-steps li").removeClass('active');
 			$("#form-steps li:eq(" + ind + ")").addClass('active');
 			adjust_line_width(ind);
+			return;
 		}
-		else if(Math.ceil($(window).scrollTop() + $(window).height()) == $(document).height() && !$("#skin-section").hasClass("no_display")
-) {
+		else if(Math.ceil($(window).scrollTop() + $(window).height()) == $(document).height() && !$("#skin-section").hasClass("no_display")) {
 			$("#form-steps li").removeClass('active');
 			$("#form-steps li:eq(" + 2 + ")").addClass('active');
 			adjust_line_width(2);
 		}
 	});
+	console.log("exiting formScrollSpy...");
 
+}
+
+/* When a navigation number or name is clicked then the form should be scroll */
+/* ed to the correct section.                                                 */
+function gotoSection(event) {
+
+	// if male or female has not been checked the user should not be able to
+	// access a different link since the sections will not be visible.
+	if ( isMaleOrFemaleChekced() == 0 ) return;
+
+  // Remove the active style from the previous link and apply it to the
+	// current link.
+	var elementContainingListItems = $(this).parent().parent();
+	$(elementContainingListItems).children("li").removeClass('active');
+	$(this).parent().addClass('active');
+	adjust_line_width($(this).attr('data-riskFormSection'));
+}
+
+/* Determine if either male or female has been selected                        */
+function isMaleOrFemaleChekced() {
+	return $("input[name='gender']:checked").length;
 }
 
 
@@ -302,33 +323,34 @@ function toggleGender(e) {
 	}
 }
 
-if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-	$(window).scroll(function(e) {
-		// e.preventDefault();
-		if($(window).width()>=753)
-			var top_div="main-nav"
-		else
-			var top_div="toolTitle"
 
-		fixedToTop(top_div);
-		formScrollSpy();
-	});
-
-}
-else if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-	$(window).on('touchmove', function(event) {
-		if($(window).width()>=753)
-			var top_div="main-nav"
-		else
-			var top_div="toolTitle"
-
-		fixedToTop(top_div,true);
-		formScrollSpy();
-
-	});
-
-}
 $(window).load(function(e) {
+	if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+		$(window).scroll(function(e) {
+			if($(window).width()>=753)
+				var top_div="main-nav"
+			else
+				var top_div="toolTitle"
+
+			fixedToTop(top_div);
+			formScrollSpy();
+		});
+	}
+	else if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+		var top_div = ( $(window).width() > 753 ) ? "main-nav" : "toolTitle";
+		fixedToTop(top_div,true);
+		$(window).on('touchmove', function(event) {
+			if($(window).width()>=753)
+				var top_div="main-nav"
+			else
+				var top_div="toolTitle"
+
+			fixedToTop(top_div,true);
+			formScrollSpy();
+
+		});
+	}
+
 	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
 	$(".toggleTool").on("click keypress", toggleFormDisplay);
 
@@ -345,11 +367,13 @@ $(window).load(function(e) {
 					$(e.target).children(".radio").prev().trigger('click');
 				}
 			}
-			if(e.type == "click") {
+			if(e.type == "click") {$("#form-steps > ol > li > a")
 				$(e.target).children('.radio').prev().trigger('click');
 			}
 		}
 	});
+
+	// Sets the form back to defaults whent reset form button is clicked0
 	$("#reset_form").on("click",function(){
 		$('form').trigger('reset')
 	 	$(window).scrollTop(0);
@@ -421,6 +445,7 @@ $(window).load(function(e) {
  	}
 
 	adjust_line_width()
+
 });
 
 $(window).resize(function() {
@@ -487,18 +512,79 @@ function smoothScroll(e) {
 		var target = $(this.hash);
 		target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
 		if (target.length) {
+			event.preventDefault();
+
+			var scrollTo = -1;
+			if ( isFirstSection(target) == true ) {
+				scrollTo = 0;
+			} else {
+				scrollTo = calculatePositionToScrollTo(target);
+			}
+
+			//var sectionHeaderBoxHeight = target.outerHeight() + target.innerHeight() + target.height();
+			//console.log("SectionBoxHeight = " + sectionHeaderBoxHeight);
 			$('html, body').animate({
-	    		scrollTop: (target.offset().top - target[0].scrollHeight)
+					scrollTop: scrollTo
+	    		//scrollTop: (target.offset().top +  sectionHeaderBoxHeight)
+					//scrollTop: (target.offset().top) + sectionHeaderBoxHeight
 	    	}, 1000);
 	    	return false;
 	    }
 	}
 }
 
+/* Determines if the element passed in is the first section in the form      */
+function isFirstSection(target) {
+	var gotoId = "#" + $(target).attr('id');
+	var selector = $("[href='" + gotoId + "']");
+	var index = $(selector).first().attr('data-riskFormSection');
+
+	return index == 0;
+}
+
+// Get the bottom pixel location of the #form-steps
+function calculateBottomOfFormSteps() {
+	return 	$("#form-steps").position().top + $("#form-steps").outerHeight();
+}
+
+function calculatePositionToScrollTo(target) {
+
+ 	var positionOfHeader = $(target).position().top;
+	return positionOfHeader - calculateBottomOfFormSteps();
+}
+
 $(function() {
 	currentPage();
 	// smooth scrolling to element on page
 	$('a[href*="#"]:not([href="#"])').on("click keypress", smoothScroll);
+
+	var navigationLinks = $("#form-steps > ol > li > a");
+
+	/* For each navigation anchor a data-riskFormSection attribute will be      */
+	/* created to hold the index of the section of the form that it is          */
+	/* assoicated with.  An example of this data is the adjust_line_width       */
+	var oneSectionForManyLinks = 2;
+	$.each($("#riskForm section"), function(index, element) {
+
+		// Each anchor in the form-steps will now the section of the form it belongs to.
+		var startIndex = index * 2;
+		var endIndex = (index * oneSectionForManyLinks ) + ( oneSectionForManyLinks);
+		$(navigationLinks).slice(startIndex, endIndex).attr('data-riskFormSection', index);
+		$(this).attr('data-riskFormSection', index);
+	});
+
+	/* When a different navigation link is clicked the callback will make the */
+	/* link acitve and fix the line that connects all the navigation links    */
+	$(navigationLinks).on("click", gotoSection);
+
+  // Whenever the window is resize we need to recalculate the line that contains
+	// the navigation numbers so that it fits correctly.
+	$(window).resize(function() {
+		fixedToTop( ( $(window).width() ) ? "main-nav" : "toolTitle" );
+		var riskFormSectionIndex = $("#form-steps > ol > li").filter(".active").children("a:first").attr("data-riskFormSection");
+		adjust_line_width(riskFormSectionIndex);
+	});
+
 
 
 	$("#riskForm").validate({
