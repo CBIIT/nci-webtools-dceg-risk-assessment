@@ -11,745 +11,987 @@
   src: url("fonts/NotoSans-Italic.ttf");
 }
 @font-face {
+  font-family: 'Noto Sans';
+  font-weight: bold;
+  font-style: normal;
+  src: url("fonts/NotoSans-Bold.ttf");
+}
+@font-face {
+  font-family: 'Noto Sans';
+  font-weight: bold;
+  font-style: italic;
+  src: url("fonts/NotoSans-BoldItalic.ttf");
+}
+@font-face {
   font-family: 'Montserrat';
   font-weight: normal;
   font-style: normal;
   src: url("fonts/Montserrat-Regular.ttf");
 }
-* {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: bold;
+  font-style: normal;
+  src: url("fonts/Montserrat-Bold.ttf");
 }
-[role="tooltip"] {
-  position: fixed;
-}
-button,
-a,
-.thumbnail {
-  cursor: pointer;
-}
-body {
-  font-family: 'Noto Sans', Arial, sans-serif;
-  font-size: 10.5pt;
-  margin: 0;
-  min-width: 320px;
-  background: #f7f8f3;
-  line-height: 1.5;
-}
-header {
-  margin: 0;
-  min-width: 320px;
-  width: 100%;
-}
-header img {
-  width: auto;
-}
-header #nci-banner {
-  display: block;
-  overflow: auto;
-}
-header #nci-banner img {
-  display: block;
-  max-height: 90px;
-  max-width: 520px;
-  min-height: 52px;
-  min-width: 30px;
-}
-header #toolTitle {
-  background: #2a71a5;
-  color: #fff;
-  padding: 10px 0 10px 160px;
-  border-bottom: 2px solid #bb0e3d;
-}
-header #toolTitle #toolDescription {
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: bold;
   font-style: italic;
+  src: url("onts/Montserrat-BoldItalic.ttf");
 }
-ul.nav,
-#toolDescription,
-.section-title,
-.exp-title {
-  font-size: 11pt;
+/* Color Scheme */
+html {
+  background: #235e88;
 }
-a {
-  color: inherit;
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
-}
-dl {
-  overflow: auto;
-}
-dl dt {
-  font-weight: bold;
-}
-dl dd:nth-child(odd) img {
-  float: right;
-}
-dl dd:nth-child(even) img {
-  float: left;
-}
-.stock-images.small {
-  width: 170px;
-  height: 125px;
-}
-footer {
-  color: #000;
-  padding: 5px 0;
-  clear: both;
-  text-align: center;
-}
-footer ul li {
-  list-style: none;
-  display: inline-block;
-  margin: 0 5px;
-}
-footer ul li a {
-  color: #000;
-}
-footer ul li a :hover {
-  text-decoration: none;
-}
-#top {
-  display: block;
-  margin: 0 0 40px 0;
-  min-height: 40px;
-}
-#topButton {
-  display: none;
-  font-size: 2em;
-  color: #fff;
-  text-align: center;
-  padding: 5px 0;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-}
-#topButton > .fa {
-  margin: 5px;
-  border: 4px solid #bb0e3d;
-  background: #bb0e3d;
-  background: rgba(187,14,61,0.7);
-  -webkit-border-radius: 20px;
-  border-radius: 20px;
-}
-#menu-button {
-  display: none;
-}
-[tab]:not(.active) {
-  display: none;
-}
-ul.nav {
-  background: #636363;
-  background: -webkit-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px);
-  background: -moz-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px);
-  background: -o-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px);
-  background: -ms-linear-gradient(315deg, #f7f8f3 60px, #636363 100px, #424242 120px);
-  background: linear-gradient(135deg, #f7f8f3 60px, #636363 100px, #424242 120px);
-  margin: 0;
-  padding-left: 200px;
-  position: relative;
-  top: 0;
-  width: 100%;
-}
-ul.nav li {
-  padding: 10px 15px;
-  display: inline-block;
-}
-ul.nav li.active {
-  background-color: #f7f8f3;
-}
-ul.nav li.active a {
-  color: #000;
-  font-weight: bold;
-}
-ul.nav li a {
-  color: #fff;
-  text-align: center;
-}
-ul.nav li ul {
-  font-size: 0.9em;
-  background: #000;
-  border: 0;
-  left: 0;
-  position: absolute;
-  top: 100%;
-  display: table;
-}
-ul.nav li ul:not(.show) {
-  display: none;
-}
-ul.nav li#quick-link ul {
-  background: #f7f8f3;
-}
-ul.nav li#quick-link ul.nav {
-  padding: 0;
-}
-ul.nav li#quick-link ul.nav > li {
-  display: table-cell;
-  text-align: center;
-  padding: 5px 0;
-}
-ul.nav li#quick-link ul a {
-  color: #bb0e3d;
-  font-weight: bold;
-}
-ul.nav.stick-nav-top {
-  position: fixed;
-  z-index: 10000;
-}
-#content {
-  margin: 0;
-  background: transparent;
-}
-section {
-  padding: 0 100px;
-}
-section form {
-  display: block;
-  font-size: 0.9em;
-}
-section form > ol {
-  list-style: decimal;
-}
-section form > ol > li {
-  display: inline-block;
-  margin: 5px;
-  padding: 10px;
-  width: 46%;
-  max-width: 100%;
-  height: 335px;
-  vertical-align: top;
-  overflow: auto;
-  border: 2px solid #bb0e3d;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-}
-section form > ol > li ol {
-  list-style: lower-alpha;
-  padding: 0;
-}
-section form > ol > li .question {
-  padding: 10px 0;
-}
-section form > ol > li .question > label {
-  display: inline-block;
-}
-section form > ol > li .question > p {
-  display: inline-block;
-}
-section form > ol > li .question .input > label {
-  display: block;
-}
-section form > ol > li .question select,
-section form > ol > li .question input {
-  width: 100%;
-}
-section form > ol > li .question select[type="radio"],
-section form > ol > li .question input[type="radio"] {
-  width: 15px;
-}
-section form > ol > li:nth-child(even) {
+*{margin:0;}
+
+
+
+html,body {
+  font-family: "Noto Sans", "Montserrat";
+  font-size: 12pt;
   background: #fff;
 }
-section form > ol > li:nth-child(odd) {
-  background-color: transparent;
-}
-section form > ol > li:nth-child(odd) > .question-illustrations {
-  background-color: inherit;
-}
-section form input,
-section form select {
-  padding: 10px;
-}
-section form input.error,
-section form select.error {
-  border: 2px solid #fc7878;
-  background: rgba(255,0,0,0.25);
-}
-section form .no-css {
-  display: none;
-}
-section form .question-num {
-  border-right: 4px #606060 solid;
+
+h5,
+h6,
+h7 {
   color: #606060;
   font-weight: bold;
-  text-align: center;
+  margin: 0.5em auto;
+  font-family: 'Montserrat-Bold', sans-serif;
 }
-section form .question-text {
+
+h1 {
+  color: #606060;
   font-weight: bold;
+  margin: 0.5em auto;
+  font-family: 'Montserrat-Bold', sans-serif;
+  font-size: 28px;
 }
-section form .question-text.error {
-  color: #f00;
+
+h2 {
+  color: #606060;
+  font-weight: bold;
+  margin: 0.5em auto;
+  font-family: 'Montserrat-Bold', sans-serif;
+  font-size: 23px;
 }
-section form button {
+
+h3 {
+  color: #606060;
+  font-weight: bold;
+  margin: 0.5em auto;
+  font-family: 'Montserrat-Bold', sans-serif;
+  font-size: 20px;
+}
+
+h4 {
+  color: #606060;
+  font-weight: bold;
+  margin: 0.5em auto;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+}
+
+p {
+  margin: 0;
+  margin-bottom: 1em;
+}
+a {
+  color: #2b7bba;
+}
+a:hover,
+a:focus {
+  color: #2b7bba;
+}
+.sectionTitle {
+  color: #fff;
+  padding: 13px;
+  margin-bottom: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 28px;
+}
+.sectionTitle:first-child {
+  background: #339fbe;
+}
+.sectionTitle:nth-child(3) {
+  background: #6150a3;
+}
+.sectionTitle:nth-child(5) {
+  background: #2d73a5;
+}
+.no_display {
+  display: none;
+}
+header,
+.tab-content,
+.footer {
   display: block;
+}
+section {
+  border: 1px solid #d3d3d3;
+  padding: 2em;
+  margin: 1em 0;
+  margin-top: 0;
+}
+header {
   margin: 0 auto;
-  width: 250px;
-  float: none;
-  padding: 8px 60px;
 }
-.question-illustrations {
-  background: inherit;
-  text-align: center;
-}
-.question-illustrations .expand {
-  padding: 0;
-  width: 100%;
-  -webkit-box-shadow: 3px 3px 10px #000;
-  box-shadow: 3px 3px 10px #000;
-}
-.question-illustrations img {
-  width: 30%;
-  margin: 5px 0;
-  vertical-align: top;
-}
-.question-illustrations img.stock-images {
-  margin: 10px;
-  border: 2px solid #d2caca;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  max-width: 230px;
-  max-height: 140px;
-}
-.section-content a {
-  color: #bb0e3d;
-}
-.section-title,
-.exp-title {
-  margin: 10px auto;
-  font-weight: bold;
-  padding: 5px 20px;
-  background: #bb0e3d;
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
+header #toolTitle {
+  background-color: #2b7bba;
   color: #fff;
-}
-.section-title > a,
-.exp-title > a {
-  color: #fff;
-  text-decoration: underline;
-}
-.section-title > a:hover,
-.exp-title > a:hover {
-  text-decoration: none;
-}
-.section-title :nth-child(2),
-.exp-title :nth-child(2) {
-  float: right;
-}
-.section-description {
-  margin: 10px auto;
-  padding: 5px;
-  border: 3px solid #bb0e3d;
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  background: #fff;
-  text-align: center;
-  cursor: pointer;
-}
-.section-description .heading {
   font-weight: bold;
-  font-size: 1.1em;
+  padding: 0.5em 0;
+  padding-left: 5em;
+}
+header #toolTitle a {
   color: inherit;
-  text-align: center;
-  text-decoration: none;
+  font-size: 17px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
 }
-.section-description .heading:hover {
-  text-decoration: underline;
+header #toolTitle .navbar-toggle {
+  margin-top: -0.3em;
+  margin-bottom: 0;
+  padding: 0.3em 0.2em;
 }
-.section-description p {
-  padding: 0;
-  margin: 0;
+.navbar-toggle_innermenu {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0 0;
+  margin-right: 10px;
 }
-.section-description .description {
-  margin: 10px 0;
-}
-.section-description .description:not(.show) {
+#side_nav {
   display: none;
 }
-.section-anchors {
-  margin: 10px auto;
-  padding: 5px;
-  text-align: center;
-  font-weight: bold;
-  vertical-align: top;
+img#logo {
+  max-width: 600px;
+  padding: 1em 0 1em 5em;
 }
-.section-anchors p {
-  vertical-align: text-top;
-  display: inline-block;
-  width: 40%;
-  margin: 5px 10px;
+nav#main-nav {
+  text-transform: uppercase;
+  background-color: #235e88;
+  padding-left: 3.8em;
+  font-size: 18px;
+  font-family: 'Montserrat', sans-serif;
 }
-.section-anchors li {
-  display: inline;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+nav#main-nav ul.nav.nav-tabs li {
+  border: none;
+  margin-bottom: 0;
 }
-.content-details {
-  padding: 10px 15px;
-  margin: 10px auto;
-  border: 2px solid #2a71a5;
-  background: #fff;
-}
-.termToDefine {
-  font-style: italic;
-  text-decoration: none;
-  border-bottom: 1px dotted;
-}
-.termToDefine:hover {
-  border-bottom: none;
-}
-.references {
-  font-style: italic;
-}
-.referencesli {
-  padding: 10px 0;
-}
-.about-question-title {
-  border-left: 2px solid #2a71a5;
-  padding-left: 5px;
-  margin-left: 15px;
-  font-weight: bold;
-}
-.about-question-title > * {
-  font-weight: bold;
-}
-.about-question-explanation {
-  margin: 0 auto;
-  padding: 10px 15px;
-}
-.ui-helper-hidden-accessible {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-}
-.default-tooltip-title {
-  background: #0c5c97;
+nav#main-nav ul.nav.nav-tabs li a {
   font-weight: bold;
   color: #fff;
-  -webkit-border-radius: 10px 10px 0 0;
-  border-radius: 10px 10px 0 0;
-  text-decoration: underline;
+  border-radius: 0px;
+  margin: 0;
+  padding: 0.7em;
+  padding-bottom: 7px;
+  border-bottom: 7px solid transparent;
 }
-.default-tooltip-content {
+nav#main-nav ul.nav.nav-tabs li a:hover,
+nav#main-nav ul.nav.nav-tabs li a:focus {
   background: #fff;
-  line-height: 1.4;
-  -webkit-border-radius: 0 0 10px 10px;
-  border-radius: 0 0 10px 10px;
-  border: 1px solid #000;
+  color: #14819b;
+  border-bottom: 7px solid #fff;
 }
-#error {
-  background: #fc7878;
-  border: 2px solid #a95f5f;
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  padding: 5px 10px;
+nav#main-nav ul.nav.nav-tabs li.active a {
+  color: #356b91;
+  background: #fff;
+  border-bottom: 7px solid #1a84a8;
+}
+.nav-tabs {
+  border: none;
+  overflow-y: hidden
+}
+button,
+a.btn {
   font-weight: bold;
+  max-width: 250px;
 }
-#result {
-  border: 5px solid #2a71a5;
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  margin: 0px auto;
-  max-width: 600px;
-  padding: 30px;
+button.btn-sm,
+a.btn.btn-sm {
+  font-size: 0.8em;
 }
-#result:not(.show) {
-  display: none;
+button:disabled,
+a.btn:disabled {
+  cursor: not-allowed;
 }
-#result h2 {
-  font-size: 48px;
-  margin: 0px;
-  text-align: center;
+.btn-form {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
-#result canvas.chart {
-  background-color: rgba(0,0,0,0.1);
-  font-size: 0px;
-  position: relative;
-  width: 100%;
-  z-index: 0;
+.btn-form:hover,
+.btn-form:focus {
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
 }
-#result canvas.chart .bar {
-  height: 20%;
-  left: 0px;
-  top: 0px;
-  position: absolute;
-  z-index: -1;
-}
-#result canvas.chart .bar.yours {
-  background: #bb0e3d;
-  background: -webkit-repeating-linear-gradient(55deg, #163852 50%, #fff 55%);
-  background: -moz-repeating-linear-gradient(55deg, #163852 50%, #fff 55%);
-  background: -o-repeating-linear-gradient(55deg, #163852 50%, #fff 55%);
-  background: -ms-repeating-linear-gradient(55deg, #163852 50%, #fff 55%);
-  background: repeating-linear-gradient(35deg, #163852 50%, #fff 55%);
-}
-#result canvas.chart .bar.average {
-  background: #f00;
-}
-.rounded {
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-}
-.spacer {
-  border-left: 2px solid;
-  border-color: inherit;
-  display: inline;
-  margin: 0 10px;
-}
-.more {
-  height: auto;
-}
-.hide {
-  display: none;
-}
-.hidden-anchor {
-  display: none;
-}
-ul.red-arrow li {
-  list-style-image: url("../images/red-arrow.gif");
-}
-.two-col {
-  float: left;
-  margin: 10px;
-  padding: 25px 5px;
-}
-.two-col ul {
-  height: auto;
-  min-height: 125px;
-}
-.two-col.green {
-  border: 4px solid #008000;
-}
-.two-col.red {
-  border: 4px solid #f00;
-}
-.two-col:nth-child(1) {
-  padding-right: 5px;
-}
-.two-col > .graphic {
-  float: left;
-  clear: both;
-  vertical-align: middle;
-}
-.two-col > .graphic.fa {
-  margin: 0 25px;
-  font-size: 7em;
-}
-.green {
-  color: #008000;
-}
-.red {
-  color: #f00;
-}
-ul.two-col {
-  float: left;
-  overflow: auto;
-}
-ul.two-col > li {
-  float: left;
-  width: 45%;
-  margin: 5px 20px;
-}
+#results:not(.show),
+#errors:not(.show),
+#map:not(.show),
+#listings:not(.show),
 .male:not(.show),
-.female:not(.show),
-.subquestion:not(.show) {
+.female:not(.show) {
+  display: none;
+}
+#main {
+  margin-top: 2em;
+  margin-bottom: 6em;
+  padding-left: 25%;
+  padding-right: 25%;
+  line-height: 1.5;
+}
+#main ul li {
+  line-height: 2;
+}
+#main_home {
+  margin-bottom: 2em;
+  line-height: 1.5;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* Design specification for the Results Page                                  */
+#results_home {
+  margin-top: 1em;
+  margin-bottom: 2em;
+  line-height: 1.5;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#main_home ul li {
+  line-height: 2;
+}
+.box {
+  max-width: 600px;
+  background-color: #dbf2f8;
+  padding: 1.5em;
+}
+#results_text {
+  text-align: left;
+  /* max-width: 365px; */
+  padding-left : 1em;
+}
+div[id^='results_box']{
+  font-size: 18px;
+  border: 7px #6150a3 solid;
+  background: #7163ad;
+  padding: 1em;
+  color: #fff;
+  margin-bottom: 2%;
+  margin-top: 2%;
+}
+.results_header {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 2%;
+  font-size: 34px;
+  font-family: Montserrat;
+}
+.patient_header {
+  text-align: center;
+  color: #fff;
+  font-size: 24px;
+  font-family: Montserrat;
+  line-height: 1.0;
+}
+.risk_header {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 2%;
+  font-weight: bold;
+  font-size: 48px;
+  font-family: Montserrat;
+  line-height: 1.0;
+}
+#form-steps {
+  background-color: #fff;
+  padding: 10px 0;
+  -webkit-box-shadow: 0 0 20px #808080;
+  box-shadow: 0 0 20px #808080;
+  font-family: 'Montserrat', sans-serif;
+}
+#form-steps.fixed {
+  position: fixed;
+  -webkit-box-shadow: 0 0 20px #808080;
+  box-shadow: 0 0 20px #808080;
+  z-index: 1;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+#form-steps ol {
+  list-style: none;
+  text-align: center;
+  font-weight: bold;
+  margin: 0;
+/* style rules for the form "checkpoints" bar */
+}
+#form-steps ol span.spacer {
+  min-width: 10%;
+  display: inline-block;
+  color: #868686;
+  font-weight: bold;
+  vertical-align: middle;
+  letter-spacing: 5px;
+}
+#form-steps ol li {
+  display: inline-block;
+  color: #868686;
+  margin-right: 3%;
+  font-size: 19px;
+}
+#form-steps ol li a {
+  display: block;
+  color: inherit;
+}
+#form-steps ol li a:nth-child(2) {
+  background: #868686;
+  color: #fff;
+  border-radius: 22px;
+  width: 33px;
+  height: 33px;
+  text-align: center;
+  margin: 0 auto;
+  padding: 2px;
+  position: relative;
+  font-size: 23px;
+}
+#form-steps ol li.active {
+  font-size: 24px;
+}
+#form-steps ol li.active:first-child a:first-child {
+  color: #339fbe;
+}
+#form-steps ol li.active:first-child a:nth-child(2) {
+  width: 45px;
+  height: 45px;
+  font-size: 31px;
+  color: #fff;
+  background: #339fbe;
+}
+#form-steps ol li.active:nth-child(3) a:first-child {
+  color: #6150a3;
+}
+#form-steps ol li.active:nth-child(3) a:nth-child(2) {
+  width: 45px;
+  height: 45px;
+  font-size: 31px;
+  color: #fff;
+  background: #6150a3;
+}
+#form-steps ol li.active:nth-child(5) a:first-child {
+  color: #2d73a5;
+}
+#form-steps ol li.active:nth-child(5) a:nth-child(2) {
+  width: 45px;
+  height: 45px;
+  font-size: 31px;
+  color: #fff;
+  background: #2d73a5;
+}
+.no-padding-left {
+  padding-left: 0px !important;
+}
+.no-margin {
+  margin: 0;
+}
+.no-margin-top {
+  margin-top: 0px !important;
+}
+.no-padding {
+  padding: 0;
+}
+label.questions {
+  font-weight: bold;
+  color: #2e2e2e;
+  margin-top: 50px;
+  font-size: 16px;
+  font-family: 'Noto Sans';
+}
+.questions_secondary {
+  color: #2e2e2e;
+  font-size: 14px;
+}
+.responseOptions {
+  font-weight: normal;
+  font-family: Montserrat;
+  font-size: 16px;
+  margin-left: 1em;
+  margin-top: 16px;
+}
+
+/* Use this when you are indenting with bootstrap.  The responseOptions       */
+/* margin-left will overwrite the bootstrap grid                              */
+.responseOptionsWithoutIndent {
+  font-weight: normal;
+  margin-top: 16px;
+}
+
+/* Following the standard for spacing provided by bootstrap.  However, the   */
+/* problem is that this style is usually generated using the less compiler   */
+/* In bootstrap this is a spacer                                             */
+.pl-3 {
+  padding-left: 1rem;
+}
+
+/* Folling the standard for spacing provided by boostrap.  However, the      */
+/* problem is that this sytyle is usually generated using the less compiler  */
+/* In bootstrap this is a spacer                                             */
+.ml-3 {
+  margin-right: 1rem ;
+}
+
+.responseOptions label {
+  font-weight: inherit;
+}
+.responseOptions input[type="radio"] {
+  margin: 0 0.5em;
+  width: 1em;
+  height: 1em;
+}
+select {
+  border: 2px solid #d3d3d3;
+  background: #f2f2f3;
+  padding: 0 0.4em;
+  height: 2.5em;
+  font-family: 'Noto Sans';
+  font-size: 16px;
+  color: #2E2E2E;
+  background-image: url('../images/chevron_drop_down.png');
+  background-repeat: no-repeat;
+  background-position: right center;
+  width: 153px;
+  height: 28px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+}
+
+select::-ms-expand {
   display: none;
 }
 
-@media (max-width: 1300px) {
-  ul.nav {
-    margin: 0;
+select:focus,
+select:hover {
+  border-color: #2b7bba;
+}
+select:disabled {
+  background: #d3d3d3;
+  color: #000;
+  cursor: not-allowed;
+}
+input[type="radio"] {
+  display: none;
+}
+input[type="radio"] + label.radio {
+  color: #606060;
+  font-weight: normal;
+}
+input[type="radio"] + label.radio span {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  margin: 0 0.5em 0 0;
+  vertical-align: middle;
+  background: url("../images/Radio_Button_Unselected.png");
+  color: #f2f2f2;
+  cursor: pointer;
+  background-repeat: no-repeat;
+}
+input[type="radio"] + label.radio:hover span {
+  background: url("../images/Radio_Button_Selected.png");
+  background-repeat: no-repeat;
+
+
+}
+input[type="radio"]:checked + label.radio span {
+  background: url("../images/Radio_Button_Selected.png");
+  background-repeat: no-repeat;
+
+}
+select:disabled,
+input:disabled {
+  cursor: not-allowed;
+  color: #6c6c6c;
+  border: none;
+}
+select:disabled[type="radio"] + label.radio,
+input:disabled[type="radio"] + label.radio {
+  background: none;
+  border: none;
+  color: #c0c0c0;
+  cursor: not-allowed;
+}
+select:disabled[type="radio"] + label.radio span,
+input:disabled[type="radio"] + label.radio span {
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+}
+select.error,
+input.error {
+  border-color: #bb0e3d;
+}
+select.error + label.radio,
+input.error + label.radio {
+  color: #bb0e3d;
+}
+select.error + label.radio span,
+input.error + label.radio span {
+  border-color: #bb0e3d;
+}
+.footer {
+  background-color: #235e88;
+  line-height: 4;
+}
+.footer a {
+  font-weight: bold;
+}
+.footer *,
+.footer ul li a {
+  color: #fff;
+  font-size: 15px;
+}
+.line {
+  position: absolute;
+  width: 100%;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 2px dotted #868686;
+  margin-top: 0;
+}
+.modal-body {
+  overflow-y: hidden;
+}
+.modal {
+  top: 33%;
+}
+.imgsize {
+  height: 70px;
+}
+.btn-size {
+  height: 35px;
+  width: 85px;
+}
+.modaltext {
+  padding-left: 16%;
+}
+.modal-header {
+  border: none;
+}
+.modal-header .close {
+  background: url("./images/Exit.png");
+  padding: 9px 9px;
+  color: #fff;
+  opacity: 1.0;
+  -ms-filter: initial;
+  filter: initial;
+  background-repeat: no-repeat;
+}
+.modal-header .close:hover,
+.modal-header .close:focus {
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+}
+.info-dialog {
+  border: 3px solid #d3d3d3;
+  color: #000;
+  background-color: #fff;
+  padding: 1em;
+}
+.info-dialog button {
+  background: #2b7bba;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 20px;
+  border: none;
+  margin: 0.3em;
+}
+.info-dialog button:hover,
+.info-dialog button:focus {
+  background: #fff;
+  color: #2b7bba;
+}
+.demo-dialog .modal-content {
+  border: 3px solid #339fbe;
+  border-radius: 0px;
+}
+.error-dialog .modal-content {
+  background-color: #fff F;
+  border: 3px solid #339fbe;
+}
+.error-dialog img {
+  float: left;
+}
+.error-dialog button {
+  color: #fff;
+  background-color: #339fbe;
+  font-weight: bold;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -o-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  margin: 0 auto;
+  text-transform: uppercase;
+  border: none;
+}
+
+/* Stylize the dialog OK Button.  The button was stylized using an image. The */
+/* padding and border styles of the button tag were still being displayed and */
+/* class removes them.                                                        */
+.dialog_ok_button {
+  padding: 0px;
+  border: 0px;
+}
+
+/* Styles the content of text found in the dialog box                         */
+.dialog_text_content {
+  font-family: 'Noto Sans';
+  font-size: 14px;
+}
+
+@media (min-width: 993px) {
+  .container-fluid {
+    padding-left: 5em;
+    padding-right: 5em;
   }
-  ul.nav li {
-    padding: 7px;
-  }
-  section {
-    margin: 0 50px;
-    padding: 0;
-  }
-  section form > ol > li {
-    margin: 10px auto;
-    width: 45%;
-    min-height: 150px;
-    max-height: 600px;
-  }
-  section .section-content {
-    padding: 0 50px;
+
+  .vertical_alignment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
-@media (max-width: 990px) {
-  header {
-    position: relative;
+
+@media (max-width: 992px) {
+
+  .container-fluid {
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+
+  .vertical_alignment {
+
+  }
+
+  header img#logo {
+    padding: 1em 1em 1em;
+    width: 100%;
   }
   header #toolTitle {
-    text-align: center;
-    padding: 5px;
+    padding-left: 1em;
+    padding-top: 7px;
+    padding-bottom: 7px;
   }
-  dl {
+  header #toolTitle a {
+    font-size: 12px;
+  }
+  #results {
+    padding: 1em;
+  }
+  #results_text {
+    text-align: left;
+    /* width: 365px; */
+    margin-left: 0;
+  }
+
+/* The style should be used when the patient has a greater risk than average  */
+/* I used !important here since this property should always take precedence   */
+/* over any other colors                                                      */
+  .patient_risk_greater_than_average_risk {
+    color:red !important;
+  }
+  nav#main-nav {
+    background: #fff;
     padding: 0;
+    text-align: left;
   }
-  dl dd {
-    margin: 0;
-  }
-  .spacer {
+  nav#main-nav ul.nav.nav-tabs {
     display: block;
   }
-  .section-anchors li {
-    display: none;
+  nav#main-nav ul.nav.nav-tabs li {
+    width: 50% ;
+    float: left;
   }
-  footer li {
-    padding: 5px 0;
+  nav#main-nav ul.nav.nav-tabs li.active a {
+    color: #356b91;
+    background: #fff;
   }
-  section {
-    margin: 0 25px;
+  nav#main-nav ul.nav.nav-tabs li a {
+    background: #235e88;
+    color: #fff;
+    border: none;
   }
-  section form > ol {
+  nav#main-nav ul.nav.nav-tabs li a:hover,
+  nav#main-nav ul.nav.nav-tabs li a:focus {
+    border: none;
+  }
+  #form-steps {
+    background-color: #fff;
+    padding: 10px 0;
+    -webkit-box-shadow: 0 0 20px #808080;
+    box-shadow: 0 0 20px #808080;
+    font-family: 'Montserrat', sans-serif;
+  }
+  #form-steps.fixed {
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    left: 0;
+    margin-bottom: 10px;
+  }
+  #form-steps ol {
     padding: 0;
   }
-  section form > ol > li > p {
-    margin-right: 0;
-  }
-  section form > ol > li > p > .input {
-    width: 100%;
-    margin: 10px auto;
-  }
-  section form .question-text {
+  #form-steps ol span.spacer {
     margin: 0;
-    padding: 1%;
   }
-  section form .question-illustrations img {
-    width: 80%;
+  #form-steps ol li {
+    margin: 0.5em 0.1em;
+    border-radius: 20px;
+    margin-left: 6%;
+    margin-right: 6%;
   }
-  section form button {
-    display: inherit;
+  #form-steps ol li a:first-child {
+    display: none;
+  }
+  #form-steps ol li a {
+    display: block;
+    color: inherit;
+  }
+  #form-steps ol li a:nth-child(2) {
+    background: #868686;
+    color: #fff;
+    border-radius: 22px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
     margin: 0 auto;
-    width: 50%;
-    float: none;
-  }
-  section .section-content {
-    padding: 0;
-  }
-  section .about-question-title {
-    margin: 0;
-  }
-  section .about-question-explanation:not(.show) > strong {
-    color: #bb0e3d;
-  }
-  section .about-question-explanation:not(.show) > strong:hover {
-    text-decoration: underline;
-  }
-  section .about-question-explanation:not(.show) > p {
-    display: none;
-  }
-  section .exp-title {
-    text-decoration: underline;
-  }
-  section .exp-title:hover {
-    text-decoration: none;
-  }
-  section .exp-title + p {
-    display: inherit;
-  }
-  section #questions-exp:not(.show),
-  section #results-exp:not(.show),
-  section #model-exp:not(.show),
-  section #reference:not(.show) {
-    display: none;
-  }
-  section ul.two-col > li {
-    width: auto;
-  }
-}
-@media (max-width: 768px) {
-  header #nci-banner {
-    padding-left: 0;
-  }
-  header #toolTitle {
-    padding: 5px 0;
-  }
-  #top {
-    margin: 0;
-    min-height: 0;
-  }
-  #menu-button {
-    display: block;
-    float: right;
-    height: 52px;
-    padding: 5px;
+    padding: 2px;
     position: relative;
-    width: 60px;
+    font-size: 17px;
   }
-  ul.nav {
-    background: transparent;
+  #form-steps ol li.active {
+    font-size: 24px;
+  }
+  #form-steps ol li.active:first-child a:first-child {
+    color: #339fbe;
+  }
+  #form-steps ol li.active:first-child a:nth-child(2) {
+    width: 35px;
+    height: 35px;
+    font-size: 24px;
+    color: #fff;
+    background: #339fbe;
+  }
+  #form-steps ol li.active:nth-child(3) a:first-child {
+    color: #6150a3;
+  }
+  #form-steps ol li.active:nth-child(3) a:nth-child(2) {
+    width: 35px;
+    height: 35px;
+    font-size: 24px;
+    color: #fff;
+    background: #6150a3;
+  }
+  #form-steps ol li.active:nth-child(5) a:first-child {
+    color: #2d73a5;
+  }
+  #form-steps ol li.active:nth-child(5) a:nth-child(2) {
+    width: 35px;
+    height: 35px;
+    font-size: 24px;
+    color: #fff;
+    background: #2d73a5;
+  }
+  #errors {
+    font-size: 0.8em;
+    margin: 1em 0;
+  }
+  section {
+    padding: 1em;
+  }
+  .tab-pane {
+    padding: 0 1em;
+  }
+  #main {
+    margin: 0 0 1.5em 0;
     padding: 0;
-    text-align: center;
   }
-  ul.nav:not(.show) {
+  #main .container {
+    padding: inherit;
+  }
+  .questions,
+  .responseOptions {
+    line-height: 1.5;
+  }
+
+  /* When a question is a disabled the text needs to look less visible        */
+  .questionDisabled {
+    opactity: .2;
+  }
+
+  /* When the question is disabled the answer needs to be greyed out         */
+  .answerDisabled {
+    disabled: true;
+  }
+
+  .box {
+    margin: 1em auto;
+  }
+  .btn-block {
+    margin: 0 auto;
+  }
+  .footer {
+    line-height: initial;
+  }
+  .footer ul {
+    margin: 1em 0 1em 2em;
+  }
+  .footer ul li {
+    display: block;
+    text-align: left;
+    max-width: 60%;
+    margin: 0.3em 0;
+  }
+  .footer ul li:nth-child(even) {
     display: none;
-  }
-  ul.nav.stick-nav-top {
-    position: inherit;
-  }
-  ul.nav > li {
-    display: block;
-    padding: 8px;
-  }
-  ul.nav > li a {
-    color: #bb0e3d;
-  }
-  ul.nav > li:not(:hover) > ul {
-    display: block;
-  }
-  ul.nav > li#quick-link > ul {
-    background: transparent;
-    margin: 10px 0 -5px;
-    position: static;
-  }
-  ul.nav > li#quick-link > ul.nav > li {
-    display: block;
-  }
-  ul.nav > li#quick-link > ul:not(.show) {
-    display: none;
-  }
-  .section-title {
-    overflow: auto;
-    padding: 5px 10px;
-  }
-  section .section-content {
+    margin: 0;
     padding: 0;
+    max-width: 0;
   }
-  section form > ol > li {
+  #side_nav.sidenav {
+    width: 0;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    right: 0;
+    overflow-x: hidden;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -o-transition: 0.5s;
+    -ms-transition: 0.5s;
+    transition: 0.5s;
+    display: inline;
+    text-transform: uppercase;
+    -webkit-box-shadow: 0px 2px 4px 0 rgba(0,0,0,0.5);
+    box-shadow: 0px 2px 4px 0 rgba(0,0,0,0.5);
+    background: #fff;
+  }
+  #side_nav.sidenav ul.nav.nav-tabs li {
     width: 100%;
-    height: auto;
-    max-height: 350px;
-    min-height: 130px;
-    padding: 5px 10px;
   }
-  footer {
-    margin: 25px 0;
+  #side_nav.sidenav ul.nav.nav-tabs li a {
+    padding: 8px 8px 8px 15px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    color: #235e88;
+    display: block;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    -ms-transition: 0.3s;
+    transition: 0.3s;
+    white-space: nowrap;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 0
   }
-  .question-illustration {
-    padding-left: 0;
+  #side_nav.sidenav ul.nav.nav-tabs li a:hover,
+  #side_nav.sidenav ul.nav.nav-tabs li a:focus {
+    color: #fff;
+    background: #14819b;
   }
-  .question-illustration .stock-images {
-    width: 180px;
+  #side_nav.sidenav ul.nav.nav-tabs li.active a {
+    color: #fff;
+    background: #14819b;
+  }
+  #buttons {
+    display: -webkit-box;
   }
 }
-@media (max-width: 480px) {
-  .section-title * {
-    display: block;
-    text-align: center;
-  }
-  .section-title :nth-child(2) {
-    float: none;
-  }
+#inner_menu {
+  color: #fff;
+  background: #235e88;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  padding: 6px 8px 8px 15px;
+}
+
+#Risk {
+  width: 100%;
+}
+.modal-content {
+  border-radius: 0px;
+}
+.small_mole_answer {
+  display: inline;
+}
+
+/* A class for styling the content on the main page                           */
+.content {
+  font-size: 16px;
+  font-family: 'Noto Sans'
+}
+
+/* Specific Styling for the Back to Calculator on the Front Page              */
+.result_page_anchor {
+  font-size: 16px;
+  font-family: 'Noto Sans';
+}
+
+
+/* Specific Button for the Start Over Button on the Result Pages */
+.startOverButton {
+  background-color: #2DC799;
+  border-radius: 3px;
+  font-size: 15px;
+  font-family: 'Montserrat';
+  color: #FFFFFF;
+}
+
+/* Disable a link */
+a.disabled {
+   pointer-events: none;
+   color: #c0c0c0;
+}
+
+/* Make a picture disabled by reducing the opacity. */
+.image_disabled {
+  opacity: .2;
+}
+
+/* Spacer betweeen Access Patient Risk Button and Paragraph beneath it.      */
+.spaceBetweenAccessPatientRiskButtonAndParagraph {
+  margin-top : 2em;
+}
+
+/* Text Content that is bolded                                                */
+.boldedBodyText {
+  font-family: 'Noto Sans';
+  font-weight: bold;
+  font-size: 16px;
+  color: #2E2E2E;
+}
+
+svg {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
 }

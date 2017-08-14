@@ -2,10 +2,12 @@ import math
 import os
 import sys
 import json
+import logging
 from flask import Flask, Response, request, jsonify
 from MratConstants import MratConstants
 
-app = Flask(__name__, static_folder='', static_url_path='/') 
+app = Flask(__name__, static_folder='', static_url_path='/')
+logging.basicConfig(level=logging.DEBUG)
 
 class MelanomaRiskAssessmentTool:
     @staticmethod
@@ -33,8 +35,10 @@ class MelanomaRiskAssessmentTool:
     @staticmethod
     def validateInput(parameters):
         try:
+            logging.debug("The number of parameters from the View Tier are " + str(len(parameters)))
             for field in parameters:
                 parameters[field] = parameters[field][0]
+                logging.debug("parameter : field " + str(field) + " --> " + str(parameters[field][0]))
             requiredParameters = ['race', 'age']
             errorObject = {'missing':[], 'nonnumeric': []}
 
@@ -73,12 +77,12 @@ class MelanomaRiskAssessmentTool:
                     message += " \n and the following was found to be a non-numeric value"
                 raise KeyError(message)
 
-            return age, sex, region  
+            return age, sex, region
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print("EXCEPTION------------------------------", e, exc_type, fname, exc_tb.tb_lineno)
-            return e 
+            return e
 
     @staticmethod
     def getAbsoluteRisk(parameters, age, sex, region):
@@ -129,7 +133,7 @@ class MelanomaRiskAssessmentTool:
             results['gender']=str(parameters['gender'] ).lower()
             results['regionKey']=regionKey
             results['ratio']=int(ratio)
-            json_data=json.dumps(results) 
+            json_data=json.dumps(results)
             print "\n{0}".format(result)
             return json_data
         except Exception as e:
@@ -141,6 +145,7 @@ class MelanomaRiskAssessmentTool:
     @app.route('/calculate', methods=['POST'] )
     def mratRisk():
         try:
+            logging.debug("-------------- Entering mratRisk function")
             parameters = dict(request.form)
             age, sex, region = MelanomaRiskAssessmentTool.validateInput(parameters)
             message = MelanomaRiskAssessmentTool.getAbsoluteRisk(parameters, age, sex, region)
@@ -156,4 +161,3 @@ class MelanomaRiskAssessmentTool:
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print("EXCEPTION------------------------------", exc_type, fname, exc_tb.tb_lineno)
             return MelanomaRiskAssessmentTool.buildFailure(e)
-
