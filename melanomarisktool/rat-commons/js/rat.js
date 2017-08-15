@@ -276,29 +276,6 @@ function make_pie_chart(percent, divContainerForChart, color1, color2){
       })(window.d3);
 }
 
-/* Produces the results box for the RAT                                      */
-//function resultsDisplay(response, textStatus, xhr) {
-//
-//  var result = JSON.parse(response.message)
-//	go_toresult();
-
-//	var fiveYearPatientRiskColor = ( result.risk > result.averageFiveRisk) ? "#FF0000" : "#2DC799";
-//	var lifetimePateientRiskColor = ( result.lifetime_patient_risk > result.lifetime_average_risk) ? "#FF0000" : "#2DC799";
-
-//	$("#results_text1").html(result.message);
-//	$("#results_text2").html(result.lifetime_message);
-//	$("#Risk1").text(result.risk+"%");
-//	$("#Risk2").text(result.averageFiveRisk+"%");
-//	$("#Risk3").text(result.lifetime_patient_risk+"%");
-//	$("#Risk4").text(result.lifetime_average_risk+"%");
-//	make_pie_chart(result.risk, "#pieChart1",fiveYearPatientRiskColor, "#EFEFEF");
-//	make_pie_chart(result.averageFiveRisk, "#pieChart2", "#40A5C1", "#EFEFEF");
-//	make_pie_chart(result.lifetime_patient_risk, "#pieChart3", lifetimePateientRiskColor, "#EFEFEF");
-//	make_pie_chart(result.lifetime_average_risk, "#pieChart4", "#40A5C1", "#EFEFEF");
-
-//}
-
-
 ////////////////////////////////////////////////////////////////////////////////
 // To update the navigation bar when the user scrolls the page                //
 ////////////////////////////////////////////////////////////////////////////////
@@ -418,7 +395,8 @@ function fixedToTop(div_top,use_mobile) {
 	//console.log("div_top "+ div_top)
 	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
 			$("#main").css("margin-top",0+"px");
- 			$("#form-steps").css("margin-top",0+"px");
+			$("header").css("top", "0px");
+ 			$("#form-steps").css("top",header_height+"px");
 		}
 	if ( window_top > div_top ){
 		$("#form-steps").addClass('fixed');
@@ -570,8 +548,9 @@ $(window).load(function(e) {
  		 	$("#form-steps").css("z-index","1")
  		 }
 
- 		 $("#main").css("margin-top",header_height+"px");
- 		 $("#form-steps").css("margin-top",header_height+"px");
+ 		 // $("#main").css("margin-top",header_height+"px");
+		 $("#main").css("margin-top", "0px");
+ 		 $("#form-steps").css("top", + header_height + "px");
  		 $("header").css("background","white");
  		 $("#main").removeClass("container-fluid");
 
@@ -781,9 +760,10 @@ $(document).ready(function(){
 		});
 		if(valid==true)
 			enablebutton();
-
 	});
-
-
-
 });
+
+/* Is the device a mobile phone or tablet ?                                   */
+function isMobile() {
+	return 1;
+}

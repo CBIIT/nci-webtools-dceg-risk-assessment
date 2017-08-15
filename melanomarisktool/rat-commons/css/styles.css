@@ -130,6 +130,13 @@ header,
 .footer {
   display: block;
 }
+
+header.fixed {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  left: 0;
+}
 section {
   border: 1px solid #d3d3d3;
   padding: 2em;
