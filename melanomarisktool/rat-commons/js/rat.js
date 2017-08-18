@@ -106,15 +106,10 @@ function calc()
 	var currentLocationOnScrolledScreen = 0
 
 	var heightOfHeaderAndSectionsAccumulator = 0;
-	var heightOfFormSteps = $("#form-steps").outerHeight(true);
-	console.log("Form Steps = " + heightOfFormSteps);
-	$.each($("#riskForm section"), function(index, element) {
 
-		// Get the starting pixel for the current header
-		// We will make one simplfying assumption :
-		// 		When the first button/link is clicked in the form-step you will see both the Header and the form-steps
-		//			The data-position-height will always be 0 since that is position that will be scrolled to
-		//    When any other button/link is clicked in the form-step you will see the from-step only and not the header
+	//var height = (( isMobile() ) ? $("header").outerHeight(true) : 0) + $("#form-steps").outerHeight(true);
+	var height = ( isMobile() ) ? 0 : $("#form-steps").outerHeight(true);
+	$.each($("#riskForm section"), function(index, element) {
 
 		// Accumulates the Height of the header and section, so the form will scrolled to the correct position for the next element
 		// This calcuation will using this in currentHeight calculation for the next iteration
@@ -131,14 +126,15 @@ function calc()
 		$(navigationLinks).slice(startIndex, endIndex).attr('data-riskFormSection', index);
 		$(navigationLinks).slice(startIndex, endIndex).attr('data-riskFormSectionName', $(element).attr('id'));
 		$(navigationLinks).slice(startIndex, endIndex).attr('data-riskFormSectionHeaderName', $(element).prev().attr('id'));
-		$(navigationLinks).slice(startIndex, endIndex).attr('data-position-height', heightOfFormSteps + heightOfHeaderAndSectionsAccumulator);
+		$(navigationLinks).slice(startIndex, endIndex).attr('data-position-height', height + heightOfHeaderAndSectionsAccumulator);
+		console.log($(navigationLinks).slice(startIndex, endIndex).attr('data-position-height'));
 
 
 		// Each section will know id, the id its header and the y-postion of its sectionHeaderBoxHeight
 		// TODO :
 		$(this).attr('data-riskFormSectionName', $(element).attr('id'));
 		$(this).attr('data-riskFormSectionHeaderName', $(element).prev().attr("id"));
-		$(this).attr('data-position-height', heightOfFormSteps + heightOfHeaderAndSectionsAccumulator)
+		$(this).attr('data-position-height', height + heightOfHeaderAndSectionsAccumulator)
 
 		heightOfHeaderAndSectionsAccumulator = heightOfHeaderAndSectionsAccumulator + currentTitleAndSecitonHeight;
 
@@ -217,15 +213,15 @@ function go_toresult() {
 	$("#results").addClass('show')
 }
 
-/*****************************************************************************/
-/* Create a pie chart                                                        */
-/*                                                                           */
-/* Parameters:                                                               */
-/*   percent								The change that the victim will get cancer       */
-/* 	 divContainerForChart		The HTML Container that will cotnain the chart   */
-/*   color1 								The color for the chance of getting cancer       */
-/*   color2  								The color for the chance of not getting cancer   */
-/*****************************************************************************/
+/*********************************************************************************/
+/* Create a pie chart                                                            */
+/*                                                                               */
+/* Parameters:                                                                   */
+/*   percent		       	The change that the victim will get cancer       */
+/*   divContainerForChart  	The HTML Container that will cotnain the chart   */
+/*   color1 			The color for the chance of getting cancer       */
+/*   color2  			The color for the chance of not getting cancer   */
+/*********************************************************************************/
 function make_pie_chart(percent, divContainerForChart, color1, color2){
 
 	// Remoeves the pie charts created so tehy are not displayed next time.  This
@@ -294,53 +290,43 @@ function formScrollSpy() {
 		// then that section should be the active.
 		if ( window_top >= sectionHeight) {
 
-				// Remove the active style from any navigation link and apply it to the
-				// current link being processed.
+			// Remove the active style from any navigation link and apply it to the
+			// current link being processed.
   			$("#form-steps li").removeClass('active');
-				$("#form-steps li:eq(" + ind + ")").addClass('active');
-				adjust_line_width(ind);
+			$("#form-steps li:eq(" + ind + ")").addClass('active');
+			adjust_line_width(ind);
 		}
 	});
 
 	// Rule : Scrollbar at very top the first navigation elements ( link/button)
 	// should be active
 	if ( $(window).scrollTop() == 0 ) {
-		 		$('#form-steps li').first().addClass('active');
-		 		adjust_line_width(0);
-
+		$('#form-steps li').first().addClass('active');
+		adjust_line_width(0);
 	}
 
-	// Rule  : 	If male or female is not checked then the Navigation should only make
-	//         	the first page active.
+	// Rule  : 	If male or female is not checked then any Navigation (Button/Link)
+	//		should only make the first page active.
 	// Rules : 	Scrollbar is at the bottom then the last navigation elements (link/button)
-	// 					should be active
+	// 		should be active
 	if ( isMaleOrFemaleChekced() == 0 )
 		return;
 	else {
 		var currentScrollPosition = Math.ceil($(window).scrollTop() + $(window).height());
 		if ( currentScrollPosition >= $(document).height() ) {
-					$("#form-steps li").removeClass('active');
-			 		$('#form-steps li').last().addClass('active');
-		   		adjust_line_width($('#form-steps li').length - 1);
+			$("#form-steps li").removeClass('active');
+			$('#form-steps li').last().addClass('active');
+		   	adjust_line_width($('#form-steps li').length - 1);
 		}
 	}
 
 }
 
-// var currentScrollPosition = Math.ceil($(window).scrollTop() + $(window).height());
-// var startingPositionOfLastSection = $("#form-steps ol li a").last().attr('data-position-height');
-// if ( currentScrollPosition > startingPositionOfLastSection ) {
-// 			$("#form-steps li").removeClass('active');
-// 			$('#form-steps li').last().addClass('active');
-// 			adjust_line_width($('#form-steps li').length - 1);
-//
 /******************************************************************************/
 /* When a navigation number or name is clicked then the form should be scroll */
 /* ed to the top of the section header                                        */
 /******************************************************************************/
 function gotoSection(event) {
-
-	console.log("------------------------------------------------ in goto Section");
 
 	// Rule: When there is a male/female selection, one of the items must checked
 	// if the
@@ -348,18 +334,16 @@ function gotoSection(event) {
 
 	var indexOfSection = $(this).attr('data-riskFormSection')
 
-  // Remove the active style from the previous link and apply it to the
+	// Remove the active style from the previous link and apply it to the
 	// current link.
 	var elementContainingListItems = $(this).parent().parent();
 	$(elementContainingListItems).children("li").removeClass('active');
 	$(this).parent().addClass('active');
 	adjust_line_width(indexOfSection);
 
-  // Scroll to the actual spot.
+	// Scroll to the actual spot.
 	var scrollTo = ( indexOfSection == 0 ) ? 0 : $(this).attr('data-position-height');
-	$('html, body').animate({
-			scrollTop: scrollTo
-		}, 1000);
+	$('html, body').animate({ scrollTop: scrollTo }, 1000);
 }
 
 /* Determine if either male or female has been selected                       */
@@ -372,7 +356,7 @@ function gotoSection(event) {
 /* or female has been selected                                                */
 /*                                                                            */
 /* Return (T) An HTML Object is name genddar and either male/female is        */
-/* checked or there is no HTML Object called gendar                              */
+/* checked or there is no HTML Object called gendar                           */
 /*                                                                            */
 /* Return (F) There is an HTML Object with the name gendar, but male/female   */
 /* has not been selected.                                                     */
@@ -381,36 +365,47 @@ function isMaleOrFemaleChekced() {
 	return result;
 }
 
-
-function fixedToTop(div_top,use_mobile) {
-	var header_height=$('header').outerHeight();
+/////////////////////////////////////////////////////////////////////////////////
+// Allows the Header, Navigation and Toolbar to stay at the top of the screen  //
+/////////////////////////////////////////////////////////////////////////////////
+function fixedToTop(div,use_mobile) {
+	var header_height=$('header').outerHeight(true);
 	var window_top = $(window).scrollTop();
-	var div_top = $("#"+div_top).offset().top;
-	//var div_top = $("#header").height();
-	//var div_top = $("#toolTitle").offset().top;
-	//	var div_top = $("#main-nav").offset().top;
+	var div_top = $("#"+div).offset().top;
+	var form_steps_height=$('#form-steps').outerHeight(true);
+	var tool_title_height=$('#toolTitle').outerHeight(true);
 
-	var form_steps_height=$('#form-steps').outerHeight();
-	//console.log("window_top "+window_top)
-	//console.log("div_top "+ div_top)
-	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-			$("#main").css("margin-top",0+"px");
-			$("header").css("top", "0px");
- 			$("#form-steps").css("top",header_height+"px");
-		}
-	if ( window_top > div_top ){
-		$("#form-steps").addClass('fixed');
-		if($(window).width()>=992)
-			$("#line").find("hr").css("top",form_steps_height-30)
-		else
-			$("#line").find("hr").css("top",form_steps_height-37)
+	if ( isMobile()) {
+		$("header").css("top", "0px");
+ 		$("#form-steps").css("top",header_height+"px");
+		$("#form-steps").addClass("fixed");
 
+		var height = header_height + form_steps_height + 14;
+		$("#riskForm").css("margin-top",height+"px");
 	}
-	else{
-		$("#form-steps").removeClass('fixed');
-		adjust_line_height_dekstop()
 
-	}
+		// if ( window_top > div_top && isMobile() == false ) {
+		// 	$("#form-steps").addClass('fixed');
+		// 	if($(window).width()>=992)
+		// 		$("#line").find("hr").css("top",form_steps_height-30)
+		// 	else
+		// 		$("#line").find("hr").css("top",form_steps_height-37)
+		// } else {
+		// 	$("#form-steps").removeClass('fixed');
+		// 	adjust_line_height_dekstop()
+		// }
+		if ( window_top > div_top || isMobile()) {
+		 	$("#form-steps").addClass('fixed');
+		 	if($(window).width()>=992)
+		 		$("#line").find("hr").css("top",form_steps_height-30)
+		 	else
+		 		$("#line").find("hr").css("top",form_steps_height-37)
+		 } else {
+		 	$("#form-steps").removeClass('fixed');
+		 	adjust_line_height_dekstop()
+		 }
+
+
 }
 
 
@@ -448,10 +443,10 @@ function handleScrollEvent(event) {
 
 
 $(window).load(function(e) {
-	if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+	if( isMobile() == false ) {
 		$(window).on("scroll", handleScrollEvent);
 	}
-	else if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+	else {
 		var top_div = ( $(window).width() > 753 ) ? "main-nav" : "toolTitle";
 		fixedToTop(top_div,true);
 		$(window).on('touchmove', function(event) {
@@ -462,12 +457,10 @@ $(window).load(function(e) {
 
 			fixedToTop(top_div,true);
 			formScrollSpy();
-
 		});
 	}
 
-	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
-	$(".toggleTool").on("click keypress", toggleFormDisplay);
+	if( isMobile() ) $(".toggleTool").on("click keypress", toggleFormDisplay);
 
 	$(".responseOptions > label.radio,.responseOptionsWithoutIndent > label.radio").on('click keypress', function(e) {
 		if ($(e.target).hasClass('radio')) {
@@ -510,8 +503,6 @@ $(window).load(function(e) {
 		}
 	});
 
-	$("input[name='gender']").on("change", toggleGender);
-	$("input[name='gender']").on("change", calc);
 	$("input[name='race']").on("change", function() {
 		if(this.value == 1){
 			$("#raceModal").modal("show");
@@ -538,7 +529,7 @@ $(window).load(function(e) {
  	var form_steps_height=$('#form-steps').outerHeight();
  	var logo_height=$('#logo').outerHeight();
 	$("#side_nav").css("margin-top",logo_height+"px");
-	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+	if( isMobile() ) {
  		console.log("mobile");
  		 $("header").addClass('fixed');
  		 $("#form-steps").addClass('fixed');
@@ -548,8 +539,6 @@ $(window).load(function(e) {
  		 	$("#form-steps").css("z-index","1")
  		 }
 
- 		 // $("#main").css("margin-top",header_height+"px");
-		 $("#main").css("margin-top", "0px");
  		 $("#form-steps").css("top", + header_height + "px");
  		 $("header").css("background","white");
  		 $("#main").removeClass("container-fluid");
@@ -568,7 +557,7 @@ $(window).load(function(e) {
 $(window).resize(function() {
 	if(window.location.pathname=="/melanomarisktool/calculator.html"){
 	 	adjust_line_width()
-	 	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
+	 	if( isMobile() )
 	 		$("#line").find("hr").css("top",form_steps_height/2)
 	 	else{
 		 	adjust_line_height_dekstop();
@@ -598,16 +587,17 @@ function adjust_line_width(ind){
     	$("#line").find("hr").css("width",last_dot_left-first_dot_left+last_dot_width/4-20)
 
 
+        var firstBubble = $("#form-steps > ol > li > a:nth-child(2)");
+ 	var lastBubble  = $("#form-steps > ol > li > a:last-child");
+    	$("#line").find("hr").css("left", $(firstBubble).offset().left + $(firstBubble).width());
+	$("#line").find("width").css("width", $(lastBubble).offet().left);
 
 }
 
 function adjust_line_height_dekstop(){
-	var header_height=$('header').outerHeight();
- 	var form_steps_height=$('#form-steps').outerHeight();
-	if($(window).width()<992)
-	 	$("#line").find("hr").css("top",header_height+form_steps_height/2)
-	else
-	 	$("#line").find("hr").css("top",header_height+form_steps_height-30)
+	var firstBubble = $("#form-steps > ol > li > a:nth-child(2)");
+	var startPoint = $(firstBubble).offset().top + $(firstBubble).height()/2;
+	$("#line").find("hr").css("top", startPoint);
 
 }
 function currentPage() {
@@ -639,13 +629,7 @@ function smoothScroll(e) {
 				scrollTo = calculatePositionToScrollTo(target);
 			}
 
-			//var sectionHeaderBoxHeight = target.outerHeight() + target.innerHeight() + target.height();
-			//console.log("SectionBoxHeight = " + sectionHeaderBoxHeight);
-			$('html, body').animate({
-					scrollTop: scrollTo
-	    		//scrollTop: (target.offset().top +  sectionHeaderBoxHeight)
-					//scrollTop: (target.offset().top) + sectionHeaderBoxHeight
-	    	}, 1000);
+			$('html, body').animate({scrollTop: scrollTo}, 1000);
 	    	return false;
 	    }
 	}
@@ -687,22 +671,24 @@ $(function() {
 	// smooth scrolling to element on page
 	//$('a[href*="#"]:not([href="#"])').on("click keypress", smoothScroll);
 
+	// Rule : When using the mouse the input element with focus should not have the outline
+	// Rule : When using the tab the input element with focus should have the outline
+	$("#riskForm").children().on('mousedown', function(event)  { mouseDownBorderToggle(event); }); 
+	$("#riskForm").children().on('focusin',   function(event)  { focusBorderToggle(event);  });
+
 
 	/* When a different navigation link is clicked the callback will make the */
 	/* link acitve and fix the line that connects all the navigation links    */
 	var navigationLinks = $("#form-steps > ol > li > a");
 	$(navigationLinks).on("click", gotoSection);
 
-  // Whenever the window is resize we need to recalculate the line that contains
+        // Whenever the window is resize we need to recalculate the line that contains
 	// the navigation numbers so that it fits correctly.
 	$(window).resize(function() {
 		fixedToTop( ( $(window).width() ) ? "main-nav" : "toolTitle" );
 		var riskFormSectionIndex = $("#form-steps > ol > li").filter(".active").children("a:first").attr("data-riskFormSection");
 		adjust_line_width(riskFormSectionIndex);
 	});
-
-
-
 
 	$("#riskForm").validate({
 		ignore: ".skipValidate",
@@ -715,23 +701,30 @@ $(function() {
 			$("[name='" + el.name + "']").removeClass(errorClass);
 		}
 	});
+
+	// If using a Phone or Tablet then there are no margins above or below a
+	// section and its section headers
+	if ( isMobile() ) {
+		removeSectionMargins();
+		removeSectionHeaderMargins();
+	}
 });
 
+//
+// Handles the toggle menu for mobile applicatoins
+//
 function toggle_menu(){
 
     if($("#side_nav").width()>0){
     	$("#side_nav").css("width","0%")
     	setTimeout(function(){ $("#form-steps").css("z-index","1"); }, 500);
-
     }
-
-	else{
-		$("#form-steps").css("z-index","99")
-		$("#side_nav").css("width","70%")
-
-	}
-
+		else{
+			$("#side_nav").css("width","70%")
+			$("header").css("z-index","200")
+		}
 }
+
 function enablebutton(){
 	$("#calculate").prop('disabled', false);
 	$("#calculate").attr("src","rat-commons/images/Calculate_Risk_Button.png");
@@ -765,5 +758,62 @@ $(document).ready(function(){
 
 /* Is the device a mobile phone or tablet ?                                   */
 function isMobile() {
-	return 1;
+	return 	/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+}
+
+/* Remove all the top and bottom margins for the section */
+function removeSectionMargins()
+{
+	$("#riskForm section").each(function(index, element) {
+		$(element).css("margin-top", "0px");
+		$(element).css("margin-bottom", "0px");
+	});
+}
+
+/* Remove all the top and bottom margins for the section headers */
+function removeSectionHeaderMargins()
+{
+ 	$(".sectionTitle").each(function(index, element) {
+		$(element).css("margin-top", "0px");
+		$(element).css("margin-bottom", "0px");
+	});
+}
+
+//////////////////////////////////////////////////////////////////////////
+// These next two functions take care of the border around the input    //
+// when the user tabs or clicks the input field, a border apears        //
+// around that.  However for Section 509, it seems only the border      // 
+// needs to appear if the user is tabbing into the input field          //
+//                                                                      //
+// When there is a mouseDown event the mouse down event is executed and //
+// then the focus event is execute.                                     //
+//////////////////////////////////////////////////////////////////////////
+
+// Stores information that the mouse was pressed so that the focus event
+// can know that it was mouse down event.
+function mouseDownBorderToggle(event) {
+	var $this = $(this)
+
+	// Only set the data attribute if its not already focused, as the
+	// focus event wouldn't fire afterwards, leaving the flag set
+	if ( ! $this.is(':focus')) $this.data('mdown', true);
+}
+
+// Executes the code to remove or add the border around the input element
+// whether it was a mouse event or the user tabbed into it.
+function focusBorderToggle(event) {
+	var $this = $(this);
+	var mouseDown = $this.data('mdown');
+
+	// Remove the flas we don't have it set next time if the user
+	// uses the tab key to come back.
+	$this.removeData('mdown');
+
+	console.log("Recieved a focus");
+	console.log("Is it mouse down --> " + mouseDown);
+	if ( mouseDown )
+		$(event.target).addClass("removeOutline");
+	else
+		$(event.target).removeClass("removeOutline");
 }

@@ -1002,3 +1002,10 @@ svg {
   margin-right: auto;
   margin-left: auto;
 }
+
+
+/* Used to Remove the Outline when a TextArea, Input, Select HTML Objects gets */
+
+.removeOutline {
+  outline: none;
+}
