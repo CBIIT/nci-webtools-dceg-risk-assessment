@@ -10,16 +10,18 @@ $(window).load(function(event) {
 function resultsDisplay(response, textStatus, xhr) {
 	var results=JSON.parse(response.message)
 	var message="Based on the information provided, the patient's estimated risk for developing melanoma over the next 5 years is "+results.risk+"%. For every 1,000 "+ results.gender+"s living in the " +results.regionKey+" region with these characteristics, on average about "+ results.ratio+" will develop melanoma in the next 5 years.";
+	
+	$('#results_home').css("margin-top", $('header').outerHeight());
 
 	$('#main').addClass('hide')
 	$('#form-steps').addClass('hide')
 	$("#results").addClass('show')
-	$("#results_text").html(results.message);
+	$("#results_text").html(message);
 	$(".risk_header").text(results.risk+"%");
 
   fiveYearPatientRiskColor="#2DC799";
 
-	make_pie_chart(results.risk, "#results_graph", fiveYearPatientRiskColor, "#EFEFEF");
+	make_pie_chart(results.risk, "#Pie_chart", fiveYearPatientRiskColor, "#EFEFEF");
 
 }
 
@@ -71,3 +73,91 @@ function toggleGender(e) {
 			break;
 	}
 }
+
+var validationMessages = {
+	region: {
+		required: "The region in which the patient resides must be selected."
+	},
+	gender: {
+		required: "The patient's gender must be selected."
+	},
+	race: {
+		required: "The patient's race must be selected."
+	},
+	age: {
+		required: "The patient's age must be selected."
+	},
+	sunburn: {
+		required: "Whether the patient has ever received a sunburn must be recorded."
+	},
+	complexion: {
+		required: "The patient's complexion must be selected."
+	},
+	"big-moles": {
+		required: "The number of moles greater than 5mm in diameter on the patient's back must be selected."
+	},
+	"small-moles": {
+		required: "The number of moles less than or equal to 5mm in diameter on the patient's back must be selected."
+	},
+	"tan": {
+		required: "The level to which the patient presents a tan must be selected."
+	},
+	freckling: {
+		required: "The extent of the freckling on the patient's back must be selected."
+	},
+	damage: {
+		required: "Whether the patient has severe solar damage on their next and shoulders must be selected."
+	}
+};
+
+var validationRules = {
+	region: {
+		required: true
+	},
+	gender: {
+		required: true
+	},
+	race: {
+		required: true
+	},
+	age: {
+		required: true
+	},
+	sunburn: {
+		required: {
+			depends: function(el) {
+				return  $('[name="gender"]').val() == "Male";
+			}
+		}
+	},
+	complexion: {
+		required: true
+	},
+	"big-moles": {
+		required: {
+			depends: function(el) {
+				return $('[name="gender"]').val() == "Male";
+			}
+		}
+	},
+	"small-moles": {
+		required: true
+	},
+	"tan": {
+		required: {
+			depends: function(el) {
+				return $('[name="gender"]').val() == "Female";
+			}
+		}
+	},
+	freckling: {
+		required: true
+	},
+	"damage": {
+		required: {
+			depends: function(el) {
+				return $('[name="gender"]').val() == "Male";
+			}
+		}
+	}
+};

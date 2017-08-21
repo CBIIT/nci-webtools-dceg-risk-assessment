@@ -1,90 +1,3 @@
-var validationMessages = {
-	region: {
-		required: "The region in which the patient resides must be selected."
-	},
-	gender: {
-		required: "The patient's gender must be selected."
-	},
-	race: {
-		required: "The patient's race must be selected."
-	},
-	age: {
-		required: "The patient's age must be selected."
-	},
-	sunburn: {
-		required: "Whether the patient has ever received a sunburn must be recorded."
-	},
-	complexion: {
-		required: "The patient's complexion must be selected."
-	},
-	"big-moles": {
-		required: "The number of moles greater than 5mm in diameter on the patient's back must be selected."
-	},
-	"small-moles": {
-		required: "The number of moles less than or equal to 5mm in diameter on the patient's back must be selected."
-	},
-	"tan": {
-		required: "The level to which the patient presents a tan must be selected."
-	},
-	freckling: {
-		required: "The extent of the freckling on the patient's back must be selected."
-	},
-	damage: {
-		required: "Whether the patient has severe solar damage on their next and shoulders must be selected."
-	}
-};
-
-var validationRules = {
-	region: {
-		required: true
-	},
-	gender: {
-		required: true
-	},
-	race: {
-		required: true
-	},
-	age: {
-		required: true
-	},
-	sunburn: {
-		required: {
-			depends: function(el) {
-				return  $('[name="gender"]').val() == "Male";
-			}
-		}
-	},
-	complexion: {
-		required: true
-	},
-	"big-moles": {
-		required: {
-			depends: function(el) {
-				return $('[name="gender"]').val() == "Male";
-			}
-		}
-	},
-	"small-moles": {
-		required: true
-	},
-	"tan": {
-		required: {
-			depends: function(el) {
-				return $('[name="gender"]').val() == "Female";
-			}
-		}
-	},
-	freckling: {
-		required: true
-	},
-	"damage": {
-		required: {
-			depends: function(el) {
-				return $('[name="gender"]').val() == "Male";
-			}
-		}
-	}
-};
 
 /*
  * A function calculates and stores the position of each header and so that
@@ -114,8 +27,6 @@ function calc()
 		// Accumulates the Height of the header and section, so the form will scrolled to the correct position for the next element
 		// This calcuation will using this in currentHeight calculation for the next iteration
 		var currentTitleAndSecitonHeight = $(element).prev().outerHeight(true) + $(element).outerHeight(true);
-		console.log("Height of previous = " + $(element).prev().outerHeight(true));
-		console.log("Hiehgt of current  = " + $(element).outerHeight(true));
 
 		// Each anchor in the navigation Links will now the index, section id,
 		// section header name and y-position.
@@ -127,7 +38,6 @@ function calc()
 		$(navigationLinks).slice(startIndex, endIndex).attr('data-riskFormSectionName', $(element).attr('id'));
 		$(navigationLinks).slice(startIndex, endIndex).attr('data-riskFormSectionHeaderName', $(element).prev().attr('id'));
 		$(navigationLinks).slice(startIndex, endIndex).attr('data-position-height', height + heightOfHeaderAndSectionsAccumulator);
-		console.log($(navigationLinks).slice(startIndex, endIndex).attr('data-position-height'));
 
 
 		// Each section will know id, the id its header and the y-postion of its sectionHeaderBoxHeight
@@ -141,7 +51,6 @@ function calc()
 	});
 
 }
-
 
 function toTop(){
 	if (document.getElementById("main-nav").scrollIntoView) {
@@ -163,26 +72,16 @@ function invalidForm(e, validator) {
 function processSubmission(form){
 
 	// Determine how the parameters will be sent to the web tier
-  var userData = (form.method == 'get') ? $(form).serialize() : new FormData(form);
+  	var userData = (form.method == 'get') ? $(form).serialize() : new FormData(form);
 
 	// Send the data to the web tier.
 	$.ajax({
 		url: form.action,
 		type: form.method,
 		dataType: 'json',
-		error: function(jqXHR, textStatus, errorThrown) {
-							 alert('An error occurred... Look at the console (F12 or Ctrl+Shift+I, Console tab) for more information!');
-
-							 $('#result').html('<p>status code: '+jqXHR.status+'</p><p>errorThrown: ' + errorThrown + '</p><p>jqXHR.responseText:</p><div>'+jqXHR.responseText + '</div>');
-							 console.log('jqXHR:');
-							 console.log(jqXHR);
-							 console.log('textStatus:');
-							 console.log(textStatus);
-							 console.log('errorThrown:');
-		},
 		data: userData,
-    contentType: false,
-    processData: false,
+    		contentType: false,
+    		processData: false,
 	}).done(resultsDisplay)
 	.fail(function() {
 		console.log("error");
@@ -319,7 +218,6 @@ function formScrollSpy() {
 		   	adjust_line_width($('#form-steps li').length - 1);
 		}
 	}
-
 }
 
 /******************************************************************************/
@@ -384,31 +282,18 @@ function fixedToTop(div,use_mobile) {
 		$("#riskForm").css("margin-top",height+"px");
 	}
 
-		// if ( window_top > div_top && isMobile() == false ) {
-		// 	$("#form-steps").addClass('fixed');
-		// 	if($(window).width()>=992)
-		// 		$("#line").find("hr").css("top",form_steps_height-30)
-		// 	else
-		// 		$("#line").find("hr").css("top",form_steps_height-37)
-		// } else {
-		// 	$("#form-steps").removeClass('fixed');
-		// 	adjust_line_height_dekstop()
-		// }
-		if ( window_top > div_top || isMobile()) {
-		 	$("#form-steps").addClass('fixed');
-		 	if($(window).width()>=992)
-		 		$("#line").find("hr").css("top",form_steps_height-30)
-		 	else
-		 		$("#line").find("hr").css("top",form_steps_height-37)
-		 } else {
-		 	$("#form-steps").removeClass('fixed');
-		 	adjust_line_height_dekstop()
-		 }
-
-
+	if ( window_top > div_top || isMobile()) {
+		 $("#form-steps").addClass('fixed');
+		 if($(window).width()>=992)
+		 	$("#line").find("hr").css("top",form_steps_height-30)
+		 else
+		 	$("#line").find("hr").css("top",form_steps_height-37)
+		 adjust_line_height_mobile();
+	} else {
+		$("#form-steps").removeClass('fixed');
+		adjust_line_height_dekstop()
+	}
 }
-
-
 
 function toggleFormDisplay(e) {
 	e.preventDefault();
@@ -447,17 +332,20 @@ $(window).load(function(e) {
 		$(window).on("scroll", handleScrollEvent);
 	}
 	else {
-		var top_div = ( $(window).width() > 753 ) ? "main-nav" : "toolTitle";
-		fixedToTop(top_div,true);
-		$(window).on('touchmove', function(event) {
-			if($(window).width()>=753)
-				var top_div="main-nav"
-			else
-				var top_div="toolTitle"
-
-			fixedToTop(top_div,true);
-			formScrollSpy();
-		});
+		$(window).on("scroll", handleScrollEvent);
+		$(window).on("touchmove", handleScrollEvent);
+		
+		//var top_div = ( $(window).width() > 753 ) ? "main-nav" : "toolTitle";
+		//fixedToTop(top_div,true);
+		//$(window).on('touchmove', function(event) {
+		//	if($(window).width()>=753)
+		//		var top_div="main-nav"
+		//	else
+		//		var top_div="toolTitle"
+		//
+		//	fixedToTop(top_div,true);
+		//	formScrollSpy();
+		//});
 	}
 
 	if( isMobile() ) $(".toggleTool").on("click keypress", toggleFormDisplay);
@@ -531,34 +419,42 @@ $(window).load(function(e) {
 	$("#side_nav").css("margin-top",logo_height+"px");
 	if( isMobile() ) {
  		console.log("mobile");
- 		 $("header").addClass('fixed');
- 		 $("#form-steps").addClass('fixed');
- 		 if($("#side_nav").width()>0)
- 		 	$("#form-steps").css("z-index","999")
- 		 else{
- 		 	$("#form-steps").css("z-index","1")
- 		 }
+ 		$("header").addClass('fixed');
 
- 		 $("#form-steps").css("top", + header_height + "px");
- 		 $("header").css("background","white");
- 		 $("#main").removeClass("container-fluid");
+		if ( $("#form-steps").length > 0 ) {
+			$("#form-steps").addClass('fixed');
+			if($("#side_nav").width()>0)
+				$("#form-steps").css("z-index","999")
+			else{
+	 		 	$("#form-steps").css("z-index","1")
+			}
+			$("#form-steps").css("top", + header_height + "px");
+			adjust_line_width()
+			adjust_line_height_mobile();
+		}
 
- 		$("#line").find("hr").css("top",form_steps_height/2)
+ 		$("header").css("background","white");
+ 		$("#main").removeClass("container-fluid");
+		$("#main_home").css("margin-top", header_height);
+	}
+  	else {
+	 	adjust_line_height_dekstop()
+		adjust_line_width()
 	}
 
- 	else{
-	 	adjust_line_height_dekstop()
- 	}
-
-	adjust_line_width()
 
 });
 
+/******************************************************************************/
+/* Handles the resizing of window.  For the navigation component a line is    */
+/* create manual to connect the navigation buttons. Since the line is         */
+/* caclculated manually                                                       */
+/******************************************************************************/ 
 $(window).resize(function() {
 	if(window.location.pathname=="/melanomarisktool/calculator.html"){
 	 	adjust_line_width()
 	 	if( isMobile() )
-	 		$("#line").find("hr").css("top",form_steps_height/2)
+			adjust_line_height_mobile();
 	 	else{
 		 	adjust_line_height_dekstop();
 
@@ -567,39 +463,52 @@ $(window).resize(function() {
 
 });
 
+/******************************************************************************/
+/* For the navigation component set the length of the line that connects the  */
+/* navigation circles so that all are connected                               */
+/******************************************************************************/
 function adjust_line_width(ind){
- 	var first_dot=$("#form-steps").find("a")[1]
- 	var first_dot_left=$(first_dot).position().left
- 	var first_dot_width=$(first_dot).outerWidth(true)
- 	var last_dot=$("#form-steps").find("a")[$("#form-steps").find("a").length-1]
- 	var last_dot_left=$(last_dot).position().left
- 	var last_dot_width=$(last_dot).outerWidth(true)
- 	$("#line").find("hr").css("left",first_dot_left+first_dot_width/2+10)
+	var firstBubble = $("#form-steps > ol > li > a:nth-child(2)").first();
+	var lastBubble  = $("#form-steps > ol > li > a:last-child").last();
 
-  if($(window).width()<992 ||navigator.userAgent.search("Firefox")>-1)
-    	$("#line").find("hr").css("width",last_dot_left-first_dot_left-last_dot_width/2+10)
-    else
-    	$("#line").find("hr").css("width",last_dot_left-first_dot_left-last_dot_width/2+20)
-	if(ind==1)
-		$("#line").find("hr").css("width",last_dot_left-first_dot_left)
-
-    else if(ind==2)
-    	$("#line").find("hr").css("width",last_dot_left-first_dot_left+last_dot_width/4-20)
-
-
-        var firstBubble = $("#form-steps > ol > li > a:nth-child(2)");
- 	var lastBubble  = $("#form-steps > ol > li > a:last-child");
-    	$("#line").find("hr").css("left", $(firstBubble).offset().left + $(firstBubble).width());
-	$("#line").find("width").css("width", $(lastBubble).offet().left);
+	var startingPoint = $(firstBubble).offset().left + $(firstBubble).width();
+	var endingPoint = $(lastBubble).offset().left - startingPoint;
+	$("#line").find("hr").css("left",  startingPoint);
+	$("#line").find("hr").css("width", endingPoint );
 
 }
 
+/******************************************************************************/
+/* For the navigation component set the height of the line that connects the */
+/* navigation circles so that are connected along the line                    */
+/******************************************************************************/
 function adjust_line_height_dekstop(){
-	var firstBubble = $("#form-steps > ol > li > a:nth-child(2)");
+	var firstBubble = $("#form-steps > ol > li > a:nth-child(2)").first();
 	var startPoint = $(firstBubble).offset().top + $(firstBubble).height()/2;
 	$("#line").find("hr").css("top", startPoint);
 
 }
+
+/******************************************************************************/
+/* For the navigation component set the height of the line that connects the  */
+/* navigation circles sot that they are connected along the line for mobile   */
+/*                                                                            */
+/* Note: I first tried using adjust_line_height_dekstop for positioning the   */
+/* the line veritically, but it did not work, so I had to tweak the code that */
+/* I used above                                                               */
+/*                                                                            */
+/* TODO : Is there a way to merge the adjust_line_height_dekstop with the     */
+/* adjust_line_height_mobile() ?                                              */
+/******************************************************************************/
+/******************************************************************************/
+function adjust_line_height_mobile() {
+	var firstBubbleTopPosition = $("#form-steps > ol > li > a:nth-child(2)").first().position().top;
+	var height = $("#form-steps > ol > li > a:nth-child(2)").first().height();
+	var startPoint = firstBubbleTopPosition + ( height /2 );
+
+	$("#line").find("hr").css("top", startPoint);
+}
+
 function currentPage() {
 	 var path = window.location.pathname;
 	 var filename = path.substring(path.lastIndexOf('/')+1);
@@ -611,6 +520,11 @@ function currentPage() {
 	 }
 
 }
+
+/**********************************************************************/
+/* Keeping the smoothScroll and isFirstSection until I tottally sure  */
+/* that no more of them are needed.                                   */
+/**********************************************************************/
 function smoothScroll(e) {
 	if (e.type == "keypress") {
 		if ((e.keyCode == 13) || (e.keyCode == 32))
@@ -644,6 +558,10 @@ function isFirstSection(target) {
 	return index == 0;
 }
 
+/**************************************************************************/
+/* End Smooth Scroll Section                                              */
+/**************************************************************************/
+
 // Get the bottom pixel location of the #form-steps.
 //
 // Algorithm
@@ -654,7 +572,7 @@ function calculateBottomOfFormSteps() {
 
 	var height = 0;
 	if ( $("#form-steps").length !== 0 ) {
-			height = $("#form-steps").position().top + $("#form-steps").outerHeight();
+		height = $("#form-steps").position().top + $("#form-steps").outerHeight();
 	}
 
 	return height;
@@ -673,7 +591,7 @@ $(function() {
 
 	// Rule : When using the mouse the input element with focus should not have the outline
 	// Rule : When using the tab the input element with focus should have the outline
-	$("#riskForm").children().on('mousedown', function(event)  { mouseDownBorderToggle(event); }); 
+	$("#riskForm").children().on('mousedown', function(event)  { mouseDownBorderToggle(event); });
 	$("#riskForm").children().on('focusin',   function(event)  { focusBorderToggle(event);  });
 
 
@@ -754,6 +672,8 @@ $(document).ready(function(){
 		if(valid==true)
 			enablebutton();
 	});
+
+	//toTop();
 });
 
 /* Is the device a mobile phone or tablet ?                                   */
@@ -783,7 +703,7 @@ function removeSectionHeaderMargins()
 //////////////////////////////////////////////////////////////////////////
 // These next two functions take care of the border around the input    //
 // when the user tabs or clicks the input field, a border apears        //
-// around that.  However for Section 509, it seems only the border      // 
+// around that.  However for Section 509, it seems only the border      //
 // needs to appear if the user is tabbing into the input field          //
 //                                                                      //
 // When there is a mouseDown event the mouse down event is executed and //
@@ -810,8 +730,6 @@ function focusBorderToggle(event) {
 	// uses the tab key to come back.
 	$this.removeData('mdown');
 
-	console.log("Recieved a focus");
-	console.log("Is it mouse down --> " + mouseDown);
 	if ( mouseDown )
 		$(event.target).addClass("removeOutline");
 	else

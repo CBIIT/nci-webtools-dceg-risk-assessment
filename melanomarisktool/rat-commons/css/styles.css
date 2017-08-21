@@ -291,6 +291,7 @@ div[id^='results_box']{
   color: #fff;
   margin-bottom: 2%;
   margin-top: 2%;
+  text-align: center;
 }
 .results_header {
   text-align: center;
@@ -673,6 +674,14 @@ input.error + label.radio span {
   font-size: 14px;
 }
 
+@media (min-width: 193) {
+
+  #form-steps > ol > li {
+    margin-left : 2px;
+    margin-right: 2px;
+  }
+}
+
 @media (min-width: 993px) {
   .container-fluid {
     padding-left: 5em;
@@ -1008,4 +1017,9 @@ svg {
 
 .removeOutline {
   outline: none;
+}
+
+/* Styles for the Pie Chart Div that display the Pie Chart */
+#Pie_chart {
+  margin-top: 1em;
 }
