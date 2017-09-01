@@ -1,11 +1,14 @@
 import math
 import os
 import sys
+import logging
+import json
 
 from flask import Flask, Response, request, jsonify, send_from_directory
-from BcratRunFunction import RiskCalculation
+from BcratRunFunction import RiskCalculation, AbsoluteRisk, AverageRisk
 
-app = Flask(__name__, static_folder="", static_url_path="")
+app = Flask(__name__, static_folder="", static_url_path="/")
+logging.basicConfig(level=logging.DEBUG)
 
 class BreastRiskAssessmentTool:
   @staticmethod
@@ -30,91 +33,202 @@ class BreastRiskAssessmentTool:
     response.status_code = 200
     return response
 
-  @app.route('/bcrisktool/rest/calculate', methods=['POST'])
-  @app.route('/bcrisktool/rest/calculate/', methods=['POST'])
-  def bcratRisk():
+  @staticmethod
+  def isInt(value):
     try:
-      parameters = dict(request.form)
-      for field in parameters:
-        parameters[field] = parameters[field][0]
-      errorObject = {'missing':[],'nonnumeric':[],'message':[]}
-      requiredParameters = ['age','age_period','childbirth_age','biopsy']
-      if 'race' not in parameters or parameters['race'] == "":
-        errorObject['missing'] += ['race']
-      elif parameters['race'] == "Asian":
-        if 'sub_race' not in parameters or parameters['sub_race'] == "":
-          errorObject['missing'] += ['sub_race']
-        else:
-          race = parameters['sub_race']
-      else:
+      int(value)
+      return True
+    except:
+      return False
+
+  @staticmethod
+  def isFloat(value):
+    try:
+      float(value)
+      return True
+    except:
+      return False
+
+  @staticmethod
+  def round(risk):
+      return round(risk*100)
+
+  @staticmethod
+  def isExistAndNumber(key,parameters,errors):
+    result = False
+    if ( key not in parameters):
+      errors['missing'] += [key]
+    elif ( BreastRiskAssessmentTool.isInt(parameters[key]) == False ):
+      errors['numeric'] += [key]
+    else:
+      result = True
+    return result
+
+  @staticmethod
+  def isExistAndFloat(key,parameters,errors):
+    result = False
+    if ( key not in parameters):
+      errors['missing'] += [key]
+    elif ( BreastRiskAssessmentTool.isFloat(parameters[key]) == False ):
+      errors['numeric'] += [key]
+    else:
+      result = True
+    return result
+
+  @staticmethod
+  def validateDemographics(parameters,errors):
+
+    # Validation of age.  It required, must be numeric an between 35 and 85
+    if (BreastRiskAssessmentTool.isExistAndNumber("age", parameters,errors) == True):
+      age = int(parameters['age'])
+      logging.debug("AGe = " + str(age))
+      if (age < 35 or age > 85):
+         errors['message'] += ["This tool cannot be used to assess risk for those under the age of 35 or over the age of 85."]
+
+    # Validation of race  It is reuqired and if Asian then it requires a subrace insted of the race
+    if ( "race" not in parameters):
+        errors['missing'] += ['race']
+    else:
         race = parameters['race']
-      for required in requiredParameters:
-        if required not in parameters or parameters[required] == "":
-          errorObject['missing'].append(required)
+
+    if ( race.startswith('Asian')):
+        if ( 'sub_race' not in parameters):
+            errors['missing']  = ['sub_race']
+            errors['Messages'] += ["If Asian American is the race then a sub_race must be defined"]
         else:
-          try:
-            float(parameters[required])
-          except:
-            errorObject['nonnumeric'].append(required)
-      if 'age' not in errorObject['missing'] and 'age' not in errorObject['nonnumeric']:
-        age = int(parameters['age'])
-        if (age < 35 or age > 85):
-          errorObject['message'] += ["This tool cannot be used to assess risk for those under the age of 35 or over the age of 85."]
-      menarcheAge = 0
-      if 'age_period' not in errorObject['missing'] and 'age_period' not in errorObject['nonnumeric']:
-        menarcheAge = int(parameters['age_period'])
-        if (menarcheAge < 7 or menarcheAge > 20):
-          errorObject['message'] += ["Women who started menstrating under 7 or over 20 are not within the scope of this assessment."]
-        elif menarcheAge < 12:
-          menarcheAge = 2
-        elif menarcheAge < 14:
-          menarcheAge = 1
+            race = parameters['sub_race']
+
+    return age, race
+
+  @staticmethod
+  def validateHistory(parameters, errors):
+
+    # Bioppsy is required and must be a number
+    if (BreastRiskAssessmentTool.isExistAndNumber("biopsy", parameters,errors) == True):
+      numberOfBiopsy = int(parameters['biopsy'])
+
+    if ( numberOfBiopsy == 0 or numberOfBiopsy == 99 ):
+      oneBiopsyWithAtypcialHyperplasia = .93
+    else:
+      # breastBiopsies must exist and be a number.  Note the number of Biopsy has the following values 0 (none), 1 (1), 2 ( more than 1), 99 (unknown)
+      # I believe this is combine with value above to generate one value.
+      if ( BreastRiskAssessmentTool.isExistAndNumber("howManyBreastBiopsies",parameters,errors) == True):
+        numberOfBiopsy = int(parameters['howManyBreastBiopsies'])
+
+      if ( BreastRiskAssessmentTool.isExistAndFloat("hadAH", parameters, errors) == True ):
+        oneBiopsyWithAtypcialHyperplasia = float(parameters['hadAH'])
+
+    # Age of first mentrual period is required and numeric
+    if ( BreastRiskAssessmentTool.isExistAndNumber("age_first_period", parameters,errors) == True):
+        ageFirstPeriod = int(parameters['age_first_period'])
+
+    # Age of first live birth
+    if ( BreastRiskAssessmentTool.isExistAndNumber("childbirth_age", parameters, errors)  == True):
+        womansAgeOfFirstLiveBirth = int(parameters['childbirth_age'])
+
+    # Number of reliate with breast cancer is required and must be a #
+    if ( BreastRiskAssessmentTool.isExistAndNumber("relatives", parameters, errors) == True):
+        relativeCount = int(parameters["relatives"])
+
+    return numberOfBiopsy, oneBiopsyWithAtypcialHyperplasia, ageFirstPeriod, womansAgeOfFirstLiveBirth, relativeCount
+
+  @staticmethod
+  def bcRatRisk(age,race,numberOfBiopsy, ageFirstPeriod, childBirthAge, oneBiopsyWithAtypcialHyperplasia, relativeCount, errors):
+
+    try:
+
+        if len(errors['missing']) > 0 or len(errors['nonnumeric']) > 0 or len(errors['message']) > 0:
+            return BreastRiskAssessmentTool.buildFailure(json.dumps(errors))
         else:
-          menarcheAge = 0
-      firstLiveBirthAge = 0
-      if 'childbirth_age' not in errorObject['missing'] and 'childbirth_age' not in errorObject['nonnumeric']:
-        firstLiveBirthAge = int(parameters['childbirth_age'])
-      numberOfBiopsies = 0
-      rhyp = 1.0
-      if 'biopsy' not in errorObject['missing'] and 'biopsy' not in errorObject['nonnumeric']:
-        numberOfBiopsies = int(parameters['biopsy'])
-        if numberOfBiopsies > 0:
-          if 'biopsy_result' not in parameters:
-            errorObject['missing'] += ['biopsy_result']
-          elif not parameters['biopsy_result'].isnumeric():
-            errorObject['nonnumeric'] += ['biopsy_result']
-          else:
-            numberOfBiopsies = int(parameters['biopsy_result'])
-          if 'biopsy_ah' not in parameters:
-            errorObject['missing'] += ['biopsy_ah']
-          else:
-            try:
-              rhyp = float(parameters['biopsy_ah'])
-            except:
-              errorObject['nonnumeric'] += ['biopsy_ah']
-      if len(errorObject['missing']) > 0 or len(errorObject['nonnumeric']) > 0 or len(errorObject['message']) > 0:
-        return BreastRiskAssessmentTool.buildFailure(errorObject);
-      firstDegRelatives = int(parameters['relatives'])
-      if parameters['race'] == "Asian" and firstDegRelatives > 0:
-        firstDegRelatives = 1
-      risk = RiskCalculation("Absolute",race, age, min(age+5,90), menarcheAge, numberOfBiopsies, firstLiveBirthAge, firstDegRelatives, rhyp)
-      risk = round(risk*100,1)
-      return BreastRiskAssessmentTool.buildSuccess(str(risk))
+            fiveYearRisk            = BreastRiskAssessmentTool.round(AbsoluteRisk(   race, age,    min(age+5,90),     ageFirstPeriod, numberOfBiopsy, childBirthAge, relativeCount, oneBiopsyWithAtypcialHyperplasia ))
+            logging.debug("Calculated 5-year risk for the current patient with value " + str(fiveYearRisk))
+            averageFiveYearRisk     = BreastRiskAssessmentTool.round(AverageRisk(    race, age,    min(age+5,90),     ageFirstPeriod, numberOfBiopsy, childBirthAge, relativeCount, oneBiopsyWithAtypcialHyperplasia))
+            logging.debug("Calculated average 5-year Risk for everyone with value " + str(averageFiveYearRisk))
+            lifetimeRisk            = BreastRiskAssessmentTool.round(AbsoluteRisk(   race, 35,     90,                 ageFirstPeriod, numberOfBiopsy, childBirthAge, relativeCount, oneBiopsyWithAtypcialHyperplasia))
+            logging.debug("Calculated the lifetime risk for the current patient with value " + str(lifetimeRisk))
+            averageLifeTimeRisk     = BreastRiskAssessmentTool.round(AverageRisk(    race, 35,     90,                ageFirstPeriod, numberOfBiopsy, childBirthAge, relativeCount, oneBiopsyWithAtypcialHyperplasia))
+            logging.debug("Calculated the lifetime risk for everyone with value " + str(averageLifeTimeRisk))
+
+            results={}
+            results['risk']=fiveYearRisk
+            results['averageFiveRisk'] = averageFiveYearRisk
+            results['message'] = "Based on the information provide the woman's risk for developing invasive breast cancer over the next 5 years is {0} compared to a risk of {1} for a women of the same age and race/ethicity from the general U.S. Population".format(fiveYearRisk,averageFiveYearRisk)
+            results['lifetime_patient_risk']=lifetimeRisk
+            results['lifetime_average_risk']=averageLifeTimeRisk
+            results['lifetime_message'] = "Based on the information provided, the woman's eistimated risk for developing invasive breast cancer over her lifetime ( to age 90 is ) {0} compared to a risk of {1} for a woman of the same age and race/ethnicity from the general U.S. population".format(lifetimeRisk,averageLifeTimeRisk)
+
+            json_data=json.dumps(results)
     except Exception as e:
       exc_type, exc_obj, exc_tb = sys.exc_info()
       fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-      print("EXCEPTION------------------------------", exc_type, fname, exc_tb.tb_lineno)
+      logging.debug("EXCEPTION------------------------------" + str(exc_type) + " "  + str(fname) + " " + str(exc_tb.tb_lineno))
       return BreastRiskAssessmentTool.buildFailure(str(e))
 
-  def __init__(self,port,debug):
-    app.run(host='0.0.0.0', port=port, debug=debug)
+    return BreastRiskAssessmentTool.buildSuccess(json_data)
 
-if __name__ == '__main__':
-  import argparse
-  parser = argparse.ArgumentParser()
-  parser.add_argument("-p", dest="port_number", default="8120", help="Sets the Port")
-  parser.add_argument("--debug", action="store_true")
 
-  args = parser.parse_args()
-  port_num = int(args.port_number);
-  BreastRiskAssessmentTool(port_num, args.debug)
+  # @app.route('/calculate', methods=['GET'] )
+  # @app.route('/calculate/', methods=['GET'])
+  # def calculate():
+  #   try:
+  #     parameters = request.args.to_dict()
+  #     logging.debug("***** Performing Calculation using the Calculate URL");
+  #     logging.debug("Parameters from Get Request = " +str(parameters))
+  #     errors = {'missing':[],'nonnumeric':[],'message':[]}
+  #
+  #     age, race = BreastRiskAssessmentTool.validateDemographics(parameters, errors)
+  #     logging.debug( "Demographics: age = " + str(age) + " race = " + race)
+  #
+  #     numberOfBiopsy, oneBiopsyWithAtypcialHyperplasia, ageFirstPeriod, womansAgeOfFirstLiveBirth, relativeCount = BreastRiskAssessmentTool.validateHistory(parameters, errors)
+  #     logging.debug( "History: biopsy = " + str(numberOfBiopsy)  + " oneBiopsyWithAtypcialHyperplasia = " + str(oneBiopsyWithAtypcialHyperplasia))
+  #     logging.debug( "History: Age First Period = " + str(ageFirstPeriod) + " Age of First Birth = " + str(womansAgeOfFirstLiveBirth) + " relativeCount = " + str(relativeCount))
+  #
+  #     response =  BreastRiskAssessmentTool.bcRatRisk(age,race, numberOfBiopsy, ageFirstPeriod, womansAgeOfFirstLiveBirth, oneBiopsyWithAtypcialHyperplasia,  relativeCount, errors)
+  #     logging.debug("The response is " + str(response) )
+  #
+  #     return response;
+  #   except Exception as e:
+  #     exc_type, exc_obj, exc_tb = sys.exc_info()
+  #     fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+  #     logging.debug("EXCEPTION------------------------------" + str(exc_type) + " "  + str(fname) + " " + str(exc_tb.tb_lineno))
+  #     return BreastRiskAssessmentTool.buildFailure(str(e))
+  #   except KeyError as e:
+  #     exc_type, exc_obj, exc_tb = sys.exc_info()
+  #     fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+  #     logging.debug("EXCEPTION------------------------------" + str(exc_type) + " "  + str(fname) + " " + str(exc_tb.tb_lineno))
+  #     return BreastRiskAssessmentTool.buildFailure(str(e))
+
+  @app.route('/calculate', methods=['POST'], strict_slashes=False )
+  #@app.route('/calculate/', methods=['POST'])
+  def calculate():
+    try:
+      #parameters = request.args.to_dict()
+      parameters = request.form.to_dict()
+      #for field in parameters:
+    #      parameters[field] = parameters[field][0]
+      logging.debug("***** Performing Calculation using the Calculate URL");
+      logging.debug("Parameters from Get Request = " +str(parameters))
+      errors = {'missing':[],'nonnumeric':[],'message':[]}
+
+      age, race = BreastRiskAssessmentTool.validateDemographics(parameters, errors)
+      logging.debug( "Demographics: age = " + str(age) + " race = " + race)
+
+      numberOfBiopsy, oneBiopsyWithAtypcialHyperplasia, ageFirstPeriod, womansAgeOfFirstLiveBirth, relativeCount = BreastRiskAssessmentTool.validateHistory(parameters, errors)
+      logging.debug( "History: biopsy = " + str(numberOfBiopsy)  + " oneBiopsyWithAtypcialHyperplasia = " + str(oneBiopsyWithAtypcialHyperplasia))
+      logging.debug( "History: Age First Period = " + str(ageFirstPeriod) + " Age of First Birth = " + str(womansAgeOfFirstLiveBirth) + " relativeCount = " + str(relativeCount))
+
+      response =  BreastRiskAssessmentTool.bcRatRisk(age,race, numberOfBiopsy, ageFirstPeriod, womansAgeOfFirstLiveBirth, oneBiopsyWithAtypcialHyperplasia,  relativeCount, errors)
+      logging.debug("The response is " + str(response) )
+
+      return response;
+    except Exception as e:
+      exc_type, exc_obj, exc_tb = sys.exc_info()
+      fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+      logging.debug("EXCEPTION------------------------------" + str(exc_type) + " "  + str(fname) + " " + str(exc_tb.tb_lineno))
+      logging.debug(e)
+      return BreastRiskAssessmentTool.buildFailure(str(e))
+    except KeyError as e:
+      exc_type, exc_obj, exc_tb = sys.exc_info()
+      fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+      logging.debug("EXCEPTION------------------------------" + str(exc_type) + " "  + str(fname) + " " + str(exc_tb.tb_lineno))
+      return BreastRiskAssessmentTool.buildFailure(str(e))

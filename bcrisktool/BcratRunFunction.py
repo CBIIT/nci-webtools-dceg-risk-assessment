@@ -1,44 +1,61 @@
 from BcratConstants import BcratConstants
 import math
+import sys
+import os
+import logging
 
 def AbsoluteRisk(race, currentAge, projectionAge, menarcheAge, numberOfBiopsy, firstLiveBirthAge, firstDegRelatives, rhyp):
-  if menarcheAge > 13:
-    menarcheAge = 0
-  elif menarcheAge > 11:
-    menarcheAge = 1
-  else:
-    menarcheAge = 2
-  if numberOfBiopsy < 1 or numberOfBiopsy == 99:
-    numberOfBiopsy = 0
-  elif numberOfBiopsy < 2:
-    numberOfBiopsy = 1
-  else:
-    numberOfBiopsy = 2
-  if firstLiveBirthAge == 98:
-    firstLiveBirthAge == 98
-  elif firstLiveBirthAge == 99 or firstLiveBirthAge < 20:
-    firstLiveBirthAge = 0
-  elif firstLiveBirthAge < 25:
-    firstLiveBirthAge = 1
-  elif firstLiveBirthAge < 30:
-    firstLiveBirthAge = 2
-  else:
-    firstLiveBirthAge = 3
-  if firstDegRelatives < 1 or firstDegRelatives == 99:
-    firstDegRelatives = 0
-  elif firstDegRelatives < 2:
-    firstDegRelatives = 1
-  else:
-    firstDegRelatives = 2
-  return RiskCalculation("Absolute", race, currentAge, projectionAge, menarcheAge, numberOfBiopsy, firstLiveBirthAge, firstDegRelatives, rhyp)
+      logging.debug("Entering AbsoluteRisk Calculation")
+      if menarcheAge > 13:
+        menarcheAge = 0
+      elif menarcheAge > 11:
+        menarcheAge = 1
+      else:
+        menarcheAge = 2
+      if numberOfBiopsy < 1 or numberOfBiopsy == 99:
+        numberOfBiopsy = 0
+      elif numberOfBiopsy < 2:
+        numberOfBiopsy = 1
+      else:
+        numberOfBiopsy = 2
+      if firstLiveBirthAge == 98:
+        firstLiveBirthAge == 98
+      elif firstLiveBirthAge == 99 or firstLiveBirthAge < 20:
+        firstLiveBirthAge = 0
+      elif firstLiveBirthAge < 25:
+        firstLiveBirthAge = 1
+      elif firstLiveBirthAge < 30:
+        firstLiveBirthAge = 2
+      else:
+        firstLiveBirthAge = 3
+      if firstDegRelatives < 1 or firstDegRelatives == 99:
+        firstDegRelatives = 0
+      elif firstDegRelatives < 2:
+        firstDegRelatives = 1
+      else:
+        firstDegRelatives = 2
+
+      return RiskCalculation("Absolute", race, currentAge, projectionAge, menarcheAge, numberOfBiopsy, firstLiveBirthAge, firstDegRelatives, rhyp)
 
 def AverageRisk(race, currentAge, projectionAge, menarcheAge, numberOfBiopsy, firstLiveBirthAge, firstDegRelatives, rhyp):
+  logging.debug("Entering AverageRisk")
   return RiskCalculation("Average", race, currentAge, projectionAge, 0, 0, 0, 0, 1)
 
 # rhyp    yes = 1.82
 #          no = 0.93
 #       other = 1.00
 def RiskCalculation(riskType, race, currentAge, projectionAge, menarcheAge, numberOfBiopsy, firstLiveBirthAge, firstDegRelatives, rhyp):
+  logging.debug("Entering Risk Calculation")
+  logging.debug("Values coming into Risk Calculation")
+  logging.debug("\triskType                 = " + str(riskType))
+  logging.debug("\trace                     = " + str(race))
+  logging.debug("\tcurrentAge               = " + str(currentAge))
+  logging.debug("\tprojectionAge            = " + str(projectionAge))
+  logging.debug("\tmearcheArge              = " + str(menarcheAge))
+  logging.debug("\tnumberOfBipsy            = " + str(numberOfBiopsy))
+  logging.debug("\tfirstLiveBirthAge        = " + str(firstLiveBirthAge))
+  logging.debug("\tfirstDegRelatives        = " + str(firstDegRelatives))
+  logging.debug("\trhyp                     = " + str(rhyp))
   if projectionAge <= currentAge:
     raise RuntimeError("projectionAge must be greater than the current age")
   if (race in ['Foreign Hispanic','US Hispanic']):
@@ -142,4 +159,5 @@ def RiskCalculation(riskType, race, currentAge, projectionAge, menarcheAge, numb
           for j in range(currentAgeInterval+1, k):
             riskMod *= math.exp(-(raceIncidence[j] * raceAttribute[j] * covariateSummary + raceHazards[j]) * 5)
           absRisk += riskMod
+  logging.debug("Leaving RiskCalculation with a value of " + str(absRisk))
   return absRisk
