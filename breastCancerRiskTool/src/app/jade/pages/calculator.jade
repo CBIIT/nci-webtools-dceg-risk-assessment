@@ -1,0 +1,178 @@
+section#risk-calculator(tab='risk-calculator')
+    .section-content
+        span.hidden-anchor
+            a(href='#survey') Skip to survey
+        p
+            | The Breast Cancer Risk Assessment Tool is an interactive tool designed by scientists
+            |  at the National Cancer Institute (NCI) and the&nbsp;
+            a(href="http://www.nsabp.pitt.edu/",target="_blank")
+                | National Surgical Adjuvant Breast and Bowel Project (NSABP)
+            |  to estimate a woman's risk of developing&nbsp;
+            a.termToDefine(data-term="ibc") invasive breast cancer
+            |  . See&nbsp;
+            a.goToTab(name="about", href="#about") About the Tool
+            |  for more information.
+        p
+            | The Breast Cancer Risk Assessment Tool may be updated periodically as new data or
+            |  research becomes available.
+        .section-title
+            span Questions
+        #result
+        #error(style="display:none;")
+        form#survey(action="/bcrisktool/rest/calculate/", method="POST", autocomplete="off")
+            ol
+                li
+                    .question-illustrations
+                        img.stock-images(src="images/woman-w-doctor.jpg", alt="woman with doctor")
+                    .question
+                        label.question-text(for="history")
+                            | Does the woman have a medical history of any breast
+                            |  cancer or of&nbsp;
+                            a.termToDefine(data-term="dcis") ductal carcinoma in situ (DCIS)
+                            | &nbsp;or&nbsp;
+                            a.termToDefine(data-term="lcis") lobular carcinoma in situ (LCIS)
+                            |  or has she received previous radiation therapy
+                            |  to the chest for treatment of Hodgkin lymphoma?
+                        .input
+                            label
+                                input(type="radio", name="history", value='0')
+                                | Yes
+                            label
+                                input(type="radio", name="history", value='1')
+                                | No
+                li
+                    .question-illustrations
+                        img.stock-images(src="images/microscope.jpg", alt="researcher with microscope")
+                    .question
+                        label.question-text(for="mutation")
+                            | Does the woman have a mutation in either the&nbsp;
+                            a.termToDefine(data-term="brca1") BRCA1
+                            | &nbsp;or&nbsp;
+                            a.termToDefine(data-term="brca2") BRCA2
+                            | &nbsp;gene, or a diagnosis of a genetic syndrome that may be associated with
+                            | &nbsp;elevated risk of breast cancer?
+                        .input
+                            label
+                                input(type="radio", name="mutation", value='0')
+                                | Yes
+                            label
+                                input(type="radio", name="mutation", value='1')
+                                | No
+                            label
+                                input(type="radio", name="mutation", value='2')
+                                | Unknown
+                li
+                    .question-illustrations
+                        img.stock-images(src="images/two-women.jpg", alt="women together")
+                    .question
+                        label.question-text(for="age")
+                            | What is the woman's age?
+                            br
+                            | NOTE: This tool only calculates risk for women 35 years of age or older.
+                        .input
+                          input#age(name='age', type="number", min="35", max="85", placeholder="Enter patient's age")
+                    .question
+                        label.question-text(for="race")
+                          | What is the patient's race?
+                        .input
+                          select#race(name='race')
+                            option(value='') Select
+                            option(value='White') White
+                            option(value='Black') African American
+                            option(value='Hispanic') Hispanic
+                            option(value='Asian') Asian American
+                            option(value='White') American Indian or Alaskan Native
+                            option(value='White') Unknown
+                    .question#subquestion-race.subquestion
+                        label.question-text(for="sub_race") What is the sub race/ethnicity?
+                        .input
+                            select#sub_race(name='sub_race')
+                                option(value='') Select
+                                option(value='Chinese') Chinese
+                                option(value='Japanese') Japanese
+                                option(value='Filipino') Filipino
+                                option(value='Hawaiian') Hawaiian
+                                option(value='Islander') Other Pacific Islander
+                                option(value='Asian') Other Asian American
+                li
+                    .question-illustrations
+                        img.stock-images(src="images/teen-patient.jpg", alt="girl with mother and doctor")
+                    .question
+                        label.question-text(for="age_period")
+                            | What was the woman's age at the time of her first&nbsp;
+                            a.termToDefine(data-term="menst") menstrual period
+                            | ?
+                        .input
+                          input#age_period(name='age_period', type="number", min="7", max="20")
+                    .question-illustrations
+                li
+                    .question
+                        .question-illustrations
+                            img.stock-images(src="images/family-baby.jpg", alt="women together")
+                        label.question-text(for="childbirth_age")
+                            | What was the woman's age at the time of her first live birth of a child?
+                        .input
+                            select#childbirth_age(name='childbirth_age')
+                                option(value='') Select
+                                option(value='0') Unknown
+                                option(value='2') No Births
+                                option(value='0') 19 and younger
+                                option(value='1') 20 to 24
+                                option(value='2') 25 to 29
+                                option(value='3') 30 or older
+                li
+                    .question-illustrations
+                        img.stock-images(src="images/women-kitchen.jpg", alt="women together")
+                    .question
+                        label.question-text(for="relatives")
+                            | How many of the woman's first-degree relatives (mother, sisters,
+                            |  daughters) have had breast cancer?
+                        .input
+                          select#relatives(name='relatives')
+                            option(value='') Select
+                            option(value='0') Unknown
+                            option(value='0') None
+                            option(value='1') 1
+                            option(value='2') More than 1
+                li
+                    .question
+                        label.question-text(for="biopsy") Has the woman ever had a breast&nbsp;
+                            a.termToDefine(data-term="biopsy") biopsy
+                            | ?
+                        .input
+                            label
+                                input(type="radio", name="biopsy", value='1')
+                                | Yes
+                            label
+                                input(type="radio", name="biopsy", value='0')
+                                | No
+                            label
+                                input(type="radio", name="biopsy", value='0')
+                                | Don't Know
+                    #subquestion-biopsy.subquestion.question
+                        label.question-text(for="biopsy_result") How many breast
+                            | biopsies (positive or negative) has the woman had?
+                        .input
+                            label
+                                input(type="radio", name="biopsy_result", value='1')
+                                | One
+                            label
+                                input(type="radio", name="biopsy_result", value='2')
+                                | More than one
+                    #subquestion-biopsy-ah.subquestion.question
+                        label.question-text(for="biopsy_ah") Has the woman had at
+                            | least one breast biopsy with&nbsp;
+                            a.termToDefine(data-term="ah") atypical hyperplasia
+                            | ?
+                        .input
+                            label
+                                input(type="radio", name="biopsy_ah", value='1.82')
+                                | Yes
+                            label
+                                input(type="radio", name="biopsy_ah", value='0.93')
+                                | No
+                            label
+                                input(type="radio", name="biopsy_ah", value='1.00')
+                                | Don't Know
+            button#reset(type="reset") Reset
+            button#calculate(type="submit") Calculate Risk

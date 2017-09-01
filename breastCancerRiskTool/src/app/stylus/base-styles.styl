@@ -1,0 +1,43 @@
+section form > ol > li
+    vertical-align inherit
+    margin 0 auto
+    height 400px
+    width 32%
+
+.question
+    padding 5px 0
+
+.female, .male, .subquestion
+    &:not(.show)
+        display none
+
+.content-details,.question
+    a
+        text-decoration underline
+        color #BB0E3D
+        :hover
+            text-decoration none
+        &.termToDefine
+            font-style italic
+            text-decoration none
+            border-bottom 1px dotted
+            &:hover
+                border-bottom none
+
+.question-group-title
+    text-align center
+    background #555554
+    color #FCFCFA
+    border-radius 5px
+    padding 3px 0
+
+table
+    width 400px
+    margin 0 auto
+    background-color #DBF2F8
+    color #14819B
+    border 1px black solid
+    border-spacing 3px
+    tbody > tr th
+        background-color #14819B
+        color #DBF2F8

@@ -1,0 +1,1013 @@
+@font-face {
+  font-family: 'Noto Sans';
+  font-weight: normal;
+  font-style: normal;
+  src: url("fonts/NotoSans-Regular.ttf");
+}
+@font-face {
+  font-family: 'Noto Sans';
+  font-weight: normal;
+  font-style: italic;
+  src: url("fonts/NotoSans-Italic.ttf");
+}
+@font-face {
+  font-family: 'Noto Sans';
+  font-weight: bold;
+  font-style: normal;
+  src: url("fonts/NotoSans-Bold.ttf");
+}
+@font-face {
+  font-family: 'Noto Sans';
+  font-weight: bold;
+  font-style: italic;
+  src: url("fonts/NotoSans-BoldItalic.ttf");
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: normal;
+  font-style: normal;
+  src: url("fonts/Montserrat-Regular.ttf");
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: bold;
+  font-style: normal;
+  src: url("fonts/Montserrat-Bold.ttf");
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: bold;
+  font-style: italic;
+  src: url("onts/Montserrat-BoldItalic.ttf");
+}
+/* Color Scheme */
+html {
+  background: #235e88;
+}
+*{margin:0;}
+
+
+
+html,body {
+  font-family: "Noto Sans", "Montserrat";
+  font-size: 12pt;
+  background: #fff;
+}
+
+h5,
+h6,
+h7 {
+  color: #606060;
+  font-weight: bold;
+  margin: 0.5em auto;
+  font-family: 'Montserrat-Bold', sans-serif;
+}
+
+h1 {
+  color: #606060;
+  font-weight: bold;
+  margin: 0.5em auto;
+  font-family: 'Montserrat-Bold', sans-serif;
+  font-size: 28px;
+}
+
+h2 {
+  color: #606060;
+  font-weight: bold;
+  margin: 0.5em auto;
+  font-family: 'Montserrat-Bold', sans-serif;
+  font-size: 23px;
+}
+
+h3 {
+  color: #606060;
+  font-weight: bold;
+  margin: 0.5em auto;
+  font-family: 'Montserrat-Bold', sans-serif;
+  font-size: 20px;
+}
+
+h4 {
+  color: #606060;
+  font-weight: bold;
+  margin: 0.5em auto;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+}
+
+p {
+  margin: 0;
+  margin-bottom: 1em;
+}
+a {
+  color: #2b7bba;
+}
+a:hover,
+a:focus {
+  color: #2b7bba;
+}
+.sectionTitle {
+  color: #fff;
+  padding: 13px;
+  margin-bottom: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 28px;
+}
+.sectionTitle:first-child {
+  background: #339fbe;
+}
+.sectionTitle:nth-child(3) {
+  background: #6150a3;
+}
+.sectionTitle:nth-child(5) {
+  background: #2d73a5;
+}
+.no_display {
+  display: none;
+}
+header,
+.tab-content,
+.footer {
+  display: block;
+}
+section {
+  border: 1px solid #d3d3d3;
+  padding: 2em;
+  margin: 1em 0;
+  margin-top: 0;
+}
+header {
+  margin: 0 auto;
+}
+header #toolTitle {
+  background-color: #2b7bba;
+  color: #fff;
+  font-weight: bold;
+  padding: 0.5em 0;
+  padding-left: 5em;
+}
+header #toolTitle a {
+  color: inherit;
+  font-size: 17px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+}
+header #toolTitle .navbar-toggle {
+  margin-top: -0.3em;
+  margin-bottom: 0;
+  padding: 0.3em 0.2em;
+}
+.navbar-toggle_innermenu {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0 0;
+  margin-right: 10px;
+}
+#side_nav {
+  display: none;
+}
+img#logo {
+  max-width: 600px;
+  padding: 1em 0 1em 5em;
+}
+nav#main-nav {
+  text-transform: uppercase;
+  background-color: #235e88;
+  padding-left: 3.8em;
+  font-size: 18px;
+  font-family: 'Montserrat', sans-serif;
+}
+nav#main-nav ul.nav.nav-tabs li {
+  border: none;
+  margin-bottom: 0;
+}
+nav#main-nav ul.nav.nav-tabs li a {
+  font-weight: bold;
+  color: #fff;
+  border-radius: 0px;
+  margin: 0;
+  padding: 0.7em;
+  padding-bottom: 7px;
+  border-bottom: 7px solid transparent;
+}
+nav#main-nav ul.nav.nav-tabs li a:hover,
+nav#main-nav ul.nav.nav-tabs li a:focus {
+  background: #fff;
+  color: #14819b;
+  border-bottom: 7px solid #fff;
+}
+nav#main-nav ul.nav.nav-tabs li.active a {
+  color: #356b91;
+  background: #fff;
+  border-bottom: 7px solid #1a84a8;
+}
+.nav-tabs {
+  border: none;
+  overflow-y: hidden
+}
+button,
+a.btn {
+  font-weight: bold;
+  max-width: 250px;
+}
+button.btn-sm,
+a.btn.btn-sm {
+  font-size: 0.8em;
+}
+button:disabled,
+a.btn:disabled {
+  cursor: not-allowed;
+}
+.btn-form {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.btn-form:hover,
+.btn-form:focus {
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+}
+#results:not(.show),
+#errors:not(.show),
+#map:not(.show),
+#listings:not(.show),
+.male:not(.show),
+.female:not(.show) {
+  display: none;
+}
+#main {
+  margin-top: 2em;
+  margin-bottom: 6em;
+  padding-left: 25%;
+  padding-right: 25%;
+  line-height: 1.5;
+}
+#main ul li {
+  line-height: 2;
+}
+#main_home {
+  margin-bottom: 2em;
+  line-height: 1.5;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* Design specification for the Results Page                                  */
+#results_home {
+  margin-top: 1em;
+  margin-bottom: 2em;
+  line-height: 1.5;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#main_home ul li {
+  line-height: 2;
+}
+.box {
+  max-width: 600px;
+  background-color: #dbf2f8;
+  padding: 1.5em;
+}
+#results_text {
+  text-align: left;
+  /* max-width: 365px; */
+  padding-left : 1em;
+}
+div[id^='results_box']{
+  font-size: 18px;
+  border: 7px #6150a3 solid;
+  background: #7163ad;
+  padding: 1em;
+  color: #fff;
+  margin-bottom: 2%;
+  margin-top: 2%;
+}
+.results_header {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 2%;
+  font-size: 34px;
+  font-family: Montserrat;
+}
+.patient_header {
+  text-align: center;
+  color: #fff;
+  font-size: 24px;
+  font-family: Montserrat;
+  line-height: 1.0;
+}
+.risk_header {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 2%;
+  font-weight: bold;
+  font-size: 48px;
+  font-family: Montserrat;
+  line-height: 1.0;
+}
+#form-steps {
+  background-color: #fff;
+  padding: 10px 0;
+  -webkit-box-shadow: 0 0 20px #808080;
+  box-shadow: 0 0 20px #808080;
+  font-family: 'Montserrat', sans-serif;
+}
+#form-steps.fixed {
+  position: fixed;
+  -webkit-box-shadow: 0 0 20px #808080;
+  box-shadow: 0 0 20px #808080;
+  z-index: 1;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+#form-steps ol {
+  list-style: none;
+  text-align: center;
+  font-weight: bold;
+  margin: 0;
+/* style rules for the form "checkpoints" bar */
+}
+#form-steps ol span.spacer {
+  min-width: 10%;
+  display: inline-block;
+  color: #868686;
+  font-weight: bold;
+  vertical-align: middle;
+  letter-spacing: 5px;
+}
+#form-steps ol li {
+  display: inline-block;
+  color: #868686;
+  margin-right: 3%;
+  font-size: 19px;
+}
+#form-steps ol li a {
+  display: block;
+  color: inherit;
+}
+#form-steps ol li a:nth-child(2) {
+  background: #868686;
+  color: #fff;
+  border-radius: 22px;
+  width: 33px;
+  height: 33px;
+  text-align: center;
+  margin: 0 auto;
+  padding: 2px;
+  position: relative;
+  font-size: 23px;
+}
+#form-steps ol li.active {
+  font-size: 24px;
+}
+#form-steps ol li.active:first-child a:first-child {
+  color: #339fbe;
+}
+#form-steps ol li.active:first-child a:nth-child(2) {
+  width: 45px;
+  height: 45px;
+  font-size: 31px;
+  color: #fff;
+  background: #339fbe;
+}
+#form-steps ol li.active:nth-child(3) a:first-child {
+  color: #6150a3;
+}
+#form-steps ol li.active:nth-child(3) a:nth-child(2) {
+  width: 45px;
+  height: 45px;
+  font-size: 31px;
+  color: #fff;
+  background: #6150a3;
+}
+#form-steps ol li.active:nth-child(5) a:first-child {
+  color: #2d73a5;
+}
+#form-steps ol li.active:nth-child(5) a:nth-child(2) {
+  width: 45px;
+  height: 45px;
+  font-size: 31px;
+  color: #fff;
+  background: #2d73a5;
+}
+.no-padding-left {
+  padding-left: 0px !important;
+}
+.no-margin {
+  margin: 0;
+}
+.no-margin-top {
+  margin-top: 0px !important;
+}
+.no-padding {
+  padding: 0;
+}
+label.questions {
+  font-weight: bold;
+  color: #2e2e2e;
+  margin-top: 50px;
+  font-size: 16px;
+  font-family: 'Noto Sans';
+}
+.questions_secondary {
+  color: #2e2e2e;
+  font-size: 14px;
+}
+.responseOptions {
+  font-weight: normal;
+  font-family: Montserrat;
+  font-size: 16px;
+  margin-left: 1em;
+  margin-top: 16px;
+}
+
+/* Use this when you are indenting with bootstrap.  The responseOptions       */
+/* margin-left will overwrite the bootstrap grid                              */
+.responseOptionsWithoutIndent {
+  font-weight: normal;
+  margin-top: 16px;
+}
+
+/* Following the standard for spacing provided by bootstrap.  However, the   */
+/* problem is that this style is usually generated using the less compiler   */
+/* In bootstrap this is a spacer                                             */
+.pl-3 {
+  padding-left: 1rem;
+}
+
+/* Folling the standard for spacing provided by boostrap.  However, the      */
+/* problem is that this sytyle is usually generated using the less compiler  */
+/* In bootstrap this is a spacer                                             */
+.ml-3 {
+  margin-right: 1rem ;
+}
+
+.responseOptions label {
+  font-weight: inherit;
+}
+.responseOptions input[type="radio"] {
+  margin: 0 0.5em;
+  width: 1em;
+  height: 1em;
+}
+select {
+  border: 2px solid #d3d3d3;
+  background: #f2f2f3;
+  padding: 0 0.4em;
+  height: 2.5em;
+  font-family: 'Noto Sans';
+  font-size: 16px;
+  color: #2E2E2E;
+  background-image: url('../images/chevron_drop_down.png');
+  background-repeat: no-repeat;
+  background-position: right center;
+  width: 153px;
+  height: 28px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+select:focus,
+select:hover {
+  border-color: #2b7bba;
+}
+select:disabled {
+  background: #d3d3d3;
+  color: #000;
+  cursor: not-allowed;
+}
+input[type="radio"] {
+  display: none;
+}
+input[type="radio"] + label.radio {
+  color: #606060;
+  font-weight: normal;
+}
+input[type="radio"] + label.radio span {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  margin: 0 0.5em 0 0;
+  vertical-align: middle;
+  background: url("../images/Radio_Button_Unselected.png");
+  color: #f2f2f2;
+  cursor: pointer;
+  background-repeat: no-repeat;
+}
+input[type="radio"] + label.radio:hover span {
+  background: url("../images/Radio_Button_Selected.png");
+  background-repeat: no-repeat;
+
+
+}
+input[type="radio"]:checked + label.radio span {
+  background: url("../images/Radio_Button_Selected.png");
+  background-repeat: no-repeat;
+
+}
+select:disabled,
+input:disabled {
+  cursor: not-allowed;
+  color: #6c6c6c;
+  border: none;
+}
+select:disabled[type="radio"] + label.radio,
+input:disabled[type="radio"] + label.radio {
+  background: none;
+  border: none;
+  color: #c0c0c0;
+  cursor: not-allowed;
+}
+select:disabled[type="radio"] + label.radio span,
+input:disabled[type="radio"] + label.radio span {
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+}
+select.error,
+input.error {
+  border-color: #bb0e3d;
+}
+select.error + label.radio,
+input.error + label.radio {
+  color: #bb0e3d;
+}
+select.error + label.radio span,
+input.error + label.radio span {
+  border-color: #bb0e3d;
+}
+.footer {
+  background-color: #235e88;
+  line-height: 4;
+}
+.footer a {
+  font-weight: bold;
+}
+.footer *,
+.footer ul li a {
+  color: #fff;
+  font-size: 15px;
+}
+.line {
+  position: absolute;
+  width: 100%;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 2px dotted #868686;
+  margin-top: 0;
+}
+.modal-body {
+  overflow-y: hidden;
+}
+.modal {
+  top: 33%;
+}
+.imgsize {
+  height: 70px;
+}
+.btn-size {
+  height: 35px;
+  width: 85px;
+}
+.modaltext {
+  padding-left: 16%;
+}
+.modal-header {
+  border: none;
+}
+.modal-header .close {
+  background: url("./images/Exit.png");
+  padding: 9px 9px;
+  color: #fff;
+  opacity: 1.0;
+  -ms-filter: initial;
+  filter: initial;
+  background-repeat: no-repeat;
+}
+.modal-header .close:hover,
+.modal-header .close:focus {
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+}
+.info-dialog {
+  border: 3px solid #d3d3d3;
+  color: #000;
+  background-color: #fff;
+  padding: 1em;
+}
+.info-dialog button {
+  background: #2b7bba;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 20px;
+  border: none;
+  margin: 0.3em;
+}
+.info-dialog button:hover,
+.info-dialog button:focus {
+  background: #fff;
+  color: #2b7bba;
+}
+.demo-dialog .modal-content {
+  border: 3px solid #339fbe;
+  border-radius: 0px;
+}
+.error-dialog .modal-content {
+  background-color: #fff F;
+  border: 3px solid #339fbe;
+}
+.error-dialog img {
+  float: left;
+}
+.error-dialog button {
+  color: #fff;
+  background-color: #339fbe;
+  font-weight: bold;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -o-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  margin: 0 auto;
+  text-transform: uppercase;
+  border: none;
+}
+
+/* Stylize the dialog OK Button.  The button was stylized using an image. The */
+/* padding and border styles of the button tag were still being displayed and */
+/* class removes them.                                                        */
+.dialog_ok_button {
+  padding: 0px;
+  border: 0px;
+}
+
+/* Styles the content of text found in the dialog box                         */
+.dialog_text_content {
+  font-family: 'Noto Sans';
+  font-size: 14px;
+}
+
+@media (min-width: 993px) {
+  .container-fluid {
+    padding-left: 5em;
+    padding-right: 5em;
+  }
+
+  .vertical_alignment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 300px) {
+
+  .container-fluid {
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+
+  .vertical_alignment {
+
+  }
+
+  header img#logo {
+    padding: 1em 1em 1em;
+    width: 100%;
+  }
+  header #toolTitle {
+    padding-left: 1em;
+    padding-top: 7px;
+    padding-bottom: 7px;
+  }
+  header #toolTitle a {
+    font-size: 12px;
+  }
+  #results {
+    padding: 1em;
+  }
+  #results_text {
+    text-align: left;
+    /* width: 365px; */
+    margin-left: 0;
+  }
+
+/* The style should be used when the patient has a greater risk than average  */
+/* I used !important here since this property should always take precedence   */
+/* over any other colors                                                      */
+  .patient_risk_greater_than_average_risk {
+    color:red !important;
+  }
+  nav#main-nav {
+    background: #fff;
+    padding: 0;
+    text-align: left;
+  }
+  nav#main-nav ul.nav.nav-tabs {
+    display: block;
+  }
+  nav#main-nav ul.nav.nav-tabs li {
+    width: 50% ;
+    float: left;
+  }
+  nav#main-nav ul.nav.nav-tabs li.active a {
+    color: #356b91;
+    background: #fff;
+  }
+  nav#main-nav ul.nav.nav-tabs li a {
+    background: #235e88;
+    color: #fff;
+    border: none;
+  }
+  nav#main-nav ul.nav.nav-tabs li a:hover,
+  nav#main-nav ul.nav.nav-tabs li a:focus {
+    border: none;
+  }
+  #form-steps {
+    background-color: #fff;
+    padding: 10px 0;
+    -webkit-box-shadow: 0 0 20px #808080;
+    box-shadow: 0 0 20px #808080;
+    font-family: 'Montserrat', sans-serif;
+  }
+  #form-steps.fixed {
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    left: 0;
+    margin-bottom: 10px;
+  }
+  #form-steps ol {
+    padding: 0;
+  }
+  #form-steps ol span.spacer {
+    margin: 0;
+  }
+  #form-steps ol li {
+    margin: 0.5em 0.1em;
+    border-radius: 20px;
+    margin-left: 6%;
+    margin-right: 6%;
+  }
+  #form-steps ol li a:first-child {
+    display: none;
+  }
+  #form-steps ol li a {
+    display: block;
+    color: inherit;
+  }
+  #form-steps ol li a:nth-child(2) {
+    background: #868686;
+    color: #fff;
+    border-radius: 22px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 2px;
+    position: relative;
+    font-size: 17px;
+  }
+  #form-steps ol li.active {
+    font-size: 24px;
+  }
+  #form-steps ol li.active:first-child a:first-child {
+    color: #339fbe;
+  }
+  #form-steps ol li.active:first-child a:nth-child(2) {
+    width: 35px;
+    height: 35px;
+    font-size: 24px;
+    color: #fff;
+    background: #339fbe;
+  }
+  #form-steps ol li.active:nth-child(3) a:first-child {
+    color: #6150a3;
+  }
+  #form-steps ol li.active:nth-child(3) a:nth-child(2) {
+    width: 35px;
+    height: 35px;
+    font-size: 24px;
+    color: #fff;
+    background: #6150a3;
+  }
+  #form-steps ol li.active:nth-child(5) a:first-child {
+    color: #2d73a5;
+  }
+  #form-steps ol li.active:nth-child(5) a:nth-child(2) {
+    width: 35px;
+    height: 35px;
+    font-size: 24px;
+    color: #fff;
+    background: #2d73a5;
+  }
+  #errors {
+    font-size: 0.8em;
+    margin: 1em 0;
+  }
+  section {
+    padding: 1em;
+  }
+  .tab-pane {
+    padding: 0 1em;
+  }
+  #main {
+    margin: 0 0 1.5em 0;
+    padding: 0;
+  }
+  #main .container {
+    padding: inherit;
+  }
+  .questions,
+  .responseOptions {
+    line-height: 1.5;
+  }
+
+  /* When a question is a disabled the text needs to look less visible        */
+  .questionDisabled {
+    opactity: .2;
+  }
+
+  /* When the question is disabled the answer needs to be greyed out         */
+  .answerDisabled {
+    disabled: true;
+  }
+
+  .box {
+    margin: 1em auto;
+  }
+  .btn-block {
+    margin: 0 auto;
+  }
+  .footer {
+    line-height: initial;
+  }
+  .footer ul {
+    margin: 1em 0 1em 2em;
+  }
+  .footer ul li {
+    display: block;
+    text-align: left;
+    max-width: 60%;
+    margin: 0.3em 0;
+  }
+  .footer ul li:nth-child(even) {
+    display: none;
+    margin: 0;
+    padding: 0;
+    max-width: 0;
+  }
+  #side_nav.sidenav {
+    width: 0;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    right: 0;
+    overflow-x: hidden;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -o-transition: 0.5s;
+    -ms-transition: 0.5s;
+    transition: 0.5s;
+    display: inline;
+    text-transform: uppercase;
+    -webkit-box-shadow: 0px 2px 4px 0 rgba(0,0,0,0.5);
+    box-shadow: 0px 2px 4px 0 rgba(0,0,0,0.5);
+    background: #fff;
+  }
+  #side_nav.sidenav ul.nav.nav-tabs li {
+    width: 100%;
+  }
+  #side_nav.sidenav ul.nav.nav-tabs li a {
+    padding: 8px 8px 8px 15px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    color: #235e88;
+    display: block;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    -ms-transition: 0.3s;
+    transition: 0.3s;
+    white-space: nowrap;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 0
+  }
+  #side_nav.sidenav ul.nav.nav-tabs li a:hover,
+  #side_nav.sidenav ul.nav.nav-tabs li a:focus {
+    color: #fff;
+    background: #14819b;
+  }
+  #side_nav.sidenav ul.nav.nav-tabs li.active a {
+    color: #fff;
+    background: #14819b;
+  }
+  #buttons {
+    display: -webkit-box;
+  }
+}
+#inner_menu {
+  color: #fff;
+  background: #235e88;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  padding: 6px 8px 8px 15px;
+}
+
+#Risk {
+  width: 100%;
+}
+.modal-content {
+  border-radius: 0px;
+}
+.small_mole_answer {
+  display: inline;
+}
+
+/* A class for styling the content on the main page                           */
+.content {
+  font-size: 16px;
+  font-family: 'Noto Sans'
+}
+
+/* Specific Styling for the Back to Calculator on the Front Page              */
+.result_page_anchor {
+  font-size: 16px;
+  font-family: 'Noto Sans';
+}
+
+
+/* Specific Button for the Start Over Button on the Result Pages */
+.startOverButton {
+  background-color: #2DC799;
+  border-radius: 3px;
+  font-size: 15px;
+  font-family: 'Montserrat';
+  color: #FFFFFF;
+}
+
+/* Disable a link */
+a.disabled {
+   pointer-events: none;
+   color: #c0c0c0;
+}
+
+/* Make a picture disabled by reducing the opacity. */
+.image_disabled {
+  opacity: .2;
+}
+
+/* Spacer betweeen Access Patient Risk Button and Paragraph beneath it.      */
+.spaceBetweenAccessPatientRiskButtonAndParagraph {
+  margin-top : 2em;
+}
+
+/* Text Content that is bolded                                                */
+.boldedBodyText {
+  font-family: 'Noto Sans';
+  font-weight: bold;
+  font-size: 16px;
+  color: #2E2E2E;
+}
+
+svg {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* Make Text Red */
+.textRed {
+   color: red;
+}
+
+/* Make Text Italicized */
+.textItalicized {
+   font-style: italic;
+}
+
+/* A class for Text Definitions */
+.definition {
+  text-decoration: underline;
+  cursor: help;
+}
