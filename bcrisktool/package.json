@@ -1,0 +1,12 @@
+{
+	"description": "Testing Breat Cander Risk Analysis Tool",
+	"license": "ISC",
+	"scripts": {
+		"test": "mocha tests/ --reporter xunit --reoporter-options output=tests/e2e_results.xml",
+		"test2": "mocha tests/ "
+	},
+	"devDependencies": {
+		"mocha": "^3.5.0",
+		"selenium-webdriver": "^3.5.0"
+	}
+}
