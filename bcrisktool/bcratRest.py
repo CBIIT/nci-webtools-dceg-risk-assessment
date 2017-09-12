@@ -7,7 +7,9 @@ import json
 from flask import Flask, Response, request, jsonify, send_from_directory
 from BcratRunFunction import RiskCalculation, AbsoluteRisk, AverageRisk
 
-app = Flask(__name__, static_folder="", static_url_path="/")
+#app = Flask(__name__, static_url_path="/")
+#app = Flask(__name__, static_url_path="")
+app = Flask(__name__)
 logging.basicConfig(level=logging.DEBUG)
 
 class BreastRiskAssessmentTool:
@@ -232,3 +234,25 @@ class BreastRiskAssessmentTool:
       fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
       logging.debug("EXCEPTION------------------------------" + str(exc_type) + " "  + str(fname) + " " + str(exc_tb.tb_lineno))
       return BreastRiskAssessmentTool.buildFailure(str(e))
+
+  if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser()
+
+    # Default port is 9200
+    parser.add_argument('-p', '--port', type = int, dest = 'port', default = 9200, help = 'Sets the Port')
+    parser.add_argument('-d', '--debug', action = 'store_true', help = 'Enables debugging')
+    args = parser.parse_args()
+    print(str(args))
+    if (args.debug):
+        @app.route('/common/<path:path>')
+        def common_folder(path):
+            return send_from_directory("C:\\common\\",path)
+
+        @app.route('/<path:path>')
+        def static_files(path):
+            if (path.endswith('/')):
+                path += 'index.html'
+            return send_from_directory(os.getcwd(),path)
+    #end remove
+    app.run(host = '0.0.0.0', port = args.port, debug = True, use_evalex = False)

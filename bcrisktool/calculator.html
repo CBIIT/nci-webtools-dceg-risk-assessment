@@ -136,11 +136,11 @@
             radiation therapy to the chest for treatment of Hodgkin lymphoma?
           </label>
           <div class="responseOptions">
-            <input type="radio" name="cancerAndRadiationHistory" value="0" >
+            <input id="cancerAndRadiationHistoryYes" type="radio" name="cancerAndRadiationHistory" value="0" >
             <label class="radio" tabindex="0"><span></span>Yes</label>
           </div>
           <div class="responseOptions">
-            <input type="radio" name="cancerAndRadiationHistory" value="1">
+            <input id="cancerAndRadiationHistoryNo" type="radio" name="cancerAndRadiationHistory" value="1">
             <label class="radio" tabindex="0"><span></span>No</label>
           </div>
 
@@ -148,11 +148,11 @@
             Does the woman have a mutation in either the BRCA1 or BRCA2 gene, or a diagnosis of a genetic syndrome that may be associated with elevated risk of breast cancer?
           </label>
           <div class="responseOptions">
-            <input type="radio" name="geneticMakeup" value="0">
+            <input id="geneticMakeupYes" type="radio" name="geneticMakeup" value="0">
             <label class="radio" tabindex="0"><span></span>Yes</label>
           </div>
           <div class="responseOptions">
-            <input type="radio" name="geneticMakeup" value="1">
+            <input id="geneticMakeupNo" type="radio" name="geneticMakeup" value="1">
             <label class="radio" tabindex="0"><span></span>No</label>
           </div>
           <div class="responseOptions">
@@ -265,21 +265,21 @@
 
             <label class="col-sm-offset-1 questions" for="howManyBreastBiopsies">How many breast biopsies ( postive or negative ) has the women had?</label>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
-              <input type="radio" name="howManyBreastBiopsies" value="1" required>
+              <input id="breastBiopsiesCount1" type="radio" name="howManyBreastBiopsies" value="1" required>
               <label class="radio" tabindex="0"><span> </span>1</label>
             </div>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
-              <input type="radio" name="howManyBreastBiopsies" value="2" required>
+              <input id="breastBiopsiesCountLessThan0" type="radio" name="howManyBreastBiopsies" value="2" required>
               <label class="radio" tabindex="0"><span> </span>&lt;1</label>
             </div>
 
             <label class="col-sm-offset-1 questions" for="hadAH">Has the women had at least one breast bioposy with atypical hyperplasia?</label>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
-              <input type="radio" name="hadAH" value="1.82" required>
+              <input id="hadAhYes" type="radio" name="hadAH" value="1.82" required>
               <label class="radio" tabindex="0"><span> </span>Yes</label>
             </div>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
-              <input type="radio" name="hadAH" value=".93" required>
+              <input id="hadAhNo" type="radio" name="hadAH" value=".93" required>
               <label class="radio" tabindex="0"><span> </span>No</label>
             </div>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
@@ -289,19 +289,19 @@
 
           <label class="questions" for="age_first_period">What was the woman&#8217;s age at the time of her first menstrual period?</label>
           <div class="responseOptions col-sm-offset-1 pl-3">
-            <input type="radio" name="age_first_period" value="2" required>
+            <input id="firstPeriod7To12" type="radio" name="age_first_period" value="2" required>
             <label class="radio" tabindex="0"><span></span>7 to 12</label>
           </div>
           <div class="responseOptions col-sm-offset-1 pl-3">
-            <input type="radio" name="age_first_period" value="1" required>
+            <input id="firstPeriod13To14" type="radio" name="age_first_period" value="1" required>
             <label class="radio" tabindex="0"><span></span>13 to 14</label>
           </div>
           <div class="responseOptions col-sm-offset-1 pl-3">
-            <input type="radio" name="age_first_period" value="0" required>
+            <input name=firstPeriodPast14" type="radio" name="age_first_period" value="0" required>
             <label class="radio" tabindex="0"><span></span>Greater than or equal to 14</label>
           </div>
           <div class="responseOptions col-sm-offset-1 pl-3">
-            <input type="radio" name="age_first_period" value="99" required>
+            <input name="firstPeriodUnknown" type="radio" name="age_first_period" value="99" required>
             <label class="radio" tabindex="0"><span></span>Unknown</label>
           </div>
 
