@@ -8,5 +8,9 @@
 	"devDependencies": {
 		"mocha": "^3.5.0",
 		"selenium-webdriver": "^3.5.0"
+	},
+	"dependencies": {
+		"run": "^1.4.0",
+		"test2": "^1.0.5"
 	}
 }
