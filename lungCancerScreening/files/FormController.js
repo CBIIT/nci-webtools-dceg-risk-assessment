@@ -4,8 +4,7 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $localStorage, $locati
   /* These globals are used in multiple ajax calls in different functions */
   var GLOBAL_DATA;
   /* RegEx for numerical field validation */
-  var numPattern = '^[0-9]+(\.[0-9]{1,9})?$';
-  var numRegExp = new RegExp(numPattern, 'i');
+  var numRegExp = /^[0-9]+(\.[0-9]{1,9})?$/i;
   $scope.myForm = {};
 
   function init() {
