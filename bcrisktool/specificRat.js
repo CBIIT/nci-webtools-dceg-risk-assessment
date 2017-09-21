@@ -12,7 +12,7 @@ $(function() {
 		if(this.value == 0){
 			$("#womanWithCancerDialog").modal("show");
 			$("form :input").not("[name='cancerAndRadiationHistory']").attr('disabled', true);
-			$("[class*='questions']").css("color","#6c6c6c");
+			$("[class*='questions']").css("color","#c0c0c0");
       			disableSubraceMenu();
 			disablebutton();
 		}
@@ -28,28 +28,30 @@ $(function() {
 		if(this.value == 0 || this.value == 2 ){
 			$("#hasBRCAMutation").modal("show");
 			$("form :input").not("[name='geneticMakeup']").attr('disabled', true);
-			$("[class*='questions']").css("color","#6c6c6c")
-		        disableSubraceMenu();
-      			disablebutton();
+			$("[class*='questions']").css("color","#c0c0c0")
+		  disableSubraceMenu();
+      disablebutton();
 		}
 		else {
 			$("form :input").not("[name='geneticMakeup']").removeAttr('disabled');
 			$("[class*='questions']").css("color","#2e2e2e")
-    			disableSubraceMenu();
+    	disableSubraceMenu();
 		}
+  });
 
   // Create a call to check if the calculate button should be enabled.
   $("#riskForm").change(function() {
-  if ( $("input[name='cancerAndRadiationHistory']:checked").val() == 0 ) {
-  	disablebutton();
-        return;
-  }
+    if ( $("input[name='cancerAndRadiationHistory']:checked").val() == 0 ) {
+    	disablebutton();
+      return;
+    }
 
-  var geneticMakeupValue = $("input[name='geneticMakeup']:checked").val();
-  if ( geneticMakeupValue == 0 || geneticMakeupValue == 99 ) {
-  	disablebutton();
-        return;
-  }
+    var geneticMakeupValue = $("input[name='geneticMakeup']:checked").val();
+    if ( geneticMakeupValue == 0 || geneticMakeupValue == 99 ) {
+    	disablebutton();
+      return;
+    }
+   });
 
   // Brings up the dialog box explaining why the data is inaccurate for hispnaics
   $("#race").on("change", function() {
@@ -69,13 +71,19 @@ $(function() {
 
   // If the question about a women every having a biopsy is answered disable the questions associated with it.
   var biopsyValue = $("input:radio[name='biopsy']:checked").val();
-  if ( biopsyValue == 0 || biopsyValue == 99 ) disableQuestionAndAnswers();
+  if ( biopsyValue == 0 || biopsyValue == 99 ) {
+      disableQuestionAndAnswers();
       enableButtonIfAllFieldHaveInput();
-    });
-  });
+  }
 
   // Display the help windw
   $(".definition").on("click", displayHelpWindow);
+
+  // Initialize the button that will reset the form
+  $("#reset_form").on("click", resetForm)
+
+  $('#riskForm').trigger('change');
+
 });
 
 // Disable a question and it answers that are associated with a woman having a breast biopsy
@@ -126,4 +134,10 @@ function resultsDisplay(response, textStatus, xhr) {
 	make_pie_chart(result.averageFiveRisk, "#pieChart2", "#40A5C1", "#EFEFEF");
 	make_pie_chart(result.lifetime_patient_risk, "#pieChart3", lifetimePateientRiskColor, "#EFEFEF");
 	make_pie_chart(result.lifetime_average_risk, "#pieChart4", "#40A5C1", "#EFEFEF");
+}
+
+function resetForm() {
+  genericResetForm()
+  enableQuestionAndAnswers();
+  disableSubraceMenu();
 }

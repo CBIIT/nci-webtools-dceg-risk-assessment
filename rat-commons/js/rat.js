@@ -705,16 +705,16 @@ $(window).load(function(e) {
 
 	// TODO : Move to melanoma when we get back to the melanoma section
 	// Sets the form back to defaults whent reset form button is clicked
-	$("#reset_form").on("click",function(){
-		$('form').trigger('reset')
-	 	$(window).scrollTop(0);
-	 	$("#skin-section").addClass("no_display")
-		$("#skin").addClass("no_display")
-		$("#physical-section").addClass("no_display")
-		$("#physical").addClass("no_display")
-		$("form :input").attr('disabled', false);
-
-	});
+	//$("#reset_form").on("click",function(){
+	//	$('form').trigger('reset')
+	//	$(window).scrollTop(0);
+	// 	$("#skin-section").addClass("no_display")
+	//	$("#skin").addClass("no_display")
+	//	$("#physical-section").addClass("no_display")
+	//	$("#physical").addClass("no_display")
+	//	$("form :input").attr('disabled', false);
+	//	$("[class*='questions']").css("color","#2e2e2e")
+	//});
 
   // I have no clue what this does
 	$("button.select").on('click keypress', function(e) {
@@ -808,3 +808,17 @@ $(document).ready(function(){
 
 	$('html,body').scrollTop(0);
 });
+
+// Handles the generic reset for all the risk analysis tools
+function genericResetForm() {
+	$('form').trigger('reset')
+ 	$(window).scrollTop(0);
+	$("form :input").attr('disabled', false);
+	$("[class*='questions']").css("color","#2e2e2e")
+
+	// Move this to Mrat specific Rat when you start wokring with that code
+ 	//$("#skin-section").addClass("no_display")
+ 	//$("#skin").addClass("no_display")
+ 	//$("#physical-section").addClass("no_display")
+ 	//$("#physical").addClass("no_display")
+}

@@ -513,13 +513,18 @@ select {
   background-image: url('../images/chevron_drop_down.png');
   background-repeat: no-repeat;
   background-position: right center;
-  width: 153px;
+  width: 163px;
   height: 28px;
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
   -o-appearance: none;
   appearance: none;
+}
+
+/* Enlarge the select box so selection fit                                    */
+#race {
+  width: 163px;
 }
 
 select::-ms-expand {
