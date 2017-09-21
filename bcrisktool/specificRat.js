@@ -107,24 +107,6 @@ function disableSubraceMenu() {
     $("#sub_race").prop("disabled", true)
 }
 
- //function adjust_line_width(ind){
- //
- //  console.log("In specific JS");
- // 	var first_dot=$("#form-steps").find("a")[1]
- // 	var first_dot_left=$(first_dot).position().left
- // 	var first_dot_width=$(first_dot).outerWidth(true)
- // 	var last_dot=$("#form-steps").find("a")[$("#form-steps").find("a").length-1]
- // 	var last_dot_left=$(last_dot).position().left
- // 	var last_dot_width=$(last_dot).outerWidth(true)
- // 	$("#line").find("hr").css("left",first_dot_left+first_dot_width/2+10)
-  // $("#line").find("hr").css("width", last_dot_left - first_dot_left)
-
- //  if ( ind == 1)
- //    $("#line").find("hr").css("width", last_dot_left - first_dot_left + 15)
- //  if ( ind == 2)
- //    $("#line").find("hr").css("width",last_dot_left-first_dot_left+last_dot_width/4-20)
-// }
-
 /* Produces the results box for the RAT                                      */
 function resultsDisplay(response, textStatus, xhr) {
 

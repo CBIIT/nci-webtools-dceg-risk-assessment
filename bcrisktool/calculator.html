@@ -30,9 +30,11 @@
           <li role="presentation"><a href="about.html">About the Model &amp; Source Code</a></li>
         </ul>
       </nav>
+
+      <!--
       <div class="sidenav" id="side_nav">
         <ul class="nav nav-tabs">
-          <li role="presentation">
+          <li class="active" role="presentation">
             <div id="Risk"><a href="calculator.html">Risk Calculator</a></div>
           </li>
           <li role="presentation">
@@ -40,6 +42,20 @@
           </li>
         </ul>
       </div>
+    -->
+
+    <div class="sidenav" id="side_nav">
+      <div class="div" id="inner_menu"><span>Menu</span>
+        <button class="navbar-toggle collapsed navbar-toggle_innermenu" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()"><span class="sr-only">Toggle navigation</span>
+          <div class="glyphicon glyphicon-menu-hamburger"></div>
+        </button>
+      </div>
+      <ul class="nav nav-tabs">
+        <li class="active" role="presentation" id="Risk"><a href="calculator.html">Risk Calculator</a></li>
+        <li role="presentation" id="About"><a href="about.html"><span>About the Model &amp;</span><br><span>Source Code</span></a></li>
+      </ul>
+    </div>
+
     </header>
     <div id="results" class="container-fluid">
       <div id="results_home">
@@ -48,9 +64,9 @@
         <div class="row">
           <div class="col-xs-12 col-md-12">
             <div class="content">
-              <p>Although a woman&#8217s risk may be accurately estimated, these predictions do not allow one to say precisely which woman will develop breast cancer. In fact, some woman who do not develop breast cancer have higher risk estimates than some woman who do develop the disease.</p>
+              <p>Although a woman&#8217;s risk may be accurately estimated, these predictions do not allow one to say precisely which woman will develop breast cancer. In fact, some women who do not develop breast cancer have higher risk estimates than some patients who do develop the disease.</p>
               <p>As a reminder, this tool was designed for use by health professionals. If you are not a health professional, you are encouraged to print these results and discuss them with your health care provider. </p>
-              <p>The tool uses a woman&#8217;s personal medical and reproductive history and the history of breast cancer among her first-degree relatives(mothers, sisters, daughters) to estimate absolute breast cancer risk-her chance or probability of developing invasive breast cancer in a defined age interval</p>
+              <p>The tool uses the answers provided to estimate absolute risk of developing invasive breast cancer during the next 5-year period and up to age 90 (lifetime risk). This includes the woman&#8217;s personal medical and reproductive history and the history of breast cancer among her first-degree relatives (mothers, sisters, daughters). For comparison, the tool will then calculate 5-year and lifetime risk estimates for a woman of the same age who is at average risk for developing breast cancer. </p>
             </div>
           </div>
         </div>
@@ -230,6 +246,7 @@
                 <option value="Black">Black</option>
                 <option value="US Hispanic">Hispanic</option>
                 <option value="Asian">Asian American</option>
+                <option value="Native American">American Indian or Alaskan Native</option>
                 <option value="Other">Unknown</option>
               </select>
             </div>
@@ -249,7 +266,7 @@
         </section>
         <h2 id="PatientAndFamilyHistorySecitonTitle" class="sectionTitle">Patient and Family History</h2>
         <section id="patient-and-family-history">
-            <label class="questions no-margin-top" for="biopsy">Has the women ever had a breast biopsy?</label>
+            <label class="questions no-margin-top" for="biopsy">Has the woman ever had a breast biopsy?</label>
             <div class="responseOptions">
               <input id="biopsyAnswerYes" type="radio" name="biopsy" value="1" required>
               <label class="radio" tabindex="0"><span> </span>Yes</label>
@@ -263,7 +280,7 @@
               <label class="radio" tabindex="0"><span> </span>Unknown</label>
             </div>
 
-            <label class="col-sm-offset-1 questions" for="howManyBreastBiopsies">How many breast biopsies ( postive or negative ) has the women had?</label>
+            <label class="col-sm-offset-1 questions" for="howManyBreastBiopsies">How many breast biopsies (postive or negative) has the woman had?</label>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
               <input type="radio" name="howManyBreastBiopsies" value="1" required>
               <label class="radio" tabindex="0"><span> </span>1</label>
@@ -273,7 +290,7 @@
               <label class="radio" tabindex="0"><span> </span>&lt;1</label>
             </div>
 
-            <label class="col-sm-offset-1 questions" for="hadAH">Has the women had at least one breast bioposy with atypical hyperplasia?</label>
+            <label class="col-sm-offset-1 questions" for="hadAH">Has the woman had at least one breast bioposy with atypical hyperplasia?</label>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
               <input type="radio" name="hadAH" value="1.82" required>
               <label class="radio" tabindex="0"><span> </span>Yes</label>
@@ -290,11 +307,11 @@
           <label class="questions" for="age_first_period">What was the woman&#8217;s age at the time of her first menstrual period?</label>
           <div class="responseOptions col-sm-offset-1 pl-3">
             <input type="radio" name="age_first_period" value="2" required>
-            <label class="radio" tabindex="0"><span></span>7 to 12</label>
+            <label class="radio" tabindex="0"><span></span>7 to 11</label>
           </div>
           <div class="responseOptions col-sm-offset-1 pl-3">
             <input type="radio" name="age_first_period" value="1" required>
-            <label class="radio" tabindex="0"><span></span>13 to 14</label>
+            <label class="radio" tabindex="0"><span></span>12 to 13</label>
           </div>
           <div class="responseOptions col-sm-offset-1 pl-3">
             <input type="radio" name="age_first_period" value="0" required>
@@ -318,7 +335,7 @@
             </select>
           </div>
 
-          <label class="questions" for="relatives">How many of the women&#8217;s first-degree relatives ( mothers, sisters, daughters) have had breast caner?</label>
+          <label class="questions" for="relatives">How many of the woman&#8217;s first-degree relatives (mothers, sisters, daughters) have had breast cancer?</label>
           <div class="responseOptions col-sm-offset-1 pl-3">
             <input type="radio" name="relatives" value="0" required>
             <label class="radio" tabindex="0"><span></span>None</label>
@@ -340,14 +357,39 @@
         <div class="center-block">
           <div id="buttons">
             <div class="col-xs-12">
-              <input class="btn-sm btn-form" id="calculate" type="image" src="rat-commons/images/Disabled_Calculate_Risk_Button.png" disabled="disabled">
+              <input class="btn-sm btn-form" type="image" id="calculate" src="rat-commons/images/Disabled_Calculate_Risk_Button.png" disabled="disabled">
+              <img class="btn-sm btn-form" id="reset_form" src="./rat-commons/images/Reset_Button.png" alt="reset">
             </div>
           </div>
         </div>
 
       </form>
     </div>
-    <div id="footer" class="footer" />
+    <div class="footer">
+      <div class="center-block">
+        <ul class="list-inline">
+          <li><a target="_blank" title="Contact" href="http://www.cancer.gov/contact">Contact</a></li>
+          <li>|</li>
+          <li><a target="_top" title="Policies" href="https://www.cancer.gov/policies">Policies</a></li>
+          <li>|</li>
+          <li><a target="_blank" title="Disclaimer" href="https://www.cancer.gov/policies/disclaimer">Disclaimer</a></li>
+          <li>|</li>
+          <li><a target="_blank" title="Accessibility" href="http://www.cancer.gov/policies/accessibility">Accessibility</a></li>
+          <li>|</li>
+          <li><a target="_blank" title="FOIA" href="http://www.cancer.gov/policies/foia">FOIA</a></li>
+        </ul>
+        <ul class="list-inline">
+          <li><a target="_blank" href="http://www.hhs.gov/">U.S. Department of Health and Human Services</a></li>
+          <li>|</li>
+          <li><a target="_blank" href="http://www.nih.gov">National Institutes of Health</a></li>
+          <li>|</li>
+          <li><a target="_blank" href="http://www.cancer.gov/">National Cancer Institute</a></li>
+          <li>|</li>
+          <li><a target="_blank" href="http://usa.gov">USA.gov</a></li>
+        </ul>
+        <div class="text-center"><span>NIH ... Turning Discovery Into Health</span></div>
+      </div>
+    </div>
 
     <!-- Modal for women with breast cancer or DCIS or LCIS -->
     <div class="modal demo-dialog fade" id="womanWithCancerDialog" tabindex="-1" role="dialog" data-backdrop="false">
@@ -362,7 +404,7 @@
                   </div>
                   <div class="col-sm-10">
                     <p>
-                      This tool can accurately calculate breast cancer risk for women with a medical history of any breast cancer or of DCIS or LCIS.  See "About the Model and Source Code" for more informaiton.
+                      This tool can accurately calculate breast cancer risk for women with a medical history of any breast cancer or of DCIS or LCIS.  See "About the Model and Source Code" for more information.
                     </p>
                   </div>
                 </div>
@@ -392,7 +434,7 @@
                   <div class="col-sm-10">
                     <p>
                       Other tools may be more appropriate for women with known mutations in either the BRCA1 or BRCA2 gene, or other hereditary
-                      syndromes associated with higher risks of breast cancer.  See "About the MOdel and Source Code" for more information
+                      syndromes associated with higher risks of breast cancer.  See "About the Model and Source Code" for more information.
                     </p>
                   </div>
                 </div>
@@ -421,11 +463,11 @@
                   </div>
                   <div class="col-sm-10">
                     <p>
-                      Assessments for Hispanic owmen are subject to greater uncertainity than those for whte and Africian Women.
+                      Assessments for Hispanic women are subject to greater uncertainty than those for white and African American women.
                     </p>
                     <p>
                       Researchers are conducting additional studies, including studies with minority populations, to gather more data
-                      and to increase the accuracy of the toool for women in these populations.
+                      and to increase the accuracy of the tool for women in these populations.
                     </p>
                   </div>
                 </div>
@@ -441,5 +483,103 @@
       </div>
     </div>
 
+    <!-- Modal : Explamation for not having accurate date for Hispanic Women  -->
+    <div class="modal demo-dialog fade" id="unknownIssue" tabindex="-1" role="dialog" data-backdrop="false">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="container col-sm-12 dialog_text_content">
+              <div class col-sm-12>
+                <div class="row">
+                  <div class="col-sm-2">
+                    <img class="imgsize center-block" src="rat-commons/images/info.png" alt-icon>
+                  </div>
+                  <div class="col-sm-10">
+                    <p>
+                      The risk assessment was based on data for white females.
+                    </p>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <button class="center-block dialog_ok_button" data-dismiss="modal">
+                    <img src="rat-commons/images/OK_Button.png">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal : Explamation for not having accurate date for Native American Women  -->
+    <div class="modal demo-dialog fade" id="NativeAmericanIssue" tabindex="-1" role="dialog" data-backdrop="false">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="container col-sm-12 dialog_text_content">
+              <div class col-sm-12>
+                <div class="row">
+                  <div class="col-sm-2">
+                    <img class="imgsize center-block" src="rat-commons/images/info.png" alt-icon>
+                  </div>
+                  <div class="col-sm-10">
+                    <p>
+                      Assessments for American Indian or Alaskan Native women are uncertain and based on data for white women.
+                    </p>
+                    <p>
+                      Researchers are conducting additional studies, including studies with minority populations, to gather more data
+                      and to increase the accuracy of the tool for women in these populations.
+                    </p>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <button class="center-block dialog_ok_button" data-dismiss="modal">
+                    <img src="rat-commons/images/OK_Button.png">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal : The program could not finish the calculation.  Basically it -->
+    <!-- connects to the back end and calculates some text and values and    -->
+    <!-- returns the data.  This could mean connection to the internet is    -->
+    <!-- down or there is a flaw in the code that needs to be debugged       -->
+    <div class="modal demo-dialog fade" id="systemError" tabindex="-1" role="dialog" data-backdrop="false">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="container col-sm-12 dialog_text_content">
+              <div class col-sm-12>
+                <div class="row">
+                  <div class="col-sm-2">
+                    <img class="imgsize center-block" src="rat-commons/images/stop.png" alt-icon>
+                  </div>
+                  <div class="col-sm-10">
+                    <p>
+                      Could not complete calcuation.
+                    </p>
+                    <p>
+                      Please contact a system administrator to diagnose the problem.
+                    </p>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <button class="center-block dialog_ok_button" data-dismiss="modal">
+                    <img src="rat-commons/images/OK_Button.png">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script language="JavaScript" type="text/javascript" src="//static.cancer.gov/webanalytics/WA_RAT_PageLoad.js"></script>
   </body>
 </html>

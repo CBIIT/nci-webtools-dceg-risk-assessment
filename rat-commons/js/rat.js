@@ -93,6 +93,7 @@ function go_toresult() {
 	$('#main').addClass('hide')
 	$('#form-steps').addClass('hide')
 	$("#results").addClass('show')
+	$(window).scrollTop(0);
 }
 
 /*********************************************************************************/

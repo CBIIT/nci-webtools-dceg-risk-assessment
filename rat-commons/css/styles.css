@@ -38,7 +38,7 @@
   font-family: 'Montserrat';
   font-weight: bold;
   font-style: italic;
-  src: url("onts/Montserrat-BoldItalic.ttf");
+  src: url("fonts/Montserrat-BoldItalic.ttf");
 }
 /* Color Scheme */
 html {
@@ -134,7 +134,7 @@ a:focus {
 }
 .sectionTitle:nth-child(7) {
   background: #1095A1;
-}0
+}
 .no_display {
   display: none;
 }
@@ -227,8 +227,11 @@ nav#main-nav ul.nav.nav-tabs li.active a {
 }
 button,
 a.btn {
-  font-weight: bold;
-  max-width: 250px;
+  font-family: 'Montserrat';
+  font-size: 15px;
+  color: #FFFFFF;
+  background: #2DC799;
+  border-radius: 3px;
 }
 button.btn-sm,
 a.btn.btn-sm {
@@ -249,6 +252,26 @@ a.btn:disabled {
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
   filter: alpha(opacity=50);
 }
+
+/* Add ths Property/Value Pair since we are using CSS instead of an image.  I */
+/* want to get it as close as possible to the image on the spacer             */
+#AssessPatientRisk {
+  box-sizing: border-box;
+  width: 168px;
+  height: 35px;
+  border: 0px;
+  padding: 0px;
+}
+
+/* Whenever you hover over a button that goes to a different page, the color */
+/* the color will change                                                     */
+/* Added this style since I did not want to change the global style because  */
+/* I do not know what it affects                                             */
+#AssessPatientRisk:hover {
+  background-color: #28b280;
+  color: white;
+}
+
 #results:not(.show),
 #errors:not(.show),
 #map:not(.show),
