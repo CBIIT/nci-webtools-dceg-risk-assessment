@@ -524,7 +524,7 @@ select {
 
 /* Enlarge the select box so selection fit                                    */
 #race {
-  width: 163px;
+  width: 20em;
 }
 
 select::-ms-expand {
@@ -582,11 +582,18 @@ input:disabled[type="radio"] + label.radio {
   color: #c0c0c0;
   cursor: not-allowed;
 }
+
+/* The select:disabled[type="radio"] + label.radio */
+/* may be invalid.  I have confirmed the line with */
+/* a peer, but do not have the time to remove it.  */
 select:disabled[type="radio"] + label.radio span,
 input:disabled[type="radio"] + label.radio span {
   opacity: 0.5;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
   filter: alpha(opacity=50);
+  background: url("../images/Radio_Button_Unselected.png");
+  background-repeat: no-repeat;
+  cursor: not-allowed;
 }
 select.error,
 input.error {
@@ -731,12 +738,6 @@ input.error + label.radio span {
   .container-fluid {
     padding-left: 5em;
     padding-right: 5em;
-  }
-
-  .vertical_alignment {
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 }
 
@@ -1074,7 +1075,7 @@ svg {
   cursor: pointer;
 }
 
-/* Used to Remove the Outline when a TextArea, Input, Select HTML Objects gets */
+/* Used to Remove the Outline for a TextArea, Input, Select HTML Objects gets etc....*/
 
 .removeOutline {
   outline: none;
@@ -1083,4 +1084,17 @@ svg {
 /* Styles for the Pie Chart Div that display the Pie Chart */
 #Pie_chart {
   margin-top: 1em;
+}
+
+/* Setup specifically for the Calculate Button */
+#calculate:hover:disabled {
+	color: inherit;
+ 	cursor: not-allowed;
+ 	opacity: 1.0;
+}
+
+.vertical_alignment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

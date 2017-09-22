@@ -68,6 +68,7 @@ function processSubmission(form){
 	}).done(resultsDisplay)
 	.fail(function() {
 		console.log("error");
+		$("#systemError").modal("show");
 	})
 	.always(function() {
 		$('html,body').scrollTop(0);
@@ -254,13 +255,18 @@ function fixedToTop(div,use_mobile) {
 	var header_height=$('header').outerHeight(true);
 	var window_top = $(window).scrollTop();
 	var div_top = $("#"+div).offset().top;
-	var form_steps_height=$('#form-steps').outerHeight(true);
+	//var form_steps_height=$('#form-steps').outerHeight(true);
 	var tool_title_height=$('#toolTitle').outerHeight(true);
+
+	var form_steps_exist = ($('#form-steps').length > 0) ? true : false;
+	var form_steps_height = ( form_steps_exist ) ? $('#form-steps').outerHeight(true) : 0;
 
 	if ( isMobile()) {
 		$("header").css("top", "0px");
- 		$("#form-steps").css("top",header_height+"px");
-		$("#form-steps").addClass("fixed");
+		if ( form_steps_exist ) {
+ 			$("#form-steps").css("top",header_height+"px");
+			$("#form-steps").addClass("fixed");
+		}
 
 		var height = header_height + form_steps_height + 14;
 		$("#riskForm").css("margin-top",height+"px");
@@ -272,7 +278,7 @@ function fixedToTop(div,use_mobile) {
 		 	$("#line").find("hr").css("top",form_steps_height-30)
 		 else
 		 	$("#line").find("hr").css("top",form_steps_height-37)
-		 adjust_line_height_mobile();
+			if ( form_steps_exist ) adjust_line_height_mobile();
 	} else {
 		$("#form-steps").removeClass('fixed');
 		adjust_line_height_dekstop()
@@ -389,49 +395,6 @@ function currentPage() {
 	 }
 }
 
-/**********************************************************************/
-/* Keeping the smoothScroll and isFirstSection until I tottally sure  */
-/* that no more of them are needed.                                   */
-/**********************************************************************/
-// function smoothScroll(e) {
-// 	if (e.type == "keypress") {
-// 		if ((e.keyCode == 13) || (e.keyCode == 32))
-// 			$(e.target).trigger('click');
-// 	}
-//  	if(location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-// 		var target = $(this.hash);
-// 		target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-// 		if (target.length) {
-// 			event.preventDefault();
-//
-// 			var scrollTo = -1;
-// 			if ( isFirstSection(target) == true ) {
-// 				scrollTo = 0;
-// 			} else {
-// 				scrollTo = calculatePositionToScrollTo(target);
-// 			}
-//
-// 			$('html, body').animate({scrollTop: scrollTo}, 1000);
-// 	    	return false;
-// 	    }
-// 	}
-// }
-
-/*****************************************************************************/
-/* Determines if the element passed in is the first section in the form      */
-/*****************************************************************************/
-// function isFirstSection(target) {
-// 	var gotoId = "#" + $(target).attr('id');
-// 	var selector = $("[href='" + gotoId + "']");
-// 	var index = $(selector).first().attr('data-riskFormSection');
-//
-// 	return index == 0;
-// }
-
-/**************************************************************************/
-/* End Smooth Scroll Section                                              */
-/**************************************************************************/
-
 // Get the bottom pixel location of the #form-steps.
 //
 // Algorithm
@@ -455,10 +418,9 @@ function toggle_menu(){
     if($("#side_nav").width()>0){
     	$("#side_nav").css("width","0%")
     	setTimeout(function(){ $("#form-steps").css("z-index","1"); }, 500);
-    }
-    else{
-			$("#side_nav").css("width","70%")
-			$("header").css("z-index","200")
+    } else {
+	$("#side_nav").css("width","70%")
+	$("header").css("z-index","200")
     }
 }
 
@@ -536,8 +498,6 @@ function focusBorderToggle(event) {
 	var $this = $(this);
 	var mouseDown = $this.data('mdown');
 
-	// Remove the flas we don't have it set next time if the user
-	// uses the tab key to come back.
 	$this.removeData('mdown');
 
 	if ( mouseDown )
@@ -649,7 +609,7 @@ $(function() {
 	var navigationLinks = $("#form-steps > ol > li > a");
 	$(navigationLinks).on("click", gotoSection);
 
-  // Whenever the window is resize we need to recalculate the line that contains
+  	// Whenever the window is resizeid we need to recalculate the line that contains
 	// the navigation numbers so that it fits correctly.
 	$(window).resize(function() {
 		fixedToTop( ( $(window).width() ) ? "main-nav" : "toolTitle" );
@@ -754,13 +714,14 @@ $(window).load(function(e) {
 	});
 
   // Sets up the GUI for mobile devices or desktop devices
-	var header_height=$('header').outerHeight();
+	var header_height=$('header').outerHeight(true);
  	var form_steps_height=$('#form-steps').outerHeight();
  	var logo_height=$('#logo').outerHeight();
 	$("#side_nav").css("margin-top",logo_height+"px");
 	if( isMobile() ) {
  		console.log("mobile");
  		$("header").addClass('fixed');
+		$("header").css("top", "0px")
 
 		if ( $("#form-steps").length > 0 ) {
 			$("#form-steps").addClass('fixed');
@@ -770,13 +731,41 @@ $(window).load(function(e) {
 	 		 	$("#form-steps").css("z-index","1")
 			}
 			$("#form-steps").css("top", + header_height + "px");
+			var height = header_height + form_steps_height + 14;
+	    $("#riskForm").css("margin-top", height + "px");
+
+
 			adjust_line_width()
 			adjust_line_height_mobile();
+		} else {
+			$("#main_home").css("padding-top", header_height);
 		}
+
+		// var header_height=$('header').outerHeight(true);
+		// var window_top = $(window).scrollTop();
+		// var div_top = $("#"+div).offset().top;
+		// //var form_steps_height=$('#form-steps').outerHeight(true);
+		// var tool_title_height=$('#toolTitle').outerHeight(true);
+		//
+		// var form_steps_exist = ($('#form-steps').length > 0) ? true : false;
+		// var form_steps_height = ( form_steps_exist ) ? $('#form-steps').outerHeight(true) : 0;
+		//
+		// if ( isMobile()) {
+		// 	$("header").css("top", "0px");
+		// 	if ( form_steps_exist ) {
+		// 		$("#form-steps").css("top",header_height+"px");
+		// 		$("#form-steps").addClass("fixed");
+		// 	}
+		//
+		// 	var height = header_height + form_steps_height + 14;
+		// 	$("#riskForm").css("margin-top",height+"px");
 
  		$("header").css("background","white");
  		$("#main").removeClass("container-fluid");
-		$("#main_home").css("margin-top", header_height);
+		console.log("Header Height = " + header_height);
+		console.log("steps height = " + form_steps_height)
+		//$("#main_home").css("margin-top", header_height);'
+
 	}
   else {
 		if ( $("#form-steps").length > 0) {
@@ -815,6 +804,9 @@ function genericResetForm() {
  	$(window).scrollTop(0);
 	$("form :input").attr('disabled', false);
 	$("[class*='questions']").css("color","#2e2e2e")
+	$("#calculate").attr("disabled", "disabled")
+	$("#calculate").attr("src", "rat-commons/images/Disabled_Calculate_Risk_Button.png");
+
 
 	// Move this to Mrat specific Rat when you start wokring with that code
  	//$("#skin-section").addClass("no_display")

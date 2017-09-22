@@ -7,83 +7,91 @@ var terms = {
 
 $(function() {
 
-  // Disables the form if the woman previously had cancer
-  $("input[name='cancerAndRadiationHistory']").on("change", function() {
+	// Disables the form if the woman previously had cancer
+	$("input[name='cancerAndRadiationHistory']").on("change", function() {
 		if(this.value == 0){
 			$("#womanWithCancerDialog").modal("show");
+			// Keeping this in here until we are sure that we do not need it. Enter 09/22/2017
 			$("form :input").not("[name='cancerAndRadiationHistory']").attr('disabled', true);
+			$("form :input").attr('disabled', true);
 			$("[class*='questions']").css("color","#c0c0c0");
       			disableSubraceMenu();
 			disablebutton();
-		}
-		else {
+		} else {
 			$("form :input").not("[name='cancerAndRadiationHistory']").removeAttr('disabled');
 			$("[class*='questions']").css("color","#2e2e2e");
       			disableSubraceMenu();
 		}
 	});
 
-  // Disables the form if has a mutation in the BRCA1 or BRCA2
-  $("input[name='geneticMakeup']").on("change", function() {
+  	// Disables the form if has a mutation in the BRCA1 or BRCA2
+  	$("input[name='geneticMakeup']").on("change", function() {
 		if(this.value == 0 || this.value == 2 ){
 			$("#hasBRCAMutation").modal("show");
-			$("form :input").not("[name='geneticMakeup']").attr('disabled', true);
+			// Keeping this in here until we are sure that we do not need it. Enter 09/22/2017
+			//$("form :input").not("[name='geneticMakeup']").attr('disabled', true);
+			$("form :input").attr('disabled', true);
 			$("[class*='questions']").css("color","#c0c0c0")
-		  disableSubraceMenu();
-      disablebutton();
+		  	disableSubraceMenu();
+		 	disablebutton();
 		}
 		else {
 			$("form :input").not("[name='geneticMakeup']").removeAttr('disabled');
 			$("[class*='questions']").css("color","#2e2e2e")
-    	disableSubraceMenu();
+    			disableSubraceMenu();
 		}
-  });
+  	});
 
-  // Create a call to check if the calculate button should be enabled.
-  $("#riskForm").change(function() {
-    if ( $("input[name='cancerAndRadiationHistory']:checked").val() == 0 ) {
-    	disablebutton();
-      return;
-    }
+  	// Create a call to check if the calculate button should be enabled.
+  	$("#riskForm").change(function() {
+ 	   	if ( $("input[name='cancerAndRadiationHistory']:checked").val() == 0 ) {
+    			disablebutton();
+      			return;
+    		}
 
-    var geneticMakeupValue = $("input[name='geneticMakeup']:checked").val();
-    if ( geneticMakeupValue == 0 || geneticMakeupValue == 99 ) {
-    	disablebutton();
-      return;
-    }
-   });
+   	 	var geneticMakeupValue = $("input[name='geneticMakeup']:checked").val();
+   		 if ( geneticMakeupValue == 0 || geneticMakeupValue == 99 ) {
+    			disablebutton();
+  	    		return;
+   	 	 }
+   	});
 
-  // Brings up the dialog box explaining why the data is inaccurate for hispnaics
-  $("#race").on("change", function() {
-    if( this.value == "US Hispanic"){
-      $("#hispanicIssue").modal("show");
-    }
-  });
+  	// Brings up the dialog box explaining why the data is inaccurate for hispnaics,
+ 	// Native Americans/Alaskians and how the unknow is handled
+  	$("#race").on("change", function() {
+    		if( this.value == "US Hispanic"){
+      			$("#hispanicIssue").modal("show");
+    		} else if ( this.value == "Other") {
+			$("#unknownIssue").modal("show")
+ 		} else if ( this.value == "Native American") {
+ 			$("#NativeAmericanIssue").modal("show");
+      		}
+  	});
 
-  // If the Asian Selection from the list has been selected then enable the sub_race
-  $("#sub_race").prop("disabled", true)
-  $("#race").on("change", disableSubraceMenu);
+  	// If the Asian Selection from the list has been selected then enable the sub_race
+ 	$("#sub_race").prop("disabled", true)
+        $("[for='sub_race']").css("color","#c0c0c0");
+  	$("#race").on("change", disableSubraceMenu);
 
-  // If the Number of Biopsies is None or 0 the questions about "How many breast biopies" and "atypical hyperlasia" should be disabled
-  $("#biopsyAnswerYes").on("click", enableQuestionAndAnswers)
-  $("#biopsyAnswerNo").on("click", disableQuestionAndAnswers);
-  $("#biopsyAnswerUnknown").on("click", disableQuestionAndAnswers);
+  	// If the Number of Biopsies is None or 0 the questions about "How many breast biopies" and "atypical hyperlasia" should be disabled
+ 	$("#biopsyAnswerYes").on("click", enableQuestionAndAnswers)
+  	$("#biopsyAnswerNo").on("click", disableQuestionAndAnswers);
+  	$("#biopsyAnswerUnknown").on("click", disableQuestionAndAnswers);
 
-  // If the question about a women every having a biopsy is answered disable the questions associated with it.
-  var biopsyValue = $("input:radio[name='biopsy']:checked").val();
-  if ( biopsyValue == 0 || biopsyValue == 99 ) {
-      disableQuestionAndAnswers();
-      enableButtonIfAllFieldHaveInput();
-  }
+ 	  // If the question about a women every having a biopsy is answered disable the questions associated with it.
+  	var biopsyValue = $("input:radio[name='biopsy']:checked").val();
+  	if ( biopsyValue == 0 || biopsyValue == 99 ) {
+      		disableQuestionAndAnswers();
+      		enableButtonIfAllFieldHaveInput();
+  	}
 
-  // Display the help windw
-  $(".definition").on("click", displayHelpWindow);
+  	// Display the help windw
+  	$(".definition").on("click", displayHelpWindow);
 
-  // Initialize the button that will reset the form
-  $("#reset_form").on("click", resetForm)
+  	// Initialize the button that will reset the form
+  	$("#reset_form").on("click", resetForm)
 
-  $('#riskForm').trigger('change');
-
+  	$('#riskForm').trigger('change');
 });
 
 // Disable a question and it answers that are associated with a woman having a breast biopsy
@@ -109,10 +117,14 @@ function enableQuestionAndAnswers(event) {
 
 // If the value of the race menu is not "Asian" the subrace dropddown select box
 function disableSubraceMenu() {
-  if ( $("#race").val() == "Asian")
+  if ( $("#race").val() == "Asian") {
+    $("[for='sub_race']").css("color","#2e2e2e");
     $("#sub_race").prop("disabled", false)
-  else
+  } else {
+    $("[for='sub_race']").css("color","#c0c0c0");
     $("#sub_race").prop("disabled", true)
+    $("#sub_race").val("");
+  }
 }
 
 /* Produces the results box for the RAT                                      */

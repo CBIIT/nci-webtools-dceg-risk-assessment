@@ -152,10 +152,10 @@ class BreastRiskAssessmentTool:
             results={}
             results['risk']=fiveYearRisk
             results['averageFiveRisk'] = averageFiveYearRisk
-            results['message'] = "Based on the information provide the woman's risk for developing invasive breast cancer over the next 5 years is {0} compared to a risk of {1} for a women of the same age and race/ethicity from the general U.S. Population".format(fiveYearRisk,averageFiveYearRisk)
+            results['message'] = "Based on the information provided the woman's estimated risk for developing invasive breast cancer over the next 5 years is {0:g}% compared to a risk of {1:g}% for a woman of the same age and race/ethicity from the general U.S. population.".format(fiveYearRisk,averageFiveYearRisk)
             results['lifetime_patient_risk']=lifetimeRisk
             results['lifetime_average_risk']=averageLifeTimeRisk
-            results['lifetime_message'] = "Based on the information provided, the woman's eistimated risk for developing invasive breast cancer over her lifetime ( to age 90 is ) {0} compared to a risk of {1} for a woman of the same age and race/ethnicity from the general U.S. population".format(lifetimeRisk,averageLifeTimeRisk)
+            results['lifetime_message'] = "Based on the information provided, the woman's estimated risk for developing invasive breast cancer over her lifetime (to age 90) is {0:g}% compared to a risk of {1:g}% for a woman of the same age and race/ethnicity from the general U.S. population.".format(lifetimeRisk,averageLifeTimeRisk)
 
             json_data=json.dumps(results)
     except Exception as e:
@@ -166,46 +166,10 @@ class BreastRiskAssessmentTool:
 
     return BreastRiskAssessmentTool.buildSuccess(json_data)
 
-
-  # @app.route('/calculate', methods=['GET'] )
-  # @app.route('/calculate/', methods=['GET'])
-  # def calculate():
-  #   try:
-  #     parameters = request.args.to_dict()
-  #     logging.debug("***** Performing Calculation using the Calculate URL");
-  #     logging.debug("Parameters from Get Request = " +str(parameters))
-  #     errors = {'missing':[],'nonnumeric':[],'message':[]}
-  #
-  #     age, race = BreastRiskAssessmentTool.validateDemographics(parameters, errors)
-  #     logging.debug( "Demographics: age = " + str(age) + " race = " + race)
-  #
-  #     numberOfBiopsy, oneBiopsyWithAtypcialHyperplasia, ageFirstPeriod, womansAgeOfFirstLiveBirth, relativeCount = BreastRiskAssessmentTool.validateHistory(parameters, errors)
-  #     logging.debug( "History: biopsy = " + str(numberOfBiopsy)  + " oneBiopsyWithAtypcialHyperplasia = " + str(oneBiopsyWithAtypcialHyperplasia))
-  #     logging.debug( "History: Age First Period = " + str(ageFirstPeriod) + " Age of First Birth = " + str(womansAgeOfFirstLiveBirth) + " relativeCount = " + str(relativeCount))
-  #
-  #     response =  BreastRiskAssessmentTool.bcRatRisk(age,race, numberOfBiopsy, ageFirstPeriod, womansAgeOfFirstLiveBirth, oneBiopsyWithAtypcialHyperplasia,  relativeCount, errors)
-  #     logging.debug("The response is " + str(response) )
-  #
-  #     return response;
-  #   except Exception as e:
-  #     exc_type, exc_obj, exc_tb = sys.exc_info()
-  #     fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-  #     logging.debug("EXCEPTION------------------------------" + str(exc_type) + " "  + str(fname) + " " + str(exc_tb.tb_lineno))
-  #     return BreastRiskAssessmentTool.buildFailure(str(e))
-  #   except KeyError as e:
-  #     exc_type, exc_obj, exc_tb = sys.exc_info()
-  #     fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-  #     logging.debug("EXCEPTION------------------------------" + str(exc_type) + " "  + str(fname) + " " + str(exc_tb.tb_lineno))
-  #     return BreastRiskAssessmentTool.buildFailure(str(e))
-
   @app.route('/calculate', methods=['POST'], strict_slashes=False )
-  #@app.route('/calculate/', methods=['POST'])
   def calculate():
     try:
-      #parameters = request.args.to_dict()
       parameters = request.form.to_dict()
-      #for field in parameters:
-    #      parameters[field] = parameters[field][0]
       logging.debug("***** Performing Calculation using the Calculate URL");
       logging.debug("Parameters from Get Request = " +str(parameters))
       errors = {'missing':[],'nonnumeric':[],'message':[]}
@@ -232,3 +196,24 @@ class BreastRiskAssessmentTool:
       fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
       logging.debug("EXCEPTION------------------------------" + str(exc_type) + " "  + str(fname) + " " + str(exc_tb.tb_lineno))
       return BreastRiskAssessmentTool.buildFailure(str(e))
+
+  if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser()
+
+    # Default port is 9200
+    parser.add_argument('-p', '--port', type = int, dest = 'port', default = 9200, help = 'Sets the Port')
+    parser.add_argument('-d', '--debug', action = 'store_true', help = 'Enables debugging')
+    args = parser.parse_args()
+    if (args.debug):
+        @app.route('/common/<path:path>')
+        def common_folder(path):
+            return send_from_directory("C:\\common\\",path)
+
+        @app.route('/<path:path>')
+        def static_files(path):
+            if (path.endswith('/')):
+                path += 'index.html'
+            return send_from_directory(os.getcwd(),path)
+    #end remove
+    app.run(host = '0.0.0.0', port = args.port, debug = args.debug, use_evalex = False)
