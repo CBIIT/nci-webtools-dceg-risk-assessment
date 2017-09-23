@@ -6,20 +6,21 @@ const webdriver = require('selenium-webdriver')
 By = webdriver.By, until = webdriver.until
 
 function initializeFireFox() {
-   return new webdriver.Builder().forBrowser('firefox').build();
+   return new webdriver.Builder().forBrowser('chrome').build();
 }
 
-function cleanup(driver) {
-  driver.close();
-}
+//function cleanup(driver) {
+//  await driver.close();
+//  done();
+//}
 
 function getBaseUrl() {
-  return "http://localhost:5006/"
+  return "http://localhost:9200/"
 }
 
 
 function gotoIndexURL() {
-  return "http://localhost:5006/index.html"
+  return "http://localhost:9200/index.html"
 }
 
 function correct(driver) {
@@ -43,62 +44,21 @@ test.describe("Test Suite", async function() {
         console.log("The return value is " + return_value);
       });
 
-    test1 = await driver.findElement(By.id("gotoInputPageLink")).click().then( function(p) {
-      console.log(JSON.parse(JSON.stringify(p)));
-      console.log(typeof p);
-      console.log(Object.keys(p));
+    await driver.findElement(By.id("gotoInputPageLink")).click();
+
+    driver.takeScreenshot().then(
+       function(image, err) {
+          require('fs').writeFile('out.png', image, 'base64', function(err) {
+          console.log(err);
+       });
     });
 
-    await driver.wait( function() { driver.wait(until.urlIs(url)) }, 1)
-    console.log("Done")
+    await driver.wait( function() { return until.urlIs(url) }, 10000)
 
-        //console.log("Done");
-
-    //console.log("url = " + classes);
-    //let url = await driver.executeScript(`return 'http://localhost:5006/' + $('#gotoInputPageLink').attr('href')");
-    //await driver.get(url);
-
-
-//        driver.get(
-//let html = await driver.findElement(By.id("gotoInputPageLink")).getAttribute('innerHTML')
-//console.log(html);
-//
-//
-//          driver.executeScript("return ${getBaseUrl()} + $('#gotoInputPageLink').attr('href')`)
-//        ).then(function() {
-//          driver.getCurrentUrl().then(url => assert('http://localhost:5006/calculator.html', url));
-//        })
-//
-//
-//
-//    })
-//
-//    ;
-//
- //   */
-
-
+    //await done();	  
+    driver.close();
     done();
-  })
-
-/*
-  test.it("When the Access Patitent Link is clicked then the Input Page should be shown.", function() {
-  this.timeout(0)
-  var driver = null
-
-  if ( driver == null ) driver = initializeFireFox();
-
-  driver.get(gotoIndexURL())
-  driver.findElement(By.id("gotoInputPageLink")).click().then(function() {
-    driver.sleep(3000)
+    //cleanup(driver);
   });
 
-  assert(true);
-  console.log("Current URL is " + driver.getCurrentUrl().toString());
-
-*/
-
-  //if ( driver != null ) driver.close();
-
-//  });
 });

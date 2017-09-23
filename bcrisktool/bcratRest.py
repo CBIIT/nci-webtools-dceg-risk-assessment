@@ -7,7 +7,9 @@ import json
 from flask import Flask, Response, request, jsonify, send_from_directory
 from BcratRunFunction import RiskCalculation, AbsoluteRisk, AverageRisk
 
-app = Flask(__name__, static_folder="", static_url_path="/")
+#app = Flask(__name__, static_url_path="/")
+#app = Flask(__name__, static_url_path="")
+app = Flask(__name__)
 logging.basicConfig(level=logging.DEBUG)
 
 class BreastRiskAssessmentTool:

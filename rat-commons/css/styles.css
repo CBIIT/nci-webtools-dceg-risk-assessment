@@ -477,6 +477,8 @@ label.questions {
 /* margin-left will overwrite the bootstrap grid                              */
 .responseOptionsWithoutIndent {
   font-weight: normal;
+  font-family: Montserrat;
+  font-size: 16px;
   margin-top: 16px;
 }
 
@@ -1097,4 +1099,6 @@ svg {
   display: flex;
   align-items: center;
   justify-content: center;
-}
+
+.force_lineHeight {
+  line-height: 1; !important;}

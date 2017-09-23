@@ -141,11 +141,11 @@
             radiation therapy to the chest for treatment of Hodgkin lymphoma?
           </label>
           <div class="responseOptions">
-            <input type="radio" name="cancerAndRadiationHistory" value="0" >
+            <input id="cancerAndRadiationHistoryYes" type="radio" name="cancerAndRadiationHistory" value="0" >
             <label class="radio" tabindex="0"><span></span>Yes</label>
           </div>
           <div class="responseOptions">
-            <input type="radio" name="cancerAndRadiationHistory" value="1">
+            <input id="cancerAndRadiationHistoryNo" type="radio" name="cancerAndRadiationHistory" value="1">
             <label class="radio" tabindex="0"><span></span>No</label>
           </div>
 
@@ -153,11 +153,11 @@
             Does the woman have a mutation in either the BRCA1 or BRCA2 gene, or a diagnosis of a genetic syndrome that may be associated with elevated risk of breast cancer?
           </label>
           <div class="responseOptions">
-            <input type="radio" name="geneticMakeup" value="0">
+            <input id="geneticMakeupYes" type="radio" name="geneticMakeup" value="0">
             <label class="radio" tabindex="0"><span></span>Yes</label>
           </div>
           <div class="responseOptions">
-            <input type="radio" name="geneticMakeup" value="1">
+            <input id="geneticMakeupNo" type="radio" name="geneticMakeup" value="1">
             <label class="radio" tabindex="0"><span></span>No</label>
           </div>
           <div class="responseOptions">
@@ -243,7 +243,7 @@
              <label class="col-sm-offset-1 questions" for="sub_race">What is the sub race/ethnicity?</label>
              <div class="col-sm-offset-1 pl-3 responseOptionsWithoutIndent">
                <select id="sub_race" name="sub_race" class="pl-3" placeholder="Enter patient's race/ethnicity" required>
-                 <option value="">Select Race</option>
+                 <option value="">Select</option>
                  <option value="Chinese">Chinese</option>
                  <option value="Japanese">Japanese</option>
                  <option value="Filipino">Filipino</option>
@@ -271,21 +271,21 @@
 
             <label class="col-sm-offset-1 questions" for="howManyBreastBiopsies">How many breast biopsies (postive or negative) has the woman had?</label>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
-              <input type="radio" name="howManyBreastBiopsies" value="1" required>
+              <input id="breastBiopsiesCount1" type="radio" name="howManyBreastBiopsies" value="1" required>
               <label class="radio" tabindex="0"><span> </span>1</label>
             </div>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
-              <input type="radio" name="howManyBreastBiopsies" value="2" required>
+              <input id="breastBiopsiesCountLessThan0" type="radio" name="howManyBreastBiopsies" value="2" required>
               <label class="radio" tabindex="0"><span> </span>&lt;1</label>
             </div>
 
             <label class="col-sm-offset-1 questions" for="hadAH">Has the woman had at least one breast bioposy with atypical hyperplasia?</label>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
-              <input type="radio" name="hadAH" value="1.82" required>
+              <input id="hadAhYes" type="radio" name="hadAH" value="1.82" required>
               <label class="radio" tabindex="0"><span> </span>Yes</label>
             </div>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
-              <input type="radio" name="hadAH" value=".93" required>
+              <input id="hadAhNo" type="radio" name="hadAH" value=".93" required>
               <label class="radio" tabindex="0"><span> </span>No</label>
             </div>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
