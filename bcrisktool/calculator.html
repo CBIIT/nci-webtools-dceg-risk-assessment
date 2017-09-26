@@ -64,22 +64,23 @@
         <div id="results_box" class="row">
             <h3 class="results_header">5 Year Risk of Developing Breast Cancer</h3>
             <div class="row vertical_alignment">
-              <div class="col-xs-12 col-lg-4" >
+              <div class="col-xs-12 col-sm-6 col-lg-3" >
                 <div id="results_graph_1">
                   <div class="patient_header">Patient Risk</div>
 		              <div class="risk_header" id="Risk1"></div>
-                  <div id="pieChart1"> </div>
+                  <div id="pieChart1" class="svg-container"> </div>
                 </div>
               </div>
-              <div class="col-xs-12 col-lg-4" >
+              <div class="col-xs-12 col-sm-6 col-lg-3" >
                 <div id="results_graph_2">
                   <div class="patient_header">Average Risk</div>
 		              <div class="risk_header" id="Risk2"></div>
                   <div id="Pie_chart_2">
-                    <div id="pieChart2"> </div>
+                    <div id="pieChart2" class="svg-container"> </div>
                   </div>
                 </div>
               </div>
+
               <div class="col-xs-12 col-lg-4 " >
                 <div id="results_text1" class="vertical_alignment"></div>
               </div>
@@ -90,19 +91,19 @@
         <div id="results_box2" class="row">
             <h3 class="results_header">Lifetime Risk of Developing Developing Breast Cancer</h3>
             <div class="row vertical_alignment">
-              <div class="col-xs-12 col-lg-4">
+              <div class="col-xs-12 col-sm-6 col-lg-3">
                 <div id="results_graph_3">
                   <div class="patient_header">Patient Risk</div>
 		              <div class="risk_header" id="Risk3"></div>
-                  <div id="pieChart3"> </div>
+                  <div id="pieChart3" class="svg-container"> </div>
                 </div>
               </div>
-              <div class="col-xs-12 col-lg-4">
+              <div class="col-xs-12 col-sm-6 col-lg-3">
                 <div id="results_graph_4">
                   <div id="Pie_chart_4">
                     <div class="patient_header">Average Risk</div>
 		                <div class="risk_header" id="Risk4"></div>
-                    <div id="pieChart4"> </div>
+                    <div id="pieChart4" class="svg-container"> </div>
                   </div>
                  </div>
               </div>
@@ -112,7 +113,7 @@
             </div>
         </div>
         <div>
-            <a href="calculator.html"><img class="center-block btn-form" src="./rat-commons/images/Start_Over_Button.png"></a>
+          <a id="startOver" class="center-block btn btn-default vertical_alignment" href="javascript:goback_tocalc()">Start Over</a>
        </div>
      </cdiv>
     </div>
@@ -342,8 +343,15 @@
         <div class="center-block">
           <div id="buttons">
             <div class="col-xs-12">
+		<!--
               <input class="btn-sm btn-form" type="image" id="calculate" src="rat-commons/images/Disabled_Calculate_Risk_Button.png" disabled="disabled">
+		-->
+              <input class="center-block vertical_alignment text-center spacerBetweenCalculateButtonAndResetButton" type="submit" id="calculate" disabled="disabled" value="Calculate Risk">
+    <!--
               <img class="btn-sm btn-form" id="reset_form" src="./rat-commons/images/Reset_Button.png" alt="reset">
+    -->
+              <input class="center-block vertical_alignment text-center" id="reset" type="reset" value="reset">
+
             </div>
           </div>
         </div>
@@ -381,7 +389,7 @@
       </div>
     </div>
 
-    <!-- Modal for women with breast cancer or DCIS or LCIS -->
+    <!-- Modal for women with BRCA Mutatation -->
     <div class="modal demo-dialog fade" id="hasBRCAMutation" tabindex="-1" role="dialog" data-backdrop="false">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -444,7 +452,7 @@
       </div>
     </div>
 
-    <!-- Modal : Explamation for not having accurate date for Hispanic Women  -->
+    <!-- Modal : Explamation for not having accurate date for Unknown Group  -->
     <div class="modal demo-dialog fade" id="unknownIssue" tabindex="-1" role="dialog" data-backdrop="false">
       <div class="modal-dialog" role="document">
         <div class="modal-content">

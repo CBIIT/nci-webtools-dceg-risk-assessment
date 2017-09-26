@@ -130,8 +130,9 @@ function make_pie_chart(percent, divContainerForChart, color1, color2){
 
         var svg = d3.select(divContainerForChart)
           .append('svg')
-          .attr('width', width)
-          .attr('height', height)
+//          .attr('width', width)
+//          .attr('height', height)
+					.attr('viewBox', '0 0 ' + width + " " + height)
           .append('g')
           .attr('transform', 'translate(' + (width / 2) +
             ',' + (height / 2) + ')');
@@ -805,7 +806,7 @@ function genericResetForm() {
 	$("form :input").attr('disabled', false);
 	$("[class*='questions']").css("color","#2e2e2e")
 	$("#calculate").attr("disabled", "disabled")
-	$("#calculate").attr("src", "rat-commons/images/Disabled_Calculate_Risk_Button.png");
+  //	$("#calculate").attr("src", "rat-commons/images/Disabled_Calculate_Risk_Button.png");
 
 
 	// Move this to Mrat specific Rat when you start wokring with that code

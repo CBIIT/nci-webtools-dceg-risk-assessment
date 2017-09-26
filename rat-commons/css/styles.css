@@ -105,6 +105,11 @@ h4 {
   margin-bottom: 1.9375em;
 }
 
+/* Extra Space Between the Calculate Risk Button and Reset Button */
+.spacerBetweenCalculateButtonAndResetButton {
+  margin-bottom: 1em;
+}
+
 p {
   margin: 0;
   margin-bottom: 1em;
@@ -263,6 +268,18 @@ a.btn:disabled {
   padding: 0px;
 }
 
+#startOver {
+  box-sizing: border-box;
+  width: 137px;
+  height: 35px;
+  border: 0px;
+  padding: 0px;
+
+  font-family: 'Montserrat';
+  font-size: 15px;
+  border-radius: 3px;
+}
+
 /* Whenever you hover over a button that goes to a different page, the color */
 /* the color will change                                                     */
 /* Added this style since I did not want to change the global style because  */
@@ -270,6 +287,82 @@ a.btn:disabled {
 #AssessPatientRisk:hover {
   background-color: #28b280;
   color: white;
+}
+
+#startOver {
+  background-color: #28b280;
+  color: white;
+}
+
+#calculate:disabled {
+
+  box-sizing: border-box;
+  width: 168px;
+  height: 35px;
+  border: 0px;
+  padding: 0px;
+
+  font-family: 'Montserrat';
+  font-size: 15px;
+  border-radius: 3px;
+
+  cursor: not-allowed;
+  background-color: #AAAAAA;
+  color: #DFDFDF;
+  border: none;
+}
+
+#calculate:enabled {
+  box-sizing: border-box;
+  width: 168px;
+  height: 35px;
+  border: 0px;
+  padding: 0px;
+
+  font-family: 'Montserrat';
+  font-size: 15px;
+  border-radius: 3px;
+
+  background-color: #2DCF99;
+  color: white;
+  border: none;
+
+}
+
+/* Setup specifically for the Calculate Button */
+#calculate:hover:disabled {
+ 	cursor: not-allowed;
+  color: #DFDFDF;
+  background-color: #AAAAAA;
+}
+
+#calculate:enabled:hover {
+  color: white;
+  background-color: #28b280;
+  padding: 0px;
+}
+
+#reset:enabled {
+  box-sizing: border-box;
+  width: 113px;
+  height: 35px;
+  border: 0px;
+  padding: 0px;
+
+  font-family: 'Montserrat';
+  font-size: 15px;
+  border-radius: 3px;
+
+  background-color: #6150A2;
+  color: white;
+  border: none;
+
+}
+
+#reset:enabled:hover {
+  color: white;
+  background-color: #584b92;
+  padding: 0px;
 }
 
 #results:not(.show),
@@ -728,7 +821,7 @@ input.error + label.radio span {
   font-size: 14px;
 }
 
-@media (min-width: 1201px) {
+@media (min-width: 1459px) {
    .vertical_alignment {
 	display: flex;
 	align-items: center;
@@ -737,7 +830,7 @@ input.error + label.radio span {
 }
 
 
-@media (max-width: 1200px) {
+@media (max-width: 1458px) {
   .vertical_aligment {}
 }
 
@@ -1101,13 +1194,27 @@ svg {
   margin-top: 1em;
 }
 
-/* Setup specifically for the Calculate Button */
-#calculate:hover:disabled {
-	color: inherit;
- 	cursor: not-allowed;
- 	opacity: 1.0;
-}
+
 
 
 .force_lineHeight {
   line-height: 1; !important;}
+
+
+
+/**
+ * This class will enable a div to fill the entire height of its parent
+ * as well as relatively position its child elements
+ */
+.svg-container {
+  width: 100%;
+  height: 0;
+  padding-top: 100%;
+  position: relative;
+}
+
+.svg-container > svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

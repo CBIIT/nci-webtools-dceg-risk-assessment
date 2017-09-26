@@ -11,16 +11,15 @@ $(function() {
 	$("input[name='cancerAndRadiationHistory']").on("change", function() {
 		if(this.value == 0){
 			$("#womanWithCancerDialog").modal("show");
-			// Keeping this in here until we are sure that we do not need it. Enter 09/22/2017
-			$("form :input").not("[name='cancerAndRadiationHistory']").attr('disabled', true);
-			$("form :input").attr('disabled', true);
+			$("form :input").not("#reset").attr('disabled', true);
 			$("[class*='questions']").css("color","#c0c0c0");
-      			disableSubraceMenu();
+      disableSubRaceMenu();
 			disablebutton();
+      resetsDropDowns();
 		} else {
 			$("form :input").not("[name='cancerAndRadiationHistory']").removeAttr('disabled');
 			$("[class*='questions']").css("color","#2e2e2e");
-      			disableSubraceMenu();
+      disableSubraceMenu();
 		}
 	});
 
@@ -30,15 +29,16 @@ $(function() {
 			$("#hasBRCAMutation").modal("show");
 			// Keeping this in here until we are sure that we do not need it. Enter 09/22/2017
 			//$("form :input").not("[name='geneticMakeup']").attr('disabled', true);
-			$("form :input").attr('disabled', true);
+			$("form :input").not("#reset").attr('disabled', true);
 			$("[class*='questions']").css("color","#c0c0c0")
-		  	disableSubraceMenu();
+		  disableSubraceMenu();
 		 	disablebutton();
+      resetDropDowns();
 		}
 		else {
 			$("form :input").not("[name='geneticMakeup']").removeAttr('disabled');
 			$("[class*='questions']").css("color","#2e2e2e")
-    			disableSubraceMenu();
+    	enableSubraceMenu();
 		}
   	});
 
@@ -46,32 +46,32 @@ $(function() {
   	$("#riskForm").change(function() {
  	   	if ( $("input[name='cancerAndRadiationHistory']:checked").val() == 0 ) {
     			disablebutton();
-      			return;
+      		return;
     		}
 
    	 	var geneticMakeupValue = $("input[name='geneticMakeup']:checked").val();
    		 if ( geneticMakeupValue == 0 || geneticMakeupValue == 99 ) {
     			disablebutton();
-  	    		return;
+  	    	return;
    	 	 }
    	});
 
   	// Brings up the dialog box explaining why the data is inaccurate for hispnaics,
- 	// Native Americans/Alaskians and how the unknow is handled
+ 	  // Native Americans/Alaskians and how the unknow is handled
   	$("#race").on("change", function() {
     		if( this.value == "US Hispanic"){
-      			$("#hispanicIssue").modal("show");
+      			 $("#hispanicIssue").modal("show");
     		} else if ( this.value == "Other") {
-			$("#unknownIssue").modal("show")
- 		} else if ( this.value == "Native American") {
- 			$("#NativeAmericanIssue").modal("show");
-      		}
-  	});
+			       $("#unknownIssue").modal("show")
+ 		    } else if ( this.value == "Native American") {
+             $("#NativeAmericanIssue").modal("show");
+        }
+    });
 
   	// If the Asian Selection from the list has been selected then enable the sub_race
  	$("#sub_race").prop("disabled", true)
         $("[for='sub_race']").css("color","#c0c0c0");
-  	$("#race").on("change", disableSubraceMenu);
+  	$("#race").on("change", changeSubraceMenu);
 
   	// If the Number of Biopsies is None or 0 the questions about "How many breast biopies" and "atypical hyperlasia" should be disabled
  	$("#biopsyAnswerYes").on("click", enableQuestionAndAnswers)
@@ -89,7 +89,7 @@ $(function() {
   	$(".definition").on("click", displayHelpWindow);
 
   	// Initialize the button that will reset the form
-  	$("#reset_form").on("click", resetForm)
+  	$("#reset").on("click", resetForm)
 
   	$('#riskForm').trigger('change');
 });
@@ -115,17 +115,41 @@ function enableQuestionAndAnswers(event) {
 }
 
 
-// If the value of the race menu is not "Asian" the subrace dropddown select box
-function disableSubraceMenu() {
-  if ( $("#race").val() == "Asian") {
-    $("[for='sub_race']").css("color","#2e2e2e");
-    $("#sub_race").prop("disabled", false)
-  } else {
-    $("[for='sub_race']").css("color","#c0c0c0");
-    $("#sub_race").prop("disabled", true)
-    $("#sub_race").val("");
-  }
+/* Reset the drop down to its default value */
+function resetsDropDowns() {
+  function resetsAgeDropDown()      { $("#age option:eq(0)").attr("selected", "selected")             }
+  function resetsRaceDropDown()     { $("#race option:eq(0)").attr("selected", "selected")            }
+  function resetsSubRaceDropDown()  { $("#sub_race option:eq(0)").attr("selected", "selected")        }
+  function resetsChildBirthAge()    { $("#childbirth_age option:eq(0)").attr("selected", "selected")  }
+
+  resetsAgeDropDown();
+  resetsRaceDropDown();
+  resetsSubRaceDropDown();
+  resetsChildBirthAge();
 }
+
+
+// If the value of the race menu is not "Asian" the subrace dropddown select box
+function changeSubraceMenu() {
+  if ( $("#race").val() == "Asian")
+    enableSubRaceMenu()
+  else
+    disableSubRaceMenu();
+}
+
+function enableSubRaceMenu() {
+  $("[for='sub_race']").css("color","#2e2e2e");
+  $("#sub_race").prop("disabled", false)
+}
+
+function disableSubRaceMenu() {
+  $("[for='sub_race']").css("color","#c0c0c0");
+  $("#sub_race").prop("disabled", true)
+  $("#sub_race options:eq(0)").prop("selected");
+
+}
+
+
 
 /* Produces the results box for the RAT                                      */
 function resultsDisplay(response, textStatus, xhr) {
@@ -151,5 +175,6 @@ function resultsDisplay(response, textStatus, xhr) {
 function resetForm() {
   genericResetForm()
   enableQuestionAndAnswers();
-  disableSubraceMenu();
+  disableSubRaceMenu();
+  resetsDropDowns();
 }
