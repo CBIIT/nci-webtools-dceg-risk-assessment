@@ -110,6 +110,12 @@ h4 {
   margin-bottom: 1em;
 }
 
+/* Extra space between the top of the current section the previous before it. */
+/* so that the second can be easier defined.                                  */
+.spacerBetweenSections {
+  margin-top: 3em;
+}
+
 p {
   margin: 0;
   margin-bottom: 1em;
