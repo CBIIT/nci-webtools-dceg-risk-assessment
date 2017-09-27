@@ -19,7 +19,7 @@ $(function() {
 		} else {
 			$("form :input").not("[name='cancerAndRadiationHistory']").removeAttr('disabled');
 			$("[class*='questions']").css("color","#2e2e2e");
-      disableSubraceMenu();
+      disableSubRaceMenu();
 		}
 	});
 
@@ -31,14 +31,14 @@ $(function() {
 			//$("form :input").not("[name='geneticMakeup']").attr('disabled', true);
 			$("form :input").not("#reset").attr('disabled', true);
 			$("[class*='questions']").css("color","#c0c0c0")
-		  disableSubraceMenu();
+      disableSubRaceMenu();
 		 	disablebutton();
-      resetDropDowns();
+      resetsDropDowns();
 		}
 		else {
 			$("form :input").not("[name='geneticMakeup']").removeAttr('disabled');
 			$("[class*='questions']").css("color","#2e2e2e")
-    	enableSubraceMenu();
+      enableSubRaceMenu();
 		}
   	});
 
@@ -85,7 +85,7 @@ $(function() {
       		enableButtonIfAllFieldHaveInput();
   	}
 
-  	// Display the help windw
+  	// Display the help window
   	$(".definition").on("click", displayHelpWindow);
 
   	// Initialize the button that will reset the form
@@ -97,19 +97,19 @@ $(function() {
 // Disable a question and it answers that are associated with a woman having a breast biopsy
 function disableQuestionAndAnswers(event) {
   $("input[name='howManyBreastBiopsies']").attr("disabled", true);
-  $("label[for='howManyBreastBiopsies']").css("opacity", ".2");
+  $("label[for='howManyBreastBiopsies']").css("color", "#C0C0C0");
 
   $("input[name='hadAH']").attr("disabled", true);
-  $("label[for='hadAH']").css("opacity", ".2");
+  $("label[for='hadAH']").css("color", "#c0c0c0");
 }
 
 // Enable Questions and Answersi that are associated with a women having a breast biopsy
 function enableQuestionAndAnswers(event) {
   $("input[name='howManyBreastBiopsies']").attr("disabled", false);
-  $("label[for='howManyBreastBiopsies']").css("opacity", "1.0");
+  $("label[for='howManyBreastBiopsies']").css("color", "#2e2e2e");
 
   $("input[name='hadAH']").attr("disabled", false);
-  $("label[for='hadAH']").css("opacity", "1.0");
+  $("label[for='hadAH']").css("color", "#2e2e2e");
 
   adjust_line_width();
 }
@@ -148,8 +148,6 @@ function disableSubRaceMenu() {
   $("#sub_race options:eq(0)").prop("selected");
 
 }
-
-
 
 /* Produces the results box for the RAT                                      */
 function resultsDisplay(response, textStatus, xhr) {

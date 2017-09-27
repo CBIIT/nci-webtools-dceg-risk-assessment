@@ -264,14 +264,28 @@ a.btn:disabled {
   filter: alpha(opacity=50);
 }
 
-/* Add ths Property/Value Pair since we are using CSS instead of an image.  I */
-/* want to get it as close as possible to the image on the spacer             */
+
+
+
+
+/* These buttons were orignally images, but when they want the color to       */
+/* change on hover then they change them to CSS Buttons                       */
+/* Added these style since I did not want to change the global style because  */
+/* I do not know what it affects                                              */
+/* TODO : Clean up this section by getting rid of duplicated styles and       */
+/* Refactoring it.                                                            */
+
 #AssessPatientRisk {
   box-sizing: border-box;
   width: 168px;
   height: 35px;
   border: 0px;
   padding: 0px;
+}
+
+#AssessPatientRisk:hover {
+  background-color: #28b280;
+  color: white;
 }
 
 #startOver {
@@ -286,16 +300,7 @@ a.btn:disabled {
   border-radius: 3px;
 }
 
-/* Whenever you hover over a button that goes to a different page, the color */
-/* the color will change                                                     */
-/* Added this style since I did not want to change the global style because  */
-/* I do not know what it affects                                             */
-#AssessPatientRisk:hover {
-  background-color: #28b280;
-  color: white;
-}
-
-#startOver {
+#startOver:hover {
   background-color: #28b280;
   color: white;
 }
@@ -335,7 +340,6 @@ a.btn:disabled {
 
 }
 
-/* Setup specifically for the Calculate Button */
 #calculate:hover:disabled {
  	cursor: not-allowed;
   color: #DFDFDF;
