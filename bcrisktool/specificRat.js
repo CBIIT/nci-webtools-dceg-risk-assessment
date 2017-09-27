@@ -59,6 +59,7 @@ $(function() {
   	// Brings up the dialog box explaining why the data is inaccurate for hispnaics,
  	  // Native Americans/Alaskians and how the unknow is handled
   	$("#race").on("change", function() {
+
     		if( this.value == "US Hispanic"){
       			 $("#hispanicIssue").modal("show");
     		} else if ( this.value == "Other") {
@@ -69,8 +70,8 @@ $(function() {
     });
 
   	// If the Asian Selection from the list has been selected then enable the sub_race
- 	$("#sub_race").prop("disabled", true)
-        $("[for='sub_race']").css("color","#c0c0c0");
+ 	  $("#sub_race").prop("disabled", true)
+    $("[for='sub_race']").css("color","#c0c0c0");
   	$("#race").on("change", changeSubraceMenu);
 
   	// If the Number of Biopsies is None or 0 the questions about "How many breast biopies" and "atypical hyperlasia" should be disabled
@@ -114,19 +115,31 @@ function enableQuestionAndAnswers(event) {
   adjust_line_width();
 }
 
+//function resetsSubRaceDropDown()
+//{
+//  $("#sub_race option:eq(0)").attr("selected", "selected")
+  //$("#sub_race").val($("#sub_race option:eq(0)"))
+  //$("#sub_race").text($("#sub_race option:eq(0)").text())
+//}
+
 
 /* Reset the drop down to its default value */
+
 function resetsDropDowns() {
   function resetsAgeDropDown()      { $("#age option:eq(0)").attr("selected", "selected")             }
   function resetsRaceDropDown()     { $("#race option:eq(0)").attr("selected", "selected")            }
-  function resetsSubRaceDropDown()  { $("#sub_race option:eq(0)").attr("selected", "selected")        }
   function resetsChildBirthAge()    { $("#childbirth_age option:eq(0)").attr("selected", "selected")  }
+  function resetsSubRaceDropDown()  { $("#sub_race option:eq(0)").attr("selected", "selected")          }
+
+
 
   resetsAgeDropDown();
   resetsRaceDropDown();
   resetsSubRaceDropDown();
   resetsChildBirthAge();
 }
+
+
 
 
 // If the value of the race menu is not "Asian" the subrace dropddown select box
@@ -137,15 +150,17 @@ function changeSubraceMenu() {
     disableSubRaceMenu();
 }
 
+// Enables the Sub Race Menu
 function enableSubRaceMenu() {
   $("[for='sub_race']").css("color","#2e2e2e");
   $("#sub_race").prop("disabled", false)
 }
 
+// Disables the Sub Race Menu
 function disableSubRaceMenu() {
   $("[for='sub_race']").css("color","#c0c0c0");
   $("#sub_race").prop("disabled", true)
-  $("#sub_race options:eq(0)").prop("selected");
+  $("#sub_race option:eq(0)").prop("selected","selected");
 
 }
 

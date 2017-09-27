@@ -284,7 +284,30 @@ a.btn:disabled {
 }
 
 #AssessPatientRisk:hover {
-  background-color: #28b280;
+  background-color: #28b289;
+  color: white;
+}
+
+.okButton {
+
+  box-sizing: border-box;
+  width: 83px;
+  height: 35px;
+  border: 0px;
+  padding: 0px;
+
+  font-family: 'Montserrat';
+  font-size: 15px;
+  border-radius: 3px;
+
+  background-color: #339FBD;
+  color: white;
+  border: none;
+
+}
+
+.okButton:hover {
+  background-color: #2c8eaa;
   color: white;
 }
 
@@ -301,7 +324,7 @@ a.btn:disabled {
 }
 
 #startOver:hover {
-  background-color: #28b280;
+  background-color: #28b289;
   color: white;
 }
 
@@ -341,14 +364,14 @@ a.btn:disabled {
 }
 
 #calculate:hover:disabled {
- 	cursor: not-allowed;
+  cursor: not-allowed;
   color: #DFDFDF;
   background-color: #AAAAAA;
 }
 
 #calculate:enabled:hover {
   color: white;
-  background-color: #28b280;
+  background-color: #28b289;
   padding: 0px;
 }
 
@@ -374,6 +397,8 @@ a.btn:disabled {
   background-color: #584b92;
   padding: 0px;
 }
+
+
 
 #results:not(.show),
 #errors:not(.show),
