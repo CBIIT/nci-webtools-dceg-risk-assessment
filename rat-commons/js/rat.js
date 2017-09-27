@@ -815,3 +815,14 @@ function genericResetForm() {
  	//$("#physical-section").addClass("no_display")
  	//$("#physical").addClass("no_display")
 }
+
+// Two function to disable and enable  the section headers ( Currently a section has h2)
+function disableSectionHeaders() {
+	$(".sectionTitle").attr("disabled","disabled")
+	$(".sectionTitle").addClass("disableSectionTitle")
+}
+
+function enableSectionHeaders() {
+	$(".sectionTitle").removeAttr("disabled")
+	$(".sectionTitle").removeClass("disableSectionTitle")
+}

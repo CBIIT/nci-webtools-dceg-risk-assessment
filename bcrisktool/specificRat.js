@@ -15,11 +15,13 @@ $(function() {
 			$("[class*='questions']").css("color","#c0c0c0");
       disableSubRaceMenu();
 			disablebutton();
+      disableSectionHeaders();
       resetsDropDowns();
 		} else {
 			$("form :input").not("[name='cancerAndRadiationHistory']").removeAttr('disabled');
 			$("[class*='questions']").css("color","#2e2e2e");
       disableSubRaceMenu();
+      enableSectionHeaders();
 		}
 	});
 
@@ -27,18 +29,18 @@ $(function() {
   	$("input[name='geneticMakeup']").on("change", function() {
 		if(this.value == 0 || this.value == 2 ){
 			$("#hasBRCAMutation").modal("show");
-			// Keeping this in here until we are sure that we do not need it. Enter 09/22/2017
-			//$("form :input").not("[name='geneticMakeup']").attr('disabled', true);
 			$("form :input").not("#reset").attr('disabled', true);
 			$("[class*='questions']").css("color","#c0c0c0")
       disableSubRaceMenu();
 		 	disablebutton();
+      disableSectionHeaders();
       resetsDropDowns();
 		}
 		else {
 			$("form :input").not("[name='geneticMakeup']").removeAttr('disabled');
 			$("[class*='questions']").css("color","#2e2e2e")
       enableSubRaceMenu();
+      enableSectionHeaders();
 		}
   	});
 
@@ -75,7 +77,7 @@ $(function() {
   	$("#race").on("change", changeSubraceMenu);
 
   	// If the Number of Biopsies is None or 0 the questions about "How many breast biopies" and "atypical hyperlasia" should be disabled
- 	$("#biopsyAnswerYes").on("click", enableQuestionAndAnswers)
+ 	  $("#biopsyAnswerYes").on("click", enableQuestionAndAnswers)
   	$("#biopsyAnswerNo").on("click", disableQuestionAndAnswers);
   	$("#biopsyAnswerUnknown").on("click", disableQuestionAndAnswers);
 
@@ -104,7 +106,7 @@ function disableQuestionAndAnswers(event) {
   $("label[for='hadAH']").css("color", "#c0c0c0");
 }
 
-// Enable Questions and Answersi that are associated with a women having a breast biopsy
+// Enable Quesctions and Answersi that are associated with a women having a breast biopsy
 function enableQuestionAndAnswers(event) {
   $("input[name='howManyBreastBiopsies']").attr("disabled", false);
   $("label[for='howManyBreastBiopsies']").css("color", "#2e2e2e");
@@ -115,23 +117,12 @@ function enableQuestionAndAnswers(event) {
   adjust_line_width();
 }
 
-//function resetsSubRaceDropDown()
-//{
-//  $("#sub_race option:eq(0)").attr("selected", "selected")
-  //$("#sub_race").val($("#sub_race option:eq(0)"))
-  //$("#sub_race").text($("#sub_race option:eq(0)").text())
-//}
-
-
 /* Reset the drop down to its default value */
-
 function resetsDropDowns() {
   function resetsAgeDropDown()      { $("#age option:eq(0)").attr("selected", "selected")             }
   function resetsRaceDropDown()     { $("#race option:eq(0)").attr("selected", "selected")            }
   function resetsChildBirthAge()    { $("#childbirth_age option:eq(0)").attr("selected", "selected")  }
   function resetsSubRaceDropDown()  { $("#sub_race option:eq(0)").attr("selected", "selected")          }
-
-
 
   resetsAgeDropDown();
   resetsRaceDropDown();
@@ -190,4 +181,5 @@ function resetForm() {
   enableQuestionAndAnswers();
   disableSubRaceMenu();
   resetsDropDowns();
+  enableSectionHeaders();
 }

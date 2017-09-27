@@ -75,7 +75,7 @@ h2 {
   color: #606060;
   font-weight: bold;
   margin: 0.5em auto;
-  font-family: 'Montserrat-Bold', sans-serif;
+  font-family: 'Montserrat-Bold';
   font-size: 23px;
 }
 
@@ -1252,4 +1252,9 @@ svg {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+/* Disable Section Title                                                      */
+.disableSectionTitle {
+  color: #C2C2C2;
 }
