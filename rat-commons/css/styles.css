@@ -95,6 +95,15 @@ h4 {
   font-size: 18px;
 }
 
+/* On the calculation page space between the questions and the buttons */
+.spacerBetweenQuestionsAndButtonsMobile {
+	margin-top: 16px;
+}
+
+.spacerBetweenQuestionsAndButtonsDesktop {
+	margin-top: 32px;
+}
+
 /* Extra space Between the header and the content on the index page */
  .spacerBetweenHeaderContentForIndexPage {
    margin-bottom: 1.625em;
