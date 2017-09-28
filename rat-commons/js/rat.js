@@ -431,7 +431,6 @@ function toggle_menu(){
 /*****************************************************************************/
 function enablebutton(){
 	$("#calculate").prop('disabled', false);
-	$("#calculate").attr("src","rat-commons/images/Calculate_Risk_Button.png");
 }
 
 /******************************************************************************/
@@ -440,7 +439,6 @@ function enablebutton(){
 /******************************************************************************/
 function disablebutton(){
 	$("#calculate").prop('disabled', true);
-	$("#calculate").attr("src","rat-commons/images/Disabled_Calculate_Risk_Button.png");
 }
 
 
@@ -730,7 +728,7 @@ $(window).load(function(e) {
 			else{
 	 		 	$("#form-steps").css("z-index","1")
 			}
-			
+
 			$("#form-steps").css("top", + header_height + "px");
 			var height = header_height + form_steps_height + 14;
 	    		$("#riskForm").css("margin-top", height + "px");
