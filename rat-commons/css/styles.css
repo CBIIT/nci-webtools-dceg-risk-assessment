@@ -1275,3 +1275,23 @@ svg {
 .noBottomMargin {
 	margin-bottom: 0px;
 }
+
+/* The following two style will simulate the look of the label inside the form */
+/* This is done so that we can get rid of more than 5 warning that the seciton */
+/* 508 validator has shown us                                                  */
+/*                                                                             */
+/* The CSS Style Names and properties/values came directly from the label and  */
+/* label.questions style                                                       */ 
+section > p {
+   display: inline-block;
+   max-width: 100%;
+   margin-bottom: 5px;	
+}
+
+section > p.questions {
+   font-weight: bold;
+   color: #2E2E2E;
+   margin-top:50px;
+   font-size: 16px;
+   font-family: 'Noto Sans';
+}
