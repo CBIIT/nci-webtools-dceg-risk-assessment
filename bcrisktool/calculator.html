@@ -123,9 +123,9 @@
         <hr class="line">
       </div>
       <ol>
-        <li class="active"> <a class="hidden-xs hidden-sm" href="#patient-elegibility-section">Patient Eligibility</a><a href="#patient-eligibility-section">1</a></li><span class="spacer"></span>
+        <li class="active"> <a class="hidden-xs hidden-sm" href="#patient-eligibility-section">Patient Eligibility</a><a href="#patient-eligibility-section">1</a></li><span class="spacer"></span>
         <li> <a class="hidden-xs hidden-sm" href="#demographics-section">Demographics</a><a href="#demographics-section">2</a></li><span class="spacer"></span>
-        <li> <a class="hidden-xs hidden-sm" href="#patient-and-family-history-section">Patient and Family History</a><a href="#patient-and-family-section">3</a></li>
+        <li> <a class="hidden-xs hidden-sm" href="#patient-and-family-history-section">Patient and Family History</a><a href="#patient-and-family-history-section">3</a></li>
       </ol>
     </div>
     <div class="container-fluid" id="main">
@@ -133,10 +133,9 @@
       <form id="riskForm" name="riskForm" method="POST" action="calculate" autocomplete="off">
         <h2 id="PatientEligibilitySectionTitle" class="sectionTitle">Patient Eligibility</h2>
         <section id="patient-eligibility-section">
-          <p class="questions no-margin-top" >
-            Does the woman have a medical history of any breast cancer or of ductal carcinoma in situ (DCIS) or lobular carcinoma in situ (LCIS) or has she received previous
-            radiation therapy to the chest for treatment of Hodgkin lymphoma?
-          </p>
+	  <fieldset>
+	  <legend class="questions"> Does the woman have a medical history of any breast cancer or of ductal carcinoma in situ (DCIS) or lobular carcinoma in situ (LCIS) or has she received previous radiation therapy to the chest for treatment of Hodgkin lymphoma?
+	  </legend>
           <div class="responseOptions">
             <input id="cancerAndRadiationHistoryYes" type="radio" name="cancerAndRadiationHistory" value="0" >
             <label class="radio" tabindex="0" for="cancerAndRadiationHistoryYes"><span></span>Yes</label>
@@ -145,6 +144,7 @@
             <input id="cancerAndRadiationHistoryNo" type="radio" name="cancerAndRadiationHistory" value="1">
             <label class="radio" tabindex="0" for="cancerAndRadiationHistoryNo"><span></span>No</label>
           </div>
+	  </fieldset>
 
           <label class="questions" >
             Does the woman have a mutation in either the BRCA1 or BRCA2 gene, or a diagnosis of a genetic syndrome that may be associated with elevated risk of breast cancer?
@@ -251,7 +251,7 @@
              </div>
         </section>
         <h2 id="PatientAndFamilyHistorySecitonTitle" class="sectionTitle">Patient and Family History</h2>
-        <section id="patient-and-family-history">
+        <section id="patient-and-family-history-section">
             <label class="questions no-margin-top" for="biopsy">Has the woman ever had a breast biopsy?</label>
             <div class="responseOptions">
               <input id="biopsyAnswerYes" type="radio" name="biopsy" value="1" required>

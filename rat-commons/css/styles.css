@@ -1282,13 +1282,29 @@ svg {
 /*                                                                             */
 /* The CSS Style Names and properties/values came directly from the label and  */
 /* label.questions style                                                       */ 
-section > p {
+#section > p {
+#   display: inline-block;
+#   max-width: 100%;
+#   margin-bottom: 5px;	
+#}
+
+
+#section > p.questions {
+#   font-weight: bold;
+#   color: #2E2E2E;
+#   margin-top:50px;
+#   font-size: 16px;
+#   font-family: 'Noto Sans';
+#}
+
+section > fieldset > legend {
    display: inline-block;
    max-width: 100%;
    margin-bottom: 5px;	
+   border-bottom: 0px;
 }
 
-section > p.questions {
+section > fieldset > legend.questions {
    font-weight: bold;
    color: #2E2E2E;
    margin-top:50px;
