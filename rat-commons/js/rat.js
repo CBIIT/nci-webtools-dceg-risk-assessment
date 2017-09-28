@@ -130,9 +130,9 @@ function make_pie_chart(percent, divContainerForChart, color1, color2){
 
         var svg = d3.select(divContainerForChart)
           .append('svg')
-//          .attr('width', width)
-//          .attr('height', height)
-					.attr('viewBox', '0 0 ' + width + " " + height)
+          //.attr('width', width)
+          //.attr('height', height)
+	  .attr('viewBox', '0 0 ' + width + " " + height)
           .append('g')
           .attr('transform', 'translate(' + (width / 2) +
             ',' + (height / 2) + ')');
@@ -708,13 +708,12 @@ $(window).load(function(e) {
 		}
 	});
 
-  // I have not idea what this code does
 	$('a[data-toggle="tab"]').on('hidden.bs.tab', function(e) {
 		if($("nav.navbar-collapse").hasClass('in'))
 			$('button[data-toggle="collapse"]').trigger("click");
 	});
 
-  // Sets up the GUI for mobile devices or desktop devices
+  	// Sets up the GUI for mobile devices or desktop devices
 	var header_height=$('header').outerHeight(true);
  	var form_steps_height=$('#form-steps').outerHeight();
  	var logo_height=$('#logo').outerHeight();
@@ -731,9 +730,10 @@ $(window).load(function(e) {
 			else{
 	 		 	$("#form-steps").css("z-index","1")
 			}
+			
 			$("#form-steps").css("top", + header_height + "px");
 			var height = header_height + form_steps_height + 14;
-	    $("#riskForm").css("margin-top", height + "px");
+	    		$("#riskForm").css("margin-top", height + "px");
 
 
 			adjust_line_width()
@@ -767,13 +767,17 @@ $(window).load(function(e) {
 		console.log("steps height = " + form_steps_height)
 		//$("#main_home").css("margin-top", header_height);'
 
-	}
-  else {
+	} else {
 		if ( $("#form-steps").length > 0) {
 	 		adjust_line_height_dekstop()
 			adjust_line_width()
 		}
 	}
+
+	if ( $("#calculate").length > 0 ) {
+	 	var cssClass = ( isMobile() )  ? "spacerBetweenQuestionsAndButtonsMobile" : "spacerBetweenQuestionsAndButtonsDesktop";
+		$("#calculate").addClass(cssClass);
+        }
 });
 
 $(document).ready(function(){
@@ -806,7 +810,6 @@ function genericResetForm() {
 	$("form :input").attr('disabled', false);
 	$("[class*='questions']").css("color","#2e2e2e")
 	$("#calculate").attr("disabled", "disabled")
-  //	$("#calculate").attr("src", "rat-commons/images/Disabled_Calculate_Risk_Button.png");
 
 
 	// Move this to Mrat specific Rat when you start wokring with that code

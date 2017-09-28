@@ -13,15 +13,15 @@ $(function() {
 			$("#womanWithCancerDialog").modal("show");
 			$("form :input").not("#reset").attr('disabled', true);
 			$("[class*='questions']").css("color","#c0c0c0");
-      disableSubRaceMenu();
+      			disableSubRaceMenu();
 			disablebutton();
-      disableSectionHeaders();
-      resetsDropDowns();
+      			disableSectionHeaders();
+      			resetsDropDowns();
 		} else {
 			$("form :input").not("[name='cancerAndRadiationHistory']").removeAttr('disabled');
 			$("[class*='questions']").css("color","#2e2e2e");
-      disableSubRaceMenu();
-      enableSectionHeaders();
+      			disableSubRaceMenu();
+      			enableSectionHeaders();
 		}
 	});
 
@@ -31,16 +31,16 @@ $(function() {
 			$("#hasBRCAMutation").modal("show");
 			$("form :input").not("#reset").attr('disabled', true);
 			$("[class*='questions']").css("color","#c0c0c0")
-      disableSubRaceMenu();
+		      	disableSubRaceMenu();
 		 	disablebutton();
-      disableSectionHeaders();
-      resetsDropDowns();
+      			disableSectionHeaders();
+   			resetsDropDowns();
 		}
 		else {
 			$("form :input").not("[name='geneticMakeup']").removeAttr('disabled');
 			$("[class*='questions']").css("color","#2e2e2e")
-      enableSubRaceMenu();
-      enableSectionHeaders();
+      			enableSectionHeaders();
+			disableSubRaceMenu();
 		}
   	});
 
@@ -66,22 +66,22 @@ $(function() {
       			 $("#hispanicIssue").modal("show");
     		} else if ( this.value == "Other") {
 			       $("#unknownIssue").modal("show")
- 		    } else if ( this.value == "Native American") {
-             $("#NativeAmericanIssue").modal("show");
+		} else if ( this.value == "Native American") {
+ 		$("#NativeAmericanIssue").modal("show");
         }
     });
 
   	// If the Asian Selection from the list has been selected then enable the sub_race
- 	  $("#sub_race").prop("disabled", true)
-    $("[for='sub_race']").css("color","#c0c0c0");
+	$("#sub_race").prop("disabled", true)
+ 	$("[for='sub_race']").css("color","#c0c0c0");
   	$("#race").on("change", changeSubraceMenu);
 
   	// If the Number of Biopsies is None or 0 the questions about "How many breast biopies" and "atypical hyperlasia" should be disabled
- 	  $("#biopsyAnswerYes").on("click", enableQuestionAndAnswers)
+	$("#biopsyAnswerYes").on("click", enableQuestionAndAnswers)
   	$("#biopsyAnswerNo").on("click", disableQuestionAndAnswers);
   	$("#biopsyAnswerUnknown").on("click", disableQuestionAndAnswers);
 
- 	  // If the question about a women every having a biopsy is answered disable the questions associated with it.
+ 	// If the question about a women every having a biopsy is answered disable the questions associated with it.
   	var biopsyValue = $("input:radio[name='biopsy']:checked").val();
   	if ( biopsyValue == 0 || biopsyValue == 99 ) {
       		disableQuestionAndAnswers();

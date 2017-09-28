@@ -133,33 +133,33 @@
       <form id="riskForm" name="riskForm" method="POST" action="calculate" autocomplete="off">
         <h2 id="PatientEligibilitySectionTitle" class="sectionTitle">Patient Eligibility</h2>
         <section id="patient-eligibility-section">
-          <label class="questions no-margin-top" for="cancerAndRadiationHistory">
+          <label class="questions no-margin-top" >
             Does the woman have a medical history of any breast cancer or of ductal carcinoma in situ (DCIS) or lobular carcinoma in situ (LCIS) or has she received previous
             radiation therapy to the chest for treatment of Hodgkin lymphoma?
           </label>
           <div class="responseOptions">
             <input id="cancerAndRadiationHistoryYes" type="radio" name="cancerAndRadiationHistory" value="0" >
-            <label class="radio" tabindex="0"><span></span>Yes</label>
+            <label class="radio" tabindex="0" for="cancerAndRadiationHistoryYes"><span></span>Yes</label>
           </div>
           <div class="responseOptions">
             <input id="cancerAndRadiationHistoryNo" type="radio" name="cancerAndRadiationHistory" value="1">
-            <label class="radio" tabindex="0"><span></span>No</label>
+            <label class="radio" tabindex="0" for="cancerAndRadiationHistoryNo"><span></span>No</label>
           </div>
 
-          <label class="questions" for="geneticMakeup">
+          <label class="questions" >
             Does the woman have a mutation in either the BRCA1 or BRCA2 gene, or a diagnosis of a genetic syndrome that may be associated with elevated risk of breast cancer?
           </label>
           <div class="responseOptions">
             <input id="geneticMakeupYes" type="radio" name="geneticMakeup" value="0">
-            <label class="radio" tabindex="0"><span></span>Yes</label>
+            <label class="radio" tabindex="0" for="geneticMakeupYes"><span></span>Yes</label>
           </div>
           <div class="responseOptions">
             <input id="geneticMakeupNo" type="radio" name="geneticMakeup" value="1">
-            <label class="radio" tabindex="0"><span></span>No</label>
+            <label class="radio" tabindex="0" for="geneticMakeupNo"><span></span>No</label>
           </div>
           <div class="responseOptions">
-            <input type="radio" name="geneticMakeup" value="2">
-            <label class="radio" tabindex="0"><span></span>Unknown</label>
+            <input id="geneticMakeupUnknown"type="radio" name="geneticMakeup" value="2">
+            <label class="radio" tabindex="0" for="geneticMakeupUnknown"><span></span>Unknown</label>
           </div>
         </section>
         <h2 id="demographicsSectionTitle" class="sectionTitle">Demographics</h2>
@@ -255,60 +255,60 @@
             <label class="questions no-margin-top" for="biopsy">Has the woman ever had a breast biopsy?</label>
             <div class="responseOptions">
               <input id="biopsyAnswerYes" type="radio" name="biopsy" value="1" required>
-              <label class="radio" tabindex="0"><span> </span>Yes</label>
+              <label class="radio" tabindex="0" for="biopsyAnswerYes"><span> </span>Yes</label>
             </div>
             <div class="responseOptions">
               <input id="biopsyAnswerNo" type="radio" name="biopsy" value="0" required >
-              <label class="radio" tabindex="0"><span> </span>No</label>
+              <label class="radio" tabindex="0" for="biopsyAnswerNo"><span> </span>No</label>
             </div>
             <div class="responseOptions">
               <input id="biopsyAnswerUnknown" type="radio" name="biopsy" value="99" required>
-              <label class="radio" tabindex="0"><span> </span>Unknown</label>
+              <label class="radio" tabindex="0" for="biopsyAnswerUnknown"><span> </span>Unknown</label>
             </div>
 
             <label class="col-sm-offset-1 questions" for="howManyBreastBiopsies">How many breast biopsies (postive or negative) has the woman had?</label>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
               <input id="breastBiopsiesCount1" type="radio" name="howManyBreastBiopsies" value="1" required>
-              <label class="radio" tabindex="0"><span> </span>1</label>
+              <label class="radio" tabindex="0" for="breastBiopsiesCount1"><span> </span>1</label>
             </div>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
               <input id="breastBiopsiesCountLessThan0" type="radio" name="howManyBreastBiopsies" value="2" required>
-              <label class="radio" tabindex="0"><span> </span>&lt;1</label>
+              <label class="radio" tabindex="0" for="breastBiopsiesCountLessThan0"><span> </span>&lt;1</label>
             </div>
 
             <label class="col-sm-offset-1 questions" for="hadAH">Has the woman had at least one breast bioposy with atypical hyperplasia?</label>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
               <input id="hadAhYes" type="radio" name="hadAH" value="1.82" required>
-              <label class="radio" tabindex="0"><span> </span>Yes</label>
+              <label class="radio" tabindex="0" for="hadAhYes"><span> </span>Yes</label>
             </div>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
               <input id="hadAhNo" type="radio" name="hadAH" value=".93" required>
-              <label class="radio" tabindex="0"><span> </span>No</label>
+              <label class="radio" tabindex="0" for="hadAhNo"><span> </span>No</label>
             </div>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
-              <input type="radio" name="hadAH" value="1.0" required>
-              <label class="radio" tabindex="0"><span> </span>Unknown</label>
+              <input id="hadAhUnknown" type="radio" name="hadAH" value="1.0" required>
+              <label class="radio" tabindex="0" for="hadAhUnknown"><span> </span>Unknown</label>
             </div>
 
           <label class="questions" for="age_first_period">What was the woman&#8217;s age at the time of her first menstrual period?</label>
           <div class="responseOptions col-sm-offset-1 pl-3">
-            <input type="radio" name="age_first_period" value="2" required>
-            <label class="radio" tabindex="0"><span></span>7 to 11</label>
+            <input id="age7To11" type="radio" name="age_first_period" value="2" required>
+            <label class="radio" tabindex="0" for="age7To11"><span></span>7 to 11</label>
           </div>
           <div class="responseOptions col-sm-offset-1 pl-3">
-            <input type="radio" name="age_first_period" value="1" required>
-            <label class="radio" tabindex="0"><span></span>12 to 13</label>
+            <input id="age12To13" type="radio" name="age_first_period" value="1" required>
+            <label class="radio" tabindex="0" for="age12To13" ><span></span>12 to 13</label>
           </div>
           <div class="responseOptions col-sm-offset-1 pl-3">
-            <input type="radio" name="age_first_period" value="0" required>
-            <label class="radio" tabindex="0"><span></span>Greater than or equal to 14</label>
+            <input id="ageGt14" type="radio" name="age_first_period" value="0" required>
+            <label class="radio" tabindex="0" for="ageGt14"><span></span>Greater than or equal to 14</label>
           </div>
           <div class="responseOptions col-sm-offset-1 pl-3">
-            <input type="radio" name="age_first_period" value="99" required>
-            <label class="radio" tabindex="0"><span></span>Unknown</label>
+            <input id="ageUnknown" type="radio" name="age_first_period" value="99" required>
+            <label class="radio" tabindex="0" for="ageUnknown"><span></span>Unknown</label>
           </div>
 
-          <label class="questions" for="childbrith_age">What was the woman&#8217;s age at the time of her first live birth of a child?</label>
+          <label class="questions" for="childbirth_age">What was the woman&#8217;s age at the time of her first live birth of a child?</label>
           <div class="responseOptions col-sm-offset-1 pl-3">
             <select id="childbirth_age" name="childbirth_age" placeHolder="Enter the number of first degree relatives" required>
               <option value="">Select</option>
@@ -323,20 +323,20 @@
 
           <label class="questions" for="relatives">How many of the woman&#8217;s first-degree relatives (mothers, sisters, daughters) have had breast cancer?</label>
           <div class="responseOptions col-sm-offset-1 pl-3">
-            <input type="radio" name="relatives" value="0" required>
-            <label class="radio" tabindex="0"><span></span>None</label>
+            <input id="relativesNone" type="radio" name="relatives" value="0" required>
+            <label class="radio" tabindex="0" for="relativesNone"><span></span>None</label>
           </div>
           <div class="responseOptions col-sm-offset-1 pl-3">
-            <input type="radio" name="relatives" value="1" required>
-            <label class="radio" tabindex="0"><span></span>One</label>
+            <input id="relativesOne"type="radio" name="relatives" value="1" required>
+            <label class="radio" tabindex="0" for="relativesOne"><span></span>One</label>
           </div>
           <div class="responseOptions col-sm-offset-1 pl-3">
-            <input type="radio" name="relatives" value="2" required>
-            <label class="radio" tabindex="0"><span></span>More than one</label>
+            <input id="relativesGtOne" type="radio" name="relatives" value="2" required>
+            <label class="radio" tabindex="0" for="relativesGtOne"><span></span>More than one</label>
           </div>
           <div class="responseOptions col-sm-offset-1 pl-3">
-            <input type="radio" name="relatives" value="99" required>
-            <label class="radio" tabindex="0"><span></span>Unknown</label>
+            <input id="relativesUnknown" type="radio" name="relatives" value="99" required>
+            <label class="radio" tabindex="0" for="relativesUnknown"><span></span>Unknown</label>
           </div>
         </section>
 
@@ -362,7 +362,7 @@
               <div class col-sm-12>
                 <div class="row">
                   <div class="col-sm-2">
-                    <img class="imgsize center-block" src="rat-commons/images/stop.png" alt-icon>
+                    <img class="imgsize center-block" src="rat-commons/images/stop.png" alt-icon alt="Stop Picture">
                   </div>
                   <div class="col-sm-10">
                     <p>
@@ -372,7 +372,7 @@
                 </div>
                 <div class="col-sm-12">
                   <button class="center-block dialog_ok_button" data-dismiss="modal">
-                    <img src="rat-commons/images/OK_Button.png">
+                    <img src="rat-commons/images/OK_Button.png" alt="OK Button">
                   </button>
                 </div>
               </div>
@@ -391,7 +391,7 @@
               <div class col-sm-12>
                 <div class="row">
                   <div class="col-sm-2">
-                    <img class="imgsize center-block" src="rat-commons/images/stop.png" alt-icon>
+                    <img class="imgsize center-block" src="rat-commons/images/stop.png" alt-icon alt="stop picture">
                   </div>
                   <div class="col-sm-10">
                     <p>
@@ -402,7 +402,7 @@
                 </div>
                 <div class="col-sm-12">
                   <button class="center-block dialog_ok_button" data-dismiss="modal">
-                    <img src="rat-commons/images/OK_Button.png">
+                    <img src="rat-commons/images/OK_Button.png" alt="OK Button">
                   </button>
                 </div>
               </div>
@@ -421,7 +421,7 @@
               <div class col-sm-12>
                 <div class="row">
                   <div class="col-sm-2">
-                    <img class="imgsize center-block" src="rat-commons/images/info.png" alt-icon>
+                    <img class="imgsize center-block" src="rat-commons/images/info.png" alt-icon alt="Info Dialog Box"">
                   </div>
                   <div class="col-sm-10">
                     <p>
@@ -435,7 +435,7 @@
                 </div>
                 <div class="col-sm-12">
                   <button class="center-block dialog_ok_button" data-dismiss="modal">
-                    <img src="rat-commons/images/OK_Button.png">
+                    <img src="rat-commons/images/OK_Button.png" alt="OK Button">
                   </button>
                 </div>
               </div>
@@ -454,7 +454,7 @@
               <div class col-sm-12>
                 <div class="row">
                   <div class="col-sm-2">
-                    <img class="imgsize center-block" src="rat-commons/images/info.png" alt-icon>
+                    <img class="imgsize center-block" src="rat-commons/images/info.png" alt-icon alt="Info Dialog Box">
                   </div>
                   <div class="col-sm-10">
                     <p>
@@ -464,7 +464,7 @@
                 </div>
                 <div class="col-sm-12">
                   <button class="center-block dialog_ok_button" data-dismiss="modal">
-                    <img src="rat-commons/images/OK_Button.png">
+                    <img src="rat-commons/images/OK_Button.png" alt="OK Button">
                   </button>
                 </div>
               </div>
@@ -483,7 +483,7 @@
               <div class col-sm-12>
                 <div class="row">
                   <div class="col-sm-2">
-                    <img class="imgsize center-block" src="rat-commons/images/info.png" alt-icon>
+                    <img class="imgsize center-block" src="rat-commons/images/info.png" alt-icon alt="This is an info dialog">
                   </div>
                   <div class="col-sm-10">
                     <p>
@@ -497,7 +497,7 @@
                 </div>
                 <div class="col-sm-12">
                   <button class="center-block dialog_ok_button" data-dismiss="modal">
-                    <img src="rat-commons/images/OK_Button.png">
+                    <img src="rat-commons/images/OK_Button.png" alt="OK Button">
                   </button>
                 </div>
               </div>
@@ -519,7 +519,7 @@
               <div class col-sm-12>
                 <div class="row">
                   <div class="col-sm-2">
-                    <img class="imgsize center-block" src="rat-commons/images/stop.png" alt-icon>
+                    <img class="imgsize center-block" src="rat-commons/images/stop.png" alt-icon alt="stop-picture">
                   </div>
                   <div class="col-sm-10">
                     <p>
@@ -532,7 +532,7 @@
                 </div>
                 <div class="col-sm-12">
                   <button class="center-block dialog_ok_button" data-dismiss="modal">
-                    <img src="rat-commons/images/OK_Button.png">
+                    <img src="rat-commons/images/OK_Button.png" alt="OK Button">
                   </button>
                 </div>
               </div>
