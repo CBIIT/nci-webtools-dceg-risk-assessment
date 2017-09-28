@@ -102,7 +102,7 @@ h4 {
 
 /* Extra Space Between the header and the content on the about page */
 .spacerBetweenHeaderContentForAboutPage {
-  margin-bottom: 1.9375em;
+  margin-bottom: 16px;;
 }
 
 /* Extra Space Between the Calculate Risk Button and Reset Button */
@@ -113,7 +113,7 @@ h4 {
 /* Extra space between the top of the current section the previous before it. */
 /* so that the second can be easier defined.                                  */
 .spacerBetweenSections {
-  margin-top: 3em;
+  margin-top: 32px;
 }
 
 p {
@@ -1230,12 +1230,9 @@ svg {
 }
 
 
-
-
 .force_lineHeight {
-  line-height: 1; !important;}
-
-
+  line-height: 1; !important;
+}
 
 /**
  * This class will enable a div to fill the entire height of its parent
@@ -1257,4 +1254,9 @@ svg {
 /* Disable Section Title                                                      */
 .disableSectionTitle {
   color: #C2C2C2;
+}
+
+/* Forces an object to have no bottom margin                                  */
+.noBottomMargin {
+	margin-bottom: 0px;
 }
