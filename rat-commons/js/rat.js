@@ -94,6 +94,9 @@ function goback_tocalc(){
 	$(window).scrollTop(0);
 
 	adjustNavigationBarLine();
+
+	handleScrollEvent();
+	$('html,body').scrollTop(0);
 }
 
 /*****************************************************************************/
@@ -117,6 +120,7 @@ function go_toresult() {
 	// does it position the elements on the page.  The code here is just positioning
 	//  the html object with an id of #results_home.
 	if ( isMobile() ) $("#results_home").css("margin-top", "116px");
+
 }
 
 /*********************************************************************************/
