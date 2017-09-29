@@ -76,6 +76,13 @@ function processSubmission(form){
 }
 
 /*****************************************************************************/
+/* function : Goto the Calculate Page                                        */
+/*****************************************************************************/
+function goto_calculatePage() {
+	window.location = "calculator.html"
+}
+
+/*****************************************************************************/
 /* Display the page so the user can enter the data fro the calculation       */
 /*****************************************************************************/
 function goback_tocalc(){
@@ -95,6 +102,18 @@ function go_toresult() {
 	$('#form-steps').addClass('hide')
 	$("#results").addClass('show')
 	$(window).scrollTop(0);
+
+	$("#AssessPatientRisk").on("click", goto_calculatePage);
+
+	// Certian Buttons are anchor tags and need to have the text centered for their form
+	$("#startOver").on("click", goto_calculatePage);
+	if ( isMobile() )
+		$("#startOver").addClass("spacerBetweenQuestionsAndStartButtonMobile")
+	else
+		$("#startOver").removeClass("spacerBetweenQuestionsAndStartButtonMobile")
+
+
+
 }
 
 /*********************************************************************************/
@@ -772,10 +791,11 @@ $(window).load(function(e) {
 		}
 	}
 
-	if ( $("#calculate").length > 0 ) {
-	 	var cssClass = ( isMobile() )  ? "spacerBetweenQuestionsAndButtonsMobile" : "spacerBetweenQuestionsAndButtonsDesktop";
-		$("#calculate").addClass(cssClass);
-        }
+	// Determine what spacing should be between the Content and the Buttons
+	var cssClass = ( isMobile() )  ? "spacerBetweenQuestionsAndButtonsMobile" : "spacerBetweenQuestionsAndButtonsDesktop";
+	if ( $("#calculate").length > 0 ) $("#calculate").addClass(cssClass);
+
+
 });
 
 $(document).ready(function(){

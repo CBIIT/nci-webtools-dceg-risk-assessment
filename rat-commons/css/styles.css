@@ -104,6 +104,10 @@ h4 {
 	margin-top: 32px;
 }
 
+.spacerBetweenQuestionsAndStartButtonMobile {
+  margin-top: 32px;
+}
+
 /* Extra space Between the header and the content on the index page */
  .spacerBetweenHeaderContentForIndexPage {
    margin-bottom: 1.625em;
@@ -286,10 +290,18 @@ a.btn:disabled {
 
 #AssessPatientRisk {
   box-sizing: border-box;
-  width: 168px;
+  width: 206px;
   height: 35px;
   border: 0px;
   padding: 0px;
+
+  font-family: 'Montserrat';
+  font-size: 15px;
+  border-radius: 3px;
+
+  background-color: #2DCF99;
+  color: white;
+  border: none;
 }
 
 #AssessPatientRisk:hover {
@@ -330,6 +342,10 @@ a.btn:disabled {
   font-family: 'Montserrat';
   font-size: 15px;
   border-radius: 3px;
+
+  background-color: #2DCF99;
+  color: white;
+  border: none;
 }
 
 #startOver:hover {
@@ -1176,6 +1192,11 @@ input.error + label.radio span {
   font-family: 'Noto Sans';
 }
 
+/* Centering for Mobile buttons that are link */
+.paddingForMobileLinkButtons {
+  padding-top: 7px;
+}
+
 
 /* Specific Button for the Start Over Button on the Result Pages */
 .startOverButton {
@@ -1281,11 +1302,11 @@ svg {
 /* 508 validator has shown us                                                  */
 /*                                                                             */
 /* The CSS Style Names and properties/values came directly from the label and  */
-/* label.questions style                                                       */ 
+/* label.questions style                                                       */
 #section > p {
 #   display: inline-block;
 #   max-width: 100%;
-#   margin-bottom: 5px;	
+#   margin-bottom: 5px;
 #}
 
 
@@ -1300,7 +1321,7 @@ svg {
 section > fieldset > legend {
    display: inline-block;
    max-width: 100%;
-   margin-bottom: 5px;	
+   margin-bottom: 5px;
    border-bottom: 0px;
 }
 
