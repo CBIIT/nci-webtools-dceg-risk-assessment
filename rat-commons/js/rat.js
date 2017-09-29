@@ -92,6 +92,8 @@ function goback_tocalc(){
 	$("#results_text").html("");
 	$("#Pie_chart").html("");
 	$(window).scrollTop(0);
+
+	adjustNavigationBarLine();
 }
 
 /*****************************************************************************/
@@ -109,6 +111,12 @@ function go_toresult() {
 		$("#startOver").addClass("spacerBetweenQuestionsAndStartButtonMobile")
 	else
 		$("#startOver").removeClass("spacerBetweenQuestionsAndStartButtonMobile")
+
+	// This is hack.  The code is the startup section in an isMobile() if-clause
+	// It should be placed in its own routine and called from here.  What the code
+	// does it position the elements on the page.  The code here is just positioning
+	//  the html object with an id of #results_home.
+	if ( isMobile() ) $("#results_home").css("margin-top", "116px");
 }
 
 /*********************************************************************************/
@@ -338,14 +346,20 @@ function handleScrollEvent(event) {
 /******************************************************************************/
 $(window).resize(function() {
 	if(window.location.pathname=="/melanomarisktool/calculator.html"){
-	 	adjust_line_width()
-	 	if( isMobile() )
-			adjust_line_height_mobile();
-	 	else{
-		 	adjust_line_height_dekstop()
-	 	}
+		adjustNavigationBarLine();
 	 }
 });
+
+/******************************************************************************/
+/* Adjusts the line connections the navigation bar circles                   **/
+/******************************************************************************/
+function adjustNavigationBarLine() {
+	adjust_line_width()
+	if( isMobile() )
+		adjust_line_height_mobile();
+	else
+		adjust_line_height_dekstop()
+}
 
 /******************************************************************************/
 /* For the navigation component set the length of the line that connects the  */
@@ -689,7 +703,6 @@ $(window).load(function(e) {
 	//	$("[class*='questions']").css("color","#2e2e2e")
 	//});
 
-  // I have no clue what this does
 	$("button.select").on('click keypress', function(e) {
 		if(e.type == "keypress") {
 			if ((e.keyCode == 13) || (e.keyCode == 32)) {
@@ -747,31 +760,10 @@ $(window).load(function(e) {
 			var height = header_height + form_steps_height + 14;
 	    		$("#riskForm").css("margin-top", height + "px");
 
-
-			adjust_line_width()
-			adjust_line_height_mobile();
+			adjustNavigationBarLine();
 		} else {
 			$("#main_home").css("padding-top", header_height);
 		}
-
-		// var header_height=$('header').outerHeight(true);
-		// var window_top = $(window).scrollTop();
-		// var div_top = $("#"+div).offset().top;
-		// //var form_steps_height=$('#form-steps').outerHeight(true);
-		// var tool_title_height=$('#toolTitle').outerHeight(true);
-		//
-		// var form_steps_exist = ($('#form-steps').length > 0) ? true : false;
-		// var form_steps_height = ( form_steps_exist ) ? $('#form-steps').outerHeight(true) : 0;
-		//
-		// if ( isMobile()) {
-		// 	$("header").css("top", "0px");
-		// 	if ( form_steps_exist ) {
-		// 		$("#form-steps").css("top",header_height+"px");
-		// 		$("#form-steps").addClass("fixed");
-		// 	}
-		//
-		// 	var height = header_height + form_steps_height + 14;
-		// 	$("#riskForm").css("margin-top",height+"px");
 
  		$("header").css("background","white");
  		$("#main").removeClass("container-fluid");
@@ -780,10 +772,8 @@ $(window).load(function(e) {
 		//$("#main_home").css("margin-top", header_height);'
 
 	} else {
-		if ( $("#form-steps").length > 0) {
-	 		adjust_line_height_dekstop()
-			adjust_line_width()
-		}
+		if ( $("#form-steps").length > 0) adjustNavigationBarLine();
+
 	}
 
 	// Determine what spacing should be between the Content and the Buttons
