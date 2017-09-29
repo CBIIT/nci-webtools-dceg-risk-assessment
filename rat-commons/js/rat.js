@@ -103,17 +103,12 @@ function go_toresult() {
 	$("#results").addClass('show')
 	$(window).scrollTop(0);
 
-	$("#AssessPatientRisk").on("click", goto_calculatePage);
-
 	// Certian Buttons are anchor tags and need to have the text centered for their form
 	$("#startOver").on("click", goto_calculatePage);
 	if ( isMobile() )
 		$("#startOver").addClass("spacerBetweenQuestionsAndStartButtonMobile")
 	else
 		$("#startOver").removeClass("spacerBetweenQuestionsAndStartButtonMobile")
-
-
-
 }
 
 /*********************************************************************************/
@@ -819,6 +814,9 @@ $(document).ready(function(){
 	});
 
 	$('html,body').scrollTop(0);
+
+	if ( $("#AssessPatientRisk").length > 0 )	$("#AssessPatientRisk").on("click", goto_calculatePage);
+
 });
 
 // Handles the generic reset for all the risk analysis tools

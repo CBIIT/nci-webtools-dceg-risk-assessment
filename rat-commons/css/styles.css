@@ -460,7 +460,8 @@ a.btn:disabled {
 }
 
 #main_home ul li {
-  line-height: 2;
+  line-height: 1.2;
+  margin-top: .2em;
 }
 .box {
   max-width: 600px;
