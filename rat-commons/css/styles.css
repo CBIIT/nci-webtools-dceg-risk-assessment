@@ -52,6 +52,7 @@ html,body {
   font-family: "Noto Sans", "Montserrat";
   font-size: 12pt;
   background: #fff;
+  color: #444444;
 }
 
 h5,
@@ -614,10 +615,12 @@ label.questions {
   margin-top: 50px;
   font-size: 16px;
   font-family: 'Noto Sans';
+  line-height: 22px;
 }
 .questions_secondary {
   color: #2e2e2e;
   font-size: 14px;
+  line-height: 19px;
 }
 .responseOptions {
   font-weight: normal;
@@ -625,6 +628,7 @@ label.questions {
   font-size: 16px;
   margin-left: 1em;
   margin-top: 16px;
+  line-height: 19px;
 }
 
 /* Use this when you are indenting with bootstrap.  The responseOptions       */
@@ -659,7 +663,8 @@ label.questions {
   height: 1em;
 }
 select {
-  border: 2px solid #d3d3d3;
+  border: 1px solid #d3d3d3;
+  border-radius: 4px;
   background: #f2f2f3;
   padding: 0 0.4em;
   height: 2.5em;
@@ -1184,7 +1189,8 @@ input.error + label.radio span {
 /* A class for styling the content on the main page                           */
 .content {
   font-size: 16px;
-  font-family: 'Noto Sans'
+  font-family: 'Noto Sans';
+  color: #2E2E2E;
 }
 
 /* Specific Styling for the Back to Calculator on the Front Page              */
@@ -1304,20 +1310,24 @@ svg {
 /*                                                                             */
 /* The CSS Style Names and properties/values came directly from the label and  */
 /* label.questions style                                                       */
-#section > p {
-#   display: inline-block;
-#   max-width: 100%;
-#   margin-bottom: 5px;
-#}
+/* 
+    section > p {
+   display: inline-block;
+   max-width: 100%;
+   margin-bottom: 5px;
+}
+*/
 
-
-#section > p.questions {
-#   font-weight: bold;
-#   color: #2E2E2E;
-#   margin-top:50px;
-#   font-size: 16px;
-#   font-family: 'Noto Sans';
-#}
+/*
+section > p.questions {
+   font-weight: bold;
+   color: #2E2E2E;
+   margin-top:50px;
+   font-size: 16px;
+   font-family: 'Noto Sans';
+   line-height: 22px;
+}
+*/
 
 section > fieldset > legend {
    display: inline-block;
@@ -1332,4 +1342,15 @@ section > fieldset > legend.questions {
    margin-top:50px;
    font-size: 16px;
    font-family: 'Noto Sans';
+   line-height: 22px;
+}
+
+/* On the index page all links in the reference section should have a specific line-height */
+.index_page_link_separator {
+   line-height: 28px;
+}
+
+/* On the about page all jump links should have a specific line-height */
+.about_page_link_separator {
+   line-height: 25px;
 }
