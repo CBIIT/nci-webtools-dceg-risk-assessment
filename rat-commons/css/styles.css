@@ -34,12 +34,7 @@
   font-style: normal;
   src: url("fonts/Montserrat-Bold.ttf");
 }
-@font-face {
-  font-family: 'Montserrat';
-  font-weight: bold;
-  font-style: italic;
-  src: url("fonts/Montserrat-BoldItalic.ttf");
-}
+
 /* Color Scheme */
 html {
   background: #235e88;
@@ -1310,7 +1305,7 @@ svg {
 /*                                                                             */
 /* The CSS Style Names and properties/values came directly from the label and  */
 /* label.questions style                                                       */
-/* 
+/*
     section > p {
    display: inline-block;
    max-width: 100%;

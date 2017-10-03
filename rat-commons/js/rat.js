@@ -188,6 +188,8 @@ function make_pie_chart(percent, divContainerForChart, color1, color2){
 ////////////////////////////////////////////////////////////////////////////////
 function formScrollSpy() {
 
+	if ( existFormSteps() == false ) return;
+
 	// Calculate the bottom of the Form Steps where the questions will start.
 	var window_top = $(window).scrollTop();
 	window_top = window_top + calculateBottomOfFormSteps();
@@ -282,15 +284,12 @@ function fixedToTop(div,use_mobile) {
 	var header_height=$('header').outerHeight(true);
 	var window_top = $(window).scrollTop();
 	var div_top = $("#"+div).offset().top;
-	//var form_steps_height=$('#form-steps').outerHeight(true);
 	var tool_title_height=$('#toolTitle').outerHeight(true);
-
-	var form_steps_exist = ($('#form-steps').length > 0) ? true : false;
-	var form_steps_height = ( form_steps_exist ) ? $('#form-steps').outerHeight(true) : 0;
+	var form_steps_height = ( existFormSteps ) ? $('#form-steps').outerHeight(true) : 0;
 
 	if ( isMobile()) {
 		$("header").css("top", "0px");
-		if ( form_steps_exist ) {
+		if ( existFormSteps() ) {
  			$("#form-steps").css("top",header_height+"px");
 			$("#form-steps").addClass("fixed");
 		}
@@ -305,10 +304,12 @@ function fixedToTop(div,use_mobile) {
 		 	$("#line").find("hr").css("top",form_steps_height-30)
 		 else
 		 	$("#line").find("hr").css("top",form_steps_height-37)
-			if ( form_steps_exist ) adjust_line_height_mobile();
+			if ( existFormSteps() ) adjust_line_height_mobile();
 	} else {
-		$("#form-steps").removeClass('fixed');
-		adjust_line_height_dekstop()
+		if ( existFormSteps() ) {
+			$("#form-steps").removeClass('fixed');
+			adjust_line_height_dekstop()
+		}
 	}
 }
 
@@ -389,7 +390,6 @@ function adjust_line_width(ind){
 /******************************************************************************/
 function adjust_line_height_dekstop(){
   var firstBubble = $("#form-steps ol li").not(".active").children().filter("a:nth-child(2)").first()
-	//var firstBubble = $("#form-steps > ol > li > a:nth-child(2)").first();
 	var startPoint = $(firstBubble).offset().top + $(firstBubble).height()/2;
 	$("#line").find("hr").css("top", startPoint);
 }
@@ -435,7 +435,7 @@ function currentPage() {
 //  If the form-stpes ( navigation bar) does exist then return the right of the form-steps
 //
 function calculateBottomOfFormSteps() {
-	var height = ( $("#form-steps").length !== 0 ) ? $("#form-steps").position().top + $("#form-steps").outerHeight(true) : 0;
+	var height = ( existFormSteps ) ? $("#form-steps").position().top + $("#form-steps").outerHeight(true) : 0;
 	return height;
 }
 
@@ -608,6 +608,13 @@ function displayHelpWindow() {
   }
 
   window.open(definition,"_blank","width=355,height=450");
+}
+
+/******************************************************************************/
+/* Does the Form Steps HTML Object Exist                                      */
+/******************************************************************************/
+function existFormSteps() {
+	return ( $("#form-steps").length > 0 );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
