@@ -14,14 +14,9 @@ $(function() {
 			$("form :input").not("#reset").attr('disabled', true);
 			$("[class*='questions']").css("color","#c0c0c0");
       			disableSubRaceMenu();
-			disablebutton();
+			      disablebutton();
       			disableSectionHeaders();
       			resetsDropDowns();
-		} else {
-			$("form :input").not("[name='cancerAndRadiationHistory']").removeAttr('disabled');
-			$("[class*='questions']").css("color","#2e2e2e");
-      			disableSubRaceMenu();
-      			enableSectionHeaders();
 		}
 	});
 
@@ -32,16 +27,10 @@ $(function() {
 			$("form :input").not("#reset").attr('disabled', true);
 			$("[class*='questions']").css("color","#c0c0c0")
 		      	disableSubRaceMenu();
-		 	disablebutton();
+		 	      disablebutton();
       			disableSectionHeaders();
-   			resetsDropDowns();
-		}
-		else {
-			$("form :input").not("[name='geneticMakeup']").removeAttr('disabled');
-			$("[class*='questions']").css("color","#2e2e2e")
-      			enableSectionHeaders();
-			disableSubRaceMenu();
-		}
+   			    resetsDropDowns();
+		  }
   	});
 
   	// Create a call to check if the calculate button should be enabled.
@@ -49,13 +38,13 @@ $(function() {
  	   	if ( $("input[name='cancerAndRadiationHistory']:checked").val() == 0 ) {
     			disablebutton();
       		return;
-    		}
+    	}
 
    	 	var geneticMakeupValue = $("input[name='geneticMakeup']:checked").val();
-   		 if ( geneticMakeupValue == 0 || geneticMakeupValue == 99 ) {
+   		if ( geneticMakeupValue == 0 || geneticMakeupValue == 99 ) {
     			disablebutton();
   	    	return;
-   	 	 }
+   	 	}
    	});
 
   	// Brings up the dialog box explaining why the data is inaccurate for hispnaics,
@@ -63,25 +52,25 @@ $(function() {
   	$("#race").on("change", function() {
 
     		if( this.value == "US Hispanic"){
-      			 $("#hispanicIssue").modal("show");
+      			$("#hispanicIssue").modal("show");
     		} else if ( this.value == "Other") {
-			       $("#unknownIssue").modal("show")
-		} else if ( this.value == "Native American") {
- 		$("#NativeAmericanIssue").modal("show");
+		      	$("#unknownIssue").modal("show")
+		    } else if ( this.value == "Native American") {
+ 			      $("#NativeAmericanIssue").modal("show");
         }
-    });
+    	});
 
   	// If the Asian Selection from the list has been selected then enable the sub_race
-	$("#sub_race").prop("disabled", true)
- 	$("[for='sub_race']").css("color","#c0c0c0");
+	  $("#sub_race").prop("disabled", true)
+ 	  $("[for='sub_race']").css("color","#c0c0c0");
   	$("#race").on("change", changeSubraceMenu);
 
   	// If the Number of Biopsies is None or 0 the questions about "How many breast biopies" and "atypical hyperlasia" should be disabled
-	$("#biopsyAnswerYes").on("click", enableQuestionAndAnswers)
+	  $("#biopsyAnswerYes").on("click", enableQuestionAndAnswers)
   	$("#biopsyAnswerNo").on("click", disableQuestionAndAnswers);
   	$("#biopsyAnswerUnknown").on("click", disableQuestionAndAnswers);
 
- 	// If the question about a women every having a biopsy is answered disable the questions associated with it.
+ 	  // If the question about a women every having a biopsy is answered disable the questions associated with it.
   	var biopsyValue = $("input:radio[name='biopsy']:checked").val();
   	if ( biopsyValue == 0 || biopsyValue == 99 ) {
       		disableQuestionAndAnswers();
@@ -101,9 +90,12 @@ $(function() {
 function disableQuestionAndAnswers(event) {
   $("input[name='howManyBreastBiopsies']").attr("disabled", true);
   $("label[for='howManyBreastBiopsies']").css("color", "#C0C0C0");
+  $("input[name='howManyBreastBiopsies']").attr("checked", false);
 
   $("input[name='hadAH']").attr("disabled", true);
   $("label[for='hadAH']").css("color", "#c0c0c0");
+  $("input[name='hadAH']").attr("checked", false);
+
 }
 
 // Enable Quesctions and Answersi that are associated with a women having a breast biopsy
