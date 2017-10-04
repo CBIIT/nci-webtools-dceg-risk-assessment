@@ -842,6 +842,23 @@ input.error + label.radio span {
   background: #fff;
   color: #2b7bba;
 }
+
+/* Styles the dialogs from the Pateint Eligibilty Section */
+.eligibility-dialog .modal-content {
+  border: 3px solid #268DB2;
+  border-radius: 0px;
+  box-shadow: 0 4px 12px 0 rgba(0,0,0,0.18);
+  background: #FFFFFF;
+}
+
+/* Styles the dialogs from the Demographics Section */
+.eligibility-dialog .modal-content {
+  border: 3px solid #6150A3;
+  border-radius: 0px;
+  box-shadow: 0 4px 12px 0 rgba(0,0,0,0.18);
+  background: #FFFFFF;
+}
+
 .demo-dialog .modal-content {
   border: 3px solid #339fbe;
   border-radius: 0px;
