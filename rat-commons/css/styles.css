@@ -45,7 +45,8 @@ html {
 
 html,body {
   font-family: "Noto Sans", "Montserrat";
-  font-size: 12pt;
+  /* font-size: 12pt; */
+  font-size: 16px; 
   background: #fff;
   color: #444444;
 }
@@ -56,14 +57,14 @@ h7 {
   color: #606060;
   font-weight: bold;
   margin: 0.5em auto;
-  font-family: 'Montserrat-Bold', sans-serif;
+  font-family: Montserrat-Bold;
 }
 
 h1 {
   color: #606060;
   font-weight: bold;
   margin: 0.5em auto;
-  font-family: 'Montserrat-Bold', sans-serif;
+  font-family: Montserrat;
   font-size: 28px;
 }
 
@@ -71,7 +72,7 @@ h2 {
   color: #606060;
   font-weight: bold;
   margin: 0.5em auto;
-  font-family: 'Montserrat-Bold';
+  font-family: Montserrat;
   font-size: 23px;
 }
 
@@ -79,7 +80,7 @@ h3 {
   color: #606060;
   font-weight: bold;
   margin: 0.5em auto;
-  font-family: 'Montserrat-Bold', sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 20px;
 }
 
@@ -87,7 +88,7 @@ h4 {
   color: #606060;
   font-weight: bold;
   margin: 0.5em auto;
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat;
   font-size: 18px;
 }
 
@@ -140,7 +141,7 @@ a:focus {
   color: #fff;
   padding: 13px;
   margin-bottom: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Montserrat';
   font-size: 28px;
 }
 .sectionTitle:first-child {
