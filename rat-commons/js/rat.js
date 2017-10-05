@@ -446,14 +446,25 @@ function calculatePositionToScrollTo(target) {
 
 /******************************************************************************/
 /* Handles the toggle menu opening/closing for mobile applications            */
+/*                                                                            */
+/* Problem : As of October 5, 2017 : When the user click the Hanmburger Icon  */
+/* and the menu either opened or closed the 2nd Hamburger Icon found in the   */
+/* HTML Object name side_nav would have its first line displayed below it.    */
+/* The situation was fixed by hiding the hamburger icon from the side_nav and */
+/* making it appear a few milliseocnds so the animation has time to complete  */
 /******************************************************************************/
 function toggle_menu(){
+
+		$('#side_nav .glyphicon-menu-hamburger').css('display', 'none');
+
     if($("#side_nav").width()>0){
     	$("#side_nav").css("width","0%")
+			setTimeout(function() { $('#side_nav .glyphicon-menu-hamburger').css('display', 'none'); }, 250);
     	setTimeout(function(){ $("#form-steps").css("z-index","1"); }, 500);
     } else {
-	$("#side_nav").css("width","70%")
-	$("header").css("z-index","200")
+			$("header").css("z-index","200")
+			$("#side_nav").css("width","70%")
+			setTimeout(function() { $('#side_nav .glyphicon-menu-hamburger').css('display', 'inline-block'); }, 250);
     }
 }
 
