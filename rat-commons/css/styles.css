@@ -442,7 +442,7 @@ a.btn:disabled {
 }
 #main_home {
   margin-bottom: 2em;
-  line-height: 1.5;
+  line-height: 22px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -457,7 +457,7 @@ a.btn:disabled {
 }
 
 #main_home ul li {
-  line-height: 1.2;
+  line-height: 22px;
   margin-top: .2em;
 }
 .box {
