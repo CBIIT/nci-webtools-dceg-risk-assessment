@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Melanoma Risk Assessment Tool (MRAT)</title>
+    <title>Melanoma Cancer Risk Assessment Tool (MRAT)</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" type="text/css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.css">
 
-    <link href="/common/css/style.css" rel="stylesheet" type="text/css">
-    <link href="/rat-commons/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="common/css/style.css" rel="stylesheet" type="text/css">
+    <link href="rat-commons/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="rat-commons/css/form-steps.css" rel="stylesheet" type="text/css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="application/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js" type="application/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods.js" type="application/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="/rat-commons/js/rat.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.js"></script>
+    <script src="./rat-commons/js/rat.js" type="text/javascript"></script>
+    <script src="specificRat.js" type="text/javascript"></script>
   </head>
-  <body><a class="sr-only sr-only-focusable" href="#main">Skip to main content</a>
+  <body><a class="sr-only sr-only-focusable" href="#main_home">Skip to main content</a>
     <header><a href="http://cancer.gov" target="_blank"><img id="logo" src="/common/images/nci-logo-full.svg" alt="go to cancer.gov"></a>
       <div id="toolTitle"><a href="index.html">Melanoma Risk Assessment Tool</a>
         <button class="navbar-toggle collapsed" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()"><span class="sr-only">Toggle navigation</span>
@@ -30,7 +35,6 @@
       </nav>
       <div class="sidenav" id="side_nav">
         <div class="div" id="inner_menu"><span>Menu</span    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" type="text/css">
->
           <button class="navbar-toggle collapsed navbar-toggle_innermenu" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()"><span class="sr-only">Toggle navigation</span>
             <div class="glyphicon glyphicon-menu-hamburger"></div>
           </button>
@@ -43,6 +47,7 @@
     </header>
     <div id="main_home">
       <div class="container-fluid">
+        <span class="spacerBetweenHeaderContentForIndexPage">&nbsp;</span>
         <h1>The Melanoma Risk Assessment Tool</h1>
         <div class="row">
           <div class=" col-lg-9 col-md-9 col-sm-9 col-xs-12">
@@ -50,7 +55,8 @@
               <p>
                 The melanoma risk calculator was designed for use by health professionals to estimate a patient's absolute risk of developing invasive melanoma. Absolute risk is the likelihood that a person will develop a specific type of cancer over a certain period of time, in this case 5 years.</p>
               <p>
-                Although an individual's risk may be accurately estimated, these predictions cannot precisely determine who will develop melanoma. If you are not a health professional, you are strongly encouraged to discuss your results and personal risk of melanoma with your doctor.</p><a href="calculator.html"><img class="center-block btn-form" src="./rat-commons/images/Assess_Patient_Risk.png"></a>
+                Although an individual's risk may be accurately estimated, these predictions cannot precisely determine who will develop melanoma. If you are not a health professional, you are strongly encouraged to discuss your results and personal risk of melanoma with your doctor.</p>
+              <input ID="AssessPatientRisk" class="center-block btn btn-default vertical_alignment" type="button" value="Assess Patient Risk">
               <p class="spaceBetweenAccessPatientRiskButtonAndParagraph">
                 The melanoma risk calculator was developed using data from a large case-control study in the United States.
                 Risks are estimated for non-Hispanic whites only between 20 and 70 years of age. Data for other
@@ -69,7 +75,7 @@
 
             </div>
           </div>
-          <div class="box col-lg-3 col-md-3 col-sm-3 col-xs-12  ">
+          <div class="box col-lg-3 col-md-3 col-sm-3 col-xs-12  content">
             <p>
               Individuals who have had one of the following diagnoses should be in screening and surveillance programs and should not use this tool to estimate melanoma risk:</p>
             <ul>
@@ -89,33 +95,7 @@
         </ul>
       </div>
     </div>
-    <div class="footer">
-      <div class="center-block">
-        <ul class="list-inline">
-          <li><a target="_blank" title="Home" href="http://www.cancer.gov/">Home</a></li>
-          <li>|</li>
-          <li><a target="_top" title="Support" href="mailto:NCIMeansToRiskWebAdmin@mail.nih.gov?subject=Biomarker%20Tools">Support</a></li>
-          <li>|</li>
-          <li><a target="_blank" title="Policies" href="http://www.cancer.gov/global/web/policies">Policies</a></li>
-          <li>|</li>
-          <li><a target="_blank" title="Accessibility" href="http://www.cancer.gov/global/web/policies/accessibility">Accessibility</a></li>
-          <li>|</li>
-          <li><a target="_blank" title="Viewing Files" href="http://cancer.gov/global/viewing-files">Viewing Files</a></li>
-          <li>|</li>
-          <li><a target="_blank" title="FOIA" href="http://www.cancer.gov/global/web/policies/foia">FOIA</a></li>
-        </ul>
-        <ul class="list-inline">
-          <li><a target="_blank" href="http://www.hhs.gov/">U.S. Department of Health and Human Services</a></li>
-          <li>|</li>
-          <li><a target="_blank" href="http://www.nih.gov">National Institutes of Health</a></li>
-          <li>|</li>
-          <li><a target="_blank" href="http://www.cancer.gov/">National Cancer Institute</a></li>
-          <li>|</li>
-          <li><a target="_blank" href="http://usa.gov">USA.gov</a></li>
-        </ul>
-        <div class="text-center"><span>NIH ... Turning Discovery Into Health</span><sup>&reg;</sup></div>
-      </div>
-    </div>
+    <div id="footer" class="footer"></div>
     <script language="JavaScript" type="text/javascript" src="//static.cancer.gov/webanalytics/WA_RAT_PageLoad.js"></script>
   </body>
 </html>
