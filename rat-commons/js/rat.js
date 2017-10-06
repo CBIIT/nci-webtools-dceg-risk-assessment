@@ -44,6 +44,7 @@ function calc()
 		$(this).attr('data-position-height', height + heightOfHeaderAndSectionsAccumulator)
 
 		heightOfHeaderAndSectionsAccumulator = heightOfHeaderAndSectionsAccumulator + currentTitleAndSecitonHeight;
+		console.log("Height of Header and Section Accumulator = " + heightOfHeaderAndSectionsAccumulator);
 
 	});
 }
@@ -188,16 +189,26 @@ function make_pie_chart(percent, divContainerForChart, color1, color2){
 ////////////////////////////////////////////////////////////////////////////////
 function formScrollSpy() {
 
+	console.log("Start Scroll Spy")
+
 	if ( existFormSteps() == false ) return;
 
 	// Calculate the bottom of the Form Steps where the questions will start.
 	var window_top = $(window).scrollTop();
 	window_top = window_top + calculateBottomOfFormSteps();
 
+	console.log("Thw window top is at position " + window_top);
+
 	$.each($("#riskForm section"), function(ind, el) {
 
-		// Retrieve the top most pix of the header belonging to section
+		// Retrieve the top most pixel of the header belonging to section
+		// If mobile
 		var sectionHeight =$(this).attr('data-position-height');
+		//if ( isMobile() ) {
+		//	sectionHeight = parseInt(sectionHeight) + calculateForMobileRiskFormStart();
+		//}
+		console.log("Seciton Height = " + sectionHeight)
+
 
 		// If the current section is just below the navigation bar ( form-stpes)
 		// then that section should be the active.
@@ -232,6 +243,8 @@ function formScrollSpy() {
 		   	adjust_line_width($('#form-steps li').length - 1);
 		}
 	}
+
+	console.log("end scroll spy ------------------------------")
 }
 
 /******************************************************************************/
@@ -285,7 +298,7 @@ function fixedToTop(div,use_mobile) {
 	var window_top = $(window).scrollTop();
 	var div_top = $("#"+div).offset().top;
 	var tool_title_height=$('#toolTitle').outerHeight(true);
-	var form_steps_height = ( existFormSteps ) ? $('#form-steps').outerHeight(true) : 0;
+	var form_steps_height = ( existFormSteps() ) ? $('#form-steps').outerHeight(true) : 0;
 
 	if ( isMobile()) {
 		$("header").css("top", "0px");
@@ -294,8 +307,7 @@ function fixedToTop(div,use_mobile) {
 			$("#form-steps").addClass("fixed");
 		}
 
-		var height = header_height + form_steps_height + 14;
-		$("#riskForm").css("margin-top",height+"px");
+		$("#riskForm").css("margin-top", calculateForMobileRiskFormStart() +"px");
 	}
 
 	if ( window_top > div_top || isMobile()) {
@@ -628,6 +640,30 @@ function existFormSteps() {
 	return ( $("#form-steps").length > 0 );
 }
 
+// Two function to disable and enable  the section headers ( Currently a section has h2)
+function disableSectionHeaders() {
+	$(".sectionTitle").attr("disabled","disabled")
+	$(".sectionTitle").addClass("disableSectionTitle")
+}
+
+function enableSectionHeaders() {
+	$(".sectionTitle").removeAttr("disabled")
+	$(".sectionTitle").removeClass("disableSectionTitle")
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Calculates the Starting point of the Risk Form for the mobile appear
+// This takes into account the space taken up by the header, form steps and
+// 14 pixel which I cannnot remember why I put in there
+////////////////////////////////////////////////////////////////////////////////
+function calculateForMobileRiskFormStart() {
+	var header_height=$('header').outerHeight(true);
+	var form_steps_height = ( existFormSteps()) ? $('#form-steps').outerHeight(true) : 0;
+	var height = header_height + form_steps_height + 14;
+	return height;
+
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // Startup Code
 ////////////////////////////////////////////////////////////////////////////////
@@ -640,6 +676,13 @@ $(function() {
 	$("#footer").load("./rat-commons/html/footer.html")
 
 	currentPage();
+
+	// If using a Phone or Tablet then there are no margins above or below a
+	// section and its section headers
+	if ( isMobile() ) {
+		removeSectionMargins();
+		removeSectionHeaderMargins();
+	}
 
 	// Calculate the height of the section so that it will be to scroll to the beginning of
 	// the correct section
@@ -671,12 +714,7 @@ $(function() {
 		submitHandler: processSubmission,
 	});
 
-	// If using a Phone or Tablet then there are no margins above or below a
-	// section and its section headers
-	if ( isMobile() ) {
-		removeSectionMargins();
-		removeSectionHeaderMargins();
-	}
+
 });
 
 $(window).load(function(e) {
@@ -845,15 +883,4 @@ function genericResetForm() {
  	//$("#skin").addClass("no_display")
  	//$("#physical-section").addClass("no_display")
  	//$("#physical").addClass("no_display")
-}
-
-// Two function to disable and enable  the section headers ( Currently a section has h2)
-function disableSectionHeaders() {
-	$(".sectionTitle").attr("disabled","disabled")
-	$(".sectionTitle").addClass("disableSectionTitle")
-}
-
-function enableSectionHeaders() {
-	$(".sectionTitle").removeAttr("disabled")
-	$(".sectionTitle").removeClass("disableSectionTitle")
 }
