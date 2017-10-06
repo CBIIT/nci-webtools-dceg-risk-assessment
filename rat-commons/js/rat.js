@@ -374,12 +374,11 @@ $(window).resize(function() {
 /* Adjusts the line connections the navigation bar circles                   **/
 /******************************************************************************/
 function adjustNavigationBarLine() {
+	adjust_line_width()
 	if( isMobile() )
 		adjust_line_height_mobile();
 	else
 		adjust_line_height_dekstop()
-	adjust_line_width()
-
 }
 
 /******************************************************************************/
