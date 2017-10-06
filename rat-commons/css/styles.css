@@ -66,6 +66,7 @@ h1 {
   margin: 0.5em auto;
   font-family: Montserrat;
   font-size: 28px;
+  line-height: 30.8px;
 }
 
 h2 {
@@ -74,6 +75,7 @@ h2 {
   margin: 0.5em auto;
   font-family: Montserrat;
   font-size: 23px;
+  line-height: 28px;
 }
 
 h3 {
@@ -82,6 +84,7 @@ h3 {
   margin: 0.5em auto;
   font-family: Montserrat, sans-serif;
   font-size: 20px;
+  line-height: 24px;
 }
 
 h4 {
@@ -90,6 +93,7 @@ h4 {
   margin: 0.5em auto;
   font-family: Montserrat;
   font-size: 18px;
+  line-height: 22px;
 }
 
 /* On the calculation page space between the questions and the buttons */
