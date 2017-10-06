@@ -708,8 +708,10 @@ $(function() {
 	// the navigation numbers so that it fits correctly.
 	$(window).resize(function() {
 		fixedToTop( ( $(window).width() ) ? "main-nav" : "toolTitle" );
-		var riskFormSectionIndex = $("#form-steps > ol > li").filter(".active").children("a:first").attr("data-riskFormSection");
-		adjust_line_width(riskFormSectionIndex);
+		if ( $("#form-steps").length > 0 ) {
+			var riskFormSectionIndex = $("#form-steps > ol > li").filter(".active").children("a:first").attr("data-riskFormSection");
+			adjust_line_width(riskFormSectionIndex);
+		}
 	});
 
 	$("#riskForm").validate({
