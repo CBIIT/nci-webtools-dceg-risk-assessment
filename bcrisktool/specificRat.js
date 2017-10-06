@@ -60,6 +60,11 @@ $(function() {
         }
     	});
 
+	// On this IOS Phone 6 the navigation bar line in the center was not getting positioned 
+	// correctly, so I am adding a callback to the #RACE drop down so that the navigation
+	// bar get drawn correctly everytime.
+	$("#race").on("change", handleScrollEvent);
+
   	// If the Asian Selection from the list has been selected then enable the sub_race
 	  $("#sub_race").prop("disabled", true)
  	  $("[for='sub_race']").css("color","#c0c0c0");
