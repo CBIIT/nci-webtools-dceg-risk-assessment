@@ -755,19 +755,6 @@ $(window).load(function(e) {
 		}
 	});
 
-	// TODO : Move to melanoma when we get back to the melanoma section
-	// Sets the form back to defaults whent reset form button is clicked
-	//$("#reset_form").on("click",function(){
-	//	$('form').trigger('reset')
-	//	$(window).scrollTop(0);
-	// 	$("#skin-section").addClass("no_display")
-	//	$("#skin").addClass("no_display")
-	//	$("#physical-section").addClass("no_display")
-	//	$("#physical").addClass("no_display")
-	//	$("form :input").attr('disabled', false);
-	//	$("[class*='questions']").css("color","#2e2e2e")
-	//});
-
 	$("button.select").on('click keypress', function(e) {
 		if(e.type == "keypress") {
 			if ((e.keyCode == 13) || (e.keyCode == 32)) {
@@ -831,23 +818,7 @@ $(window).load(function(e) {
 
 $(document).ready(function(){
 
-	$("#riskForm").change(function() {
-		var newVal = $(this).val();
-		var inputs = $("form#riskForm input:enabled, form#riskForm select:enabled");
-		valid=true
-		inputs.each(function(index) {
-    		var input = $(this);
-    		if(input[0].required==true){
-    			name=input[0].name
-    			if(($('input[name=' + name +']').is('input') && $('input[name=' + name + ']:checked').length==0) || ($('select[name=' + name +']').is('select') && input[0].selectedIndex==0)){
-      				disablebutton()
-      				valid=false
-      			}
-    		}
-		});
-		if(valid==true)
-			enablebutton();
-	});
+	$("#riskForm").on("change", enableCalculateButton);
 
 	$('html,body').scrollTop(0);
 
@@ -862,11 +833,25 @@ function genericResetForm() {
 	$("form :input").attr('disabled', false);
 	$("[class*='questions']").css("color","#2e2e2e")
 	$("#calculate").attr("disabled", "disabled")
+}
 
+function enableCalculateButton() {
+	 var newVal = $(this).val();
+	 var inputs = $("form#riskForm input:enabled, form#riskForm select:enabled");
+	 valid=true
+	 inputs.each(function(index) {
+			 var input = $(this);
+			 if(input[0].required==true){
+				 name=input[0].name
+				 console.log("Looking for the name : " + name)
+				 if(($('input[name=' + name +']').is('input') && $('input[name=' + name + ']:checked').length==0) || ($('select[name=' + name +']').is('select') && input[0].selectedIndex==0)){
+					   console.log("Disalbe for button " + name);
+						 disablebutton()
+						 valid=false
+					 }
+			 }
+	 });
 
-	// Move this to Mrat specific Rat when you start wokring with that code
- 	//$("#skin-section").addClass("no_display")
- 	//$("#skin").addClass("no_display")
- 	//$("#physical-section").addClass("no_display")
- 	//$("#physical").addClass("no_display")
+	 if(valid==true) enablebutton();
+
 }

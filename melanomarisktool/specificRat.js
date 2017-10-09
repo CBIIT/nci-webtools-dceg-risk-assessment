@@ -17,7 +17,27 @@ $(function() {
 	// Initialize the button that will reset the form
 	$("#reset").on("click", resetForm)
 
+	// When the function is first executed then the calculate
+	// function will never be executed since the male and or female have not
+	// been seleted.
+	$("#riskForm").unbind("change", enableCalculateButton);
+
+	// When the male or female has been selected then the calculate button can be
+	// enabled, but only if all the fields that should be selected have been
+	$("#maleGender").on("change", allowCalculate);
+	$("#femaleGender").on("change", allowCalculate);
+
 });
+
+////////////////////////////////////////////////////////////////////////////////
+// Rules : When the user has not selected a male or female then the calculate
+// button should always be disabled, but when the user has selected male or
+// female then the calculate should follow the normal rat rules ( all inputs
+// question must have an answer unless they are disabled).
+////////////////////////////////////////////////////////////////////////////////
+function allowCalculate() {
+		$("#riskForm").on("change", enableCalculateButton);
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Display the results for the Melenoma Cancer Risk Analysis Tool             //
@@ -192,4 +212,16 @@ function resetForm() {
   genericResetForm()
 	enableMap();
   enableSectionHeaders();
+
+	// Remove the capability for the application to make the calculate button
+	// enabled.  The calculate button can never be enabled until male or female
+	// has been selected`
+	$("#riskForm").unbind("change", enableCalculateButton);
+
+	// Make the section skin, exam section invisible.
+	$("#skin-section").addClass("no_display")
+	$("#skin").addClass("no_display")
+	$("#physical-section").addClass("no_display")
+	$("#physical").addClass("no_display")
+
 }
