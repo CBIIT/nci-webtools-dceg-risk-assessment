@@ -193,6 +193,9 @@ function formScrollSpy() {
 
 	if ( existFormSteps() == false ) return;
 
+	// Rule: If there is only once section visible then just return
+	if ( ignore() ) return;
+
 	// Calculate the bottom of the Form Steps where the questions will start.
 	var window_top = $(window).scrollTop();
 	window_top = window_top + calculateBottomOfFormSteps();
@@ -258,6 +261,10 @@ function gotoSection(event) {
 	// Rule: When there is a male/female selection, one of the items must checked
 	// if the
 	if ( isMaleOrFemaleChekced() == 0 ) return;
+
+	// Rule: If there is only once section visible then just return
+	if ( ignore() ) return;
+
 
 	var indexOfSection = $(this).attr('data-riskFormSection')
 
@@ -665,6 +672,17 @@ function calculateForMobileRiskFormStart() {
 	var height = header_height + form_steps_height + 14;
 	return height;
 
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// This is a hack, the problem is for the MRAT some of the sections are hidden
+// When the user scrolls to the bottom then the navigation links for the third
+// section is highlighted.  This is wrong since there is only one section.
+// As a quick hack and the best idea that I have, I will allow formScrollSpy
+// to work where there are no sections that are hidden
+////////////////////////////////////////////////////////////////////////////////
+function ignore() {
+	return ( $("section:hidden").length > 0 )
 }
 
 ////////////////////////////////////////////////////////////////////////////////
