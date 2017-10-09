@@ -1,7 +1,22 @@
-$(window).load(function(event) {
+$(function() {
 
 	$("input[name='gender']").on("change", toggleGender);
 	$("input[name='gender']").on("change", calc);
+
+	// Disables the form if the person is not Non-Hispanic White
+	$("input[id='notNonHispanicWhiteRadioButton']").on("change", function() {
+			$("#raceModal").modal("show");
+			$("form :input").not("#reset").attr('disabled', true)
+			$("[class*='questions']").css("color","#c0c0c0")
+			disableMap();
+			//disablebutton()
+			$("#calculate").attr("disabled", "disabled")
+			disableSectionHeaders();
+	});
+
+	// Initialize the button that will reset the form
+	$("#reset").on("click", resetForm)
+
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -10,7 +25,7 @@ $(window).load(function(event) {
 function resultsDisplay(response, textStatus, xhr) {
 	var results=JSON.parse(response.message)
 	var message="Based on the information provided, the patient's estimated risk for developing melanoma over the next 5 years is "+results.risk+"%. For every 1,000 "+ results.gender+"s living in the " +results.regionKey+" region with these characteristics, on average about "+ results.ratio+" will develop melanoma in the next 5 years.";
-	
+
 	$('#main').addClass('hide')
 	$('#form-steps').addClass('hide')
 	$("#results").addClass('show')
@@ -159,3 +174,22 @@ var validationRules = {
 		}
 	}
 };
+
+// Removes the capability for the user to interact with the map
+function disableMap() {
+	$("#state-listing").addClass("disabled");
+	$("#map").addClass("image_disabled");
+}
+
+// Adds the capability for the user to interact with the map
+function enableMap() {
+	$("#state-listing").removeClass("disabled");
+	$("#map").removeClass("image_disabled");
+}
+
+/* Resets the form back to default look and values that it contains           */
+function resetForm() {
+  genericResetForm()
+	enableMap();
+  enableSectionHeaders();
+}

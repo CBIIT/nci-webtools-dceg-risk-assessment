@@ -14,7 +14,7 @@ $(function() {
 			$("form :input").not("#reset").attr('disabled', true);
 			$("[class*='questions']").css("color","#c0c0c0");
       			disableSubRaceMenu();
-			      disablebutton();
+			disablebutton();
       			disableSectionHeaders();
       			resetsDropDowns();
 		}
@@ -27,9 +27,9 @@ $(function() {
 			$("form :input").not("#reset").attr('disabled', true);
 			$("[class*='questions']").css("color","#c0c0c0")
 		      	disableSubRaceMenu();
-		 	      disablebutton();
+		 	disablebutton();
       			disableSectionHeaders();
-   			    resetsDropDowns();
+   			resetsDropDowns();
 		  }
   	});
 
@@ -56,11 +56,11 @@ $(function() {
     		} else if ( this.value == "Other") {
 		      	$("#unknownIssue").modal("show")
 		    } else if ( this.value == "Native American") {
- 			      $("#NativeAmericanIssue").modal("show");
+ 			$("#NativeAmericanIssue").modal("show");
         }
     	});
 
-	// On this IOS Phone 6 the navigation bar line in the center was not getting positioned 
+	// On this IOS Phone 6 the navigation bar line in the center was not getting positioned
 	// correctly, so I am adding a callback to the #RACE drop down so that the navigation
 	// bar get drawn correctly everytime.
 	$("#race").on("change", handleScrollEvent);

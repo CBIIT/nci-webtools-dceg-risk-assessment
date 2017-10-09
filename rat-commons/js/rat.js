@@ -779,25 +779,6 @@ $(window).load(function(e) {
 		}
 	});
 
-  // I believe that this code belongs to mrat and will put it in their when
-  // I test this library with mrat
-	$("input[name='race']").on("change", function() {
-		if(this.value == 1){
-			$("#raceModal").modal("show");
-			$("form :input").not("[name='race']").attr('disabled', true);
-			$("[class*='questions']").css("color","#6c6c6c")
-			$("#state-listing").addClass("disabled");
-			$("#map").addClass("image_disabled");
-		}
-		else {
-			$("form :input").not("[name='race']").removeAttr('disabled');
-			$("[class*='questions']").css("color","#2e2e2e")
-			$("#state-listing").removeClass("disabled");
-			$("#map").removeClass("image_disabled");
-
-		}
-	});
-
 	$('a[data-toggle="tab"]').on('hidden.bs.tab', function(e) {
 		if($("nav.navbar-collapse").hasClass('in'))
 			$('button[data-toggle="collapse"]').trigger("click");

@@ -46,7 +46,7 @@ html {
 html,body {
   font-family: "Noto Sans", "Montserrat";
   /* font-size: 12pt; */
-  font-size: 16px; 
+  font-size: 16px;
   background: #fff;
   color: #444444;
 }
@@ -814,7 +814,7 @@ input.error + label.radio span {
   border: none;
 }
 .modal-header .close {
-  background: url("./images/Exit.png");
+  background: url("/rat-commons/images/Exit.png");
   padding: 9px 9px;
   color: #fff;
   opacity: 1.0;
@@ -1370,4 +1370,11 @@ section > fieldset > legend.questions {
 /* On the about page all jump links should have a specific line-height */
 .about_page_link_separator {
    line-height: 25px;
+}
+
+/* styles maps such as the map of the United Styles use in the MRAT Program */
+.mapText {
+        font-size: 16px;
+        color: #2B7BBA;
+        font-family: 'Noto Sans'
 }
