@@ -677,12 +677,13 @@ function calculateForMobileRiskFormStart() {
 ///////////////////////////////////////////////////////////////////////////////
 // This is a hack, the problem is for the MRAT some of the sections are hidden
 // When the user scrolls to the bottom then the navigation links for the third
-// section is highlighted.  This is wrong since there is only one section.
-// As a quick hack and the best idea that I have, I will allow formScrollSpy
-// to work where there are no sections that are hidden
+// section is highlighted.  This is wrong since there is only one section and
+// the 1st navigtation links should be hightlighted, not the last.
+// As a quick hack and the best idea that I have, is to ignroe the movement
+// to a different section if there is only section visible.
 ////////////////////////////////////////////////////////////////////////////////
 function ignore() {
-	return ( $("section:hidden").length > 0 )
+	return ( $("section:visible").length <= 1 )
 }
 
 ////////////////////////////////////////////////////////////////////////////////
