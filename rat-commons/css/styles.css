@@ -1214,6 +1214,8 @@ input.error + label.radio span {
 .result_page_anchor {
   font-size: 16px;
   font-family: 'Noto Sans';
+  color: #2B7BBA;
+  line-height: 28px;
 }
 
 /* Centering for Mobile buttons that are link */
