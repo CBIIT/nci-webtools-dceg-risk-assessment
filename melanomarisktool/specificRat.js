@@ -46,15 +46,11 @@ function resultsDisplay(response, textStatus, xhr) {
 	var results=JSON.parse(response.message)
 	var message="Based on the information provided, the patient's estimated risk for developing melanoma over the next 5 years is "+results.risk+"%. For every 1,000 "+ results.gender+"s living in the " +results.regionKey+" region with these characteristics, on average about "+ results.ratio+" will develop melanoma in the next 5 years.";
 
-	$('#main').addClass('hide')
-	$('#form-steps').addClass('hide')
-	$("#results").addClass('show')
+	go_toresult();
+
 	$("#results_text").html(message);
-	$(".risk_header").text(results.risk+"%");
-
-  fiveYearPatientRiskColor="#2DC799";
-
-	make_pie_chart(results.risk, "#Pie_chart", fiveYearPatientRiskColor, "#EFEFEF");
+	$("#Risk1").text(results.risk+"%");
+	make_pie_chart(results.risk, "#Pie_chart", "#2DC799", "#EFEFEF");
 
 }
 
