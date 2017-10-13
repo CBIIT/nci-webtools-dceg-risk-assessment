@@ -1,3 +1,4 @@
+/*
 @font-face {
   font-family: 'Noto Sans';
   font-weight: normal;
@@ -34,7 +35,7 @@
   font-style: normal;
   src: url("fonts/Montserrat-Bold.ttf");
 }
-
+*/
 /* Color Scheme */
 html {
   background: #235e88;
@@ -44,7 +45,7 @@ html {
 
 
 html,body {
-  font-family: "Noto Sans", "Montserrat";
+  font-family: "Noto Sans", sans-serif;
   /* font-size: 12pt; */
   font-size: 16px;
   background: #fff;
@@ -57,7 +58,7 @@ h7 {
   color: #606060;
   font-weight: bold;
   margin: 0.5em auto;
-  font-family: Montserrat-Bold;
+  font-family: Montserrat;
 }
 
 h1 {
@@ -614,7 +615,7 @@ label.questions {
   color: #2e2e2e;
   margin-top: 50px;
   font-size: 16px;
-  font-family: 'Noto Sans';
+  font-family: "Noto Sans";
   line-height: 22px;
 }
 .questions_secondary {

@@ -6,11 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Noto+Sans" rel="stylesheet">
     <link href="common/css/style.css" rel="stylesheet" type="text/css">
     <link href="rat-commons/css/styles.css" rel="stylesheet" type="text/css">
     <link href="rat-commons/css/form-steps.css" rel="stylesheet" type="text/css">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="application/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js" type="application/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods.js" type="application/javascript"></script>
@@ -132,7 +131,7 @@
       <form id="riskForm" name="riskForm" method="POST" action="calculate" autocomplete="off">
         <h2 id="PatientEligibilitySectionTitle" class="sectionTitle">Patient Eligibility</h2>
         <section id="patient-eligibility-section">
-          <label class="questions no-margin-top" for="cancerAndRadiationHistory">Does the woman have a medical history of any breast cancer or of ductal carcinoma in situ (DCIS) or lobular carcinoma in situ (LCIS) or has she received previous radiation therapy to the chest for treatment of Hodgkin lymphoma?</label>
+          <label class="questions no-margin-top" for="cancerAndRadiationHistoryYes">Does the woman have a medical history of any breast cancer or of ductal carcinoma in situ (DCIS) or lobular carcinoma in situ (LCIS) or has she received previous radiation therapy to the chest for treatment of Hodgkin lymphoma?</label>
           <div class="responseOptions">
             <input id="cancerAndRadiationHistoryYes" type="radio" name="cancerAndRadiationHistory" value="0" >
             <label class="radio" tabindex="0" for="cancerAndRadiationHistoryYes"><span></span>Yes</label>
@@ -141,7 +140,7 @@
             <input id="cancerAndRadiationHistoryNo" type="radio" name="cancerAndRadiationHistory" value="1">
             <label class="radio" tabindex="0" for="cancerAndRadiationHistoryNo"><span></span>No</label>
           </div>
-          <label class="questions" for="geneticMakeup">
+          <label class="questions" for="geneticMakeupYes">
             Does the woman have a mutation in either the BRCA1 or BRCA2 gene, or a diagnosis of a genetic syndrome that may be associated with elevated risk of breast cancer?
           </label>
           <div class="responseOptions">
@@ -163,7 +162,7 @@
            <p class="questions_secondary">
               This tool calculates risk for women 35 years of age or older.</p>
            <div class="responseOptions">
-             <select id="age" name="age" placeholder="Enter patient&#8217;s age" required>
+             <select id="age" name="age" required>
                <option value="">Select Age</option>
                <option value="35">35</option>
                <option value="36">36</option>
@@ -221,7 +220,7 @@
 
            <label class="questions" for="race">What is the patient&#8217;s race/ethnicity?</label>
             <div class="responseOptions">
-              <select id="race" name="race" placeholder="Enter patient's race/ethnicity" required>
+              <select id="race" name="race" required>
                 <option value="">Select Race</option>
                 <option value="White">White</option>
                 <option value="Black">Black</option>
@@ -234,7 +233,7 @@
 
              <label class="col-sm-offset-1 questions" for="sub_race">What is the sub race/ethnicity?</label>
              <div class="col-sm-offset-1 responseOptionsWithoutIndent pl-3">
-               <select id="sub_race" name="sub_race" placeholder="Enter patient's race/ethnicity" required>
+               <select id="sub_race" name="sub_race"  required>
                  <option value="">Select sub race/ethnicity</option>
                  <option value="Chinese">Chinese</option>
                  <option value="Japanese">Japanese</option>
@@ -247,7 +246,7 @@
         </section>
         <h2 id="PatientAndFamilyHistorySecitonTitle" class="sectionTitle">Patient and Family History</h2>
         <section id="patient-and-family-history-section">
-            <label class="questions no-margin-top" for="biopsy">Has the woman ever had a breast biopsy?</label>
+            <label class="questions no-margin-top" for="biopsyAnswerYes">Has the woman ever had a breast biopsy?</label>
             <div class="responseOptions">
               <input id="biopsyAnswerYes" type="radio" name="biopsy" value="1" required>
               <label class="radio" tabindex="0" for="biopsyAnswerYes"><span> </span>Yes</label>
@@ -261,7 +260,7 @@
               <label class="radio" tabindex="0" for="biopsyAnswerUnknown"><span> </span>Unknown</label>
             </div>
 
-            <label class="col-sm-offset-1 questions" for="howManyBreastBiopsies">How many breast biopsies (postive or negative) has the woman had?</label>
+            <label class="col-sm-offset-1 questions" for="breastBiopsiesCount1">How many breast biopsies (postive or negative) has the woman had?</label>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
               <input id="breastBiopsiesCount1" type="radio" name="howManyBreastBiopsies" value="1" required>
               <label class="radio" tabindex="0" for="breastBiopsiesCount1"><span> </span>1</label>
@@ -271,7 +270,7 @@
               <label class="radio" tabindex="0" for="breastBiopsiesCountLessThan0"><span> </span>&lt;1</label>
             </div>
 
-            <label class="col-sm-offset-1 questions" for="hadAH">Has the woman had at least one breast bioposy with atypical hyperplasia?</label>
+            <label class="col-sm-offset-1 questions" for="hadAhYes">Has the woman had at least one breast bioposy with atypical hyperplasia?</label>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
               <input id="hadAhYes" type="radio" name="hadAH" value="1.82" required>
               <label class="radio" tabindex="0" for="hadAhYes"><span> </span>Yes</label>
@@ -285,7 +284,7 @@
               <label class="radio" tabindex="0" for="hadAhUnknown"><span> </span>Unknown</label>
             </div>
 
-          <label class="questions" for="age_first_period">What was the woman&#8217;s age at the time of her first menstrual period?</label>
+          <label class="questions" for="age7To11">What was the woman&#8217;s age at the time of her first menstrual period?</label>
           <div class="responseOptions col-sm-offset-1 pl-3">
             <input id="age7To11" type="radio" name="age_first_period" value="2" required>
             <label class="radio" tabindex="0" for="age7To11"><span></span>7 to 11</label>
@@ -305,7 +304,7 @@
 
           <label class="questions" for="childbirth_age">What was the woman&#8217;s age at the time of her first live birth of a child?</label>
           <div class="responseOptions col-sm-offset-1 pl-3">
-            <select id="childbirth_age" name="childbirth_age" placeHolder="Enter the number of first degree relatives" required>
+            <select id="childbirth_age" name="childbirth_age" required>
               <option value="">Select</option>
               <option value="98">No Births</option>
               <option value="0">&lt; 20</option>
@@ -316,7 +315,7 @@
             </select>
           </div>
 
-          <label class="questions" for="relatives">How many of the woman&#8217;s first-degree relatives (mothers, sisters, daughters) have had breast cancer?</label>
+          <label class="questions" for="relativesNone">How many of the woman&#8217;s first-degree relatives (mothers, sisters, daughters) have had breast cancer?</label>
           <div class="responseOptions col-sm-offset-1 pl-3">
             <input id="relativesNone" type="radio" name="relatives" value="0" required>
             <label class="radio" tabindex="0" for="relativesNone"><span></span>None</label>
@@ -354,10 +353,10 @@
         <div class="modal-content">
           <div class="modal-body">
             <div class="container col-sm-12 dialog_text_content">
-              <div class col-sm-12>
+              <div class="col-sm-12">
                 <div class="row">
                   <div class="col-sm-2">
-                    <img class="imgsize center-block" src="rat-commons/images/stop.png" alt-icon alt="Stop Picture">
+                    <img class="imgsize center-block" src="rat-commons/images/stop.png" alt="Stop Picture">
                   </div>
                   <div class="col-sm-10">
                     <p>
@@ -381,10 +380,10 @@
         <div class="modal-content">
           <div class="modal-body">
             <div class="container col-sm-12 dialog_text_content">
-              <div class col-sm-12>
+              <div class="col-sm-12">
                 <div class="row">
                   <div class="col-sm-2">
-                    <img class="imgsize center-block" src="rat-commons/images/stop.png" alt-icon alt="stop picture">
+                    <img class="imgsize center-block" src="rat-commons/images/stop.png" alt="stop picture">
                   </div>
                   <div class="col-sm-10">
                     <p>
@@ -409,10 +408,10 @@
         <div class="modal-content">
           <div class="modal-body">
             <div class="container col-sm-12 dialog_text_content">
-              <div class col-sm-12>
+              <div class="col-sm-12">
                 <div class="row">
                   <div class="col-sm-2">
-                    <img class="imgsize center-block" src="rat-commons/images/info.png" alt-icon alt="Info Dialog Box">
+                    <img class="imgsize center-block" src="rat-commons/images/info.png" alt="Info Dialog Box">
                   </div>
                   <div class="col-sm-10">
                     <p>
@@ -440,10 +439,10 @@
         <div class="modal-content">
           <div class="modal-body">
             <div class="container col-sm-12 dialog_text_content">
-              <div class col-sm-12>
+              <div class="col-sm-12">
                 <div class="row">
                   <div class="col-sm-2">
-                    <img class="imgsize center-block" src="rat-commons/images/info.png" alt-icon alt="Info Dialog Box">
+                    <img class="imgsize center-block" src="rat-commons/images/info.png" alt="Info Dialog Box">
                   </div>
                   <div class="col-sm-10">
                     <p>
@@ -467,10 +466,10 @@
         <div class="modal-content">
           <div class="modal-body">
             <div class="container col-sm-12 dialog_text_content">
-              <div class col-sm-12>
+              <div class="col-sm-12">
                 <div class="row">
                   <div class="col-sm-2">
-                    <img class="imgsize center-block" src="rat-commons/images/info.png" alt-icon alt="This is an info dialog">
+                    <img class="imgsize center-block" src="rat-commons/images/info.png" alt="This is an info dialog">
                   </div>
                   <div class="col-sm-10">
                     <p>
@@ -501,10 +500,10 @@
         <div class="modal-content">
           <div class="modal-body">
             <div class="container col-sm-12 dialog_text_content">
-              <div class col-sm-12>
+              <div class="col-sm-12">
                 <div class="row">
                   <div class="col-sm-2">
-                    <img class="imgsize center-block" src="rat-commons/images/stop.png" alt-icon alt="stop-picture">
+                    <img class="imgsize center-block" src="rat-commons/images/stop.png" alt="stop-picture">
                   </div>
                   <div class="col-sm-10">
                     <p>
@@ -525,6 +524,6 @@
       </div>
     </div>
 
-    <script language="JavaScript" type="text/javascript" src="//static.cancer.gov/webanalytics/WA_RAT_PageLoad.js"></script>
+    <script type="text/javascript" src="//static.cancer.gov/webanalytics/WA_RAT_PageLoad.js"></script>
   </body>
 </html>
