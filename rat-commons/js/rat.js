@@ -686,6 +686,18 @@ function ignore() {
 	return ( $("section:visible").length <= 1 )
 }
 
+///////////////////////////////////////////////////////////////////////////////
+// Redraws a specific HTML Object
+//
+// In IE 11 whenever a value from a drop down was choosen the background color
+// of the choosen element was still visible ( blocknig the background color)
+// of the drop down.  If the element is redrawn then the selected background
+// color should go always
+///////////////////////////////////////////////////////////////////////////////
+function redrawHTMLObject() {
+	$(this).hide().show(0)
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // Startup Code
 ////////////////////////////////////////////////////////////////////////////////
@@ -862,9 +874,7 @@ function enableCalculateButton() {
 			 var input = $(this);
 			 if(input[0].required==true){
 				 name=input[0].name
-				 console.log("Looking for the name : " + name)
 				 if(($('input[name=' + name +']').is('input') && $('input[name=' + name + ']:checked').length==0) || ($('select[name=' + name +']').is('select') && input[0].selectedIndex==0)){
-					   console.log("Disalbe for button " + name);
 						 disablebutton()
 						 valid=false
 					 }
@@ -872,5 +882,9 @@ function enableCalculateButton() {
 	 });
 
 	 if(valid==true) enablebutton();
+
+	 $("select").on("select", redrawHTMLObject);
+	 $("select").on("change", redrawHTMLObject);
+
 
 }
