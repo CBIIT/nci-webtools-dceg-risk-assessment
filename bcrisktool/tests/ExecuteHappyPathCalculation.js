@@ -5,7 +5,7 @@ const webdriver = require('selenium-webdriver')
 
 By = webdriver.By, until = webdriver.until
 
-function initializeFireFox() {
+function initializeChrome() {
    return new webdriver.Builder().forBrowser('chrome').build();
 }
 
@@ -18,103 +18,109 @@ function getBaseUrl() {
   return "http://localhost:5006/"
 }
 
-function gotoCalculatePage() { 
-  return "http://localhost:9200/calculator.html"
-}
-
 
 function gotoIndexURL() {
-  return "http://localhost:9200/index.html"
+  return "http://localhost:5006/index.html"
+}
+
+function gotoCalculateURL() {
+  return "http://localhost:5006/calculator.html"
 }
 
 function correct(driver) {
   return driver.current
 }
 
-test.describe("Test Suite Calculation", async function() {
+test.describe("Test Suite", async function() {
 
-  var driver;
-
-  before(async function() {
-    await console.log("Currently in before() ");
-    this.timeout(0)
-    var driver = initializeFireFox();
-    await driver.get(gotoCalculatePage());
-    await console.log("Currently leaving before() ");
+  // Problem : Trying to intialize driver and goto page, but calling them
+  // in before is not working correctly.
+  test.before( function() {
+    console.log("Inside Function")
   });
 
-  test.it("Enter Inputs to prduce a calcuation and verify that the results page is visible and that the value(s) are correct", async function(done) {
-
-    //let classes = ""
-    //url = await driver.findElement(By.id("gotoInputPageLink")).getAttribute("href");
-    //console.log("The url is " + url);
-
-    //javascriptStr = "document.getElementById('gotoInputPageLink').setAttribute('href','" + url + "');";
-    //await driver.executeScript(javascriptStr).then(function(return_value)
-    //  {
-    //    console.log("The return value is " + return_value);
-    //  });
-
-    //await driver.findElement(By.id("gotoInputPageLink")).click();
-
-    //driver.takeScreenshot().then(
-    //   function(image, err) {
-    //      require('fs').writeFile('out.png', image, 'base64', function(err) {
-    //      console.log(err);
-    //   });
-    //});
-
-    //await driver.wait( function() { return until.urlIs(url) }, 10000)
-
-    //await console.log("The GUI has come up");
-	 
-    //await driver.findElement(By.id("cancerAndRadiationHistoryNo")).click();
-	                            
-    //await console.log("Clicking on the first button");
-
-    //await driver.findElement(By.id("geneticMakeupNo")).click();
+  test.it("Entering inputs that will produce a result", async function(done) {
 
 
-    console.log(driver.findElement(By.Id("biopsyAnswerYes")).getId());
-    await driver.findElement(By.css("#age > option:last-child")).click();
-    await driver.findElement(By.css("#race > option:nth-child(2)")).click();
 
-    //await console.log("Currently tyring to print out a value");
-    //await console.log(driver.findElement(By.id("biopsyAnswerYes")).then( function(element) { console.log("In Callback... "); return element.getId(); }));
-    //await driver.findElement(By.id("biopsyAnswerYes")).click();
-    await driver.findElement(By.css("#biopsyAnswerYes")).click();
-    await driver.findElement(By.id("breastBiopsiesCount1")).click();
-    await driver.findElement(By.id("hadAhNo")).click();
-    await driver.findElement(By.id("firstPeriodPast14"));
-    await driver.findElement(By.id("#childbirth_age > nth-option(3)")).click();
+    //process.on('uncaughtException', function (err) {
+    //  console.log("Messagte : " + err.message);
+    //  console.log("-------------------------------------")
+    //})
+    //
+    try {
 
-    await driver.wait( function() { return until.elementIsEnabled(findElement(By.id("calculate")), 300); });
-    
-    driver.findElement(By.id("calculate")).click();
-    
-    await driver.wait( function() { return until.elementIsEnabled(findElement(By.id("results_box")), 10000); });
-    await driver.wait( function() { return until.elementIsEnabled(findElement(By.id("results_box2")), 3000); });
+      this.timeout(0)
+      var driver = initializeChrome();
+      await driver.get(gotoCalculateURL());
 
-    var fiveYearResult = findElement(By.id("Risk1")).text();
-    console.log("Value of fiveYearResult = " + fiveYearResult);
-    await driver.wait( function() { return until.elementTextMatches("Risk1", "5.8\%"); }, 3000);
-    
-    var lifetimeResult = findElement(By.id("Risk2")).text();
-    console.log("Value of life time result = " + lifetimeResult);
-    await driver.wait( function() { return until.elementTextMatches("Risk1", "5.8\%"); }, 3000);
+      // Patient Eligibility
+      await driver.findElement(By.xpath("//*[@for='cancerAndRadiationHistoryNo']")).click();
+      await driver.findElement(By.xpath("//*[@for='geneticMakeupNo']")).click();
 
-    driver.takeScreenshot().then(
-       function(image, err) {
-          require('fs').writeFile('out.png', image, 'base64', function(err) {
+      // Demographics
+      await driver.findElement(By.css("#age > option:last-child")).click();
+      await driver.findElement(By.css("#race > option:nth-child(2)")).click();
+
+      // Patient and Family History
+      var biopsyButton = await driver.findElement(By.xpath("//*[@for='biopsyAnswerNo']"))
+      let location = await biopsyButton.getLocation();
+
+      // Need to work on removing the hardcodes values, but I don't understand,
+      // but for now they are needed.  I tried working with the poistions of the
+      // GUI Elements, but it did not work.
+      driver.executeScript(`window.scrollTo(0, 1230)`)
+
+      var biopsyButton = await driver.findElement(By.xpath("//*[@for='biopsyAnswerNo']"))
+      await biopsyButton.click();
+      var selected = await biopsyButton.isSelected();
+      console.log("Value is " + selected)
+
+      var ageOfFirstPeriod = await driver.findElement(By.xpath("//*[@for='ageGt14']"))
+      await ageOfFirstPeriod.click();
+
+      await driver.findElement(By.css("#childbirth_age > option:last-child")).click();
+
+      driver.executeScript(`window.scrollTo(0, 1530)`)
+      await driver.findElement(By.xpath("//*[@for='relativesGtOne']")).click();
+
+      // Click the Calculate Button and the display should change to the results
+      // Page.
+      await driver.findElement(By.id("calculate")).click();
+
+      // Verify that the result page has the correct data.
+      let risk1Str = await driver.findElement(By.id("Risk1")).getText();
+      assert.equal(risk1Str,"6%")
+
+      let risk2Str = await driver.findElement(By.id("Risk2")).getText();
+      assert.equal(risk2Str,"1%")
+
+      let risk3Str = await driver.findElement(By.id("Risk3")).getText();
+      assert.equal(risk3Str,"41%")
+
+      let risk4Str = await driver.findElement(By.id("Risk4")).getText();
+      assert.equal(risk4Str,"13%")
+
+      driver.takeScreenshot().then(
+        function(image, err) {
+          require('fs').writeFile('out2.png', image, 'base64', function(err) {
           console.log(err);
-       });
-    });
+        });
+      });
+
+    //await driver.wait( function() { return until.urlIs(gotoIndexURL()) }, 10000)
+  } catch(err) {
+    console.log("----------------------------------------------------");
+    console.log(err);
+    console.log(err.message);
+    console.log("----------------------------------------------------");
+  }
 
 
-    //await done();	  
+    done()
+    driver.executeScript("self.close()")
     await driver.close();
-    done();
-    //cleanup(driver);
+    await driver.quit();
   });
 
 });
