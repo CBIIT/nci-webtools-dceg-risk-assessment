@@ -511,6 +511,7 @@ div[id^='results_graph'] {
   font-size: 48px;
   font-family: Montserrat;
   line-height: 1.0;
+  padding-top: 5px;
 }
 #form-steps {
   background-color: #fff;
@@ -912,7 +913,7 @@ input.error + label.radio span {
   font-size: 14px;
 }
 
-@media (min-width: 1459px) {
+@media (min-width: 1200px) {
    .vertical_alignment {
 	display: flex;
 	align-items: center;
@@ -921,7 +922,7 @@ input.error + label.radio span {
 }
 
 
-@media (max-width: 1458px) {
+@media (max-width: 1199px) {
   .vertical_aligment {}
 }
 
