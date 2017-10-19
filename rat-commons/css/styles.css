@@ -913,7 +913,7 @@ input.error + label.radio span {
   font-size: 14px;
 }
 
-@media (min-width: 1459px) {
+@media (min-width: 1200px) {
    .vertical_alignment {
 	display: flex;
 	align-items: center;
@@ -922,7 +922,7 @@ input.error + label.radio span {
 }
 
 
-@media (max-width: 1458px) {
+@media (max-width: 1199px) {
   .vertical_aligment {}
 }
 
