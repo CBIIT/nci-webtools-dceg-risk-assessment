@@ -491,10 +491,12 @@ div[id^='results_graph'] {
 }
 .results_header {
   text-align: center;
-  color: #fff;
+  color: #FFFFFF;
   margin-bottom: 2%;
   font-size: 34px;
   font-family: Montserrat;
+  font-weight: bold;
+  line-height: 36px;
 }
 .patient_header {
   text-align: center;
