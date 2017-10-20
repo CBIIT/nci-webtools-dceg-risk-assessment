@@ -625,7 +625,7 @@ label.questions {
   color: #2e2e2e;
   font-size: 14px;
   line-height: 19px;
-  font-fmaily: "Noto Sans";
+  font-family: "Noto Sans";
 }
 .responseOptions {
   font-weight: normal;
@@ -874,7 +874,7 @@ input.error + label.radio span {
   border-radius: 0px;
 }
 .error-dialog .modal-content {
-  background-color: #fff F;
+  background-color: #FFFFFF;
   border: 3px solid #339fbe;
 }
 .error-dialog img {
@@ -988,10 +988,21 @@ input.error + label.radio span {
   }
   nav#main-nav ul.nav.nav-tabs {
     display: block;
+    background-color: #235E88;
   }
   nav#main-nav ul.nav.nav-tabs li {
-    width: 50% ;
+    /*width: 50% ; */
     float: left;
+  }
+
+  /* The Menu Item in the Navigation Bar allowing the user to go to the Caclucation Page */
+  .calc_list_item {
+    width : 40%;
+  }
+
+  /* The Menu Item in the Naviation Bar allowing the user to go to the About Page */
+  .about_list_item {
+    width : 60%;
   }
   nav#main-nav ul.nav.nav-tabs li.active a {
     color: #356b91;
@@ -1108,7 +1119,7 @@ input.error + label.radio span {
 
   /* When a question is a disabled the text needs to look less visible        */
   .questionDisabled {
-    opactity: .2;
+    opacity: .2;
   }
 
   /* When the question is disabled the answer needs to be greyed out         */
@@ -1240,7 +1251,7 @@ input.error + label.radio span {
 
 /* Disable a link */
 a.disabled {
-   pointer-events: none;
+   pointer-events: : none;
    color: #c0c0c0;
 }
 
@@ -1298,7 +1309,7 @@ svg {
 
 
 .force_lineHeight {
-  line-height: 1; !important;
+  line-height: 1 !important;
 }
 
 /**
