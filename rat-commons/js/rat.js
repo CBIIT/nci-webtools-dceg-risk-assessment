@@ -44,7 +44,7 @@ function calc()
 		$(this).attr('data-position-height', height + heightOfHeaderAndSectionsAccumulator)
 
 		heightOfHeaderAndSectionsAccumulator = heightOfHeaderAndSectionsAccumulator + currentTitleAndSecitonHeight;
-		console.log("Height of Header and Section Accumulator = " + heightOfHeaderAndSectionsAccumulator);
+		//console.log("Height of Header and Section Accumulator = " + heightOfHeaderAndSectionsAccumulator);
 
 	});
 }
@@ -189,7 +189,7 @@ function make_pie_chart(percent, divContainerForChart, color1, color2){
 ////////////////////////////////////////////////////////////////////////////////
 function formScrollSpy() {
 
-	console.log("Start Scroll Spy")
+	//console.log("Start Scroll Spy")
 
 	if ( existFormSteps() == false ) return;
 
@@ -200,7 +200,7 @@ function formScrollSpy() {
 	var window_top = $(window).scrollTop();
 	window_top = window_top + calculateBottomOfFormSteps();
 
-	console.log("Thw window top is at position " + window_top);
+	//console.log("Thw window top is at position " + window_top);
 
 	$.each($("#riskForm section"), function(ind, el) {
 
@@ -210,7 +210,7 @@ function formScrollSpy() {
 		//if ( isMobile() ) {
 		//	sectionHeight = parseInt(sectionHeight) + calculateForMobileRiskFormStart();
 		//}
-		console.log("Seciton Height = " + sectionHeight)
+		//console.log("Seciton Height = " + sectionHeight)
 
 
 		// If the current section is just below the navigation bar ( form-stpes)
