@@ -154,7 +154,7 @@ class BreastRiskAssessmentTool:
             results={}
             results['risk']=fiveYearRisk
             results['averageFiveRisk'] = averageFiveYearRisk
-            results['message'] = "Based on the information provided the woman's estimated risk for developing invasive breast cancer over the next 5 years is {0:g}% compared to a risk of {1:g}% for a woman of the same age and race/ethicity from the general U.S. population.".format(fiveYearRisk,averageFiveYearRisk)
+            results['message'] = "Based on the information provided, the woman's estimated risk for developing invasive breast cancer over the next 5 years is {0:g}% compared to a risk of {1:g}% for a woman of the same age and race/ethicity from the general U.S. population.".format(fiveYearRisk,averageFiveYearRisk)
             results['lifetime_patient_risk']=lifetimeRisk
             results['lifetime_average_risk']=averageLifeTimeRisk
             results['lifetime_message'] = "Based on the information provided, the woman's estimated risk for developing invasive breast cancer over her lifetime (to age 90) is {0:g}% compared to a risk of {1:g}% for a woman of the same age and race/ethnicity from the general U.S. population.".format(lifetimeRisk,averageLifeTimeRisk)
