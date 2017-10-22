@@ -97,6 +97,12 @@ h4 {
   line-height: 22px;
 }
 
+/* Need for specific margin this values should be used since it is more       */
+/* specific then the h4 tag                                                   */
+h4#reference_section {
+  margin-top: 1.5em;
+}
+
 /* On the calculation page space between the questions and the buttons */
 .spacerBetweenQuestionsAndButtonsMobile {
 	margin-top: 16px;
@@ -135,6 +141,7 @@ p {
   margin: 0;
   margin-bottom: 1em;
 }
+
 a {
   color: #2b7bba;
 }
@@ -246,6 +253,15 @@ nav#main-nav ul.nav.nav-tabs li.active a {
   color: #356b91;
   background: #fff;
   border-bottom: 7px solid #1a84a8;
+}
+/* The Menu Item in the Navigation Bar allowing the user to go to the Caclucation Page */
+.calc_list_item {
+  width: 45%;
+}
+
+/* The Menu Item in the Naviation Bar allowing the user to go to the About Page */
+.about_list_item {
+  width: 45%;
 }
 .nav-tabs {
   border: none;
@@ -991,23 +1007,20 @@ input.error + label.radio span {
     background-color: #235E88;
   }
   nav#main-nav ul.nav.nav-tabs li {
-    /*width: 50% ; */
+    /* width: 50% ; */
     float: left;
   }
 
   /* The Menu Item in the Navigation Bar allowing the user to go to the Caclucation Page */
   .calc_list_item {
-    width : 40%;
+    width: 40%;
   }
 
   /* The Menu Item in the Naviation Bar allowing the user to go to the About Page */
   .about_list_item {
-    width : 60%;
+    width: 60%;
   }
-  nav#main-nav ul.nav.nav-tabs li.active a {
-    color: #356b91;
-    background: #fff;
-  }
+
   nav#main-nav ul.nav.nav-tabs li a {
     background: #235e88;
     color: #fff;
