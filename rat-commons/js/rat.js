@@ -484,6 +484,7 @@ function toggle_menu(){
 			setTimeout(function() { $('#side_nav .glyphicon-menu-hamburger').css('display', 'none'); }, 250);
     	setTimeout(function(){ $("#form-steps").css("z-index","1"); }, 500);
     } else {
+			//$("#side_nav").css("margin-top", $("#toolTitle").position().top + "px")
 			$("header").css("z-index","200")
 			$("#side_nav").css("width","70%")
 			setTimeout(function() { $('#side_nav .glyphicon-menu-hamburger').css('display', 'inline-block'); }, 250);
@@ -833,7 +834,8 @@ $(window).load(function(e) {
 	var header_height=$('header').outerHeight(true);
  	var form_steps_height=$('#form-steps').outerHeight();
  	var logo_height=$('#logo').outerHeight();
-	$("#side_nav").css("margin-top",logo_height+"px");
+	//$("#side_nav").css("margin-top",logo_height+"px");
+	$("#side_nav").css("margin-top", $("#toolTitle").position().top + "px")
 	if( isMobile() ) {
  		console.log("mobile");
  		$("header").addClass('fixed');
