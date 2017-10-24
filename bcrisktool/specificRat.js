@@ -83,8 +83,6 @@ $(function() {
 function disableIfPatientIsNotEligible() {
   var result = $("#patient-eligibility-section input[id$='No']:checked").length;
   if ( result != 2 ) disablebutton();
-  //console.log("Coming from disableIfPatientIsNotEligible --> " + result)
-  //console.log("Coming from disableIfPatientIsNotEligible --> " + $("#calculate").attr("disabled"))
 }
 
 /* A specialized version of the enableForm function where we determine if  */
@@ -94,7 +92,6 @@ function enableBRATForm() {
   womanHadBiopsy();
   changeSubraceMenu();
   disablebutton();
-  console.log("The value of cancerAndRadiationHistory --> " + $("#cancerAndRadiationHistory:checked").val())
 }
 
 // Function : Determine if the woman every had a biopsy and disable certain

@@ -584,7 +584,6 @@ function enableButtonIfAllFieldHaveInput()
 	 inputs.each(function(index) {
 		var input = $(this);
 		if(input[0].required==true){
-			console.log("Verifying " + name)
 			 name=input[0].name
 			 if(($('input[name=' + name +']').is('input') && $('input[name=' + name + ']:checked').length==0) || ($('select[name=' + name +']').is('select') && input[0].selectedIndex==0)){
 				disablebutton()
@@ -595,8 +594,6 @@ function enableButtonIfAllFieldHaveInput()
 
 	if(valid==true) enablebutton();
 
-  console.log("--------------------------------------------------------------")
-	console.log("Comming from Rat.js the button " + $("#calculate").attr("disabled"))
 }
 
 /******************************************************************************/
