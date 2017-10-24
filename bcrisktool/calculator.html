@@ -43,8 +43,8 @@
         <li class="about_list_item" role="presentation" id="About"><a href="about.html"><span>About the Model &amp;</span><br><span>Source Code</span></a></li>
       </ul>
     </div>
-
     </header>
+
     <div id="results" class="container-fluid">
       <div id="results_home">
         <a class="result_page_anchor" href="javascript:goback_tocalc()"> &lt; Back to Calculator</a>
@@ -133,26 +133,26 @@
         <section id="patient-eligibility-section">
           <label class="questions no-margin-top" for="cancerAndRadiationHistoryYes">Does the woman have a medical history of any breast cancer or of ductal carcinoma in situ (DCIS) or lobular carcinoma in situ (LCIS) or has she received previous radiation therapy to the chest for treatment of Hodgkin lymphoma?</label>
           <div class="responseOptions">
-            <input id="cancerAndRadiationHistoryYes" type="radio" name="cancerAndRadiationHistory" value="0" >
+            <input id="cancerAndRadiationHistoryYes" type="radio" name="cancerAndRadiationHistory" value="0" required>
             <label class="radio" tabindex="0" for="cancerAndRadiationHistoryYes"><span></span>Yes</label>
           </div>
           <div class="responseOptions">
-            <input id="cancerAndRadiationHistoryNo" type="radio" name="cancerAndRadiationHistory" value="1">
+            <input id="cancerAndRadiationHistoryNo" type="radio" name="cancerAndRadiationHistory" value="1" required>
             <label class="radio" tabindex="0" for="cancerAndRadiationHistoryNo"><span></span>No</label>
           </div>
           <label class="questions" for="geneticMakeupYes">
             Does the woman have a mutation in either the BRCA1 or BRCA2 gene, or a diagnosis of a genetic syndrome that may be associated with elevated risk of breast cancer?
           </label>
           <div class="responseOptions">
-            <input id="geneticMakeupYes" type="radio" name="geneticMakeup" value="0">
+            <input id="geneticMakeupYes" type="radio" name="geneticMakeup" value="0" required>
             <label class="radio" tabindex="0" for="geneticMakeupYes"><span></span>Yes</label>
           </div>
           <div class="responseOptions">
-            <input id="geneticMakeupNo" type="radio" name="geneticMakeup" value="1">
+            <input id="geneticMakeupNo" type="radio" name="geneticMakeup" value="1" required>
             <label class="radio" tabindex="0" for="geneticMakeupNo"><span></span>No</label>
           </div>
           <div class="responseOptions">
-            <input id="geneticMakeupUnknown" type="radio" name="geneticMakeup" value="2">
+            <input id="geneticMakeupUnknown" type="radio" name="geneticMakeup" value="2" required>
             <label class="radio" tabindex="0" for="geneticMakeupUnknown"><span></span>Unknown</label>
           </div>
         </section>

@@ -64,8 +64,8 @@ function processSubmission(form){
 		type: form.method,
 		dataType: 'json',
 		data: userData,
-    		contentType: false,
-    		processData: false,
+    contentType: false,
+    processData: false,
 	}).done(resultsDisplay)
 	.fail(function() {
 		console.log("error");
@@ -495,7 +495,8 @@ function toggle_menu(){
 /* Todo: Change the name to enableCalculateButton                            */
 /*****************************************************************************/
 function enablebutton(){
-	$("#calculate").prop('disabled', false);
+	$("#calculate").attr('disabled', false);
+	$("#calculate").removeClass("#calculate:disabled")
 }
 
 /******************************************************************************/
@@ -503,7 +504,8 @@ function enablebutton(){
 /* TODO : Change the name to disableCalculateButton                           */
 /******************************************************************************/
 function disablebutton(){
-	$("#calculate").prop('disabled', true);
+	$("#calculate").attr('disabled', true);
+	$("#caclulate").addClass("#calculate:disabled")
 }
 
 
@@ -582,6 +584,7 @@ function enableButtonIfAllFieldHaveInput()
 	 inputs.each(function(index) {
 		var input = $(this);
 		if(input[0].required==true){
+			console.log("Verifying " + name)
 			 name=input[0].name
 			 if(($('input[name=' + name +']').is('input') && $('input[name=' + name + ']:checked').length==0) || ($('select[name=' + name +']').is('select') && input[0].selectedIndex==0)){
 				disablebutton()
@@ -591,6 +594,9 @@ function enableButtonIfAllFieldHaveInput()
 	});
 
 	if(valid==true) enablebutton();
+
+  console.log("--------------------------------------------------------------")
+	console.log("Comming from Rat.js the button " + $("#calculate").attr("disabled"))
 }
 
 /******************************************************************************/
@@ -650,7 +656,8 @@ function existFormSteps() {
 	return ( $("#form-steps").length > 0 );
 }
 
-// Two function to disable and enable  the section headers ( Currently a section has h2)
+// Two functions to disable and enable  the section headers ( Currently a
+// seciton header is text embedded in a h2 tag
 function disableSectionHeaders() {
 	$(".sectionTitle").attr("disabled","disabled")
 	$(".sectionTitle").addClass("disableSectionTitle")
@@ -659,6 +666,29 @@ function disableSectionHeaders() {
 function enableSectionHeaders() {
 	$(".sectionTitle").removeAttr("disabled")
 	$(".sectionTitle").removeClass("disableSectionTitle")
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Disable a form by doing the following                                     //
+//   1. Disable all input except the reset button                                                //
+//   2. Lighten the Seciton Header, Questions and Answers                    //
+///////////////////////////////////////////////////////////////////////////////
+function disableForm() {
+	$("form :input").not("#reset").attr('disabled', true);
+	$("[class*='questions']").css("color","#c0c0c0");
+	disableSectionHeaders();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Enable a from by doing the follwoing                                       //
+//    1. Enable all input to the form except the reset button                 //
+//    2. Darken the Seciton Header, Questions and Answers                     //
+////////////////////////////////////////////////////////////////////////////////
+function enableForm() {
+	$("form :input").not("#reset").attr('disabled', false);
+	$("[class*='questions']").css("color","#2E2E2E")
+	enableSectionHeaders();
+	$("#riskForm").trigger("change")
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -857,7 +887,9 @@ $(document).ready(function(){
 
 });
 
+////////////////////////////////////////////////////////////////////////////////
 // Handles the generic reset for all the risk analysis tools
+////////////////////////////////////////////////////////////////////////////////
 function genericResetForm() {
 	$('form').trigger('reset')
  	$(window).scrollTop(0);
@@ -866,6 +898,9 @@ function genericResetForm() {
 	$("#calculate").attr("disabled", "disabled")
 }
 
+///////////////////////////////////////////////////////////////////////////////
+// Enable the Caluclate Button if all non disabled inputs have a value
+//////////////////////////////////////////////////////////////////////////////
 function enableCalculateButton() {
 	 var newVal = $(this).val();
 	 var inputs = $("form#riskForm input:enabled, form#riskForm select:enabled");
@@ -882,6 +917,8 @@ function enableCalculateButton() {
 	 });
 
 	 if(valid==true) enablebutton();
+
+	 console.log("enableCalculateButton --> " + $("#calculate").attr("disabled"))
 
 	 $("select").on("select", redrawHTMLObject);
 	 $("select").on("change", redrawHTMLObject);

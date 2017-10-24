@@ -63,6 +63,7 @@ h7 {
 
 h1 {
   color: #606060;
+  color: rgb(96,96,96);
   font-weight: bold;
   margin: 0.5em auto;
   font-family: Montserrat;
@@ -77,6 +78,7 @@ h2 {
   font-family: Montserrat;
   font-size: 23px;
   line-height: 28px;
+  text-rendering: optimizeLegibility;
 }
 
 h3 {
@@ -175,6 +177,7 @@ header,
 .tab-content,
 .footer {
   display: block;
+  padding-top: 25px;
 }
 
 header.fixed {
@@ -806,6 +809,7 @@ input.error + label.radio span {
 .footer ul li a {
   color: #fff;
   font-size: 15px;
+ /* padding-top: 25px; */
 }
 .line {
   position: absolute;
