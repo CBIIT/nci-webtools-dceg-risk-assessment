@@ -789,6 +789,7 @@ $(window).load(function(e) {
 	if ( isMobile() ) {
 		$(window).on("scroll", handleScrollEvent);
 		$(window).on("touchmove", handleScrollEvent);
+		$(window).on("swipe", handleScrollEvent);
 	}
 
   // I Have no clue what this does
