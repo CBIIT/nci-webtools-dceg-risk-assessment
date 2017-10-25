@@ -249,7 +249,7 @@ function formScrollSpy() {
 
 	//adjustNavigationBarLine();
 
-	console.log("end scroll spy ------------------------------")
+	//console.log("end scroll spy ------------------------------")
 }
 
 /******************************************************************************/
@@ -862,8 +862,8 @@ $(window).load(function(e) {
 
  		$("header").css("background","white");
  		$("#main").removeClass("container-fluid");
-		console.log("Header Height = " + header_height);
-		console.log("steps height = " + form_steps_height)
+		//console.log("Header Height = " + header_height);
+		//console.log("steps height = " + form_steps_height)
 		//$("#main_home").css("margin-top", header_height);'
 
 	} else {
@@ -919,7 +919,7 @@ function enableCalculateButton() {
 
 	 if(valid==true) enablebutton();
 
-	 console.log("enableCalculateButton --> " + $("#calculate").attr("disabled"))
+	 //console.log("enableCalculateButton --> " + $("#calculate").attr("disabled"))
 
 	 $("select").on("select", redrawHTMLObject);
 	 $("select").on("change", redrawHTMLObject);
