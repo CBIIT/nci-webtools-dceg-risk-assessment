@@ -790,7 +790,7 @@ $(window).load(function(e) {
 		$(window).on("scroll", 		handleScrollEvent);
 		$(window).on("touchmove", 	handleScrollEvent);
 		$(window).on("swipe", 		handleScrollEvent);
-		$(window).on("mousemove", 	hanldeScrollEvent);
+		$(window).on("mousemove", 	handleScrollEvent);
 	}
 
   // I Have no clue what this does
