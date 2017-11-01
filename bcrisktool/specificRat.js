@@ -9,7 +9,7 @@ $(function() {
 
 	// Disables the form if the woman previously had cancer or trigger the form
   	// toc check if the calculate button can be enabled.``
-	$("input[name='cancerAndRadiationHistory']").on("change", function() {
+	$("input[name='cancerAndRadiationHistory']").on("click", function(event) {
 		if(this.value == 0){
 			$("#womanWithCancerDialog").modal("show");
       			disableForm();
@@ -20,7 +20,7 @@ $(function() {
 
   // Disables the form if has a mutation in the BRCA1 or BRCA2 or trigger the
   // from to check if the calcualte button can be enabled
-  $("input[name='geneticMakeup']").on("change", function() {
+  $("input[name='geneticMakeup']").on("click", function(event) {
 	if(this.value == 0 || this.value == 2 ){
       		$("#hasBRCAMutation").modal("show");
       		disableForm();

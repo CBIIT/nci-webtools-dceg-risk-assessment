@@ -1413,3 +1413,18 @@ section > fieldset > legend.questions {
         color: #2B7BBA;
         font-family: 'Noto Sans'
 }
+
+/* style for the Skip to Content */
+#skipContentHome,
+#skipContentCalculate,
+#skipContentAbout {
+  text-decoration: none;
+  font-family: "Noto Sans";
+  font-size: 16px;
+  color: #235E88;
+  border: 1px solid #235E88;
+  top: 1px;
+  left: 1px;
+  padding: 2px;
+  position: absolute;
+}

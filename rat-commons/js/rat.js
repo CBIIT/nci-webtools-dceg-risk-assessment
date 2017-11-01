@@ -362,6 +362,7 @@ function toggleFormDisplay(e) {
 function handleScrollEvent(event) {
 	//alert("Handling Scroll Event");
 	var top_div = ( $(window).width() > 630 ) ? "main-nav" : "toolTitle";
+
 	fixedToTop(top_div);
 	formScrollSpy();
 }
@@ -461,6 +462,7 @@ function calculateBottomOfFormSteps() {
 	return height;
 }
 
+/* Verify that we can rid of this function */
 function calculatePositionToScrollTo(target) {
  	var positionOfHeader = $(target).position().top;
 	return positionOfHeader - calculateBottomOfFormSteps();
@@ -726,6 +728,18 @@ function redrawHTMLObject() {
 	$(this).hide().show(0)
 }
 
+///////////////////////////////////////////////////////////////////////////////
+// This function will scroll pass the Logo.  One of it uses is to be used    //
+// to go directly to the conentent since that is section 508 requirement     //
+///////////////////////////////////////////////////////////////////////////////
+function scrollPassLogo() {
+
+	$("[class*='sr-only-focusable']").blur()
+
+	var pixels = $("#toolTitle").position().top;
+	$('html, body').animate({ scrollTop: pixels }, 1000);
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // Startup Code
 ////////////////////////////////////////////////////////////////////////////////
@@ -733,6 +747,12 @@ function redrawHTMLObject() {
 // TODO : Can we merge $function, $window.load() together.
 
 $(function() {
+
+	// Add the link that "Skip to Main Conetnet will use"
+	$("#skipContentHome").attr("href", "javascript:scrollPassLogo()");
+	$("#skipContentCalculate").attr("href", "javascript:scrollPassLogo()")
+	$("#skipContentAbout").attr("href", "javascript:scrollPassLogo()")
+
 
 	// Add the footter to the end of the page
 	$("#footer").load("./rat-commons/html/footer.html")

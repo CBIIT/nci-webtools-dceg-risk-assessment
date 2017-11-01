@@ -18,10 +18,12 @@
     <script src="rat-commons/js/rat.js" type="text/javascript"></script>
     <script src="specificRat.js" type="text/javascript"></script>
   </head>
-  <body><a class="sr-only sr-only-focusable" href="#main">Skip to main content</a>
-    <header><a href="http://cancer.gov" target="_blank"><img id="logo" src="/common/images/nci-logo-full.svg" alt="go to cancer.gov"></a>
-      <div id="toolTitle"><a href="index.html">Breast Cancer Risk Assessment Tool</a>
-        <button class="navbar-toggle collapsed" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()"><span class="sr-only">Toggle navigation</span>
+  <body>
+    <a id="skipContentCalculate" tabindex="0" class="sr-only sr-only-focusable">Skip to main content</a>
+    <header>
+      <a href="http://cancer.gov" tabindex="0" target="_blank"><img id="logo" src="/common/images/nci-logo-full.svg" alt="go to cancer.gov"></a>
+      <div tabindex="0" id="toolTitle"><a href="index.html">Breast Cancer Risk Assessment Tool</a>
+        <button tabindex="0" class="navbar-toggle collapsed" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()"><span class="sr-only">Toggle navigation</span>
           <div class="glyphicon glyphicon-menu-hamburger"></div>
         </button>
       </div>
@@ -365,7 +367,7 @@
                   </div>
                 </div>
                 <div class="col-sm-12">
-                  <button id="okButtonCancerHistory" class="center-block okButton" value="OK" data-dismiss="modal" />OK</button>
+                  <button id="okButtonCancerHistory" class="center-block okButton" value="OK" data-dismiss="modal">OK</button>
                 </div>
               </div>
             </div>
