@@ -11,11 +11,12 @@ $(function() {
   	// toc check if the calculate button can be enabled.``
 	$("input[name='cancerAndRadiationHistory']").on("click", function(event) {
 		if(this.value == 0){
-			$("#womanWithCancerDialog").modal("show");
+			      $("#womanWithCancerDialog").modal("show");
       			disableForm();
+            $("input[name='cancerAndRadiationHistory']")[this.value].checked = true
 	  	} else {
       			$("#riskForm").trigger("change")
-    		}
+      }
   });
 
   // Disables the form if has a mutation in the BRCA1 or BRCA2 or trigger the
@@ -24,25 +25,32 @@ $(function() {
 	if(this.value == 0 || this.value == 2 ){
       		$("#hasBRCAMutation").modal("show");
       		disableForm();
+          $("input[name='geneticMakeup']")[this.value].checked = true
 	  } else {
       		$("#riskForm").trigger("change")
-    	}
+    }
   });
 
   // Enables the form when the user clicks ok for the dialog box be dispalyed
-  // for any question in the patient eligibility phasse.
-  $("#okButtonCancerHistory").on("click", enableBRATForm)
-  $("#okButtonMutationBRCA").on("click", enableBRATForm)
+  // for any question in the patient eligibility phasse or the race
+  $("#okButtonCancerHistory").on("click",   enableBRATForm)
+  $("#okButtonMutationBRCA").on("click",    enableBRATForm)
+  $("#hispanicIssue").on("click",           enableBRATForm);
+  $("#unknownIssue").on("click",            enableBRATForm);
+  $("#NativeAmericanIssue").on("click",     enableBRATForm)
 
 	// Brings up the dialog box explaining why the data is inaccurate for hispnaics,
  	// Native Americans/Alaskians and how the unknow is handled
   	$("#race").on("change", function() {
     		if( this.value == "US Hispanic"){
+            disableForm();
       			$("#hispanicIssue").modal("show");
     		} else if ( this.value == "Other") {
-			$("#unknownIssue").modal("show")
-		} else if ( this.value == "Native American") {
- 			$("#NativeAmericanIssue").modal("show");
+            disableForm();
+			      $("#unknownIssue").modal("show")
+		    } else if ( this.value == "Native American") {
+            disableForm();
+ 			      $("#NativeAmericanIssue").modal("show");
     		}
   	});
 
@@ -59,10 +67,10 @@ $(function() {
   	// If the Number of Biopsies is None or 0 the questions about "How many breast biopies" and "atypical hyperlasia" should be disabled
 	$("#biopsyAnswerYes").on("click", enableQuestionAndAnswers)
  	$("#biopsyAnswerNo").on("click", disableQuestionAndAnswers);
-  	$("#biopsyAnswerUnknown").on("click", disableQuestionAndAnswers);
+  $("#biopsyAnswerUnknown").on("click", disableQuestionAndAnswers);
 
  	// If the question about a women every having a biopsy is answered disable the questions associated with it.
-  	womanHadBiopsy();
+  womanHadBiopsy();
 
   	// Display the help window
   	$(".definition").on("click", displayHelpWindow);

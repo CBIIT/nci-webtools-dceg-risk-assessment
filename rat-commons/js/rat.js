@@ -480,6 +480,7 @@ function calculatePositionToScrollTo(target) {
 function toggle_menu(){
 
 		$('#side_nav .glyphicon-menu-hamburger').css('display', 'none');
+		let top = $("#toolTitle").position.top;
 
     if($("#side_nav").width()>0){
     	$("#side_nav").css("width","0%")
@@ -489,6 +490,7 @@ function toggle_menu(){
 			//$("#side_nav").css("margin-top", $("#toolTitle").position().top + "px")
 			$("header").css("z-index","200")
 			$("#side_nav").css("width","70%")
+			$("#side_nav").css("top", top);
 			setTimeout(function() { $('#side_nav .glyphicon-menu-hamburger').css('display', 'inline-block'); }, 250);
     }
 }
@@ -835,7 +837,6 @@ $(window).load(function(e) {
 			}
 		}
 	});
-
 	$("button.select").on('click keypress', function(e) {
 		if(e.type == "keypress") {
 			if ((e.keyCode == 13) || (e.keyCode == 32)) {

@@ -705,6 +705,7 @@ select {
   -ms-appearance: none;
   -o-appearance: none;
   appearance: none;
+  line-height: 22px;
 }
 
 /* Enlarge the select box so selection fit                                    */
@@ -1427,4 +1428,10 @@ section > fieldset > legend.questions {
   left: 1px;
   padding: 2px;
   position: absolute;
+}
+
+/* the correct text color for all the text to the right of the stop sign and */
+/* above the ok button                                                       */
+.information_text {
+  color: #2E2E2E;
 }
