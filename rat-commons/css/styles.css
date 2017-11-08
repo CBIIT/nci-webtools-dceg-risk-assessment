@@ -207,6 +207,7 @@ header #toolTitle a {
   font-size: 17px;
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
+  line-height : 22px;
 }
 header #toolTitle .navbar-toggle {
   margin-top: -0.3em;
@@ -982,11 +983,15 @@ input.error + label.radio span {
   }
   header #toolTitle {
     padding-left: 1em;
-    padding-top: 7px;
-    padding-bottom: 7px;
+    /* padding-top: 7px; */
+    /* padding-bottom: 7px; */
   }
   header #toolTitle a {
     font-size: 12px;
+    line-height: 15px;
+    font-family: Montserrat;
+    color: #FFFFFF;
+    font-weight: bold;
   }
   #results {
     padding: 1em;
@@ -1031,6 +1036,7 @@ input.error + label.radio span {
     background: #235e88;
     color: #fff;
     border: none;
+    line-height: 22px;
   }
   nav#main-nav ul.nav.nav-tabs li a:hover,
   nav#main-nav ul.nav.nav-tabs li a:focus {
