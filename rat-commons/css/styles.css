@@ -245,6 +245,7 @@ nav#main-nav ul.nav.nav-tabs li a {
   padding: 0.7em;
   padding-bottom: 7px;
   border-bottom: 7px solid transparent;
+  line-height: 22px;
 }
 nav#main-nav ul.nav.nav-tabs li a:hover,
 nav#main-nav ul.nav.nav-tabs li a:focus {
