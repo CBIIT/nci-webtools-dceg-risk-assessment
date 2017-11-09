@@ -812,6 +812,7 @@ input.error + label.radio span {
 .footer ul li a {
   color: #fff;
   font-size: 15px;
+  font-weight: bold;
  /* padding-top: 25px; */
 }
 .line {
