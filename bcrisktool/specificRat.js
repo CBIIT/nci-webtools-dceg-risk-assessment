@@ -115,10 +115,10 @@ function womanHadBiopsy() {
 // breast biopsy
 function disableQuestionAndAnswers(event) {
   $("input[name='howManyBreastBiopsies']").attr("disabled", true);
-  $("label[for='breastBiopsiesCount1']").css("color", "#C0C0C0");
+  $("input[id^='breastBiopsiesCount']").css("color", "C0C0C0")
 
   $("input[name='hadAH']").attr("disabled", true);
-  $("label[for='hadAhYes']").css("color", "#c0c0c0");
+  $("label[id^='hadAh']").css("color", "#C0C0C0");
 
 }
 
@@ -126,10 +126,10 @@ function disableQuestionAndAnswers(event) {
 //breast biopsy
 function enableQuestionAndAnswers(event) {
   $("input[name='howManyBreastBiopsies']").attr("disabled", false);
-  $("label[for='breastBiopsiesCount1']").css("color", "#2e2e2e");
+  $("input[id^='breastBiopsiesCount']").css("color", "#606060")
 
   $("input[name='hadAH']").attr("disabled", false);
-  $("label[for='hadAhYes']").css("color", "#2e2e2e");
+  $("input[id^='hadAh']").css("color", "#606060");
 
   adjust_line_width();
 }
