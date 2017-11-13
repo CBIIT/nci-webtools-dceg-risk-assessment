@@ -115,7 +115,7 @@ function womanHadBiopsy() {
 // breast biopsy
 function disableQuestionAndAnswers(event) {
   $("input[name='howManyBreastBiopsies']").attr("disabled", true);
-  $("input[id^='breastBiopsiesCount']").css("color", "C0C0C0")
+  $("input[id^='breastBiopsiesCount']").css("color", "#C0C0C0")
 
   $("input[name='hadAH']").attr("disabled", true);
   $("label[id^='hadAh']").css("color", "#C0C0C0");
