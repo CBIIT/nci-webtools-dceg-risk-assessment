@@ -949,6 +949,13 @@ input.error + label.radio span {
 
 
 @media (max-width: 1199px) {
+
+  /* Set the Line Hieght to spec for the Side Menu Items                     */
+  .nav-tabs > li > a {
+    line-height: 18px;
+  }
+
+
   .vertical_aligment {}
 }
 
