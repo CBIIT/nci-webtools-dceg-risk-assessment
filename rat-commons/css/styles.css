@@ -947,8 +947,19 @@ input.error + label.radio span {
    }
 }
 
+/* Used for the style navbar-toggle ( set to a min width of 768 ) for causing */
+/* the Hamburger Menu to disappear.  This style handles the case where the    */
+/* Hamburger Icon is visible                                                  */
+@media (max-width: 767px) {
 
-@media (max-width: 1199px) {
+  /* When the hamburger icon is visible the text should be smaller            */
+  header #toolTitle a {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
+
+@media (max-width:1199px) {
 
   /* Set the Line Hieght to spec for the Side Menu Items                     */
   .nav-tabs > li > a {
@@ -995,8 +1006,8 @@ input.error + label.radio span {
     /* padding-bottom: 7px; */
   }
   header #toolTitle a {
-    font-size: 12px;
-    line-height: 15px;
+    /* font-size: 12px;      */
+    /* line-height: 15px;    */
     font-family: Montserrat;
     color: #FFFFFF;
     font-weight: bold;
