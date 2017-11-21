@@ -1250,6 +1250,8 @@ input.error + label.radio span {
   background: #235e88;
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
+  font-size: 14px;
+  line-height: 18px;
   padding: 6px 8px 8px 15px;
 }
 
