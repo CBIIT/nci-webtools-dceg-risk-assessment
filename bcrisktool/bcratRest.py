@@ -73,7 +73,7 @@ class BreastRiskAssessmentTool:
       rhyp = 1.0
       if 'biopsy' not in errorObject['missing'] and 'biopsy' not in errorObject['nonnumeric']:
         numberOfBiopsies = int(parameters['biopsy'])
-        if numberOfBiopsies == 1 or numberOfBiopsies == 99:
+        if numberOfBiopsies == 0 or numberOfBiopsies == 99:
           numberOfBiopsies = 0
         else:
           if 'biopsy_result' not in parameters:
