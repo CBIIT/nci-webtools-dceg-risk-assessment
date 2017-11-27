@@ -86,11 +86,11 @@ $(function() {
   	$('#riskForm').trigger('change');
 });
 
-// If Any "Yes" or Unknow Answer in the Patient Eligibility is selected then
+// If Any question is "Yes" in the Patient Eligibility is selected then
 // disable the calculate button
 function disableIfPatientIsNotEligible() {
-  var result = $("#patient-eligibility-section input[id$='No']:checked").length;
-  if ( result != 2 ) disablebutton();
+  var result = $("#patient-eligibility-section input[id$='Yes']:checked").length;
+  if ( result > 0 ) disablebutton();
 }
 
 /* A specialized version of the enableForm function where we determine if  */
@@ -114,11 +114,11 @@ function womanHadBiopsy() {
 // Disable a question and it answers that are associated with a woman having a
 // breast biopsy
 function disableQuestionAndAnswers(event) {
-  $("input[name='howManyBreastBiopsies']").attr("disabled", true);
+  $("input[name='biopsy_result']").attr("disabled", true);
   $("input[id^='breastBiopsiesCount']").css("color", "#C0C0C0")
   $("label[for^='breastBiopsiesCount']").css("color", "#C0C0C0")
 
-  $("input[name='hadAH']").attr("disabled", true);
+  $("input[name='biopsy_ah']").attr("disabled", true);
   $("label[id^='hadAh']").css("color", "#C0C0C0");
   $("label[for^='hadAh']").css("color", "#C0C0C0");
 
@@ -127,13 +127,13 @@ function disableQuestionAndAnswers(event) {
 // Enable Questions and Answersi that are associated with a women having a
 //breast biopsy
 function enableQuestionAndAnswers(event) {
-  $("input[name='howManyBreastBiopsies']").attr("disabled", false);
+  $("input[name='biopsy_result']").attr("disabled", false);
   $("input[id^='breastBiopsiesCount']").css("color", "#606060")
-  $("label[for^='breastBiopsiesCount']").css("color", "#606060")
+  $("label[for^='breastBiopsiesCount']").css("color", "#2E2E2E")
 
-  $("input[name='hadAH']").attr("disabled", false);
+  $("input[name='biopsy_ah']").attr("disabled", false);
   $("input[id^='hadAh']").css("color", "#606060");
-  $("label[for^='hadAh']").css("color", "#606060");
+  $("label[for^='hadAh']").css("color", "#2E2E2E");
 
   adjust_line_width();
 }
