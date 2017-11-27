@@ -1,0 +1,62 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Popup.Master.cs" Inherits="CCRAT.Web.DefPop" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>Colorectal Cancer Risk Assessment Tool</title>
+    <meta http-equiv="imagetoolbar" content="false" />
+    <meta name="description" content="An interactive tool designed by scientists at the National Cancer Institute and the NSABP to estimate a woman's risk of developing invasive Colorectal cancer." />
+    <meta name="keywords" content="Colorectal cancer, Colorectal cancer risk, risk assessment, risk tool" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+     <!-- Framework CSS -->
+     <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <script src="script/data.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="skip"><a title="Skip to content" href="#skiptocontent">Skip to content</a></div>  
+    <div class="center">
+        <a name="top"></a>
+        <!-- Content Headers -->
+        <div id="divncibanner">
+            <img src="images/nci-banner.gif" alt="nci-banner" width="700" height="35" border="0" usemap="#ncibanner" />
+        </div>
+            <form id="form1" runat="server">
+                <div class="skip"><a title="Skip to content" href="#skiptocontent">Skip to content</a></div>
+                 <br />
+             
+                <asp:ContentPlaceHolder ID="cphMain" runat="server" />
+             </form>
+            
+        <div id="footer">
+            <a href="http://www.cancer.gov">NCI Home</a>&nbsp;|&nbsp;<a href="http://www.cancer.gov/help">Contact
+                    Us</a>&nbsp;|&nbsp;<a href="http://www.cancer.gov/policies">Policies</a>&nbsp;|&nbsp;<a
+                        href="http://www.cancer.gov/policies/page4">Accessibility</a><br />
+            <br />
+            A Service of the National Cancer Institute<br />
+            <br />
+            <img src="images/footer-logos.gif" width="176" height="34" alt="footer-logos" border="0" usemap="#internal-footer" />
+        </div>        
+        <!-- end Footer -->        
+            
+        <!-- Image coordinate map -->
+	    <map name="ncibanner" id="ncibanner">
+		    <area shape="rect" coords="5,1,286,38" href="http://www.cancer.gov/" alt="National Cancer Institute" />
+		    <area shape="rect" coords="486,11,659,32" href="http://www.nih.gov/" alt="U.S. National Institutes of Health" />
+		    <area shape="rect" coords="661,11,700,32" href="http://www.cancer.gov/" alt="www.cancer.gov" />
+	    </map>
+	    <map name="internal-footer" id="internal-footer">
+		    <area shape="circle" coords="17,17,17" href="http://www.hhs.gov/" alt="U.S. Department of Health &amp; Human Services" />
+		    <area shape="circle" coords="65,17,17" href="http://www.nih.gov/" alt="National Institutes of Health" />
+		    <area shape="rect" coords="93,0,176,30" href="http://www.usa.gov/" alt="USA.gov" />
+	    </map>      
+	    <!-- end Image coordinate map -->
+
+    </div>
+<!-- #include file="analytics_include.html" -->
+</body>
+</html>

@@ -1,0 +1,221 @@
+ /* CCRAT Mobile Tool Stylesheet */
+body { 
+  background:#fff; 
+  color:#333; 
+  font-family:Arial, Helvetica, Verdana;
+  font-size:13px;
+  margin:0 4px;
+}
+select {
+	font-size:smaller;
+	padding:0;
+	margin:0;
+	display:inline;
+}
+input  {
+	font-size:smaller;
+	margin:0;
+	padding:0;
+}
+a, a:link, a:visited, a:active { 
+	color:#900; 
+	text-decoration:underline; 
+}
+h1,.h1
+{
+	font-size:medium;
+	font-weight:bold;
+	padding:10px 0;
+}
+
+h2,.h2 
+{
+	font-size:small;
+	font-weight:bold;
+	margin:12px 0 10px 0;
+}
+
+h3,.h3 
+{
+	/*display:inline;*/
+	font-weight:bold;
+}
+
+.hdr
+{
+	border-bottom: 1px solid #999;
+}
+
+/* home link */
+.hlnk, .hr-t
+{ 
+	border-top: 1px solid #999; margin:7px 0 0 0;
+}
+.hlnk div
+{
+	padding: 5px 0pt 0pt;
+}
+
+p, .p {
+	margin:6px 0 6px;
+}
+
+ul
+{
+	margin:4px 0 0 0px;
+	padding-left:10px;
+}
+
+ul li
+{
+	list-style-image: url(i/red-li.gif);
+	padding-bottom: 3px;
+	margin:0 15px 0 0;
+}
+
+ol
+{
+	margin:0 0 8px 25px;
+	padding: 0 0 0 0;
+}
+
+ol li
+{
+	padding: 3px 0 3px 0;
+	margin:0 15px 0 0;
+}
+
+.t { /*text */
+	
+}
+.c {  
+	text-align:left;
+	padding:0 0 3px 0;
+}
+
+/*horizontal rule*/ 
+.hr { 
+	border-bottom: 1px solid #999;
+}
+
+.b {  /* button */
+	margin:0;
+	padding:12px 0 24px;
+	text-align:center
+}
+.e {  
+	padding:6px 0 8px
+}
+.f { /* footer */
+  border-bottom-width:1px;
+  border-top-width:0;
+  background:#eee;
+  border-color:#fff;
+  border-style:solid none;
+  color:#333;
+  padding-left:4px
+}
+.f-t
+{
+	padding:0 0 0 0;
+}
+
+.ft { 
+	background:#eee;
+	color:#24394C; 
+	text-decoration:none
+ }
+ 
+.ft:link, .ft:visited, .ft:active
+, .al:link, .al:visited, .al:active
+{
+	color: #000000;
+	text-decoration:none;
+}
+ 
+.r 
+{
+	padding:5px 0 5px;
+}
+.bk
+{
+	color:#000;	
+}
+
+.q-qt	/*Text*/
+{
+	font-weight: bold;
+}
+.q-at /* additional Text*/
+{
+	padding:0;
+}
+
+/* alternate text before question text*/
+.q-at2
+{
+	padding:6px 0 0;	
+}
+.q-ctl
+{
+	padding:6px 0;
+}
+
+.q-ctl div
+{
+	margin:2px 0 2px;
+}
+
+.q-ex
+{
+	border-top: 1px solid #999;
+	border-bottom: 1px solid #999;
+	padding: 6px 0 6px 0;
+}
+.q .q-sh /* question*/  
+{ 
+	margin:6px 0 0 0;
+}
+
+.r-at	/* result answer text*/
+{
+	font-weight: bold;
+}
+.r-qt /* result additional Text*/
+{
+}
+.q-pc /* % complete*/
+{
+	font-style:italic;
+	border-bottom: 1px solid #999;
+	padding:4px 0 4px;
+}
+
+.err
+{
+	font-weight:bold;
+	color:#990000;
+	border-bottom: 1px solid #999;
+	padding:4px 0 4px 0;	
+}
+
+.btn
+{
+	margin:4px 0 4px;
+}
+.btnL
+{
+	/* button as a link */
+	background: #FFFFFF;
+	background-color: transparent;
+	color:#900;
+	border:1px solid #fff;
+	font-weight:normal;
+	/*font-size: small;*/
+	font-size: 13px;
+	text-decoration: underline;
+	text-align:left;
+    padding:0;
+    margin:2px 0;
+    cursor:pointer;    
+}

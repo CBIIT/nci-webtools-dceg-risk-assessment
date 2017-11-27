@@ -1,0 +1,141 @@
+<%@ Master Language="C#" %>
+<%@ Register Src="~/UserControls/PageOptions.ascx" TagName="PageOptions" TagPrefix="uc2" %>
+<%@ Register Src="~/UserControls/QuickLinks.ascx" TagName="QuickLinks" TagPrefix="uc1" %>
+<%@ Register Assembly="CCRAT.Web" Namespace="CCRAT.Web.Helper" TagPrefix="NCI" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<script runat="server">
+</script>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>Colorectal Cancer Risk Assessment Tool</title>
+    <meta http-equiv="imagetoolbar" content="false" />
+    <meta name="description" content="An interactive tool designed by scientists at the National Cancer Institute to estimate a person's risk of developing colorectal cancer." />
+    <meta name="keywords" content="Colorectal cancer, Colorectal cancer risk, risk assessment, risk tool" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <link href="style/ccrat-style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="style/ccrat-style-print.css" rel="stylesheet" type="text/css" media="print" />
+
+    <script src="script/ccrat.js" type="text/javascript"></script>
+    <asp:ContentPlaceHolder ID="cphAdditionHeadElements" runat="server"></asp:ContentPlaceHolder>
+</head>
+<body>
+    <div class="skip"><a title="Skip to content" href="#skiptocontent">Skip to content</a></div>
+    <div class="nci-logo">
+        <a href="/">NATIONAL CANCER INSTITUTE<br> <span>at the National Institutes of Health</span></a>
+	</div>
+    <div id="center">
+        <a name="top"></a>
+        <!-- Content Headers -->
+        <div id="ccratbanner"><img src="images/ccrat-banner-2.jpg" width="759" height="118" alt="Colorectal Cancer Risk Assessment Tool" /></div>
+        <!-- end Content Headers -->
+        <!--bof last modified date and version -->
+            <asp:ContentPlaceHolder ID="cphDateVer" runat="server"><p class="version">Last modified date: 02/24/2009</p></asp:ContentPlaceHolder>
+        <!--eof last modified date and version -->
+        <form id="frmMain" runat="server">
+            <div id="main">
+                <!-- Leftnav -->
+                <div id="leftnav">
+                    <div class="north">
+                        <div class="east">
+                            <div class="south">
+                                <div class="west">
+                                    <div class="ne">
+                                        <div class="se">
+                                            <div class="sw">
+                                                <div class="nwleftnav">
+                                                    <div id="navigation">                                                        
+                                                        <asp:Menu 
+                                                            ID="mnuSiteMenu" 
+                                                            DataSourceID="smdsMainSiteMap" 
+                                                            Orientation="Vertical"
+                                                            runat="server" />
+                                                        <asp:SiteMapDataSource ID="smdsMainSiteMap" runat="server" ShowStartingNode="false" />
+                                                        <asp:ContentPlaceHolder ID="cphNav" runat="server" />
+                                                    </div>
+                                                    <asp:ContentPlaceHolder ID="cphPageOptions" runat="server" />
+                                                    <uc1:QuickLinks ID="QuickLinks1" runat="server" />
+                                                    <div id="needhelp">
+                                                        <a href="http://www.cancer.gov/help">
+                                                            <img src="images/1800.jpg" width="164" height="68" alt="Need help? Call 1-800-4-CANCER" /></a>
+                                                    </div>
+                                                    <a name="endnav"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end Leftnav -->
+                <!-- Content box -->
+                <div id="content">
+                    <div class="north">
+                        <div class="east">
+                            <div class="south">
+                                <div class="west">
+                                    <div class="ne">
+                                        <div class="se">
+                                            <div class="sw">
+                                                <div class="nwcontent">
+                                                    <span class="hidden-anchor"><a name="skiptocontent">&nbsp;</a></span>
+                                                    <div id="IntroText">
+                                                        <asp:ContentPlaceHolder ID="cphAdditionalNotes" runat="server" />
+                                                    </div>
+                                                    <div class="maincontentbox">
+                                                        <div class="maincontentboxtitle">
+                                                            <div class="left"><asp:ContentPlaceHolder ID="cphBoxTitleLeft" runat="server" /></div>
+                                                            <div><asp:ContentPlaceHolder ID="cphBoxTitleRight" runat="server">&nbsp;</asp:ContentPlaceHolder></div>
+                                                        </div>
+                                                        <asp:ContentPlaceHolder ID="cphContentAnchors" runat="server" />
+                                                        <div class="maincontentboxtext">
+                                                            <asp:ContentPlaceHolder ID="cphMain" runat="server" />
+                                                        </div>
+                                                    </div>    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>        
+        </form>
+        <!-- end Content box -->
+        <!-- Footer -->
+        <div id="footer">
+            <p>
+                <a href="http://www.cancer.gov/colorectalcancerrisk/">Home</a>&nbsp;|&nbsp;<a href="http://www.cancer.gov/help">Contact
+                    Us</a>&nbsp;|&nbsp;<a href="http://www.cancer.gov/global/web/policies">Policies</a>&nbsp;|&nbsp;<a
+                        href="http://www.cancer.gov/global/web/policies/accessibility">Accessibility</a></p>
+            <p class="agency-links">
+                <a href="http://www.hhs.gov/">U.S. Department of Health and Human Services</a> &nbsp;|&nbsp;
+                <a href="http://www.nih.gov/">National Institutes of Health</a> &nbsp;|&nbsp; <a
+                    href="http://www.cancer.gov/">National Cancer Institute</a> &nbsp;|&nbsp; <a href="http://www.usa.gov/">
+                        USA.gov</a></p>
+            <p class="tagline">
+                NIH&#8230;Turning Discovery Into Health<sup>&#174;</sup></p>
+        </div>
+        <!-- end Footer -->        
+            
+        <!-- Image coordinate map (removed as part of 04/24/2013 footer change - Dan Young)
+	    <map name="ncibanner" id="ncibanner">
+		    <area shape="rect" coords="5,1,286,38" href="http://www.cancer.gov/" alt="National Cancer Institute" />
+		    <area shape="rect" coords="486,11,659,32" href="http://www.nih.gov/" alt="U.S. National Institutes of Health" />
+		    <area shape="rect" coords="661,11,757,32" href="http://www.cancer.gov/" alt="www.cancer.gov" />
+	    </map>
+	    <map name="internal-footer" id="internal-footer">
+		    <area shape="circle" coords="17,17,17" href="http://www.hhs.gov/" alt="U.S. Department of Health &amp; Human Services" />
+		    <area shape="circle" coords="65,17,17" href="http://www.nih.gov/" alt="National Institutes of Health" />
+		    <area shape="rect" coords="93,0,176,30" href="http://www.usa.gov/" alt="USA.gov" />
+	    </map>      
+	    end Image coordinate map -->
+
+    </div>
+<!-- #include file="analytics_include.html" -->
+</body>
+</html>

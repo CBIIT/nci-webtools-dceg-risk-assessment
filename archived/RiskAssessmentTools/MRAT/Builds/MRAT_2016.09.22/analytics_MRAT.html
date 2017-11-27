@@ -1,0 +1,33 @@
+<!-- **** Web Analytics ************************************************* -->
+<script language="JavaScript" type="text/javascript">
+if (document.URL.indexOf('wwwint.cancer.gov') != -1)
+    var s_account='ncidceg-cancerepidemiologyandgenetics';
+else 
+	var s_account='ncidev';
+
+
+function Analytics_CalculateRiskConversionEvent()
+{
+
+    // Web Analytics - send calculate risk conversion event to Omniture
+    //   this function work in conjunction with s_code.js
+    s=s_gi(s_account);
+    s.linkTrackVars = 'events';
+    s.linkTrackEvents='event15';
+    s.events='event15';
+    s.tl(this,'o','RiskAssessmentCalculation');
+
+}
+
+</script>
+<!-- SiteCatalyst code version: H.20.3. Copyright 1997-2009 Omniture, Inc. More info available at http://www.omniture.com -->
+<script language="JavaScript" type="text/javascript" src="//static.cancer.gov/webanalytics/wcms/s_code.js"></script>
+<script language="JavaScript" type="text/javascript">
+<!--
+
+var s_code=s.t();if(s_code)document.write(s_code)
+
+-->
+</script>
+<!-- End SiteCatalyst code version: H.20.3. -->
+<!-- **** End Web Analytics ********************************************* -->

@@ -1,0 +1,50 @@
+<%@ Master Language="C#" AutoEventWireup="true" Inherits="MasterPage" Codebehind="CCRAT.Mobile.master.cs" EnableViewState="true" %>
+<?xml version="1.0" encoding="utf-8"?>
+<%--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">--%>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="CACHE-CONTROL" content="NO-CACHE" />    
+    <title>NCI - Colorectal Cancer Risk Assessment Tool</title>
+    <link rel="stylesheet" href="css.ashx?path=ss/ccrat.css" type="text/css" />    
+</head>
+<body>
+    <form id="frmMain" runat="server">
+    <div>
+        <div class="hdr">        
+            <img src="i/nci-logo.gif" alt="National Cancer Institute" height="30" width="220" />
+        </div>
+        <div>
+            <%--Content Place Holder for Progress bar--%>
+            <asp:ContentPlaceHolder ID="P" runat="server" Visible="false">0 % Complete</asp:ContentPlaceHolder>
+        </div>
+        <div class="c">
+            <%--Main Content PlaceHolder--%>
+            <asp:ContentPlaceHolder ID="mc" runat="server"></asp:ContentPlaceHolder>
+        </div>
+        
+        <%--bof footer--%>
+        <div class="f-t">
+            <asp:ContentPlaceHolder ID="f" runat="server">
+                <%--<a href="~/" runat="server" id="a1">CCRAT Home</a>--%>
+            </asp:ContentPlaceHolder>
+        </div>
+        
+        <asp:ContentPlaceHolder ID="flink" runat="server">
+            <div class="f">
+                <a accesskey="1" href="http://www.cancer.gov" class="ft">NCI Home</a>
+            </div>
+            <div class="f">
+                <a accesskey="2" href="http://www.cancer.gov/help" class="ft">Contact Us</a>
+            </div>
+            <div class="f">
+                <a accesskey="3" href="http://www.cancer.gov/policies" class="ft">Policies</a>
+            </div>
+            <div class="f">
+                <a accesskey="4" href="http://www.cancer.gov/policies/page4" class="ft">Accessibility</a>
+            </div>
+        </asp:ContentPlaceHolder>
+        <%--eof footer--%>
+    </div>
+    </form>
+</body>
+</html>

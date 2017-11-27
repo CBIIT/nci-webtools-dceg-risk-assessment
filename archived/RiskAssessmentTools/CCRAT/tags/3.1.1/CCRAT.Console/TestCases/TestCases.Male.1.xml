@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TestCases>
+	<TestCase ID="1000">
+		<currentAge>50</currentAge>
+		<gender>Male</gender>
+		<height>72</height> <!--in inches-->
+		<weight>177</weight> <!--in lbs-->
+		<numServingsVeg>11</numServingsVeg> <!--Text="More than 10 servings per week" Value="11"-->
+		<amountVeg>1</amountVeg>	<!--Text="More than 1/2 cup but less than 1 1/2 cups" Value="1"-->
+		<colonoscopy>Yes</colonoscopy>
+		<hadPolyp>No</hadPolyp>
+		<asprin>Yes</asprin>
+		<ibuprofen>Yes</ibuprofen>
+		<cigs100More>No</cigs100More>
+		<smokeStartAge>NaN</smokeStartAge>
+		<stillSmoke>NaN</stillSmoke>
+		<ageQuit>NaN</ageQuit>
+		<quitNumPerDay>NaN</quitNumPerDay>
+		<vigorousActivities>0</vigorousActivities><!--0 months-->
+		<vigorousHours>NaN</vigorousHours> <!--Text="More than 4 hours per week" Value="5"-->
+		<hasRelativeHadCC>No</hasRelativeHadCC>
+		<numRelativesHavingCC>NaN</numRelativesHavingCC>
+	</TestCase>
+</TestCases>

@@ -1,0 +1,433 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8A8BDAED-66FF-4E6E-A12C-DCCB9940CA53}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MRAT.Mobile</RootNamespace>
+    <AssemblyName>MRAT.Mobile</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions.Design, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Xml.Linq, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Enums.cs" />
+    <Compile Include="Helper\Logger.cs" />
+    <Compile Include="Http Modules and Handlers\CssHandler.cs" />
+    <Compile Include="Http Modules and Handlers\ErrorLogger.cs" />
+    <Compile Include="resultex.aspx.cs">
+      <DependentUpon>resultex.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="resultex.aspx.designer.cs">
+      <DependentUpon>resultex.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Q07m.ascx.cs">
+      <DependentUpon>Q07m.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q07m.ascx.designer.cs">
+      <DependentUpon>Q07m.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Q08m.ascx.cs">
+      <DependentUpon>Q08m.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q08m.ascx.designer.cs">
+      <DependentUpon>Q08m.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Q09m.ascx.cs">
+      <DependentUpon>Q09m.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q09m.ascx.designer.cs">
+      <DependentUpon>Q09m.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Q10m.ascx.cs">
+      <DependentUpon>Q10m.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q10m.ascx.designer.cs">
+      <DependentUpon>Q10m.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Q03.ascx.cs">
+      <DependentUpon>Q03.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q03.ascx.designer.cs">
+      <DependentUpon>Q03.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Q04.ascx.cs">
+      <DependentUpon>Q04.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q04.ascx.designer.cs">
+      <DependentUpon>Q04.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Q05f.ascx.cs">
+      <DependentUpon>Q05f.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q05f.ascx.designer.cs">
+      <DependentUpon>Q05f.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Q06f.ascx.cs">
+      <DependentUpon>Q06f.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q06f.ascx.designer.cs">
+      <DependentUpon>Q06f.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Q07f.ascx.cs">
+      <DependentUpon>Q07f.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q07f.ascx.designer.cs">
+      <DependentUpon>Q07f.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Q08f.ascx.cs">
+      <DependentUpon>Q08f.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q08f.ascx.designer.cs">
+      <DependentUpon>Q08f.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Q05m.ascx.cs">
+      <DependentUpon>Q05m.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q05m.ascx.designer.cs">
+      <DependentUpon>Q05m.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Q06m.ascx.cs">
+      <DependentUpon>Q06m.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q06m.ascx.designer.cs">
+      <DependentUpon>Q06m.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Q02.ascx.cs">
+      <DependentUpon>Q02.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q02.ascx.designer.cs">
+      <DependentUpon>Q02.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="MratQuestion.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MRAT.Mobile.Manager.cs" />
+    <Compile Include="Q01.ascx.cs">
+      <DependentUpon>Q01.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q01.ascx.designer.cs">
+      <DependentUpon>Q01.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Q8mex.aspx.cs">
+      <DependentUpon>Q8mex.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q8mex.aspx.designer.cs">
+      <DependentUpon>Q8mex.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Q5mex.aspx.cs">
+      <DependentUpon>Q5mex.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q5mex.aspx.designer.cs">
+      <DependentUpon>Q5mex.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Q6mex.aspx.cs">
+      <DependentUpon>Q6mex.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q6mex.aspx.designer.cs">
+      <DependentUpon>Q6mex.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Q7mex.aspx.cs">
+      <DependentUpon>Q7mex.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q7mex.aspx.designer.cs">
+      <DependentUpon>Q7mex.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Q10mex.aspx.cs">
+      <DependentUpon>Q10mex.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q10mex.aspx.designer.cs">
+      <DependentUpon>Q10mex.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Q2ex.aspx.cs">
+      <DependentUpon>Q2ex.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q2ex.aspx.designer.cs">
+      <DependentUpon>Q2ex.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Q3ex.aspx.cs">
+      <DependentUpon>Q3ex.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q3ex.aspx.designer.cs">
+      <DependentUpon>Q3ex.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Q4ex.aspx.cs">
+      <DependentUpon>Q4ex.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q4ex.aspx.designer.cs">
+      <DependentUpon>Q4ex.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Q5fex.aspx.cs">
+      <DependentUpon>Q5fex.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q5fex.aspx.designer.cs">
+      <DependentUpon>Q5fex.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Q6fex.aspx.cs">
+      <DependentUpon>Q6fex.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q6fex.aspx.designer.cs">
+      <DependentUpon>Q6fex.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Q7fex.aspx.cs">
+      <DependentUpon>Q7fex.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q7fex.aspx.designer.cs">
+      <DependentUpon>Q7fex.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Q8fex.aspx.cs">
+      <DependentUpon>Q8fex.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q8fex.aspx.designer.cs">
+      <DependentUpon>Q8fex.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Q9mex.aspx.cs">
+      <DependentUpon>Q9mex.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Q9mex.aspx.designer.cs">
+      <DependentUpon>Q9mex.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\Helper.cs" />
+    <Compile Include="Q00.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Q00.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Q00.aspx.designer.cs">
+      <DependentUpon>Q00.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="results_f.aspx.cs">
+      <DependentUpon>results_f.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="results_f.aspx.designer.cs">
+      <DependentUpon>results_f.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="results_m.aspx.cs">
+      <DependentUpon>results_m.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="results_m.aspx.designer.cs">
+      <DependentUpon>results_m.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Http Modules and Handlers\ErrorHandler.cs" />
+    <Compile Include="MRATMobile.Master.cs">
+      <DependentUpon>MRATMobile.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MRATMobile.Master.designer.cs">
+      <DependentUpon>MRATMobile.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="e.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>e.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="e.aspx.designer.cs">
+      <DependentUpon>e.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Q1ex.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Q1ex.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Q1ex.aspx.designer.cs">
+      <DependentUpon>Q1ex.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Http Modules and Handlers\WhitespaceModule.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MRATMobile.Master" />
+    <Content Include="ss\mrat-mobile.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="about.aspx" />
+    <Content Include="map-CA3-ex.aspx" />
+    <Content Include="map-CA2-ex.aspx" />
+    <Content Include="maplarge2-ex.aspx" />
+    <Content Include="map-CA-ex.aspx" />
+    <Content Include="maplarge-ex.aspx" />
+    <Content Include="resultex.aspx" />
+    <Content Include="i\map-CA.gif" />
+    <Content Include="i\map-central.gif" />
+    <Content Include="i\map-large.gif" />
+    <Content Include="i\map-north.gif" />
+    <Content Include="i\map-sm.gif" />
+    <Content Include="i\map-south.gif" />
+    <Content Include="i\md.jpg" />
+    <Content Include="i\md_55.jpg" />
+    <Content Include="i\mi.jpg" />
+    <Content Include="i\mi_55.jpg" />
+    <Content Include="i\sv1.jpg" />
+    <Content Include="i\sv1_55.jpg" />
+    <Content Include="i\sv2.jpg" />
+    <Content Include="i\sv2_55.jpg" />
+    <Content Include="footer.ascx" />
+    <Content Include="freck-severe-ex.aspx" />
+    <Content Include="freck-moderate-ex.aspx" />
+    <Content Include="freck-mild-ex.aspx" />
+    <Content Include="i\red-li.gif" />
+    <Content Include="solar-damageex.aspx" />
+    <Content Include="Q07m.ascx" />
+    <Content Include="Q08m.ascx" />
+    <Content Include="Q09m.ascx" />
+    <Content Include="Q10m.ascx" />
+    <Content Include="Q03.ascx" />
+    <Content Include="Q04.ascx" />
+    <Content Include="Q05f.ascx" />
+    <Content Include="Q06f.ascx" />
+    <Content Include="Q07f.ascx" />
+    <Content Include="Q08f.ascx" />
+    <Content Include="Q05m.ascx" />
+    <Content Include="Q06m.ascx" />
+    <Content Include="Q02.ascx" />
+    <Content Include="i\q-d-1px.gif" />
+    <Content Include="Q01.ascx" />
+    <Content Include="Q8mex.aspx" />
+    <Content Include="Q5mex.aspx" />
+    <Content Include="Q6mex.aspx" />
+    <Content Include="Q7mex.aspx" />
+    <Content Include="Q10mex.aspx" />
+    <Content Include="Q2ex.aspx" />
+    <Content Include="Q3ex.aspx" />
+    <Content Include="Q4ex.aspx" />
+    <Content Include="Q5fex.aspx" />
+    <Content Include="Q6fex.aspx" />
+    <Content Include="Q7fex.aspx" />
+    <Content Include="Q8fex.aspx" />
+    <Content Include="Q9mex.aspx" />
+    <Content Include="Q00.aspx" />
+    <Content Include="results_f.aspx" />
+    <Content Include="results_m.aspx" />
+    <Content Include="css.ashx" />
+    <Content Include="Default.aspx" />
+    <Content Include="e.aspx" />
+    <Content Include="i\l-hhs.gif" />
+    <Content Include="i\l-nci.gif" />
+    <Content Include="i\l-nih.gif" />
+    <Content Include="i\l-usa.gif" />
+    <Content Include="i\nci-mobile-logo.gif" />
+    <Content Include="Q1ex.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MRAT.RiskCalculator\MRAT.RiskCalculator.csproj">
+      <Project>{BB78803E-F300-49AD-95A8-2F8FEF853D68}</Project>
+      <Name>MRAT.RiskCalculator</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Mrat.Mobile.cd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" Condition="" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

@@ -1,0 +1,38 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="DefPop.master.cs" Inherits="CCRAT.Web.DefPop" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="style/ccrat-style.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body class="popup" style="margin: 0;">
+    <!-- Content Headers -->
+    <div id="ncibannerpopup">
+        <%--        
+        <a href="javascript:window.close();">
+            <img src="images/nci-banner-popup.gif" width="497" height="30" border="0" alt="National Cancer Institute, cancer.gov" />
+        </a>
+        --%>     
+        <img src="images/nci-banner-popup.gif" width="497" height="30" border="0" alt="National Cancer Institute, cancer.gov" usemap="#popup-banner-map" />
+    </div>            
+    <!-- end Content Headers -->
+    
+    <!-- Content box -->
+    <div id="popupcontent">
+        <asp:ContentPlaceHolder ID="cphMain" runat="server" />
+    </div>
+    <!-- end Content box -->
+    
+    <!-- image coord map -->
+    <map name="popup-banner-map" id="popup-banner-map">
+	  <%--<area shape="rect" coords="5,4,200,26" alt="National Cancer Institute" />--%>
+	  <area shape="rect" coords="399,4,494,26" href="javascript:window.close();" alt="Close window" />
+	</map>
+	<!-- end image coord map -->
+
+<!-- #include file="analytics_include.html" -->    
+</body>
+</html>

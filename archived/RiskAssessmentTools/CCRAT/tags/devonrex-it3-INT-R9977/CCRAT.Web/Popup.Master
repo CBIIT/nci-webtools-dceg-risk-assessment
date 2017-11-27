@@ -1,0 +1,76 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Popup.Master.cs" Inherits="CCRAT.Web.Popup" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+
+<head id="Head1" runat="server">
+    <title>Colorectal Cancer Risk Assessment Tool</title>
+    <meta http-equiv="imagetoolbar" content="false" />
+    <meta name="description" content="An interactive tool designed by scientists at the National Cancer Institute to estimate a person's risk of developing colorectal cancer." />
+    <meta name="keywords" content="Colorectal cancer, Colorectal cancer risk, risk assessment, risk tool" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta http-equiv='refresh' content='1200;url=SessionExpired.aspx' />    
+     <!-- Framework CSS -->
+	 <link href="style/ccrat-style.css" rel="stylesheet" type="text/css" media="all" />
+     <link href="style/ccrat-style-print.css" rel="stylesheet" type="text/css" media="print" />
+     <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <script src="script/data.js" type="text/javascript"></script>
+</head>
+<body>
+<style type="text/css">
+	.nci-logo {
+		width: 702px;
+	}
+
+	.nci-logo a {
+		width: 680px;
+	}
+
+@media print {
+	.nci-logo
+	{
+		display: none;
+	}
+	#footer 
+	{
+		display: none;
+	}
+}
+</style>
+    <%--<div class="skip"><a title="Skip to content" href="#skiptocontent">Skip to content</a></div>--%> 
+    <div class="nci-logo">
+        <a href="/">NATIONAL CANCER INSTITUTE<br> <span>at the National Institutes of Health</span></a>
+	</div>
+    <div class="center" >
+        <a name="top"></a>
+        <!-- Content Headers -->
+            <form id="form1" runat="server">
+                <%--<div class="skip"><a title="Skip to content" href="#skiptocontent">Skip to content</a></div>--%>
+             
+                <asp:ContentPlaceHolder ID="cphMain" runat="server" />
+             </form>
+            
+		<!-- Footer -->
+        <div id="footer">
+            <p>
+                <a href="http://www.cancer.gov/colorectalcancerrisk/">Home</a>&nbsp;|&nbsp;<a href="http://www.cancer.gov/help">Contact
+                    Us</a>&nbsp;|&nbsp;<a href="http://www.cancer.gov/global/web/policies">Policies</a>&nbsp;|&nbsp;<a
+                        href="http://www.cancer.gov/global/web/policies/accessibility">Accessibility</a></p>
+            <p class="agency-links">
+                <a href="http://www.hhs.gov/">U.S. Department of Health and Human Services</a> &nbsp;|&nbsp;
+                <a href="http://www.nih.gov/">National Institutes of Health</a> &nbsp;|&nbsp; <a
+                    href="http://www.cancer.gov/">National Cancer Institute</a> &nbsp;|&nbsp; <a href="http://www.usa.gov/">
+                        USA.gov</a></p>
+            <p class="tagline">
+                NIH&#8230;Turning Discovery Into Health<sup>&#174;</sup></p>
+        </div>
+        <!-- end Footer -->
+
+    </div>
+<!-- #include file="analytics_include.html" -->
+
+</body>
+</html>

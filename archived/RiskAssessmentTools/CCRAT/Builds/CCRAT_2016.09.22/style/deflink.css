@@ -1,0 +1,103 @@
+﻿/**********************************   IMPORTED  *************/
+
+a.ref_link{
+	color: #00a;
+	text-decoration: none;
+	border-bottom: 1px dashed blue;
+	cursor: help;
+}
+
+.popup_container, .vegetables_c, .vegetables_c2, .colonoscopy_c, .sigmoidoscopy_c,
+	.polyp_c, .moderate_c, .moderate_c2, .vigorous_c, .vigorous_c2 {
+	text-align: left;
+	background-color: #fff;
+	border: 1px solid #89a4ce;
+	width: 280px;
+	vertical-align: middle;
+	position: absolute;
+	top: 116px;
+	left: 250px;
+	margin-top: 4px;
+	padding: 0;
+	z-index: 1;
+	font-weight: normal;
+	margin-left: 0px;
+	filter:alpha(opacity=100);
+	opacity: 1;
+}
+
+.vegetables_c2 {
+	top: 230px;
+	left: 30px;
+}
+
+.colonoscopy_c {
+	left: 180px;
+}
+
+.polyp_c {
+	top: 232px;
+	left: 220px;
+}
+
+.moderate_c {
+	left: 300px;
+}
+
+.moderate_c2 {
+	top: 232px;
+	left: 50px;
+}
+
+.vigorous_c {
+	top: 278px;
+	left: 300px;
+}
+
+.vigorous_c2 {
+	top: 375px;
+	left: 50px;
+}
+
+.close_butt{
+	font-weight: normal;
+	font-size: 1em;
+	text-decoration: none;
+	text-align: center;
+	font-weight: bold;
+	color: #fff;
+}
+
+.stattable {
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+	background-color: #fff;
+	color: #000;
+}
+
+.def_container {
+	vertical-align: middle;
+	background-color: #800;
+}
+
+.def_top_left {
+	float: left;
+	width: 180px;
+	padding: 5px;
+	text-align: left;
+	background-color: #800;
+	font-weight: bold;
+	color: #fff;
+}
+
+.def_top_right {
+	float: right;
+	width: 50px;
+	padding: 5px;
+	text-align: right;
+	background-color: #800;
+	font-weight: bold;
+	color: #fff;
+}
+

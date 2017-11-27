@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCRAT.RiskCalculator", "CCRAT.RiskCalculator\CCRAT.RiskCalculator.csproj", "{D216F956-6303-4D59-9F1C-46551DA42CE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCRAT.Web", "CCRAT.Web\CCRAT.Web.csproj", "{E794B824-D1BC-4E07-B9E1-04DAE62C48C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCRAT.Mobile", "CCRAT.Mobile\CCRAT.Mobile.csproj", "{E9EFC3C8-D318-407B-981D-B51A6386451F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCRAT.Console", "CCRAT.Console\CCRAT.Console.csproj", "{10B5BBA2-C031-4A74-A480-EC0310DAA43D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D216F956-6303-4D59-9F1C-46551DA42CE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D216F956-6303-4D59-9F1C-46551DA42CE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D216F956-6303-4D59-9F1C-46551DA42CE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D216F956-6303-4D59-9F1C-46551DA42CE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E794B824-D1BC-4E07-B9E1-04DAE62C48C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E794B824-D1BC-4E07-B9E1-04DAE62C48C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E794B824-D1BC-4E07-B9E1-04DAE62C48C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E794B824-D1BC-4E07-B9E1-04DAE62C48C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9EFC3C8-D318-407B-981D-B51A6386451F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9EFC3C8-D318-407B-981D-B51A6386451F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9EFC3C8-D318-407B-981D-B51A6386451F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9EFC3C8-D318-407B-981D-B51A6386451F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10B5BBA2-C031-4A74-A480-EC0310DAA43D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10B5BBA2-C031-4A74-A480-EC0310DAA43D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10B5BBA2-C031-4A74-A480-EC0310DAA43D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10B5BBA2-C031-4A74-A480-EC0310DAA43D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

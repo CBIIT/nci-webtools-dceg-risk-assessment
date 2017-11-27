@@ -1,0 +1,179 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E9EFC3C8-D318-407B-981D-B51A6386451F}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CCRAT.Mobile</RootNamespace>
+    <AssemblyName>CCRAT.Mobile</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Default.aspx" />
+    <Content Include="Readme.txt" />
+    <Content Include="UserControls\QuestionAsker.ascx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CssHandler.cs" />
+    <Compile Include="Default.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CCRAT.Mobile.master.cs">
+      <DependentUpon>CCRAT.Mobile.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CCRAT.Mobile.master.designer.cs">
+      <DependentUpon>CCRAT.Mobile.master</DependentUpon>
+    </Compile>
+    <Compile Include="e.aspx.cs">
+      <DependentUpon>e.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="e.aspx.designer.cs">
+      <DependentUpon>e.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorHandler.cs" />
+    <Compile Include="ErrorLogger.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="q.aspx.cs">
+      <DependentUpon>q.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="q.aspx.designer.cs">
+      <DependentUpon>q.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServerControls\Enums.cs" />
+    <Compile Include="ServerControls\QuestionControl.cs" />
+    <Compile Include="ServerControls\QuestionGroup.cs" />
+    <Compile Include="ServerControls\QuestionGroupManager.cs" />
+    <Compile Include="ServerControls\QuestionItemBase.cs">
+    </Compile>
+    <Compile Include="ServerControls\QuestionSectionHeader.cs" />
+    <Compile Include="UserControls\QuestionAsker.ascx.cs">
+      <DependentUpon>QuestionAsker.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\QuestionAsker.ascx.designer.cs">
+      <DependentUpon>QuestionAsker.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="WhitespaceModule.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CCRAT.RiskCalculator\CCRAT.RiskCalculator.csproj">
+      <Project>{D216F956-6303-4D59-9F1C-46551DA42CE9}</Project>
+      <Name>CCRAT.RiskCalculator</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="i\l-hhs.gif" />
+    <Content Include="i\l-nci.gif" />
+    <Content Include="i\l-nih.gif" />
+    <Content Include="i\l-usa.gif" />
+    <Content Include="i\nci-logo.gif" />
+    <Content Include="ss\ccrat.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CCRAT.Mobile.master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="a.aspx" />
+    <Content Include="a-e.aspx" />
+    <Content Include="a-r.aspx" />
+    <Content Include="a-a.aspx" />
+    <Content Include="css.ashx" />
+    <Content Include="e.aspx" />
+    <Content Include="footer.ascx" />
+    <Content Include="i\red-li.gif" />
+    <Content Include="q.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CCRA.Mobile.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Helper\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>20338</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:9091/ccrat.m</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

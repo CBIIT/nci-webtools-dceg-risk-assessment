@@ -1,0 +1,17 @@
+"Configurations"
+{
+    "Debug|.NET"
+    {
+    "StartApplication" = ""
+    "StartWorkingDirectory" = ""
+    "StartArguments" = ""
+    "Project:NeedsRebuild" = "False"
+    }
+    "Release|.NET"
+    {
+    "StartApplication" = ""
+    "StartWorkingDirectory" = ""
+    "StartArguments" = ""
+    "Project:NeedsRebuild" = "False"
+    }
+}

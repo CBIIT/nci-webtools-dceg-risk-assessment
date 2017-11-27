@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCI.DCEG.BCRA", "NCI.DCEG.BCRA\NCI.DCEG.BCRA.csproj", "{38ADF13C-316A-499A-8BF6-DABF624BF17A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCI.DCEG.BCRA.ConsoleSample", "NCI.DCEG.BCRA.ConsoleSample\NCI.DCEG.BCRA.ConsoleSample.csproj", "{E9881ED6-F0AA-4A6E-8C5F-6107A9D68415}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{38ADF13C-316A-499A-8BF6-DABF624BF17A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38ADF13C-316A-499A-8BF6-DABF624BF17A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38ADF13C-316A-499A-8BF6-DABF624BF17A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38ADF13C-316A-499A-8BF6-DABF624BF17A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9881ED6-F0AA-4A6E-8C5F-6107A9D68415}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9881ED6-F0AA-4A6E-8C5F-6107A9D68415}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9881ED6-F0AA-4A6E-8C5F-6107A9D68415}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9881ED6-F0AA-4A6E-8C5F-6107A9D68415}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+EndGlobal

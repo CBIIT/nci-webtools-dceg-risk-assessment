@@ -1,0 +1,778 @@
+body { 
+background: #fff; 
+background-image: url(../images/bg-image.gif);  
+background-attachment: scroll;
+background-repeat : repeat-x;
+margin: 0;
+padding: 0;
+color: #000;
+}
+
+body.popup { 
+background: #fff; 
+margin: 0;
+padding: 0;
+color: #000;
+}
+
+.skip a, .skip a:hover, .skip a:visited 
+{
+	position: absolute; 
+	left:-999px; 
+}
+
+.skip a:active, .skip a:focus	 
+
+{
+	display:block;
+	left: 0; 
+	z-index:999;
+	background: #fff;
+	border: 1px solid #000; 
+	padding: 5px 5px 5px 5px;
+}
+
+.hidden-anchor
+{	
+	position: absolute;
+	left: -999px;
+	width: 1px;
+	display: block;
+}
+
+
+div, p, td, ul, ol, li, dl, td, dd, .text
+/* redundant selectors to help NS4 not forget */
+{ font-family: arial, san-serif; font-size: 12px; color: #4d4d4d; font-weight: normal; text-decoration:none; }
+a, a:link, a:visited, a:active {
+color: #A90101;
+}
+
+a:hover {
+color: #A90101;
+}
+
+p {
+margin-top: 0;
+padding-top: 0;
+}
+
+/* Octopus Engine */
+.north { background: url(../images/n.gif) repeat-x top; }
+.east { background: url(../images/e.gif) repeat-y right; }
+.south { background: url(../images/s.gif) repeat-x bottom; }
+.west { background: url(../images/w.gif) repeat-y left; }
+.ne { background: url(../images/ne.gif) no-repeat top right; }
+.se { background: url(../images/se.gif) no-repeat bottom right; }
+.sw { background: url(../images/sw.gif) no-repeat bottom left; }
+.nwleftnav, .nwcontent { background: url(../images/nw.gif) no-repeat top left; }
+
+.nwleftnav { padding: 4px; } /* Controls padding.  Increase to make text further away from edges; decrease to bring closer.  */
+.nwcontent { padding: 17px; } /* Controls padding.  Increase to make text further away from edges; decrease to bring closer.  */
+
+p.notoppadding {
+padding-top: 0;
+margin-top: 0;
+}
+
+h1 {
+font-family: arial, sans-serif;
+color: #5393CE;
+font-size: 22px;
+margin-bottom: 0;
+padding-bottom: 12px;
+padding-top: 0;
+margin-top: 0;
+}
+
+h2 {
+font-family: arial, sans-serif;
+color: #000;
+font-size: 14px;
+margin-bottom: 0;
+padding-bottom: 12px;
+padding-top: 0;
+margin-top: 0;
+}
+
+h3 {
+font-family: arial, sans-serif;
+color: #4D4D4D;
+font-size: 12px;
+margin-bottom: 0;
+padding-bottom: 12px;
+padding-top: 0;
+margin-top: 0;
+}
+
+ul.red-arrow {
+	list-style: none;	
+}
+
+ul.red-arrow li
+{
+	background: url(../images/red-arrow.gif) top left no-repeat;
+	padding: 0 0 0 10px;
+}
+
+ul.red-arrow li li 
+{
+	background: none;
+	padding: 0 0 0 0px;
+}
+
+ul.gray-bg {
+background: #F2F2F2;
+list-style: url(../images/red-arrow.gif) circle;
+}
+
+hr {
+color: #5393CE; /* IE */
+background: #5393CE; /* Netscape 6/7, Mozilla */
+border: #5393CE; /* Opera */
+height: 1px; 
+}
+
+form {
+padding: 0;
+margin: 0;
+}
+
+/*
+select {
+width: 150px;
+color: #333333;
+}
+*/
+
+input {
+width: 90px;
+padding: 1px 5px;
+}
+
+#center {
+width: 760px;
+margin: 0 auto;
+padding: 0;
+text-align: left;
+}
+
+#ncibanner {
+height: 60px;
+width: 759px;
+margin: 0;
+padding: 0;
+left: 0;
+}
+
+#ncibannerpopup {
+height: 55px;
+width: 497px;
+margin: 0;
+padding: 0;
+left: 0;
+}
+
+#mratbanner {
+height: 118px;
+} 
+
+#main {
+float: none;
+left: 0px;
+width: 759px;
+padding: 15px 0 0 0;
+}
+
+#leftnav {
+float: left;
+width: 202px;
+background: #EAEEF4;
+margin-bottom: 30px;
+}
+
+html>body #leftnav {
+width: 202px; /* ie5win fudge ends */
+}
+
+
+#pageoptions {
+background: #fff;
+margin: 20px 0 0 14px;
+padding-bottom: 5px;
+border: 1px solid #BDBDBD;
+width: 164px; /* ie5win fudge begins */
+voice-family: "\"}\"";
+voice-family:inherit;
+width: 162px;
+}
+
+#pageoptions ul {
+list-style: none;
+margin: 0;
+padding: 0;
+}
+
+#pageoptions li {
+padding: 0;
+padding: 4px 7px;
+}
+
+#pageoptions li, #pageoptions li a, #pageoptions li a:link, #pageoptions li a:visited, #pageoptions li a:active {
+color: #4d4d4d;
+font-size: 11.5px;
+text-decoration: none;
+} 
+
+#pageoptions li a:hover {
+color: #980000;
+} 
+
+#pageoptions .title {
+background: #7792C3;
+padding: 2px 7px;
+font-weight: bold;
+color: #fff;
+border-bottom: 1px solid #BDBDBD; 
+text-decoration: none;
+}
+
+#quicklinks {
+background: #fff;
+margin: 20px 0 0 14px;
+padding-bottom: 10px;
+border: 1px solid #BDBDBD;
+width: 164px; /* ie5win fudge begins */
+voice-family: "\"}\"";
+voice-family:inherit;
+width: 162px;
+}
+
+#quicklinks ul {
+list-style: none;
+margin: 0;
+padding: 0;
+}
+
+#quicklinks li {
+padding: 0;
+padding: 4px 7px;
+}
+
+#quicklinks .title {
+background: #7792C3;
+padding: 2px 7px;
+font-weight: bold;
+color: #fff;
+border-bottom: 1px solid #BDBDBD; 
+text-decoration: none;
+}
+
+#quicklinks li, #quicklinks li a, #quicklinks li a:link, #quicklinks li a:visited, #quicklinks li a:active {
+color: #980000;
+font-size: 11.5px;
+text-decoration: underline;
+} 
+
+#quicklinks li a:hover {
+color: #980000;
+} 
+
+#needhelp {
+margin: 20px 0 0 14px;
+padding-bottom: 15px;
+width: 164px;
+}
+
+#content {
+margin: 0 0 30px 0px;
+width: 539px;
+background: #EAEEF4;
+float: right;
+} 
+
+html>body #content {
+width: 539px; /* ie5win fudge ends */
+}
+
+#IntroText 
+{
+	color: #000000;
+}
+
+#IntroText p 
+{
+	color: #000000;
+}
+
+#IntroText li 
+{
+	color: #000000;
+	margin-bottom: 8px;
+}
+
+#IntroText li li 
+{
+	margin-bottom: 0;
+}
+
+#IntroText ul.red-arrow 
+{
+	margin: 0 0 0 12px;	
+	padding: 0;
+}
+
+
+
+#IntroText p.thingsToKnow 
+{
+	margin-bottom: 4px;
+	padding-bottom: 0;
+}
+
+
+
+#popupcontent  {
+margin: 0 12px 10px 12px;
+background: #fff;
+width: 497px; /* ie5win fudge begins */
+voice-family: "\"}\"";
+voice-family:inherit;
+width: 473px;
+} 
+
+.maincontentbox {
+border: 1px solid #bbb;
+background: #fff;
+width: 504px; /* ie5win fudge begins */
+voice-family: "\"}\"";
+voice-family:inherit;
+width: 500px;
+} 
+
+.maincontentboxtitle {
+padding: 10px 10px 10px 10px;
+background: #89A4CE;
+border-bottom: 1px solid #bbb;
+color: #fff;
+} 
+
+.maincontentboxtitle ul {
+text-align: right;
+margin: 0;
+padding: 0;
+} 
+
+.maincontentboxtitle ul li {
+display: inline;
+white-space: nowrap;
+} 
+
+.maincontentboxtitle ul li.left {
+float: left;
+} 
+
+.maincontentboxtitle ul li a, .maincontentboxtitle ul li a:link, .maincontentboxtitle ul li a:visited, .maincontentboxtitle ul li a:active {
+color: #fff;
+font-weight: normal;
+font-size: 11.5px;
+} 
+
+.maincontentboxtitle ul li a:hover {
+color: #fff;
+} 
+
+.maincontentboxtext {
+/*padding: 10px 10px 10px 10px;*/
+background: #fff;
+}
+
+.maincontentboxtext-paddedText { 
+	padding: 10px 10px 10px 10px;
+}
+
+#footer {
+clear: both;
+margin: 0 0 20px 0;
+width: 772px;
+border-top: solid 5px #CCCCCC;
+padding-top: 15px;
+text-align: center;
+}
+
+html>body #footer {
+width: 752px;
+}
+
+#footer, #footer a, #footer a:link, #footer a:visited,#footer a:active {
+font-family: arial, sans-serif;
+color: #4d4d4d;
+}
+
+#footer a:hover {
+color: #980000;
+}
+
+img {
+border: 0;
+}
+
+img.right {
+border: 0;
+margin-left: 10px;
+margin-bottom: 10px;
+}
+
+img.left {
+border: 0;
+margin-right: 10px;
+margin-bottom: 10px;
+}
+
+img.center {
+display: block;
+margin-left: auto;
+margin-right: auto 
+}
+
+.hide {
+display: none;
+}
+
+
+/* --------- content anchors and back to top added 050207wr ---------  */
+.content-anchors {
+	background: #f2f5f8;
+}
+.content-anchors ul {
+	margin: 0;
+	padding: 10px;
+}
+.content-anchors ul li {
+	display: inline;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.content-anchors ul li a,
+.content-anchors ul li a:link,
+.content-anchors ul li a:visited,
+.content-anchors ul li a:active {
+	color: #333;
+	margin: 0;
+	padding: 0;
+}
+.content-anchors ul li a:hover {
+	color: #A90101;
+	margin: 0;
+	padding: 0;
+}
+.backtotop {
+	background: #fff;
+	border-bottom: #ccc 1px solid; 
+	padding-bottom: 16px;
+}
+.footer-logos { margin-top: 8px }
+
+ul.requirements-list 
+{
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+div.FAQ h2
+{
+	margin-bottom: 0;
+	padding: 0;
+}
+
+div.FAQ h3 
+{
+	margin-top: 8px;
+	margin-bottom: 0;
+	padding: 0;
+}
+
+ol.install-instruct 
+{
+	margin-top: 0;
+}
+
+sup.trademark
+{
+	vertical-align: baseline;
+    position: relative;
+    bottom: 0.33em;
+}
+
+
+.results-answer 
+{
+	font-weight: bold;
+}
+
+.risk-explanation 
+{
+	padding: 0 0 0 16px;
+	margin: 4px 0 0 0;
+}
+
+/* Question Styles for the Asker */
+.questions 
+{
+	width: 480px;
+}
+
+.questions .questionHelpWrap 
+{
+	width: 464px;
+	margin-left: 16px;
+}
+
+.questions .questionHelpWrap:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+
+.questions .questionHelpWrap .questionText 
+{
+	font-weight: bold;
+	float: left;
+	width: 440px;
+}
+
+.questions .questionHelpWrap .questionText strong 
+{
+	font-style: italic;
+}
+
+
+.questions .questionHelpWrap .helpButton 
+{
+	width: 20px;
+	float: right;
+	margin-left: 4px;
+}
+
+.questions .errorMsg 
+{
+	/*color: #a90101;*/
+	color: #4D4D4D;
+	padding: 4px 0 0 0;
+	margin-left: 16px;
+	font-weight: bold;	
+}
+
+.questions .questionControl 
+{
+	margin: 4px 0 0 16px;
+}
+
+.questions .additionalTextBottom 
+{
+	font-style: italic;
+	padding: 0 0 0 0;
+	margin: 4px 0 0 16px;	
+}
+
+.questions .additionalTextTop 
+{
+	font-style: italic;
+	padding: 0 0 0 0;
+	margin: 0 0 4px 16px;
+}
+
+.questions .questionSeparator
+{
+	margin: 10px 0 10px 0;
+	background: url(../images/questions-divider.gif) repeat-x;
+	height: 1px;
+}
+
+.questions .questionSectionSeparator
+{
+	margin: 10px 0 10px 0;
+	background:  black;	
+	height: 1px;
+}
+
+.questions .SectionHeader 
+{
+	color: #000033;
+	font-weight: bold;
+	background-color: #bbccee;
+	padding: 8px 8px 8px 8px;
+	margin:0 0 12px 0;
+}
+
+.questions .helpText 
+{
+	color: #003366;
+	margin-left: 16px;
+	margin-top: 8px;
+}
+
+/* End Question Styles */
+
+
+/* Question Explanations on the about-tool */
+.questionExplanations h3 
+{
+	margin:0;
+	padding: 0;
+}
+
+.questionExplanations ul 
+{
+	margin: 0 0 8px 15px;
+	list-style: none;
+	padding: 0 0 0 0;
+}
+
+
+.questionExplanations li 
+{
+	background: url(../images/red-arrow.gif) top left no-repeat;
+	padding: 0 0 0 10px;
+	margin: 0;
+	font-style: italic;
+}
+
+.questionExplanations div.line
+{
+	background: url(../images/questions-divider-1px.gif) repeat-x center scroll;
+	height: 1px;
+	margin: 8px auto;
+}
+
+.questionExplanations p 
+{
+	margin: 0 0 0 15px;
+	padding: 0;
+}
+
+/* End Explanations */
+
+/* ---------------  Left Navigation ---------------- */
+.AspNet-Menu-Vertical {
+	border-bottom: 1px solid #ccc;
+	margin: 0;
+	padding: 0;
+	width: 194px;
+}
+.AspNet-Menu-Vertical ul.AspNet-Menu { 
+	background: #fff;
+	color: #000;
+	list-style: none;
+	margin: 20px 0 0;
+	padding: 0;
+	width: 194px;
+}
+
+.AspNet-Menu-Vertical ul.AspNet-Menu li  
+{	
+	border-top: 1px solid #ccc;
+	color: #000;
+	display: block;
+	margin:  0;
+	padding: 0;
+	text-align: left; 
+	width: 194px;
+	float:none !important;
+}
+/* first tier hover state - white background, black font */
+.AspNet-Menu-Vertical ul li a,
+.AspNet-Menu-Vertical ul li a:link,
+.AspNet-Menu-Vertical ul li a:visited { 
+	color: #000;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	display: block;
+	margin: 0;
+	padding: 12px 0 12px 20px;
+	text-decoration: none;
+	width: 174px;
+}
+/* first tier hover state - red font */
+.AspNet-Menu-Vertical ul li a:hover { 
+	color: #900;
+}
+.AspNet-Menu-Vertical ul li.AspNet-Menu-Selected a,
+.AspNet-Menu-Vertical ul li.AspNet-Menu-Selected a:link,
+.AspNet-Menu-Vertical ul li.AspNet-Menu-Selected a:visited,
+.AspNet-Menu-Vertical ul li.AspNet-Menu-Selected a:hover  	
+{
+	background: #fff url(../images/red-arrow.gif) no-repeat 9px 12px;
+	color: #900;
+	display: block;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	text-decoration: none;
+	width: 174px;
+}
+.AspNet-Menu-Vertical ul li ul { 
+	background:#f7f7f7;
+	color: #000;
+	margin: 0;
+	padding: 0;
+}
+.AspNet-Menu-Vertical ul li ul li { 
+	background:#f7f7f7;
+	color: #000;
+	margin: 0;
+	padding: 0;
+}
+/*  2nd tier list item  -- grey background; black font */
+.AspNet-Menu-Vertical ul li.AspNet-Menu-Selected ul li a,
+.AspNet-Menu-Vertical ul li.AspNet-Menu-Selected ul li a:link,
+.AspNet-Menu-Vertical ul li.AspNet-Menu-Selected ul li a:visited { 
+	background:#f7f7f7;
+	color: #000;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+	margin: 0;
+	padding: 5px 0 5px 20px;
+	text-decoration: none;
+	width: 174px;
+}
+/*  2nd tier on and hover state -- white background; red font */
+.AspNet-Menu-Vertical ul li.AspNet-Menu-Selected ul li a:hover,
+.AspNet-Menu-Vertical ul li.AspNet-Menu-Selected ul li.on a,
+.AspNet-Menu-Vertical ul li.AspNet-Menu-Selected ul li.on a:link,
+.AspNet-Menu-Vertical ul li.AspNet-Menu-Selected ul li.on a:visited,
+.AspNet-Menu-Vertical ul li.AspNet-Menu-Selected ul li.on a:hover 
+{
+	background: #fff; 
+	color: #900;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight:normal
+}
+.AspNet-Menu-Vertical ul li.AspNet-Menu-Selected ul li.AspNet-Menu-Selected a,
+.AspNet-Menu-Vertical ul li.AspNet-Menu-Selected ul li.AspNet-Menu-Selected a:link,
+.AspNet-Menu-Vertical ul li.AspNet-Menu-Selected ul li.AspNet-Menu-Selected a:visited,
+.AspNet-Menu-Vertical ul li.AspNet-Menu-Selected ul li.AspNet-Menu-Selected a:hover 
+{
+	background: #fff url(../images/red-arrow.gif) no-repeat 9px 9px; 	
+}
+
+a.grey-text:link {
+color:#4D4D4D;
+text-decoration:underline;
+}
+a.grey-text:visited {
+color:#4D4D4D;
+text-decoration:underline;
+}
+a.grey-text:hover {
+color:#000000;
+text-decoration:underline;
+}
+

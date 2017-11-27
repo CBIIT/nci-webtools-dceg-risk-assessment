@@ -1,0 +1,213 @@
+ /* CCRAT Tool Stylesheet */
+body { 
+  background:#fff; 
+  color:#333; 
+  font-family:Arial, Helvetica, Verdana;
+  font-size: small;
+}
+table { 
+  /*border-collapse:collapse*/
+}
+th,td { 
+	background: #fff;
+	color:#000;
+	padding: 0;
+	text-align:left; 
+	vertical-align:middle;
+}
+select {
+	margin:4px 0 0;
+	font-size:smaller;
+	padding:0
+}
+input  {
+	font-size:smaller;
+	margin:0;
+	padding:0;
+}
+a { 
+	background: #fff;
+	color:#900; 
+	text-decoration:underline; 
+}
+/*
+li a:visited
+{
+	color:Black;
+	text-decoration:none;
+}
+*/
+
+h2,.h2 
+{
+	font-size:large;
+	font-weight:bold;
+	margin:5px 0 5px 0;
+}
+h3,.h3
+{
+	font-size:medium;
+	font-weight:bold;
+}
+h4,.h4 
+{
+	/*display:inline;*/
+	font-weight:bold;
+}
+
+hr { /* hr */
+	border-bottom: 1px solid #999;
+}
+
+p {
+	margin:6px 0 6px;
+}
+
+ul
+{
+	margin:4px 0 0 0px;
+	padding-left:10px;
+}
+
+li
+{
+	list-style-image: url(i/red-li.gif);
+	padding-bottom: 3px;
+	margin:0 15px 0 0;
+}
+
+ol
+{
+	margin-left:25px;
+}
+
+
+.t { /*text */
+	
+}
+.c {  
+	text-align:left;
+	border-top: 1px solid #999;
+	border-bottom: 1px solid #999;
+	padding:0 0 3px 0;
+}
+.h { /* hr */
+	border-bottom: 1px solid #999;
+	padding:0 0 4px;
+	margin:0px 0px;
+}
+
+
+.hh /* hr top and bottom */
+{
+	border-top: 1px solid #999;
+	border-bottom: 1px solid #999;
+	padding:0 0 6px;
+}
+
+.b {  /* button */
+	margin:0;
+	padding:12px 0 24px;
+	text-align:center
+}
+.e {  
+	padding:6px 0 8px
+}
+.f { /* footer */
+  border-bottom-width:1px;
+  border-top-width:0;
+  background:#eee;
+  border-color:#fff;
+  border-style:solid none;
+  color:#333;
+  padding-left:4px
+}
+.f-t
+{
+	padding:4px 0 4px;
+}
+
+
+.ft { 
+	background:#eee;
+	color:#24394C; 
+	text-decoration:none	
+ }
+.r 
+{
+	padding:5px 0 5px;
+}
+.bk
+{
+	color:#000;	
+}
+
+.q-at /* additional Text*/
+{
+	margin:6px 0 6px 0;
+}
+.q-qt	/*Text*/
+{
+	font-weight: bold;
+	margin:6px 0 0;
+}
+.q-ctl
+{
+	margin:6px 0 6px;
+}
+
+.q-ctl div
+{
+	margin:2px 0 2px;
+}
+
+
+.q-ex
+{
+	border-top: 1px solid #999;
+	border-bottom: 1px solid #999;
+	padding: 6px 0 6px 0;
+}
+.q .q-sh /* question*/  
+{ 
+	margin:6px 0 0 0;
+}
+
+.r-at	/* result answer text*/
+{
+	font-weight: bold;
+}
+.r-qt /* result additional Text*/
+{
+}
+.q-pc /* % complete*/
+{
+	font-style:italic;
+	border-bottom: 1px solid #999;
+	padding:4px 0 4px;
+}
+
+.err 
+{
+	color: Red;
+}
+
+.btn
+{
+	margin:4px 0 4px;
+}
+.btnL
+{
+	/* button as a link */
+	background: #FFFFFF;
+	background-color: transparent;
+	color:#900;
+	border:none;
+	font-weight:normal;
+	font-size: small;
+	text-decoration: underline;
+	text-align:left;
+    padding:0;
+    margin:0;
+    cursor:pointer;
+}

@@ -1,0 +1,9 @@
+47   current age                             [20,85]  inclusive
+59   breast cancer risk projection age       > current age and       <=90
+12   age at menarche                         >=7 and <=current age unk=99
+27   age of first live birth                 0=no 1st live         unk=99
+ 1   ever had biopsy?                        no=0  yes=1           unk=99
+ 1   number of previous breast biopsy        >=0 and <=30          unk=99
+ 1   atypical hyperplasia (optional line 7)  no=0  yes=1           unk=99
+ 1   # 1st degree relatives with BrCa        >=0 and <=31          unk=99
+ 1   race                                    w=1 b=2 othr=3        unk=99

@@ -1,0 +1,220 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1D204412-6804-4EF5-91B5-5820FA6F84E9}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BCRA.Web</RootNamespace>
+    <AssemblyName>BCRA.Web</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EmailValidator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="NCI.StringConverter, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions.Design, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Xml.Linq, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\Helper.cs" />
+    <Compile Include="PageOptions.ascx.cs">
+      <DependentUpon>PageOptions.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PageOptions.ascx.designer.cs">
+      <DependentUpon>PageOptions.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="PopEmail.aspx.cs">
+      <DependentUpon>PopEmail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PopEmail.aspx.designer.cs">
+      <DependentUpon>PopEmail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RiskAssessment.aspx.cs">
+      <DependentUpon>RiskAssessment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RiskAssessment.aspx.designer.cs">
+      <DependentUpon>RiskAssessment.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="about-tool.aspx" />
+    <Content Include="breast-cancer-risk.aspx" />
+    <Content Include="def-ah.html" />
+    <Content Include="def-biopsy.html" />
+    <Content Include="def-dcis-lcis.html" />
+    <Content Include="def-dcis.html" />
+    <Content Include="def-lcis.html" />
+    <Content Include="def-menst.html" />
+    <Content Include="Default.aspx" />
+    <Content Include="Images\1800.jpg" />
+    <Content Include="Images\about_the_tool.gif" />
+    <Content Include="Images\bcra-banner.jpg" />
+    <Content Include="Images\bg-image.gif" />
+    <Content Include="Images\breast-cancer-risk.gif" />
+    <Content Include="Images\calculate-risk-new.gif" />
+    <Content Include="Images\calculate-risk-new_old.gif" />
+    <Content Include="Images\calculate-risk.gif" />
+    <Content Include="Images\continue.gif" />
+    <Content Include="Images\e.gif" />
+    <Content Include="Images\east.png" />
+    <Content Include="Images\email-icon.gif" />
+    <Content Include="Images\footer-firstgov.gif" />
+    <Content Include="Images\footer-hhs.gif" />
+    <Content Include="Images\footer-nih.gif" />
+    <Content Include="Images\n.gif" />
+    <Content Include="Images\nci-banner-1.gif" />
+    <Content Include="Images\nci-banner-popup.gif" />
+    <Content Include="Images\nci-banner.gif" />
+    <Content Include="Images\ne.gif" />
+    <Content Include="Images\ne.png" />
+    <Content Include="Images\north.png" />
+    <Content Include="Images\nw.gif" />
+    <Content Include="Images\nw.png" />
+    <Content Include="Images\print-icon.gif" />
+    <Content Include="Images\questions-divider.gif" />
+    <Content Include="Images\red-arrow-dn.gif" />
+    <Content Include="Images\red-arrow.gif" />
+    <Content Include="Images\s.gif" />
+    <Content Include="Images\se.gif" />
+    <Content Include="Images\se.png" />
+    <Content Include="Images\south.png" />
+    <Content Include="Images\spacer.gif" />
+    <Content Include="Images\sw.gif" />
+    <Content Include="Images\sw.png" />
+    <Content Include="Images\title-begin.gif" />
+    <Content Include="Images\title-question-ex.gif" />
+    <Content Include="Images\title-question-ex__.gif" />
+    <Content Include="Images\title-questions.gif" />
+    <Content Include="Images\title-results.gif" />
+    <Content Include="Images\w.gif" />
+    <Content Include="Images\west.png" />
+    <Content Include="PageOptions.ascx" />
+    <Content Include="PopEmail.aspx" />
+    <Content Include="QuickLinks.ascx" />
+    <Content Include="RiskAssessment.aspx" />
+    <Content Include="Script\BCRA.js" />
+    <Content Include="StyleSheets\bcra-style-print.css" />
+    <Content Include="StyleSheets\bcra-style.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="analytics_include.html" />
+    <Content Include="BCRA.master" />
+    <Content Include="code-conditions.aspx" />
+    <Content Include="def-ibc.html" />
+    <Content Include="Documentation.aspx" />
+    <Content Include="Download-Software.aspx" />
+    <Content Include="Download-Source-Code.aspx" />
+    <Content Include="Images\bcra-banner-2.jpg" />
+    <Content Include="Images\btn-accept.gif" />
+    <Content Include="Images\external-footer-logos.gif" />
+    <Content Include="Images\footer-logos.gif" />
+    <Content Include="Images\footer-navitems-divider.gif" />
+    <Content Include="Images\footer-usagov.gif" />
+    <Content Include="Images\internal-footer-logos.gif" />
+    <Content Include="Images\ms-treo.jpg" />
+    <Content Include="Images\ms-treo2.jpg" />
+    <Content Include="Images\nci-header.gif" />
+    <Content Include="Images\nci-header1.gif" />
+    <Content Include="Images\nci-header2.gif" />
+    <Content Include="Images\nci-header3.gif" />
+    <Content Include="Images\title-download-code.gif" />
+    <Content Include="Images\title-mobile-access.gif" />
+    <Content Include="Images\title-risk-calculator.gif" />
+    <Content Include="Installation-Instructions.aspx" />
+    <Content Include="Library\EmailValidator.dll" />
+    <Content Include="Library\NCI.StringConverter.dll" />
+    <Content Include="mobile-access.aspx" />
+    <Content Include="Terms-Conditions.aspx" />
+    <Content Include="Files\BCRA_Source_Code.zip" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bcpt.Engine\BCPT.Engine\NCI.BCPT.Engine.csproj">
+      <Project>{F02B7069-C547-4101-B1FD-78409144CE6E}</Project>
+      <Name>NCI.BCPT.Engine</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

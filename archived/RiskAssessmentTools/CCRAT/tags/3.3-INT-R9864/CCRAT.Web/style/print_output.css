@@ -1,0 +1,254 @@
+﻿@media print {
+	.pagewrapper 
+	{
+		display: none;
+	}
+	#printArea {
+		display:block;
+	}
+}
+@media screen {
+	#printArea 
+	{
+		display:none;
+		
+	}
+}
+.printBody #headingTextArea {
+	width: 660px;
+	margin-top: 0px;
+	margin-bottom: 8px;
+	margin-left: 22px;
+}
+.printBody #headingTextArea .headingText1 {
+	font-size:13px;
+	font-weight:bold;
+}
+.printBody #headingTextArea .headingText2 {
+	font-size: 13px;
+	color:#303538; 
+}
+.printBody #keyImage {
+	margin-left: 22px;
+	margin-top: 12px;
+	margin-bottom: 12px;
+}
+.printBody #graph {
+	position:relative;
+	padding: 50px 50px 50px 40px;
+}
+
+.graphLine {
+	position:absolute; top: 47px; left: 21px; z-index: 2;
+}
+
+.graphContainer {
+	position:relative;
+	padding: 50px 50px 50px 40px;
+	height:44px;
+	min-height: 30px;
+	
+	/* border: 3px coral solid; */
+}
+
+.dottedLine {
+	border-bottom: 1px dotted #666;
+	width: 678px;
+	margin-top:5px;
+	margin-bottom: 10px;
+}
+
+.graphArea {
+	height: 169px;
+	width: 700px;
+	margin-bottom:15px;
+}
+
+.graphTextHeading {
+	font-size:13px;
+	font-weight:600;
+	margin-top: 0px;
+	margin-left: 22px;
+	margin-bottom: 8px;
+	
+}
+
+.leftColumn  {
+	float:left;
+	height:169px;
+	width: 460px;
+}
+
+.rightColumn  {
+	float:left;
+	height:169px;
+	width:190px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color:#303538;
+	margin-left:10px;
+}
+
+
+.reponsesHeading  {
+	margin-left: 22px;
+	font-size:13px;
+	font-weight:bold;
+}
+.reponses  {
+	margin-top:0px;
+	width:650px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color:#303538;	
+}
+.responseAnswer  {
+	font-weight:bold;
+	color:#000;
+}
+
+
+.factorsPage  {
+	font-family:Arial, Helvetica, sans-serif;
+	width:610px;
+	font-size: 13px;
+	color:#303538;
+	margin-left: 20px;
+}
+.factorsPage .topHeading {
+	font-size:13px;
+	font-weight:bold;
+	color:#000;
+}
+
+.factorsPage .pHeading {
+	font-size:13px;
+	font-weight:500;
+	color:#000;
+}
+.disclaimer  {
+	font-family:Arial, Helvetica, sans-serif;
+	width:610px;
+	font-size: 13px;
+	color:#303538;
+	margin-left: 22px;
+}
+.disclaimerText  {
+	margin-top: 15px;
+	margin-bottom: 14px;
+	
+}
+	
+
+/* ------------------------------------------------------------------ */
+.fiveRiskArrow {
+	position:absolute; top: 19px; left: 39px; z-index: 3;
+}
+.fiveRiskText {
+	position:absolute; top: 2px; left: 5px; z-index: 3;
+	font-size: 12px;
+	font-weight:700;
+	color:#D04619;
+}
+.fiveAverageArrow {
+	position:absolute; top: 71px; left: 44px; z-index: 1;
+}
+.fiveAverageText {
+	position:absolute; top: 126px; left: 9px; z-index: 3;
+	font-size: 12px;
+	font-weight:700;
+	color:#959698;
+}
+.fiveRangeBox {
+	position:absolute; top: 20px; left: 35px; z-index: 1;
+	width: 35px;
+	height: 50px;
+}
+.fiveRiskRangeText {
+	position:absolute; top: 20px; left: 75px; z-index: 4;
+	font-size: 12px;
+	font-weight:700;
+	color:#303538;
+}
+/* ------------------------------------------------------------------ */
+.tenRiskArrow {
+	position:absolute; top: 19px; left: 45px; z-index: 3;
+}
+.tenRiskText {
+	position:absolute; top: 2px; left: 7px; z-index: 3;
+	font-size: 12px;
+	font-weight:700;
+	color:#D04619;
+}
+.tenAverageArrow {
+	position:absolute; top: 71px; left: 44px; z-index: 1;
+}
+.tenAverageText {
+	position:absolute; top: 126px; left: 9px; z-index: 3;
+	font-size: 12px;
+	font-weight:700;
+	color:#959698;
+}
+.tenRangeBox {
+	position:absolute; top: 20px; left: 35px; z-index: 1;
+	width: 35px;
+	height: 50px;
+}
+.tenRiskRangeText {
+	position:absolute; top: 20px; left: 75px; z-index: 4;
+	font-size: 12px;
+	font-weight:700;
+	color:#303538;
+}
+/* ------------------------------------------------------------------ */
+.lifetimeRiskArrow {
+	position:absolute; top: 19px; left: 45px; z-index: 3;
+}
+.lifetimeRiskText {
+	position:absolute; top: 2px; left: 7px; z-index: 3;
+	font-size: 12px;
+	font-weight:700;
+	color:#D04619;
+}
+.lifetimeAverageArrow {
+	position:absolute; top: 71px; left: 44px; z-index: 1;
+}
+.lifetimeAverageText {
+	position:absolute; top: 126px; left: 9px; z-index: 3;
+	font-size: 12px;
+	font-weight:700;
+	color:#959698;
+}
+.lifetimeRangeBox {
+	position:absolute; top: 20px; left: 35px; z-index: 1;
+	width: 35px;
+	height: 50px;
+}
+.lifetimeRiskRangeText {
+	position:absolute; top: 20px; left: 75px; z-index: 4;
+	font-size: 12px;
+	font-weight:700;
+	color:#303538;
+}
+/* ------------------------------------------------------------------ */
+@media screen, print {
+	.printBody {
+		font-family:Arial, Helvetica, sans-serif;
+	}
+}
+#redHeading {
+	position: relative; 
+	z-index: 2;
+	margin-bottom: 12px; /* space below redHeading sans stethoscope - page 2 on */
+	
+}
+#stethoscope {
+	position: relative;
+	z-index: 1;
+	top: -65px;
+	margin-bottom:-40px; /* space below stethoscope - page 1 */
+	
+}
+#heading {
+	margin-top:10px;
+}

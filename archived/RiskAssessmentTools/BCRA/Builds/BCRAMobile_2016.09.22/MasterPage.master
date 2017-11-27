@@ -1,0 +1,83 @@
+<%@ Master Language="C#" AutoEventWireup="true" Inherits="MasterPage" Codebehind="MasterPage.master.cs" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="CACHE-CONTROL" content="NO-CACHE" />
+    <title>NCI - Breast Cancer Risk Assessment Tool</title>
+    <link rel="stylesheet" href="css.ashx?path=ss/bcra-mobile.css" type="text/css" />
+</head>
+<body>
+    <table width="100%">
+        <tr>
+            <td class="c h">
+                <img src="i/nci-mobile-logo.gif" alt="National Cancer Institute" />
+            </td>
+        </tr>
+        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+        </asp:ContentPlaceHolder>
+        <asp:ContentPlaceHolder ID="BottomLink" runat="server">
+            <tr>
+                <td class="h">
+                    <a runat="server" href="~/">&lt; BCRA Tool Home</a>
+                </td>
+            </tr>
+        </asp:ContentPlaceHolder>
+        <tr>
+            <td class="f">
+                <a href="http://www.cancer.gov" class="ft">NCI Home</a></td>
+        </tr>
+        <tr>
+            <td class="f">
+                <a href="http://www.cancer.gov/help" class="ft">Contact Us</a></td>
+        </tr>        
+        <tr>
+            <td class="f">
+                <a href="http://www.cancer.gov/policies" class="ft">Policies</a></td>
+        </tr>
+        <tr>
+            <td class="f">
+                <a href="http://www.cancer.gov/policies/page4" class="ft">Accessibility</a></td>
+        </tr>
+    </table>
+</body>
+<!-- **** Web Analytics ************************************************* -->
+<script language="JavaScript" type="text/javascript">
+if (document.URL.indexOf('www.cancer.gov') != -1)
+    // production 
+    var s_account='ncidcegmobile';
+else 
+    // non-production
+    var s_account='ncidev';
+
+var tempPageNameOverride = location.hostname.toLowerCase() + location.pathname.toLowerCase();
+if (tempPageNameOverride.search('/bcrisktoolmobile/default.aspx') > -1)
+	var pageNameOverride =  location.hostname.toLowerCase() + '/bcrisktoolmobile/';		
+
+
+function Analytics_CalculateRiskConversionEvent()
+{
+
+    // Send calculate risk conversion event to Omniture
+    // This function works in conjunction with the 
+    // s_code.js used by Cancer.gov
+    s=s_gi(s_account);
+    s.linkTrackVars = 'events';
+    s.linkTrackEvents='event15';
+    s.events='event15';
+    s.tl(this,'o','RiskAssessmentCalculation');
+
+}
+
+</script>
+<script language="JavaScript" type="text/javascript" src="//static.cancer.gov/webanalytics/wcms/s_code.js"></script>
+<script language="JavaScript" type="text/javascript">
+<!--
+
+s.channel='DCEG - BCRAT Mobile';
+s.events='event1';
+var s_code=s.t();if(s_code)document.write(s_code)
+
+-->
+</script>
+<!-- **** End Web Analytics ********************************************* -->
+</html>

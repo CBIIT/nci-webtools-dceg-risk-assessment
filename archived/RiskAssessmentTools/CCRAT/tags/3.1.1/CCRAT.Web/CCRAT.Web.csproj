@@ -1,0 +1,544 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E794B824-D1BC-4E07-B9E1-04DAE62C48C4}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CCRAT.Web</RootNamespace>
+    <AssemblyName>CCRAT.Web</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CSSFriendly, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Library\CSSFriendly.dll</HintPath>
+    </Reference>
+    <Reference Include="EmailValidator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="NCI.StringConverter, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions.Design, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="images\1800.jpg" />
+    <Content Include="images\bg-image.gif" />
+    <Content Include="images\btn-accept.gif" />
+    <Content Include="images\calculate-risk.gif" />
+    <Content Include="images\continue.gif" />
+    <Content Include="images\directors-retreat-arrow.gif" />
+    <Content Include="images\downloads.gif" />
+    <Content Include="images\e.gif" />
+    <Content Include="images\east.png" />
+    <Content Include="images\email-icon.gif" />
+    <Content Include="images\footer-firstgov.gif" />
+    <Content Include="images\footer-hhs.gif" />
+    <Content Include="images\footer-logos.gif" />
+    <Content Include="images\footer-nih.gif" />
+    <Content Include="images\footer-usagov.gif" />
+    <Content Include="images\ms-treo.jpg" />
+    <Content Include="images\n.gif" />
+    <Content Include="images\nci-banner-1.gif" />
+    <Content Include="images\nci-banner-popup.gif" />
+    <Content Include="images\nci-banner.gif" />
+    <Content Include="images\ne.gif" />
+    <Content Include="images\ne.png" />
+    <Content Include="images\north.png" />
+    <Content Include="images\nw.gif" />
+    <Content Include="images\nw.png" />
+    <Content Include="images\print-icon.gif" />
+    <Content Include="images\questions-divider-1px.gif" />
+    <Content Include="images\questions-divider.gif" />
+    <Content Include="images\red-arrow-dn.gif" />
+    <Content Include="images\red-arrow-leftnav.gif" />
+    <Content Include="images\red-arrow.gif" />
+    <Content Include="images\s.gif" />
+    <Content Include="images\se.gif" />
+    <Content Include="images\se.png" />
+    <Content Include="images\shoulders.jpg" />
+    <Content Include="images\south.png" />
+    <Content Include="images\spacer.gif" />
+    <Content Include="images\sw.gif" />
+    <Content Include="images\sw.png" />
+    <Content Include="images\title-about-the-tool.gif" />
+    <Content Include="images\title-begin.gif" />
+    <Content Include="images\title-download-code.gif" />
+    <Content Include="images\title-mobile-access.gif" />
+    <Content Include="images\title-question-ex.gif" />
+    <Content Include="images\title-questions.gif" />
+    <Content Include="images\title-results.gif" />
+    <Content Include="images\us-regions.gif" />
+    <Content Include="images\w.gif" />
+    <Content Include="images\west.png" />
+    <Content Include="style\ccrat-style-print.css" />
+    <Content Include="style\ccrat-style.css" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="about-tool.aspx.cs">
+      <DependentUpon>about-tool.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="about-tool.aspx.designer.cs">
+      <DependentUpon>about-tool.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="colorectal-cancer-risk.aspx.cs">
+      <DependentUpon>colorectal-cancer-risk.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="colorectal-cancer-risk.aspx.designer.cs">
+      <DependentUpon>colorectal-cancer-risk.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SessionExpired.aspx.cs">
+      <DependentUpon>SessionExpired.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SessionExpired.aspx.designer.cs">
+      <DependentUpon>SessionExpired.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\CCRATUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Popup.Master.cs">
+      <DependentUpon>Popup.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Popup.Master.designer.cs">
+      <DependentUpon>Popup.Master</DependentUpon>
+    </Compile>
+    <Compile Include="disclaimer-asian-american.aspx.cs">
+      <DependentUpon>disclaimer-asian-american.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="disclaimer-asian-american.aspx.designer.cs">
+      <DependentUpon>disclaimer-asian-american.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="disclaimer-african-american.aspx.cs">
+      <DependentUpon>disclaimer-african-american.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="disclaimer-african-american.aspx.designer.cs">
+      <DependentUpon>disclaimer-african-american.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="disclaimer-hispanic.aspx.cs">
+      <DependentUpon>disclaimer-hispanic.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="disclaimer-hispanic.aspx.designer.cs">
+      <DependentUpon>disclaimer-hispanic.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="def-anti-inflammatory.aspx.cs">
+      <DependentUpon>def-anti-inflammatory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="def-anti-inflammatory.aspx.designer.cs">
+      <DependentUpon>def-anti-inflammatory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="def-biopsy.aspx.cs">
+      <DependentUpon>def-biopsy.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="def-biopsy.aspx.designer.cs">
+      <DependentUpon>def-biopsy.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="def-colonoscope.aspx.cs">
+      <DependentUpon>def-colonoscope.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="def-colonoscope.aspx.designer.cs">
+      <DependentUpon>def-colonoscope.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="def-colonoscopy.aspx.cs">
+      <DependentUpon>def-colonoscopy.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="def-colonoscopy.aspx.designer.cs">
+      <DependentUpon>def-colonoscopy.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="def-colorectal-cancer.aspx.cs">
+      <DependentUpon>def-colorectal-cancer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="def-colorectal-cancer.aspx.designer.cs">
+      <DependentUpon>def-colorectal-cancer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="def-HRT.aspx.cs">
+      <DependentUpon>def-HRT.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="def-HRT.aspx.designer.cs">
+      <DependentUpon>def-HRT.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="def-sigmoidoscopy.aspx.cs">
+      <DependentUpon>def-sigmoidoscopy.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="def-sigmoidoscopy.aspx.designer.cs">
+      <DependentUpon>def-sigmoidoscopy.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DefPop.Master.cs">
+      <DependentUpon>DefPop.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DefPop.Master.designer.cs">
+      <DependentUpon>DefPop.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\Helper.cs" />
+    <Compile Include="Helper\SimpleMenu.cs" />
+    <Compile Include="printresults.aspx.cs">
+      <DependentUpon>printresults.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="printresults.aspx.designer.cs">
+      <DependentUpon>printresults.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Result.aspx.cs">
+      <DependentUpon>Result.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Result.aspx.designer.cs">
+      <DependentUpon>Result.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ScriptDisabled.aspx.cs">
+      <DependentUpon>ScriptDisabled.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ScriptDisabled.aspx.designer.cs">
+      <DependentUpon>ScriptDisabled.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ServerControls\AboutExplanation.cs" />
+    <Compile Include="ServerControls\AEExplanation.cs" />
+    <Compile Include="ServerControls\AEQuestion.cs" />
+    <Compile Include="ServerControls\AEQuestionCollection.cs" />
+    <Compile Include="ServerControls\QuestionControl.cs" />
+    <Compile Include="ServerControls\QuestionExplanation.cs" />
+    <Compile Include="ServerControls\QuestionGroup.cs" />
+    <Compile Include="ServerControls\QuestionGroupManager.cs" />
+    <Compile Include="ServerControls\QuestionItemBase.cs" />
+    <Compile Include="ServerControls\QuestionModalAlert.cs" />
+    <Compile Include="ServerControls\QuestionSectionHeader.cs" />
+    <Compile Include="ServerControls\QuestionSeparator.cs" />
+    <Compile Include="tool.aspx.cs">
+      <DependentUpon>tool.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="tool.aspx.designer.cs">
+      <DependentUpon>tool.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PageOptions.ascx.cs">
+      <DependentUpon>PageOptions.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\PageOptions.ascx.designer.cs">
+      <DependentUpon>PageOptions.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="PopEmail.aspx.cs">
+      <DependentUpon>PopEmail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PopEmail.aspx.designer.cs">
+      <DependentUpon>PopEmail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControls\QuestionAsker2.ascx.cs">
+      <DependentUpon>QuestionAsker2.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\QuestionAsker2.ascx.designer.cs">
+      <DependentUpon>QuestionAsker2.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Results.ascx.cs">
+      <DependentUpon>Results.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Results.ascx.designer.cs">
+      <DependentUpon>Results.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WUCDemo.ascx.cs">
+      <DependentUpon>WUCDemo.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\WUCDemo.ascx.designer.cs">
+      <DependentUpon>WUCDemo.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WUCDiet.ascx.cs">
+      <DependentUpon>WUCDiet.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\WUCDiet.ascx.designer.cs">
+      <DependentUpon>WUCDiet.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WUCFamily.ascx.cs">
+      <DependentUpon>WUCFamily.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\WUCFamily.ascx.designer.cs">
+      <DependentUpon>WUCFamily.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WUCMedicalHistory.ascx.cs">
+      <DependentUpon>WUCMedicalHistory.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\WUCMedicalHistory.ascx.designer.cs">
+      <DependentUpon>WUCMedicalHistory.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WUCMedication.ascx.cs">
+      <DependentUpon>WUCMedication.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\WUCMedication.ascx.designer.cs">
+      <DependentUpon>WUCMedication.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WUCMiscellaneous.ascx.cs">
+      <DependentUpon>WUCMiscellaneous.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\WUCMiscellaneous.ascx.designer.cs">
+      <DependentUpon>WUCMiscellaneous.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WUCMiscWoman.ascx.cs">
+      <DependentUpon>WUCMiscWoman.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\WUCMiscWoman.ascx.designer.cs">
+      <DependentUpon>WUCMiscWoman.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WUCPhysicalActivity.ascx.cs">
+      <DependentUpon>WUCPhysicalActivity.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\WUCPhysicalActivity.ascx.designer.cs">
+      <DependentUpon>WUCPhysicalActivity.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WUCResult.ascx.cs">
+      <DependentUpon>WUCResult.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\WUCResult.ascx.designer.cs">
+      <DependentUpon>WUCResult.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="WillGet.aspx.cs">
+      <DependentUpon>WillGet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WillGet.aspx.designer.cs">
+      <DependentUpon>WillGet.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="about-tool.aspx" />
+    <Content Include="CCRAT.master" />
+    <Content Include="Default.aspx" />
+    <Content Include="images\title-risk-calculator.gif" />
+    <Content Include="Library\EmailValidator.dll" />
+    <Content Include="Library\NCI.StringConverter.dll" />
+    <Content Include="UserControls\PageOptions.ascx" />
+    <Content Include="PopEmail.aspx" />
+    <Content Include="UserControls\QuickLinks.ascx" />
+    <Content Include="script\ccrat.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CCRAT.RiskCalculator\CCRAT.RiskCalculator.csproj">
+      <Project>{D216F956-6303-4D59-9F1C-46551DA42CE9}</Project>
+      <Name>CCRAT.RiskCalculator</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="images\ccrat-banner.jpg" />
+    <Content Include="images\help.gif" />
+    <Content Include="images\helplink_button.gif" />
+    <Content Include="UserControls\QuestionAsker2.ascx" />
+    <Content Include="UserControls\Results.ascx" />
+    <Content Include="Web.sitemap" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Browsers\CSSFriendlyAdapters.browser" />
+    <Content Include="colorectal-cancer-risk.aspx" />
+    <Content Include="images\calculate-risk-new.gif" />
+    <Content Include="images\colorectal-cancer-risk.gif" />
+    <Content Include="images\helplink_image.gif" />
+    <Content Include="images\title-ccr-protect-factors.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="analytics_include.html" />
+    <Content Include="disclaimer-asian-american.aspx" />
+    <Content Include="disclaimer-african-american.aspx" />
+    <Content Include="def-avg-risk.aspx" />
+    <Content Include="disclaimer-hispanic.aspx" />
+    <Content Include="def-anti-inflammatory.aspx" />
+    <Content Include="def-biopsy.aspx" />
+    <Content Include="def-colonoscope.aspx" />
+    <Content Include="def-colonoscopy.aspx" />
+    <Content Include="def-colorectal-cancer.aspx" />
+    <Content Include="def-HRT.aspx" />
+    <Content Include="def-other-races.aspx" />
+    <Content Include="def-sigmoidoscopy.aspx" />
+    <Content Include="DefPop.Master" />
+    <Content Include="Error.aspx" />
+    <Content Include="images\calculate-risk-disabled.gif" />
+    <Content Include="images\ccrat-banner-2.jpg" />
+    <Content Include="images\colorectal-cancer-risk-factors.gif" />
+    <Content Include="images\nci-banner-popup-2.gif" />
+    <Content Include="images\nci-banner-popup-close.gif" />
+    <Content Include="images\question-section.gif" />
+    <Content Include="images\red-li.gif" />
+    <Content Include="images\title-your-results.gif" />
+    <Content Include="images\window-close.gif" />
+    <Content Include="images\window_background.png" />
+    <Content Include="script\DHtmlModalPopup3.js" />
+    <Content Include="script\DHtmlModalPopup2.js" />
+    <Content Include="script\DHtmlModalPopup.js" />
+    <Content Include="style\more_link.css" />
+    <Content Include="tool.aspx" />
+    <Content Include="UserControls\WUCDemo.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="images\back.png" />
+    <Content Include="images\bg_alpha.png" />
+    <Content Include="images\bg_arrow_green.png" />
+    <Content Include="images\bg_arrow_red_up.png" />
+    <Content Include="images\calculate.png" />
+    <Content Include="images\cancel.png" />
+    <Content Include="images\editpersonalbold.png" />
+    <Content Include="images\intro_launch.png" />
+    <Content Include="images\next.png" />
+    <Content Include="images\printer_ico.png" />
+    <Content Include="images\res_tabs_lifetime.png" />
+    <Content Include="images\sm_recalculate.png" />
+    <Content Include="images\startoverbold.png" />
+    <Content Include="images\williget.png" />
+    <Content Include="NewCCRAT.master" />
+    <Content Include="Result.aspx" />
+    <Content Include="script\data.js" />
+    <Content Include="style\data.css" />
+    <Content Include="style\deflink.css" />
+    <Content Include="style\demodata_overlay.css" />
+    <Content Include="style\ie.css" />
+    <Content Include="style\jqueryui.css" />
+    <Content Include="style\print.css" />
+    <Content Include="style\results_overlay.css" />
+    <Content Include="style\results_overlay_popup.css" />
+    <Content Include="UserControls\WUCDiet.ascx" />
+    <Content Include="UserControls\WUCFamily.ascx" />
+    <Content Include="UserControls\WUCMedicalHistory.ascx" />
+    <Content Include="UserControls\WUCMedication.ascx" />
+    <Content Include="UserControls\WUCMiscellaneous.ascx" />
+    <Content Include="UserControls\WUCMiscWoman.ascx" />
+    <Content Include="UserControls\WUCPhysicalActivity.ascx" />
+    <Content Include="UserControls\WUCResult.ascx" />
+    <Content Include="WillGet.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="def-age-range.aspx" />
+    <Content Include="Download-Code.aspx" />
+    <Content Include="images\ccrat_box.gif" />
+    <Content Include="images\ccrat_gray_up_arrow.gif" />
+    <Content Include="images\ccrat_head.jpg" />
+    <Content Include="images\ccrat_head2.jpg" />
+    <Content Include="images\ccrat_key.gif" />
+    <Content Include="images\ccrat_line_trans.gif" />
+    <Content Include="images\ccrat_line_trans_extend.gif" />
+    <Content Include="images\ccrat_nci.jpg" />
+    <Content Include="images\ccrat_red_down_arrow.gif" />
+    <Content Include="images\stethoscope_s.jpg" />
+    <Content Include="SessionExpired.aspx" />
+    <Content Include="Flash\final_dyn_v3.swf" />
+    <Content Include="Flash\final_dyn_v4.swf" />
+    <Content Include="Flash\risk_1000_v6.swf" />
+    <Content Include="Flash\risk_1000_v9.swf" />
+    <Content Include="Flash\risk_100_v6.swf" />
+    <Content Include="Flash\risk_100_v9.swf" />
+    <Content Include="images\backtoresults.png" />
+    <Content Include="images\sm_cancel.png" />
+    <Content Include="Popup.Master" />
+    <Content Include="printresults.aspx" />
+    <Content Include="ScriptDisabled.aspx" />
+    <Content Include="style\def1000.css" />
+    <Content Include="style\PrintResult.css" />
+    <Content Include="style\print_output.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Flash\final_dyn_v3.fla" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

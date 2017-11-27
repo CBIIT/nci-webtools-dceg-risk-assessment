@@ -1,0 +1,66 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bcpt.Client.Console", "Bcpt.Client.Console\Bcpt.Client.Console.csproj", "{5407A091-B4D2-49DB-8CAD-28E9B69EF92E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCI.BCPT.Engine", "Bcpt.Engine\BCPT.Engine\NCI.BCPT.Engine.csproj", "{F02B7069-C547-4101-B1FD-78409144CE6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BCRA.Mobile", "BCRA.Mobile\BCRA.Mobile.csproj", "{600751A0-DB5F-48B8-9A2B-4D863D043119}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BCRA.Web", "BCRA.Web\BCRA.Web.csproj", "{1D204412-6804-4EF5-91B5-5820FA6F84E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BCRA.Web.Service", "BCRA.Web.Services\BCRA.Web.Service.csproj", "{819DF9F0-CE66-404C-9BD3-A9AC3159DAE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BCRA.Web.Service.Client", "BCRA.Web.Services.Client\BCRA.Web.Service.Client.csproj", "{C22B8EE1-B14B-4BE8-BDDC-531FB52C0BC3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Design Mode|Any CPU = Design Mode|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5407A091-B4D2-49DB-8CAD-28E9B69EF92E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5407A091-B4D2-49DB-8CAD-28E9B69EF92E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5407A091-B4D2-49DB-8CAD-28E9B69EF92E}.Design Mode|Any CPU.ActiveCfg = Debug|Any CPU
+		{5407A091-B4D2-49DB-8CAD-28E9B69EF92E}.Design Mode|Any CPU.Build.0 = Debug|Any CPU
+		{5407A091-B4D2-49DB-8CAD-28E9B69EF92E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5407A091-B4D2-49DB-8CAD-28E9B69EF92E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F02B7069-C547-4101-B1FD-78409144CE6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F02B7069-C547-4101-B1FD-78409144CE6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F02B7069-C547-4101-B1FD-78409144CE6E}.Design Mode|Any CPU.ActiveCfg = Debug|Any CPU
+		{F02B7069-C547-4101-B1FD-78409144CE6E}.Design Mode|Any CPU.Build.0 = Debug|Any CPU
+		{F02B7069-C547-4101-B1FD-78409144CE6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F02B7069-C547-4101-B1FD-78409144CE6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{600751A0-DB5F-48B8-9A2B-4D863D043119}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{600751A0-DB5F-48B8-9A2B-4D863D043119}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{600751A0-DB5F-48B8-9A2B-4D863D043119}.Design Mode|Any CPU.ActiveCfg = Debug|Any CPU
+		{600751A0-DB5F-48B8-9A2B-4D863D043119}.Design Mode|Any CPU.Build.0 = Debug|Any CPU
+		{600751A0-DB5F-48B8-9A2B-4D863D043119}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{600751A0-DB5F-48B8-9A2B-4D863D043119}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D204412-6804-4EF5-91B5-5820FA6F84E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D204412-6804-4EF5-91B5-5820FA6F84E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D204412-6804-4EF5-91B5-5820FA6F84E9}.Design Mode|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D204412-6804-4EF5-91B5-5820FA6F84E9}.Design Mode|Any CPU.Build.0 = Debug|Any CPU
+		{1D204412-6804-4EF5-91B5-5820FA6F84E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D204412-6804-4EF5-91B5-5820FA6F84E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{819DF9F0-CE66-404C-9BD3-A9AC3159DAE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{819DF9F0-CE66-404C-9BD3-A9AC3159DAE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{819DF9F0-CE66-404C-9BD3-A9AC3159DAE6}.Design Mode|Any CPU.ActiveCfg = Debug|Any CPU
+		{819DF9F0-CE66-404C-9BD3-A9AC3159DAE6}.Design Mode|Any CPU.Build.0 = Debug|Any CPU
+		{819DF9F0-CE66-404C-9BD3-A9AC3159DAE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{819DF9F0-CE66-404C-9BD3-A9AC3159DAE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C22B8EE1-B14B-4BE8-BDDC-531FB52C0BC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C22B8EE1-B14B-4BE8-BDDC-531FB52C0BC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C22B8EE1-B14B-4BE8-BDDC-531FB52C0BC3}.Design Mode|Any CPU.ActiveCfg = Debug|Any CPU
+		{C22B8EE1-B14B-4BE8-BDDC-531FB52C0BC3}.Design Mode|Any CPU.Build.0 = Debug|Any CPU
+		{C22B8EE1-B14B-4BE8-BDDC-531FB52C0BC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C22B8EE1-B14B-4BE8-BDDC-531FB52C0BC3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+EndGlobal

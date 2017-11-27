@@ -1,0 +1,14 @@
+#leftnav {
+	display: none;
+	background: #eaeef4;
+	float: left; 
+	margin-bottom: 30px;
+	width: 202px
+}
+
+#content {
+	/*background: #eaeef4;*/
+	margin: 0px 0px 30px 50px;
+	width: 539px;
+	float: left;
+}

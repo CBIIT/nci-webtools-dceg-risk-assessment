@@ -1,0 +1,49 @@
+<%@ Master Language="C#" AutoEventWireup="true" Inherits="MRAT.Mobile.MRATMobile" CodeBehind="MRATMobile.Master.cs" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <meta http-equiv="CACHE-CONTROL" content="NO-CACHE" />
+    <title>Melanoma Risk Assessment Tool</title>
+    <link rel="stylesheet" href="css.ashx?path=ss/mrat-mobile.css" type="text/css" />
+</head>
+<body>
+<%--<iframe id="frameMaster" scrolling="auto" >--%>
+<form action="Q00.aspx" method="post">
+    <table width="100%">
+        <tr>
+            <td class="c h">
+                <img src="i/nci-mobile-logo.gif" alt="National Cancer Institute" />
+            </td>
+        </tr>
+        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+        </asp:ContentPlaceHolder>
+        <asp:ContentPlaceHolder ID="BottomLink" runat="server">
+            <tr>
+                <td class="h">
+                    <a id="A1" runat="server" href="~/">&lt; MRAT Home</a>
+                </td>
+            </tr>
+        </asp:ContentPlaceHolder>
+        <tr>
+            <td class="f">
+                <a href="http://www.cancer.gov" class="ft">NCI Home</a></td>
+        </tr>
+        <tr>
+            <td class="f">
+                <a href="http://www.cancer.gov/help" class="ft">Contact Us</a></td>
+        </tr>        
+        <tr>
+            <td class="f">
+                <a href="http://www.cancer.gov/policies" class="ft">Policies</a></td>
+        </tr>
+        <tr>
+            <td class="f">
+                <a href="http://www.cancer.gov/policies/page4" class="ft">Accessibility</a></td>
+        </tr>
+    </table>
+    </form>
+<%--    </iframe>--%>
+</body>
+</html>

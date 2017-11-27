@@ -1,0 +1,231 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AC494127-BE23-47DE-9150-9E4A08B2C2AF}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MRAT</RootNamespace>
+    <AssemblyName>MRAT</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EmailValidator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="MRAT.RiskCalculator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="NCI.StringConverter, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions.Design, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Xml.Linq, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="about-tool.html" />
+    <Content Include="code-conditions.html" />
+    <Content Include="documentation.html" />
+    <Content Include="download-pda-software.html" />
+    <Content Include="download-source-code.html" />
+    <Content Include="Files\MobileMRATSetup.exe" />
+    <Content Include="images\btn-accept.gif" />
+    <Content Include="images\footer-logos.gif" />
+    <Content Include="images\footer-usagov.gif" />
+    <Content Include="images\title-download-code.gif" />
+    <Content Include="images\title-mobile-access.gif" />
+    <Content Include="installation-instructions.html" />
+    <Content Include="mobile-access.html" />
+    <Content Include="mobile-terms-conditions.html" />
+    <Content Include="QuickLinks.ascx" />
+    <Content Include="results_f.aspx" />
+    <Content Include="def-UVB radiation.html" />
+    <Content Include="def-risk factors.html" />
+    <Content Include="def-basal cell carcinoma.html" />
+    <Content Include="def-squamous cell carcinoma.html" />
+    <Content Include="def-Ultraviolet %28UV%29 radiation.html" />
+    <Content Include="def-Immune System.html" />
+    <Content Include="def-Transplantation.html" />
+    <Content Include="def-Sunscreen.html" />
+    <Content Include="def-UVA.html" />
+    <Content Include="def-ah.html" />
+    <Content Include="dlink.html" />
+    <Content Include="images\1800.jpg" />
+    <Content Include="images\bg-image.gif" />
+    <Content Include="images\breast-cancer-risk.gif" />
+    <Content Include="images\calculate-risk-new.gif" />
+    <Content Include="images\calculate-risk.gif" />
+    <Content Include="images\continue.gif" />
+    <Content Include="images\directors-retreat-arrow.gif" />
+    <Content Include="images\downloads.gif" />
+    <Content Include="images\e.gif" />
+    <Content Include="images\east.png" />
+    <Content Include="images\email-icon.gif" />
+    <Content Include="images\footer-firstgov.gif" />
+    <Content Include="images\footer-hhs.gif" />
+    <Content Include="images\footer-nih.gif" />
+    <Content Include="images\freckling.jpg" />
+    <Content Include="images\melanoma-cancer-risk.gif" />
+    <Content Include="images\mrat-banner-1.gif" />
+    <Content Include="images\mrat-banner-2.jpg" />
+    <Content Include="images\mrat-banner.jpg" />
+    <Content Include="images\mratMildLrg.jpg" />
+    <Content Include="images\mratModLrg.jpg" />
+    <Content Include="images\mratSevereLrg.jpg" />
+    <Content Include="images\mratSevereLrg2.jpg" />
+    <Content Include="images\n.gif" />
+    <Content Include="images\nci-banner-1.gif" />
+    <Content Include="images\nci-banner-popup.gif" />
+    <Content Include="images\nci-banner.gif" />
+    <Content Include="images\ne.gif" />
+    <Content Include="images\ne.png" />
+    <Content Include="images\north.png" />
+    <Content Include="images\nw.gif" />
+    <Content Include="images\nw.png" />
+    <Content Include="images\print-icon.gif" />
+    <Content Include="images\questions-divider-1px.gif" />
+    <Content Include="images\questions-divider.gif" />
+    <Content Include="images\red-arrow-dn.gif" />
+    <Content Include="images\red-arrow-leftnav.gif" />
+    <Content Include="images\red-arrow.gif" />
+    <Content Include="images\s.gif" />
+    <Content Include="images\se.gif" />
+    <Content Include="images\se.png" />
+    <Content Include="images\shoulders.jpg" />
+    <Content Include="images\south.png" />
+    <Content Include="images\spacer.gif" />
+    <Content Include="images\sw.gif" />
+    <Content Include="images\sw.png" />
+    <Content Include="images\title-about-the-tool.gif" />
+    <Content Include="images\title-begin.gif" />
+    <Content Include="images\title-question-ex.gif" />
+    <Content Include="images\title-questions.gif" />
+    <Content Include="images\title-results.gif" />
+    <Content Include="images\us-regions.gif" />
+    <Content Include="images\w.gif" />
+    <Content Include="images\west.png" />
+    <Content Include="melanoma-cancer-risk.html" />
+    <Content Include="popup.html" />
+    <Content Include="PopEmail.aspx" />
+    <Content Include="References\EmailValidator.dll" />
+    <Content Include="References\MRAT.RiskCalculator.dll" />
+    <Content Include="References\NCI.StringConverter.dll" />
+    <Content Include="results_m.aspx" />
+    <Content Include="script\calculator.js" />
+    <Content Include="style\mrat-style-print.css" />
+    <Content Include="style\mrat-style.css" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="default.aspx.designer.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="results_f.aspx.cs">
+      <DependentUpon>results_f.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="results_f.aspx.designer.cs">
+      <DependentUpon>results_f.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PopEmail.aspx.cs">
+      <DependentUpon>PopEmail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PopEmail.aspx.designer.cs">
+      <DependentUpon>PopEmail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="results_m.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>results_m.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="results_m.aspx.designer.cs">
+      <DependentUpon>results_m.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="docs\Content for MRAT 7-10-06.doc" />
+    <None Include="docs\MRAT Risk Calculator Draft 1 Highlighted.doc" />
+    <Content Include="analytics_include.html" />
+    <Content Include="default.aspx" />
+    <Content Include="Files\MobileMRATUserGuide.pdf" />
+    <Content Include="Files\MRAT_Source_Code.zip" />
+    <Content Include="images\mrat-banner-2.gif" />
+    <Content Include="images\ms-treo.jpg" />
+    <Content Include="JS\Omniture\WA_MRAT_PageLoad.js" />
+    <Content Include="JS\Omniture\s_code.js" />
+    <Content Include="JS\Omniture\WA_MRAT_post.js" />
+    <Content Include="JS\Omniture\WA_MRAT_pre.js" />
+    <None Include="psd\MRAT_home2.psd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

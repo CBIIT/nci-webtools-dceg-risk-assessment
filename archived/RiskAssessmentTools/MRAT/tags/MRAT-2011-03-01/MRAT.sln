@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MRAT.Web", "MRAT.Web\MRAT.Web.csproj", "{AC494127-BE23-47DE-9150-9E4A08B2C2AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MRAT.RiskCalculator", "MRAT.RiskCalculator\MRAT.RiskCalculator.csproj", "{BB78803E-F300-49AD-95A8-2F8FEF853D68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MRAT.Mobile", "MRAT.Mobile\MRAT.Mobile.csproj", "{8A8BDAED-66FF-4E6E-A12C-DCCB9940CA53}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|.NET = Debug|.NET
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Release|.NET = Release|.NET
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC494127-BE23-47DE-9150-9E4A08B2C2AF}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{AC494127-BE23-47DE-9150-9E4A08B2C2AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC494127-BE23-47DE-9150-9E4A08B2C2AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC494127-BE23-47DE-9150-9E4A08B2C2AF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{AC494127-BE23-47DE-9150-9E4A08B2C2AF}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{AC494127-BE23-47DE-9150-9E4A08B2C2AF}.Release|.NET.ActiveCfg = Release|Any CPU
+		{AC494127-BE23-47DE-9150-9E4A08B2C2AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC494127-BE23-47DE-9150-9E4A08B2C2AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC494127-BE23-47DE-9150-9E4A08B2C2AF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{AC494127-BE23-47DE-9150-9E4A08B2C2AF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{BB78803E-F300-49AD-95A8-2F8FEF853D68}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{BB78803E-F300-49AD-95A8-2F8FEF853D68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB78803E-F300-49AD-95A8-2F8FEF853D68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB78803E-F300-49AD-95A8-2F8FEF853D68}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BB78803E-F300-49AD-95A8-2F8FEF853D68}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BB78803E-F300-49AD-95A8-2F8FEF853D68}.Release|.NET.ActiveCfg = Release|Any CPU
+		{BB78803E-F300-49AD-95A8-2F8FEF853D68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB78803E-F300-49AD-95A8-2F8FEF853D68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB78803E-F300-49AD-95A8-2F8FEF853D68}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BB78803E-F300-49AD-95A8-2F8FEF853D68}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8A8BDAED-66FF-4E6E-A12C-DCCB9940CA53}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{8A8BDAED-66FF-4E6E-A12C-DCCB9940CA53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A8BDAED-66FF-4E6E-A12C-DCCB9940CA53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A8BDAED-66FF-4E6E-A12C-DCCB9940CA53}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8A8BDAED-66FF-4E6E-A12C-DCCB9940CA53}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8A8BDAED-66FF-4E6E-A12C-DCCB9940CA53}.Release|.NET.ActiveCfg = Release|Any CPU
+		{8A8BDAED-66FF-4E6E-A12C-DCCB9940CA53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A8BDAED-66FF-4E6E-A12C-DCCB9940CA53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A8BDAED-66FF-4E6E-A12C-DCCB9940CA53}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8A8BDAED-66FF-4E6E-A12C-DCCB9940CA53}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+EndGlobal

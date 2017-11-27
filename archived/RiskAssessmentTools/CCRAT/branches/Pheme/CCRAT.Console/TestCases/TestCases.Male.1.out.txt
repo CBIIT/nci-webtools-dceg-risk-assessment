@@ -1,0 +1,3 @@
+Age|h(in)|w(lb)|numSrvngs|amountVeg|colonoscopy|hadPolyp|asprin|ibuprofen|cigs100More|smokeStartAge|stillSmoke|ageQuit|quitNumPerDay|vigorousActivities|vigorousHours|hasRelativeHadCC|numRelativesHavingCC|numrel|cigarets|duration|noNSaids|noIbuprofn|sigmod|vegLT5|bmiTrnd|hrsExcrise|patternID|5Yr|10Yr|20Yr|life
+50|72|177|11|1|Yes|No|Yes|Yes|No|NaN|NaN|NaN|NaN|0|NaN|No|NaN|0|0|0|0|0|0|0|0|3|13825|0.000728|0.001981|0.006510|0.016070
+
