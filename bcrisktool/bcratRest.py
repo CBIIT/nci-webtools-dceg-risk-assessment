@@ -73,7 +73,9 @@ class BreastRiskAssessmentTool:
       rhyp = 1.0
       if 'biopsy' not in errorObject['missing'] and 'biopsy' not in errorObject['nonnumeric']:
         numberOfBiopsies = int(parameters['biopsy'])
-        if numberOfBiopsies > 0:
+        if numberOfBiopsies == 1 or numberOfBiopsies == 99:
+          numberOfBiopsies = 0
+        else:
           if 'biopsy_result' not in parameters:
             errorObject['missing'] += ['biopsy_result']
           elif not parameters['biopsy_result'].isnumeric():
@@ -123,7 +125,7 @@ class BreastRiskAssessmentTool:
       return BreastRiskAssessmentTool.buildFailure(str(e))
 
   def __init__(self,port,debug):
-    app.run(host='0.0.0.0', port=port, debug=debug)
+    app.run(host='0.0.0.0', port=port, debug=True)
 
 if __name__ == '__main__':
   import argparse
