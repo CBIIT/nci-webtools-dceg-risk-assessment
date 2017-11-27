@@ -34,7 +34,7 @@ class BreastRiskAssessmentTool:
     logging.debug("Returning from Backend --> " + str(response))
     return response
 
-  @app.route('/bcrisktool/rest/calculate', methods=['POST'])
+  @app.route('/calculate', methods=['POST'], strict_slashes=False)
   def bcratRisk():
     try:
       parameters = dict(request.form)
