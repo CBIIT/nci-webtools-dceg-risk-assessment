@@ -89,8 +89,10 @@ $(function() {
 // If Any question is "Yes" in the Patient Eligibility is selected then
 // disable the calculate button
 function disableIfPatientIsNotEligible() {
-  var result = $("#patient-eligibility-section input[id$='Yes']:checked").length;
-  if ( result > 0 ) disablebutton();
+  var totalButtonsSelected = $("#patient-eligibility-section input:checked").length
+  var totalButtonsWithYes = $("#patient-eligibility-section input[id$='Yes']:checked").length
+  if ( (totalButtonsSelected != 2) || (totalButtonsWithYes > 0) )
+    disablebutton()
 }
 
 /* A specialized version of the enableForm function where we determine if  */
@@ -99,7 +101,9 @@ function enableBRATForm() {
   enableForm();
   womanHadBiopsy();
   changeSubraceMenu();
-  disablebutton();
+  enableButtonIfAllFieldHaveInput();
+  //disablebutton();
+  disableIfPatientIsNotEligible()
 }
 
 // Function : Determine if the woman every had a biopsy and disable certain
@@ -150,9 +154,6 @@ function resetsDropDowns() {
   resetsSubRaceDropDown();
   resetsChildBirthAge();
 }
-
-
-
 
 // If the value of the race menu is not "Asian" the subrace dropddown select box
 function changeSubraceMenu() {
