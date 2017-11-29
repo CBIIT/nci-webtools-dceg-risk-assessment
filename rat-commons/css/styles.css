@@ -26,13 +26,23 @@
   font-family: 'Montserrat';
   font-weight: normal;
   font-style: normal;
-  src: url("fonts/Montserrat-Regular.ttf");
+  src:url("fonts/Montserrat-regular.eot");
+	src:url("fonts/Montserrat-regular.eot?#iefix")     format("embedded-opentype"),
+		url("fonts/Montserrat-regular.woff")             format("woff"),
+		url("fonts/Montserrat-regular.ttf")              format("truetype"),
+		url("fonts/Montserrat-regular.svg#Montserrat")   format("svg")
+
 }
 @font-face {
   font-family: 'Montserrat';
   font-weight: bold;
   font-style: normal;
-  src: url("fonts/Montserrat-700.ttf");
+  src:url("fonts/Montserrat-700.eot");
+	src:url("fonts/Montserrat-700.eot?#iefix")   format("embedded-opentype"),
+		url("fonts/Montserrat-700.woff")           format("woff"),
+		url("fonts/Montserrat-700.ttf")            format("truetype"),
+		url("fonts/Montserrat-700.svg#Montserrat") format("svg")
+
 }
 
 /* Color Scheme */
