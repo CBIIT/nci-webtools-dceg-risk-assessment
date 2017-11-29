@@ -1,4 +1,3 @@
-/*
 @font-face {
   font-family: 'Noto Sans';
   font-weight: normal;
@@ -33,9 +32,9 @@
   font-family: 'Montserrat';
   font-weight: bold;
   font-style: normal;
-  src: url("fonts/Montserrat-Bold.ttf");
+  src: url("fonts/Montserrat-700.ttf");
 }
-*/
+
 /* Color Scheme */
 html {
   background: #235e88;
@@ -156,7 +155,9 @@ a:focus {
   padding: 13px;
   margin-bottom: 0;
   font-family: 'Montserrat';
+  font-weight: bold;
   font-size: 28px;
+  line-height: 30.8px;
 }
 .sectionTitle:first-child {
   background: #339fbe;
