@@ -2,25 +2,44 @@
   font-family: 'Noto Sans';
   font-weight: normal;
   font-style: normal;
-  src: url("fonts/NotoSans-Regular.ttf");
+  src:url("fonts/Noto-Sans-regular.eot");
+  src:url("fonts/Noto-Sans-regular.eot?#iefix") format("embedded-opentype"),
+    url("fonts/Noto-Sans-regular.woff")         format("woff"),
+    url("fonts/Noto-Sans-regular.ttf")          format("truetype"),
+    url("fonts/Noto-Sans-regular.svg#NotoSans") format("svg")
 }
 @font-face {
   font-family: 'Noto Sans';
   font-weight: normal;
   font-style: italic;
-  src: url("fonts/NotoSans-Italic.ttf");
+  src:url("fonts/Noto-Sans-italic.eot");
+  src:url("fonts/Noto-Sans-italic.eot?#iefix")  format("embedded-opentype"),
+    url("fonts/Noto-Sans-italic.woff")          format("woff"),
+    url("fonts/Noto-Sans-italic.ttf")           format("truetype"),
+    url("fonts/Noto-Sans-italic.svg#NotoSans")  format("svg");
+
 }
 @font-face {
   font-family: 'Noto Sans';
   font-weight: bold;
   font-style: normal;
-  src: url("fonts/NotoSans-Bold.ttf");
+  src:url("fonts/Noto-Sans-700.eot");
+  src:url("fonts/Noto-Sans-700.eot?#iefix") format("embedded-opentype"),
+    url("fonts/Noto-Sans-700.woff")         format("woff"),
+    url("fonts/Noto-Sans-700.ttf")          format("truetype"),
+    url("fonts/Noto-Sans-700.svg#NotoSans") format("svg");
 }
+
 @font-face {
   font-family: 'Noto Sans';
   font-weight: bold;
   font-style: italic;
-  src: url("fonts/NotoSans-BoldItalic.ttf");
+  src:url("fonts/Noto-Sans-700italic.eot");
+  src:url("fonts/Noto-Sans-700italic.eot?#iefix") format("embedded-opentype"),
+    url("fonts/Noto-Sans-700italic.woff")         format("woff"),
+    url("fonts/Noto-Sans-700italic.ttf")          format("truetype"),
+    url("fonts/Noto-Sans-700italic.svg#NotoSans") format("svg");
+
 }
 @font-face {
   font-family: 'Montserrat';
@@ -30,7 +49,7 @@
 	src:url("fonts/Montserrat-regular.eot?#iefix")     format("embedded-opentype"),
 		url("fonts/Montserrat-regular.woff")             format("woff"),
 		url("fonts/Montserrat-regular.ttf")              format("truetype"),
-		url("fonts/Montserrat-regular.svg#Montserrat")   format("svg")
+		url("fonts/Montserrat-regular.svg#Montserrat")   format("svg");
 
 }
 @font-face {
@@ -41,8 +60,7 @@
 	src:url("fonts/Montserrat-700.eot?#iefix")   format("embedded-opentype"),
 		url("fonts/Montserrat-700.woff")           format("woff"),
 		url("fonts/Montserrat-700.ttf")            format("truetype"),
-		url("fonts/Montserrat-700.svg#Montserrat") format("svg")
-
+		url("fonts/Montserrat-700.svg#Montserrat") format("svg");
 }
 
 /* Color Scheme */
@@ -84,7 +102,7 @@ h2 {
   color: #606060;
   font-weight: bold;
   margin: 0.5em auto;
-  font-family: Montserrat;
+  font-family: "Montserrat";
   font-size: 23px;
   line-height: 28px;
   text-rendering: optimizeLegibility;
@@ -646,7 +664,7 @@ div[id^='results_graph'] {
   padding: 0;
 }
 label.questions {
-  font-weight: bold;
+  font-weight: 700;
   color: #2e2e2e;
   margin-top: 50px;
   font-size: 16px;
