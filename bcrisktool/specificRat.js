@@ -54,6 +54,30 @@ $(function() {
     		}
   	});
 
+  // There are two select boxes Race and Sub Race.   For both Asian and Hispanic
+  // there will be values found in the Sub Race Drop down
+  $("#race").on("change", function() {
+    if ( this.value == "Hispanic") {
+      attachOptionsToAnHTMLObject(
+        {
+          "" : "Select sub race/ethnicity",
+          "Foreign Hispanic" : "Foreign Hispanic",
+          "US Hispanic" : "US Hispanic"
+        })
+    } else if ( this.value == 'Asian') {
+      attachOptionsToAnHTMLObject(
+        {
+          ""            : "Select sub race/ethnicity",
+          "Chinese"     : "Chinese",
+          "Filipino"    : "Filipino",
+          "Hawaiian"    : "Hawaiin",
+          "Islander"    : "Islander",
+          "Japanese"    : "Japanese",
+          "Asian"       : "Other Asian"
+        })
+    }
+  });
+
 	// On this IOS Phone 6 the navigation bar line in the center was not getting positioned
 	// correctly, so I am adding a callback to the #RACE drop down so that the navigation
 	// bar get drawn correctly everytime.
@@ -85,6 +109,15 @@ $(function() {
 
   	$('#riskForm').trigger('change');
 });
+
+// Create and Attach a set of options to an HTML Object
+function attachOptionsToAnHTMLObject(optionsValuesAndText) {
+  $("#sub_race").empty();
+  $.each(optionsValuesAndText, function (val, text) {
+    $("#sub_race").
+      append( $("<option></option>").val(val).html(text));
+  });
+}
 
 // If Any question is "Yes" in the Patient Eligibility is selected then
 // disable the calculate button
@@ -157,7 +190,7 @@ function resetsDropDowns() {
 
 // If the value of the race menu is not "Asian" the subrace dropddown select box
 function changeSubraceMenu() {
-  if ( $("#race").val() == "Asian")
+  if ( $("#race").val() == "Asian" || $("#race").val() == "Hispanic")
     enableSubRaceMenu()
   else
     disableSubRaceMenu();

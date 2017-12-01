@@ -44,7 +44,7 @@ class BreastRiskAssessmentTool:
       requiredParameters = ['age','age_period','childbirth_age','biopsy']
       if 'race' not in parameters or parameters['race'] == "":
         errorObject['missing'] += ['race']
-      elif parameters['race'] == "Asian":
+      elif parameters['race'] == "Asian" or parameters['race'] == 'Hispanic':
         if 'sub_race' not in parameters or parameters['sub_race'] == "":
           errorObject['missing'] += ['sub_race']
         else:
