@@ -61,8 +61,8 @@ $(function() {
       attachOptionsToAnHTMLObject(
         {
           "" : "Select sub race/ethnicity",
-          "Foreign Hispanic" : "Foreign Hispanic",
-          "US Hispanic" : "US Hispanic"
+          "Foreign Hispanic" : "Born outside the US",
+          "US Hispanic"      : "US Born"
         })
     } else if ( this.value == 'Asian') {
       attachOptionsToAnHTMLObject(
