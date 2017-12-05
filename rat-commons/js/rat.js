@@ -58,7 +58,7 @@ function processSubmission(form){
 	// Determine how the parameters will be sent to the web tier
   var userData = (form.method == 'get') ? $(form).serialize() : new FormData(form);
 
-	convertQuestionAndAnswersToTableRows("riskForm", "inputParameters")
+	convertQuestionAndAnswersToTableRows("riskForm", "InputParameters")
 
 	// Send the data to the web tier.
 	$.ajax({
@@ -803,11 +803,24 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 
 		}
 
+		function createQuestionCell(index, questionText) {
+			var question = $("<td></td>").addClass("questions")
+			var container = $("<div></div>").css("display","flex").css("flex-direction","row")
+			var lineNumber = $("<div></div>").text(index + "." + " ").css("padding-right", "1em")
+			var questionText = $("<div></div>").text(questionText)
+
+			var questionDiv = container.append(lineNumber).append(questionText)
+			return question.append(questionDiv)
+
+		}
+
 		var inputElement = $($(element).nextUntil("label","div")[0]).children('input, select')
 		var inputAnswerText = extractAnswerDispalyedOnGui(inputElement)
 
-		var question = $("<td></td>").text( $(element).text())
-		var answer = $("<td></td>").text(inputAnswerText)
+		//var visibleIndex = (index + 1) + "."
+		//var question = $("<td></td>").text( visibleIndex + $(element).text()).addClass("questions")
+		var question = createQuestionCell(index + 1, $(element).text())
+		var answer = $("<td></td>").text(inputAnswerText).addClass("answers")
 		var tableRow = $("<tr></tr>").append(question).append(answer)
 
 		var selector = tableName + " tbody";
@@ -959,7 +972,7 @@ $(window).load(function(e) {
 		}
 
  		$("header").css("background","white");
- 		$("#main").removeClass("container-fluid");
+ 		//$("#main").removeClass("container-fluid");
 		//console.log("Header Height = " + header_height);
 		//console.log("steps height = " + form_steps_height)
 		//$("#main_home").css("margin-top", header_height);'
