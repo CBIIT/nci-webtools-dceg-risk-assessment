@@ -1016,6 +1016,11 @@ input.error + label.radio span {
 
 @media (max-width: 992px) {
 
+  #InputParameters td {
+    padding-top: .5em;
+    padding-bottom: .5em;
+  }
+
   #InputParameters .answers {
     /*
     background-color: rgba(93, 74, 159, 0.10);
