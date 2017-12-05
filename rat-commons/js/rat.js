@@ -58,6 +58,8 @@ function processSubmission(form){
 	// Determine how the parameters will be sent to the web tier
   var userData = (form.method == 'get') ? $(form).serialize() : new FormData(form);
 
+	convertQuestionAndAnswersToTableRows("riskForm", "inputParameters")
+
 	// Send the data to the web tier.
 	$.ajax({
 		url: form.action,
@@ -740,6 +742,81 @@ function scrollPassLogo() {
 
 	var pixels = $("#toolTitle").position().top;
 	$('html, body').animate({ scrollTop: pixels }, 1000);
+}
+
+/*****************************************************************************/
+/* A function that will retrieve the Questions ( must have style questions)  */
+/* and the current answers at the time the user pressed the calculate button */
+/*                                                                           */
+/* input -- name of a form where the questions/answers will be retrieved     */
+/* input -- name of table where they will be appended to.                    */
+/* output -- A collection of <trow> containing the questions and answers     */
+/*****************************************************************************/
+function convertQuestionAndAnswersToTableRows(formName, tableName) {
+
+	var formName = "#" + formName
+	var form = $(formName)
+
+  var tableName = "#" + tableName
+	var table = $(tableName)
+
+	var allTablesRows = undefined;
+
+	// Verify that the parameters are valid
+	if ( form.length != 1 ) {
+		console.log("Error : Invalid Parameter form name for convertQuestionAndAnswersToTableRows ")
+	}
+
+	if ( table.length != 1 ) {
+		console.log("Error : Invalid Parameter table name for convertQuestionAndAnswersToTableRows ")
+	}
+
+	var answers = new FormData(document.querySelector("#riskForm"))
+
+	$(formName + " .questions").each(function(index, element) {
+
+		// Extracts the current answer from the input screen to the current question
+		// Assumption : The User has completed filling out the form
+		// Input  first response to current question
+		// Output The answer from the input page that the user selected.
+		// Output NA if there is no answer ( for some questions to be answered other questions must be answered with a specific value
+		function extractAnswerDispalyedOnGui(inputElement) {
+			var inputText = ""
+			if ( inputElement.is(":radio"))	{
+				// Get the name attribute which the radio button use for the variable name of the Data
+				// Using the nane get the input value from the Form Data.
+				var name = $(inputElement).attr("name")
+			  var value = answers.get(name)
+
+				// Select the answer text from the input page.
+				var nameSelector = "[name='" + name + "']"
+				var valueSelector = "[value='" + value + "']"
+				inputText = $(nameSelector + valueSelector).next().text()
+			} else if ( inputElement.is("select")) {
+				inputText = answers.get($(inputElement).attr("name"))
+			}
+
+			if ( !inputText ) { inputText = "n/a"}
+
+			//console.log("For HTML Object " + name + " the value is " + inputText)
+			return inputText
+
+		}
+
+		var inputElement = $($(element).nextUntil("label","div")[0]).children('input, select')
+		var inputAnswerText = extractAnswerDispalyedOnGui(inputElement)
+
+		var question = $("<td></td>").text( $(element).text())
+		var answer = $("<td></td>").text(inputAnswerText)
+		var tableRow = $("<tr></tr>").append(question).append(answer)
+
+		var selector = tableName + " tbody";
+		$(tableName + " tbody").append(tableRow)
+
+	});
+
+	//console.log("The HTML for generation of the Table Parameters  ")
+	//console.log($(tableName).html())
 }
 
 ////////////////////////////////////////////////////////////////////////////////
