@@ -58,7 +58,7 @@ function processSubmission(form){
 	// Determine how the parameters will be sent to the web tier
   var userData = (form.method == 'get') ? $(form).serialize() : new FormData(form);
 
-	convertQuestionAndAnswersToTableRows("riskForm", "InputParameters", userData)
+	convertQuestionAndAnswersToTableRows("riskForm", "InputParameters")
 
 	// Send the data to the web tier.
 	$.ajax({
@@ -752,7 +752,7 @@ function scrollPassLogo() {
 /* input -- name of table where they will be appended to.                    */
 /* output -- A collection of <trow> containing the questions and answers     */
 /*****************************************************************************/
-function convertQuestionAndAnswersToTableRows(formName, tableName, formData) {
+function convertQuestionAndAnswersToTableRows(formName, tableName) {
 
 	var formName = "#" + formName
 	var form = $(formName)
@@ -761,6 +761,9 @@ function convertQuestionAndAnswersToTableRows(formName, tableName, formData) {
 	var table = $(tableName)
 
 	var allTablesRows = undefined;
+
+	// Remove all <TR> nodes from the tree except the header
+	$(tableName + " tbody").find("tr:gt(0)").remove()
 
 	// Verify that the parameters are valid
 	if ( form.length != 1 ) {
@@ -787,7 +790,7 @@ function convertQuestionAndAnswersToTableRows(formName, tableName, formData) {
 				// Get the name attribute which the radio button use for the variable name of the Data
 				// Using the nane get the input value from the Form Data.
 				var name = $(inputElement).attr("name")
-			  var value = formData.get(name)
+			  var value = $("input[name='" + name + "']:checked").val()
 
 				// Select the answer text from the input page.
 				var nameSelector = "[name='" + name + "']"
@@ -827,7 +830,6 @@ function convertQuestionAndAnswersToTableRows(formName, tableName, formData) {
 		var answer = $("<td></td>").text(inputAnswerText).addClass("answers")
 		var tableRow = $("<tr></tr>").append(question).append(answer)
 
-		var selector = tableName + " tbody";
 		$(tableName + " tbody").append(tableRow)
 
 	});
