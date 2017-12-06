@@ -793,7 +793,10 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 				var valueSelector = "[value='" + value + "']"
 				inputText = $(nameSelector + valueSelector).next().text()
 			} else if ( inputElement.is("select")) {
-				inputText = answers.get($(inputElement).attr("name"))
+				//inputText = answers.get($(inputElement).attr("name"))
+				if ( $(inputElement).is(":enabled") ) {
+					inputText = $(inputElement).find(":selected").text();
+				}
 			}
 
 			if ( !inputText ) { inputText = "n/a"}
