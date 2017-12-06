@@ -772,7 +772,7 @@ function convertQuestionAndAnswersToTableRows(formName, tableName, formData) {
 	}
 
 	//var answers = new FormData(document.querySelector("#riskForm"))
-	answers = formData
+	//answers = formData
 
 	$(formName + " .questions").each(function(index, element) {
 
@@ -787,7 +787,7 @@ function convertQuestionAndAnswersToTableRows(formName, tableName, formData) {
 				// Get the name attribute which the radio button use for the variable name of the Data
 				// Using the nane get the input value from the Form Data.
 				var name = $(inputElement).attr("name")
-			  var value = answers.get(name)
+			  var value = formData.get(name)
 
 				// Select the answer text from the input page.
 				var nameSelector = "[name='" + name + "']"
