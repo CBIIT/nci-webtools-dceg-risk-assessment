@@ -741,8 +741,9 @@ select {
 
 /* Enlarge the select box so selection fit                                    */
 #race {
-  width: 305px;
+  width: 293px;
   border-radius: 4px;
+  padding-left: .05em;
 }
 
 #sub_race {
@@ -1036,6 +1037,7 @@ input.error + label.radio span {
 
   #InputParameters .questions {
     vertical-align: top;
+    padding-right: .5em;
   }
 
 
