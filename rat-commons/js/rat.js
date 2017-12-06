@@ -58,7 +58,7 @@ function processSubmission(form){
 	// Determine how the parameters will be sent to the web tier
   var userData = (form.method == 'get') ? $(form).serialize() : new FormData(form);
 
-	convertQuestionAndAnswersToTableRows("riskForm", "InputParameters")
+	convertQuestionAndAnswersToTableRows("riskForm", "InputParameters", userData)
 
 	// Send the data to the web tier.
 	$.ajax({
@@ -752,7 +752,7 @@ function scrollPassLogo() {
 /* input -- name of table where they will be appended to.                    */
 /* output -- A collection of <trow> containing the questions and answers     */
 /*****************************************************************************/
-function convertQuestionAndAnswersToTableRows(formName, tableName) {
+function convertQuestionAndAnswersToTableRows(formName, tableName, formData) {
 
 	var formName = "#" + formName
 	var form = $(formName)
@@ -771,7 +771,8 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 		console.log("Error : Invalid Parameter table name for convertQuestionAndAnswersToTableRows ")
 	}
 
-	var answers = new FormData(document.querySelector("#riskForm"))
+	//var answers = new FormData(document.querySelector("#riskForm"))
+	answers = formData
 
 	$(formName + " .questions").each(function(index, element) {
 
