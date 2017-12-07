@@ -811,9 +811,14 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 		}
 
 		function createQuestionCell(index, questionText) {
+
+			// The spacing between the number and the question is different if you
+			// two number ( ex. 10) vs one number
+		  var paddingRight = ( index > 9 ) ? ".5em" : "1em"
+			
 			var question = $("<td></td>").addClass("questions")
 			var container = $("<div></div>").css("display","flex").css("flex-direction","row")
-			var lineNumber = $("<div></div>").text(index + "." + " ").css("padding-right", "1em")
+			var lineNumber = $("<div></div>").text(index + "." + " ").css("padding-right", paddingRight)
 			var questionText = $("<div></div>").text(questionText)
 
 			var questionDiv = container.append(lineNumber).append(questionText)

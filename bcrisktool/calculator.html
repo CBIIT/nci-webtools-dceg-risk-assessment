@@ -52,7 +52,7 @@
         <h1>Personalized Results</h1>
         <div class="row">
           <div class="col-xs-12 col-md-12">
-            <div class="content">
+            <div class="selectContent">
               <p>Although a woman&#8217;s risk may be accurately estimated, these predictions do not allow one to say precisely which woman will develop breast cancer. In fact, some women who do not develop breast cancer have higher risk estimates than some patients who do develop the disease.</p>
               <p>As a reminder, this tool was designed for use by health professionals. If you are not a health professional, you are encouraged to print these results and discuss them with your health care provider. </p>
               <p>The tool uses the answers provided to estimate absolute risk of developing invasive breast cancer during the next 5-year period and up to age 90 (lifetime risk). This includes the woman&#8217;s personal medical and reproductive history and the history of breast cancer among her first-degree relatives (mothers, sisters, daughters). For comparison, the tool will then calculate 5-year and lifetime risk estimates for a woman of the same age who is at average risk for developing breast cancer. </p>
@@ -116,7 +116,7 @@
         <!-- Show the input parameters -->
         <div>
           <h2>Your Answers</h2>
-          <p class="content" >These results are based upon how you answered the following questions:</p>
+          <p class="selectContent" >These results are based upon how you answered the following questions:</p>
           <table id="InputParameters">
             <tbody>
               <tr>
@@ -179,79 +179,81 @@
            <p class="questions_secondary">
               This tool calculates risk for women 35 years of age or older.</p>
            <div class="responseOptions">
-             <select id="age" name="age" required>
-               <option value="">Select Age</option>
-               <option value="35">35</option>
-               <option value="36">36</option>
-               <option value="37">37</option>
-               <option value="38">38</option>
-               <option value="39">39</option>
-               <option value="40">40</option>
-               <option value="41">41</option>
-               <option value="42">42</option>
-               <option value="43">43</option>
-               <option value="44">44</option>
-               <option value="45">45</option>
-               <option value="46">46</option>
-               <option value="47">47</option>
-               <option value="48">48</option>
-               <option value="49">49</option>
-               <option value="50">50</option>
-               <option value="51">51</option>
-               <option value="52">52</option>
-               <option value="53">53</option>
-               <option value="54">54</option>
-               <option value="55">55</option>
-               <option value="56">56</option>
-               <option value="57">57</option>
-               <option value="58">58</option>
-               <option value="59">59</option>
-               <option value="60">60</option>
-               <option value="61">61</option>
-               <option value="62">62</option>
-               <option value="63">63</option>
-               <option value="64">64</option>
-               <option value="65">65</option>
-               <option value="66">66</option>
-               <option value="67">67</option>
-               <option value="68">68</option>
-               <option value="69">69</option>
-               <option value="70">70</option>
-               <option value="71">71</option>
-               <option value="72">72</option>
-               <option value="73">73</option>
-               <option value="74">74</option>
-               <option value="75">75</option>
-               <option value="76">76</option>
-               <option value="77">77</option>
-               <option value="78">78</option>
-               <option value="79">79</option>
-               <option value="80">80</option>
-               <option value="81">81</option>
-               <option value="82">82</option>
-               <option value="83">83</option>
-               <option value="84">84</option>
-               <option value="85">85</option>
+             <select id="age" class="selectContent" name="age" required>
+               <option class="selectContent" value="">Select Age</option>
+               <option class="selectContent" value="35">35</option>
+               <option class="selectContent" value="36">36</option>
+               <option class="selectContent" value="37">37</option>
+               <option class="selectContent" value="38">38</option>
+               <option class="selectContent" value="39">39</option>
+               <option class="selectContent" value="40">40</option>
+               <option class="selectContent" value="41">41</option>
+               <option class="selectContent" value="42">42</option>
+               <option class="selectContent" value="43">43</option>
+               <option class="selectContent" value="44">44</option>
+               <option class="selectContent" value="45">45</option>
+               <option class="selectContent" value="46">46</option>
+               <option class="selectContent" value="47">47</option>
+               <option class="selectContent" value="48">48</option>
+               <option class="selectContent" value="49">49</option>
+               <option class="selectContent" value="50">50</option>
+               <option class="selectContent" value="51">51</option>
+               <option class="selectContent" value="52">52</option>
+               <option class="selectContent" value="53">53</option>
+               <option class="selectContent" value="54">54</option>
+               <option class="selectContent" value="55">55</option>
+               <option class="selectContent" value="56">56</option>
+               <option class="selectContent" value="57">57</option>
+               <option class="selectContent" value="58">58</option>
+               <option class="selectContent" value="59">59</option>
+               <option class="selectContent" value="60">60</option>
+               <option class="selectContent" value="61">61</option>
+               <option class="selectContent" value="62">62</option>
+               <option class="selectContent" value="63">63</option>
+               <option class="selectContent" value="64">64</option>
+               <option class="selectContent" value="65">65</option>
+               <option class="selectContent" value="66">66</option>
+               <option class="selectContent" value="67">67</option>
+               <option class="selectContent" value="68">68</option>
+               <option class="selectContent" value="69">69</option>
+               <option class="selectContent" value="70">70</option>
+               <option class="selectContent" value="71">71</option>
+               <option class="selectContent" value="72">72</option>
+               <option class="selectContent" value="73">73</option>
+               <option class="selectContent" value="74">74</option>
+               <option class="selectContent" value="75">75</option>
+               <option class="selectContent" value="76">76</option>
+               <option class="selectContent" value="77">77</option>
+               <option class="selectContent" value="78">78</option>
+               <option class="selectContent" value="79">79</option>
+               <option class="selectContent" value="79">79</option>
+               <option class="selectContent" value="80">80</option>
+               <option class="selectContent" value="81">81</option>
+               <option class="selectContent" value="81">81</option>
+               <option class="selectContent" value="82">82</option>
+               <option class="selectContent" value="83">83</option>
+               <option class="selectContent" value="84">84</option>
+               <option class="selectContent" value="85">85</option>
              </select>
            </div>
 
            <label class="questions" for="race">What is the patient&#8217;s race/ethnicity?</label>
             <div class="responseOptions">
-              <select id="race" name="race" required>
-                <option value="">Select Race</option>
-                <option value="White">White</option>
-                <option value="Black">African American</option>
-                <option value="Hispanic">Hispanic</option>
-                <option value="Asian">Asian American</option>
-                <option value="Other">American Indian or Alaskan Native</option>
-                <option value="Other">Unknown</option>
+              <select id="race" class="selectContent" name="race" required>
+                <option class="selectContent" value="">Select Race</option>
+                <option class="selectContent" value="White">White</option>
+                <option class="selectContent" value="Black">African American</option>
+                <option class="selectContent" value="Hispanic">Hispanic</option>
+                <option class="selectContent" value="Asian">Asian American</option>
+                <option class="selectContent" value="Other">American Indian or Alaskan Native</option>
+                <option class="selectContent" value="Other">Unknown</option>
               </select>
             </div>
 
              <label class="col-sm-offset-1 questions" for="sub_race">What is the sub race/ethnicity?</label>
              <div class="col-sm-offset-1 responseOptionsWithoutIndent pl-3">
-               <select id="sub_race" name="sub_race"  required>
-                  <option value="">Select sub race/ethnicity</option>
+               <select id="sub_race" class="selectContent" name="sub_race"  required>
+                  <option class="selectContent" value="">Select sub race/ethnicity</option>
               </select>
              </div>
         </section>
@@ -313,13 +315,13 @@
           <label class="questions" for="childbirth_age">What was the woman&#8217;s age at the time of her first live birth of a child?</label>
           <div class="responseOptions col-sm-offset-1 pl-3">
             <select id="childbirth_age" name="childbirth_age" required>
-              <option value="">Select</option>
-              <option value="98">No Births</option>
-              <option value="0">&lt; 20</option>
-              <option value="1">20-24</option>
-              <option value="2">25-29</option>
-              <option value="3">30 or older</option>
-              <option value="99">Unknown</option>
+              <option class="selectContent" value="">Select</option>
+              <option class="selectContent" value="98">No Births</option>
+              <option class="selectContent" value="0">&lt; 20</option>
+              <option class="selectContent" value="1">20-24</option>
+              <option class="selectContent" value="2">25-29</option>
+              <option class="selectContent" value="3">30 or older</option>
+              <option class="selectContent" value="99">Unknown</option>
             </select>
           </div>
 

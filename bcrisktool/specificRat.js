@@ -115,7 +115,7 @@ function attachOptionsToAnHTMLObject(optionsValuesAndText) {
   $("#sub_race").empty();
   $.each(optionsValuesAndText, function (val, text) {
     $("#sub_race").
-      append( $("<option></option>").val(val).html(text));
+      append( $("<option></option>").val(val).html(text).addClass("content"));
   });
 }
 

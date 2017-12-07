@@ -1320,7 +1320,8 @@ input.error + label.radio span {
 }
 
 /* A class for styling the content on the main page                           */
-.content {
+.content,
+.selectContent {
   font-size: 16px;
   font-family: 'Noto Sans';
   color: #2E2E2E;
