@@ -281,7 +281,7 @@ nav#main-nav ul.nav.nav-tabs li a:hover,
 nav#main-nav ul.nav.nav-tabs li a:focus {
   background: #fff;
   color: #14819b;
-  border-bottom: 7px solid #fff;
+  border-bottom: 7px solid #235E88;
 }
 nav#main-nav ul.nav.nav-tabs li.active a {
   color: #356b91;
