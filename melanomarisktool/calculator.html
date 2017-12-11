@@ -76,6 +76,20 @@
             </div>
           </div>
         </div>
+        <!-- Show the input parameters -->
+        <div>
+          <h2>Your Answers</h2>
+          <p class="selectContent" >These results are based upon how you answered the following questions:</p>
+          <table id="InputParameters">
+            <tbody>
+              <tr>
+                <th class="questions">questions:</th>
+                <th class="answers">answers:</th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
         <div>
           <button id="startOver" type="button" class="center-block btn btn-default vertical_alignment">Start Over</button>
         </div>
@@ -327,7 +341,7 @@
                   </div>
                 </div>
                 <div class="col-sm-12">
-                  <button class="center-block okButton" value="Ok" data-dismiss="modal">Ok</button>
+                  <button id="okButtonRace" class="center-block okButton" value="Ok" data-dismiss="modal">Ok</button>
                 </div>
               </div>
             </div>
