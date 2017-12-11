@@ -76,6 +76,7 @@
             </div>
           </div>
         </div>
+
         <!-- Show the input parameters -->
         <div>
           <h2>Your Answers</h2>
@@ -111,9 +112,9 @@
       <form id="riskForm" name="riskForm" method="POST" action="calculate" autocomplete="off">
         <h2 id="demo" class="sectionTitle">Demographics</h2>
         <section id="demo-section" class="sectionTitle">
-          <label class="questions no-margin-top" for="race">What is the patient's race?</label>
+          <label class="questions no-margin-top" for="nonHispanicWhiteRace">What is the patient's race?</label>
           <div class="responseOptions">
-            <input type="radio" name="race" value="0" required>
+            <input id="nonHispanicWhiteRace" type="radio" name="race" value="0" required>
             <label class="radio" tabindex="0"><span></span>Non-Hispanic White</label>
           </div>
           <div class="responseOptions">
@@ -181,10 +182,10 @@
           </div>
           <div class="pull-left">
             <div class="col-xs-12 col-sm-6 no-padding">
-              <label class="questions">Does the patient live in the Northern, Central, or Southern United States?</label>
+              <label class="questions" for="northern">Does the patient live in the Northern, Central, or Southern United States?</label>
               <p class="questions_secondary">The model on which this tool is based is valid only for residents of the continental United States. This map is only a guide.</p>
               <div class="responseOptions">
-                <input type="radio" name="region" value="north" required>
+                <input id="northern" type="radio" name="region" value="north" required>
                 <label class="radio" tabindex="0"><span> </span>Northern</label>
               </div>
               <div class="responseOptions">
@@ -198,7 +199,7 @@
             </div>
             <div class="col-xs-12 col-sm-6 no-padding"><img class="img-responsive show" id="map" src="rat-commons/images/us-map.png" alt="The map is divided into three distinct areas.	Northern United States which includes Washington, Oregon, Montana, North Dakota, South Dakota, Minnesota, Wisconsin, Michigan, Iowa, Illinois, Indiana, Ohio, Maryland, Pennsylvania, New York, New Jersey, Vermont, Rhode Island, Connecticut, Massachusetts, New Hampshire, and Maine. Central United States which includes Northern California, Idaho, Utah, Wyoming, Nebraska, Kansas, Oklahoma, Arkansas, Missouri, Tennessee, Kentucky, West Virginia, Virginia, Delaware, North Carolina, and South Carolina. Southern United States which includes Southern California, Nevada, Arizona, New Mexico, Colorado, Texas, Louisiana, Mississippi, Alabama, Georgia, and Florida."><a id="state-listing" class="mapText" data-toggle="modal" data-target="#mapModal">View state listings by area.</a></div>
           </div>
-          <label class="questions" for="gender">What is the patient's gender?</label>
+          <label class="questions" for="maleGender">What is the patient's gender?</label>
           <p class="questions_secondary">This tool uses gender-specific risk models. It requires different information of male patients than female patients. The answer to this question will determine what other questions are asked below.</p>
           <div class="responseOptions">
             <input id="maleGender" type="radio" name="gender" value="Male" required>
@@ -211,9 +212,9 @@
         </section>
         <h2 class="sectionTitle no_display" id="skin">Skin Characteristics</h2>
         <section class="no_display sectionTitle" id="skin-section">
-          <label class="no-margin-top questions" for="complexion">Is the patient's complexion light, medium, or dark?</label>
+          <label class="no-margin-top questions" for="lightComplexion">Is the patient's complexion light, medium, or dark?</label>
           <div class="responseOptions">
-            <input type="radio" name="complexion" value="0" required>
+            <input id="lightComplexion" type="radio" name="complexion" value="0" required>
             <label class="radio" tabindex="0"><span></span>Light</label>
           </div>
           <div class="responseOptions">
@@ -225,9 +226,9 @@
             <label class="radio" tabindex="0"><span></span>Dark</label>
           </div>
           <div class="male">
-            <label class="questions" for="sunburn">Has the patient ever gotten a blistering sunburn?</label>
+            <label class="questions" for="sunburnYes">Has the patient ever gotten a blistering sunburn?</label>
             <div class="responseOptions">
-              <input type="radio" name="sunburn" value="0">
+              <input id="sunburnYes" type="radio" name="sunburn" value="0">
               <label class="radio" tabindex="0"><span></span>Yes</label>
             </div>
             <div class="responseOptions">
@@ -236,12 +237,12 @@
             </div>
           </div>
           <div class="female">
-            <label class="questions" for="tan">
+            <label class="questions" for="deeplyTan">
               Ask the patient: After repeated and prolonged exposure to sunlight, at the age you are now,
               would your skin become very brown and deeply tanned, moderately tanned, lightly tanned, or no tan at all?
             </label>
-            <div class="responseOptions">
-              <input type="radio" name="tan" value="0">
+            <div  class="responseOptions">
+              <input id="deeplyTan" type="radio" name="tan" value="0">
               <label class="radio" tabindex="0"><span></span>Very brown and deeply tanned</label>
             </div>
             <div class="responseOptions">
@@ -261,9 +262,9 @@
         <h2 class="sectionTitle no_display" id="physical">Physical Exam</h2>
         <section class="no_display sectionTitle" id="physical-section">
           <div class="male">
-            <label class="no-margin-top questions" id="large_moles">How many moles larger than 5mm in diameter are on the patient's back?</label>
+            <label class="no-margin-top questions" for="bigMoles" id="large_moles">How many moles larger than 5mm in diameter are on the patient's back?</label>
             <div class="responseOptions">
-              <input type="radio" name="big-moles" value="0">
+              <input id="bigMoles" type="radio" name="big-moles" value="0">
               <label class="radio" tabindex="0"><span> </span>Less than two</label>
             </div>
             <div class="responseOptions">
@@ -271,9 +272,9 @@
               <label class="radio" tabindex="0"><span></span>Two or more</label>
             </div>
           </div>
-          <label class="questions" id="small_moles">How many moles less than or equal to 5mm in diameter are on the patient's back?</label>
+          <label class="questions" for="smallMoleAnswer" id="small_moles">How many moles less than or equal to 5mm in diameter are on the patient's back?</label>
           <div class="responseOptions">
-            <input type="radio" name="small-moles" value="0" required>
+            <input id="smallMoleAnswer" type="radio" name="small-moles" value="0" required>
             <label class="radio" tabindex="0"><span></span>
               <div class="small_mole_answer">Less than five</div>
             </label>
