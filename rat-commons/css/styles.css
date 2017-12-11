@@ -1251,16 +1251,16 @@ input.error + label.radio span {
   }
   #side_nav.sidenav {
     width: 0;
-    position: fixed;
+    position: absolute;
     z-index: 9999;
     top: 0;
     right: 0;
     overflow-x: hidden;
-    -webkit-transition: 0.5s;
+    /*-webkit-transition: 0.5s;
     -moz-transition: 0.5s;
     -o-transition: 0.5s;
     -ms-transition: 0.5s;
-    transition: 0.5s;
+    transition: 0.5s;*/
     display: inline;
     text-transform: uppercase;
     -webkit-box-shadow: 0px 2px 4px 0 rgba(0,0,0,0.5);

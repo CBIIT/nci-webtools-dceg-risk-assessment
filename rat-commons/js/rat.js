@@ -481,21 +481,37 @@ function calculatePositionToScrollTo(target) {
 /******************************************************************************/
 function toggle_menu(){
 
-		$('#side_nav .glyphicon-menu-hamburger').css('display', 'none');
-		let top = $("#toolTitle").position.top;
+	  let top = $("#toolTitle").offset().top;
+		console.log("top = " + top)
 
-    if($("#side_nav").width()>0){
-    	$("#side_nav").css("width","0%")
+		$("#side_nav").css("top", $('#toolTitle').offset().top + 'px');
+		$("#side_nav").css("right", 0);
+		$("#side_nav").css("position", "fixed");
+		$("#side_nav").css("margin", 0);
+
+    if($("#side_nav").width()>0){ $("#side_nav").animate({ width: "0%" });
+
 			setTimeout(function() { $('#side_nav .glyphicon-menu-hamburger').css('display', 'none'); }, 250);
     	setTimeout(function(){ $("#form-steps").css("z-index","1"); }, 500);
     } else {
-			//$("#side_nav").css("margin-top", $("#toolTitle").position().top + "px")
 			$("header").css("z-index","200")
-			$("#side_nav").css("width","70%")
-			$("#side_nav").css("top", top);
+			$("#side_nav").animate({
+				width: "70%"
+			});
+
+			// $("#side_nav").css("width","70%")
 			setTimeout(function() { $('#side_nav .glyphicon-menu-hamburger').css('display', 'inline-block'); }, 250);
     }
 }
+
+$(function() {
+	$(window).on('resize', function(event) {
+		if ($('#side_nav').width() > 0)
+			$("#side_nav").animate({
+				width: "0%"
+			});
+	})
+})
 
 /*****************************************************************************/
 /* Enables the Calculate Button                                              */
@@ -774,16 +790,14 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 		console.log("Error : Invalid Parameter table name for convertQuestionAndAnswersToTableRows ")
 	}
 
-	//var answers = new FormData(document.querySelector("#riskForm"))
-	//answers = formData
-
 	$(formName + " .questions").each(function(index, element) {
 
 		// Extracts the current answer from the input screen to the current question
 		// Assumption : The User has completed filling out the form
 		// Input  first response to current question
 		// Output The answer from the input page that the user selected.
-		// Output NA if there is no answer ( for some questions to be answered other questions must be answered with a specific value
+		// Output NA if there is no answer ( for some questions to be answered other
+		// questions must be answered with a specific value
 		function extractAnswerDispalyedOnGui(inputElement) {
 			var inputText = ""
 			if ( inputElement.is(":radio"))	{
@@ -797,7 +811,6 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 				var valueSelector = "[value='" + value + "']"
 				inputText = $(nameSelector + valueSelector).next().text()
 			} else if ( inputElement.is("select")) {
-				//inputText = answers.get($(inputElement).attr("name"))
 				if ( $(inputElement).is(":enabled") ) {
 					inputText = $(inputElement).find(":selected").text();
 				}
@@ -815,7 +828,7 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 			// The spacing between the number and the question is different if you
 			// two number ( ex. 10) vs one number
 		  var paddingRight = ( index > 9 ) ? ".5em" : "1em"
-			
+
 			var question = $("<td></td>").addClass("questions")
 			var container = $("<div></div>").css("display","flex").css("flex-direction","row")
 			var lineNumber = $("<div></div>").text(index + "." + " ").css("padding-right", paddingRight)
