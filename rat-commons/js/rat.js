@@ -118,11 +118,12 @@ function go_toresult() {
 	else
 		$("#startOver").removeClass("spacerBetweenQuestionsAndStartButtonMobile")
 
-	// This is hack.  The code is the startup section in an isMobile() if-clause
-	// It should be placed in its own routine and called from here.  What the code
-	// does it position the elements on the page.  The code here is just positioning
-	//  the html object with an id of #results_home.
-	if ( isMobile() ) $("#results_home").css("margin-top", "116px");
+	// This code is an hack.  There should be less calcuations done for the
+	// placement of Objects
+	if ( isTablet() )
+		$("#results_home").css("margin-top", "240px")
+	else if () isMobile() )
+		$("#results_home").css("margin-top", "116px");
 
 }
 
@@ -504,12 +505,10 @@ function toggle_menu(){
     }
 }
 
+// Whenever the window is opened and the side navigator is open then close it.
 $(function() {
 	$(window).on('resize', function(event) {
-		if ($('#side_nav').width() > 0)
-			$("#side_nav").animate({
-				width: "0%"
-			});
+		if ($('#side_nav').width() > 0) $("#side_nav").animate({ width: "0%" });
 	})
 })
 
@@ -529,6 +528,13 @@ function enablebutton(){
 function disablebutton(){
 	$("#calculate").attr('disabled', true);
 	$("#caclulate").addClass("#calculate:disabled")
+}
+
+/******************************************************************************/
+/* Is the device a mobile tablet                                              */
+/******************************************************************************/
+function isTablet() {
+	return /iPad/.test(navigator.userAgent)
 }
 
 
