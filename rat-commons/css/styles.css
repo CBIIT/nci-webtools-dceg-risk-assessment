@@ -1232,7 +1232,7 @@ input.error + label.radio span {
     margin: 0 auto;
   }
   .footer {
-    line-height: initial;
+    line-height: 1.2;
   }
   .footer ul {
     margin: 1em 0 1em 2em;
