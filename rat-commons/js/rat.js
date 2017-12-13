@@ -122,7 +122,7 @@ function go_toresult() {
 	// placement of Objects
 	if ( isTablet() )
 		$("#results_home").css("margin-top", "240px")
-	else if () isMobile() )
+	else if ( isMobile() )
 		$("#results_home").css("margin-top", "116px");
 
 }
