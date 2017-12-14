@@ -55,28 +55,12 @@ $(function() {
   	});
 
   // There are two select boxes Race and Sub Race.   For both Asian and Hispanic
-  // there will be values found in the Sub Race Drop down
-  $("#race").on("change", function() {
-    if ( this.value == "Hispanic") {
-      attachOptionsToAnHTMLObject(
-        {
-          ""                 : "Select sub race/ethnicity or place of birth?",
-          "Foreign Hispanic" : "Born outside the US",
-          "US Hispanic"      : "US Born"
-        })
-    } else if ( this.value == 'Asian') {
-      attachOptionsToAnHTMLObject(
-        {
-          ""            : "Select sub race/ethnicity or place of birth?",
-          "Chinese"     : "Chinese",
-          "Filipino"    : "Filipino",
-          "Hawaiian"    : "Hawaiin",
-          "Islander"    : "Islander",
-          "Japanese"    : "Japanese",
-          "Asian"       : "Other Asian"
-        })
-    }
-  });
+  // there will be values found in the Sub Race Drop down.  For any other
+  // it should be the default question
+  $("#race").on("change", attachSubraceItems)
+  $("#race").on("change", adjustSubraceWidth)
+  $("#race" ).ready(attachSubraceItems)
+  $("#race").ready(adjustSubraceWidth)
 
 	// On this IOS Phone 6 the navigation bar line in the center was not getting positioned
 	// correctly, so I am adding a callback to the #RACE drop down so that the navigation
@@ -109,6 +93,50 @@ $(function() {
 
   	$('#riskForm').trigger('change');
 });
+
+// Attach the corrct items to the drop down for the subrace.  The correct items
+// is based on the race.
+function attachSubraceItems() {
+
+  // Problem : On the iphone the String "Select sub race/ethnicity or place of birth"
+  // goes way pass the border, so for the mobile phone the phrase will be
+  // "Select place of birth?"
+  var properPhraseForQuestion = (( isMobile() && !isTablet() )) ? "Select place of birth?" : "Select sub race/ethnicity or place of birth?"
+
+  if ( this.value == "Hispanic") {
+    attachOptionsToAnHTMLObject(
+      {
+        ""                 : properPhraseForQuestion,
+        "Foreign Hispanic" : "Born outside the US",
+        "US Hispanic"      : "US Born"
+      })
+  } else if ( this.value == 'Asian') {
+    attachOptionsToAnHTMLObject(
+      {
+        ""            : properPhraseForQuestion,
+        "Chinese"     : "Chinese",
+        "Filipino"    : "Filipino",
+        "Hawaiian"    : "Hawaiin",
+        "Islander"    : "Islander",
+        "Japanese"    : "Japanese",
+        "Asian"       : "Other Asian"
+      })
+  } else {
+    attachOptionsToAnHTMLObject(
+      {
+        ""            : properPhraseForQuestion,
+
+      })
+  }
+}
+
+function adjustSubraceWidth() {
+   if ( isMobile() && !isTablet() ) {
+     $("#sub_race").addClass("mobile")
+   } else {
+     $("#sub_race").removeClass("mobile")
+   }
+}
 
 // Create and Attach a set of options to an HTML Object
 function attachOptionsToAnHTMLObject(optionsValuesAndText) {

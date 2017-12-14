@@ -747,8 +747,14 @@ select {
 }
 
 #sub_race {
-  width: 354px;
+  width: 370px;
   border-radius: 4px;
+}
+
+#sub_race.mobile {
+  width: 200px;
+  border-radius: 4px;
+
 }
 
 select::-ms-expand {
