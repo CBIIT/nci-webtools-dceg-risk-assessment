@@ -60,14 +60,14 @@ $(function() {
     if ( this.value == "Hispanic") {
       attachOptionsToAnHTMLObject(
         {
-          "" : "Select sub race/ethnicity",
+          ""                 : "Select sub race/ethnicity or place of birth?",
           "Foreign Hispanic" : "Born outside the US",
           "US Hispanic"      : "US Born"
         })
     } else if ( this.value == 'Asian') {
       attachOptionsToAnHTMLObject(
         {
-          ""            : "Select sub race/ethnicity",
+          ""            : "Select sub race/ethnicity or place of birth",
           "Chinese"     : "Chinese",
           "Filipino"    : "Filipino",
           "Hawaiian"    : "Hawaiin",
