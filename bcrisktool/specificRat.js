@@ -42,7 +42,7 @@ $(function() {
 	// Brings up the dialog box explaining why the data is inaccurate for hispnaics,
  	// Native Americans/Alaskians and how the unknow is handled
   	$("#race").on("change", function() {
-    		if( this.value == "US Hispanic"){
+    		if( this.value == "Hispanic"){
             disableForm();
       			$("#hispanicIssue").modal("show");
     		} else if ( this.value == "Other") {
