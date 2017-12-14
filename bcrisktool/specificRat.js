@@ -67,7 +67,7 @@ $(function() {
     } else if ( this.value == 'Asian') {
       attachOptionsToAnHTMLObject(
         {
-          ""            : "Select sub race/ethnicity or place of birth",
+          ""            : "Select sub race/ethnicity or place of birth?",
           "Chinese"     : "Chinese",
           "Filipino"    : "Filipino",
           "Hawaiian"    : "Hawaiin",
