@@ -138,6 +138,8 @@ function attachSubraceItems() {
   }
 }
 
+// Problem : On the iphone the String "Select sub race/ethnicity or place of birth"
+// goes way pass the border, so the width is adjusted for the device.
 function adjustSubraceWidth() {
    if ( isMobile() && !isTablet() ) {
      $("#sub_race").addClass("mobile")
@@ -146,6 +148,8 @@ function adjustSubraceWidth() {
    }
 }
 
+// When White, African American, Alaskan navtive or American Indian, unknown then
+// the subrace menu is not needed.
 function adjustSubRaceMenuIfNecessary() {
   if( this.value == "White" ||
       this.value == "Black" ||
@@ -162,7 +166,9 @@ function attachOptionsToAnHTMLObject(optionsValuesAndText) {
   $.each(optionsValuesAndText, function (val, text) {
     $("#sub_race").
       append( $("<option></option>").val(val).html(text).addClass("content"));
-  });
+  });  // Problem : On the iphone the String "Select sub race/ethnicity or place of birth"
+  // goes way pass the border, so for the mobile phone the phrase will be
+  // "Select place of birth?"
 }
 
 // If Any question is "Yes" in the Patient Eligibility is selected then
@@ -180,6 +186,9 @@ function enableBRATForm() {
   enableForm();
   womanHadBiopsy();
   changeSubraceMenu();
+
+  if ( $("[name='biopsy']:checked").val() == 1 ) enableQuestionAndAnswers();
+
   enableButtonIfAllFieldHaveInput();
   //disablebutton();
   disableIfPatientIsNotEligible()
