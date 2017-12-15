@@ -699,7 +699,6 @@ function enableSectionHeaders() {
 //   2. Lighten the Seciton Header, Questions and Answers                    //
 ///////////////////////////////////////////////////////////////////////////////
 function disableForm() {
-	$("#riskForm").prop('disabled', true)
 	$("form :input").not("#reset").prop('disabled', true);
 	$("form label.radio").css("color","#C0C0C0")
 	$("[class*='questions']").css("color","#c0c0c0");
@@ -713,6 +712,7 @@ function disableForm() {
 ////////////////////////////////////////////////////////////////////////////////
 function enableForm() {
 	$("form :input").not("#reset").attr('disabled', false);
+	$("form label.radio").css("color","#2E2E2E")
 	$("[class*='questions']").css("color","#2E2E2E")
 	enableSectionHeaders();
 	$("#riskForm").trigger("change")
