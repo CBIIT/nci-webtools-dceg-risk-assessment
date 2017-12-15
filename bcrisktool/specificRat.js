@@ -1,4 +1,4 @@
-// A collection of term/definitions
+1// A collection of term/definitions
 var terms = {
   "invasive breast cancer" : {
     definition : "https://www.cancer.gov/common/popUps/popDefinition.aspx?id=CDR0000537695&version=Patient&language=English"
@@ -33,32 +33,25 @@ $(function() {
 
   // Enables the form when the user clicks ok for the dialog box be dispalyed
   // for any question in the patient eligibility phasse or the race
-  $("#okButtonCancerHistory").on("click",   enableBRATForm)
-  $("#okButtonMutationBRCA").on("click",    enableBRATForm)
-  $("#hispanicIssue").on("click",           enableBRATForm);
-  $("#unknownIssue").on("click",            enableBRATForm);
-  $("#NativeAmericanIssue").on("click",     enableBRATForm)
-
-	// Brings up the dialog box explaining why the data is inaccurate for hispnaics,
- 	// Native Americans/Alaskians and how the unknow is handled
-  	$("#race").on("change", function() {
-    		if( this.value == "Hispanic"){
-            disableForm();
-      			$("#hispanicIssue").modal("show");
-    		} else if ( this.value == "Other") {
-            disableForm();
-			      $("#unknownIssue").modal("show")
-		    } else if ( this.value == "Native American") {
-            disableForm();
- 			      $("#NativeAmericanIssue").modal("show");
-    		}
-  	});
+  $("#okButtonCancerHistory").on("click",       enableBRATForm)
+  $("#okButtonMutationBRCA").on("click",        enableBRATForm)
+  $("#okButtonHispanicIssue").on("click",       enableBRATForm);
+  $("#okButtonUnknownIssue").on("click",        enableBRATForm);
+  $("#okButtonNativeAmericanIssue").on("click", enableBRATForm)
+  $("#okButtonAdminIssue").on("click", enableBRATForm)
 
   // There are two select boxes Race and Sub Race.   For both Asian and Hispanic
   // there will be values found in the Sub Race Drop down.  For any other
   // it should be the default question
   $("#race").on("change", attachSubraceItems)
   $("#race").on("change", adjustSubraceWidth)
+  $("#race").on("change", displayProblemWithRace)
+
+  // If the item has a dilog a different callback will enable/disable the
+  // subrace menu, but if it does not and the subrace should not be disabled'
+  // these callback will disable the subrace
+  $("#race").on("change", adjustSubRaceMenuIfNecessary)
+
   $("#race" ).ready(attachSubraceItems)
   $("#race").ready(adjustSubraceWidth)
 
@@ -70,7 +63,7 @@ $(function() {
   	// If the Asian Selection from the list has been selected then enable the sub_race
 	$("#sub_race").prop("disabled", true)
  	$("[for='sub_race']").css("color","#c0c0c0");
- 	$("#race").on("change", changeSubraceMenu);
+ 	//$("#hispanicIssue").on("change", changeSubraceMenu);
 
   	// If the Number of Biopsies is None or 0 the questions about "How many breast biopies" and "atypical hyperlasia" should be disabled
 	$("#biopsyAnswerYes").on("click", enableQuestionAndAnswers)
@@ -93,6 +86,21 @@ $(function() {
 
   	$('#riskForm').trigger('change');
 });
+
+// Brings up the dialog box explaining why the data is inaccurate for hispnaics,
+// Native Americans/Alaskians and how the unknownn is handled
+function displayProblemWithRace() {
+    if( this.value == "Hispanic"){
+        $("#hispanicIssue").modal("show");
+        disableForm();
+    } else if ( this.value == "Other") {
+        $("#unknownIssue").modal()
+        disableForm();
+    } else if ( this.value == "Native American") {
+        $("#NativeAmericanIssue").modal();
+        disableForm();
+    }
+}
 
 // Attach the corrct items to the drop down for the subrace.  The correct items
 // is based on the race.
@@ -136,6 +144,16 @@ function adjustSubraceWidth() {
    } else {
      $("#sub_race").removeClass("mobile")
    }
+}
+
+function adjustSubRaceMenuIfNecessary() {
+  if( this.value == "White" ||
+      this.value == "Black" ||
+      this.value == "Other" ) {
+      disableSubRaceMenu()
+  } else if ( this.value == 'Asian') {
+      changeSubraceMenu()
+  }
 }
 
 // Create and Attach a set of options to an HTML Object

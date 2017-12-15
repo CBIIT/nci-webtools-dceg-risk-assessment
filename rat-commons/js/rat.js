@@ -483,7 +483,6 @@ function calculatePositionToScrollTo(target) {
 function toggle_menu(){
 
 	  let top = $("#toolTitle").offset().top;
-		console.log("top = " + top)
 
 		$("#side_nav").css("top", $('#toolTitle').offset().top + 'px');
 		$("#side_nav").css("right", 0);
@@ -700,7 +699,8 @@ function enableSectionHeaders() {
 //   2. Lighten the Seciton Header, Questions and Answers                    //
 ///////////////////////////////////////////////////////////////////////////////
 function disableForm() {
-	$("form :input").not("#reset").attr('disabled', true);
+	$("#riskForm").prop('disabled', true)
+	$("form :input").not("#reset").prop('disabled', true);
 	$("[class*='questions']").css("color","#c0c0c0");
 	disableSectionHeaders();
 }
@@ -980,7 +980,6 @@ $(window).load(function(e) {
 	//$("#side_nav").css("margin-top",logo_height+"px");
 	$("#side_nav").css("margin-top", $("#toolTitle").position().top + "px")
 	if( isMobile() ) {
- 		console.log("mobile");
  		$("header").addClass('fixed');
 		$("header").css("top", "0px")
 
