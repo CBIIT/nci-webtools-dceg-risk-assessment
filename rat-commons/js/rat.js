@@ -701,6 +701,7 @@ function enableSectionHeaders() {
 function disableForm() {
 	$("#riskForm").prop('disabled', true)
 	$("form :input").not("#reset").prop('disabled', true);
+	$("form label.radio").prop('disabled', true)
 	$("[class*='questions']").css("color","#c0c0c0");
 	disableSectionHeaders();
 }
