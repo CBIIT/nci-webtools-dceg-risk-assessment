@@ -1257,7 +1257,7 @@ input.error + label.radio span {
   }
   #side_nav.sidenav {
     width: 0;
-    position: absolute;
+    position: fixed;
     z-index: 9999;
     top: 0;
     right: 0;

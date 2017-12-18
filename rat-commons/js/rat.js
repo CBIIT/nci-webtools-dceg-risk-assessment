@@ -479,6 +479,9 @@ function calculatePositionToScrollTo(target) {
 /* HTML Object name side_nav would have its first line displayed below it.    */
 /* The situation was fixed by hiding the hamburger icon from the side_nav and */
 /* making it appear a few milliseocnds so the animation has time to complete  */
+/*                                                                            */
+/* It has been very hard to get the submenu to position itself horizatally    */
+/* with the toolTitle div
 /******************************************************************************/
 function toggle_menu(){
 
@@ -486,7 +489,7 @@ function toggle_menu(){
 		$("#side_nav").css("top", top)
 
 		$("#side_nav").css("right", 0);
-		$("#side_nav").css("position", "fixed");
+		$("#side_nav").css("position", "absolute");
 		$("#side_nav").css("margin", 0);
 
     if($("#side_nav").width()>0){ $("#side_nav").animate({ width: "0%" });
