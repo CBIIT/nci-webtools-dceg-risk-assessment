@@ -482,8 +482,6 @@ function calculatePositionToScrollTo(target) {
 /******************************************************************************/
 function toggle_menu(){
 
-	  let top = $("#toolTitle").offset().top;
-
 		var top = ( isMobile() ) ? $('#toolTitle').position().top + 'px' : $('#toolTitle').offset().top + 'px'
 		$("#side_nav").css("top", top)
 
