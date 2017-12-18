@@ -116,7 +116,7 @@ function attachSubraceItems() {
       {
         ""                 : properPhraseForQuestion,
         "Foreign Hispanic" : "Born outside the US",
-        "US Hispanic"      : "US Born"
+        "US Hispanic"      : "US born"
       })
   } else if ( this.value == 'Asian') {
     attachOptionsToAnHTMLObject(
