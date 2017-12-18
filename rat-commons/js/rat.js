@@ -484,7 +484,8 @@ function toggle_menu(){
 
 	  let top = $("#toolTitle").offset().top;
 
-		$("#side_nav").css("top", $('#toolTitle').offset().top + 'px');
+		//$("#side_nav").css("top", $('#toolTitle').offset().top + 'px');
+		$("#side_nav").css("top", $('#toolTitle').position().top + 'px');
 		$("#side_nav").css("right", 0);
 		$("#side_nav").css("position", "fixed");
 		$("#side_nav").css("margin", 0);
