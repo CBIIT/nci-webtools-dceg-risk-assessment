@@ -498,7 +498,7 @@ function toggle_menu(){
 			$("#side_nav").css("top", top)
 			$("#side_nav").css("margin-top",0)
 			//$("#side_nav").css("right", 0);
-			$("#side_nav").css("position", "fixed");
+			$("#side_nav").css("position", "absolute");
 			//$("#side_nav").css("margin", 0);
 		}
 
