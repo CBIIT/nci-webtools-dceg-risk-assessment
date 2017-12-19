@@ -405,6 +405,15 @@ a.btn:disabled {
   color: white;
 }
 
+/* Styles for the print button                                                */
+#print {
+
+}
+
+#print:hover {
+  
+}
+
 #calculate:disabled {
 
   box-sizing: border-box;

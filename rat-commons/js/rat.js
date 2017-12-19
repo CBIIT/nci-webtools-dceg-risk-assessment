@@ -131,10 +131,10 @@ function go_toresult() {
 /* Create a pie chart                                                            */
 /*                                                                               */
 /* Parameters:                                                                   */
-/*   percent		       	The change that the victim will get cancer       */
-/*   divContainerForChart  	The HTML Container that will cotnain the chart   */
-/*   color1 			The color for the chance of getting cancer       */
-/*   color2  			The color for the chance of not getting cancer   */
+/*   percent		       	The change that the victim will get cancer       				 */
+/*   divContainerForChart  	The HTML Container that will cotnain the chart   		 */
+/*   color1 			The color for the chance of getting cancer       							 */
+/*   color2  			The color for the chance of not getting cancer   							 */
 /*********************************************************************************/
 function make_pie_chart(percent, divContainerForChart, color1, color2){
 
@@ -210,11 +210,6 @@ function formScrollSpy() {
 		// Retrieve the top most pixel of the header belonging to section
 		// If mobile
 		var sectionHeight =$(this).attr('data-position-height');
-		//if ( isMobile() ) {
-		//	sectionHeight = parseInt(sectionHeight) + calculateForMobileRiskFormStart();
-		//}
-		//console.log("Seciton Height = " + sectionHeight)
-
 
 		// If the current section is just below the navigation bar ( form-stpes)
 		// then that section should be the active.
@@ -249,8 +244,6 @@ function formScrollSpy() {
 		   	adjust_line_width($('#form-steps li').length - 1);
 		}
 	}
-
-	//adjustNavigationBarLine();
 
 	//console.log("end scroll spy ------------------------------")
 }
@@ -481,7 +474,9 @@ function calculatePositionToScrollTo(target) {
 /* making it appear a few milliseocnds so the animation has time to complete  */
 /*                                                                            */
 /* It has been very hard to get the submenu to position itself horizatally    */
-/* with the toolTitle div
+/* so I tried a new stratergy instead of creating a one algorithm for         */
+/* all browsers/mobile devices, I create one algorithm for the desktop and    */
+/* one algorithm for the mobile.                                              */
 /******************************************************************************/
 function toggle_menu(){
 
@@ -489,18 +484,15 @@ function toggle_menu(){
 		if ( isMobile() == false )
 		{
 			top = $('#toolTitle').offset().top + 'px'
-			$("#side_nav").css("top", top)
 			$("#side_nav").css("right", 0);
-			$("#side_nav").css("position", "absolute");
 			$("#side_nav").css("margin", 0);
 		} else {
 			top = $('#toolTitle').position().top + 'px'
-			$("#side_nav").css("top", top)
 			$("#side_nav").css("margin-top",0)
-			//$("#side_nav").css("right", 0);
-			$("#side_nav").css("position", "absolute");
-			//$("#side_nav").css("margin", 0);
 		}
+
+		$("#side_nav").css("position", "absolute");
+		$("#side_nav").css("top", top)
 
 
     if($("#side_nav").width()>0){ $("#side_nav").animate({ width: "0%" });
@@ -615,6 +607,35 @@ function focusBorderToggle(event) {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+// Enable the Caluclate Button if all non disabled inputs have a value
+//////////////////////////////////////////////////////////////////////////////
+function enableCalculateButton() {
+	 var newVal = $(this).val();
+	 var inputs = $("form#riskForm input:enabled, form#riskForm select:enabled");
+	 valid=true
+	 inputs.each(function(index) {
+			 var input = $(this);
+			 if(input[0].required==true){
+				 name=input[0].name
+				 if(($('input[name=' + name +']').is('input') && $('input[name=' + name + ']:checked').length==0) || ($('select[name=' + name +']').is('select') && input[0].selectedIndex==0)){
+						 disablebutton()
+						 valid=false
+					 }
+			 }
+	 });
+
+	 if(valid==true) enablebutton();
+
+	 //console.log("enableCalculateButton --> " + $("#calculate").attr("disabled"))
+
+	 $("select").on("select", redrawHTMLObject);
+	 $("select").on("change", redrawHTMLObject);
+
+
+}
+
+
+//////////////////////////////////////////////////////////////////////////////
 // Determine if the calculation button should be enabled.  If all the input  //
 // fields that are enabled have a value then enable the calculate button     //
 ///////////////////////////////////////////////////////////////////////////////
@@ -878,6 +899,25 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// Handles the generic reset for all the risk analysis tools
+////////////////////////////////////////////////////////////////////////////////
+function genericResetForm() {
+	$('form').trigger('reset')
+ 	$(window).scrollTop(0);
+	$("form :input").attr('disabled', false);
+	$("[class*='questions']").css("color","#2e2e2e")
+	$("#calculate").attr("disabled", "disabled")
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Prints the current page of the website                                    //
+///////////////////////////////////////////////////////////////////////////////
+function printCurrentPage() {
+	window.print()
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
 // Startup Code
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -988,13 +1028,14 @@ $(window).load(function(e) {
 			$('button[data-toggle="collapse"]').trigger("click");
 	});
 
-  	// Sets up the GUI for mobile devices or desktop devices
-	var header_height=$('header').outerHeight(true);
- 	var form_steps_height=$('#form-steps').outerHeight();
- 	var logo_height=$('#logo').outerHeight();
-	//$("#side_nav").css("margin-top",logo_height+"px");
+  // Sets up the GUI for mobile devices or desktop devices
 	$("#side_nav").css("margin-top", $("#toolTitle").position().top + "px")
 	if( isMobile() ) {
+
+		var header_height=$('header').outerHeight(true);
+		var form_steps_height=$('#form-steps').outerHeight();
+		var logo_height=$('#logo').outerHeight();
+
  		$("header").addClass('fixed');
 		$("header").css("top", "0px")
 
@@ -1016,68 +1057,25 @@ $(window).load(function(e) {
 		}
 
  		$("header").css("background","white");
- 		//$("#main").removeClass("container-fluid");
-		//console.log("Header Height = " + header_height);
-		//console.log("steps height = " + form_steps_height)
-		//$("#main_home").css("margin-top", header_height);'
 
 	} else {
 		if ( $("#form-steps").length > 0) adjustNavigationBarLine();
-
 	}
 
 	// Determine what spacing should be between the Content and the Buttons
 	var cssClass = ( isMobile() )  ? "spacerBetweenQuestionsAndButtonsMobile" : "spacerBetweenQuestionsAndButtonsDesktop";
 	if ( $("#calculate").length > 0 ) $("#calculate").addClass(cssClass);
 
-
-});
-
-$(document).ready(function(){
-
+	// Any time the form changes check to see that are inputs are validate.  If they are then enable the caclulate button
 	$("#riskForm").on("change", enableCalculateButton);
 
-	$('html,body').scrollTop(0);
-
+	// For the page with the Assess Patient Link Button set the click to calculate.html
 	if ( $("#AssessPatientRisk").length > 0 )	$("#AssessPatientRisk").on("click", goto_calculatePage);
 
+	// Any time the app starts it should start at the top of the page
+	$('html,body').scrollTop(0);
+
+	// Prints the Reuslts page
+	$("#print").on("click", printCurrentPage );
+
 });
-
-////////////////////////////////////////////////////////////////////////////////
-// Handles the generic reset for all the risk analysis tools
-////////////////////////////////////////////////////////////////////////////////
-function genericResetForm() {
-	$('form').trigger('reset')
- 	$(window).scrollTop(0);
-	$("form :input").attr('disabled', false);
-	$("[class*='questions']").css("color","#2e2e2e")
-	$("#calculate").attr("disabled", "disabled")
-}
-
-///////////////////////////////////////////////////////////////////////////////
-// Enable the Caluclate Button if all non disabled inputs have a value
-//////////////////////////////////////////////////////////////////////////////
-function enableCalculateButton() {
-	 var newVal = $(this).val();
-	 var inputs = $("form#riskForm input:enabled, form#riskForm select:enabled");
-	 valid=true
-	 inputs.each(function(index) {
-			 var input = $(this);
-			 if(input[0].required==true){
-				 name=input[0].name
-				 if(($('input[name=' + name +']').is('input') && $('input[name=' + name + ']:checked').length==0) || ($('select[name=' + name +']').is('select') && input[0].selectedIndex==0)){
-						 disablebutton()
-						 valid=false
-					 }
-			 }
-	 });
-
-	 if(valid==true) enablebutton();
-
-	 //console.log("enableCalculateButton --> " + $("#calculate").attr("disabled"))
-
-	 $("select").on("select", redrawHTMLObject);
-	 $("select").on("change", redrawHTMLObject);
-
-
-}
