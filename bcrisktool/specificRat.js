@@ -13,7 +13,7 @@ $(function() {
 		if(this.value == 0){
 			      $("#womanWithCancerDialog").modal("show");
       			disableForm();
-            $("input[name='cancerAndRadiationHistory']")[this.value].checked = true
+            //$("input[name='cancerAndRadiationHistory']")[this.value].checked = false
 	  	} else {
       			$("#riskForm").trigger("change")
       }
@@ -22,13 +22,12 @@ $(function() {
   // Disables the form if has a mutation in the BRCA1 or BRCA2 or trigger the
   // from to check if the calcualte button can be enabled
   $("input[name='geneticMakeup']").on("click", function(event) {
-	if(this.value == 0 || this.value == 2 ){
-      		$("#hasBRCAMutation").modal("show");
-      		disableForm();
-          $("input[name='geneticMakeup']")[this.value].checked = true
-	  } else {
+	   if(this.value == 0 ) {
+      $("#hasBRCAMutation").modal("show");
+      disableForm();
+	   } else {
       		$("#riskForm").trigger("change")
-    }
+     }
   });
 
   // Enables the form when the user clicks ok for the dialog box be dispalyed
@@ -133,7 +132,6 @@ function attachSubraceItems() {
     attachOptionsToAnHTMLObject(
       {
         ""            : properPhraseForQuestion,
-
       })
   }
 }
@@ -266,10 +264,11 @@ function disableSubRaceMenu() {
 }
 
 /* Produces the results box for the RAT                                      */
-function resultsDisplay(response, textStatus, xhr) {
 
+function resultsDisplay(response, textStatus, xhr) {
   var result = JSON.parse(response.message)
 	go_toresult();
+
 
 	var fiveYearPatientRiskColor = ( result.risk > result.averageFiveRisk) ? "#BB0E3D" : "#2DC799";
 	var lifetimePateientRiskColor = ( result.lifetime_patient_risk > result.lifetime_average_risk) ? "#BB0E3D" : "#2DC799";
