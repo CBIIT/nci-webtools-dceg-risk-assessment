@@ -411,7 +411,7 @@ a.btn:disabled {
 }
 
 #print:hover {
-  
+
 }
 
 #calculate:disabled {
@@ -750,9 +750,16 @@ select {
 
 /* Enlarge the select box so selection fit                                    */
 #race {
-  width: 293px;
   border-radius: 4px;
-  padding-left: .05em;
+  padding-left: .05em
+}
+
+#race.desktop {
+  width: 298px;
+}
+
+#race.mobile {
+  width: 293px;
 }
 
 #sub_race {
