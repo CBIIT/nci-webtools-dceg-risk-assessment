@@ -407,11 +407,7 @@ a.btn:disabled {
 
 /* Styles for the print button                                                */
 #print {
-
-}
-
-#print:hover {
-
+  float:  right;
 }
 
 #calculate:disabled {
