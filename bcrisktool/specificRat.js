@@ -134,7 +134,7 @@ function attachSubraceItems() {
         ""            : properPhraseForQuestion,
         "Chinese"     : "Chinese",
         "Filipino"    : "Filipino",
-        "Hawaiian"    : "Hawaiin",
+        "Hawaiian"    : "Hawaiian",
         "Islander"    : "Islander",
         "Japanese"    : "Japanese",
         "Asian"       : "Other Asian"
