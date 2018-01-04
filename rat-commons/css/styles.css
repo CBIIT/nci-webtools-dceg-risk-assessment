@@ -1021,26 +1021,16 @@ input.error + label.radio span {
 
 @media (max-width: 992px) {
 
+  #InputParameters {
+    margin-left : 2em;
+  }
+
   #InputParameters td {
     padding-top: .5em;
     padding-bottom: .5em;
   }
 
-  #InputParameters .answers {
-    /*
-    background-color: rgba(93, 74, 159, 0.10);
-    color: #2E2E2E;
-    width: 20%;
-    font-family : "Noto Sans";
-    font-weight : bold;
-    font-size : 16px;
-    line-height: 22px;
-    */
-    vertical-align:top;
-  }
-
   #InputParameters .questions {
-    vertical-align: top;
     padding-right: .5em;
   }
 
@@ -1100,6 +1090,18 @@ input.error + label.radio span {
 
   .pl-3 {
       padding-left : 0px;
+  }
+
+  #InputParameters {
+    margin-left: 0em;
+  }
+
+  #InputParameters .answers {
+    padding-right: 1em;
+  }
+
+  #InputParameters td.answers {
+    vertical-align: top;
   }
 }
 /* The style should be used when the patient has a greater risk than average  */
@@ -1548,7 +1550,6 @@ section > fieldset > legend.questions {
 
 /* Settings for the Results Table that shows the input Parameters */
 #InputParameters {
-  margin-left: 2em;
   width: 95%;
   margin-bottom: 32px;
   counter-reset: row-num;
