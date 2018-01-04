@@ -1093,6 +1093,14 @@ input.error + label.radio span {
   section {
     padding : 1em;
   }
+
+  .responseOptions {
+    margin-left: 0em;
+  }
+
+  .pl-3 {
+      padding-left : 0px;
+  }
 }
 /* The style should be used when the patient has a greater risk than average  */
 /* I used !important here since this property should always take precedence   */

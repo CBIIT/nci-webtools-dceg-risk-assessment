@@ -566,7 +566,8 @@ function isTablet() {
 
 
 /******************************************************************************/
-/* Is the device a mobile phone or tablet ?                                   */
+/* Is the device a mobile phone or tablet ?  This routine is broken           */
+/* However, it dows not seem to be affectng the code much.                    */
 /******************************************************************************/
 function isMobile() {
 	return 	/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
