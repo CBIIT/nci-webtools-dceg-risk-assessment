@@ -320,6 +320,10 @@ function fixedToTop(div,use_mobile) {
  			$("#form-steps").css("top",header_height+"px");
 			$("#form-steps").addClass("fixed");
 		}
+		else {
+			$("header").css("top", "0px")
+			$("header").show()
+		}
 
 		$("#riskForm").css("margin-top", calculateForMobileRiskFormStart() +"px");
 		return
