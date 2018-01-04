@@ -306,6 +306,13 @@ function fixedToTop(div,use_mobile) {
 	var form_steps_height = ( existFormSteps() ) ? $('#form-steps').outerHeight(true) : 0;
 
   if ( isMobile()) {
+
+		//$("header").removeClass("fixed")
+		console.log("The value of steps = " + existFormSteps() )
+
+		$("#header").addClass('fixed');
+		$("#toolTitle").addClass('fixed')
+
 		if ( existFormSteps() ) {
 
 			if ( window_top > 0 )	{
@@ -321,11 +328,14 @@ function fixedToTop(div,use_mobile) {
 			$("#form-steps").addClass("fixed");
 		}
 		else {
-			$("header").css("top", "0px")
+			$("header").css("top", 0 + "px")
+
 			$("header").show()
+			$("#toolTitle").show()
+
 		}
 
-		$("#riskForm").css("margin-top", calculateForMobileRiskFormStart() +"px");
+		//$("#riskForm").css("margin-top", calculateForMobileRiskFormStart() +"px");
 		return
   }
 
