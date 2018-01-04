@@ -305,17 +305,29 @@ function fixedToTop(div,use_mobile) {
 	var tool_title_height=$('#toolTitle').outerHeight(true);
 	var form_steps_height = ( existFormSteps() ) ? $('#form-steps').outerHeight(true) : 0;
 
-	//if ( isMobile()) {
-	//	$("header").css("top", "0px");
-	//	if ( existFormSteps() ) {
- 	//		$("#form-steps").css("top",header_height+"px");
-	//		$("#form-steps").addClass("fixed");
-	//	}
-  //
-	//	$("#riskForm").css("margin-top", calculateForMobileRiskFormStart() +"px");
-	//}
+  if ( isMobile()) {
+		if ( existFormSteps() ) {
 
-	if ( window_top > div_top || isMobile()) {
+			if ( window_top > 0 )	{
+				header_height = 0
+				$("header").hide()
+			}
+			else {
+				$("header").css("top", "0px")
+				$("header").show()
+			}
+
+ 			$("#form-steps").css("top",header_height+"px");
+			$("#form-steps").addClass("fixed");
+		}
+
+		$("#riskForm").css("margin-top", calculateForMobileRiskFormStart() +"px");
+		return
+  }
+
+
+	//if ( window_top > div_top || isMobile()) {
+	if ( window_top > div_top) {
 		 $("#form-steps").addClass('fixed');
 		 if($(window).width()>=992)
 		 	$("#line").find("hr").css("top",form_steps_height-30)
