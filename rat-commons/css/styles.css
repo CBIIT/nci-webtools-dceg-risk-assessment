@@ -1079,16 +1079,19 @@ input.error + label.radio span {
     margin-left: 0;
   }
 
-/*  The purpose of this media is to control the size of the RACE and SubRace  */
-/*  dropdown boxes size.  Usually we have a media for one type of device, but */
-/* the code was written a little bit differently then it should been.         */
-@media( max-width: 400px) {
+/* Handles Cell Phones : The size of a cell phone should be no more than 480  */
+/* pixels                                                                     */
+@media( max-width: 480px) {
   #race {
-    width: 293px;
+    width: 302px;
   }
 
   #sub_race {
     width: 200px;
+  }
+
+  section {
+    padding : 1em;
   }
 }
 /* The style should be used when the patient has a greater risk than average  */
