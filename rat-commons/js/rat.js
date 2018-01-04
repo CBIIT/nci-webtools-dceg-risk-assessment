@@ -308,7 +308,6 @@ function fixedToTop(div,use_mobile) {
   if ( isMobile()) {
 
 		//$("header").removeClass("fixed")
-		console.log("The value of steps = " + existFormSteps() )
 
 		$("#header").addClass('fixed');
 		$("#toolTitle").addClass('fixed')

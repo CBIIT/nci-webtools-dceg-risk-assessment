@@ -747,11 +747,10 @@ select {
 /* Enlarge the select box so selection fit                                    */
 #race {
   border-radius: 4px;
-  padding-left: .05em
 }
 
 #race.desktop {
-  width: 298px;
+  width: 340px;
 }
 
 #race.mobile {
