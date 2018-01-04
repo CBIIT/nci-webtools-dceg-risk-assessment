@@ -1031,7 +1031,7 @@ input.error + label.radio span {
   }
 
   #InputParameters .questions {
-    padding-right: .5em;
+    padding-right: 1.0em;
   }
 
 
