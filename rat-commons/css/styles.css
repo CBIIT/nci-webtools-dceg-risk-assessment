@@ -747,25 +747,12 @@ select {
 /* Enlarge the select box so selection fit                                    */
 #race {
   border-radius: 4px;
-}
-
-#race.desktop {
   width: 340px;
-}
-
-#race.mobile {
-  width: 293px;
 }
 
 #sub_race {
   width: 370px;
   border-radius: 4px;
-}
-
-#sub_race.mobile {
-  width: 200px;
-  border-radius: 4px;
-
 }
 
 select::-ms-expand {
@@ -1092,6 +1079,18 @@ input.error + label.radio span {
     margin-left: 0;
   }
 
+/*  The purpose of this media is to control the size of the RACE and SubRace  */
+/*  dropdown boxes size.  Usually we have a media for one type of device, but */
+/* the code was written a little bit differently then it should been.         */
+@media( max-width: 400px) {
+  #race {
+    width: 293px;
+  }
+
+  #sub_race {
+    width: 200px;
+  }
+}
 /* The style should be used when the patient has a greater risk than average  */
 /* I used !important here since this property should always take precedence   */
 /* over any other colors                                                      */

@@ -82,18 +82,6 @@ $(function() {
   	// that make the caculate button disabled if all the question are not answered
   	// with No
   	$("#riskForm").on("change", disableIfPatientIsNotEligible);
-
-    // Late into the game, I realized that you could set up different classes
-    // for the desktop, mobile and tablet.  I might refactor this code later on,
-    // but since I am dealing with one GUI element, I will code for that element
-    if ( isTablet() ) {
-      $("#race").addClass("desktop")
-    } else if ( isMobile() ) {
-      $("#race").addClass("mobile")
-    } else {
-      $("#race").addClass("desktop")
-    }
-
   	$('#riskForm').trigger('change');
 });
 
