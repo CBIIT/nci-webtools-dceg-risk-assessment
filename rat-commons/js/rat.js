@@ -569,7 +569,9 @@ function isTablet() {
 /* Is the device a mobile phone or tablet ?                                   */
 /******************************************************************************/
 function isMobile() {
-	return 	/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+	var navigatorResult = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+	var platformResult = /iPhone/i.test(navigator.platform)
+	return 	navigatorResult || platformResult
 }
 
 /******************************************************************************/
