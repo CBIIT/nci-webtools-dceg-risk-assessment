@@ -1568,6 +1568,14 @@ section > fieldset > legend.questions {
   line-height 22px;
 }
 
+/* The number of the input parameter.  Each major question has a number.  The */
+/* style allows use to separate the styling of the Number with the period.    */
+/* Allows use to have the number bold and the period as normal text           */
+#InputParameters .questionNumber {
+  color: #2E2E2E;
+  font-weight: bold;
+}
+
 #InputParameters th,
 #InputParameters td {
   border-bottom : 1px solid #dddddd;

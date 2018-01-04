@@ -253,7 +253,7 @@
 
              <label class="col-sm-offset-1 questions" for="sub_race">What is the sub race/ethnicity or place of birth?</label>
              <div class="col-sm-offset-1 responseOptionsWithoutIndent pl-3">
-               <select id="sub_race" class="selectContent" name="sub_race"  required>
+               <select id="sub_race" class="selectContent" name="sub_race"  data-subquestion="true"  required>
                   <option class="selectContent" value="">Select sub race/ethnicity or place of birth?</option>
               </select>
              </div>
@@ -274,7 +274,7 @@
               <label class="radio" tabindex="0" for="biopsyAnswerUnknown"><span> </span>Unknown</label>
             </div>
 
-            <label class="col-sm-offset-1 questions" for="breastBiopsiesCount1">How many breast biopsies (positive or negative) has the woman had?</label>
+            <label class="col-sm-offset-1 questions" for="breastBiopsiesCount1"  data-subquestion="true">How many breast biopsies (positive or negative) has the woman had?</label>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
               <input id="breastBiopsiesCount1" type="radio" name="biopsy_result" value="1" required>
               <label class="radio" tabindex="0" for="breastBiopsiesCount1"><span> </span>1</label>
@@ -284,7 +284,7 @@
               <label class="radio" tabindex="0" for="breastBiopsiesCountLessThan0"><span> </span>&gt;1</label>
             </div>
 
-            <label class="col-sm-offset-1 questions" for="hadAhYes">Has the woman had at least one breast biopsy with atypical hyperplasia?</label>
+            <label class="col-sm-offset-1 questions" for="hadAhYes"  data-subquestion="true">Has the woman had at least one breast biopsy with atypical hyperplasia?</label>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
               <input id="hadAhYes" type="radio" name="biopsy_ah" value="1.82" required>
               <label class="radio" tabindex="0" for="hadAhYes"><span> </span>Yes</label>

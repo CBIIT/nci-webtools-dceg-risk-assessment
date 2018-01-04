@@ -335,12 +335,9 @@ function fixedToTop(div,use_mobile) {
 
 		}
 
-		//$("#riskForm").css("margin-top", calculateForMobileRiskFormStart() +"px");
 		return
   }
 
-
-	//if ( window_top > div_top || isMobile()) {
 	if ( window_top > div_top) {
 		 $("#form-steps").addClass('fixed');
 		 if($(window).width()>=992)
@@ -858,7 +855,16 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 		console.log("Error : Invalid Parameter table name for convertQuestionAndAnswersToTableRows ")
 	}
 
-	$(formName + " .questions").each(function(index, element) {
+	// TODO : Find a better way to handle the situation where there is a global
+	// to functions.  May closures or in this case CSS Counters
+
+	// Number of SubQuestion One after another
+	var numberOfSubQuestionsInARow = 0
+
+	// Number of total subquestion before the current question
+	var numberOfSubQuestions = 0
+
+ 	$(formName + " label.questions").each(function(index, element) {
 
 		// Extracts the current answer from the input screen to the current question
 		// Assumption : The User has completed filling out the form
@@ -872,7 +878,7 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 				// Get the name attribute which the radio button use for the variable name of the Data
 				// Using the nane get the input value from the Form Data.
 				var name = $(inputElement).attr("name")
-			  var value = $("input[name='" + name + "']:checked").val()
+				var value = $("input[name='" + name + "']:checked").val()
 
 				// Select the answer text from the input page.
 				var nameSelector = "[name='" + name + "']"
@@ -888,35 +894,71 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 
 			//console.log("For HTML Object " + name + " the value is " + inputText)
 			return inputText
-
 		}
 
+		// Creates a TD Tag with the number of the question a period and the question itself
 		function createQuestionCell(index, questionText) {
 
-			// The spacing between the number and the question is different if you
-			// two number ( ex. 10) vs one number
-		  var paddingRight = ( index > 9 ) ? ".5em" : "1em"
+		 // There are two types of questions:
+		 //    Questions will have a numeric number that need to have one added to it
+		 //    since the index is 0-based and subtracted using the number of previous
+		 //    subquestions asksed.
+		 //
+		 //    Subquestions will use the alphabet for number.  The first one will get
+		 //    an "A" and the second will get a "B".  Once a new question without
+		 //    the data-subquestion attribute is found then the next subqestion will
+		 //    get "A"
+		 //
+		 //		Returns to values
+		 //			An index string for questions a number, but for subquestion a lowercase letters
+		 //     True if the element is a subqeustion			\
+		 function handleIndex(index, element) {
 
-			var question = $("<td></td>").addClass("questions")
-			var container = $("<div></div>").css("display","flex").css("flex-direction","row")
-			var lineNumber = $("<div></div>").text(index + "." + " ").css("padding-right", paddingRight)
-			var questionText = $("<div></div>").text(questionText)
+		 	 var letters = [ "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "l", "m", "n" ]
+			 var indexString = ""
+		   var isSubQuestion = false
 
-			var questionDiv = container.append(lineNumber).append(questionText)
-			return question.append(questionDiv)
+		 	 if ($(element).attr("data-subQuestion")) {
+					numberOfSubQuestions = numberOfSubQuestions + 1
+					numberOfSubQuestionsInARow = numberOfSubQuestionsInARow + 1
+					indexString = letters[numberOfSubQuestions - 1]
+					isSubQuestion = true
+			 } else {
+					numberOfSubQuestionsInARow = 0
+					indexString = index - numberOfSubQuestions
+			 }
 
-		}
+			 return { indexString: indexString, isSubQuestion: isSubQuestion }
+	   }
 
-		var inputElement = $($(element).nextUntil("label","div")[0]).children('input, select')
-		var inputAnswerText = extractAnswerDispalyedOnGui(inputElement)
+ 	 	 var indexData = handleIndex(index + 1, element)
 
-		//var visibleIndex = (index + 1) + "."
-		//var question = $("<td></td>").text( visibleIndex + $(element).text()).addClass("questions")
-		var question = createQuestionCell(index + 1, $(element).text())
-		var answer = $("<td></td>").text(inputAnswerText).addClass("answers")
-		var tableRow = $("<tr></tr>").append(question).append(answer)
+		 // The spacing between the number and the question is different if you
+		 // two number ( ex. 10) vs one number
+		 var paddingRight = ( index > 9 ) ? ".5em" : "1em"
 
-		$(tableName + " tbody").append(tableRow)
+		 var question = $("<td></td>").addClass("questions")
+		 var container = $("<div></div>").css("display","flex").css("flex-direction","row")
+		 var lineNumberSpan = $("<span></span>").text(indexData.indexString).addClass("questionNumber")
+ 		 var linePeriodSpan = $("<span></span>").text("." + " ").css("padding-right", paddingRight)
+ 		 var lineNumber = $("<div></div>").append(lineNumberSpan).append(linePeriodSpan)
+
+     var questionDiv = container.append(lineNumber).append(questionText)
+	   if ( indexData.isSubQuestion ) {
+			   questionDiv.css("margin-left", "1.8em")
+		 }
+
+		 return question.append(questionDiv)
+   }
+
+	 var inputElement = $($(element).nextUntil("label","div")[0]).children('input, select')
+	 var inputAnswerText = extractAnswerDispalyedOnGui(inputElement)
+
+   var question = createQuestionCell(index, $(element).text())
+   var answer = $("<td></td>").text(inputAnswerText).addClass("answers")
+   var tableRow = $("<tr></tr>").append(question).append(answer)
+
+	 $(tableName + " tbody").append(tableRow)
 
 	});
 
