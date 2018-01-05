@@ -202,11 +202,15 @@ a:focus {
 .no_display {
   display: none;
 }
-header,
+
 .tab-content,
 .footer {
   display: block;
   padding-top: 25px;
+}
+
+header {
+  display: block;
 }
 
 header.fixed {
@@ -1539,7 +1543,7 @@ section > fieldset > legend.questions {
   top: 1px;
   left: 1px;
   padding: 2px;
-  position: absolute;
+  float: right;
 }
 
 /* the correct text color for all the text to the right of the stop sign and */
