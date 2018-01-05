@@ -43,16 +43,9 @@ $(function() {
   // there will be values found in the Sub Race Drop down.  For any other
   // it should be the default question
   $("#race").on("change", attachSubraceItems)
-  //$("#race").on("change", adjustSubraceWidth)
   $("#race").on("change", displayProblemWithRace)
-
-  // If the item has a dilog a different callback will enable/disable the
-  // subrace menu, but if it does not and the subrace should not be disabled'
-  // these callback will disable the subrace
   $("#race").on("change", adjustSubRaceMenuIfNecessary)
-
-  $("#race" ).ready(attachSubraceItems)
-  $("#race").ready(adjustSubraceWidth)
+  $("#race").ready(attachSubraceItems)
 
 	// On this IOS Phone 6 the navigation bar line in the center was not getting positioned
 	// correctly, so I am adding a callback to the #RACE drop down so that the navigation
