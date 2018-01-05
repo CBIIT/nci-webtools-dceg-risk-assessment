@@ -1082,7 +1082,7 @@ input.error + label.radio span {
   }
 
   #sub_race {
-    width: 200px;
+    width: 302px;
   }
 
   section {
@@ -1109,6 +1109,12 @@ input.error + label.radio span {
     vertical-align: top;
   }
 }
+
+/* Handles handheld media                                                     */
+@media handheld {
+  display: none;
+}
+
 /* The style should be used when the patient has a greater risk than average  */
 /* I used !important here since this property should always take precedence   */
 /* over any other colors                                                      */
