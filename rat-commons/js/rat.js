@@ -859,7 +859,7 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 	// to functions.  May closures or in this case CSS Counters
 
 	// Number of SubQuestion One after another
-	var numberOfSubQuestionsInARow = 0
+	var numberOfSubQuestionsInARow = -1
 
 	// Number of total subquestion before the current question
 	var numberOfSubQuestions = 0
@@ -921,10 +921,10 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 		 	 if ($(element).attr("data-subQuestion")) {
 					numberOfSubQuestions = numberOfSubQuestions + 1
 					numberOfSubQuestionsInARow = numberOfSubQuestionsInARow + 1
-					indexString = letters[numberOfSubQuestions - 1]
+					indexString = letters[numberOfSubQuestionsInARow]
 					isSubQuestion = true
 			 } else {
-					numberOfSubQuestionsInARow = 0
+					numberOfSubQuestionsInARow = -1
 					indexString = index - numberOfSubQuestions
 			 }
 
