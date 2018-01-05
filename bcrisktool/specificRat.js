@@ -43,7 +43,7 @@ $(function() {
   // there will be values found in the Sub Race Drop down.  For any other
   // it should be the default question
   $("#race").on("change", attachSubraceItems)
-  $("#race").on("change", adjustSubraceWidth)
+  //$("#race").on("change", adjustSubraceWidth)
   $("#race").on("change", displayProblemWithRace)
 
   // If the item has a dilog a different callback will enable/disable the
@@ -151,13 +151,13 @@ function returnSubRaceDefaultString() {
 
 // Problem : On the iphone the String "Select sub race/ethnicity or place of birth"
 // goes way pass the border, so the width is adjusted for the device.
-function adjustSubraceWidth() {
-   if ( isMobile() && !isTablet() ) {
-     $("#sub_race").addClass("mobile")
-   } else {
-     $("#sub_race").removeClass("mobile")
-   }
-}
+//function adjustSubraceWidth() {
+//   if ( isMobile() && !isTablet() ) {
+//     $("#sub_race").addClass("mobile")
+//   } else {
+//     $("#sub_race").removeClass("mobile")
+//   }
+//}
 
 // When White, African American, Alaskan navtive or American Indian, unknown then
 // the subrace menu is not needed.
