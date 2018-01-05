@@ -107,7 +107,7 @@ function attachSubraceItems() {
   // Problem : On the iphone the String "Select sub race/ethnicity or place of birth"
   // goes way pass the border, so for the mobile phone the phrase will be
   // "Select place of birth?"
-  var properPhraseForQuestion = (( isMobile() && !isTablet() )) ? "Select place of birth?" : "Select sub race/ethnicity or place of birth?"
+  var properPhraseForQuestion = returnSubRaceDefaultString()
 
   if ( this.value == "Hispanic") {
     attachOptionsToAnHTMLObject(
@@ -130,9 +130,23 @@ function attachSubraceItems() {
   } else {
     attachOptionsToAnHTMLObject(
       {
-        ""            : properPhraseForQuestion,
+        ""            : properPhraseForQuestion
       })
   }
+}
+
+// Rule: Any time the window resizes check to make sure that the Sub Race
+// HTML Object has the correct default string.
+$(window).resize(function()
+  {
+    if ( $("#sub_race").length == 1 ) {
+      $("#sub_race option:first-child").html(returnSubRaceDefaultString());
+    }
+  })
+
+// Returns the default string based on size
+function returnSubRaceDefaultString() {
+  return ( $(window).width() <= 480 ) ? "Select place of birth?" : "Select sub race/ethnicity or place of birth?"
 }
 
 // Problem : On the iphone the String "Select sub race/ethnicity or place of birth"
@@ -162,10 +176,8 @@ function attachOptionsToAnHTMLObject(optionsValuesAndText) {
   $("#sub_race").empty();
   $.each(optionsValuesAndText, function (val, text) {
     $("#sub_race").
-      append( $("<option></option>").val(val).html(text).addClass("content"));
-  });  // Problem : On the iphone the String "Select sub race/ethnicity or place of birth"
-  // goes way pass the border, so for the mobile phone the phrase will be
-  // "Select place of birth?"
+      append( $("<option></option>").val(val).html(text).addClass("content") );
+  });
 }
 
 // If Any question is "Yes" in the Patient Eligibility is selected then

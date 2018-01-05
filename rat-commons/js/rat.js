@@ -1146,8 +1146,4 @@ $(window).load(function(e) {
 	// Prints the Reuslts page
 	$("#print").on("click", printCurrentPage );
 
-	// The Print Button on the Results Pages should not be shown when the device
-	// is mobile
-	//if ( isMobile() ) { $("#print").hide() }
-
 });
