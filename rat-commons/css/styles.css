@@ -1112,7 +1112,10 @@ input.error + label.radio span {
 
 /* Handles handheld media                                                     */
 @media handheld {
-  display: none;
+
+  #print {
+    display: none;
+  }
 }
 
 /* The style should be used when the patient has a greater risk than average  */

@@ -1148,6 +1148,6 @@ $(window).load(function(e) {
 
 	// The Print Button on the Results Pages should not be shown when the device
 	// is mobile
-	if ( isMobile() ) { $("#print").hide() }
+	//if ( isMobile() ) { $("#print").hide() }
 
 });
