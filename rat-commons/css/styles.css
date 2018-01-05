@@ -211,6 +211,7 @@ a:focus {
 
 header {
   display: block;
+  padding-top : 5px;
 }
 
 header.fixed {
@@ -1580,6 +1581,7 @@ section > fieldset > legend.questions {
   font-size : 16px;
   color: #2E2E2E;
   line-height 22px;
+  padding-right: 1em;
 }
 
 /* The number of the input parameter.  Each major question has a number.  The */
