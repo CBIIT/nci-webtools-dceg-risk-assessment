@@ -765,14 +765,15 @@ function disableForm() {
 
 ////////////////////////////////////////////////////////////////////////////////
 // Enable a from by doing the follwoing                                       //
-//    1. Enable all input to the form except the reset button                 //
-//    2. Darken the Seciton Header, Questions and Answers                     //
 ////////////////////////////////////////////////////////////////////////////////
 function enableForm() {
-	$("form :input").not("#reset").attr('disabled', false);
+	$("form :input").not("#reset").not("#calculate").attr('disabled', false);
 	$("form label.radio").css("color","#2E2E2E")
 	$("[class*='questions']").css("color","#2E2E2E")
 	enableSectionHeaders();
+
+	// Allows the enableCalculateButton function to verify the form has all
+	// the needed inputs.
 	$("#riskForm").trigger("change")
 }
 
