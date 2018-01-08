@@ -1134,9 +1134,6 @@ $(window).load(function(e) {
 	var cssClass = ( isMobile() )  ? "spacerBetweenQuestionsAndButtonsMobile" : "spacerBetweenQuestionsAndButtonsDesktop";
 	if ( $("#calculate").length > 0 ) $("#calculate").addClass(cssClass);
 
-	// Any time the form changes check to see that are inputs are validate.  If they are then enable the caclulate button
-	$("#riskForm").on("change", enableCalculateButton);
-
 	// For the page with the Assess Patient Link Button set the click to calculate.html
 	if ( $("#AssessPatientRisk").length > 0 )	$("#AssessPatientRisk").on("click", goto_calculatePage);
 

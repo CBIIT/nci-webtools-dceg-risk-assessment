@@ -7,6 +7,14 @@ var terms = {
 
 $(function() {
 
+  // Any time the form changes check all necessary (enabled) input have an answer 
+  //
+  // Moved the add event here because originally when debugging the code the
+  // specifcRat code would excecute before the generic ratCode.  The incoorect
+  // assumption was the generic code would execute and then the specific code
+  // would execute
+  $("#riskForm").on("change", enableCalculateButton);
+
 	// Disables the form if the woman previously had cancer or trigger the form
   	// toc check if the calculate button can be enabled.``
 	$("input[name='cancerAndRadiationHistory']").on("click", function(event) {
