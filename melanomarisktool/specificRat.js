@@ -5,28 +5,22 @@ $(function() {
 
 	// Disables the form if the person is not Non-Hispanic White
 	$("input[id='notNonHispanicWhiteRadioButton']").on("change", function() {
+			disableMRATForm()
 			$("#raceModal").modal("show");
-			$("form :input").not("#reset").attr('disabled', true)
-			$("[class*='questions']").css("color","#c0c0c0")
-			disableMap();
-			//disablebutton()
-			$("#calculate").attr("disabled", "disabled")
-			disableSectionHeaders();
 	});
 
 	// Initialize the button that will reset the form
 	$("#reset").on("click", resetForm)
-
-	// When the function is first executed then the calculate
-	// function will never be executed since the male and or female have not
-	// been seleted.
-	$("#riskForm").unbind("change", enableCalculateButton);
 
 	// When the male or female has been selected then the calculate button can be
 	// enabled, but only if all the fields that should be selected have been
 	$("#maleGender").on("change", allowCalculate);
 	$("#femaleGender").on("change", allowCalculate);
 
+	$('#riskForm').trigger('change');
+
+	// Enables the form when the user clicks ok for the dialog box be dispalyed
+	$("#okButtonRace").on("click", enableMRATForm)
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -36,7 +30,9 @@ $(function() {
 // question must have an answer unless they are disabled).
 ////////////////////////////////////////////////////////////////////////////////
 function allowCalculate() {
-		$("#riskForm").on("change", enableCalculateButton);
+	  if ( $("input[name='gender']:checked").val() !== undefined ) {
+			$("#riskForm").on("change", enableCalculateButton);
+		}
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -221,3 +217,19 @@ function resetForm() {
 	$("#physical").addClass("no_display")
 
 }
+
+/*
+ * Disable the MRAT Form
+ */
+ function disableMRATForm() {
+	 disableForm()
+	 disableMap()
+ }
+
+ /*
+  * Enable the MRAT form
+	*/
+ function enableMRATForm() {
+	 enableForm();
+	 enableMap();
+ }
