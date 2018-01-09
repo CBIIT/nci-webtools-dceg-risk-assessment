@@ -18,7 +18,7 @@ function calc()
 
 	var heightOfHeaderAndSectionsAccumulator = 0;
 
-	var height = ( isMobile() ) ? 0 : $("#form-steps").outerHeight(true);
+	var height = $("#form-steps").outerHeight(true);
 	$.each($("#riskForm section"), function(index, element) {
 
 		// Accumulates the Height of the header and section, so the form will scrolled to the correct position for the next element
