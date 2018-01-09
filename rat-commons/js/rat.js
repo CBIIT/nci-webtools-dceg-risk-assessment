@@ -18,8 +18,24 @@ function calc()
 
 	var heightOfHeaderAndSectionsAccumulator = 0;
 
-	var height = $("#form-steps").outerHeight(true);
-	console.log("The height of the form Steps is " + height)
+	// For the iphone the header is under the form-steps and it is bigger then the
+	// form-steps on mobile this might cause a problem.
+	//
+	// On the iphone is did : $("#form-stpeps").css("display", "none") and the
+	// header was seen because it was below (z-index) of the form-steps
+	var heightOfFormSteps = $("#form-steps").outerHeight(true);
+	var heightOfHeader    = $("header").outerHeight(true);
+
+	var height = 0
+	if ( isMobile() ) {
+		height = ( heightOfHeader > heightOfFormSteps) ? heightOfHeader : heightOfFormSteps
+	} else {
+		height = heightOfFormSteps
+	}
+
+	console.log("The height is " + height )
+
+
 	$.each($("#riskForm section"), function(index, element) {
 
 		// Accumulates the Height of the header and section, so the form will scrolled to the correct position for the next element
