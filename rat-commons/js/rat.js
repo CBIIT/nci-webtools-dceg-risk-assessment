@@ -25,13 +25,7 @@ function calc()
 	// header was seen because it was below (z-index) of the form-steps
 	var heightOfFormSteps = $("#form-steps").outerHeight(true);
 	var heightOfHeader    = $("header").outerHeight(true);
-
-	var height = 0
-	if ( isMobile() ) {
-		height = ( heightOfHeader > heightOfFormSteps) ? heightOfHeader : heightOfFormSteps
-	} else {
-		height = heightOfFormSteps
-	}
+	var height = ( isMobile() ) ? heightOfHeader + heightOfFormSteps : heightOfFormSteps;
 
 	console.log("The height is " + height )
 
