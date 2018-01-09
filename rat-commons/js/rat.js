@@ -33,11 +33,13 @@ function calc()
 		var startIndex = index * 2;
 		var endIndex = (index * oneSectionForManyLinks ) + ( oneSectionForManyLinks);
 
+		var currentHeight = height + heightOfHeaderAndSectionsAccumulator
+		console.log("currentHeight = " + currentHeight)
+
 		$(navigationLinks).slice(startIndex, endIndex).attr('data-riskFormSection', index);
 		$(navigationLinks).slice(startIndex, endIndex).attr('data-riskFormSectionName', $(element).attr('id'));
 		$(navigationLinks).slice(startIndex, endIndex).attr('data-riskFormSectionHeaderName', $(element).prev().attr('id'));
-		$(navigationLinks).slice(startIndex, endIndex).attr('data-position-height', height + heightOfHeaderAndSectionsAccumulator);
-
+		$(navigationLinks).slice(startIndex, endIndex).attr('data-position-height', currentHeight);
 
 		// Each section will know id, the id its header and the y-postion of its sectionHeaderBoxHeight
 		// TODO :
