@@ -19,11 +19,13 @@ function calc()
 	var heightOfHeaderAndSectionsAccumulator = 0;
 
 	var height = $("#form-steps").outerHeight(true);
+	console.log("The height of the form Steps is " + height)
 	$.each($("#riskForm section"), function(index, element) {
 
 		// Accumulates the Height of the header and section, so the form will scrolled to the correct position for the next element
 		// This calcuation will using this in currentHeight calculation for the next iteration
 		var currentTitleAndSecitonHeight = $(element).prev().outerHeight(true) + $(element).outerHeight(true);
+		console.log("Height of Title and Section is " + currentTitleAndSecitonHeight)
 
 		// Each anchor in the navigation Links will now the index, section id,
 		// section header name and y-position.
@@ -44,7 +46,7 @@ function calc()
 		$(this).attr('data-position-height', height + heightOfHeaderAndSectionsAccumulator)
 
 		heightOfHeaderAndSectionsAccumulator = heightOfHeaderAndSectionsAccumulator + currentTitleAndSecitonHeight;
-		//console.log("Height of Header and Section Accumulator = " + heightOfHeaderAndSectionsAccumulator);
+		console.log("Height of Header and Section Accumulator = " + heightOfHeaderAndSectionsAccumulator);
 
 	});
 }
