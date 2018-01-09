@@ -27,7 +27,7 @@ function calc()
 	var heightOfHeader    = $("header").outerHeight(true);
 	var height = ( isMobile() ) ? heightOfHeader + heightOfFormSteps : heightOfFormSteps;
 
-	console.log("The height is " + height )
+	console.log("The height is " + height + " and the value of is isMobile is " + isMobile() )
 	alert("The Height is " + height)
 
 
