@@ -28,6 +28,7 @@ function calc()
 	var height = ( isMobile() ) ? heightOfHeader + heightOfFormSteps : heightOfFormSteps;
 
 	console.log("The height is " + height )
+	alert("The Height is " + height)
 
 
 	$.each($("#riskForm section"), function(index, element) {
