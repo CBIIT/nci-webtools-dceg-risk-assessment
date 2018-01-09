@@ -935,7 +935,7 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 
 		 // The spacing between the number and the question is different if you
 		 // two number ( ex. 10) vs one number
-		 var paddingRight = ( index > 9 ) ? ".5em" : "1em"
+		 var paddingRight = ( Number(indexData) > 9 ) ? ".5em" : "1em"
 
 		 var question = $("<td></td>").addClass("questions")
 		 var container = $("<div></div>").css("display","flex").css("flex-direction","row")
