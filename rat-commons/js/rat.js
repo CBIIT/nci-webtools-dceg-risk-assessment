@@ -940,7 +940,7 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 		 var question = $("<td></td>").addClass("questions")
 		 var container = $("<div></div>").css("display","flex").css("flex-direction","row")
 		 var lineNumberSpan = $("<span></span>").text(indexData.indexString).addClass("questionNumber")
- 		 var linePeriodSpan = $("<span></span>").text("." + " ").css("padding-right", paddingRight)
+ 		 var linePeriodSpan = $("<span></span>").text(".").css("padding-right", paddingRight)
  		 var lineNumber = $("<div></div>").append(lineNumberSpan).append(linePeriodSpan)
 
      var questionDiv = container.append(lineNumber).append(questionText)
