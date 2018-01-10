@@ -25,9 +25,9 @@ function calc()
 	// header was seen because it was below (z-index) of the form-steps
 	var heightOfFormSteps = $("#form-steps").outerHeight(true);
 	var heightOfHeader    = $("header").outerHeight(true);
-	var height = ( isMobile() ) ? heightOfHeader + heightOfFormSteps : heightOfFormSteps;
+	var height = heightOfFormSteps
 
-	alert("The height is " + height + " and the value of is isMobile is " + isMobile() )
+	//alert("The height is " + height + " and the value of is isMobile is " + isMobile() )
 	//alert("The Height is " + height)
 
 
@@ -36,7 +36,7 @@ function calc()
 		// Accumulates the Height of the header and section, so the form will scrolled to the correct position for the next element
 		// This calcuation will using this in currentHeight calculation for the next iteration
 		var currentTitleAndSecitonHeight = $(element).prev().outerHeight(true) + $(element).outerHeight(true);
-		alert("The current Height = " + currentTitleAndSecitonHeight)
+		//alert("The current Height = " + currentTitleAndSecitonHeight)
 
 		// Each anchor in the navigation Links will now the index, section id,
 		// section header name and y-position.
@@ -50,7 +50,7 @@ function calc()
 		$(navigationLinks).slice(startIndex, endIndex).attr('data-riskFormSectionName', $(element).attr('id'));
 		$(navigationLinks).slice(startIndex, endIndex).attr('data-riskFormSectionHeaderName', $(element).prev().attr('id'));
 		$(navigationLinks).slice(startIndex, endIndex).attr('data-position-height', currentHeight);
-		alert("The curentHeight is " + currentHeight)
+		//alert("The curentHeight is " + currentHeight)
 
 		// Each section will know id, the id its header and the y-postion of its sectionHeaderBoxHeight
 		// TODO :
@@ -288,7 +288,7 @@ function gotoSection(event) {
 	adjust_line_width(indexOfSection);
 
 	// Scroll to the actual spot.
-	alert("The current height is " + $(this).attr('data-position-height'))
+	//alert("The current height is " + $(this).attr('data-position-height'))
 	var scrollTo = ( indexOfSection == 0 ) ? 0 : $(this).attr('data-position-height');
 	$('html, body').animate({ scrollTop: scrollTo }, 1000);
 }
