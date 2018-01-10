@@ -3,10 +3,12 @@ $(function() {
 	$("input[name='gender']").on("change", toggleGender);
 	$("input[name='gender']").on("change", calc);
 
-	// Disables the form if the person is not Non-Hispanic White
+	// If the person is not Non-Hispanic White then dispaly a dilog and sets
+	// the value to Non-Hispanic White
 	$("input[id='notNonHispanicWhiteRadioButton']").on("change", function() {
 			disableMRATForm()
 			$("#raceModal").modal("show");
+			$("#nonHispanicWhiteRace")[0].checked = true;
 	});
 
 	// Initialize the button that will reset the form
