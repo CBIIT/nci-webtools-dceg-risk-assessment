@@ -57,7 +57,7 @@ function calc()
 		$(this).attr('data-riskFormSectionName', $(element).attr('id'));
 		$(this).attr('data-riskFormSectionHeaderName', $(element).prev().attr("id"));
 		$(this).attr('data-position-height', currentHeight)
-		alert("The curentHeight is " + currentHeight)
+		//alert("The curentHeight is " + currentHeight)
 
 
 		heightOfHeaderAndSectionsAccumulator = heightOfHeaderAndSectionsAccumulator + currentTitleAndSecitonHeight;
