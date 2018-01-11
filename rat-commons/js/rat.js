@@ -597,7 +597,7 @@ function isMobile() {
 		 checkPlatform = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.platform);
 	}
 
-	return checkUserAgent || checkPLatform
+	return checkUserAgent || checkPlatform
 }
 
 /******************************************************************************/
