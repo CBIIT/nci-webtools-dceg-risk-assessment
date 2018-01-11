@@ -574,10 +574,14 @@ function disablebutton(){
 }
 
 /******************************************************************************/
-/* Is the device a mobile tablet                                              */
+/* Is the device a mobile tablet.  See isMobile for comments                  */
 /******************************************************************************/
 function isTablet() {
-	return /iPad/.test(navigator.userAgent)
+	var checkUserAgent = /iPad/i.test(navigator.userAgent);
+
+	var checkPlatform = false
+	if ( checkUserAgent == false ) {
+		 checkPlatform = /iPad/i.test(navigator.platform);
 }
 
 
