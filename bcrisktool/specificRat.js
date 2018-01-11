@@ -7,7 +7,7 @@ var terms = {
 
 $(function() {
 
-  // Any time the form changes check all necessary (enabled) input have an answer 
+  // Any time the form changes check all necessary (enabled) input have an answer
   //
   // Moved the add event here because originally when debugging the code the
   // specifcRat code would excecute before the generic ratCode.  The incoorect
@@ -108,7 +108,7 @@ function attachSubraceItems() {
   // Problem : On the iphone the String "Select sub race/ethnicity or place of birth"
   // goes way pass the border, so for the mobile phone the phrase will be
   // "Select place of birth?"
-  var properPhraseForQuestion = returnSubRaceDefaultString()
+  var properPhraseForQuestion = "Select"
 
   if ( this.value == "Hispanic") {
     attachOptionsToAnHTMLObject(
@@ -134,20 +134,6 @@ function attachSubraceItems() {
         ""            : properPhraseForQuestion
       })
   }
-}
-
-// Rule: Any time the window resizes check to make sure that the Sub Race
-// HTML Object has the correct default string.
-$(window).resize(function()
-  {
-    if ( $("#sub_race").length == 1 ) {
-      $("#sub_race option:first-child").html(returnSubRaceDefaultString());
-    }
-  })
-
-// Returns the default string based on size
-function returnSubRaceDefaultString() {
-  return ( $(window).width() <= 480 ) ? "Select place of birth?" : "Select sub race/ethnicity or place of birth?"
 }
 
 // Problem : On the iphone the String "Select sub race/ethnicity or place of birth"
