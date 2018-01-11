@@ -333,7 +333,7 @@ function fixedToTop(div,use_mobile) {
 
 			if ( window_top > 0 )	{
 				header_height = 0
-				$("header").hide()
+				$("header").css("visibility", "hidden")
 			}
 			else {
 				$("header").css("top", "0px")
@@ -347,7 +347,6 @@ function fixedToTop(div,use_mobile) {
 			$("header").css("top", 0 + "px")
 
 			$("header").css("visibility", "visible")
-			$("#toolTitle").show()
 
 		}
 
