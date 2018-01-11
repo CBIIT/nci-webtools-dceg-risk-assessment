@@ -333,11 +333,11 @@ function fixedToTop(div,use_mobile) {
 
 			if ( window_top > 0 )	{
 				header_height = 0
-				$("header").css("visibility", "show")
+				$("header").css("display", "none")
 			}
 			else {
 				$("header").css("top", "0px")
-				$("header").css("visibility", "hidden")
+				$("header").css("display", "block")
 			}
 
  			$("#form-steps").css("top",header_height+"px");
