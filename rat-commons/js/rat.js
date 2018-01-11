@@ -337,7 +337,7 @@ function fixedToTop(div,use_mobile) {
 			}
 			else {
 				$("header").css("top", "0px")
-				$("header").show()
+				$("header").css("visibility", "hidden")
 			}
 
  			$("#form-steps").css("top",header_height+"px");
@@ -346,7 +346,7 @@ function fixedToTop(div,use_mobile) {
 		else {
 			$("header").css("top", 0 + "px")
 
-			$("header").show()
+			$("header").css("visibility", "visible")
 			$("#toolTitle").show()
 
 		}
@@ -650,7 +650,6 @@ function focusBorderToggle(event) {
 // Enable the Caluclate Button if all non disabled inputs have a value
 //////////////////////////////////////////////////////////////////////////////
 function enableCalculateButton() {
-	 var newVal = $(this).val();
 	 var inputs = $("form#riskForm input:enabled, form#riskForm select:enabled");
 	 valid=true
 	 inputs.each(function(index) {
