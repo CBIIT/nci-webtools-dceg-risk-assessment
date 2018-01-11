@@ -234,4 +234,5 @@ function resetForm() {
  function enableMRATForm() {
 	 enableForm();
 	 enableMap();
+	 enableCalculateButton();
  }
