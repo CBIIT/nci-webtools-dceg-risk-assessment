@@ -1564,7 +1564,7 @@ section > fieldset > legend.questions {
 
 /* Settings for the Results Table that shows the input Parameters */
 #InputParameters {
-  width: 95%;
+  width: 100%;
   margin-bottom: 32px;
   counter-reset: row-num;
 }
