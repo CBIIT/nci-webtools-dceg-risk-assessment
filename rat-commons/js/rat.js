@@ -333,11 +333,11 @@ function fixedToTop(div,use_mobile) {
 
 			if ( window_top > 0 )	{
 				header_height = 0
-				$("header").css("visibility", "show")
+				$("header").css("visibility", "hidden")
 			}
 			else {
 				$("header").css("top", "0px")
-				$("header").css("visibility", "hidden")
+				$("header").css("visibility", "visible")
 			}
 
  			$("#form-steps").css("top",header_height+"px");
@@ -586,7 +586,7 @@ function isTablet() {
 /* In order to keep the code as close to the original as possible ( since     */
 /* the code is being changed very late and I don't totally understand the     */
 /* situation, I only check the platform if the UserAgent returned false       */
-/* ( A double check to see if the    																					*/	
+/* ( A double check to see if the    																					*/
 /* the device is mobile)																										  */
 /******************************************************************************/
 function isMobile() {
