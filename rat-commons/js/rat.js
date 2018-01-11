@@ -333,11 +333,11 @@ function fixedToTop(div,use_mobile) {
 
 			if ( window_top > 0 )	{
 				header_height = 0
-				$("header").css("visibility", "hidden")
+				$("header").css("visibility", "show")
 			}
 			else {
 				$("header").css("top", "0px")
-				$("header").css("visibility", "visible")
+				$("header").css("visibility", "hidden")
 			}
 
  			$("#form-steps").css("top",header_height+"px");
@@ -583,10 +583,21 @@ function isTablet() {
 
 /******************************************************************************/
 /* Is the device a mobile phone or tablet ?  This routine is broken           */
-/* However, it dows not seem to be affectng the code much.                    */
+/* In order to keep the code as close to the original as possible ( since     */
+/* the code is being changed very late and I don't totally understand the     */
+/* situation, I only check the platform if the UserAgent returned false       */
+/* ( A double check to see if the    																					*/	
+/* the device is mobile)																										  */
 /******************************************************************************/
 function isMobile() {
-	return 	/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+	var checkUserAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+	var checkPlatform = false
+	if ( checkUserAgent == false ) {
+		 checkPlatform = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.platform);
+	}
+
+	return checkUserAgent || checkPLatform
 }
 
 /******************************************************************************/
