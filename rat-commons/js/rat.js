@@ -333,7 +333,7 @@ function fixedToTop(div,use_mobile) {
 
 			if ( window_top > 0 )	{
 				header_height = 0
-				$("header").css("visibility", "hidden")
+				$("header").css("visibility", "show")
 			}
 			else {
 				$("header").css("top", "0px")
@@ -1157,5 +1157,9 @@ $(window).load(function(e) {
 
 	// Prints the Reuslts page
 	$("#print").on("click", printCurrentPage );
+
+	// The Print Button on the Results Pages should not be shown when the device
+	// is mobile
+	if ( isMobile() ) { $("#print").hide() }
 
 });
