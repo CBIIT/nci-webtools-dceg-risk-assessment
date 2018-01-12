@@ -583,6 +583,8 @@ function isTablet() {
 	if ( checkUserAgent == false ) {
 		 checkPlatform = /iPad/i.test(navigator.platform);
 	}
+
+	return checkUserAgent || checkPlatform
 }
 
 
