@@ -147,10 +147,10 @@ function go_toresult() {
 /* Create a pie chart                                                            */
 /*                                                                               */
 /* Parameters:                                                                   */
-/*   percent		       	The change that the victim will get cancer       				 */
-/*   divContainerForChart  	The HTML Container that will cotnain the chart   		 */
-/*   color1 			The color for the chance of getting cancer       							 */
-/*   color2  			The color for the chance of not getting cancer   							 */
+/*   percent		       	The change that the victim will get cancer       	 */
+/*   divContainerForChart  	The HTML Container that will cotnain the chart   	 */
+/*   color1 			The color for the chance of getting cancer       		 */
+/*   color2  			The color for the chance of not getting cancer   		 */
 /*********************************************************************************/
 function make_pie_chart(percent, divContainerForChart, color1, color2){
 
@@ -324,8 +324,6 @@ function fixedToTop(div,use_mobile) {
 
   if ( isMobile()) {
 
-		//$("header").removeClass("fixed")
-
 		$("#header").addClass('fixed');
 		$("#toolTitle").addClass('fixed')
 
@@ -333,11 +331,9 @@ function fixedToTop(div,use_mobile) {
 
 			if ( window_top > 0 )	{
 				header_height = 0
-				$("header").css("visibility", "hidden")
 			}
 			else {
 				$("header").css("top", "0px")
-				$("header").css("visibility", "visible")
 			}
 
  			$("#form-steps").css("top",header_height+"px");
@@ -1052,6 +1048,9 @@ $(function() {
 
 	// Rule : When using the mouse the input element with focus should not have the outline
 	// Rule : When using the tab the input element with focus should have the outline
+	//$("#riskForm section select,input").on('mousedown', function(event) { mouseDownBorderToggle(event); });
+	//$("#riskForm section select,input").on('focusin', function(event) { focusBorderToggle(event); });
+	
 	$("#riskForm").children().on('mousedown', function(event)  { mouseDownBorderToggle(event); });
 	$("#riskForm").children().on('focusin',   function(event)  { focusBorderToggle(event);  });
 
