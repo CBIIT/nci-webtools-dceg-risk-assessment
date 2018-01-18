@@ -397,9 +397,6 @@ function handleScrollEvent(event) {
 	//alert("Handling Scroll Event");
 	var top_div = ( $(window).width() > 630 ) ? "main-nav" : "toolTitle";
 
-	var header_height=$('header').outerHeight(true);
-	var form_steps_height=$('#form-steps').outerHeight();
-
 	fixedToTop(top_div);
 	formScrollSpy();
 
@@ -413,6 +410,9 @@ function handleScrollEvent(event) {
 /******************************************************************************/
 function adjustRiskFormMarginTopForMobile() {
 	if ( isMobile()) {
+		var header_height=$('header').outerHeight(true);
+		var form_steps_height=$('#form-steps').outerHeight();
+		
 		if ( $(window).scrollTop() > 0 ) {
 			var height = form_steps_height + 14;
 			$("#riskForm").css("margin-top", height + "px");
