@@ -322,38 +322,42 @@ function fixedToTop(div,use_mobile) {
 	var tool_title_height=$('#toolTitle').outerHeight(true);
 	var form_steps_height = ( existFormSteps() ) ? $('#form-steps').outerHeight(true) : 0;
 
-  if ( isMobile()) {
-
-		$("#header").addClass('fixed');
-		$("#toolTitle").addClass('fixed')
-
+  	if ( isMobile()) {
 		if ( existFormSteps() ) {
-
+			// window_top > 0 : Handle the case when the user has scrolled to any point except the most top.
+			// Only the Form Steps should be shown there.
+			// 
+			// window_top <=0 : Handle the case when the user has scrolled to the most top.  The Header and
+			// Form Steps should be displayed.
 			if ( window_top > 0 )	{
 				header_height = 0
-			}
-			else {
+				$("#header").removeClass("fixed")
+				$("#toolTitle").removeClass("fixed")
+			} else {
 				$("header").css("top", "0px")
+				$("#header").addClass('fixed');
+				$("#toolTitle").addClass('fixed')
 			}
 
+			// Form Steps is always fixed.  The only variable is its height.
  			$("#form-steps").css("top",header_height+"px");
 			$("#form-steps").addClass("fixed");
 		}
 		else {
 			$("header").css("top", 0 + "px")
-
 			$("header").css("visibility", "visible")
 
 		}
 
 		return
-  }
-
+  	}
+	  
+	// Handle the Desktop Case since mobile is only for phones and tables
 	if ( window_top > div_top) {
-		 $("#form-steps").addClass('fixed');
-		 if($(window).width()>=992)
+		$("#form-steps").addClass('fixed');
+		if($(window).width()>=992)
 		 	$("#line").find("hr").css("top",form_steps_height-30)
-		 else
+		else
 		 	$("#line").find("hr").css("top",form_steps_height-37)
 			if ( existFormSteps() ) adjust_line_height_mobile();
 	} else {
@@ -393,8 +397,30 @@ function handleScrollEvent(event) {
 	//alert("Handling Scroll Event");
 	var top_div = ( $(window).width() > 630 ) ? "main-nav" : "toolTitle";
 
+	var header_height=$('header').outerHeight(true);
+	var form_steps_height=$('#form-steps').outerHeight();
+
 	fixedToTop(top_div);
 	formScrollSpy();
+
+	adjustRiskFormMarginTopForMobile();
+}
+
+/******************************************************************************/
+/* For the Header and Form Steps Section of the Application there are         */
+/* problems with it not being positied correctly.  This code will positon     */
+/* the elements.                                                              */
+/******************************************************************************/
+function adjustRiskFormMarginTopForMobile() {
+	if ( isMobile()) {
+		if ( $(window).scrollTop() > 0 ) {
+			var height = form_steps_height + 14;
+			$("#riskForm").css("margin-top", height + "px");
+		} else {
+			var height = header_height + form_steps_height + 14;
+			$("#riskForm").css("margin-top", height + "px");
+		}
+	}
 }
 
 /******************************************************************************/
@@ -1090,10 +1116,8 @@ $(window).load(function(e) {
 		$(window).on("mousemove", 	handleScrollEvent);
 	}
 
-  // I Have no clue what this does
 	if( isMobile() ) $(".toggleTool").on("click keypress", toggleFormDisplay);
 
-  // I have no clue what this does
 	$(".responseOptions > label.radio,.responseOptionsWithoutIndent > label.radio").on('click keypress', function(e) {
 		if ($(e.target).hasClass('radio')) {
 			$(e.target).prev().trigger('click');
@@ -1149,9 +1173,15 @@ $(window).load(function(e) {
 
 			$("#form-steps").css("top", + header_height + "px");
 			var height = header_height + form_steps_height + 14;
-	    		$("#riskForm").css("margin-top", height + "px");
+	    	$("#riskForm").css("margin-top", height + "px");
 
 			adjustNavigationBarLine();
+
+			// Sets the Form Steps as the same height as the Header so when 
+			// the mobile application is scrolled the Form Steps will cover 
+			// the Header fully.  When Scrolled, and not at the top, only
+			// the Form Steps should be seen.
+			$("#form-steps").outerHeight($("header").outerHeight(true))
 		} else {
 			$("#main_home").css("padding-top", header_height);
 		}
