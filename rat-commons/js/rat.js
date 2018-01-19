@@ -137,7 +137,7 @@ function go_toresult() {
 	// This code is an hack.  There should be less calcuations done for the
 	// placement of Objects
 	if ( isTablet() )
-		$("#results_home").css("margin-top", "240px")
+		$("#results_home").css("margin-top", "200px")
 	else if ( isMobile() )
 		$("#results_home").css("margin-top", "116px");
 
