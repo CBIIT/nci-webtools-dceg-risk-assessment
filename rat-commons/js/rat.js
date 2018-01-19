@@ -331,11 +331,17 @@ function fixedToTop(div,use_mobile) {
 			// Form Steps should be displayed.
 			if ( window_top > 0 )	{
 				header_height = 0
-				$("#header").removeClass("fixed")
+				$("header").removeClass("fixed")
+				$("header").css("visibility", "hidden");
 				$("#toolTitle").removeClass("fixed")
+				$('#riskForm').css('margin-top', '0px');
+				//$("header").css("margin-top","-300px")
 			} else {
+				height = header_height + form_steps_height + 14
+				$('#riskForm').css('margin-top', height + "px");
+				$("header").css("visibility", "visible");
 				$("header").css("top", "0px")
-				$("#header").addClass('fixed');
+				$("header").addClass('fixed');
 				$("#toolTitle").addClass('fixed')
 			}
 
@@ -400,7 +406,7 @@ function handleScrollEvent(event) {
 	fixedToTop(top_div);
 	formScrollSpy();
 
-	adjustRiskFormMarginTopForMobile();
+	//adjustRiskFormMarginTopForMobile();
 }
 
 /******************************************************************************/
@@ -1181,7 +1187,7 @@ $(window).load(function(e) {
 			// the mobile application is scrolled the Form Steps will cover 
 			// the Header fully.  When Scrolled, and not at the top, only
 			// the Form Steps should be seen.
-			$("#form-steps").outerHeight($("header").outerHeight(true))
+			//$("#form-steps").outerHeight($("header").outerHeight(true))
 		} else {
 			$("#main_home").css("padding-top", header_height);
 		}
