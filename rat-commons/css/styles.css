@@ -413,6 +413,7 @@ a.btn:disabled {
 /* Styles for the print button                                                */
 #print {
   float:  right;
+  padding-top : 6px
 }
 
 #calculate:disabled {
