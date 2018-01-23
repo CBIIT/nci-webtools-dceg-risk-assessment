@@ -322,8 +322,27 @@ function fixedToTop(div,use_mobile) {
 	var tool_title_height=$('#toolTitle').outerHeight(true);
 	var form_steps_height = ( existFormSteps() ) ? $('#form-steps').outerHeight(true) : 0;
 
+	var onResultsPage = ( String($("#form-steps").attr("class")).includes("hide"))
+	console.log("onResultsPage = " + onResultsPage)
+
   	if ( isMobile()) {
-		if ( existFormSteps() ) {
+		if ( onResultsPage == true) {
+
+			if ( window_top > 0 ) {
+				$("header").addClass("fixed")
+				$("header").css("visibility", "hidden");
+				$("#toolTitle").removeClass("fixed")
+				$("#riskForm").css("margin-top", "0px" )
+				$("#riskForm").css("top", "200px")	
+			} else {
+				$("header").removeClass("fixed")
+				$("header").css("visibility", "visible");
+				$("#toolTitle").addClass("fixed")
+				$("#results_home").css("margin-top","0px")
+
+			}
+			
+		} else if ( existFormSteps() ) {
 			// window_top > 0 : Handle the case when the user has scrolled to any point except the most top.
 			// Only the Form Steps should be shown there.
 			// 
