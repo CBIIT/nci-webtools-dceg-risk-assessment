@@ -136,10 +136,10 @@ function go_toresult() {
 
 	// This code is an hack.  There should be less calcuations done for the
 	// placement of Objects
-	if ( isTablet() )
-		$("#results_home").css("margin-top", "200px")
-	else if ( isMobile() )
-		$("#results_home").css("margin-top", "116px");
+	//if ( isTablet() )
+	//	$("#results_home").css("margin-top", "200px")
+	//else if ( isMobile() )
+	//	$("#results_home").css("margin-top", "116px");
 
 	// This code is a hack and this should be done in CSS.  I put the code in 
 	// here since we are trying to get it done and it might have unforseen 
@@ -329,58 +329,70 @@ function fixedToTop(div,use_mobile) {
 	var tool_title_height=$('#toolTitle').outerHeight(true);
 	var form_steps_height = ( existFormSteps() ) ? $('#form-steps').outerHeight(true) : 0;
 
-	var onResultsPage = ( String($("#form-steps").attr("class")).includes("hide"))
-	console.log("onResultsPage = " + onResultsPage)
+	function hideCalculatePageHeader(div, pixelCount) {
+		$("header").css("visibility", "hidden");
+		$("#toolTitle").removeClass("fixed")
+		$("#" + div).css("margin-top", pixelCount + "px" )
+	}
 
+	function showCalculatePageHeader(div, pixelCount) {
+		$("header").css("visibility", "visible");
+		$("#toolTitle").addClass("fixed")
+		$("#" + div).css("margin-top",pixelCount + "px")
+	}
+
+	function showMainOrAboutPageHeader(div, pixelCount) {
+		$("header").css("visibility", "visible")
+		$("#" + div).css("padding-top", pixelCount + "px")
+	}
+
+	function hideMainOrAboutPageHeader(div, pixelCount) {
+		$("header").css("visibility", "hidden")
+		$("#" + div).css("padding-top", pixelCount + "px")
+	}
+
+	// Determines if the user is viewing the results page
+	var onResultsPage = ( String($("#form-steps").attr("class")).includes("hide"))
+
+	// if isMobile and onResultsPage then the user will be viewing the result page
+	// if isMobile and existFormSteps then the user will be viewing the input page
+	// else the user will be viewing the main or the about page
+	//
+	// window_top > 0 							: The window has been scrolled 
+	// window_top <= 0 (Usually else keyword ) 	: Effectivelty at the top of the window 
   	if ( isMobile()) {
 		if ( onResultsPage == true) {
 
 			if ( window_top > 0 ) {
 				$("header").addClass("fixed")
-				$("header").css("visibility", "hidden");
-				$("#toolTitle").removeClass("fixed")
-				$("#riskForm").css("margin-top", "0px" )
-				$("#riskForm").css("top", "200px")	
+				hideCalculatePageHeader("results_home", $("#results_home").css("margin-top"))				
 			} else {
 				$("header").removeClass("fixed")
-				$("header").css("visibility", "visible");
-				$("#toolTitle").addClass("fixed")
-				$("#results_home").css("margin-top","0px")
-
+				showCalculatePageHeader("results_home", $("#results_home").css("margin-top"))
 			}
 			
 		} else if ( existFormSteps() ) {
-			// window_top > 0 : Handle the case when the user has scrolled to any point except the most top.
-			// Only the Form Steps should be shown there.
-			// 
-			// window_top <=0 : Handle the case when the user has scrolled to the most top.  The Header and
-			// Form Steps should be displayed.
 			if ( window_top > 0 )	{
 				header_height = 0
 				$("header").removeClass("fixed")
-				$("header").css("visibility", "hidden");
-				$("#toolTitle").removeClass("fixed")
-				$('#riskForm').css('margin-top', '0px');
-				//$("header").css("margin-top","-300px")
+				hideCalculatePageHeader("riskForm", 0)
 			} else {
 				height = header_height + form_steps_height + 14
-				$('#riskForm').css('margin-top', height + "px");
-				$("header").css("visibility", "visible");
-				$("header").css("top", "0px")
 				$("header").addClass('fixed');
-				$("#toolTitle").addClass('fixed')
+				showCalculatePageHeader("riskForm", height)
 			}
 
 			// Form Steps is always fixed.  The only variable is its height.
  			$("#form-steps").css("top",header_height+"px");
 			$("#form-steps").addClass("fixed");
+		} else {
+			if ( window_top > 0 )
+				hideMainOrAboutPageHeader("main_home", 0)
+			else {
+				$("header").css("visibility", "visible")
+				showMainOrAboutPageHeader("main_home", $("header").outerHeight(true))
+			}
 		}
-		else {
-			$("header").css("top", 0 + "px")
-			$("header").css("visibility", "visible")
-
-		}
-
 		return
   	}
 	  
