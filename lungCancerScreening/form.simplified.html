@@ -21,15 +21,6 @@
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-xs-12">
-                                <p>
-                                    <strong>
-                                         CT lung screening is <a href="http://www.uspreventiveservicestaskforce.org/Page/Document/UpdateSummaryFinal/lung-cancer-screening" target="_blank">not recommended</a> if (1) you are younger than 55 or older than 80, (2) you have never smoked, (3) you are a current smoker, but you have smoked less than 30 <a href="http://www.cancer.gov/publications/dictionaries/cancer-terms?cdrid=306510" target="_blank">pack-years</a> (such as those who smoked 1 pack per day for 30 years or 2 packs per day for 15 years), or (3) you are a former smoker who quit more than 15 years ago.
-                                    </strong>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row">
                             <div class="col-xs-12 col-md-9">
                                 <form class="form form-horizontal" name="lcsForm" ng-submit="myForm.submit(lcsForm.$valid)">
                                     <div class="form-group" ng-class="{'has-error': myForm.ageNumericCriteria }">
@@ -116,16 +107,6 @@
                                             <span class="help-block">Please ensure that the quitting age value is less than age and greater than or equal to starting age.</span>
                                         </div>
                                     </div>
-                                    <!--
-                                    <div ng-show="myForm.quitCriteria" class="row">
-                                        <div class="col-xs-12 has-error">
-                                            <span class="help-block">
-                                                The <a href="http://www.uspreventiveservicestaskforce.org/uspstf/uspslung.htm" target="_blank" title="U.S. Preventive Services Task Force">U.S. Preventive Services Task Force</a> does NOT recommend that
-                                                you get screened if you quitted smoking for more than 15 years.
-                                            </span>
-                                        </div>
-                                    </div>
-                                    -->
                                     <div class="form-group" ng-class="{'has-error': myForm.cigsNumericCriteria }" ng-show="myForm.smokeShow">
                                         <div class="col-xs-12 col-md-2"></div>
                                         <label  class="col-xs-12 col-md-4 control-label" ng-if="myForm.type === 'current'">On a typical day, how many cigarettes do you smoke?</label>
@@ -149,25 +130,6 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <!--
-                                    <div ng-show="myForm.cigsCriteria" class="row">
-                                        <div class="col-xs-12 has-error">
-                                            <span class="help-block">
-                                                The <a href="http://www.uspreventiveservicestaskforce.org/uspstf/uspslung.htm" target="_blank" title="U.S. Preventive Services Task Force">U.S. Preventive Services Task Force</a> does NOT recommend that you get screened unless you have a minimum 30 pack-years of smoking.
-                                            </span>
-                                        </div>
-                                    </div>
-                                    -->
-                                    <!--
-                                    <div ng-show="myForm.groupCriteria" class="row">
-                                        <div class="col-xs-12 has-error">
-                                            <span class="help-block">
-                                                The <a href="http://www.uspreventiveservicestaskforce.org/uspstf/uspslung.htm" target="_blank" title="U.S. Preventive Services Task Force">U.S. Preventive Services Task Force</a> does NOT recommend that
-                                                you get screened because you are not a smoker.
-                                            </span>
-                                        </div>
-                                    </div>0
-                                    -->
                                     <div class="form-group">
                                         <span class="col-xs-12 col-md-6 control-label">
                                             <label for="disease" class="control-label">Lung disease?</label>
