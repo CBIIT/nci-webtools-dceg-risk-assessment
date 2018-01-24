@@ -107,9 +107,6 @@
                 </tr>
             </tbody>
         </table>
-        <p ng-show="!seeresults">To obtain the risk assessment results, click here:
-            <button ng-click="recommends=true; chart_row1=true">SEE MY RESULTS</button>
-        </p>
     </div>
     <div style="page-break-after: always"></div>
     <div class="yourresults">
@@ -197,5 +194,5 @@
 <br />
 <div class="summaryButtons">
     <p class="pdf_loading" ng-show="loading"></p>
-    <button ng-click="exportPDF()" ng-show="summary">Save Summary Report</button>
+    <button ng-click="exportPDF()">Save Summary Report</button>
 </div>
