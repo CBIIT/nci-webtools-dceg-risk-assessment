@@ -110,77 +110,70 @@
     </div>
     <div style="page-break-after: always"></div>
     <div class="yourresults">
-        <div ng-show="chart_row1 === true">
-            <table class="results_header">
-                <tbody>
-                    <tr>
-                        <th>Lung Cancer Risk Assessment Results</th>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="results_table">
-                <tbody>
-                    <tr>
-                        <th class="results_title">Your chances of dying from lung cancer within 5 years are {{getResult("result0", 1)/10}}%.</th>
-                        <th class="results_title">Your chances of being diagnosed with lung cancer within 5 years are {{getResult("result2", 1)/10}}%.</th>
-                    </tr>
-                    <tr>
-                        <td class="results_grid">
-                            <img ng-src="{{base_url}}files/grid_images/chart_rl_{{session.myForm.result0}}.png" title="chart1" alt="chart1" />
-                        </td>
-                        <td class="results_grid">
-                            <img ng-src="{{base_url}}files/grid_images/chart_rl_{{session.myForm.result2}}.png" title="chart2" alt="chart2" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="results_legend">
-                            <div>
-                                <span>
-                                    <img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellfill.png" title="filled cell"
-                                        alt="filled cell" />Death from lung cancer
-                                    <br />
-                                </span>
-                                <span>
-                                    <img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellempty.png" title="empty cell"
-                                        alt="empty cell" />Alive (with or without lung cancer)
-                                </span>
-                            </div>
-                        </td>
-                        <td class="results_legend">
-                            <div>
-                                <span>
-                                    <img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellfill.png" title="filled cell"
-                                        alt="filled cell" />Diagnosed with lung cancer
-                                    <br />
-                                </span>
-                                <span>
-                                    <img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellempty.png" title="empty cell"
-                                        alt="empty cell" />NOT diagnosed with lung cancer
-                                </span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="results_legend" valign="top">
-                            <p class="ng-binding">This means that if 1000 people answer the questions just like you, {{session.myForm.result0}}
-                                of them would die from lung cancer in the next 5 years.</p>
-                        </td>
-                        <td class="results_legend" valign="top">
-                            <p class="ng-binding">This means that if 1000 people answer the questions just like you, {{session.myForm.result2}}
-                                {{getPeopleOrPerson(session.myForm.result2)}} would be diagnosed with lung cancer in the
-                                next 5 years.</p>
-
-                            <p ng-show="export === false">
-                                <button ng-click="chart_row2=true; chart_row1=false">Next</button>
-                            </p>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <table class="results_header">
+            <tbody>
+                <tr>
+                    <th>Lung Cancer Risk Assessment Results</th>
+                </tr>
+            </tbody>
+        </table>
+        <table class="results_table">
+            <tbody>
+                <tr>
+                    <th class="results_title">Your chances of dying from lung cancer within 5 years are {{getResult("result0", 1)/10}}%.</th>
+                    <th class="results_title">Your chances of being diagnosed with lung cancer within 5 years are {{getResult("result2", 1)/10}}%.</th>
+                </tr>
+                <tr>
+                    <td class="results_grid">
+                        <img ng-src="{{base_url}}files/grid_images/chart_rl_{{session.myForm.result0}}.png" title="chart1" alt="chart1" />
+                    </td>
+                    <td class="results_grid">
+                        <img ng-src="{{base_url}}files/grid_images/chart_rl_{{session.myForm.result2}}.png" title="chart2" alt="chart2" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="results_legend">
+                        <div>
+                            <span>
+                                <img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellfill.png" title="filled cell"
+                                    alt="filled cell" />Death from lung cancer
+                                <br />
+                            </span>
+                            <span>
+                                <img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellempty.png" title="empty cell"
+                                    alt="empty cell" />Alive (with or without lung cancer)
+                            </span>
+                        </div>
+                    </td>
+                    <td class="results_legend">
+                        <div>
+                            <span>
+                                <img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellfill.png" title="filled cell"
+                                    alt="filled cell" />Diagnosed with lung cancer
+                                <br />
+                            </span>
+                            <span>
+                                <img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellempty.png" title="empty cell"
+                                    alt="empty cell" />NOT diagnosed with lung cancer
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="results_legend" valign="top">
+                        <p class="ng-binding">This means that if 1000 people answer the questions just like you, {{session.myForm.result0}} of
+                            them would die from lung cancer in the next 5 years.</p>
+                    </td>
+                    <td class="results_legend" valign="top">
+                        <p class="ng-binding">This means that if 1000 people answer the questions just like you, {{session.myForm.result2}} {{getPeopleOrPerson(session.myForm.result2)}}
+                            would be diagnosed with lung cancer in the next 5 years.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
-    <div ng-show="summary">
+    <div>
         <p class="text-bold">
             <b>Remember that the very best way</b> to lower your risk of lung cancer, and all smoking-related diseases, is to
             quit smoking. Learn more by visiting
@@ -190,7 +183,7 @@
 
     </div>
 </div>
-<div ng-show="summary">You may save or print the summary report</div>
+<div>You may save or print the summary report</div>
 <br />
 <div class="summaryButtons">
     <p class="pdf_loading" ng-show="loading"></p>
