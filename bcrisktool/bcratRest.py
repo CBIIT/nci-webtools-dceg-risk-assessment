@@ -1,6 +1,8 @@
 import math
 import os
 import sys
+import logging
+import json
 
 from flask import Flask, Response, request, jsonify, send_from_directory
 from BcratRunFunction import RiskCalculation
@@ -17,6 +19,7 @@ class BreastRiskAssessmentTool:
       response = jsonify(message)
     response.mimetype = 'application/json'
     response.status_code = 400
+    logging.debug("Returning from Backend --> " + str(response))
     return response
 
   @staticmethod
@@ -25,13 +28,13 @@ class BreastRiskAssessmentTool:
       response = jsonify(message=message, success=True)
     else:
       message['success'] = True
-      response = jsonify(message)
+      response = jsonify(message=message, success=True)
     response.mimetype = 'application/json'
     response.status_code = 200
+    logging.debug("Returning from Backend --> " + str(response))
     return response
 
-  @app.route('/bcrisktool/rest/calculate', methods=['POST'])
-  @app.route('/bcrisktool/rest/calculate/', methods=['POST'])
+  @app.route('/calculate', methods=['POST'], strict_slashes=False)
   def bcratRisk():
     try:
       parameters = dict(request.form)
@@ -41,7 +44,7 @@ class BreastRiskAssessmentTool:
       requiredParameters = ['age','age_period','childbirth_age','biopsy']
       if 'race' not in parameters or parameters['race'] == "":
         errorObject['missing'] += ['race']
-      elif parameters['race'] == "Asian":
+      elif parameters['race'] == "Asian" or parameters['race'] == 'Hispanic':
         if 'sub_race' not in parameters or parameters['sub_race'] == "":
           errorObject['missing'] += ['sub_race']
         else:
@@ -63,14 +66,6 @@ class BreastRiskAssessmentTool:
       menarcheAge = 0
       if 'age_period' not in errorObject['missing'] and 'age_period' not in errorObject['nonnumeric']:
         menarcheAge = int(parameters['age_period'])
-        if (menarcheAge < 7 or menarcheAge > 20):
-          errorObject['message'] += ["Women who started menstrating under 7 or over 20 are not within the scope of this assessment."]
-        elif menarcheAge < 12:
-          menarcheAge = 2
-        elif menarcheAge < 14:
-          menarcheAge = 1
-        else:
-          menarcheAge = 0
       firstLiveBirthAge = 0
       if 'childbirth_age' not in errorObject['missing'] and 'childbirth_age' not in errorObject['nonnumeric']:
         firstLiveBirthAge = int(parameters['childbirth_age'])
@@ -78,7 +73,9 @@ class BreastRiskAssessmentTool:
       rhyp = 1.0
       if 'biopsy' not in errorObject['missing'] and 'biopsy' not in errorObject['nonnumeric']:
         numberOfBiopsies = int(parameters['biopsy'])
-        if numberOfBiopsies > 0:
+        if numberOfBiopsies == 0 or numberOfBiopsies == 99:
+          numberOfBiopsies = 0
+        else:
           if 'biopsy_result' not in parameters:
             errorObject['missing'] += ['biopsy_result']
           elif not parameters['biopsy_result'].isnumeric():
@@ -97,17 +94,38 @@ class BreastRiskAssessmentTool:
       firstDegRelatives = int(parameters['relatives'])
       if parameters['race'] == "Asian" and firstDegRelatives > 0:
         firstDegRelatives = 1
+
       risk = RiskCalculation("Absolute",race, age, min(age+5,90), menarcheAge, numberOfBiopsies, firstLiveBirthAge, firstDegRelatives, rhyp)
       risk = round(risk*100,1)
-      return BreastRiskAssessmentTool.buildSuccess(str(risk))
+
+      averageFiveYearRisk = RiskCalculation("Average", race, age, min(age+5,90), 0, 0, 0, 0, 1)
+      averageFiveYearRisk = round ( averageFiveYearRisk * 100, 1)
+
+      lifetime_patient_risk = RiskCalculation("Absolute", race, age, 90, menarcheAge, numberOfBiopsies, firstLiveBirthAge, firstDegRelatives, rhyp)
+      lifetime_patient_risk = round( lifetime_patient_risk * 100, 1)
+
+      lifetime_average_risk = RiskCalculation("Average", race, age, 90, 0, 0, 0, 0, 1)
+      lifetime_average_risk = round( lifetime_average_risk * 100, 1)
+
+      results={}
+      results['risk']= risk
+      results['averageFiveRisk'] = averageFiveYearRisk
+      results['message'] = "Based on the information provided, the woman's estimated risk for developing invasive breast cancer over the next 5 years is {0:g}% compared to a risk of {1:g}% for a woman of the same age and race/ethnicity from the general U.S. population.".format(risk,averageFiveYearRisk)
+      results['lifetime_patient_risk']=lifetime_patient_risk
+      results['lifetime_average_risk']=lifetime_average_risk
+      results['lifetime_message'] = "Based on the information provided, the woman's estimated risk for developing invasive breast cancer over her lifetime (to age 90) is {0:g}% compared to a risk of {1:g}% for a woman of the same age and race/ethnicity from the general U.S. population.".format(lifetime_patient_risk,lifetime_average_risk)
+
+      json_data = json.dumps(results)
+      return BreastRiskAssessmentTool.buildSuccess(json_data)
     except Exception as e:
       exc_type, exc_obj, exc_tb = sys.exc_info()
       fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+      print(e)
       print("EXCEPTION------------------------------", exc_type, fname, exc_tb.tb_lineno)
       return BreastRiskAssessmentTool.buildFailure(str(e))
 
   def __init__(self,port,debug):
-    app.run(host='0.0.0.0', port=port, debug=debug)
+    app.run(host='0.0.0.0', port=port, debug=True)
 
 if __name__ == '__main__':
   import argparse

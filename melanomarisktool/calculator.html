@@ -4,17 +4,26 @@
     <title>Melanoma Risk Assessment Tool (MRAT) - Risk Calculator</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" type="text/css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="/common/css/style.css" rel="stylesheet" type="text/css">
-    <link href="styles.css" rel="stylesheet" type="text/css">
 
+    <link href="common/css/style.css" rel="stylesheet" type="text/css">
+    <link href="rat-commons/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="rat-commons/css/form-steps.css" rel="stylesheet" type="text/css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="application/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js" type="application/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods.js" type="application/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js" type="application/javascript"></script>
+    <script src="rat-commons/js/rat.js" type="text/javascript"></script>
+    <script src="specificRat.js" type="text/javascript"></script>
   </head>
-  <body><a class="sr-only sr-only-focusable" href="#main">Skip to main content</a>
-    <header><a href="http://cancer.gov" target="_blank"><img id="logo" src="/common/images/nci-logo-full.svg" alt="go to cancer.gov"></a>
-      <div id="toolTitle"><a href="index.html">Melanoma Risk Assessment Tool</a>
+  <body>
+    <header>
+        <a id="skipContentCalculate" class="sr-only sr-only-focusable" href="#main">Skip to main content</a>
+        <a href="http://cancer.gov" target="_blank"><img id="logo" src="/common/images/nci-logo-full.svg" alt="go to cancer.gov"></a>
+        <div id="toolTitle"><a href="index.html">Melanoma Risk Assessment Tool</a>
         <button class="navbar-toggle collapsed" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()"><span class="sr-only">Toggle navigation</span>
           <div class="glyphicon glyphicon-menu-hamburger"></div>
         </button>
@@ -25,6 +34,7 @@
           <li role="presentation"><a href="about.html">About the Model &amp; Source Code</a></li>
         </ul>
       </nav>
+
       <div class="sidenav" id="side_nav">
         <div class="div" id="inner_menu"><span>Menu</span>
           <button class="navbar-toggle collapsed navbar-toggle_innermenu" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()"><span class="sr-only">Toggle navigation</span>
@@ -36,9 +46,12 @@
           <li role="presentation" id="About"><a href="about.html"><span>About the Model &amp;</span><br><span>Source Code</span></a></li>
         </ul>
       </div>
+
     </header>
     <div id="results" class="container-fluid">
-      <div id="results_home"><a class="result_page_anchor" href="javascript:goback_tocalc()">< Back to Calculator</a>
+      <div id="results_home">
+        <a class="result_page_anchor" href="javascript:goback_tocalc()">< Back to Calculator</a>
+        <img id="print" src="rat-commons/images/print-icon.gif">
         <h1>Personalized Results</h1>
         <div class="row">
           <div class="col-xs-12 col-md-12">
@@ -49,24 +62,44 @@
             </div>
           </div>
         </div>
-          <div id="results_box" class="row ">
-                <h3 class="results_header">5 Year Absolute Risk of Developing Melanoma</h3>
-                <div class="row vertical_alignment">
-                  <div class="col-xs-12 col-md-3">
-                    <div id="results_graph"><span class="patient_header">Patient Risk</span><br><span class="risk_header" id="Risk"></span>
-                      <div id="Pie_chart"> </div>
-                    </div>
-                  </div>
-                  <div class="col-xs-12 col-md-3">
-                    <div id="results_text"></div>
-                  </div>
-                </div>
+
+        <!-- Result Box for Five Year Results -->
+        <div id="results_box" class="row ">
+          <h3 class="results_header">5 Year Absolute Risk of Developing Melanoma</h3>
+          <div class="row vertical_alignment">
+            <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-1" >
+              <div id="results_graph">
+                <div class="patient_header">Patient Risk</div>
+                <div class="risk_header" id="Risk1"></div>
+                <div id="Pie_chart" class="svg-container"> </div>
+              </div>
             </div>
-          <div>
-            <a href="calculator.html"><img class="center-block btn-form" src="./images/Start_Over_Button.png"></a>
+            <div class="col-xs-12 col-lg-4">
+              <div id="results_text" class="vertical_alignment"></div>
+            </div>
           </div>
+        </div>
+
+        <!-- Show the input parameters -->
+        <div>
+          <h2>Your Answers</h2>
+          <p class="selectContent" >These results are based upon how you answered the following questions:</p>
+          <table id="InputParameters">
+            <tbody>
+              <tr>
+                <th class="questions">questions:</th>
+                <th class="answers">answers:</th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div>
+          <button id="startOver" type="button" class="center-block btn btn-default vertical_alignment">Start Over</button>
+        </div>
       </div>
-    </div>
+  </div>
+
     <div id="form-steps">
       <div id="line">
         <hr class="line">
@@ -81,14 +114,14 @@
       <div id="errors"></div>
       <form id="riskForm" name="riskForm" method="POST" action="calculate" autocomplete="off">
         <h2 id="demo" class="sectionTitle">Demographics</h2>
-        <section id="demo-section">
-          <label class="questions no-margin-top" for="race">What is the patient's race?</label>
+        <section id="demo-section" class="sectionTitle">
+          <label class="questions no-margin-top" for="nonHispanicWhiteRace">What is the patient's race?</label>
           <div class="responseOptions">
-            <input type="radio" name="race" value="0" required>
+            <input id="nonHispanicWhiteRace" type="radio" name="race" value="0" required>
             <label class="radio" tabindex="0"><span></span>Non-Hispanic White</label>
           </div>
           <div class="responseOptions">
-            <input type="radio" name="race" value="1" required>
+            <input  id="notNonHispanicWhiteRadioButton" type="radio" name="race" value="1" required>
             <label class="radio" tabindex="0"><span></span>Other</label>
           </div>
           <label class="questions" for="age">What is the patient's age?</label>
@@ -152,10 +185,10 @@
           </div>
           <div class="pull-left">
             <div class="col-xs-12 col-sm-6 no-padding">
-              <label class="questions">Does the patient live in the Northern, Central, or Southern United States?</label>
+              <label class="questions" for="northern">Does the patient live in the Northern, Central, or Southern United States?</label>
               <p class="questions_secondary">The model on which this tool is based is valid only for residents of the continental United States. This map is only a guide.</p>
               <div class="responseOptions">
-                <input type="radio" name="region" value="north" required>
+                <input id="northern" type="radio" name="region" value="north" required>
                 <label class="radio" tabindex="0"><span> </span>Northern</label>
               </div>
               <div class="responseOptions">
@@ -167,24 +200,24 @@
                 <label class="radio" tabindex="0"><span> </span>Southern</label>
               </div>
             </div>
-            <div class="col-xs-12 col-sm-6 no-padding"><img class="img-responsive show" id="map" src="images/us-map.png" alt="The map is divided into three distinct areas.	Northern United States which includes Washington, Oregon, Montana, North Dakota, South Dakota, Minnesota, Wisconsin, Michigan, Iowa, Illinois, Indiana, Ohio, Maryland, Pennsylvania, New York, New Jersey, Vermont, Rhode Island, Connecticut, Massachusetts, New Hampshire, and Maine. Central United States which includes Northern California, Idaho, Utah, Wyoming, Nebraska, Kansas, Oklahoma, Arkansas, Missouri, Tennessee, Kentucky, West Virginia, Virginia, Delaware, North Carolina, and South Carolina. Southern United States which includes Southern California, Nevada, Arizona, New Mexico, Colorado, Texas, Louisiana, Mississippi, Alabama, Georgia, and Florida."><a id="state-listing" data-toggle="modal" data-target="#mapModal">View state listings by area.</a></div>
+            <div class="col-xs-12 col-sm-6 no-padding"><img class="img-responsive show" id="map" src="rat-commons/images/us-map.png" alt="The map is divided into three distinct areas.	Northern United States which includes Washington, Oregon, Montana, North Dakota, South Dakota, Minnesota, Wisconsin, Michigan, Iowa, Illinois, Indiana, Ohio, Maryland, Pennsylvania, New York, New Jersey, Vermont, Rhode Island, Connecticut, Massachusetts, New Hampshire, and Maine. Central United States which includes Northern California, Idaho, Utah, Wyoming, Nebraska, Kansas, Oklahoma, Arkansas, Missouri, Tennessee, Kentucky, West Virginia, Virginia, Delaware, North Carolina, and South Carolina. Southern United States which includes Southern California, Nevada, Arizona, New Mexico, Colorado, Texas, Louisiana, Mississippi, Alabama, Georgia, and Florida."><a id="state-listing" class="mapText" data-toggle="modal" data-target="#mapModal">View state listings by area.</a></div>
           </div>
-          <label class="questions" for="gender">What is the patient's gender?</label>
+          <label class="questions" for="maleGender">What is the patient's gender?</label>
           <p class="questions_secondary">This tool uses gender-specific risk models. It requires different information of male patients than female patients. The answer to this question will determine what other questions are asked below.</p>
           <div class="responseOptions">
-            <input type="radio" name="gender" value="Male" required>
+            <input id="maleGender" type="radio" name="gender" value="Male" required>
             <label class="radio" tabindex="0"><span></span>Male</label>
           </div>
           <div class="responseOptions">
-            <input type="radio" name="gender" value="Female" required>
+            <input id="femaleGender" type="radio" name="gender" value="Female" required>
             <label class="radio" tabindex="0"><span></span>Female</label>
           </div>
         </section>
         <h2 class="sectionTitle no_display" id="skin">Skin Characteristics</h2>
-        <section class="no_display" id="skin-section">
-          <label class="no-margin-top questions" for="complexion">Is the patient's complexion light, medium, or dark?</label>
+        <section class="no_display sectionTitle" id="skin-section">
+          <label class="no-margin-top questions" for="lightComplexion">Is the patient's complexion light, medium, or dark?</label>
           <div class="responseOptions">
-            <input type="radio" name="complexion" value="0" required>
+            <input id="lightComplexion" type="radio" name="complexion" value="0" required>
             <label class="radio" tabindex="0"><span></span>Light</label>
           </div>
           <div class="responseOptions">
@@ -196,9 +229,9 @@
             <label class="radio" tabindex="0"><span></span>Dark</label>
           </div>
           <div class="male">
-            <label class="questions" for="sunburn">Has the patient ever gotten a blistering sunburn?</label>
+            <label class="questions" for="sunburnYes">Has the patient ever gotten a blistering sunburn?</label>
             <div class="responseOptions">
-              <input type="radio" name="sunburn" value="0">
+              <input id="sunburnYes" type="radio" name="sunburn" value="0">
               <label class="radio" tabindex="0"><span></span>Yes</label>
             </div>
             <div class="responseOptions">
@@ -207,12 +240,12 @@
             </div>
           </div>
           <div class="female">
-            <label class="questions" for="tan">
+            <label class="questions" for="deeplyTan">
               Ask the patient: After repeated and prolonged exposure to sunlight, at the age you are now,
               would your skin become very brown and deeply tanned, moderately tanned, lightly tanned, or no tan at all?
             </label>
-            <div class="responseOptions">
-              <input type="radio" name="tan" value="0">
+            <div  class="responseOptions">
+              <input id="deeplyTan" type="radio" name="tan" value="0">
               <label class="radio" tabindex="0"><span></span>Very brown and deeply tanned</label>
             </div>
             <div class="responseOptions">
@@ -230,11 +263,11 @@
           </div>
         </section>
         <h2 class="sectionTitle no_display" id="physical">Physical Exam</h2>
-        <section class="no_display" id="physical-section">
+        <section class="no_display sectionTitle" id="physical-section">
           <div class="male">
-            <label class="no-margin-top questions" id="large_moles">How many moles larger than 5mm in diameter are on the patient's back?</label>
+            <label class="no-margin-top questions" for="bigMoles" id="large_moles">How many moles larger than 5mm in diameter are on the patient's back?</label>
             <div class="responseOptions">
-              <input type="radio" name="big-moles" value="0">
+              <input id="bigMoles" type="radio" name="big-moles" value="0">
               <label class="radio" tabindex="0"><span> </span>Less than two</label>
             </div>
             <div class="responseOptions">
@@ -242,9 +275,9 @@
               <label class="radio" tabindex="0"><span></span>Two or more</label>
             </div>
           </div>
-          <label class="questions no-margin-top" id="small_moles">How many moles less than or equal to 5mm in diameter are on the patient's back?</label>
+          <label class="questions" for="smallMoleAnswer" id="small_moles">How many moles less than or equal to 5mm in diameter are on the patient's back?</label>
           <div class="responseOptions">
-            <input type="radio" name="small-moles" value="0" required>
+            <input id="smallMoleAnswer" type="radio" name="small-moles" value="0" required>
             <label class="radio" tabindex="0"><span></span>
               <div class="small_mole_answer">Less than five</div>
             </label>
@@ -282,55 +315,45 @@
             </div>
           </div>
         </section>
+
         <div class="center-block">
           <div id="buttons">
             <div class="col-xs-12">
-              <input class="btn-sm btn-form" id="calculate" type="image" src="./images/Disabled_Calculate_Risk_Button.png" disabled="disabled">
-              <img class="btn-sm btn-form" id="reset_form" src="./images/Reset_Button.png" alt="reset">
+              <input class="center-block text-center spacerBetweenCalculateButtonAndResetButton" type="submit" id="calculate" disabled="disabled" value="Calculate Risk">
+              <input class="center-block text-center" id="reset" type="reset" value="reset">
             </div>
           </div>
         </div>
+
       </form>
     </div>
-    <div class="footer">
-      <div class="center-block">
-        <ul class="list-inline">
-          <li><a target="_blank" title="Home" href="http://www.cancer.gov/">Home</a></li>
-          <li>|</li>
-          <li><a target="_top" title="Support" href="mailto:NCIMeansToRiskWebAdmin@mail.nih.gov?subject=Biomarker%20Tools">Support</a></li>
-          <li>|</li>
-          <li><a target="_blank" title="Policies" href="http://www.cancer.gov/global/web/policies">Policies</a></li>
-          <li>|</li>
-          <li><a target="_blank" title="Accessibility" href="http://www.cancer.gov/global/web/policies/accessibility">Accessibility</a></li>
-          <li>|</li>
-          <li><a target="_blank" title="Viewing Files" href="http://cancer.gov/global/viewing-files">Viewing Files</a></li>
-          <li>|</li>
-          <li><a target="_blank" title="FOIA" href="http://www.cancer.gov/global/web/policies/foia">FOIA</a></li>
-        </ul>
-        <ul class="list-inline">
-          <li><a target="_blank" href="http://www.hhs.gov/">U.S. Department of Health and Human Services</a></li>
-          <li>|</li>
-          <li><a target="_blank" href="http://www.nih.gov">National Institutes of Health</a></li>
-          <li>|</li>
-          <li><a target="_blank" href="http://www.cancer.gov/">National Cancer Institute</a></li>
-          <li>|</li>
-          <li><a target="_blank" href="http://usa.gov">USA.gov</a></li>
-        </ul>
-        <div class="text-center"><span>NIH ... Turning Discovery Into Health</span><sup>&reg;</sup></div>
-      </div>
-    </div>
-    <script language="JavaScript" type="text/javascript" src="//static.cancer.gov/webanalytics/WA_RAT_PageLoad.js"></script>
-    <div class="modal error-dialog fade" id="raceModal" tabindex="-1" role="dialog" data-backdrop="false">
+    <div id="footer" class="footer"></div>
+
+    <!-- Modal Alert this person that tools is used for non-hispanic whites  -->
+    <div class="modal eligibility-dialog fade" id="raceModal" tabindex="-1" role="dialog" data-backdrop="false">
       <div class="modal-dialog" role="document">
-        <div class="modal-header"></div>
         <div class="modal-content">
-          <div class="modal-body"><img class="imgsize" src="images/stop.png" alt="stop icon">
-            <p class="modaltext">This tool can only accurately calculate melanoma risk for patients who are non-Hispanic whites.</p>
-            <button class="btn btn-primary btn-size" type="button" data-dismiss="modal">Ok</button>
+          <div class="modal-body">
+            <div class="container col-sm-12 dialog_text_content">
+              <div class col-sm-12>
+                <div class="row">
+                  <div class="col-sm-2">
+                    <img class="imgsize center-block" src="rat-commons/images/stop.png" alt-icon alt="Stop Picture">
+                  </div>
+                  <div class="col-sm-10">
+                      <p>This tool can only accurately calculate melanoma risk for patients who are non-Hispanic whites.</p>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <button id="okButtonRace" class="center-block okButton" value="Ok" data-dismiss="modal">Ok</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
     <div class="modal demo-dialog fade" id="mapModal" tabindex="-1" role="dialog" data-backdrop="false">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -353,11 +376,6 @@
         </div>
       </div>
     </div>
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js" type="application/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js" type="application/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods.js" type="application/javascript"></script>
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://d3js.org/d3.v4.min.js" type="application/javascript"></script>
-    <script src="rat.js" type="text/javascript"></script>
+    <script language="JavaScript" type="text/javascript" src="//static.cancer.gov/webanalytics/WA_RAT_PageLoad.js"></script>
   </body>
 </html>

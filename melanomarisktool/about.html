@@ -5,18 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" type="text/css">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="/common/css/style.css" rel="stylesheet" type="text/css">
-    <link href="styles.css" rel="stylesheet" type="text/css">
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js" type="application/javascript"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link href="common/css/style.css" rel="stylesheet" type="text/css">
+    <link href="rat-commons/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="rat-commons/css/form-steps.css" rel="stylesheet" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="application/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js" type="application/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods.js" type="application/javascript"></script>
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="rat.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="rat-commons/js/rat.js" type="text/javascript"></script>
   </head>
-  <body><a class="sr-only sr-only-focusable" href="#main">Skip to main content</a>
-    <header><a href="http://cancer.gov" target="_blank"><img id="logo" src="/common/images/nci-logo-full.svg" alt="go to cancer.gov"></a>
+  <body>
+    <header>
+      <a id="skipContentAbout" class="sr-only sr-only-focusable" href="#main_home">Skip to main content</a>
+      <a href="http://cancer.gov" target="_blank"><img id="logo" src="/common/images/nci-logo-full.svg" alt="go to cancer.gov"></a>
       <div id="toolTitle"><a href="index.html">Melanoma Risk Assessment Tool</a>
         <button class="navbar-toggle collapsed" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()"><span class="sr-only">Toggle navigation</span>
           <div class="glyphicon glyphicon-menu-hamburger"></div>
@@ -25,7 +29,7 @@
       <nav class="navbar-collapse collapse" id="main-nav" aria-expanded="false">
         <ul class="nav nav-tabs">
           <li role="presentation"><a href="calculator.html">Risk Calculator</a></li>
-          <li role="presentation"><a href="about.html">About the Model &amp; Source Code</a></li>
+          <li class="active" role="presentation"><a href="about.html">About the Model &amp; Source Code</a></li>
         </ul>
       </nav>
       <div class="sidenav" id="side_nav">
@@ -55,7 +59,7 @@
             <p>
               The Melanoma Risk Assessment Tool may be updated periodically as new data or research becomes available. The system is currently on statistical model version 1 and software version 2.0.</p>
             <p>The source code and documentation can be accessed via the <a href="https://github.com/CBIIT/nci-webtools-dceg-risk-assessment" target="_blank">GitHub Repository</a>. By downloading, you accept our <a href="https://www.cancer.gov/melanomarisktool/code-conditions.html">Terms & Conditions</a>.</p>
-            <h4>References</h4>
+            <h2>References</h2>
             <ol>
               <li>
                 Fears TR, Guerry D IV, Pfeiffer RM, et al: Identifying Individuals at High Risk of Melanoma: A Practical Predictor of Absolute Risk.
@@ -66,33 +70,7 @@
         </div>
       </div>
     </div>
-    <div class="footer">
-      <div class="center-block">
-        <ul class="list-inline">
-          <li><a target="_blank" title="Home" href="http://www.cancer.gov/">Home</a></li>
-          <li>|</li>
-          <li><a target="_top" title="Support" href="mailto:NCIMeansToRiskWebAdmin@mail.nih.gov?subject=Biomarker%20Tools">Support</a></li>
-          <li>|</li>
-          <li><a target="_blank" title="Policies" href="http://www.cancer.gov/global/web/policies">Policies</a></li>
-          <li>|</li>
-          <li><a target="_blank" title="Accessibility" href="http://www.cancer.gov/global/web/policies/accessibility">Accessibility</a></li>
-          <li>|</li>
-          <li><a target="_blank" title="Viewing Files" href="http://cancer.gov/global/viewing-files">Viewing Files</a></li>
-          <li>|</li>
-          <li><a target="_blank" title="FOIA" href="http://www.cancer.gov/global/web/policies/foia">FOIA</a></li>
-        </ul>
-        <ul class="list-inline">
-          <li><a target="_blank" href="http://www.hhs.gov/">U.S. Department of Health and Human Services</a></li>
-          <li>|</li>
-          <li><a target="_blank" href="http://www.nih.gov">National Institutes of Health</a></li>
-          <li>|</li>
-          <li><a target="_blank" href="http://www.cancer.gov/">National Cancer Institute</a></li>
-          <li>|</li>
-          <li><a target="_blank" href="http://usa.gov">USA.gov</a></li>
-        </ul>
-        <div class="text-center"><span>NIH ... Turning Discovery Into Health</span><sup>&reg;</sup></div>
-      </div>
-    </div>
+    <div id="footer" class="footer"></div>
     <script language="JavaScript" type="text/javascript" src="//static.cancer.gov/webanalytics/WA_RAT_PageLoad.js"></script>
   </body>
 </html>

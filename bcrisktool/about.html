@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Breast Cancer Risk Assessment Tool (MRAT)</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="common/css/style.css" rel="stylesheet" type="text/css">
+    <link href="rat-commons/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="rat-commons/css/form-steps.css" rel="stylesheet" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="application/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js" type="application/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods.js" type="application/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="rat-commons/js/rat.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <a id="skipContentAbout" class="sr-only sr-only-focusable" tabindex="0" href="javascript:scrollPassLogo();">Skip to main content</a>
+    <header><a href="http://cancer.gov" target="_blank"><img id="logo" src="/common/images/nci-logo-full.svg" alt="go to cancer.gov"></a>
+      <div id="toolTitle"><a href="index.html">Breast Cancer Risk Assessment Tool</a>
+        <button class="navbar-toggle collapsed" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()"><span class="sr-only">Toggle navigation</span>
+          <div class="glyphicon glyphicon-menu-hamburger"></div>
+        </button>
+      </div>
+      <nav class="navbar-collapse collapse" id="main-nav" aria-expanded="false">
+        <ul class="nav nav-tabs">
+          <li role="presentation"><a href="calculator.html">Risk Calculator</a></li>
+          <li class="active" role="presentation"><a href="about.html">About the Model &amp; Source Code</a></li>
+        </ul>
+      </nav>
+      <div class="sidenav" id="side_nav">
+        <div class="div" id="inner_menu"><span>Menu</span>
+          <button class="navbar-toggle collapsed navbar-toggle_innermenu" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()"><span class="sr-only">Toggle navigation</span>
+            <div class="glyphicon glyphicon-menu-hamburger"></div>
+          </button>
+        </div>
+        <ul class="nav nav-tabs">
+          <li class="calc_list_item"  role="presentation" id="Risk"><a href="calculator.html">Risk Calculator</a></li>
+          <li class="about_list_item" role="presentation" id="About"><a href="about.html"><span>About the Model &amp;</span><br><span>Source Code</span></a></li>
+        </ul>
+      </div>
+    </header>
+    <div id="main_home">
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+	      <span class="spacerBetweenHeaderContentForAboutPage">&nbsp;</span>
+	      <h1>About the Model and Source Code</h1>
+              <h4>ON THIS PAGE</h4>
+              <ul class="noBottomMargin">
+                <li><a class="about_page_link_separator" href="#GailModel">The Gail Model</a></li>
+                <li><a class="about_page_link_separator" href="#TestingTheModel">Testing the Model</a></li>
+                <li><a class="about_page_link_separator" href="#OtherRiskAssessmentTools">Other Risk Assessment Tools</a></li>
+                <li><a class="about_page_link_separator" href="#DownloadTheSourceCode">Download the Source Code</a></li>
+              </ul>
+              <h2 id="GailModel" class="spacerBetweenSections">The Gail Model</h2>
+              <p class="content">
+                The Breast Cancer Risk Assessment Tool (BCRAT) is based on a statistical model known as the Gail Model, named after <a href="https://dceg.cancer.gov/about/staff-directory/biographies/K-N/gail-mitchell">Dr. Mitchell Gail</a>, Senior Investigator
+                in the Biostatistics Branch of the NCI Division of Cancer Epidemiology and Genetics
+              </p>
+              <p class="content">
+                The tool uses a woman&#8217;s own personal information to estimate risk of developing invasive breast cancer over specific periods of time, including:
+              </p>
+              <ul class="content">
+                <li>Age</li>
+                <li>Age at the start of menstruation</li>
+                <li>Age at first live birth</li>
+                <li>Number of first-degree relative (mothers, sisters, daughters) with breast cancer</li>
+                <li>Number of previous breast biopsies (whether positive or negative)</li>
+                <li>Presence of atypical hyperplasia in a biopsy</li>
+              </ul>
+              <p class="content">
+                Data from the Breast Cancer Detection Demonstration Project (BCDDP), a joint NCI and American Cancer Society breast cancer screening study that involved 280,000 white women aged 35 to 74 years,
+                and from the NCI Surveillance, Epidemiology, and End Results (SEER) Program, were used in developing the model.
+              </p>
+              <p class="content">
+                Estimates for black women were based on data from the Women&#8217;s Contraceptive and Reproductive Experiences (CARE) Study and from SEER data.  CARE participants included 1,607 women with invasive breast cancer and 1,637 without.
+              </p>
+              <p class="content">
+                Estimates for Asian and Pacific Islander women in the United States were based on data from the Asian American Breast Cancer Study (AABCS) and SEER data.  AABCS participants included 597
+                Asian and Pacific Islander women with invasive breast cancer, and 966 women without breast cancer.
+              <p class="content">
+                Estimates for Hispanic women were based on the San Francisco Bay Area Breast Cancer Study (SFBCS) and the California Cancer Registry and
+                SEER Program.  SFBCS participants included 1,086 women with invasive breast cancer and 1,411 women without breast cancer.
+              </p>
+              <h2 id="TestingTheModel" class="spacerBetweenSections">Testing the Model</h2>
+              <p class="content">
+                The Gail model has been tested in large populations of white women and has been shown to provide accurate estimates of breast cancer risk. The
+                model was tested for Asian and Pacific Islander women, black women and Hispanic women using data from the Women&#8217;s Health Initiative. It performed
+                well but may underestimate risk in black women with previous biopsies and Hispanic women born outside the United States.  The model needs further
+                validation for Hispanic women and other subgroups. Researchers are conducting additional studies to gather more data to test and improve the model.
+              </p>
+              <h2 id="OtherRiskAssessmentTools" class="spacerBetweenSections">Other Risk Assessment Tools</h2>
+              <p class="content">
+                Other risk assessment tools are more appropriate for women who have a history of certain medical conditions.  Below is a list of alternative resources for women with a medical history of:
+                <br>
+
+                <p class="content boldedBodyText">Breast Cancer or Lobular Carcinoma In Situ (LCIS) or Ductal Carcinoma In Situ (DCIS)</p>
+                <ul>
+                  <li class="content">Women with a history of breast cancer have risks of recurrence that depend on the type of breast cancer, its stage at diagnosis, and treatment.  A cancer doctor can provide guidance
+                  on future risks for breast cancer survivors.</li>
+                  <li class="content">Women with a history of DCIS have risk of invasive breast cancer that depends on type of treatment for DCIS; a cancer doctor can provide information on this risk.</li>
+                  <li class="content">Women with a history of LCIS can use the <a href="http://www.ems-trials.org/riskevaluator/">IBIS Breast Cancer Risk Evaluation Tool</a> to estimate the risk of invasive breast cancer or DCIS.  A cancer doctor
+                  can also provide information on the risk.</li>
+                </ul>
+                <br>
+
+                <p class="boldedBodyText">Treatment with Radiation to the Chest</p>
+                <ul>
+                    <li class="content">Women who had radiation for the treatment of Hodgkin lymphoma have higher than average risk of breast cancer.  These risks are discussed in the scientific manuscript Travis, L.B
+                    et al. (Journal of the National Cancer Institute 2005; 97:1428-37). <a href="https://www.ncbi.nlm.nih.gov/pubmed/16204692">[PubMed Abstract]</a></li>
+                </ul>
+                <br>
+
+                <p class="boldedBodyText">A Known Mutation in Either the BRCA1 or BRCA2 Gene</p>
+                <ul>
+                  <li class="content">Women with a known mutation in either the BRCA1 or BRCA2 gene can use the <a href="http://ccge.medschl.cam.ac.uk/boadicea/">BOADICEA model</a> to estimate their breast cancer risk.</li>
+                </ul>
+                <br>
+
+                <p class="boldedBodyText">Other Rare Breast Cancer-Causing Syndromes, such as LI-Fraumeni Syndrome</p>
+                <ul>
+                  <li class="content">Women with a known or suspected inherited breast cancer-causing syndrome should consult a specialist in medical genetics.
+                </ul>
+              </p>
+              <h2 id="DownloadTheSourceCode" class="spacerBetweenSections" name="DownloadTheSourceCode">Download the Source Code</h2>
+              <p class="content">
+                The BCRAT may be updated periodically as new data or research becomes available. The algorithm was last updated in December, 2017. The current
+                version is 4.1. Source code in SAS and R may be obtained from
+                <a href="https://dceg.cancer.gov/about/organization/programs-ebp/bb/resources">https://dceg.cancer.gov/about/organization/programs-ebp/bb/resources</a>
+              </p>
+              <h4 id="reference_section">References</h4>
+              <p>
+                <ol class="content">
+                  <li>Gail MH, Brinton LA, Byar DP, Corle DK, Green SB, Shairer C, Mulvihill JJ: Projecting individualized probabilities of developing breast cancer for white females who are being
+                  examined annually. J Natl Cancer Inst 81(24):1879-86, 1989.&nbsp;&nbsp;[<a href="https://www.ncbi.nlm.nih.gov/pubmed/2593165?dopt=Abstract">PubMed Abstract</a>]<br><br></li>
+                  <li>Costantino JP, Gail MH, Pee D, Anderson S, Redmond CK, Benichou J, Wieand HS: Validation studies for models projecting the risk of invasive and total breast cancer incidence.
+                  J Natl Cancer Inst 91(18):1541-8, 1999.&nbsp;&nbsp;[<a href="https://www.ncbi.nlm.nih.gov/pubmed/10491430?dopt=Abstract">PubMed Abstract</a>]<br><br></li>
+                  <li>Gail MH, Costantino JP, Bryant J, Croyle R, Freedman L, Helzlsouer K, Vogel V: Weighing the risks and benefits of tamoxifen treatment for preventing breast cancer. J Natl
+                  Cancer Inst 91(21):1829-46, 1999.&nbsp;&nbsp;[<a href="https://www.ncbi.nlm.nih.gov/pubmed/10547390?dopt=Abstract">PubMed Abstract</a>]<br><br></li>
+                  <li>Rockhill B, Spiegelman D, Byrne C, Hunter DJ, Colditz GA: Validation of the Gail et al. model of breast cancer risk prediction and implications for chemoprevention. J Natl
+                  Cancer Inst 93(5):358-66, 2001.&nbsp;&nbsp;[<a href="https://www.ncbi.nlm.nih.gov/pubmed/11238697?dopt=Abstract">PubMed Abstract</a>]<br><br></li>
+                  <li>Gail MH, Costantino JP, Pee D, Bondy M, Newman L, Selvan M, Anderson GL, Malone KE, Marchbanks PA, McCaskill-Stevens W, Norman SA, Simon MS, Spirtas R, Ursin G, and
+                  Bernstein L. Projecting Individualized Absolute Invasive Breast Cancer Risk in African American Women. J Natl Cancer Inst 99(23):1782-1792, 2007.&nbsp;&nbsp;[<a href="https://www.ncbi.nlm.nih.gov/pubmed/18042936">PubMed Abstract</a>]<br><br></li>
+                  <li>Matsuno RK, Costantino JP, Ziegler RG, Anderson GL, Li H, Pee D, Gail MH. Projecting Individualized Absolute Invasive Breast Cancer Risk in Asian and Pacific Island American
+                  Women. J Natl Cancer Inst 2011.&nbsp;&nbsp;[<a href="https://www.ncbi.nlm.nih.gov/pubmed/21562243">PubMed Abstract</a>]<br><br></li>
+                  <li>Banegas MP, John EM, Slattery ML, Gomez SL, Yu M, LaCroix AZ, Rowan DP. Hines CL, Thompson CA, Gail MH: Projecting Individualized Absolute Invasive Breast Cancer Risk in US
+                  Hispanic Women. J Natl Cancer Inst 109(2), 2017. doi: 10.1093/jnci/djw215.&nbsp;&nbsp;[<a href="https://www.ncbi.nlm.nih.gov/pubmed/28003316?dopt=Abstract">PubMed Abstract</a>]<br><br></li>
+                </ol>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="footer" class="footer"></div>
+    <script language="JavaScript" type="text/javascript" src="//static.cancer.gov/webanalytics/WA_RAT_PageLoad.js"></script>
+  </body>
+</html>
