@@ -4,12 +4,18 @@
     <title>Colorectal Risk Assessment Tool (CRAT) - Risk Calculator</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" type="text/css">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="/common/css/style.css" rel="stylesheet" type="text/css">
-    <link href="styles.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="common/css/style.css" rel="stylesheet" type="text/css">
+    <link href="rat-commons/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="rat-commons/css/form-steps.css" rel="stylesheet" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="application/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js" type="application/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods.js" type="application/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js" type="application/javascript"></script>
+    <script src="rat-commons/js/rat.js" type="text/javascript"></script>
+    <script src="specificRat.js" type="text/javascript"></script>
   </head>
   <body><a class="sr-only sr-only-focusable" href="#main">Skip to main content</a>
     <header><a href="http://cancer.gov" target="_blank"><img id="logo" src="/common/images/nci-logo-full.svg" alt="go to cancer.gov"></a>
@@ -498,11 +504,13 @@
           </section>
 
           <div class="center-block">
-            <div class="col-xs-12 col-sm-3 col-sm-push-5">
-              <input class="btn-sm btn-form" id="calculate" type="image" src="./images/Calculate_Risk_Button.svg">
+            <div id="buttons">
+              <div class="col-xs-12">
+                <input class="center-block text-center spacerBetweenCalculateButtonAndResetButton" type="submit" id="calculate" disabled="disabled" value="Calculate Risk">
+                <input class="center-block text-center" id="reset" type="reset" value="Reset">
+              </div>
             </div>
           </div>
-
 
       </form>
     </div>

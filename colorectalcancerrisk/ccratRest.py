@@ -5,7 +5,7 @@ import sys
 from flask import Flask, Response, request, jsonify, send_from_directory
 from CcratRunFunction import AbsRisk
 
-app = Flask(__name__, static_folder='', static_url_path='/')
+app = Flask(__name__, static_folder='', static_url_path='')
 
 class ColorectalRiskAssessmentTool:
   @staticmethod
@@ -207,3 +207,16 @@ class ColorectalRiskAssessmentTool:
       fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
       print("EXCEPTION------------------------------", exc_type, fname, exc_tb.tb_lineno)
       return ColorectalRiskAssessmentTool.buildFailure(str(e))
+
+  def __init__(self,port,debug):
+    app.run(host='0.0.0.0', port=port, debug=True)
+
+if __name__ == '__main__':
+  import argparse
+  parser = argparse.ArgumentParser()
+  parser.add_argument("-p", dest="port_number", default="8130", help="Sets the Port")
+  parser.add_argument("--debug", action="store_true")
+
+  args = parser.parse_args()
+  port_num = int(args.port_number);
+  ColorectalRiskAssessmentTool(port_num, args.debug)
