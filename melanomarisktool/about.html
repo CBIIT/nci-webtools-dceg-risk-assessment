@@ -16,6 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods.js" type="application/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="rat-commons/js/rat.js" type="text/javascript"></script>
+    <script src="specificRat.js" type="text/javascript"></script>
   </head>
   <body>
     <header>
@@ -46,7 +47,7 @@
     </header>
     <div id="main_home">
       <div class="container-fluid">
-        <div class="row">
+        <div id="mainAboutPage" class="row show">
             <div class="col-xs-12 col-md-12">
             <h1>About the Model and Source Code</h1>
             <p>The Melanoma Risk Assessment Tool is based on a statistical model. The model uses patients' self-reported history and results
@@ -58,7 +59,7 @@
             <h2>Download the Source Code</h2>
             <p>
               The Melanoma Risk Assessment Tool may be updated periodically as new data or research becomes available. The system is currently on statistical model version 1 and software version 2.0.</p>
-            <p>The source code and documentation can be accessed via the <a href="https://github.com/CBIIT/nci-webtools-dceg-risk-assessment" target="_blank">GitHub Repository</a>. By downloading, you accept our <a href="https://www.cancer.gov/melanomarisktool/code-conditions.html">Terms & Conditions</a>.</p>
+            <p>The source code and documentation can be accessed via the <a href="https://github.com/CBIIT/nci-webtools-dceg-risk-assessment" target="_blank">GitHub Repository</a>. By downloading, you accept our <a href="javascript:go_toTermsAndConditions()">Terms & Conditions</a>.</p>
             <h2>References</h2>
             <ol>
               <li>
@@ -66,6 +67,48 @@
                 J Clin Oncol 24(22): pp-pp, 2006.  [<a href="http://www.ncbi.nlm.nih.gov/pubmed/16728488" target="_blank">PubMed Abstract</a>]
               </li>
             </ol>
+          </div>
+        </div>
+        <div id="termAndConditionsPage" class="row">
+          <div class="col-xs-12 col-md-12">
+            <a class="about_page_anchor" href="javascript:go_toAboutPage()">&lt;&nbsp;Back to Main About Page</a>
+            <h1>Terms &amp; Conditions</h1>
+            <h2>Source Code for Melanoma Risk Assessment Tool</h2>
+              <p class="mergeParagraphTags">
+                  <strong>Non-Proprietary Software Transfer Agreement</strong>
+              </p>
+              <p> 
+                  Provider: National Institutes of Health (NIH), National Cancer Institute (hereinafter
+                  &quot;NCI&quot;)
+              </p>
+              <p>
+                  By accepting Software, Recipient agrees to the terms of this Agreement.
+              </p>
+              <p>
+                  The Software transferred under this agreement was created by Federal Government
+                  employees in the course of official duties. Transfer of Software to Recipient does
+                  not constitute endorsement by the NCI of the Recipient or any product, service or
+                  company and no endorsement should be inferred. SOFTWARE IS NOT INTENDED FOR TREATING
+                  OR DIAGNOSING HUMAN SUBJECTS.
+              </p>
+              <p>
+                  The MRAT risk calculator may be updated periodically as new data or research becomes
+                  available.
+              </p>
+              <p>
+                  Software is supplied AS IS, without any accompanying services or improvements from
+                  NIH. SOFTWARE IS SUPPLIED TO RECIPIENT WITH NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
+                  ANY WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. NCI makes no
+                  representations that the use of Software will not infringe any patent or proprietary
+                  rights of third parties.
+              </p>
+              <p>
+                  All risk as to quality and performance of Software is with Recipient. In no event
+                  will the United States Government or NCI be liable to Recipient for damages arising
+                  out of the use or inability to use Software, including but not limited to loss of
+                  data or data being rendered inaccurate or losses sustained by Recipient or third
+                  parties
+              </p>
           </div>
         </div>
       </div>
