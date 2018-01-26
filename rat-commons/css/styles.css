@@ -487,7 +487,8 @@ a.btn:disabled {
 }
 
 
-
+#mainAboutPage:not(.show),
+#termAndConditionsPage:not(.show),
 #results:not(.show),
 #errors:not(.show),
 #map:not(.show),
@@ -1371,12 +1372,19 @@ input.error + label.radio span {
   color: #2E2E2E;
 }
 
-/* Specific Styling for the Back to Calculator on the Front Page              */
+/* Styling for anchors going to a page in the web app */
+.about_page_anchor,
 .result_page_anchor {
   font-size: 16px;
   font-family: 'Noto Sans';
   color: #2B7BBA;
   line-height: 28px;
+}
+
+/* Specific Styling for the Back to Main About Page Anchor                   */
+.about_page_anchor {
+  margin-top: .5em;
+  display: inline-block;
 }
 
 /* Centering for Mobile buttons that are link */
@@ -1606,4 +1614,9 @@ section > fieldset > legend.questions {
 #InputParameters td {
   border-bottom : 1px solid #dddddd;
   height: 48px;
+}
+
+/* Make two <p> secitons resemble one <p> secton on the page */
+.mergeParagraphTags {
+  margin-bottom : 0em;
 }

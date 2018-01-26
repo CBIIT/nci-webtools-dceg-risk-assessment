@@ -23,7 +23,25 @@ $(function() {
 
 	// Enables the form when the user clicks ok for the dialog box be dispalyed
 	$("#okButtonRace").on("click", enableMRATForm)
+
+	$("termAndConditionsPge").removeClass("show")
 });
+
+////////////////////////////////////////////////////////////////////////////////
+// Displays the Term and Conditions Page                                      //
+////////////////////////////////////////////////////////////////////////////////
+function go_toTermsAndConditions() {
+	$("#mainAboutPage").removeClass("show")
+	$("#termAndConditionsPage").addClass("show")
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Dispaly the Main About Page         
+////////////////////////////////////////////////////////////////////////////////
+function go_toAboutPage() {
+	$("#mainAboutPage").addClass("show")
+	$("#termAndConditionsPage").removeClass("show")
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Rules : When the user has not selected a male or female then the calculate

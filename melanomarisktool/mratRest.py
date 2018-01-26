@@ -6,7 +6,7 @@ import logging
 from flask import Flask, Response, request, jsonify
 from MratConstants import MratConstants
 
-app = Flask(__name__, static_folder='', static_url_path='/')
+app = Flask(__name__, static_folder='', static_url_path='')
 logging.basicConfig(level=logging.DEBUG)
 
 class MelanomaRiskAssessmentTool:
@@ -161,3 +161,16 @@ class MelanomaRiskAssessmentTool:
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print("EXCEPTION------------------------------", exc_type, fname, exc_tb.tb_lineno)
             return MelanomaRiskAssessmentTool.buildFailure(e)
+
+    def __init__(self,port,debug):
+        app.run(host='0.0.0.0', port=port, debug=True)
+
+if __name__ == '__main__':
+  import argparse
+  parser = argparse.ArgumentParser()
+  parser.add_argument("-p", dest="port_number", default="8130", help="Sets the Port")
+  parser.add_argument("--debug", action="store_true")
+
+  args = parser.parse_args()
+  port_num = int(args.port_number);
+  MelanomaRiskAssessmentTool(port_num, args.debug)
