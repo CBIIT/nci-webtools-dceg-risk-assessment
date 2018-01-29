@@ -304,10 +304,10 @@ function gotoSection(event) {
 	var scrollTo = ( indexOfSection == 0 ) ? 0 : $("#" + sectionName).position().top;
 
 	// This code was written due to an analysis of the code running.  When the first 
-	// naivagion button was highlighted and the user clicked the second navigation 
+	// naivagion button was highlighted and the user clicked any other navigation 
 	// button then the user was being scrolled to a pointer higher then was should 
 	// have been scrolled to.  This code fixeds the problem. 
-	if ( indexOfSection == 1 && $(window).scrollTop() == 0) heightOfFormSteps = heightOfFormSteps * 2
+	if ( indexOfSection != 0 && $(window).scrollTop() == 0) heightOfFormSteps = heightOfFormSteps * 2
 	
 	// Scrolls to the actual point
 	$("html, body").animate({scrollTop: scrollTo - heightOfFormSteps }, 2000 )
