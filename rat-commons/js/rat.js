@@ -9,6 +9,8 @@
  */
 function calc()
 {
+
+	console.log("******** Calling Calc ********* ")
 	var navigationLinks = $("#form-steps > ol > li > a");
 
 	// Initializes the information that both the seciton and navigation links of
@@ -21,7 +23,7 @@ function calc()
 	// For the iphone the header is under the form-steps and it is bigger then the
 	// form-steps on mobile this might cause a problem.
 	//
-	// On the iphone is did : $("#form-stpeps").css("display", "none") and the
+	// On the iphone is did : $("#form-steps").css("display", "none") and the
 	// header was seen because it was below (z-index) of the form-steps
 	var heightOfFormSteps = $("#form-steps").outerHeight(true);
 	var heightOfHeader    = $("header").outerHeight(true);
@@ -30,11 +32,11 @@ function calc()
 	//alert("The height is " + height + " and the value of is isMobile is " + isMobile() )
 	//alert("The Height is " + height)
 
-
 	$.each($("#riskForm section"), function(index, element) {
 
-		// Accumulates the Height of the header and section, so the form will scrolled to the correct position for the next element
-		// This calcuation will using this in currentHeight calculation for the next iteration
+		// Accumulates the Height of the header and section, so the form will scrolled to 
+		// the correct position for the next element.  This calcuation will using this in 
+		// currentHeight calculation for the next iteration
 		var currentTitleAndSecitonHeight = $(element).prev().outerHeight(true) + $(element).outerHeight(true);
 		//alert("The current Height = " + currentTitleAndSecitonHeight)
 
@@ -50,17 +52,14 @@ function calc()
 		$(navigationLinks).slice(startIndex, endIndex).attr('data-riskFormSectionName', $(element).attr('id'));
 		$(navigationLinks).slice(startIndex, endIndex).attr('data-riskFormSectionHeaderName', $(element).prev().attr('id'));
 		$(navigationLinks).slice(startIndex, endIndex).attr('data-position-height', currentHeight);
-		//alert("The curentHeight is " + currentHeight)
 
 		// Each section will know id, the id its header and the y-postion of its sectionHeaderBoxHeight
-		// TODO :
 		$(this).attr('data-riskFormSectionName', $(element).attr('id'));
 		$(this).attr('data-riskFormSectionHeaderName', $(element).prev().attr("id"));
 		$(this).attr('data-position-height', currentHeight)
-		//alert("The curentHeight is " + currentHeight)
-
 
 		heightOfHeaderAndSectionsAccumulator = heightOfHeaderAndSectionsAccumulator + currentTitleAndSecitonHeight;
+		console.log("*** " + heightOfHeaderAndSectionsAccumulator)
 
 	});
 }
@@ -238,6 +237,8 @@ function formScrollSpy() {
 		// then that section should be the active.
 		if ( window_top >= sectionHeight) {
 
+			//console.log("Currently using index : " + ind)
+			//console.log("With sectionHeight = " + sectionHeight)
 			// Remove the active style from any navigation link and apply it to the
 			// current link being processed.
   			$("#form-steps li").removeClass('active');
@@ -284,7 +285,6 @@ function gotoSection(event) {
 	// Rule: If there is only once section visible then just return
 	if ( ignore() ) return;
 
-
 	var indexOfSection = $(this).attr('data-riskFormSection')
 
 	// Remove the active style from the previous link and apply it to the
@@ -294,10 +294,23 @@ function gotoSection(event) {
 	$(this).parent().addClass('active');
 	adjust_line_width(indexOfSection);
 
-	// Scroll to the actual spot.
-	//alert("The current height is " + $(this).attr('data-position-height'))
-	var scrollTo = ( indexOfSection == 0 ) ? 0 : $(this).attr('data-position-height');
-	$('html, body').animate({ scrollTop: scrollTo }, 1000);
+	var sectionName = $(this).attr("data-riskFormSectionHeaderName")
+	var heightOfFormSteps = $("#form-steps").outerHeight(true)
+	//$("html, body").animate({scrollTop: $("#" + sectionName).offset().top - (heightOfFormSteps + offsetOfFormSteps) }, 2000);
+
+	// Find the top point of the section, but if its the first section then go to 0 point
+	// so the header will be displayed.  The heaer is only displayed when scrolled to 
+	// the top most pixel
+	var scrollTo = ( indexOfSection == 0 ) ? 0 : $("#" + sectionName).position().top;
+
+	// This code was written due to an analysis of the code running.  When the first 
+	// naivagion button was highlighted and the user clicked the second navigation 
+	// button then the user was being scrolled to a pointer higher then was should 
+	// have been scrolled to.  This code fixeds the problem. 
+	if ( indexOfSection == 1 && $(window).scrollTop() == 0) heightOfFormSteps = heightOfFormSteps * 2
+	
+	// Scrolls to the actual point
+	$("html, body").animate({scrollTop: scrollTo - heightOfFormSteps }, 2000 )
 }
 
 /* Determine if either male or female has been selected                       */
@@ -444,27 +457,6 @@ function handleScrollEvent(event) {
 	fixedToTop(top_div);
 	formScrollSpy();
 
-	//adjustRiskFormMarginTopForMobile();
-}
-
-/******************************************************************************/
-/* For the Header and Form Steps Section of the Application there are         */
-/* problems with it not being positied correctly.  This code will positon     */
-/* the elements.                                                              */
-/******************************************************************************/
-function adjustRiskFormMarginTopForMobile() {
-	if ( isMobile()) {
-		var header_height=$('header').outerHeight(true);
-		var form_steps_height=$('#form-steps').outerHeight();
-		
-		if ( $(window).scrollTop() > 0 ) {
-			var height = form_steps_height + 14;
-			$("#riskForm").css("margin-top", height + "px");
-		} else {
-			var height = header_height + form_steps_height + 14;
-			$("#riskForm").css("margin-top", height + "px");
-		}
-	}
 }
 
 /******************************************************************************/
