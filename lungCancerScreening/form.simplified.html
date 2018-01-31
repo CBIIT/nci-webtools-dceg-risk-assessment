@@ -1,0 +1,295 @@
+        <div class="row">
+<!--             <div class="col-xs-12">
+                <p>The National Lung Screening Trial (NLST) compared the efficacy of low-dose helical CT with that of standard chest X-ray for detecting lung cancer.  Low-dose CT resulted in 20% reduction in lung cancer mortality, and the <a href="http://www.uspreventiveservicestaskforce.org/Page/Topic/recommendation-summary/lung-cancer-screening" target="_blank" title="USPSTF (U.S. Preventive Services Task Force)">US Preventive Services Task Force (USPSTF)</a> recommends CT lung screening for those 50-80 years of age, minimum 30 pack-years of smoking, and no more than 15 years since quitting.  The Risk-based NLST Outcomes Tool (RNOT) provides chance of diagnosis and death from lung cancer, and risk of false-positive CT screen, based on data from the NLST.</p>
+                <p class="text-bold">The best way to lower your risk of lung cancer, and all smoking-related diseases, is to quit smoking. Learn more by visiting <a href="http://smokefree.gov" target="smokefree">smokefree.gov</a> and the CDC page on <a href="http://www.cdc.gov/tobacco/quit_smoking/" target="cdcSmokeFree">quitting smoking</a>.</p>
+            </div> -->
+            <div class="col-xs-12">
+                <p>Using some basic information you provide about yourself and your smoking behavior, this online tool, the Lung Cancer Risk Assessment Tool, uses data from the National Lung Cancer Screening Trial (NLST) to give information about:
+                    <ul>
+                       <li>your chance of getting a lung cancer diagnosis</li>
+                       <li>your chance of dying from lung cancer</li>
+                    </ul>
+                </p>
+                <p class="text-bold">The best way to lower your risk of lung cancer, and all smoking-related diseases, is to quit smoking. Learn more by visiting <a href="http://smokefree.gov" target="smokefree">smokefree.gov</a> and the CDC page on <a href="http://www.cdc.gov/tobacco/quit_smoking/" target="cdcSmokeFree">quitting smoking</a> or call 1-800-QUIT-NOW.</p>                
+            </div>            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-title">Risk Tool</div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-9">
+                                <form class="form form-horizontal" name="lcsForm" ng-submit="myForm.submit(lcsForm.$valid)">
+                                    <div class="form-group" ng-class="{'has-error': myForm.ageNumericCriteria }">
+                                        <label for="age" class="col-xs-12 col-md-6 control-label">Age</label>
+                                        <div class="col-xs-12 col-md-6">
+                                            <input class="form-control input-sm" type="text" name="age" id="age" ng-model="myForm.age" ng-model-options="{ updateOn: 'blur' }" ng-required="true">
+                                        </div>
+                                    </div>
+                                    <div ng-show="myForm.ageNumericCriteria" class="row">
+                                        <div class="col-xs-12 has-error">
+                                            <span class="help-block">{{myForm.numericValidationMessage}}</span>
+                                        </div>
+                                    </div>
+                                    <div ng-show="myForm.ageCriteria" class="row">
+                                        <div class="col-xs-12 has-error">
+                                            <span class="help-block">
+                                                <p>This tool calculates risk for men and women 50 to 80 years of age only, because the <a href="http://www.uspreventiveservicestaskforce.org/Page/Document/UpdateSummaryFinal/lung-cancer-screening" target="_blank">U.S. Preventive Services Task Force</a> does NOT recommend that you get screened unless you are between the age of 55 and 80, because the harms of a false alarm are higher than the benefits for screening people in your age group.</p>
+                                                <p class="text-bold">The best way to lower your risk of lung cancer, and all smoking-related diseases, is to quit smoking. Learn more by visiting <a href="http://smokefree.gov" target="_blank">smokefree.gov</a> and the CDC page on <a href="http://www.cdc.gov/tobacco/quit_smoking/" target="_blank">quitting smoking</a> or call 1-800-QUIT-NOW</p>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="gender" class="col-xs-12 col-md-6 control-label">Gender</label>
+                                        <div class="col-xs-12 col-md-6">
+                                            <select name="gender" id="gender" class="form-control input-sm" ng-model="myForm.gender" required>
+                                                <option value="">Select...</option>
+                                                <option value="0">Male</option>
+                                                <option value="1">Female</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="smoker_type" class="col-xs-12 col-md-6 control-label">Type of Smoker?</label>
+                                        <div class="col-xs-12 col-md-6">
+                                            <select name="smoker_type" id="smoker_type" class="form-control input-sm" ng-change="myForm.changeType()" ng-model="myForm.type" ng-required="true">
+                                                <option value="">Select...</option>
+                                                <option value="current">Current Smoker</option>
+                                                <option value="former">Former Smoker</option>
+                                                <option value="non">Non Smoker</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div ng-show="myForm.typeCriteria" class="row">
+                                        <div class="col-xs-12 has-error">
+                                            <span class="help-block">
+                                                You are <a href="http://www.uspreventiveservicestaskforce.org/Page/Document/UpdateSummaryFinal/lung-cancer-screening" target="_blank">NOT recommended</a> to get screened because you are not a smoker, because the harms of a false alarm are higher than the benefits for screening a non-smoker.
+                                            </span>
+                                            <span class="help-block">
+                                                We provide no risk estimates for non-smokers.
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-class="{'has-error': myForm.startNumericCriteria || myForm.startAgeCriteria }" ng-show="myForm.type === 'current' || myForm.type === 'former'">
+                                        <div class="col-xs-12 col-md-2"></div>
+                                        <label for="start" class="col-xs-12 col-md-4 control-label">What age did you start smoking?</label>
+                                        <div class="col-xs-12 col-md-6">
+                                            <input class="form-control input-sm" type="text" name="start" id="start" ng-model="myForm.start" ng-model-options="{ updateOn: 'blur' }" ng-required="myForm.type == 'current' || myForm.type === 'former'">
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-class="{'has-error': myForm.quitNumericCriteria || myForm.quitAgeCriteria }" ng-show="myForm.type === 'former'">
+                                        <div class="col-xs-12 col-md-2"></div>
+                                        <label for="quit" class="col-xs-12 col-md-4 control-label">How old were you when you quit successfully?</label>
+                                        <div class="col-xs-12 col-md-6">
+                                            <input class="form-control input-sm" type="text" name="quit" id="quit" ng-model="myForm.quit" ng-model-options="{ updateOn: 'blur' }" ng-required="myForm.type == 'former'">
+                                        </div>
+                                    </div>                                    
+                                    <div ng-show="myForm.startNumericCriteria" class="row">
+                                        <div class="col-xs-12 has-error">
+                                            <span class="help-block">{{myForm.numericValidationMessage}}</span>
+                                        </div>
+                                    </div>
+                                    <div ng-show="myForm.startAgeCriteria" class="row">
+                                        <div class="col-xs-12 has-error">
+                                            <span class="help-block">Please ensure that the starting age is greater than 0 and less than or equal to age.</span>
+                                        </div>
+                                    </div>
+                                    <div ng-show="myForm.quitNumericCriteria" class="row">
+                                        <div class="col-xs-12 has-error">
+                                            <span class="help-block">{{myForm.numericValidationMessage}}</span>
+                                        </div>
+                                    </div>
+                                    <div ng-show="myForm.quitAgeCriteria" class="row">
+                                        <div class="col-xs-12 has-error">
+                                            <span class="help-block">Please ensure that the quitting age value is less than age and greater than or equal to starting age.</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-class="{'has-error': myForm.cigsNumericCriteria }" ng-show="myForm.smokeShow">
+                                        <div class="col-xs-12 col-md-2"></div>
+                                        <label  class="col-xs-12 col-md-4 control-label" ng-if="myForm.type === 'current'">On a typical day, how many cigarettes do you smoke?</label>
+                                        <label  class="col-xs-12 col-md-4 control-label" ng-if="myForm.type === 'former'">On a typical day, how many cigarettes did you smoke before you quit for good?</label>
+                                        <div class="col-xs-12 col-md-6">
+                                            <input aria-label="{{ myForm.cigsPerDayAriaLabel }}" class="form-control input-sm" type="text" name="cigs" id="cigs" ng-model="myForm.cigs" ng-model-options="{ updateOn: 'blur' }" ng-required="myForm.smokeShow">
+                                        </div>
+                                    </div>
+                                    <div ng-show="myForm.packYears<10||myForm.packYears>70" class="row">
+                                        <div class="col-xs-12 col-md-12 has-error">
+                                            <span class="help-block">
+                                                <p>Number of pack-years is outside the range of 10-70.</p>
+                                                <p>Please be sure you have entered smoking history and age correctly.</p>
+                                            </span>
+                                        </div>
+                                    </div>                                    
+                                    <div ng-show="myForm.cigsNumericCriteria" class="row">
+                                        <div class="col-xs-12 has-error">
+                                            <span class="help-block">
+                                                Please ensure that the number of cigarettes per day entered above does not contain any non-numeric characters.
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <span class="col-xs-12 col-md-6 control-label">
+                                            <label for="disease" class="control-label">Lung disease?</label>
+                                            <div id="copd_dialog" title="Lung disease" style="display:none">
+                                                <p>COPD stands for <a href="https://www.nlm.nih.gov/medlineplus/copd.html" target="_blank">chronic obstructive pulmonary disease</a>.  <a href="https://www.nlm.nih.gov/medlineplus/emphysema.html" target="_blank">Emphysema</a> is a type of COPD.</p>
+                                            </div>
+                                        </span>
+                                        <div class="col-xs-12 col-md-6">
+                                            <div class="diseasesection">
+                                            	<select name="disease" id="disease" class="form-control input-sm" ng-model="myForm.disease" ng-required="true">
+                                                <option value="">Select...</option>
+                                                <option value="1">COPD or Emphysema or chronic bronchitis</option>
+                                                <option value="0">None</option>
+                                                <option value="2">Unknown</option>
+                                            </select>
+                                        	</div>
+                                        	<div class="diseasesection">
+												<div class="btn btn-primary button-enabled copd" ng-click="openCopdDialog()">?</div>
+											</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="history" class="col-xs-12 col-md-6 control-label">Parents' or siblings' history of lung cancer (must be blood relative)?</label>
+                                        <div class="col-xs-12 col-md-6">
+                                            <select name="history" id="history" class="form-control input-sm" ng-model="myForm.history" ng-required="true">
+                                                <option value="">Select...</option>
+                                                <option value="0">No parent or sibling had lung cancer</option>
+                                                <option value="1">One parent or sibling had lung cancer</option>
+                                                <option value="2">Two or more parents or siblings had lung cancer</option>
+                                                <option value="3">Unknown</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="units" class="col-xs-12 col-md-6 control-label">Height and Weight, or BMI?</label>
+                                        <div class="col-xs-12 col-md-6">
+                                            <select name="bmiSelection" id="bmiSelection" class="form-control input-sm" ng-model="myForm.bmiSelection" ng-change="myForm.changeBmiSelection()" ng-required="true">
+                                                <option value="">Select...</option>
+                                                <option value="bmi">BMI known</option>
+                                                <option value="hw">Height and Weight known</option>
+                                                <option value="unknown">Unknown</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" ng-class="{'has-error': myForm.bmiNumericCriteria }" ng-show="myForm.bmiSelection === 'bmi'">
+                                        <label for="bmi" class="col-xs-12 col-md-6 control-label">BMI</label>
+                                        <div class="col-xs-12 col-md-6">
+                                            <input class="form-control input-sm" type="text" name="bmi" id="bmi" ng-model="myForm.bmi" ng-model-options="{ updateOn: 'blur' }" ng-required="myForm.bmiSelection === 'bmi'">
+                                        </div>
+                                    </div>
+                                    <div ng-show="myForm.bmiNumericCriteria" class="row">
+                                        <div class="col-xs-12 col-md-6"></div>
+                                        <div class="col-xs-12 col-md-6 has-error">
+                                            <span class="help-block">{{myForm.bmiNumericValidationMessage}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" ng-show="myForm.bmiSelection === 'hw'">
+                                        <label for="units" class="col-xs-12 col-md-6 control-label">Units for entering height and weight</label>
+                                        <div class="col-xs-12 col-md-6">
+                                            <select name="units" id="units" class="form-control input-sm" ng-model="myForm.units">
+                                                <option value="metric">Metric (e.g., 175 cm or 60 kg)</option>
+                                                <option value="us" selected>US (e.g., 5 feet 9 inches or 115 pounds)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-class="{'has-error': myForm.pHeightCriteria || myForm.subHeightCriteria }" ng-show="myForm.bmiSelection === 'hw'">
+                                        <div for="height_feet" class="col-xs-12 col-md-6 control-label">Height?</div>
+                                        <div class="col-xs-12 col-md-3" ng-show="myForm.units==='us'">
+                                            <input name="height_feet" id="height_feet" class="form-control input-sm" type="text" ng-model="myForm.pHeight" ng-model-options="{ updateOn: 'blur' }" ng-required="myForm.bmiSelection === 'hw'">
+                                            <label class="label_below" for="height_feet">{{myForm.heightPrimary}}</label>
+
+                                        </div>
+                                        <div class="col-xs-12 col-md-3">
+                                            <input name="height_inches" id="height_inches" class="form-control input-sm" type="text" ng-model-options="{ updateOn: 'blur' }" ng-model="myForm.subHeight">
+                                            <label class="label_below" for="height_inches">{{myForm.heightSecondary}}</label>
+                                        </div>
+                                    </div>
+                                    <div ng-show="myForm.pHeightCriteria || myForm.subHeightCriteria" class="row">
+                                        <div class="col-xs-12 has-error">
+                                            <span class="help-block">{{myForm.heightWarning}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-class="{'has-error': myForm.weightCriteria }" ng-show="myForm.bmiSelection === 'hw'">
+                                        <label for="weight" class="col-xs-12 col-md-6 control-label">Weight?</label>
+                                        <div class="col-xs-12 col-md-6">
+                                            <input name="weight" id="weight" class="form-control input-sm" type="text" ng-model="myForm.weight" ng-model-options="{ updateOn: 'blur' }" ng-required="myForm.bmiSelection === 'hw'">
+                                            <span>{{myForm.weightUnits}}</span>
+                                        </div>
+                                    </div>
+                                    <div ng-show="myForm.weightCriteria" class="row">
+                                        <div class="col-xs-12 has-error">
+                                            <span class="help-block">
+                                                Please ensure that the weight value above is greater than 0 and does not include any non-numeric characters.
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-show="myForm.bmiLowCriteria">
+                                        <div class="col-xs-12 col-md-6"></div>
+                                        <div class="col-xs-12 col-md-6 has-error">
+                                            <span class="help-block">
+                                                <p>Your BMI is less than 15, the following risks are calculated based on BMI=15.</p>
+                                            </span>
+                                        </div>
+                                    </div>   
+
+                                    <div class="form-group" ng-show="myForm.bmiHighCriteria">
+                                        <div class="col-xs-12 col-md-6"></div>
+                                        <div class="col-xs-12 col-md-6 has-error">
+                                            <span class="help-block">
+                                                <p>Your BMI is greater than 50, the following risks are calculared based on BMI=50.</p>
+                                            </span>
+                                        </div>
+                                    </div>                                                            
+                                    <div class="form-group">
+                                        <label for="education" class="col-xs-12 col-md-6 control-label">Education?</label>
+                                        <div class="col-xs-12 col-md-6">
+                                            <select name="education" id="education" class="form-control input-sm" ng-model="myForm.education" ng-required="true">
+                                                <option value="">Select...</option>
+                                                <option value="0">Less than high school</option>
+                                                <option value="1">High school, but did not graduate</option>
+                                                <option value="2">High school graduate</option>
+                                                <option value="3">Vocation/technical school, but no college</option>
+                                                <option value="4">Associate Degree or some college</option>
+                                                <option value="5">Bachelors (college) degree</option>
+                                                <option value="6">Graduate degree</option>
+                                                <option value="7">Unknown</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="race_group" class="col-xs-12 col-md-6 control-label">Race or Ethnic Group</label>
+                                        <div class="col-xs-12 col-md-6">
+                                            <select name="race_group" id="race_group" class="form-control input-sm" ng-model="myForm.group" ng-required="true">
+                                                <option value="">Select...</option>
+                                                <option value="0">White</option>
+                                                <option value="1">Black or African-American</option>
+                                                <option value="2">Hispanic</option>
+                                                <option value="3">Asian or Pacific Islander</option>
+                                                <option value="4">Other</option>
+                                                <option value="5">Unknown</option>
+                                            </select>
+                                        </div>
+                                    </div>                                    
+                                    <div class="form-group">
+                                        <div class="col-xs-12">
+                                            <div class="btn-toolbar pull-right">
+                                                <button class="btn btn-primary button-disabled" ng-class="{'button-enabled': !myForm.isInvalid}" ng-disabled="myForm.isInvalid">Calculate</button>
+                                                <button class="btn btn-default" type="reset" ng-click="myForm.resetForm()">Reset</button>
+                                            </div>
+                                        </div>
+                                        <div class="loading_text" ng-show="myForm.loading">Calculating</div>                                            
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
