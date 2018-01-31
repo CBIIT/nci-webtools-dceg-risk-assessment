@@ -482,6 +482,7 @@ $(window).resize(function() {
 /* Adjusts the line connections the navigation bar circles                   **/
 /******************************************************************************/
 function adjustNavigationBarLine() {
+	console.log("Calling adjust Navigation Bar Line")
 	adjust_line_width()
 	if( isMobile() )
 		adjust_line_height_mobile();
@@ -1097,7 +1098,6 @@ $(function() {
 	$("#skipContentCalculate").attr("href", "javascript:scrollPassLogo()")
 	$("#skipContentAbout").attr("href", "javascript:scrollPassLogo()")
 
-
 	// Add the footter to the end of the page
 	$("#footer").load("./rat-commons/html/footer.html")
 
@@ -1118,11 +1118,13 @@ $(function() {
 
 	// Rule : When using the mouse the input element with focus should not have the outline
 	// Rule : When using the tab the input element with focus should have the outline
-	//$("#riskForm section select,input").on('mousedown', function(event) { mouseDownBorderToggle(event); });
-	//$("#riskForm section select,input").on('focusin', function(event) { focusBorderToggle(event); });
-	
 	$("#riskForm").children().on('mousedown', function(event)  { mouseDownBorderToggle(event); });
 	$("#riskForm").children().on('focusin',   function(event)  { focusBorderToggle(event);  });
+
+	// Rule : When tabbing the user could make the "Skip to Content" appear. which could
+	// cause the form-step vertical line to not be in the correct position.  This code 
+	// should fix that 
+	$("*").on("focusin", function(event) { adjustNavigationBarLine(); })
 
 
 	/* When a different navigation link is clicked the callback will make the */
@@ -1163,22 +1165,37 @@ $(window).load(function(e) {
 	if( isMobile() ) $(".toggleTool").on("click keypress", toggleFormDisplay);
 
 	$(".responseOptions > label.radio,.responseOptionsWithoutIndent > label.radio").on('click keypress', function(e) {
-		if ($(e.target).hasClass('radio')) {
-			$(e.target).prev().trigger('click');
-		}
-		else if ($(e.target).parents('.radio')) {
-			$(e.target).parents('.radio').prev().trigger('click');
-		}
-		else {
-			if(e.type == "keypress") {
-				if ((e.keyCode == 13) || (e.keyCode == 32)){
+		// This code was the orignal code for clicking on an image and 
+		// expecting it to act like a radio button
+		// if ($(e.target).hasClass('radio')) {
+		// 	$(e.target).prev().trigger('click');
+		// }
+		// else if ($(e.target).parents('.radio')) {
+		// 	$(e.target).parents('.radio').prev().trigger('click');
+		// }
+		// else {
+		// 	if(e.type == "keypress") {
+		// 		if ((e.keyCode == 13) || (e.keyCode == 32)){
+		// 			$(e.target).children(".radio").prev().trigger('click');
+		// 		}
+		// 	}
+		// 	if(e.type == "click") {$("#form-steps > ol > li > a")
+		// 		$(e.target).children('.radio').prev().trigger('click');
+		// 	}
+		// }
+
+		// The code will force an image to act likie an input
+		if ( e.type == "click") { 
+			if ($(e.target).hasClass('radio')) 
+				$(e.target).prev().trigger('click');
+			else if ($(e.target).parents('.radio')) 
+				$(e.target).parents('.radio').prev().trigger('click');
+		} else {
+			if(e.type == "keypress") 
+				if ((e.keyCode == 13) || (e.keyCode == 32))
 					$(e.target).children(".radio").prev().trigger('click');
-				}
-			}
-			if(e.type == "click") {$("#form-steps > ol > li > a")
-				$(e.target).children('.radio').prev().trigger('click');
-			}
 		}
+
 	});
 	$("button.select").on('click keypress', function(e) {
 		if(e.type == "keypress") {

@@ -1455,6 +1455,10 @@ svg {
   outline: none;
 }
 
+*:focus {
+  outline: 1px solid #4D90FE;
+}
+
 /* Styles for the Pie Chart Div that display the Pie Chart */
 #Pie_chart {
   margin-top: 1em;
