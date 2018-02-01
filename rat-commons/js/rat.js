@@ -410,7 +410,7 @@ function fixedToTop(div,use_mobile) {
   	}
 	  
 	// Handle the Desktop Case since mobile is only for phones and tables
-	if ( window_top > div_top) {
+	if ( isMobile() == false && window_top > 0) {
 		$("#form-steps").addClass('fixed');
 		if($(window).width()>=992)
 		 	$("#line").find("hr").css("top",form_steps_height-30)
@@ -506,8 +506,8 @@ function adjust_line_width(ind){
 /******************************************************************************/
 function adjust_line_height_dekstop(){
   var firstBubble = $("#form-steps ol li").not(".active").children().filter("a:nth-child(2)").first()
-	var startPoint = $(firstBubble).offset().top + $(firstBubble).height()/2;
-	$("#line").find("hr").css("top", startPoint);
+  var startPoint = $(firstBubble).position().top + $(firstBubble).height()/2;
+  $("#line").find("hr").css("top", startPoint);
 }
 
 /******************************************************************************/
