@@ -825,8 +825,7 @@ input.error + label.radio span {
 }
 
 #main * .forAsprinsUnorderedList {
-  padding-left: 1em;
-  maring-left: 0px;
+  padding-left: 1.2em;
 }
 
 .vertical-align {
