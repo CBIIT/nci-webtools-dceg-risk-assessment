@@ -1620,3 +1620,16 @@ section > fieldset > legend.questions {
 .mergeParagraphTags {
   margin-bottom : 0em;
 }
+
+/**
+ * For the Bullets containing examples of items containing asprin or not
+ * containing asprin.
+ */
+ #main * .forAsprinsUnorderedList li {
+  line-height: 1.2;
+}
+
+#main * .forAsprinsUnorderedList {
+  padding-left: 1.2em;
+}
+
