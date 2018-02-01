@@ -99,162 +99,162 @@ function invalidForm(e, validator) {
 	toTop();
 }
 
-function processSubmission(form){
-	var fd = new FormData(form);
+// function processSubmission(form){
+// 	var fd = new FormData(form);
 
-	$.ajax({
-		url: form.action,
-		type: form.method,
-		dataType: 'json',
-		processData: false,
-		contentType: false,
-		data: fd,
-	}).done(resultsDisplay)
-	.fail(function() {
-		console.log("error");
-	})
-	.always(function() {
-		toTop();
-	});
-}
+// 	$.ajax({
+// 		url: form.action,
+// 		type: form.method,
+// 		dataType: 'json',
+// 		processData: false,
+// 		contentType: false,
+// 		data: fd,
+// 	}).done(resultsDisplay)
+// 	.fail(function() {
+// 		console.log("error");
+// 	})
+// 	.always(function() {
+// 		toTop();
+// 	});
+// }
 
-function resultsDisplay(response, textStatus, xhr) {
-	var results=JSON.parse(response.message)
-	console.log(response.message)
-	console.log(results)
-	var message="Based on the information provided, the patient's estimated risk for developing melanoma over the next 5 years is "+results.risk+"%. For every 1,000 "+ results.gender+"s living in the " +results.regionKey+" region with these characteristics, on average about "+ results.ratio+" will develop melanoma in the next 5 years.";
-
-
-
-	$('#main').addClass('hide')
-	$('#form-steps').addClass('hide')
-	$("#results").addClass('show')
-	$("#results_text").html(message);
-	$(".risk_header").text(results.risk+"%");
-	make_pie_chart(results.risk);
-
-}
-function goback_tocalc(){
-	$('#main').removeClass('hide')
-	$('#form-steps').removeClass('hide')
-	$("#results").removeClass('show')
-	$("#results_text").html("");
-	$("#Pie_chart").html("");
-	$(window).scrollTop(0);
-}
-function make_pie_chart(percent){
-	(function(d3) {
-
-        'use strict';
-
-        var dataset = [
-          { label: 'Risk', count: percent },
-          { label: 'Total', count: 100-percent },
-        ];
-
-        var width = 206;
-        var height = 206;
-        var radius = Math.min(width, height) / 2;
-
-        var color = d3.scaleOrdinal().range(['#2dc799','#EFEFEF']);
-
-        var svg = d3.select('#Pie_chart')
-          .append('svg')
-          .attr('width', width)
-          .attr('height', height)
-          .append('g')
-          .attr('transform', 'translate(' + (width / 2) +
-            ',' + (height / 2) + ')');
-
-        var arc = d3.arc()
-          .innerRadius(0)
-          .outerRadius(radius);
-
-        var pie = d3.pie()
-          .value(function(d) { return d.count; })
-          .sort(null);
-
-        var path = svg.selectAll('path')
-          .data(pie(dataset))
-          .enter()
-          .append('path')
-          .attr('d', arc)
-          .attr('fill', function(d) {
-            return color(d.data.label);
-          });
-
-      })(window.d3);
-}
-function formScrollSpy() {
-	var window_top = $(window).scrollTop();
-	$.each($("#riskForm section"), function(ind, el) {
-		var div_top = $(el).offset().top - $(el)[0].scrollHeight;
-		if ( window_top > div_top ) {
-			$("#form-steps li").removeClass('active');
-			$("#form-steps li:eq(" + ind + ")").addClass('active');
-			adjust_line_width(ind);
-		}
-		else if(Math.ceil($(window).scrollTop() + $(window).height()) == $(document).height() && !$("#skin-section").hasClass("no_display")
-) {
-			$("#form-steps li").removeClass('active');
-			$("#form-steps li:eq(" + 2 + ")").addClass('active');
-			adjust_line_width(2);
-		}
-	});
-
-}
-
-
-function fixedToTop(div_top,use_mobile) {
-	var header_height=$('header').outerHeight();
-	var window_top = $(window).scrollTop();
-	var div_top = $("#"+div_top).offset().top;
-	//var div_top = $("#header").height();
-	//var div_top = $("#toolTitle").offset().top;
-	//	var div_top = $("#main-nav").offset().top;
-
-	var form_steps_height=$('#form-steps').outerHeight();
-	//console.log("window_top "+window_top)
-	//console.log("div_top "+ div_top)
-	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-			$("#main").css("margin-top",0+"px");
- 			$("#form-steps").css("margin-top",0+"px");
-		}
-	if ( window_top > div_top ){
-		$("#form-steps").addClass('fixed');
-		if($(window).width()>=992)
-			$("#line").find("hr").css("top",form_steps_height-30)
-		else
-			$("#line").find("hr").css("top",form_steps_height-37)
-
-	}
-	else{
-		$("#form-steps").removeClass('fixed');
-		adjust_line_height_dekstop()
-
-	}
-}
+// function resultsDisplay(response, textStatus, xhr) {
+// 	var results=JSON.parse(response.message)
+// 	console.log(response.message)
+// 	console.log(results)
+// 	var message="Based on the information provided, the patient's estimated risk for developing melanoma over the next 5 years is "+results.risk+"%. For every 1,000 "+ results.gender+"s living in the " +results.regionKey+" region with these characteristics, on average about "+ results.ratio+" will develop melanoma in the next 5 years.";
 
 
 
-function toggleFormDisplay(e) {
-	e.preventDefault();
+// 	$('#main').addClass('hide')
+// 	$('#form-steps').addClass('hide')
+// 	$("#results").addClass('show')
+// 	$("#results_text").html(message);
+// 	$(".risk_header").text(results.risk+"%");
+// 	make_pie_chart(results.risk);
 
-	if (e.type == "keypress") {
-		$(e.target).trigger('click');
-	}
- 	else {
-		$("#riskForm, #summary, #form-steps").toggleClass(function() {
-			if($(this).hasClass('show')) {
-				$(this).removeClass('show');
-			}
-			else {
-				$(this).addClass('show');
-			}
-			return this;
-		});
-	}
-}
+// }
+// function goback_tocalc(){
+// 	$('#main').removeClass('hide')
+// 	$('#form-steps').removeClass('hide')
+// 	$("#results").removeClass('show')
+// 	$("#results_text").html("");
+// 	$("#Pie_chart").html("");
+// 	$(window).scrollTop(0);
+// }
+// function make_pie_chart(percent){
+// 	(function(d3) {
+
+//         'use strict';
+
+//         var dataset = [
+//           { label: 'Risk', count: percent },
+//           { label: 'Total', count: 100-percent },
+//         ];
+
+//         var width = 206;
+//         var height = 206;
+//         var radius = Math.min(width, height) / 2;
+
+//         var color = d3.scaleOrdinal().range(['#2dc799','#EFEFEF']);
+
+//         var svg = d3.select('#Pie_chart')
+//           .append('svg')
+//           .attr('width', width)
+//           .attr('height', height)
+//           .append('g')
+//           .attr('transform', 'translate(' + (width / 2) +
+//             ',' + (height / 2) + ')');
+
+//         var arc = d3.arc()
+//           .innerRadius(0)
+//           .outerRadius(radius);
+
+//         var pie = d3.pie()
+//           .value(function(d) { return d.count; })
+//           .sort(null);
+
+//         var path = svg.selectAll('path')
+//           .data(pie(dataset))
+//           .enter()
+//           .append('path')
+//           .attr('d', arc)
+//           .attr('fill', function(d) {
+//             return color(d.data.label);
+//           });
+
+//       })(window.d3);
+// }
+// function formScrollSpy() {
+// 	var window_top = $(window).scrollTop();
+// 	$.each($("#riskForm section"), function(ind, el) {
+// 		var div_top = $(el).offset().top - $(el)[0].scrollHeight;
+// 		if ( window_top > div_top ) {
+// 			$("#form-steps li").removeClass('active');
+// 			$("#form-steps li:eq(" + ind + ")").addClass('active');
+// 			adjust_line_width(ind);
+// 		}
+// 		else if(Math.ceil($(window).scrollTop() + $(window).height()) == $(document).height() && !$("#skin-section").hasClass("no_display")
+// ) {
+// 			$("#form-steps li").removeClass('active');
+// 			$("#form-steps li:eq(" + 2 + ")").addClass('active');
+// 			adjust_line_width(2);
+// 		}
+// 	});
+
+// }
+
+
+// function fixedToTop(div_top,use_mobile) {
+// 	var header_height=$('header').outerHeight();
+// 	var window_top = $(window).scrollTop();
+// 	var div_top = $("#"+div_top).offset().top;
+// 	//var div_top = $("#header").height();
+// 	//var div_top = $("#toolTitle").offset().top;
+// 	//	var div_top = $("#main-nav").offset().top;
+
+// 	var form_steps_height=$('#form-steps').outerHeight();
+// 	//console.log("window_top "+window_top)
+// 	//console.log("div_top "+ div_top)
+// 	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+// 			$("#main").css("margin-top",0+"px");
+//  			$("#form-steps").css("margin-top",0+"px");
+// 		}
+// 	if ( window_top > div_top ){
+// 		$("#form-steps").addClass('fixed');
+// 		if($(window).width()>=992)
+// 			$("#line").find("hr").css("top",form_steps_height-30)
+// 		else
+// 			$("#line").find("hr").css("top",form_steps_height-37)
+
+// 	}
+// 	else{
+// 		$("#form-steps").removeClass('fixed');
+// 		adjust_line_height_dekstop()
+
+// 	}
+// }
+
+
+
+// function toggleFormDisplay(e) {
+// 	e.preventDefault();
+
+// 	if (e.type == "keypress") {
+// 		$(e.target).trigger('click');
+// 	}
+//  	else {
+// 		$("#riskForm, #summary, #form-steps").toggleClass(function() {
+// 			if($(this).hasClass('show')) {
+// 				$(this).removeClass('show');
+// 			}
+// 			else {
+// 				$(this).addClass('show');
+// 			}
+// 			return this;
+// 		});
+// 	}
+// }
 
 function toggleGender(e) {
 	var value = $(e.target).val();
