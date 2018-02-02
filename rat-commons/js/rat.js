@@ -1063,7 +1063,14 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 ////////////////////////////////////////////////////////////////////////////////
 function genericResetForm() {
 	$('form').trigger('reset')
- 	$(window).scrollTop(0);
+
+	// Both lines are needed.  The first line scroll to the top, but
+	// the second line will force the correct navigation links in the
+	// form-steps to be highlighted since it creates a scroll event
+	// Rat.js uses the scroll event to update the form-steps
+	$(window).scrollTop(0);
+	$("html, body").animate({scrollTop: 0 }, 2000 )
+
 	$("form :input").attr('disabled', false);
 	$("[class*='questions']").css("color","#2e2e2e")
 	$("#calculate").attr("disabled", "disabled")
