@@ -457,6 +457,10 @@ function handleScrollEvent(event) {
 	fixedToTop(top_div);
 	formScrollSpy();
 
+	// Works wrong on IE9 - it blurs the whole browser window if active 
+	// element is document body. Better to check for this case:
+	if (document.activeElement != document.body) document.activeElement.blur();
+
 }
 
 /******************************************************************************/
