@@ -1,7 +1,7 @@
 $(function() {
 
 	$("input[name='gender']").on("change", toggleGender);
-	$("input[name='gender']").on("change", calc);
+	$("input[name='gender']").on("change", calcSizesOfSections);
 
 	// If the person is not Non-Hispanic White then dispaly a dilog and sets
 	// the value to Non-Hispanic White

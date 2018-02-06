@@ -7,7 +7,7 @@
  * TODO: All the data attributes that I have set are not needed anymore. They shoudl be cleaned up
  * TODO: Can we cache the mal and femal so that we only have to generate the sizes at beginning.
  */
-function calc()
+function calcSizesOfSections()
 {
 
 	var navigationLinks = $("#form-steps > ol > li > a");
@@ -131,13 +131,6 @@ function go_toresult() {
 	else
 		$("#startOver").removeClass("spacerBetweenQuestionsAndStartButtonMobile")
 
-	// This code is an hack.  There should be less calcuations done for the
-	// placement of Objects
-	//if ( isTablet() )
-	//	$("#results_home").css("margin-top", "200px")
-	//else if ( isMobile() )
-	//	$("#results_home").css("margin-top", "116px");
-
 	// This code is a hack and this should be done in CSS.  I put the code in 
 	// here since we are trying to get it done and it might have unforseen 
 	// consequences if put in the CSS Style
@@ -208,24 +201,22 @@ function make_pie_chart(percent, divContainerForChart, color1, color2){
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// To update the navigation bar when the user scrolls the page                //
+// To update the navigation bar when the user scrolls the page.  By uising    //
+// ignoreIfOneSectionIsVisible(), this algorithm will handle the situation    //
+// when only one screen is being displayed                                    //
 ////////////////////////////////////////////////////////////////////////////////
 function formScrollSpy() {
-
-	//console.log("Start Scroll Spy")
 
 	if ( existFormSteps() == false ) return;
 
 	// Rule: If there is only once section visible then just return
-	if ( ignore() ) return;
+	if ( ignoreIfOneSectionIsVisible() ) return;
 
 	// Calculate the bottom of the Form Steps where the questions will start.
 	var window_top = $(window).scrollTop();
 	window_top = window_top + calculateBottomOfFormSteps();
 
-	//console.log("Thw window top is at position " + window_top);
-
-	if ( ignore() == false ) {
+	if ( ignoreIfOneSectionIsVisible() == false ) {
 		$.each($("#riskForm section"), function(ind, el) {
 
 			// Retrieve the top most pixel of the header belonging to section
@@ -236,8 +227,6 @@ function formScrollSpy() {
 			// then that section should be the active.
 			if ( window_top >= sectionHeight) {
 
-				//console.log("Currently using index : " + ind)
-				//console.log("With sectionHeight = " + sectionHeight)
 				// Remove the active style from any navigation link and apply it to the
 				// current link being processed.
 				$("#form-steps li").removeClass('active');
@@ -255,9 +244,9 @@ function formScrollSpy() {
 		adjust_line_width(0);
 	}
 
-	// Rule  :      If there is only one section of data of the first set of navigation links should be active
-	// Rules :      if more than one section of data and the Scrollbar is at the bottom then the last navigation elements (link/button)should be active
-    if ( ignore() == true )
+	// Rule  : If there is only one section of data of the first set of navigation links should be active
+	// Rule  : If more than one section of data and the Scrollbar is at the bottom then the last navigation elements (link/button)should be active
+    if ( ignoreIfOneSectionIsVisible() == true )
 		return;
 	else {
 		var currentScrollPosition = Math.ceil($(window).scrollTop() + $(window).height());
@@ -267,35 +256,56 @@ function formScrollSpy() {
 		   	adjust_line_width($('#form-steps li').length - 1);
 		}
 	}
-
-	//console.log("end scroll spy ------------------------------")
 }
 
 /******************************************************************************/
 /* When a navigation number or name is clicked then the form should be scroll */
-/* ed to the top of the section header                                        */
+/* ed to just below the seciton header                                        */
 /******************************************************************************/
 function gotoSection(event) {
 
-	// Rule: When there is a male/female selection, one of the items must checked
-	// if the
-	if ( isMaleOrFemaleChekced() == 0 ) return;
+	console.log("*** Currenlty in gotoSection()")
 
 	// Rule: If there is only once section visible then just return
-	if ( ignore() ) return;
 
-	var indexOfSection = $(this).attr('data-riskFormSection')
+	var indexOfSection = undefined
+	var sectionName = undefined
+	var scrollFor = undefined
 
-	// Remove the active style from the previous link and apply it to the
-	// current link.
-	var elementContainingListItems = $(this).parent().parent();
-	$(elementContainingListItems).children("li").removeClass('active');
-	$(this).parent().addClass('active');
-	adjust_line_width(indexOfSection);
+	if ( ignoreIfOneSectionIsVisible() ) {
 
-	var sectionName = $(this).attr("data-riskFormSectionHeaderName")
+		// The purpose of this code is to handle the situation where there is only a signle section being dispalyed.  An exmaple
+		// is MRAT.  Before the user select male/female there is only one section.  The code will only scroll to top if the first
+		// set of navigation links are selected.  If other navigation links are selected then  nothing will happen.
+		indexOfSection = 0;
+		scrollFor = 0
+
+		// Only scroll if the header is not displayed otherwise ignore it.
+		var sectionButtonOrLinkedPushed = $(this).attr('data-riskFormSection')
+		if ( sectionButtonOrLinkedPushed == 0 && $(window).scrollTop() != 0)
+			$("html, body").animate({scrollTop: 0}, 2000)
+			
+		// Stops the event propogration or you could get weird events from happening.
+		$(this).blur()
+		event.preventDefault()
+
+	} else {
+		// The purose of this code is to handle the situation where there are multiple section being displayed.  
+		indexOfSection = $(this).attr('data-riskFormSection')
+
+		// Remove the active style from the previous link and apply it to the
+		// current link.
+		var elementContainingListItems = $(this).parent().parent();
+		$(elementContainingListItems).children("li").removeClass('active');
+		$(this).parent().addClass('active');
+		adjust_line_width(indexOfSection);
+
+		sectionName = $(this).attr("data-riskFormSectionHeaderName")
+		scrollFor = 2000
+	}
+
 	var heightOfFormSteps = $("#form-steps").outerHeight(true)
-	//$("html, body").animate({scrollTop: $("#" + sectionName).offset().top - (heightOfFormSteps + offsetOfFormSteps) }, 2000);
+
 
 	// Find the top point of the section, but if its the first section then go to 0 point
 	// so the header will be displayed.  The heaer is only displayed when scrolled to 
@@ -309,7 +319,9 @@ function gotoSection(event) {
 	if ( indexOfSection != 0 && $(window).scrollTop() == 0) heightOfFormSteps = heightOfFormSteps * 2
 	
 	// Scrolls to the actual point
-	$("html, body").animate({scrollTop: scrollTo - heightOfFormSteps }, 2000 )
+	var possibleNewValue = scrollTo - heightOfFormSteps
+	scrollTo = ( possibleNewValue <= 0 ) ? 0 : possibleNewValue
+	$("html, body").animate({scrollTop: scrollTo  }, scrollFor )
 }
 
 /* Determine if either male or female has been selected                       */
@@ -477,7 +489,6 @@ $(window).resize(function() {
 /* Adjusts the line connections the navigation bar circles                   **/
 /******************************************************************************/
 function adjustNavigationBarLine() {
-	console.log("Calling adjust Navigation Bar Line")
 	adjust_line_width()
 	if( isMobile() )
 		adjust_line_height_mobile();
@@ -744,8 +755,6 @@ function enableCalculateButton() {
 
 	 if(valid==true) enablebutton();
 
-	 //console.log("enableCalculateButton --> " + $("#calculate").attr("disabled"))
-
 	 $("select").on("select", redrawHTMLObject);
 	 $("select").on("change", redrawHTMLObject);
 
@@ -892,7 +901,7 @@ function calculateForMobileRiskFormStart() {
 // As a quick hack and the best idea that I have, is to ignroe the movement
 // to a different section if there is only section visible.
 ////////////////////////////////////////////////////////////////////////////////
-function ignore() {
+function ignoreIfOneSectionIsVisible() {
 	return ( $("section:visible").length <= 1 )
 }
 
@@ -987,7 +996,6 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 
 			if ( !inputText ) { inputText = "n/a"}
 
-			//console.log("For HTML Object " + name + " the value is " + inputText)
 			return inputText
 		}
 
@@ -1057,8 +1065,6 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 
 	});
 
-	//console.log("The HTML for generation of the Table Parameters  ")
-	//console.log($(tableName).html())
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1116,7 +1122,7 @@ $(function() {
 	// the correct section
 	//
 	// TODO : Change the name of the function
-	calc();
+	calcSizesOfSections();
 
 	// Rule : When using the mouse the input element with focus should not have the outline
 	// Rule : When using the tab the input element with focus should have the outline
