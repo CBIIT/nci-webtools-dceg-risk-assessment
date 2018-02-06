@@ -10,7 +10,6 @@
 function calc()
 {
 
-	console.log("******** Calling Calc ********* ")
 	var navigationLinks = $("#form-steps > ol > li > a");
 
 	// Initializes the information that both the seciton and navigation links of
@@ -59,7 +58,6 @@ function calc()
 		$(this).attr('data-position-height', currentHeight)
 
 		heightOfHeaderAndSectionsAccumulator = heightOfHeaderAndSectionsAccumulator + currentTitleAndSecitonHeight;
-		console.log("*** " + heightOfHeaderAndSectionsAccumulator)
 
 	});
 }
@@ -227,38 +225,39 @@ function formScrollSpy() {
 
 	//console.log("Thw window top is at position " + window_top);
 
-	$.each($("#riskForm section"), function(ind, el) {
+	if ( ignore() == false ) {
+		$.each($("#riskForm section"), function(ind, el) {
 
-		// Retrieve the top most pixel of the header belonging to section
-		// If mobile
-		var sectionHeight =$(this).attr('data-position-height');
+			// Retrieve the top most pixel of the header belonging to section
+			// If mobile
+			var sectionHeight =$(this).attr('data-position-height');
 
-		// If the current section is just below the navigation bar ( form-stpes)
-		// then that section should be the active.
-		if ( window_top >= sectionHeight) {
+			// If the current section is just below the navigation bar ( form-stpes)
+			// then that section should be the active.
+			if ( window_top >= sectionHeight) {
 
-			//console.log("Currently using index : " + ind)
-			//console.log("With sectionHeight = " + sectionHeight)
-			// Remove the active style from any navigation link and apply it to the
-			// current link being processed.
-  			$("#form-steps li").removeClass('active');
-			$("#form-steps li:eq(" + ind + ")").addClass('active');
-			adjust_line_width(ind);
-		}
-	});
+				//console.log("Currently using index : " + ind)
+				//console.log("With sectionHeight = " + sectionHeight)
+				// Remove the active style from any navigation link and apply it to the
+				// current link being processed.
+				$("#form-steps li").removeClass('active');
+				$("#form-steps li:eq(" + ind + ")").addClass('active');
+				adjust_line_width(ind);
+			}
+		});
+	}
 
 	// Rule : Scrollbar at very top the first navigation elements ( link/button)
 	// should be active
 	if ( $(window).scrollTop() == 0 ) {
+		$("#form-steps li").removeClass("active")
 		$('#form-steps li').first().addClass('active');
 		adjust_line_width(0);
 	}
 
-	// Rule  : 	If male or female is not checked then any Navigation (Button/Link)
-	//		should only make the first page active.
-	// Rules : 	Scrollbar is at the bottom then the last navigation elements (link/button)
-	// 		should be active
-	if ( isMaleOrFemaleChekced() == 0 )
+	// Rule  :      If there is only one section of data of the first set of navigation links should be active
+	// Rules :      if more than one section of data and the Scrollbar is at the bottom then the last navigation elements (link/button)should be active
+    if ( ignore() == true )
 		return;
 	else {
 		var currentScrollPosition = Math.ceil($(window).scrollTop() + $(window).height());
@@ -1073,7 +1072,7 @@ function genericResetForm() {
 	// form-steps to be highlighted since it creates a scroll event
 	// Rat.js uses the scroll event to update the form-steps
 	$(window).scrollTop(0);
-	$("html, body").animate({scrollTop: 0 }, 2000 )
+	$("html, body").animate({scrollTop: 0 }, 0 )
 
 	$("form :input").attr('disabled', false);
 	$("[class*='questions']").css("color","#2e2e2e")
