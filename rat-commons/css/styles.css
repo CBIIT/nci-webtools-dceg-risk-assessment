@@ -1455,10 +1455,14 @@ svg {
   outline: none;
 }
 
+.addOutline {
+  outline: 1px solid #4D90FE;
+}
+
 /* It was thought that *:focus would be the style for all tag's focus */
 /* However, looking at the chrome inspector a:focus was actually used */
 /* for the footer instead of the style instead of *:focus             */
-*:focus,
+/* *:focus, */
 a:focus {
   outline: 1px solid #4D90FE;
 }

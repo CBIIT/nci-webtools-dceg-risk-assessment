@@ -730,10 +730,14 @@ function focusBorderToggle(event) {
 
 	$this.removeData('mdown');
 
-	if ( mouseDown )
+	if ( mouseDown ) {
 		$(event.target).addClass("removeOutline");
-	else
+		$(event.target).removeClass("addOutline");
+	} else {
+		$("*").removeClass("addOutline")
 		$(event.target).removeClass("removeOutline");
+		$(event.target).addClass("addOutline")
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////
