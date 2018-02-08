@@ -38,7 +38,7 @@ class MelanomaRiskAssessmentTool:
             logging.debug("The number of parameters from the View Tier are " + str(len(parameters)))
             for field in parameters:
                 parameters[field] = parameters[field][0]
-                logging.debug("parameter : field " + str(field) + " --> " + str(parameters[field][0]))
+                logging.debug("parameter : field " + str(field) + " --> " + str(parameters))
             requiredParameters = ['race', 'age']
             errorObject = {'missing':[], 'nonnumeric': []}
 

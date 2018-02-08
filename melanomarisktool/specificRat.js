@@ -254,3 +254,44 @@ function resetForm() {
 	 enableMap();
 	 enableCalculateButton();
  }
+
+ /*
+  * Filter the Input Parameters based on the current gendar ( male, female ) 
+  *
+  *	Assumption : By now the user should have selected Male or Female
+  *
+  * The rat.js will be expecting the following prototype and the exact function name
+  *		prototype: boolean filterForInputParametersDisplay(HTMLObject)
+  *     functionName : filterForInputParametersDisplay
+  *
+  * When looking at this remember female contains male and will include("male") will return true for both.
+  *
+  * Input
+  *    An HTML Object 
+  * 
+  * Output 
+  *    Boolean ( true means the elemenet will not be filtered ) 
+  */
+ function filterForInputParametersDisplay(element)
+ {
+	var selectedGender 	= $("input[name='gender']:checked").val().toLowerCase()
+	var maleGender 		= $("#maleGender").val().toLowerCase()
+	var femaleGender 	= $("#femaleGender").val().toLowerCase()
+
+	// Get the CSS Styles and determine whether it contians male or female ( remember female.include(male) == true )
+	var cssStyles = $(element).parent().attr("class").toLowerCase()
+	var containsFemaleGender 	= cssStyles.includes(femaleGender);
+	var containsMaleGender      = ( containsFemaleGender ) ? false : cssStyles.includes(maleGender)
+	var isSelectedGenderFemale 	= ( selectedGender == femaleGender )
+	
+	var resultSelectedGender = false
+	if ( isSelectedGenderFemale == true && containsFemaleGender == true ) 
+		resultSelectedGender = true
+	else if ( isSelectedGenderFemale == false && containsMaleGender == true ) 
+		resultSelectedGender = true
+	
+	// In order to be true neither gender must be used or the select gender must be found in the CSS Styles
+	var result = ( (containsMaleGender == false && containsFemaleGender == false) || resultSelectedGender ) ? true : false
+	
+	return result;
+ }
