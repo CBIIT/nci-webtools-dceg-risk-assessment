@@ -38,7 +38,7 @@ class MelanomaRiskAssessmentTool:
             logging.debug("The number of parameters from the View Tier are " + str(len(parameters)))
             for field in parameters:
                 parameters[field] = parameters[field][0]
-                logging.debug("parameter : field " + str(field) + " --> " + str(parameters[field][0]))
+                logging.debug("parameter : field " + str(field) + " --> " + str(parameters[field]))
             requiredParameters = ['race', 'age']
             errorObject = {'missing':[], 'nonnumeric': []}
 
@@ -117,6 +117,7 @@ class MelanomaRiskAssessmentTool:
                 h22 = MratConstants.MORTALITY[sex][ageIndex+1]
                 risk += h12*r*math.exp((age-t2)*(h11*r+h21))*(1-math.exp((t1-age)*(h12*r+h22)))/(h12*r+h22)
             risk = round(risk*10000)/100
+            logging.debug("The calculated risk is " + str(risk))
             ratio = round((risk * 0.01) * 1000)
             regionKey = ""
             for key, value in MratConstants.RegionIndex.items():
