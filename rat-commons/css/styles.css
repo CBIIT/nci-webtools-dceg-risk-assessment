@@ -884,7 +884,7 @@ input.error + label.radio span {
   border: none;
 }
 .modal-header .close {
-  background: url("/rat-commons/images/Exit.png");
+  background: url("../images/Exit.png");
   padding: 9px 9px;
   color: #fff;
   opacity: 1.0;
