@@ -287,11 +287,13 @@ nav#main-nav ul.nav.nav-tabs li a:focus {
   background: #fff;
   color: #14819b;
   border-bottom: 7px solid #235E88;
+  outline: none;
 }
 nav#main-nav ul.nav.nav-tabs li.active a {
   color: #356b91;
   background: #fff;
   border-bottom: 7px solid #1a84a8;
+  outline: none;
 }
 /* The Menu Item in the Navigation Bar allowing the user to go to the Caclucation Page */
 .calc_list_item {
@@ -333,10 +335,6 @@ a.btn:disabled {
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
   filter: alpha(opacity=50);
 }
-
-
-
-
 
 /* These buttons were orignally images, but when they want the color to       */
 /* change on hover then they change them to CSS Buttons                       */
@@ -633,6 +631,7 @@ div[id^='results_graph'] {
 #form-steps ol li.active {
   font-size: 24px;
 }
+
 #form-steps ol li.active:first-child a:first-child {
   color: #339fbe;
 }
@@ -643,6 +642,12 @@ div[id^='results_graph'] {
   color: #fff;
   background: #339fbe;
 }
+
+#form-steps ol li.active:first-child a:nth-child(2):focus {
+  outline: none; 
+  box-shadow: 0 0 2px 1px #4D90FE;
+}
+
 #form-steps ol li.active:nth-child(3) a:first-child {
   color: #6150a3;
 }
@@ -653,9 +658,22 @@ div[id^='results_graph'] {
   color: #fff;
   background: #6150a3;
 }
+
+#form-steps ol li.active:nth-child(3) a:nth-child(2):focus {
+  outline: none;
+  box-shadow: 0 0 2px 1px #4D90FE;
+}
+
+#form-steps ol li:nth-child(3) a:nth-child(2):focus {
+  outline: none;
+  box-shadow: 0 0 2px 1px #4D90FE;
+}
+
+
 #form-steps ol li.active:nth-child(5) a:first-child {
   color: #2d73a5;
 }
+
 #form-steps ol li.active:nth-child(5) a:nth-child(2) {
   width: 45px;
   height: 45px;
@@ -663,6 +681,17 @@ div[id^='results_graph'] {
   color: #fff;
   background: #2d73a5;
 }
+
+#form-steps ol li.active:nth-child(5) a:nth-child(2):focus {
+  outline: none;
+  box-shadow: 0 0 2px 1px #4D90FE;
+}
+
+#form-steps ol li:nth-child(5) a:nth-child(2):focus {
+  outline: none;
+  box-shadow: 0 0 2px 1px #4D90FE;
+}
+
 .no-padding-left {
   padding-left: 0px !important;
 }
