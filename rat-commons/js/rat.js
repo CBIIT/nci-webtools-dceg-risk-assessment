@@ -319,10 +319,10 @@ function gotoSection(event) {
 /* gender is on the page.  If it is on the page then male/female play a part  */
 /* in the calculations.  If it is not on the page then it will be ignored     */
 /*                                                                            */
-/* If there is an HTML Object with the name 956r make sure that either male */
+/* If there is an HTML Object with the name gender make sure that either male */
 /* or female has been selected                                                */
 /*                                                                            */
-/* Return (T) An HTML Object is name genddar and either male/female is        */
+/* Return (T) An HTML Object is name gender and either male/female is         */
 /* checked or there is no HTML Object called gendar                           */
 /*                                                                            */
 /* Return (F) There is an HTML Object with the name gendar, but male/female   */
