@@ -36,9 +36,10 @@ class MelanomaRiskAssessmentTool:
     def validateInput(parameters):
         try:
             logging.debug("The number of parameters from the View Tier are " + str(len(parameters)))
+            logging.debug("parameters from the view tier are: " + str(parameters))
+
             for field in parameters:
                 parameters[field] = parameters[field][0]
-                logging.debug("parameter : field " + str(field) + " --> " + str(parameters[field]))
             requiredParameters = ['race', 'age']
             errorObject = {'missing':[], 'nonnumeric': []}
 
