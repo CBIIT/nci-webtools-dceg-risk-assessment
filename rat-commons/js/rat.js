@@ -1136,7 +1136,7 @@ $(function() {
 	// Rule : When tabbing the user could make the "Skip to Content" appear. which could
 	// cause the form-step vertical line to not be in the correct position.  This code 
 	// should fix that 
-	$("*").on("focusin", function(event) { adjustNavigationBarLine(); })
+	$("*").on("focusin", function(event) { if ( existFormSteps() ) adjustNavigationBarLine(); })
 
 
 	/* When a different navigation link is clicked the callback will make the */
