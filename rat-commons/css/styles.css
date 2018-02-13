@@ -643,6 +643,11 @@ div[id^='results_graph'] {
   background: #339fbe;
 }
 
+#form-steps ol li:first-child a:nth-child(2):focus {
+  outline: none;
+  box-shadow: 0 0 2px 1px #4D90FE;
+}
+
 #form-steps ol li.active:first-child a:nth-child(2):focus {
   outline: none; 
   box-shadow: 0 0 2px 1px #4D90FE;
