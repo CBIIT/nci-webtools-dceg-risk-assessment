@@ -1109,14 +1109,11 @@ function printCurrentPage() {
 	window.print()
 }
 
-
 ////////////////////////////////////////////////////////////////////////////////
 // Startup Code
 ////////////////////////////////////////////////////////////////////////////////
 
-// TODO : Can we merge $function, $window.load() together.
-
-$(function() {
+$(document).ready(function() {
 
 	// Add the link that "Skip to Main Conetnet will use"
 	$("#skipContentHome").attr("href", "javascript:scrollPassLogo()");
@@ -1279,4 +1276,11 @@ $(window).load(function(e) {
 	// is mobile
 	if ( isMobile() ) { $("#print").hide() }
 
+	// The problem is HTML cannot handle about.html#OtherToolsSection ( It will only just to the page and not the section )
+	// When the link is clicked http will split this into a url and section ( stored in hash ).  The div with the id will
+	// be scrolled into view
+	if ( window.location.hash ) $(window.location.hash)[0].scrollIntoView()
+
 });
+
+
