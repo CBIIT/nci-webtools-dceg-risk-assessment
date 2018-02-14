@@ -264,8 +264,6 @@ function formScrollSpy() {
 /******************************************************************************/
 function gotoSection(event) {
 
-	console.log("*** Currenlty in gotoSection()")
-
 	// Rule: If there is only once section visible then just return
 
 	var indexOfSection = undefined
@@ -731,13 +729,19 @@ function focusBorderToggle(event) {
 	$this.removeData('mdown');
 
 	if ( mouseDown ) {
-		$(event.target).addClass("removeOutline");
-		$(event.target).removeClass("addOutline");
+		removeOutline(event)
 	} else {
 		$("*").removeClass("addOutline")
 		$(event.target).removeClass("removeOutline");
 		$(event.target).addClass("addOutline")
 	}
+}
+
+// A helper functon to remove the outline since it will be used in nother place
+// Put the code here since it will be used in more than one place.
+function removeOutline(event) {
+	$(event.target).addClass("removeOutline");
+	$(event.target).removeClass("addOutline");
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1130,8 +1134,14 @@ $(function() {
 
 	// Rule : When using the mouse the input element with focus should not have the outline
 	// Rule : When using the tab the input element with focus should have the outline
-	$("#riskForm").children().on('mousedown', function(event)  { mouseDownBorderToggle(event); });
-	$("#riskForm").children().on('focusin',   function(event)  { focusBorderToggle(event);  });
+	$("#riskForm").children().on('mousedown', 	function(event)  { mouseDownBorderToggle(event); });
+	$("#riskForm").children().on('focusin',   	function(event)  { focusBorderToggle(event);  	 });
+
+	// Rule : When the AssessPatientRisk gains the focus form the Tab Key it should be highlighted)
+	// Rule : When blurred then have the outline removed
+	$("#AssessPatientRisk").on('focusin', 		function(event)  { focusBorderToggle(event);	});
+	$("#AssessPatientRisk").on('focusout',      function(event)  { removeOutline(event); 		});
+
 
 	// Rule : When tabbing the user could make the "Skip to Content" appear. which could
 	// cause the form-step vertical line to not be in the correct position.  This code 
