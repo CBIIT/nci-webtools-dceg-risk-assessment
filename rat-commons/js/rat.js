@@ -717,16 +717,16 @@ function mouseDownBorderToggle(event) {
 
 	// Only set the data attribute if its not already focused, as the
 	// focus event wouldn't fire afterwards, leaving the flag set
-	if ( ! $this.is(':focus')) $this.data('mdown', true);
+	if ( ! $this.is(':focus')) $this.data('mouseEvent', true);
 }
 
 // Executes the code to remove or add the border around the input element
 // whether it was a mouse event or the user tabbed into it.
 function focusBorderToggle(event) {
 	var $this = $(this);
-	var mouseDown = $this.data('mdown');
+	var mouseDown = $this.data('mouseEvent');
 
-	$this.removeData('mdown');
+	$this.removeData('mouseEvent');
 
 	if ( mouseDown ) {
 		removeOutline(event)
@@ -1133,13 +1133,23 @@ function printCurrentPage() {
 
 $(document).ready(function() {
 
+	////////////////////////////////////////////////////////////////////////////////
+	// Problem : When the user clicks on the logo.  The user will goto to         //
+	// cancer.gov, but the border will still be visible when coming back to the   //
+	// original website.  This code will remove the border                        //                                                                 //
+	////////////////////////////////////////////////////////////////////////////////
+	$("#logo").on("mouseup", function(event) { mouseDownBorderToggle(); })
+
 	// Add the link that "Skip to Main Conetnet will use"
 	$("#skipContentHome").attr("href", "javascript:scrollPassLogo()");
 	$("#skipContentCalculate").attr("href", "javascript:scrollPassLogo()")
 	$("#skipContentAbout").attr("href", "javascript:scrollPassLogo()")
 
-	// Add the footter to the end of the page
+	// Add the footter to the end of the page.  Also, setup the links so that when
+	// the user clicks on a footer link and is sent to a new page the outline for 
+	// the current item will disappear.
 	$("#footer").load("./rat-commons/html/footer.html")
+	$("#footer").on("mouseup","a", function(event) { mouseDownBorderToggle(); })
 
 	currentPage();
 
@@ -1166,12 +1176,10 @@ $(document).ready(function() {
 	$("#AssessPatientRisk").on('focusin', 		function(event)  { focusBorderToggle(event);	});
 	$("#AssessPatientRisk").on('focusout',      function(event)  { removeOutline(event); 		});
 
-
 	// Rule : When tabbing the user could make the "Skip to Content" appear. which could
 	// cause the form-step vertical line to not be in the correct position.  This code 
 	// should fix that 
 	$("*").on("focusin", function(event) { if ( existFormSteps() ) adjustNavigationBarLine(); })
-
 
 	/* When a different navigation link is clicked the callback will make the */
 	/* link acitve and fix the line that connects all the navigation links    */
