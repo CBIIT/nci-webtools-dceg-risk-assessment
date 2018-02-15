@@ -718,6 +718,8 @@ function mouseDownBorderToggle(event) {
 	// Only set the data attribute if its not already focused, as the
 	// focus event wouldn't fire afterwards, leaving the flag set
 	if ( ! $this.is(':focus')) $this.data('mouseEvent', true);
+
+	document.activeElement.blur()
 }
 
 // Executes the code to remove or add the border around the input element
@@ -725,7 +727,7 @@ function mouseDownBorderToggle(event) {
 function focusBorderToggle(event) {
 	var $this = $(this);
 	var mouseDown = $this.data('mouseEvent');
-
+	
 	$this.removeData('mouseEvent');
 
 	if ( mouseDown ) {
@@ -1138,7 +1140,7 @@ $(document).ready(function() {
 	// cancer.gov, but the border will still be visible when coming back to the   //
 	// original website.  This code will remove the border                        //                                                                 //
 	////////////////////////////////////////////////////////////////////////////////
-	$("#logo").on("mouseup", function(event) { mouseDownBorderToggle(); })
+	$("#logo").on("mouseup", function(event) { mouseDownBorderToggle(event) })
 
 	// Add the link that "Skip to Main Conetnet will use"
 	$("#skipContentHome").attr("href", "javascript:scrollPassLogo()");
@@ -1149,7 +1151,7 @@ $(document).ready(function() {
 	// the user clicks on a footer link and is sent to a new page the outline for 
 	// the current item will disappear.
 	$("#footer").load("./rat-commons/html/footer.html")
-	$("#footer").on("mouseup","a", function(event) { mouseDownBorderToggle(); })
+	$("#footer").on("mouseup","a", function(event) { mouseDownBorderToggle(event) })
 
 	currentPage();
 
