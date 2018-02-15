@@ -1168,8 +1168,10 @@ $(document).ready(function() {
 
 	// Rule : When using the mouse the input element with focus should not have the outline
 	// Rule : When using the tab the input element with focus should have the outline
+	// Exemption : The last button has to be handle differently
 	$("#riskForm").children().on('mousedown', 	function(event)  { mouseDownBorderToggle(event); });
 	$("#riskForm").children().on('focusin',   	function(event)  { focusBorderToggle(event);  	 });
+	$("#reset").on("focusout", 					function(event)  { removeOutline(event); 		 })
 
 	// Rule : When the AssessPatientRisk gains the focus form the Tab Key it should be highlighted)
 	// Rule : When blurred then have the outline removed
