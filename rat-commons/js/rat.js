@@ -719,6 +719,9 @@ function mouseDownBorderToggle(event) {
 	// focus event wouldn't fire afterwards, leaving the flag set
 	if ( ! $this.is(':focus')) $this.data('mouseEvent', true);
 
+	$("*").addClass("removeOutline")
+	$("*").removeClass("addOutline")
+
 	document.activeElement.blur()
 }
 
@@ -1130,6 +1133,37 @@ function printCurrentPage() {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// Jumps to the start of a section taking into account the factors that could
+// affect the positon showing up at the top of the screen.
+//
+// Note : I am hardcoding 40 in here for two reason
+//   1. Not exaclty sure how to derive height from the css since 
+//      I am using a span and can find the height since it is inline
+//   2. I know that 40px is the space between the header and the content 
+//      since that was asked in an IR.
+////////////////////////////////////////////////////////////////////////////////
+function jumpToSection(event) {
+	var position 							= 0
+	var url 								= $(event.target).attr("href")
+	var spacerHeightBetweenSections 		= $(url).css("marginTop").replace("px","")
+
+	if ( $(window).scrollTop() == 0 ) {
+		var heightOfHeader 						= $("header").outerHeight(true)
+		var spaceBetweenHeaderAndFirstHeader 	= 40;	
+		var hieghtOfToolTitle 					= $("#toolTitle").outerHeight(true)
+		var spacerHeightBetweenSections 		= $(url).css("marginTop").replace("px","")
+		position = $(url).offset().top - heightOfHeader - 
+										 spaceBetweenHeaderAndFirstHeader - 
+										 hieghtOfToolTitle - 
+										 spacerHeightBetweenSections
+	} else {
+		position = $(url).offset().top - spacerHeightBetweenSections
+	}
+
+	$('html, body').animate({ scrollTop: position }, 2000);		
+}
+
+////////////////////////////////////////////////////////////////////////////////
 // Startup Code
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -1164,8 +1198,6 @@ $(document).ready(function() {
 
 	// Calculate the height of the section so that it will be to scroll to the beginning of
 	// the correct section
-	//
-	// TODO : Change the name of the function
 	calcSizesOfSections();
 
 	// Rule : When using the mouse the input element with focus should not have the outline
@@ -1175,10 +1207,16 @@ $(document).ready(function() {
 	$("#riskForm").children().on('focusin',   	function(event)  { focusBorderToggle(event);  	 });
 	$("#reset").on("focusout", 					function(event)  { removeOutline(event); 		 })
 
-	// Rule : When the AssessPatientRisk gains the focus form the Tab Key it should be highlighted)
+	// Rule : When the AssessPatientRisk gains the focus from the Tab Key it should be highlighted)
 	// Rule : When blurred then have the outline removed
 	$("#AssessPatientRisk").on('focusin', 		function(event)  { focusBorderToggle(event);	});
 	$("#AssessPatientRisk").on('focusout',      function(event)  { removeOutline(event); 		});
+
+	// Rule: When the Start Over Button gains the focus from the Tab Key.  It sould be highlighted
+	// Rule: When blurred then have the outline removed
+	$("#startOver").on('focusin', 		function(event)  { focusBorderToggle(event);	});
+	$("#startOver").on('focusout',      function(event)  { removeOutline(event); 		});
+	
 
 	// Rule : When tabbing the user could make the "Skip to Content" appear. which could
 	// cause the form-step vertical line to not be in the correct position.  This code 
@@ -1333,6 +1371,14 @@ $(window).load(function(e) {
 	// be scrolled into view
 	if ( window.location.hash ) $(window.location.hash)[0].scrollIntoView()
 
+	// Due to the way this was written, when we click on a link to jump to a      //
+	// a section then the section goes past the viewable area and some of it is   //
+	// cut off.  The Plan is to scroll each secit0on to where the Main Title      //
+	// origanally was placed and scrool to there
+	if ( $("#mainAboutTitle").length == 1 && isMobile() == true ) {
+		$("#jumpTitle").attr('data-x-coord-to-jump-to', $("#mainAboutTitle").offset().top)
+		$("#jumpTitle").on("click", "a", function(event) { jumpToSection(event); })
+	}
 });
 
 
