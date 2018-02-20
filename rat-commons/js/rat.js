@@ -722,6 +722,8 @@ function mouseDownBorderToggle(event) {
 	$("*").addClass("removeOutline")
 	$("*").removeClass("addOutline")
 
+	// This may not be needed anymore since I added a focusOut event.  
+	// In the future, this should be verified that it can be removed.
 	document.activeElement.blur()
 }
 
@@ -1222,6 +1224,9 @@ $(document).ready(function() {
 	// cause the form-step vertical line to not be in the correct position.  This code 
 	// should fix that 
 	$("*").on("focusin", function(event) { if ( existFormSteps() ) adjustNavigationBarLine(); })
+
+	// Rule : Whenever you leave any HTML Object the focus is removed
+	$("*").on("focusout", 				function(event) { removeOutline(event)			})
 
 	/* When a different navigation link is clicked the callback will make the */
 	/* link acitve and fix the line that connects all the navigation links    */
