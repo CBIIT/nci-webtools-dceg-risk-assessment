@@ -719,8 +719,8 @@ function mouseDownBorderToggle(event) {
 	// focus event wouldn't fire afterwards, leaving the flag set
 	if ( ! $this.is(':focus')) $this.data('mouseEvent', true);
 
-	//$("*").addClass("removeOutline")
-	//$("*").removeClass("addOutline")
+	$("*").addClass("removeOutline")
+	$("*").removeClass("addOutline")
 
 	// This may not be needed anymore since I added a focusOut event.  
 	// In the future, this should be verified that it can be removed.
@@ -731,7 +731,7 @@ function mouseDownBorderToggle(event) {
 // whether it was a mouse event or the user tabbed into it.
 function focusBorderToggle(event) {
 	var $this = $(this);
-	//var mouseDown = $this.data('mouseEvent');
+	var mouseDown = $this.data('mouseEvent');
 	
 	//$this.removeData('mouseEvent');
 
