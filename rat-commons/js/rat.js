@@ -732,17 +732,13 @@ function mouseDownBorderToggle(event) {
 function focusBorderToggle(event) {
 	var $this = $(this);
     var mouseDown = $this.data('mouseEvent');
-    console.log("Mouse Down = " + mouseDown)
-	
-	//$this.removeData('mouseEvent');
+
+    $this.removeData('mouseEvent');
 
 	if ( mouseDown ) {
         removeOutline(event)
-        console.log("True Condtion : mouseDown")
     } else {
-        console.log("False Condition : mouseDown")
         $("*").removeClass("addOutline")
-        console.log("Target = " + $(event.target).toString())
 		$(event.target).removeClass("removeOutline");
 		$(event.target).addClass("addOutline")
 	}
@@ -1057,7 +1053,6 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 
 		 	// The spacing between the number and the question is different if you
 			// two number ( ex. 10) vs one number
-			console.log("The index data is " + Number(indexData.indexString).toString() ) 
 		 	var paddingRight = ( Number(indexData.indexString) > 9 ) ? ".5em" : "1em"
 
 		 	var question = $("<td></td>").addClass("questions")
