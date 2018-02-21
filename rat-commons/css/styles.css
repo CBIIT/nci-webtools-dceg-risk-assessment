@@ -260,6 +260,7 @@ header #toolTitle .navbar-toggle {
 img#logo {
   max-width: 600px;
   padding: 1em 0 1em 5em;
+  height: 82px;
 }
 nav#main-nav {
   text-transform: uppercase;
@@ -1085,9 +1086,11 @@ input.error + label.radio span {
 
   }
 
+
   header img#logo {
     padding: 1em 1em 1em;
     width: 100%;
+    height: 82px;
   }
   header #toolTitle {
     padding-left: 1em;
