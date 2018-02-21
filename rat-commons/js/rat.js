@@ -712,44 +712,44 @@ function removeSectionHeaderMargins()
 
 // Stores information that the mouse was pressed so that the focus event
 // can know that it was mouse down event.
-function mouseDownBorderToggle(event) {
-	var $this = $(this)
+//function mouseDownBorderToggle(event) {
+//	var $this = $(this)
 
-	// Only set the data attribute if its not already focused, as the
-	// focus event wouldn't fire afterwards, leaving the flag set
-	if ( ! $this.is(':focus')) $this.data('mouseEvent', true);
+//	// Only set the data attribute if its not already focused, as the
+//	// focus event wouldn't fire afterwards, leaving the flag set
+//	if ( ! $this.is(':focus')) $this.data('mouseEvent', true);
 
-	//$("*").addClass("removeOutline")
-	//$("*").removeClass("addOutline")
+//	//$("*").addClass("removeOutline")
+//	//$("*").removeClass("addOutline")
 
-	// This may not be needed anymore since I added a focusOut event.  
-	// In the future, this should be verified that it can be removed.
-	document.activeElement.blur()
-}
+//	// This may not be needed anymore since I added a focusOut event.  
+//	// In the future, this should be verified that it can be removed.
+//	document.activeElement.blur()
+//}
 
-// Executes the code to remove or add the border around the input element
-// whether it was a mouse event or the user tabbed into it.
-function focusBorderToggle(event) {
-	var $this = $(this);
-	var mouseDown = $this.data('mouseEvent');
+//// Executes the code to remove or add the border around the input element
+//// whether it was a mouse event or the user tabbed into it.
+//function focusBorderToggle(event) {
+//	var $this = $(this);
+//	var mouseDown = $this.data('mouseEvent');
 	
-	$this.removeData('mouseEvent');
+//	$this.removeData('mouseEvent');
 
-	if ( mouseDown ) {
-		removeOutline(event)
-	} else {
-		$("*").removeClass("addOutline")
-		$(event.target).removeClass("removeOutline");
-		$(event.target).addClass("addOutline")
-	}
-}
+//	if ( mouseDown ) {
+//		removeOutline(event)
+//	} else {
+//		$("*").removeClass("addOutline")
+//		$(event.target).removeClass("removeOutline");
+//		$(event.target).addClass("addOutline")
+//	}
+//}
 
-// A helper functon to remove the outline since it will be used in nother place
-// Put the code here since it will be used in more than one place.
-function removeOutline(event) {
-	$(event.target).addClass("removeOutline");
-	$(event.target).removeClass("addOutline");
-}
+//// A helper functon to remove the outline since it will be used in nother place
+//// Put the code here since it will be used in more than one place.
+//function removeOutline(event) {
+//	$(event.target).addClass("removeOutline");
+//	$(event.target).removeClass("addOutline");
+//}
 
 ///////////////////////////////////////////////////////////////////////////////
 // Enable the Caluclate Button if all non disabled inputs have a value
