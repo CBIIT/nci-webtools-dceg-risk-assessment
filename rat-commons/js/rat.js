@@ -741,7 +741,8 @@ function focusBorderToggle(event) {
         console.log("True Condtion : mouseDown")
     } else {
         console.log("False Condition : mouseDown")
-		$("*").removeClass("addOutline")
+        $("*").removeClass("addOutline")
+        console.log("Target = " + $(event.target).toString())
 		$(event.target).removeClass("removeOutline");
 		$(event.target).addClass("addOutline")
 	}
