@@ -731,24 +731,27 @@ function mouseDownBorderToggle(event) {
 // whether it was a mouse event or the user tabbed into it.
 function focusBorderToggle(event) {
 	var $this = $(this);
-	var mouseDown = $this.data('mouseEvent');
+    var mouseDown = $this.data('mouseEvent');
+    console.log("Mouse Down = " + mouseDown)
 	
 	//$this.removeData('mouseEvent');
 
 	if ( mouseDown ) {
-		removeOutline(event)
-	} else {
-		//$("*").removeClass("addOutline")
-		//$(event.target).removeClass("removeOutline");
-		//$(event.target).addClass("addOutline")
+        removeOutline(event)
+        console.log("True Condtion : mouseDown")
+    } else {
+        console.log("False Condition : mouseDown")
+		$("*").removeClass("addOutline")
+		$(event.target).removeClass("removeOutline");
+		$(event.target).addClass("addOutline")
 	}
 }
 
 // A helper functon to remove the outline since it will be used in nother place
 // Put the code here since it will be used in more than one place.
 function removeOutline(event) {
-	//$(event.target).addClass("removeOutline");
-	//$(event.target).removeClass("addOutline");
+	$(event.target).addClass("removeOutline");
+	$(event.target).removeClass("addOutline");
 }
 
 ///////////////////////////////////////////////////////////////////////////////
