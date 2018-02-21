@@ -724,16 +724,16 @@ function mouseDownBorderToggle(event) {
 
 	// This may not be needed anymore since I added a focusOut event.  
 	// In the future, this should be verified that it can be removed.
-	document.activeElement.blur()
+	//document.activeElement.blur()
 }
 
 // Executes the code to remove or add the border around the input element
 // whether it was a mouse event or the user tabbed into it.
 function focusBorderToggle(event) {
 	var $this = $(this);
-	var mouseDown = $this.data('mouseEvent');
+	//var mouseDown = $this.data('mouseEvent');
 	
-	$this.removeData('mouseEvent');
+	//$this.removeData('mouseEvent');
 
 	if ( mouseDown ) {
 		removeOutline(event)
