@@ -1,6 +1,7 @@
 import math
 import os
 import sys
+import json 
 
 from flask import Flask, Response, request, jsonify, send_from_directory
 from CcratRunFunction import AbsRisk
@@ -186,7 +187,13 @@ class ColorectalRiskAssessmentTool:
       nonAspirin = int(parameters['non_aspirin'])
       nsaidRegimine = min(aspirin,nonAspirin)
       aspirinOnly = nonAspirin
-      risk = AbsRisk("Male" if sex == 0 else "Female",
+      
+      gender = "Male" if sex == 0 else "Female"
+
+      #************************************************************************************************************
+      #* 5 Year Patient and Average Risk                                                                          *
+      #************************************************************************************************************
+      patient5YearRisk = AbsRisk(gender,
         race,
         age,
         min(age+5,90),
@@ -200,8 +207,107 @@ class ColorectalRiskAssessmentTool:
         veggies,
         bmi,
         hormoneUsage)
-      risk = round(risk*100,1)
-      return ColorectalRiskAssessmentTool.buildSuccess(str(risk))
+      patient5YearRisk = round(patient5YearRisk*100,1)
+
+      average5YearRisk = AbsRisk(gender,
+        race,
+        age,
+        min(age+5,90),
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0)
+      average5YearRisk = round(average5YearRisk*100,1)
+
+      #************************************************************************************************************
+      #* 10 Year Patient and Average Risk                                                                         *
+      #************************************************************************************************************
+      patient10YearRisk = AbsRisk(gender,
+        race,
+        age,
+        min(age+10,90),
+        screening,
+        yearsSmoking,
+        cigarettesPerDay,
+        nsaidRegimine,
+        aspirinOnly,
+        family_cancer,
+        exercise,
+        veggies,
+        bmi,
+        hormoneUsage)
+      patient10YearRisk = round(patient10YearRisk*100,1)
+
+      average10YearRisk = AbsRisk(gender,
+        race,
+        age,
+        min(age+10,90),
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0)
+      average10YearRisk = round(average10YearRisk*100,1)
+
+      #************************************************************************************************************
+      #* Lifetime Patient and Average Risk                                                                        *
+      #************************************************************************************************************
+      patientLifetimeRisk = AbsRisk(gender,
+        race,
+        age,
+        90,
+        screening,
+        yearsSmoking,
+        cigarettesPerDay,
+        nsaidRegimine,
+        aspirinOnly,
+        family_cancer,
+        exercise,
+        veggies,
+        bmi,
+        hormoneUsage)
+      patientLifetimeRisk = round(patientLifetimeRisk*100,1)
+
+      averageLifetimeRisk = AbsRisk(gender,
+        race,
+        age,
+        90,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0)
+      averageLifetimekRisk = round(averageLifetimeRisk*100,1)
+
+      #************************************************************************************************
+      #* Combine all the values into one struture to be sent to another tier                          *
+      #************************************************************************************************
+      results = {}
+      results['risk']                 = patient5YearRisk
+      results['average5YearRisk']     = average5YearRisk
+      results['patient10YearRisk']    = patient10YearRisk
+      results['average10YearRisk']    = average10YearRisk
+      results['patientLifetimeRisk']  = patientLifetimeRisk
+      results['averageLifetimeRisk']  = averageLifetimekRisk
+
+      json_data = json.dumps(results)
+      return ColorectalRiskAssessmentTool.buildSuccess(json_data)
     except Exception as e:
       exc_type, exc_obj, exc_tb = sys.exc_info()
       fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
