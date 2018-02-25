@@ -15,17 +15,55 @@ $(function() {
   // would execute
   $("#riskForm").on("change", enableCalculateButton);
 
-	// Disables the form if the woman previously had cancer or trigger the form
-  	// toc check if the calculate button can be enabled.``
-	// $("input[name='cancerAndRadiationHistory']").on("click", function(event) {
-	// 	if(this.value == 0){
-	// 		      $("#womanWithCancerDialog").modal("show");
-  //     			disableForm();
-  //           //$("input[name='cancerAndRadiationHistory']")[this.value].checked = false
-	//   	} else {
-  //     			$("#riskForm").trigger("change")
-  //     }
-  // });
+  // Disables the form if the race is Hispanic or Latino then display some 
+  // information and disble the form.
+  $("input[name='hispanic']").on("click", function(event) {
+    if(this.value == 0){
+         $("#raceModal").modal("show");
+      	 disableCRATForm();
+   	} else {
+           $("#riskForm").trigger("change")
+           enableRaceQuestion()
+    }
+
+  // Enables the form when the user clicks ok for the dialog box be dispalyed
+  // for any question in the patient eligibility phasse or the race
+  $("#hisp-notice").on("click",       enableCRATFormWithRaceDisabled)
+
+  });
+
+/* The fucntion disables for the form */
+function disableCRATForm() {
+    disableForm()
+    $("[class='numberField'").next("span").css("color","#C0C0C0")
+}
+
+/* A specialized version of the enableForm function where we determine if  */
+/* certain fields should be enabled.                                       */
+function enableCRATFormWithRaceDisabled() {
+    enableForm();
+    disableRaceQuestion()
+    $("[class='numberField'").next("span").css("color","#2E2E2E")
+    //$("form #hispanicYes").
+}
+
+/* Disables the race question and its answers */
+function disableRaceQuestion() {
+    $("[for='race']").css("color", "#C0C0C0")
+    $("[for='race']").next().css("color", "#C0C0C0")
+    $("[for='race']").nextUntil("label.questions").children("label.radio").css("color","#C0C0C0")
+    $("[for='race']").nextUntil("label.questions").children("input").attr("disabled","disabled")
+}
+
+/* Enables the race question and its answers */
+function enableRaceQuestion() {
+    $("[for='race']").css("color", "#2E2E2E")
+    $("[for='race']").next().css("color", "#2E2E2E")
+    $("[for='race']").nextUntil("label.questions").children("label.radio").css("color","#2E2E2E")
+    $("[for='race']").nextUntil("label.questions").children("input").attr("disabled","")
+}
+
+
 
   // Disables the form if has a mutation in the BRCA1 or BRCA2 or trigger the
   // from to check if the calcualte button can be enabled

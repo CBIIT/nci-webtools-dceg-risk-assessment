@@ -186,7 +186,7 @@
         <section id="demo-section">
           <label class="questions no-margin-top" for="hispanic">Is the patient Hispanic or Latino?</label>
           <div class="responseOptions ">
-            <input type="radio" name="hispanic" value="0" aria-label="Yes" />
+            <input id="hispanicYes" type="radio" name="hispanic" value="0" aria-label="Yes" />
             <label class="radio" tabindex="0"><span></span>Yes</label>
           </div>
           <div class="responseOptions ">
@@ -754,28 +754,40 @@
     <!-- ------------------------------------------------------ -->
     <!-- Modal Dialogs                                          -->
     <!-- ------------------------------------------------------ -->
-    <div class="modal error-dialog fade" id="raceModal" tabindex="-1" role="dialog" data-backdrop="false">
-      <div class="modal-dialog" role="document">
-        <div class="modal-header"></div>
-        <div class="modal-content">
-          <div class="modal-body"><img class="imgsize" src="./images/info.svg" alt="stop icon">
-            <p class="modaltext">
-              When we first developed this tool, we test it with white people and found it to be be accurate in estimating their risk of colorectal cancer.
-              If you are Hispanic/Latino, this tool can still estimate your risk. But, because there is not as much data available fro these groups, your
-              results may be less accurate.
-            </p>
-            <p class="modaltext">
-              In the future, we hope to make this tool more accurate for Hispanics/Latinos as researchers complete studies that will provide information to
-              update the tool for these groups.
-            </p>
-            <p class="modaltext">
-              Although the tool is not perfect, the information you learn from using it can still help you and your doctor better understand your risk of colorectal cancer
-            </p>
-            <button id="hisp-notice" cclass="btn btn-primary btn-size" type="button" data-dismiss="modal">Ok</button>
+    <div class="modal eligibility-dialog fade" id="raceModal" tabindex="-1" role="dialog" data-backdrop="false">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="container col-sm-12 dialog_text_content">
+                <div class="col-sm-12">
+                  <div class="row">
+                      <div class="col-sm-2">
+                        <img class="imgsize" src="rat-commons/images/info.png" alt="info icon">
+                      </div>
+                      <div class="col-sm-10 information_text">
+                        <p>
+                          When we first developed this tool, we test it with white people and found it to be be accurate in estimating their risk of colorectal cancer.
+                          If you are Hispanic/Latino, this tool can still estimate your risk. But, because there is not as much data available fro these groups, your
+                          results may be less accurate.
+                        </p>
+                        <p>
+                          In the future, we hope to make this tool more accurate for Hispanics/Latinos as researchers complete studies that will provide information to
+                          update the tool for these groups.
+                        </p>
+                        <p>
+                          Although the tool is not perfect, the information you learn from using it can still help you and your doctor better understand your risk of colorectal cancer
+                        </p>
+                      </div>
+                    </div>
+                    <div class="col-sm-12">
+                      <button id="hisp-notice" class="center-block okButton" value="OK" data-dismiss="modal">OK</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
 
     <script src="https://code.jquery.com/jquery-2.1.4.min.js" type="application/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js" type="application/javascript"></script>

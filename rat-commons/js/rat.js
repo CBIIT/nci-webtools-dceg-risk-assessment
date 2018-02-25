@@ -84,7 +84,10 @@ function processSubmission(form){
     contentType: false,
     processData: false,
 	}).done(resultsDisplay)
-	.fail(function() {
+	.fail(function(xhr, ajaxOptions, thrownError) {
+		console.log("xhr = " + xhr.respsoneText())
+		console.log("ajaxOptions = " + ajaxOptions.toString())
+		console.log("thrownError = " + thrownError)
 		console.log("error");
 		$("#systemError").modal("show");
 	})
