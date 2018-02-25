@@ -7,28 +7,39 @@
 
 $(function() {
 
-  // Any time the form changes check all necessary (enabled) input have an answer
-  //
-  // Moved the add event here because originally when debugging the code the
-  // specifcRat code would excecute before the generic ratCode.  The incoorect
-  // assumption was the generic code would execute and then the specific code
-  // would execute
-  $("#riskForm").on("change", enableCalculateButton);
+    // Any time the form changes check all necessary (enabled) input have an answer
+    //
+    // Moved the add event here because originally when debugging the code the
+    // specifcRat code would excecute before the generic ratCode.  The incoorect
+    // assumption was the generic code would execute and then the specific code
+    // would execute
+    $("#riskForm").on("change", enableCalculateButton);
 
-  // Disables the form if the race is Hispanic or Latino then display some 
-  // information and disble the form.
-  $("input[name='hispanic']").on("click", function(event) {
-    if(this.value == 0){
-         $("#raceModal").modal("show");
-      	 disableCRATForm();
-   	} else {
-           $("#riskForm").trigger("change")
-           enableRaceQuestion()
-    }
+    // Disables the form if the race is Hispanic or Latino then display some 
+    // information and disble the form.
+    $("input[name='hispanic']").on("click", function(event) {
+        if(this.value == 0){
+            $("#raceModal").modal("show");
+      	    disableCRATForm();
+   	    } else {
+            $("#riskForm").trigger("change")
+            enableRaceQuestion()
+        }
+    })
 
-  // Enables the form when the user clicks ok for the dialog box be dispalyed
-  // for any question in the patient eligibility phasse or the race
-  $("#hisp-notice").on("click",       enableCRATFormWithRaceDisabled)
+    // Enables the form when the user clicks ok for the dialog box be dispalyed
+    // for any question in the patient eligibility phasse or the race
+    $("#hisp-notice").on("click",       enableCRATFormWithRaceDisabled)
+
+    // Each time the gender is toggle the form should determine if the calculate button should be enabled */
+    $("input[name='gender']").on("change", toggleGender);
+    $("input[name='gender']").on("change", enableCalculateButton);
+
+    // For the question During the past 10 years, did the patient have a colonoscopy, sigmoidoscopy, or both?.  No the question should be disabled
+    $("#colonSigmoidoscopyNo").on("click", disablecolonSigmoidoscopyQuestion)
+    $("#colonSigmaidoscopyYes").on("clock", enablecolonSigmoidoscopyQuestion)
+    $("#colonSigmaidoscopyUnknown").on("clock", enablecolonSigmoidoscopyQuestion)
+
 
   });
 
@@ -37,6 +48,9 @@ function disableCRATForm() {
     disableForm()
     $("[class='numberField'").next("span").css("color","#C0C0C0")
 }
+
+/** Group of fucntions that disable/enable the next question should be put together in one function */
+
 
 /* A specialized version of the enableForm function where we determine if  */
 /* certain fields should be enabled.                                       */
@@ -62,6 +76,61 @@ function enableRaceQuestion() {
     $("[for='race']").nextUntil("label.questions").children("label.radio").css("color","#2E2E2E")
     $("[for='race']").nextUntil("label.questions").children("input").attr("disabled",false)
 }
+
+/* Disable the question concerning a color or rectal polyp */
+function disablecolonSigmoidoscopyQuestion() {
+    $("[for='polyp']").css("color", "#2E2E2E")
+    $("[for='polyp']").nextUntil("label.questions").children("label.radio").css("color","#2E2E2E")
+    $("[for='polyp']").nextUntil("label.questions").children("input").attr("disabled","disabled")    
+}
+
+/* Enable the question concerning a color or rectal polyp */
+function enablecolonSigmoidoscopyQuestion() {
+    $("[for='polyp']").css("color", "#C0C0C0")
+    $("[for='polyp']").nextUntil("label.questions").children("label.radio").css("color","#C0C0C0")
+    $("[for='polyp']").nextUntil("label.questions").children("input").attr("disabled", false)    
+}
+
+
+/* Toggle the gender form Male to Female or Female to Male */
+function toggleGender(e) {
+    var value = $(e.target).val();
+    switch (value) {
+        case "Male":
+            $.each($(".female").find("input, select"), function(index, el) {
+                $(el).rules("remove", "required");
+            });
+
+            $.each($(".male").find("input, select"), function(index, el) {
+                $(el).rules("add", { required: true });
+            });
+
+            $(".female").removeClass('show');
+            $(".male").addClass('show');
+            break;
+        case "Female":
+            $.each($(".male").find("input, select"), function(index, el) {
+            $(el).rules("remove", "required");
+            if($("[name='" + el.name + "']").val().length > 0)
+                    $("[name='" + el.name + "']").val("");
+            });
+
+            $.each($(".female").find("input, select"), function(index, el) {
+                $(el).rules("add", { required: true });
+            });
+
+            $(".male").removeClass('show');
+            $(".female").addClass('show');
+            break;
+        default:
+            $(".male, .female").removeClass('show').find("input, select").removeAttr("required");
+            $.each($(".male, .female").find("input, select"), function(index, el) {
+                $(el).rules("remove", "required");
+            });
+            break;
+    }
+}
+
 
 
 
@@ -137,7 +206,7 @@ function enableRaceQuestion() {
 //         $("#NativeAmericanIssue").modal();
 //         disableForm();
 //     }
-})
+//})
 
 // Attach the corrct items to the drop down for the subrace.  The correct items
 // is based on the race.
