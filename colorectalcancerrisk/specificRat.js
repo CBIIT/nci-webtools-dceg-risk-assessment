@@ -60,7 +60,7 @@ function enableRaceQuestion() {
     $("[for='race']").css("color", "#2E2E2E")
     $("[for='race']").next().css("color", "#2E2E2E")
     $("[for='race']").nextUntil("label.questions").children("label.radio").css("color","#2E2E2E")
-    $("[for='race']").nextUntil("label.questions").children("input").attr("disabled","")
+    $("[for='race']").nextUntil("label.questions").children("input").attr("disabled",false)
 }
 
 
