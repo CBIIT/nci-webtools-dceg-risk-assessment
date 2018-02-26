@@ -259,7 +259,7 @@ header #toolTitle .navbar-toggle {
 }
 img#logo {
   max-width: 600px;
-  padding: 1em 0 1em 5em;
+  padding: 1em 1em 1em 5em;
   height: 82px;
 }
 nav#main-nav {

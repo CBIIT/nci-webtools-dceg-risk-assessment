@@ -1165,6 +1165,19 @@ function jumpToSection(event) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// If a function exist thne call it                                           //
+////////////////////////////////////////////////////////////////////////////////
+function callIfFunctionExist(functionName) {
+
+	// Determines if function exist
+	var functionExist = ( typeof functionName == "function" )
+	
+	if ( functionExist ) {
+		functionName()
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////
 // Startup Code
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -1182,10 +1195,13 @@ $(document).ready(function() {
 	$("#skipContentCalculate").attr("href", "javascript:scrollPassLogo()")
 	$("#skipContentAbout").attr("href", "javascript:scrollPassLogo()")
 
+	// Load the foot ander intialize the footer if the function exist in specificRat.js
+	//$("#footer").load("./rat-commons/html/footer.html" , function() { typeof specificRatFooterIniialization == "function" && specificRatFooterIniialization()  })
+	$("#footer").load("./rat-commons/html/footer.html" , function() { callIfFunctionExist(specificRatFooterInitialization) })
+
 	// Add the footter to the end of the page.  Also, setup the links so that when
 	// the user clicks on a footer link and is sent to a new page the outline for 
 	// the current item will disappear.
-	$("#footer").load("./rat-commons/html/footer.html")
 	$("#footer").on("mouseup","a", function(event) { mouseDownBorderToggle(event) })
 
 	currentPage();

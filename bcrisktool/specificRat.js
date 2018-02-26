@@ -1,4 +1,4 @@
-1// A collection of term/definitions
+// A collection of term/definitions
 var terms = {
   "invasive breast cancer" : {
     definition : "https://www.cancer.gov/common/popUps/popDefinition.aspx?id=CDR0000537695&version=Patient&language=English"
@@ -7,6 +7,7 @@ var terms = {
 
 $(function() {
 
+ 
   // Any time the form changes check all necessary (enabled) input have an answer
   //
   // Moved the add event here because originally when debugging the code the
@@ -14,6 +15,8 @@ $(function() {
   // assumption was the generic code would execute and then the specific code
   // would execute
   $("#riskForm").on("change", enableCalculateButton);
+
+  $("#BreastCancerHealth").on("focusin", function() { moveElementIfCloseToBottom("#BreastCancerHealth") }) 
 
 	// Disables the form if the woman previously had cancer or trigger the form
   	// toc check if the calculate button can be enabled.``
@@ -85,6 +88,24 @@ $(function() {
   	$("#riskForm").on("change", disableIfPatientIsNotEligible);
   	$('#riskForm').trigger('change');
 });
+
+// On the main page the link is not comming into view when it is tabbed to since part of the browser is blocking it.
+// This code will scroll the link so it come into view.  
+//
+// Took into account that focusin could mean that the event was a mouse click or the user tabbing to a HTML Object
+function moveElementIfCloseToBottom(element) {
+
+  var result = htmlObjectCloseToBottomOfScreen(element, 1)
+  if ( result ) {
+    $("html, body").animate( { scrollTop: $(element).offset().top + $(element).height() })
+  }
+}
+
+// A functiona that will be called as a CallBack when the footer is loaded.  This function will be the same 
+// for all specificRats.
+function specificRatFooterInitialization() {
+  $("#contactLink").on("focusin", function() { $("html, body").animate( { scrollTop: $("#contactLink").position().top }) }) 
+}
 
 // Brings up the dialog box explaining why the data is inaccurate for hispnaics,
 // Native Americans/Alaskians and how the unknownn is handled
