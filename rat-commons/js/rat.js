@@ -1210,7 +1210,7 @@ function htmlObjectCloseToBottomOfScreen(htmlObject, threshold) {
 	console.log("Element Bottom = " + elementBottom)
 	console.log("Window Bottom  = " + windowBottom)
 
-	return ( (elementBottom - windowBottom) > 0 ) ? true : false;
+	return ( (elementBottom + elementHeight ) - windowBottom > 0 ) ? true : false;
 
 }
 
