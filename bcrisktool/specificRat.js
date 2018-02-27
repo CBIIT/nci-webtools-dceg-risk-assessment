@@ -223,13 +223,15 @@ function womanHadBiopsy() {
 // Disable a question and it answers that are associated with a woman having a
 // breast biopsy
 function disableQuestionAndAnswers(event) {
-  $("input[name='biopsy_result']").attr("disabled", true);
+  $("input[name='biopsy_result']").attr("disabled", true)
   $("input[id^='breastBiopsiesCount']").css("color", "#C0C0C0")
   $("label[for^='breastBiopsiesCount']").css("color", "#C0C0C0")
+  $("label[for^='breastBiopsiesCount']").attr("tabindex", "-1")
 
-  $("input[name='biopsy_ah']").attr("disabled", true);
+  $("input[name='biopsy_ah']").attr("disabled", true)
   $("label[id^='hadAh']").css("color", "#C0C0C0");
   $("label[for^='hadAh']").css("color", "#C0C0C0");
+  $("label[for^='hadAh']").attr("tabindex","-1")
 
 }
 
@@ -239,10 +241,13 @@ function enableQuestionAndAnswers(event) {
   $("input[name='biopsy_result']").attr("disabled", false);
   $("input[id^='breastBiopsiesCount']").css("color", "#606060")
   $("label[for^='breastBiopsiesCount']").css("color", "#2E2E2E")
+  $("label[for^='breastBiopsiesCount']").attr("tabindex", "0")
 
   $("input[name='biopsy_ah']").attr("disabled", false);
   $("input[id^='hadAh']").css("color", "#606060");
   $("label[for^='hadAh']").css("color", "#2E2E2E");
+  $("label[for^='hadAh']").attr("tabindex","0")
+
 
   adjust_line_width();
 }
