@@ -1178,6 +1178,27 @@ function callIfFunctionExist(functionName) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// This function will determine if the HTML Object's bottom is very close to  //
+// the bottom.  If it is it will return true                                  //
+//                                                                            //
+// htmlObject -- The curent object being analysized                           //
+// threshold  -- The nuber of pixels above bottom                             //
+////////////////////////////////////////////////////////////////////////////////
+function htmlObjectCloseToBottomOfScreen(htmlObject, threshold) {
+
+	var elementHeight = $(htmlObject).height()
+
+	var elementBottom 	=  $(htmlObject).offset().top 	+ $(htmlObject).height();
+	var windowBottom 	=  $(window).scrollTop() 		+ $(window).height();
+
+	console.log("Element Bottom = " + elementBottom)
+	console.log("Window Bottom  = " + windowBottom)
+
+	return ( (elementBottom * threshold ) - windowBottom > 0 ) ? true : false;
+
+}
+
+////////////////////////////////////////////////////////////////////////////////
 // Startup Code
 ////////////////////////////////////////////////////////////////////////////////
 

@@ -897,7 +897,7 @@ input.error + label.radio span {
   margin-bottom: 20px;
   border: 0;
   border-top: 2px dotted #868686;
-  margin-top: 0;
+  margin-top: 0;©
 }
 .modal-body {
   overflow-y: hidden;
@@ -1501,7 +1501,7 @@ svg {
 /* for the footer instead of the style instead of *:focus             */
 /* *:focus, */
 a:focus {
-  outline: 1px solid #4D90FE;
+  outline: 1px auto #4D90FE;
 }
 
 /* Styles for the Pie Chart Div that display the Pie Chart */
