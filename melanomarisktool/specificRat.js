@@ -1,5 +1,8 @@
 $(function() {
 
+	// When tabbing, the element is being hidden by part of the browser, so I want to move it so the user can see it.
+	$("#melanomaRisk").on("focusin", function() { moveElementIfCloseToBottom("#melanomaRisk") }) 
+
 	$("input[name='gender']").on("change", toggleGender);
 	$("input[name='gender']").on("change", calcSizesOfSections);
 

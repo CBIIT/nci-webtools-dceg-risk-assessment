@@ -1167,10 +1167,10 @@ function jumpToSection(event) {
 ////////////////////////////////////////////////////////////////////////////////
 // If a function exist thne call it                                           //
 ////////////////////////////////////////////////////////////////////////////////
-function callIfFunctionExist(functionName) {
+function callIfFunctionExist() {
 
 	// Determines if function exist
-	var functionExist = ( typeof functionName == "function" )
+	var functionExist = ( typeof pecificRatFooterInitialization == "function" )
 	
 	if ( functionExist ) {
 		functionName()
@@ -1178,11 +1178,27 @@ function callIfFunctionExist(functionName) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// On the main page the link is not comming into view when it is tabbed to    //
+// since part of the browser is blocking it.                                  //
+//                                                                            //
+// This code will scroll the link so it come into view.                       //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+function moveElementIfCloseToBottom(element) {
+
+	var result = htmlObjectCloseToBottomOfScreen(element, 1)
+	if ( result ) {
+	  $("html, body").animate( { scrollTop: $(element).offset().top + $(element).height() })
+	}
+  }
+  
+////////////////////////////////////////////////////////////////////////////////
 // This function will determine if the HTML Object's bottom is very close to  //
 // the bottom.  If it is it will return true                                  //
 //                                                                            //
 // htmlObject -- The curent object being analysized                           //
 // threshold  -- The nuber of pixels above bottom                             //
+//                                                                            //
 ////////////////////////////////////////////////////////////////////////////////
 function htmlObjectCloseToBottomOfScreen(htmlObject, threshold) {
 
@@ -1194,7 +1210,7 @@ function htmlObjectCloseToBottomOfScreen(htmlObject, threshold) {
 	console.log("Element Bottom = " + elementBottom)
 	console.log("Window Bottom  = " + windowBottom)
 
-	return ( (elementBottom * threshold ) - windowBottom > 0 ) ? true : false;
+	return ( (elementBottom - windowBottom) > 0 ) ? true : false;
 
 }
 
@@ -1218,7 +1234,7 @@ $(document).ready(function() {
 
 	// Load the foot ander intialize the footer if the function exist in specificRat.js
 	//$("#footer").load("./rat-commons/html/footer.html" , function() { typeof specificRatFooterIniialization == "function" && specificRatFooterIniialization()  })
-	$("#footer").load("./rat-commons/html/footer.html" , function() { callIfFunctionExist(specificRatFooterInitialization) })
+	$("#footer").load("./rat-commons/html/footer.html" , function() { callIfFunctionExist() })
 
 	// Add the footter to the end of the page.  Also, setup the links so that when
 	// the user clicks on a footer link and is sent to a new page the outline for 

@@ -89,18 +89,6 @@ $(function() {
   	$('#riskForm').trigger('change');
 });
 
-// On the main page the link is not comming into view when it is tabbed to since part of the browser is blocking it.
-// This code will scroll the link so it come into view.  
-//
-// Took into account that focusin could mean that the event was a mouse click or the user tabbing to a HTML Object
-function moveElementIfCloseToBottom(element) {
-
-  var result = htmlObjectCloseToBottomOfScreen(element, 1)
-  if ( result ) {
-    $("html, body").animate( { scrollTop: $(element).offset().top + $(element).height() })
-  }
-}
-
 // A functiona that will be called as a CallBack when the footer is loaded.  This function will be the same 
 // for all specificRats.
 function specificRatFooterInitialization() {
