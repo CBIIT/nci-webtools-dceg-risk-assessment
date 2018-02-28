@@ -35,11 +35,30 @@ $(function() {
     $("input[name='gender']").on("change", toggleGender);
     $("input[name='gender']").on("change", enableCalculateButton);
 
-    // For the question During the past 10 years, did the patient have a colonoscopy, sigmoidoscopy, or both?.  No the question should be disabled
-    $("#colonSigmoidoscopyNo").on("click", disablecolonSigmoidoscopyQuestion)
-    $("#colonSigmaidoscopyYes").on("clock", enablecolonSigmoidoscopyQuestion)
-    $("#colonSigmaidoscopyUnknown").on("clock", enablecolonSigmoidoscopyQuestion)
+    // For Diet and Activity Section if the user select no servings disable the amont per serving
+    $("#veg_servings").on("change", adjustAmountPerServingBasedOnServings)
+    $("#moderate_months").on("change", adjustHoursPerWeekModerateActivity)
+    $("#vigorous_months").on("change", adjustHoursPerWeekVigorousActivity)
 
+    // For Medical History : During the past 10 years, did the patient have a colonoscopy, sigmoidoscopy, or both?
+    $("#colonSigmoidoscopyYes").on("change", enableColonSigmoidoscopyQuestion)
+    $("#colonSigmoidoscopyNo").on("change", disableColonSigmoidoscopyQuestion)
+    $("#colonSigmoidoscopyUnknown").on("change", disableColonSigmoidoscopyQuestion)
+
+    // For Medical History : Does the patient still have periods
+    $("#periodYes").on("click", disasbleLastPeriodWhen)
+    $("#periodYes").on("click", disableHormoneTreatement)
+    $("#periodNo").on("click", enableLastPeriodWhen)
+    $("#periodNo").on("click", enableHormoneTreatement)
+    $("#periodNo").on("click", adjustLastTimeSheHadPeriod)
+
+    // For Medical History : when did the patient have her last period
+    $("#last_period").on("change", adjustLastTimeSheHadPeriod)
+
+    // Family History : Does the patient have any immediate relatives 
+    $("#familyCancerYes").on("change",      enableAmountOfFamilyRelatives)
+    $("#familyCancerNo").on("change",       disableAmountOfFamilyRelatives)
+    $("#familyCancerUnknown").on("change",  disableAmountOfFamilyRelatives)
 
   });
 
@@ -61,7 +80,8 @@ function enableCRATFormWithRaceDisabled() {
     //$("form #hispanicYes").
 }
 
-/* Disables the race question and its answers */
+/* Disables the race question and its answers                                                */
+/* This section should be refactored, but can be done as a TODO later on                     */
 function disableRaceQuestion() {
     $("[for='race']").css("color", "#C0C0C0")
     $("[for='race']").next().css("color", "#C0C0C0")
@@ -77,20 +97,119 @@ function enableRaceQuestion() {
     $("[for='race']").nextUntil("label.questions").children("input").attr("disabled",false)
 }
 
-/* Disable the question concerning a color or rectal polyp */
-function disablecolonSigmoidoscopyQuestion() {
-    $("[for='polyp']").css("color", "#2E2E2E")
-    $("[for='polyp']").nextUntil("label.questions").children("label.radio").css("color","#2E2E2E")
-    $("[for='polyp']").nextUntil("label.questions").children("input").attr("disabled","disabled")    
+function enableServingOfLeafyGreenVegatables() {
+    $("[for='veg_amount']").css("color", "#2E2E2E")
+    $("[for='veg_amount']").nextUntil("label.questions").children("select").attr("disabled", false)        
 }
 
-/* Enable the question concerning a color or rectal polyp */
-function enablecolonSigmoidoscopyQuestion() {
+function disableServingOfLeafyGreenVegatables() {
+    $("[for='veg_amount']").css("color", "#C0C0C0")
+    $("[for='veg_amount']").nextUntil("label.questions").children("select").attr("disabled", true)        
+}
+
+function enableHoursPerWeekModerateActivity() {
+    $("[for='moderate_hours']").css("color", "#2E2E2E")
+    $("[for='moderate_hours']").nextUntil("label.questions").children("select").attr("disabled", false)        
+}
+
+function disablehoursPerWeekModerateActivity() {
+    $("[for='moderate_hours']").css("color", "#C0C0C0")
+    $("[for='moderate_hours']").nextUntil("label.questions").children("select").attr("disabled", true)        
+}
+
+function enableHoursPerWeekVigorousActivity() {
+    $("[for='vigorous_hours']").css("color", "#2E2E2E")
+    $("[for='vigorous_hours']").nextUntil("label.questions").children("select").attr("disabled", false)        
+}
+
+function disableHoursPerWeekVigorousActivity() {
+    $("[for='vigorous_hours']").css("color", "#C0C0C0")
+    $("[for='vigorous_hours']").nextUntil("label.questions").children("select").attr("disabled", true)        
+}
+
+function disableColonSigmoidoscopyQuestion() {
     $("[for='polyp']").css("color", "#C0C0C0")
     $("[for='polyp']").nextUntil("label.questions").children("label.radio").css("color","#C0C0C0")
+    $("[for='polyp']").nextUntil("label.questions").children("input").attr("disabled", true)    
+}
+
+function enableColonSigmoidoscopyQuestion() {
+    $("[for='polyp']").css("color", "#2E2E2E")
+    $("[for='polyp']").nextUntil("label.questions").children("label.radio").css("color","#2E2E2E")
     $("[for='polyp']").nextUntil("label.questions").children("input").attr("disabled", false)    
 }
 
+function disasbleLastPeriodWhen() {
+    $("[for='last_period']").css("color", "#C0C0C0")
+    $("[for='last_period']").nextUntil("label.questions").children("select").attr("disabled", true)        
+}
+
+function enableLastPeriodWhen() {
+    $("[for='last_period']").css("color", "#2E2E2E")
+    $("[for='last_period']").nextUntil("label.questions").children("select").attr("disabled", false)        
+}
+
+function disableHormoneTreatement() {
+    $("[for='hormone_treatment']").css("color", "#C0C0C0")
+    $("[for='hormone_treatment']").next().css("color", "#C0C0C0")
+    $("[for='hormone_treatment']").next().next().children("label.radio").css("color","#C0C0C0")
+    $("[for='hormone_treatment']").next().next().children("input").attr("disabled", true)    
+
+}
+
+function enableHormoneTreatement() {
+    $("[for='hormone_treatment']").css("color", "#2E2E2E")
+    $("[for='hormone_treatment']").next().css("color", "#2E2E2E")
+    $("[for='hormone_treatment']").next().next().children("label.radio").css("color","#2E2E2E")
+    $("[for='hormone_treatment']").next().next().children("input").attr("disabled", true)    
+}
+
+function enableAmountOfFamilyRelatives() {
+    $("[for='family_count']").css("color", "#2E2E2E")
+    $("[for='family_count']").next().children("input").attr("disabled", false)  
+    $("[for='family_count']").next().children("label.radio").css("color", "#2E2E2E")               
+}
+
+function disableAmountOfFamilyRelatives() {
+    $("[for='family_count']").css("color", "#C0C0C0")
+    $("[for='family_count']").next().children("input").attr("disabled", true)  
+    $("[for='family_count']").next().children("label.radio").css("color", "#C0C0C0")                  
+}
+
+
+/* This section will disable and eanble the select boxes dynamically  and should be refactored later on */
+function adjustAmountPerServingBasedOnServings() {
+    if ( this.value == '0' ) {
+        disableServingOfLeafyGreenVegatables()
+    } else {
+        enableServingOfLeafyGreenVegatables()
+    }
+}
+
+function adjustHoursPerWeekModerateActivity() {
+    if ( this.value == '0' ) {
+        disablehoursPerWeekModerateActivity()
+    } else {
+        enableHoursPerWeekModerateActivity()
+    }
+
+}
+
+function adjustHoursPerWeekVigorousActivity() {
+    if ( this.value == '0' ) {
+        disableHoursPerWeekVigorousActivity()
+    } else {
+        enableHoursPerWeekVigorousActivity()
+    }
+}
+
+function adjustLastTimeSheHadPeriod() {
+    if ( this.value == '0' || this.value == '1') {
+        disableHormoneTreatement()
+    } else {
+        enableHormoneTreatement()
+    }
+}
 
 /* Toggle the gender form Male to Female or Female to Male */
 function toggleGender(e) {

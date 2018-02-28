@@ -199,6 +199,10 @@ a:focus {
 .sectionTitle:nth-child(7) {
   background: #1095A1;
 }
+
+.sectionTitle:nth-child(9) {
+  background: red;
+}
 .no_display {
   display: none;
 }
@@ -1680,5 +1684,28 @@ section > fieldset > legend.questions {
 
 #main * .forAsprinsUnorderedList {
   padding-left: 1.2em;
+}
+
+/******************************************/
+/* Changes Specific to CCRAT              */
+/******************************************/
+#veg_servings {
+  width: 285px;
+}
+
+#veg_amount {
+  width: 285px;
+}
+
+#moderate_hours {
+  width: 260px;
+}
+
+#vigorous_hours {
+  width: 260px;
+}
+
+#last_period {
+  width: 255px;
 }
 

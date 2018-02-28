@@ -483,9 +483,9 @@
             <div class="female ">
               <label class="questions" for="period">Does the patient still have periods?</label>
               <div class="responseOptions">
-                <input class="no-margin-top" type="radio" name="period" value="2" aria-label="yes">
+                <input id="periodYes" class="no-margin-top" type="radio" name="period" value="2" aria-label="yes">
                 <label class="no-margin-top radio"><span></span>Yes</label>
-                <input class="no-margin-bottom" type="radio" name="period" value="0" aria-label="no">
+                <input id="periodNo" class="no-margin-bottom" type="radio" name="period" value="0" aria-label="no">
                 <label class="no-margin-bottom radio"><span></span>No</label>
               </div>
             </div>
@@ -493,7 +493,7 @@
             <div class="female col-xs-offset-1 col-md-offset-1">
               <label class="questions" for="last_period">when did the patient have her last period</label>
               <div class="responseOptions">
-                <select name="last_period">
+                <select id="last_period" name="last_period">
                   <option value="">- Select -</option>
                   <option value="0">Within the last year</option>
                   <option value="1">Between 1 and 2 years ago</option>
@@ -503,11 +503,10 @@
             </div>
 
             <div class ="female col-xs-offset-2 col-md-offset-2 ">
-                <label class="questions" for="vigorous_hours">During the past two years, have you used estrogen, progestin, or other female hormones</label>
+                <label class="questions" for="hormone_treatment">During the past two years, have you used estrogen, progestin, or other female hormones</label>
                 <div class="question_secondary">
-                    Vigorous activities include all activities that DO cause you to sweat or breathe hard.
-                    Some examples include racquet sports, basketball, running, fast biking, exercise class,
-                    weight lifting, backpacking, swimming, and heavy labor such as shoveling dirt.
+                  These hormones may be given as hormone pills, oral contraceptives, shots, skin patches, 
+                  vaginal creams, or as vaginal suppositories
                 </div>
 
                 <div class="responseOptions">
@@ -529,15 +528,15 @@
               and/or biological sons or daugthers) who, at any time in their lives, have ever had cancer of the colon or rectum (cancer of the lower intestine)?
             </label>
             <div class="responseOptions ">
-              <input class="no-margin-top" type="radio" name="family_cancer" value="1" aria-label="yes">
+              <input id="familyCancerYes" class="no-margin-top" type="radio" name="family_cancer" value="1" aria-label="yes">
               <label class="no-margin-top radio" tabindex="0"><span></span>Yes</label>
-              <input type="radio" name="family_cancer" value="0" aria-label="no">
+              <input id="familyCancerNo" type="radio" name="family_cancer" value="0" aria-label="no">
               <label class="radio" tabindex="0"><span></span>No</label>
-              <input type="radio" value="0" name="family_cancer" aria-label="doesn't know">
+              <input id="familyCancerUnknown" type="radio" value="0" name="family_cancer" aria-label="doesn't know">
               <label class="radio" tabindex="0"><span></span>Doesn't know</label>
 
             </div>
-            <div class="subquestion col-xs-offset-1 col-md-offset-1">
+            <div class="questoin col-xs-offset-1 col-md-offset-1">
                   <label class="questions" for="family_count">How many of these relatives had cancer of the colon or rectum (cancer of the lower intestine)?</label>
                   <div class="responseOptions">
                     <input class="no-margin-top" type="radio" value="0" name="family_count" aria-label="1">
