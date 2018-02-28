@@ -27,30 +27,37 @@ $(function() {
         }
     })
 
+    // Adding extra funcitonality to the enableCalculateButton 
+    // If both the age of starting and ending smoking have been enter warn the user if the quitting age is before the starting age
+    $("#riskForm").on( "change", function(event) {
+        alertUserIfStartSmokingIsAfterQuittingSmoking(event)
+    })
+
     // Enables the form when the user clicks ok for the dialog box be dispalyed
     // for any question in the patient eligibility phasse or the race
     $("#hisp-notice").on("click",       enableCRATFormWithRaceDisabled)
+    $("#smokingAgeErrorOkButton").on("click",   enableCRATFormWithRaceDisabled)
 
     // Each time the gender is toggle the form should determine if the calculate button should be enabled */
     $("input[name='gender']").on("change", toggleGender);
     $("input[name='gender']").on("change", enableCalculateButton);
 
     // For Diet and Activity Section if the user select no servings disable the amont per serving
-    $("#veg_servings").on("change", adjustAmountPerServingBasedOnServings)
-    $("#moderate_months").on("change", adjustHoursPerWeekModerateActivity)
-    $("#vigorous_months").on("change", adjustHoursPerWeekVigorousActivity)
+    $("#veg_servings").on("change",     adjustAmountPerServingBasedOnServings)
+    $("#moderate_months").on("change",  adjustHoursPerWeekModerateActivity)
+    $("#vigorous_months").on("change",  adjustHoursPerWeekVigorousActivity)
 
     // For Medical History : During the past 10 years, did the patient have a colonoscopy, sigmoidoscopy, or both?
-    $("#colonSigmoidoscopyYes").on("change", enableColonSigmoidoscopyQuestion)
-    $("#colonSigmoidoscopyNo").on("change", disableColonSigmoidoscopyQuestion)
-    $("#colonSigmoidoscopyUnknown").on("change", disableColonSigmoidoscopyQuestion)
+    $("#colonSigmoidoscopyYes").on("change",        enableColonSigmoidoscopyQuestion)
+    $("#colonSigmoidoscopyNo").on("change",         disableColonSigmoidoscopyQuestion)
+    $("#colonSigmoidoscopyUnknown").on("change",    disableColonSigmoidoscopyQuestion)
 
     // For Medical History : Does the patient still have periods
     $("#periodYes").on("click", disasbleLastPeriodWhen)
     $("#periodYes").on("click", disableHormoneTreatement)
-    $("#periodNo").on("click", enableLastPeriodWhen)
-    $("#periodNo").on("click", enableHormoneTreatement)
-    $("#periodNo").on("click", adjustLastTimeSheHadPeriod)
+    $("#periodNo").on("click",  enableLastPeriodWhen)
+    $("#periodNo").on("click",  enableHormoneTreatement)
+    $("#periodNo").on("click",  adjustLastTimeSheHadPeriod)
 
     // For Medical History : when did the patient have her last period
     $("#last_period").on("change", adjustLastTimeSheHadPeriod)
@@ -60,7 +67,55 @@ $(function() {
     $("#familyCancerNo").on("change",       disableAmountOfFamilyRelatives)
     $("#familyCancerUnknown").on("change",  disableAmountOfFamilyRelatives)
 
+    // Smoking : Has the patient every smoke more than 100 Cigarettes
+    $("#smokeYes").on("click",      enableAgeWhenStartedSmoking)
+    $("#smokeYes").on("click",      enableCurrentlySmokeCigarettes)
+    $("#smokeYes").on("click",      enableAgeQuitSmoking)
+    $("#smokeYes").on("click",      enableCigarettesSmokedPerDay)
+
+    $("#smokeNo").on("click",       disableAgeWhenStartedSmoking)
+    $("#smokeNo").on("click",       disableCurrentlySmokeCigarettes)
+    $("#smokeNo").on("click",       disableAgeQuitSmoking)
+    $("#smokeNo").on("click",       disableCigarettesSmokedPerDay)
+
+    $("#smokeUnknown").on("click",  disableAgeWhenStartedSmoking)
+    $("#smokeUnknown").on("click",  disableCurrentlySmokeCigarettes)
+    $("#smokeUnknown").on("click",  disableAgeQuitSmoking)
+    $("#smokeUnknown").on("click",  disableCigarettesSmokedPerDay)
+
+    // Smoking : Has the person ever smoked Cigrarettes regulary
+    $("#firstYearSmoke").on("change", adjustSmokingOnRegularBasis)
+
+    // Smoking : Do you currently smoke cigarettes
+    $("#currentlySmokeYes").on("click", disableAgeQuitSmoking)
+    $("#currentlySmokeNo").on("click",  enableAgeQuitSmoking)
+
   });
+
+function alertUserIfStartSmokingIsAfterQuittingSmoking (event) {
+    /*
+    * function -- If the Age Started Smoking and the Age Quit Smoking have are both an Age 
+    * verifyt that the start smoking is before or equal to the quit smoking
+    */
+    function startSmokingBeforeQuitSmoking() {
+        
+        let startSmoking = parseInt($("#firstYearSmoke").val())
+        let endSmoking   = parseInt($("#smoke_quit").val())
+        
+        if ( isNaN(startSmoking) || isNaN(startSmoking)) {
+            return false;
+        } else if ( startSmoking > endSmoking ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    if ( startSmokingBeforeQuitSmoking() == true ) {
+        $("#smokingAgeError").modal("show");
+        disableCRATForm();
+    }
+}
 
 /* The fucntion disables for the form */
 function disableCRATForm() {
@@ -77,7 +132,6 @@ function enableCRATFormWithRaceDisabled() {
     enableForm();
     disableRaceQuestion()
     $("[class='numberField'").next("span").css("color","#2E2E2E")
-    //$("form #hispanicYes").
 }
 
 /* Disables the race question and its answers                                                */
@@ -154,7 +208,6 @@ function disableHormoneTreatement() {
     $("[for='hormone_treatment']").next().css("color", "#C0C0C0")
     $("[for='hormone_treatment']").next().next().children("label.radio").css("color","#C0C0C0")
     $("[for='hormone_treatment']").next().next().children("input").attr("disabled", true)    
-
 }
 
 function enableHormoneTreatement() {
@@ -174,6 +227,52 @@ function disableAmountOfFamilyRelatives() {
     $("[for='family_count']").css("color", "#C0C0C0")
     $("[for='family_count']").next().children("input").attr("disabled", true)  
     $("[for='family_count']").next().children("label.radio").css("color", "#C0C0C0")                  
+}
+
+function enableAgeWhenStartedSmoking() {
+    $("[for='firstYearSmoke']").css("color", "#2E2E2E")
+    $("[for='firstYearSmoke']").nextUntil("label.questions").children("select").attr("disabled", false)        
+}
+
+function disableAgeWhenStartedSmoking() {
+    $("[for='firstYearSmoke']").css("color", "#C0C0C0")
+    $("[for='firstYearSmoke']").nextUntil("label.questions").children("select").attr("disabled", true)        
+}
+
+function enableCurrentlySmokeCigarettes() {
+    $("[for='currentlySmoke']").css("color", "#2E2E2E")
+    $("[for='currentlySmoke']").nextUntil("label.questions").children("input").attr("disabled", false)
+    $("[for='currentlySmoke']").nextUntil("label.questions").children("label.radio").css("color", "#2E2E2E")                            
+}
+
+function disableCurrentlySmokeCigarettes() {
+    $("[for='currentlySmoke']").css("color", "#C0C0C0")
+    $("[for='currentlySmoke']").nextUntil("label.questions").children("input").attr("disabled", true) 
+    $("[for='currentlySmoke']").nextUntil("label.questions").children("label.radio").css("color", "#C0C0C0")                      
+}
+
+function enableAgeQuitSmoking() {
+    $("[for='smoke_quit']").css("color", "#2E2E2E")
+    $("[for='smoke_quit']").next().css("color", "#2E2E2E")
+    $("[for='smoke_quit']").nextUntil("label.questions").children("select").attr("disabled", false)
+    /* $("[for='smoke_quit']").nextUntil("label.questions").children("label.radio").css("color", "#2E2E2E")  */                          
+}
+
+function disableAgeQuitSmoking() {
+    $("[for='smoke_quit']").css("color", "#C0C0C0")
+    $("[for='smoke_quit']").next().css("color", "#C0C0C0")    
+    $("[for='smoke_quit']").nextUntil("label.questions").children("select").attr("disabled", true) 
+    /* $("[for='smoke_quit']").nextUntil("label.questions").children("label.radio").css("color", "#C0C0C0") */                    
+}
+
+function enableCigarettesSmokedPerDay() {
+    $("[for='cigarettes_num']").css("color", "#2E2E2E")
+    $("[for='cigarettes_num']").next().children("select").attr("disabled", false)
+}
+
+function disableCigarettesSmokedPerDay() {
+    $("[for='cigarettes_num']").css("color", "#C0C0C0")
+    $("[for='cigarettes_num']").next().children("select").attr("disabled", true) 
 }
 
 
@@ -211,6 +310,18 @@ function adjustLastTimeSheHadPeriod() {
     }
 }
 
+function adjustSmokingOnRegularBasis() {
+    if ( this.value == '0' ) {
+        disableCurrentlySmokeCigarettes()
+        disableAgeQuitSmoking()
+        disableCigarettesSmokedPerDay()
+    } else {
+        enableCurrentlySmokeCigarettes()
+        enableAgeQuitSmoking()
+        enableCigarettesSmokedPerDay()
+    }
+    
+}
 /* Toggle the gender form Male to Female or Female to Male */
 function toggleGender(e) {
     var value = $(e.target).val();
@@ -521,7 +632,7 @@ function resultsDisplay(response, textStatus, xhr) {
     $("#Risk6").text(result.averageLifetimeRisk+"%");
     
 	make_pie_chart(result.risk,                  "#pieChart1", fiveYearPatientRiskColor,  "#EFEFEF");
-    make_pie_chart(result.average5YearRisk,   "#pieChart2", "#40A5C1",                 "#EFEFEF");
+    make_pie_chart(result.average5YearRisk,      "#pieChart2", "#40A5C1",                 "#EFEFEF");
 	make_pie_chart(result.patient10YearRisk,     "#pieChart3", tenYearPatientRiskColor,  "#EFEFEF");
     make_pie_chart(result.average10YearRisk,     "#pieChart4", "#40A5C1",                 "#EFEFEF");    
 	make_pie_chart(result.patientLifetimeRisk,   "#pieChart5", lifetimePateientRiskColor, "#EFEFEF");

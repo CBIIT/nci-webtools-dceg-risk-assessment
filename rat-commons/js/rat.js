@@ -758,12 +758,15 @@ function removeOutline(event) {
 // Enable the Caluclate Button if all non disabled inputs have a value
 //////////////////////////////////////////////////////////////////////////////
 function enableCalculateButton() {
+
+	 console.log("Calling enableCalculateButton")
 	 var inputs = $("form#riskForm input:enabled, form#riskForm select:enabled");
 	 valid=true
 	 inputs.each(function(index) {
 			 var input = $(this);
 			 if(input[0].required==true){
 				 name=input[0].name
+				 console.log("Currently working with name " + name)
 				 if(($('input[name=' + name +']').is('input') && $('input[name=' + name + ']:checked').length==0) || ($('select[name=' + name +']').is('select') && input[0].selectedIndex==0)){
 						 disablebutton()
 						 valid=false
@@ -786,6 +789,7 @@ function enableCalculateButton() {
 ///////////////////////////////////////////////////////////////////////////////
 function enableButtonIfAllFieldHaveInput()
 {
+	 console.log("Calling enableButtonIfAllFieldHaveInput")
 	 var inputs = $("form#riskForm input:enabled, form#riskForm select:enabled");
 	 valid=true
 
@@ -895,7 +899,7 @@ function enableForm() {
 	$("form label.radio").css("color","#2E2E2E")
 	$("[class*='questions']").css("color","#2E2E2E")
 	enableSectionHeaders();
-	$("#riskForm").trigger("change")
+	//$("#riskForm").trigger("change")
 }
 
 ////////////////////////////////////////////////////////////////////////////////
