@@ -48,7 +48,7 @@
 
     <div id="results" class="container-fluid">
       <div id="results_home">
-        <a href="javascript:goback_tocalc()">< Back to Calculator</a>
+        <a href="javascript:goback_tocalc()">&lt; Back to Calculator</a>
         <img id="print" src="rat-commons/images/print-icon.gif">
         <h1>Personalized Results</h1>
         <div class="row">
@@ -186,11 +186,11 @@
         <section id="demo-section">
           <label class="questions no-margin-top" for="hispanic">Is the patient Hispanic or Latino?</label>
           <div class="responseOptions ">
-            <input id="hispanicYes" type="radio" name="hispanic" value="0" aria-label="Yes" />
+            <input id="hispanicYes" type="radio" name="hispanic" value="0" aria-label="Yes" required/>
             <label class="radio" tabindex="0"><span></span>Yes</label>
           </div>
           <div class="responseOptions ">
-            <input type="radio" name="hispanic" value="1" aria-label="No" />
+            <input id="hispanicNo" type="radio" name="hispanic" value="1" aria-label="No" required />
             <label class="radio" tabindex="0"><span></span>No</label>
           </div>
           <label class="questions" for="race">To which of the following does the patient identify</label>
@@ -198,15 +198,15 @@
             This tool does not yet apply to American Indians and Alaska Natives
           </p>
           <div class="responseOptions">
-            <input type="radio" name="race" value="White" aria-label="White" />
+            <input type="radio" name="race" value="White" aria-label="White" required />
             <label class="radio" tabindex="0"><span></span>White</label>
           </div>
           <div class="responseOptions">
-            <input type="radio" name="race" value="Black" aria-label="Black or African American" />
+            <input type="radio" name="race" value="Black" aria-label="Black or African American" required />
             <label class="radio" tabindex="0"><span></span>Black or African American</label>
           </div>
           <div class="responseOptions ">
-            <input type="radio" name="race" value="Asian" aria-label="Asian or Pacific Islander" />
+            <input type="radio" name="race" value="Asian" aria-label="Asian or Pacific Islander" required />
             <label class="no-margin-bottom radio" tabindex="0"><span></span>Asian or Pacific Islander</label>
           </div>
           <label class="questions " for="age">
@@ -216,7 +216,7 @@
             This tool calculates risk for men and women 50 to 85 years of age.
           </p>
           <div class="responseOptions">
-            <select id="age" name="age" placeholder="Enter patient's age" >
+            <select id="age" name="age" placeholder="Enter patient's age" required >
               <option value="">Select Age</option>
               <option value="50">50</option>
               <option value="51">51</option>
@@ -258,18 +258,18 @@
           </div>
           <label class="questions" for="gender">What is the patient&#8217;s sex?</label>
           <div class="responseOptions">
-            <input type="radio" name="gender" value="Male" aria-label="Male" />
+            <input id="maleGender" type="radio" name="gender" value="Male" aria-label="Male" required />
             <label class="radio" tabindex="0"><span></span>Male</label>
           </div>
           <div class="responseOptions ">
-            <input class="no-margin-bottom" type="radio" name="gender" value="Female" aria-label="Female" />
+            <input id="femaleGender" class="no-margin-bottom" type="radio" name="gender" value="Female" aria-label="Female" required />
             <label class="radio" tabindex="0"><span></span>Female</label>
           </div>
           <label class="questions">What is the patients height and weight without shoes?</label>
           <div class="row">
             <div class="col-xs-12 col-sm-3">
               <div class="responseOptions">
-                <input class="numberField" type="number" name="height_ft" min="2" max="17" aria-label="height feet" />
+                <input class="numberField" type="number" name="height_ft" min="2" max="17" aria-label="height feet" required />
                 <span>
                   ft.
                 </span>
@@ -277,7 +277,7 @@
             </div>
             <div class="col-xs-12 col-sm-3">
               <div class="responseOptions">
-                <input class="numberField" type="number" name="height_in" min="0" max="11" aria-label="height inches" />
+                <input class="numberField" type="number" name="height_in" min="0" max="11" aria-label="height inches" required />
                 <span>
                   in.
                 <span>
@@ -285,7 +285,7 @@
             </div>
             <div class="col-xs-12 col-sm-3">
               <div class="responseOptions">
-                <input class="numberField" type="number" name="weight" min="50" max="700" aria-label="weight in pounds" />
+                <input class="numberField" type="number" name="weight" min="50" max="700" aria-label="weight in pounds" required/>
                 <span>
                   lbs.
                 <span>
@@ -307,7 +307,7 @@
               <b>Does not include</b> fried vegetables like French fries or fried potatoes.
             </div>
             <div class="responseOptions ">
-              <select id="veg_servings" name="veg_servings">
+              <select id="veg_servings" name="veg_servings" required >
                 <option value="">- select -</option>
                 <option value="0">None</option>
                 <option value=".5">Less than 1 serving per week</option>
@@ -321,7 +321,7 @@
             <div class="col-xs-offset-1 col-md-offset-1 ">
               <label class="questions" for="veg_amount">In the past 30 days, how much did the patient usually eat in each serving of vegetables or leafy green salads?</label>
               <div class="responseOptions subquestions">
-                <select id="veg_amount" name="veg_amount">
+                <select id="veg_amount" name="veg_amount" required>
                   <option value="">- select -</option>
                   <option value=".25">1/2 cup or less</option>
                   <option value="1">Between 1/2 cup and 1 1/2 cups</option>
@@ -337,7 +337,7 @@
               Moderate activities DO NOT cause you to sweat or breathe hard. Some examples include vacuuming, gardening, easy walking for exercise, and so on.
             </div>
             <div class="responseOptions ">
-              <select id="moderate_months" name="moderate_months">
+              <select id="moderate_months" name="moderate_months" required >
                 <option value="">- select -</option>
                 <option value="0">0</option>
                 <option value="1">1</option>
@@ -358,7 +358,7 @@
             <div class="col-xs-offset-1 col-md-offset-1 subquestion" id="subquestion-moderate-hours">
               <label class="questions" for="moderate_hours">During those months, on average, about how many hours per week did the patient do moderate physical activities?</label>
               <div class="responseOptions ">
-                <select id="moderate_hours" name="moderate_hours">
+                <select id="moderate_hours" name="moderate_hours" required >
                   <option value="">-select-</option>
                   <option value="0.5">Up to 1 hour per week</option>
                   <option value="1.5">Between 1-2 hours per week</option>
@@ -376,7 +376,7 @@
                 weight lifting, backpacking, swimming, and heavy labor such as shoveling dirt.
             </div>
             <div class="responseOptions ">
-              <select id="vigorous_months" name="vigorous_months">
+              <select id="vigorous_months" name="vigorous_months" required>
                 <option value="">- select -</option>
                 <option value="0">0</option>
                 <option value="1">1</option>
@@ -397,7 +397,7 @@
             <div class ="col-xs-offset-1 col-md-offset-1 ">
                 <label class="questions" for="vigorous_hours">During those months, on average, about how many hours per week did the patient do vigorous physical activities?</label>
                 <div class="responseOptions">
-                  <select id="vigorous_hours" name="vigorous_hours">
+                  <select id="vigorous_hours" name="vigorous_hours" required >
                     <option value="">-select-</option>
                     <option value="0.5">Up to 1 hour per week</option>
                     <option value="1.5">Between 1-2 hours per week</option>
@@ -417,20 +417,20 @@
           <section id="medical-section">
             <label class="questions no-margin-top" for="exam">During the past 10 years, did the patient have a colonoscopy, sigmoidoscopy, or both?</label>
             <div class="responseOptions ">
-              <input id="colonSigmoidoscopyYes" class="no-margin-top" type="radio" name="exam" value="0" aria-label="Yes">
+              <input id="colonSigmoidoscopyYes" class="no-margin-top" type="radio" name="exam" value="0" aria-label="Yes" required>
               <label class="no-margin-top radio"><span></span>Yes</label>
-              <input id="colonSigmoidoscopyNo" type="radio" name="exam" value="1" aria-label="No">
+              <input id="colonSigmoidoscopyNo" type="radio" name="exam" value="1" aria-label="No" required>
               <label class="radio"><span></span>No</label>
-              <input id="colonSigmoidoscopyUnknown" class="no-margin-bottom" type="radio" name="exam" value="3" aria-label="Doesn't know">
+              <input id="colonSigmoidoscopyUnknown" class="no-margin-bottom" type="radio" name="exam" value="3" aria-label="Doesn't know" required>
               <label class="no-margin-bottom radio"><span></span>Doesn't know</label>
             </div>
             <label class="questions" for="polyp">In the past 10 years, did a healthcare provider tell the patient that he or she had a colon or rectal polyp?</label>
             <div class="responseOptions ">
-              <input class="no-margin-top" type="radio" name="polyp" value="2" aria-label="Yes">
+              <input class="no-margin-top" type="radio" name="polyp" value="2" aria-label="Yes" required>
               <label class="no-margin-top radio"><span></span>Yes</label>
-              <input type="radio" name="polyp" value="0" aria-label="No">
+              <input type="radio" name="polyp" value="0" aria-label="No" required>
               <label class="radio"><span></span>No</label>
-              <input class="no-margin-bottom" type="radio" name="polyp" value="3" aria-label="Doesn't know">
+              <input class="no-margin-bottom" type="radio" name="polyp" value="3" aria-label="Doesn't know" required>
               <label class="no-margin-bottom radio"><span></span>Doesn't know</label>
             </div>
             <label class="questions" for="asprin">
@@ -448,11 +448,11 @@
               </div>
             </label>
             <div class="responseOptions ">
-              <input type="radio" name="aspirin" value="2" aria-label="yes">
+              <input type="radio" name="aspirin" value="2" aria-label="yes" required>
               <label class="radio"><span></span>Yes</label>
-              <input type="radio" name="aspirin" value="0" aria-label="no">
+              <input type="radio" name="aspirin" value="0" aria-label="no" required>
               <label class="radio"><span></span>No</label>
-              <input type="radio" name="aspirin" value="3" aria-label="doesn't know">
+              <input type="radio" name="aspirin" value="3" aria-label="doesn't know" required>
               <label class="radio"><span></span>Doesn't know</label>
             </div>
             <label class="questions" for="medications">
@@ -473,19 +473,19 @@
                 </div>
             </label>
             <div class="responseOptions ">
-              <input type="radio" name="non_aspirin" value="2" aria-label="yes">
+              <input type="radio" name="non_aspirin" value="2" aria-label="yes" required>
               <label class="radio"><span></span>Yes</label>
-              <input type="radio" name="non_aspirin" value="0" aria-label="no">
+              <input type="radio" name="non_aspirin" value="0" aria-label="no" required >
               <label class="radio"><span></span>No</label>
-              <input class="no-margin-bottom" type="radio" name="non_aspirin" value="3" aria-label="doesn't know">
+              <input class="no-margin-bottom" type="radio" name="non_aspirin" value="3" aria-label="doesn't know" required>
               <label class="no-margin-bottom radio"><span></span>Doesn't know</label>
             </div>
             <div class="female ">
               <label class="questions" for="period">Does the patient still have periods?</label>
               <div class="responseOptions">
-                <input id="periodYes" class="no-margin-top" type="radio" name="period" value="2" aria-label="yes">
+                <input id="periodYes" class="no-margin-top" type="radio" name="period" value="2" aria-label="yes" required>
                 <label class="no-margin-top radio"><span></span>Yes</label>
-                <input id="periodNo" class="no-margin-bottom" type="radio" name="period" value="0" aria-label="no">
+                <input id="periodNo" class="no-margin-bottom" type="radio" name="period" value="0" aria-label="no" required>
                 <label class="no-margin-bottom radio"><span></span>No</label>
               </div>
             </div>
@@ -493,7 +493,7 @@
             <div class="female col-xs-offset-1 col-md-offset-1">
               <label class="questions" for="last_period">when did the patient have her last period</label>
               <div class="responseOptions">
-                <select id="last_period" name="last_period">
+                <select id="last_period" name="last_period" required>
                   <option value="">- Select -</option>
                   <option value="0">Within the last year</option>
                   <option value="1">Between 1 and 2 years ago</option>
@@ -510,9 +510,9 @@
                 </div>
 
                 <div class="responseOptions">
-                    <input class="no-margin-top" type="radio" name="usedHormones" value="2" aria-label="yes">
+                    <input class="no-margin-top" type="radio" name="usedHormones" value="2" aria-label="yes" required>
                     <label class="no-margin-top radio"><span></span>Yes</label>
-                    <input class="no-margin-bottom" type="radio" name="usedHormones" value="0" aria-label="no">
+                    <input class="no-margin-bottom" type="radio" name="usedHormones" value="0" aria-label="no" required>
                     <label class="no-margin-bottom radio"><span></span>No</label>
                 </div>
             </div>
@@ -528,21 +528,21 @@
               and/or biological sons or daugthers) who, at any time in their lives, have ever had cancer of the colon or rectum (cancer of the lower intestine)?
             </label>
             <div class="responseOptions ">
-              <input id="familyCancerYes" class="no-margin-top" type="radio" name="family_cancer" value="1" aria-label="yes">
+              <input id="familyCancerYes" class="no-margin-top" type="radio" name="family_cancer" value="1" aria-label="yes" required>
               <label class="no-margin-top radio" tabindex="0"><span></span>Yes</label>
-              <input id="familyCancerNo" type="radio" name="family_cancer" value="0" aria-label="no">
+              <input id="familyCancerNo" type="radio" name="family_cancer" value="0" aria-label="no" required >
               <label class="radio" tabindex="0"><span></span>No</label>
-              <input id="familyCancerUnknown" type="radio" value="0" name="family_cancer" aria-label="doesn't know">
+              <input id="familyCancerUnknown" type="radio" value="0" name="family_cancer" aria-label="doesn't know" required>
               <label class="radio" tabindex="0"><span></span>Doesn't know</label>
             </div>
             <div class="questoin col-xs-offset-1 col-md-offset-1">
                   <label class="questions" for="family_count">How many of these relatives had cancer of the colon or rectum (cancer of the lower intestine)?</label>
                   <div class="responseOptions">
-                    <input class="no-margin-top" type="radio" value="0" name="family_count" aria-label="1">
+                    <input class="no-margin-top" type="radio" value="0" name="family_count" aria-label="1" required>
                     <label class="no-margin-top radio" tabindex="0"><span></span>1</label>
-                    <input type="radio" value="1" name="family_count" aria-label="2 or more">
+                    <input type="radio" value="1" name="family_count" aria-label="2 or more" required >
                     <label class="radio" tabindex="0"><span></span>2 or more</label>
-                    <input type="radio" value="0" name="family_count" aria-label="doesn't know">
+                    <input type="radio" value="0" name="family_count" aria-label="doesn't know" required >
                     <label class="radio" tabindex="0"><span></span>Doesn't know</label>
                   </div>
               </div>
@@ -557,17 +557,17 @@
                   In your entire lifetime, altogether, have you smoked 100 or more cigarettes?
               </label>   
               <div class="responseOptions">
-                  <input id="smokeYes"class="no-margin-top" type="radio" value="0" name="cigarettes" aria-label="Yes">
+                  <input id="smokeYes"class="no-margin-top" type="radio" value="0" name="cigarettes" aria-label="Yes" required>
                   <label class="no-margin-top radio" tabindex="0"><span></span>Yes</label>
-                  <input id="smokeNo" type="radio" value="1" name="cigarettes" aria-label="No">
+                  <input id="smokeNo" type="radio" value="1" name="cigarettes" aria-label="No" required>
                   <label class="radio" tabindex="0"><span></span>No</label>
-                  <input id="smokeUnknown" type="radio" value="1" name="cigarettes" aria-label="No">
+                  <input id="smokeUnknown" type="radio" value="1" name="cigarettes" aria-label="No" required>
                   <label class="radio" tabindex="0"><span></span>doesn't know</label>
               </div>
               <div class="subquestion col-xs-offset-1 col-md-offset-1">
                   <label class="questions" for="firstYearSmoke">How old were you when you started smoking cigarettes on a regular basis, that is, at least one cigarette a day for six months or longer? </label>
                   <div class="responseOptions">
-                      <select id="firstYearSmoke" name="smoke_age">
+                      <select id="firstYearSmoke" name="smoke_age" required>
                         <option value="">-select-</option>
                         <option value="0">I have never smoked cigrattes regularly</option>
                         <option value="6">6</option>
@@ -625,9 +625,9 @@
                     <div class="subquestion col-xs-offset-1 col-md-offset-1">
                         <label class="questions" for="currentlySmoke">Do you currently smoke cigarettes?</label>
                         <div class="responseOptions">
-                            <input id="currentlySmokeYes" class="no-margin-top" type="radio" value="0" name="smoke_now" aria-label="Yes">
+                            <input id="currentlySmokeYes" class="no-margin-top" type="radio" value="0" name="smoke_now" aria-label="Yes" required>
                             <label class="no-margin-top radio" tabindex="0"><span></span>Yes</label>
-                            <input id="currentlySmokeNo" type="radio" value="1" name="smoke_now" aria-label="No">
+                            <input id="currentlySmokeNo" type="radio" value="1" name="smoke_now" aria-label="No" required>
                             <label class="radio" tabindex="0"><span></span>No</label>
                         </div>
 
@@ -637,7 +637,7 @@
                                 NOTE: If you quit smoking cigarettes completely more than one time, please tell us how old you were the last time you quit smoking completely.
                             </p>
                             <div class="responseOptions">
-                              <select id="smoke_quit" name="smoke_quit">
+                              <select id="smoke_quit" name="smoke_quit" required>
                                 <option value="">-select-</option>
                                 <option value="0">I have never smoked cigrattes regularly</option>
                                 <option value="6">6</option>
@@ -695,7 +695,7 @@
 
                         <label class="questions" for="cigarettes_num">Thinking back over the years you have smoked regularly, about how many cigarettes have you usually smoked a day?</label>
                         <div class="responseOptions">
-                          <select id="cigarettes_num" name="cigarettes_num">
+                          <select id="cigarettes_num" name="cigarettes_num" required>
                             <option value="">-select-</option>
                             <option value="0">0 Cigarettes a day</option>
                             <option value="1">1 to 10 Cigarettes a day</option>

@@ -759,15 +759,16 @@ function removeOutline(event) {
 //////////////////////////////////////////////////////////////////////////////
 function enableCalculateButton() {
 
-	 console.log("Calling enableCalculateButton")
 	 var inputs = $("form#riskForm input:enabled, form#riskForm select:enabled");
 	 valid=true
+
 	 inputs.each(function(index) {
 			 var input = $(this);
 			 if(input[0].required==true){
 				 name=input[0].name
-				 console.log("Currently working with name " + name)
-				 if(($('input[name=' + name +']').is('input') && $('input[name=' + name + ']:checked').length==0) || ($('select[name=' + name +']').is('select') && input[0].selectedIndex==0)){
+				 if( ($('input[name='  +  name +']').is('input[type="number"]')  && $('input[name=' + name + ']').val().length == 0 ) ||
+					 ($('input[name='  +  name +']').is('input[type="radio"]')  && $('input[name=' + name + ']:checked').length==0) || 
+			 		 ($('select[name=' +  name +']').is('select') && input[0].selectedIndex==0)){
 						 disablebutton()
 						 valid=false
 					 }
@@ -789,7 +790,6 @@ function enableCalculateButton() {
 ///////////////////////////////////////////////////////////////////////////////
 function enableButtonIfAllFieldHaveInput()
 {
-	 console.log("Calling enableButtonIfAllFieldHaveInput")
 	 var inputs = $("form#riskForm input:enabled, form#riskForm select:enabled");
 	 valid=true
 
@@ -1213,9 +1213,6 @@ function htmlObjectCloseToBottomOfScreen(htmlObject, threshold) {
 
 	var elementBottom 	=  $(htmlObject).offset().top 	+ $(htmlObject).height();
 	var windowBottom 	=  $(window).scrollTop() 		+ $(window).height();
-
-	console.log("Element Bottom = " + elementBottom)
-	console.log("Window Bottom  = " + windowBottom)
 
 	return ( (elementBottom + elementHeight ) - windowBottom > 0 ) ? true : false;
 

@@ -20,10 +20,10 @@ $(function() {
     $("input[name='hispanic']").on("click", function(event) {
         if(this.value == 0){
             $("#raceModal").modal("show");
-      	    disableCRATForm();
+            disableCRATForm();
    	    } else {
-            $("#riskForm").trigger("change")
             enableRaceQuestion()
+            $("#riskForm").trigger("change")
         }
     })
 
@@ -35,8 +35,8 @@ $(function() {
 
     // Enables the form when the user clicks ok for the dialog box be dispalyed
     // for any question in the patient eligibility phasse or the race
-    $("#hisp-notice").on("click",       enableCRATFormWithRaceDisabled)
-    $("#smokingAgeErrorOkButton").on("click",   enableCRATFormWithRaceDisabled)
+    $("#hisp-notice").on("click",               enableCRATFormWithRaceDisabled)
+    $("#smokingAgeErrorOkButton").on("click",   enableCRATForm)
 
     // Each time the gender is toggle the form should determine if the calculate button should be enabled */
     $("input[name='gender']").on("change", toggleGender);
@@ -54,10 +54,9 @@ $(function() {
 
     // For Medical History : Does the patient still have periods
     $("#periodYes").on("click", disasbleLastPeriodWhen)
-    $("#periodYes").on("click", disableHormoneTreatement)
+    $("#periodYes").on("click", disableHormoneTreatment)
     $("#periodNo").on("click",  enableLastPeriodWhen)
-    $("#periodNo").on("click",  enableHormoneTreatement)
-    $("#periodNo").on("click",  adjustLastTimeSheHadPeriod)
+    $("#periodNo").on("click",  enableHormoneTreatment)
 
     // For Medical History : when did the patient have her last period
     $("#last_period").on("change", adjustLastTimeSheHadPeriod)
@@ -90,6 +89,9 @@ $(function() {
     $("#currentlySmokeYes").on("click", disableAgeQuitSmoking)
     $("#currentlySmokeNo").on("click",  enableAgeQuitSmoking)
 
+    // Initialize the button that will reset the form
+	$("#reset").on("click", resetForm)
+
   });
 
 function alertUserIfStartSmokingIsAfterQuittingSmoking (event) {
@@ -120,7 +122,7 @@ function alertUserIfStartSmokingIsAfterQuittingSmoking (event) {
 /* The fucntion disables for the form */
 function disableCRATForm() {
     disableForm()
-    $("[class='numberField'").next("span").css("color","#C0C0C0")
+    $("[class='numberField']").next("span").css("color","#C0C0C0")
 }
 
 /** Group of fucntions that disable/enable the next question should be put together in one function */
@@ -129,8 +131,23 @@ function disableCRATForm() {
 /* A specialized version of the enableForm function where we determine if  */
 /* certain fields should be enabled.                                       */
 function enableCRATFormWithRaceDisabled() {
-    enableForm();
+    enableCRATGenericForm()
+    $("#hispanicYes").prop("checked", true)
+    $("#hispanicNo").prop("checked", false)
     disableRaceQuestion()
+}
+
+function enableCRATForm() {
+    enableCRATGenericForm()
+    if ( $("[name='hispanic']".prop("checked") == true )) 
+        disableRaceQuestion()
+    else 
+        enableRaceQuestion()
+}
+
+/* A generic functon for enabling the CRAT Form.  Hanldes all the common functionality */
+function enableCRATGenericForm() {
+    enableForm();
     $("[class='numberField'").next("span").css("color","#2E2E2E")
 }
 
@@ -203,14 +220,14 @@ function enableLastPeriodWhen() {
     $("[for='last_period']").nextUntil("label.questions").children("select").attr("disabled", false)        
 }
 
-function disableHormoneTreatement() {
+function disableHormoneTreatment() {
     $("[for='hormone_treatment']").css("color", "#C0C0C0")
     $("[for='hormone_treatment']").next().css("color", "#C0C0C0")
     $("[for='hormone_treatment']").next().next().children("label.radio").css("color","#C0C0C0")
     $("[for='hormone_treatment']").next().next().children("input").attr("disabled", true)    
 }
 
-function enableHormoneTreatement() {
+function enableHormoneTreatment() {
     $("[for='hormone_treatment']").css("color", "#2E2E2E")
     $("[for='hormone_treatment']").next().css("color", "#2E2E2E")
     $("[for='hormone_treatment']").next().next().children("label.radio").css("color","#2E2E2E")
@@ -304,9 +321,9 @@ function adjustHoursPerWeekVigorousActivity() {
 
 function adjustLastTimeSheHadPeriod() {
     if ( this.value == '0' || this.value == '1') {
-        disableHormoneTreatement()
+        disableHormoneTreatment()
     } else {
-        enableHormoneTreatement()
+        enableHormoneTreatment()
     }
 }
 
@@ -322,17 +339,18 @@ function adjustSmokingOnRegularBasis() {
     }
     
 }
+
 /* Toggle the gender form Male to Female or Female to Male */
 function toggleGender(e) {
     var value = $(e.target).val();
     switch (value) {
         case "Male":
             $.each($(".female").find("input, select"), function(index, el) {
-                $(el).rules("remove", "required");
+                $(el).prop("required",false);
             });
 
             $.each($(".male").find("input, select"), function(index, el) {
-                $(el).rules("add", { required: true });
+                $(el).prop("required", true)
             });
 
             $(".female").removeClass('show');
@@ -340,13 +358,13 @@ function toggleGender(e) {
             break;
         case "Female":
             $.each($(".male").find("input, select"), function(index, el) {
-            $(el).rules("remove", "required");
-            if($("[name='" + el.name + "']").val().length > 0)
+                $(el).prop("required", "false")
+                if($("[name='" + el.name + "']").val().length > 0)
                     $("[name='" + el.name + "']").val("");
-            });
+                });
 
             $.each($(".female").find("input, select"), function(index, el) {
-                $(el).rules("add", { required: true });
+                $(el).prop("required",true);
             });
 
             $(".male").removeClass('show');
@@ -355,7 +373,7 @@ function toggleGender(e) {
         default:
             $(".male, .female").removeClass('show').find("input, select").removeAttr("required");
             $.each($(".male, .female").find("input, select"), function(index, el) {
-                $(el).rules("remove", "required");
+                $(el).prop("required",true);
             });
             break;
     }
@@ -646,3 +664,45 @@ function resetForm() {
   resetsDropDowns();
   enableSectionHeaders();
 }
+
+/*
+  * Filter the Input Parameters based on the current gendar ( male, female ) 
+  *
+  *	Assumption : By now the user should have selected Male or Female
+  *
+  * The rat.js will be expecting the following prototype and the exact function name
+  *		prototype: boolean filterForInputParametersDisplay(HTMLObject)
+  *     functionName : filterForInputParametersDisplay
+  *
+  * When looking at this remember female contains male and will include("male") will return true for both.
+  *
+  * Input
+  *    An HTML Object 
+  * 
+  * Output 
+  *    Boolean ( true means the elemenet will not be filtered ) 
+  */
+  function filterForInputParametersDisplay(element)
+  {
+     var selectedGender 	= $("input[name='gender']:checked").val().toLowerCase()
+     var maleGender 		= $("#maleGender").val().toLowerCase()
+     var femaleGender 	= $("#femaleGender").val().toLowerCase()
+ 
+     // Get the CSS Styles and determine whether it contians male or female ( remember female.include(male) == true )
+     var cssStyles = $(element).parent().attr("class").toLowerCase()
+     var containsFemaleGender 	= cssStyles.includes(femaleGender);
+     var containsMaleGender      = ( containsFemaleGender ) ? false : cssStyles.includes(maleGender)
+     var isSelectedGenderFemale 	= ( selectedGender == femaleGender )
+     
+     var resultSelectedGender = false
+     if ( isSelectedGenderFemale == true && containsFemaleGender == true ) 
+         resultSelectedGender = true
+     else if ( isSelectedGenderFemale == false && containsMaleGender == true ) 
+         resultSelectedGender = true
+     
+     // In order to be true neither gender must be used or the select gender must be found in the CSS Styles
+     var result = ( (containsMaleGender == false && containsFemaleGender == false) || resultSelectedGender ) ? true : false
+     
+     return result;
+  }
+ 
