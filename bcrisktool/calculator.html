@@ -49,7 +49,7 @@
     <div id="results" class="container-fluid">
       <div id="results_home">
         <a class="result_page_anchor" href="javascript:goback_tocalc()"> &lt; Back to Calculator</a>
-        <img id="print" src="rat-commons/images/print-icon.gif">
+        <img id="print" src="rat-commons/images/print-icon.gif" alt="printing the page">
         <h1>Personalized Results</h1>
         <div class="row">
           <div class="col-xs-12 col-md-12">
@@ -149,29 +149,29 @@
       <form id="riskForm" name="riskForm" method="POST" action="calculate" autocomplete="off">
         <h2 id="PatientEligibilitySectionTitle" class="sectionTitle">Patient Eligibility</h2>
         <section id="patient-eligibility-section">
-          <label class="questions no-margin-top" for="cancerAndRadiationHistoryNo">Does the woman have a medical history of any breast cancer or of ductal carcinoma in situ (DCIS) or lobular carcinoma in situ (LCIS) or has she received previous radiation therapy to the chest for treatment of Hodgkin lymphoma?</label>
+          <label class="questions no-margin-top">Does the woman have a medical history of any breast cancer or of ductal carcinoma in situ (DCIS) or lobular carcinoma in situ (LCIS) or has she received previous radiation therapy to the chest for treatment of Hodgkin lymphoma?</label>
           <div class="responseOptions">
             <input id="cancerAndRadiationHistoryYes" type="radio" name="cancerAndRadiationHistory" value="0" >
-            <label class="radio" tabindex="0"><span></span>Yes</label>
+            <label class="radio" tabindex="0" for="cancerAndRadiationHistoryYes"><span></span>Yes</label>
           </div>
           <div class="responseOptions">
             <input id="cancerAndRadiationHistoryNo" type="radio" name="cancerAndRadiationHistory" value="1" >
-            <label class="radio" tabindex="0"><span></span>No</label>
+            <label class="radio" tabindex="0" for="cancerAndRadiationHistoryNo"><span></span>No</label>
           </div>
-          <label class="questions" for="geneticMakeupNo">
+          <label class="questions">
             Does the woman have a mutation in either the BRCA1 or BRCA2 gene, or a diagnosis of a genetic syndrome that may be associated with elevated risk of breast cancer?
           </label>
           <div class="responseOptions">
             <input id="geneticMakeupYes" type="radio" name="geneticMakeup" value="0" >
-            <label class="radio" tabindex="0" ><span></span>Yes</label>
+            <label class="radio" tabindex="0" for="geneticMakeupYes"><span></span>Yes</label>
           </div>
           <div class="responseOptions">
             <input id="geneticMakeupNo" type="radio" name="geneticMakeup" value="1" >
-            <label class="radio" tabindex="0" ><span></span>No</label>
+            <label class="radio" tabindex="0" for="geneticMakeupNo" ><span></span>No</label>
           </div>
           <div class="responseOptions">
             <input id="geneticMakeupUnknown" type="radio" name="geneticMakeup" value="2" >
-            <label class="radio" tabindex="0"><span></span>Unknown</label>
+            <label class="radio" tabindex="0" for="geneticMakeupUnknown"><span></span>Unknown</label>
           </div>
         </section>
         <h2 id="demographicsSectionTitle" class="sectionTitle">Demographics</h2>
@@ -260,7 +260,7 @@
         </section>
         <h2 id="PatientAndFamilyHistorySecitonTitle" class="sectionTitle">Patient &amp; Family History</h2>
         <section id="patient-and-family-history-section">
-            <label class="questions no-margin-top" for="biopsyAnswerYes">Has the woman ever had a breast biopsy?</label>
+            <label class="questions no-margin-top">Has the woman ever had a breast biopsy?</label>
             <div class="responseOptions">
               <input id="biopsyAnswerYes" type="radio" name="biopsy" value="1" required>
               <label class="radio" tabindex="0" for="biopsyAnswerYes"><span> </span>Yes</label>
@@ -274,7 +274,7 @@
               <label class="radio" tabindex="0" for="biopsyAnswerUnknown"><span> </span>Unknown</label>
             </div>
 
-            <label class="col-sm-offset-1 questions" for="breastBiopsiesCount1"  data-subquestion="true">How many breast biopsies (positive or negative) has the woman had?</label>
+            <label class="col-sm-offset-1 questions" data-subquestion="true">How many breast biopsies (positive or negative) has the woman had?</label>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
               <input id="breastBiopsiesCount1" type="radio" name="biopsy_result" value="1" required>
               <label class="radio" tabindex="0" for="breastBiopsiesCount1"><span> </span>1</label>
@@ -284,7 +284,7 @@
               <label class="radio" tabindex="0" for="breastBiopsiesCountLessThan0"><span> </span>&gt;1</label>
             </div>
 
-            <label class="col-sm-offset-1 questions" for="hadAhYes"  data-subquestion="true">Has the woman had at least one breast biopsy with atypical hyperplasia?</label>
+            <label class="col-sm-offset-1 questions" data-subquestion="true">Has the woman had at least one breast biopsy with atypical hyperplasia?</label>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
               <input id="hadAhYes" type="radio" name="biopsy_ah" value="1.82" required>
               <label class="radio" tabindex="0" for="hadAhYes"><span> </span>Yes</label>
@@ -298,7 +298,7 @@
               <label class="radio" tabindex="0" for="hadAhUnknown"><span> </span>Unknown</label>
             </div>
 
-          <label class="questions" for="age7To11">What was the woman&#8217;s age at the time of her first menstrual period?</label>
+          <label class="questions">What was the woman&#8217;s age at the time of her first menstrual period?</label>
           <div class="responseOptions">
             <input id="age7To11" type="radio" name="age_period" value="2" required>
             <label class="radio" tabindex="0" for="age7To11"><span></span>7 to 11</label>
@@ -326,7 +326,7 @@
             </select>
           </div>
 
-          <label class="questions" for="relativesNone">How many of the woman&#8217;s first-degree relatives (mothers, sisters, daughters) have had breast cancer?</label>
+          <label class="questions">How many of the woman&#8217;s first-degree relatives (mothers, sisters, daughters) have had breast cancer?</label>
           <div class="responseOptions">
             <input id="relativesNone" type="radio" name="relatives" value="0" required>
             <label class="radio" tabindex="0" for="relativesNone"><span></span>None</label>
