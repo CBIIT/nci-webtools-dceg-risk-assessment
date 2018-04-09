@@ -1041,13 +1041,14 @@ input.error + label.radio span {
   /* When the dialog box gets smaller the icon goes above the text instead of */
   /* to the right of it.  When this happens there orginally was not space     */
   /* between the text and the icon. This stytle adds the space                */ 
+  #smokingAgeError div > img,
   #womanWithCancerDialog div > img,
   #hasBRCAMutation div > img,
   #raceModal div > img,
   #feetModal div > img,
   #inchesModal div > img,
   #weightModal div > img {
-    margin-bottom: 15px
+    margin-bottom: 5px
   }
 
 }
