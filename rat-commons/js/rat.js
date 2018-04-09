@@ -1282,7 +1282,9 @@ $(document).ready(function() {
 	$("*").on("focusin", function(event) { if ( existFormSteps() ) adjustNavigationBarLine(); })
 
 	// Rule : Whenever you leave any HTML Object the focus is removed
-	$("*").on("focusout", 				function(event) { removeOutline(event)			})
+	// Rule : Whenever the focus bar is leaving and going to the navigation bar of the actual browser the Navigion bar of the app
+	//        needs to be updated
+	$("*").on("focusout", function(event) { removeOutline(event); if ( existFormSteps() ) adjustNavigationBarLine(); })
 
 	/* When a different navigation link is clicked the callback will make the */
 	/* link acitve and fix the line that connects all the navigation links    */
