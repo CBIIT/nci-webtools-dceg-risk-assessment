@@ -377,7 +377,7 @@ function fixedToTop(div,use_mobile) {
 	}
 
 	// Determines if the user is viewing the results page
-	var onResultsPage = ( String($("#form-steps").attr("class")).indexOf("hide")) ? true : false
+	var onResultsPage = ( $("#form-steps").attr("class").indexOf("hide") > -1 ) ? true : false
 
 	// if isMobile and onResultsPage then the user will be viewing the result page
 	// if isMobile and existFormSteps then the user will be viewing the input page
