@@ -284,9 +284,11 @@ function resetForm() {
 	var femaleGender 	= $("#femaleGender").val().toLowerCase()
 
 	// Get the CSS Styles and determine whether it contians male or female ( remember female.include(male) == true )
+	// Cannot use the includes function since Internet Explorer does not support it.
 	var cssStyles = $(element).parent().attr("class").toLowerCase()
-	var containsFemaleGender 	= cssStyles.includes(femaleGender);
-	var containsMaleGender      = ( containsFemaleGender ) ? false : cssStyles.includes(maleGender)
+	var containsFemaleGender    = ( cssStyles.indexOf("class").toLowerCase() == femaleGender ) ? true : false
+	var containsMaleGender      = ( containsFemaleGender ) ? false :  ( cssStyles.indexOf("class").toLowerCase() == maleGender ) ? true : false
+
 	var isSelectedGenderFemale 	= ( selectedGender == femaleGender )
 	
 	var resultSelectedGender = false
