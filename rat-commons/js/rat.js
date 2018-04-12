@@ -1260,7 +1260,7 @@ function callIfFunctionExist() {
 	var functionExist = ( typeof specificRatFooterInitialization == "function" )
 	
 	if ( functionExist ) {
-		functionName()
+		specificRatFooterInitialization()
 	}
 }
 

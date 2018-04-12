@@ -1,0 +1,124 @@
+@media (min-width: 1201px) {
+  #AssessPatientRisk {
+    transform: translate(0, 120%);
+  }
+}
+@media (max-width: 1200px) {
+
+  #form-steps ol span.spacer {
+    min-width: 2%;
+  }
+
+  #form-steps ol li {
+    margin-right: 0px;
+  }
+
+  #AssessPatientRisk {
+    transform: translate(0, 120%);
+  }
+}
+
+@media(max-width: 992px) {
+
+  #form-steps ol span.spacer {
+    min-width: 2%;
+  }
+
+  #form-steps ol li {
+    margin-right: 0px;
+  }
+
+  #AssessPatientRisk {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    transform: none;
+  }
+
+}
+
+@media(max-width: 768px ) {
+    #form-steps ol span.spacer {
+        min-width: 2%;
+    }   
+    
+    #AssessPatientRisk {
+      margin-bottom: 1em;
+    }
+
+    /* The first paragraph under both the Assess Button and the Box       */
+    /* Originally the Box and the text would be very very close;          */
+    /* This code will attempt to put some Vertical Distance between them  */
+    #main_home > div > div:nth-child(4) > div > p:nth-child(1) {
+      margin-top: 1em;
+    }
+}
+
+@media (max-width: 540px ) {
+    #form-steps ol span.spacer {
+        min-width: 2%;   
+    }
+}
+
+@media (max-width: 199px ) {
+    #form-steps ol span.spacer {
+        min-width: 1%;   
+    }   
+
+    #form-steps.fixed {
+       /* width: 97%; */
+    }
+
+    header #toolTitle {
+        padding-right: 16px;
+    }
+
+}
+
+#veg_servings {
+  width: 285px;
+}
+
+#veg_amount {
+  width: 285px;
+}
+
+#moderate_hours {
+  width: 260px;
+}
+
+#vigorous_hours {
+  width: 260px;
+}
+
+#last_period {
+  width: 255px;
+}
+
+#firstYearSmoke {
+  width: 350px;
+}
+
+#smoke_quit {
+  width: 350px;
+}
+
+#cigarettes_num {
+  width: 270px;
+}
+
+#last_period {
+  width: 250px;
+}
+
+.vertical_alignment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* #race is used in another Race, so we override in the specific Rat */
+#race {
+  width: auto;
+}
+
+
