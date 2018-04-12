@@ -201,7 +201,7 @@ a:focus {
 }
 
 .sectionTitle:nth-child(9) {
-  background: red;
+  background: #2D73A5;
 }
 .no_display {
   display: none;
@@ -500,6 +500,16 @@ a.btn:disabled {
 .female:not(.show) {
   display: none;
 }
+
+/* There seems to be a collision with another CSS Rules and the end result of display */
+/* was never getting set to block.  However an intermediate result was set to none   */ 
+/* So, I created the maleOnlyStep to provide the correct behavior, meaning that the  */
+/* list item will only show if it a male.                                            */
+#form-steps ol li.maleOnlyStep {
+  display: none;
+}
+
+
 #main {
   margin-top: 2em;
   margin-bottom: 6em;
@@ -531,9 +541,9 @@ a.btn:disabled {
   margin-top: .2em;
 }
 .box {
-  max-width: 600px;
+  /* max-width: 600px; */
   background-color: #dbf2f8;
-  padding: 1.5em;
+  /* padding: 1.5em; */
 }
 #results_text {
   text-align: left;
@@ -702,6 +712,54 @@ div[id^='results_graph'] {
   box-shadow: 0 0 2px 1px #4D90FE;
 }
 
+/* Navigation Bar -- The Fourth Colum Text and Circle Navigation */
+
+#form-steps ol li.active:nth-child(7) a:first-child {
+  color: #1095A1;
+}
+
+#form-steps ol li.active:nth-child(7) a:nth-child(2) {
+  width: 45px;
+  height: 45px;
+  font-size: 31px;
+  color: #fff;
+  background: #1095A1;
+}
+
+#form-steps ol li.active:nth-child(7) a:nth-child(2):focus {
+  outline: none;
+  box-shadow: 0 0 2px 1px #1095A1;
+}
+
+#form-steps ol li:nth-child(7) a:nth-child(2):focus {
+  outline: none;
+  box-shadow: 0 0 2px 1px #1095A1;
+}
+
+/* Navigation Bar -- The Fifth Colum Text and Circle Navigation */
+
+#form-steps ol li.active:nth-child(9) a:first-child {
+  color:#2D73A5;
+}
+
+#form-steps ol li.active:nth-child(9) a:nth-child(2) {
+  width: 45px;
+  height: 45px;
+  font-size: 31px;
+  color: #fff;
+  background:#2D73A5;
+}
+
+#form-steps ol li.active:nth-child(9) a:nth-child(2):focus {
+  outline: none;
+  box-shadow: 0 0 2px 1px #1095A1;
+}
+
+#form-steps ol li:nth-child(9) a:nth-child(2):focus {
+  outline: none;
+  box-shadow: 0 0 2px 1px #1095A1;
+}
+
 .no-padding-left {
   padding-left: 0px !important;
 }
@@ -744,6 +802,17 @@ label.questions {
   font-family: Montserrat;
   font-size: 16px;
   margin-top: 16px;
+  line-height: 19px;
+}
+
+/* I admit that I messed up here. I should have had .responseOptionsText and use some other */
+/* way to define the margins.  I do not want to change this now since we are too far into   */
+/* the development process and I don't want to change the other rats                        */
+.responseOptionsText {
+  font-weight: normal;
+  font-family: Montserrat;
+  font-size: 16px;
+  line-height: 19px;
 }
 
 /* Following the standard for spacing provided by bootstrap.  However, the   */
@@ -753,11 +822,28 @@ label.questions {
   padding-left: 1rem;
 }
 
+.pr-5 {
+  padding-right: 3rem;
+}
+
+/* For this one used the fact that PR-3 was one em, PR-4 was 1.5em, PR-5 was 3.0em; PR-6 was 3.5em and PR-7 is 7.0em */
+.pr-7 {
+  padding-right: 7em;
+}
+
 /* Folling the standard for spacing provided by boostrap.  However, the      */
 /* problem is that this sytyle is usually generated using the less compiler  */
 /* In bootstrap this is a spacer                                             */
-.ml-3 {
+.mr-3 {
   margin-right: 1rem ;
+}
+
+.ml-3 {
+  margin-left: 1rem;
+}
+
+.ml-4 {
+  margin-left: 1.5em;
 }
 
 .responseOptions label {
@@ -1020,10 +1106,15 @@ input.error + label.radio span {
 }
 
 @media (min-width: 1200px) {
+
    .vertical_alignment {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+   }
+
+   #form-steps ol span.spacer {
+     min-width: 6%;
    }
 }
 
@@ -1038,19 +1129,12 @@ input.error + label.radio span {
     line-height: 15px;
   }
 
-  /* When the dialog box gets smaller the icon goes above the text instead of */
-  /* to the right of it.  When this happens there orginally was not space     */
-  /* between the text and the icon. This stytle adds the space                */ 
-  #smokingAgeError div > img,
-  #womanWithCancerDialog div > img,
-  #hasBRCAMutation div > img,
   #raceModal div > img,
   #feetModal div > img,
   #inchesModal div > img,
   #weightModal div > img {
-    margin-bottom: 5px
+    margin-bottom: 15px
   }
-
 }
 
 @media (max-width:1199px) {
@@ -1104,7 +1188,6 @@ input.error + label.radio span {
 
   }
 
-
   header img#logo {
     padding: 1em 1em 1em;
     width: 100%;
@@ -1131,8 +1214,10 @@ input.error + label.radio span {
     margin-left: 0;
   }
 
+
 /* Handles Cell Phones : The size of a cell phone should be no more than 480  */
-/* pixels                                                                     */
+/* pixels.  At the point I wrote this code I did not understand breakpoints   */
+/* and bootstrap.  This should have been less than 480 pixels                 */
 @media( max-width: 480px) {
   #race {
     width: 302px;
@@ -1326,7 +1411,7 @@ input.error + label.radio span {
   }
 
   .box {
-    margin: 1em auto;
+    /* margin: 1em auto; */
   }
   .btn-block {
     margin: 0 auto;
@@ -1459,7 +1544,7 @@ input.error + label.radio span {
 
 /* Disable a link */
 a.disabled {
-   pointer-events: : none;
+   pointer-events: none;
    color: #c0c0c0;
 }
 
@@ -1700,38 +1785,42 @@ section > fieldset > legend.questions {
   padding-left: 1.2em;
 }
 
-/******************************************/
-/* Changes Specific to CCRAT              */
-/******************************************/
-#veg_servings {
-  width: 285px;
+/* Level Indention -- For each Level of the question we need to indent more and more */
+.levelIdentation1 {
+  margin-left: 1.8em;
 }
 
-#veg_amount {
-  width: 285px;
+.levelIndentation2 {
+  margin-left: 3.8em;
 }
 
-#moderate_hours {
-  width: 260px;
+.levelIndentation3 {
+  margin-left: 5.8em;
 }
 
-#vigorous_hours {
-  width: 260px;
+/*******************************************************************************/
+/* This section is for specific CCRAT, but could be used in other RAT          */
+/*******************************************************************************/
+
+.numberField {
+  width: 3em;
+  padding-left: .25em;
+  color: #2E2E2E;
+  font-family: "Noto Sans";
+  font-size: 16px;
+  line-height: 22px
+
 }
 
-#last_period {
-  width: 255px;
+/* For some odd reason the border was not showing up in the IPhone Emulator,   */
+/* so I explicity set it.  I have no understanding of this behavior            */                                     
+.numberFieldBorder {
+  border: 1px solid #D3D3D3;
 }
 
-#firstYearSmoke {
-  width: 340px;
-}
-
-#smoke_quit {
-  width: 300px;
-}
-
-#cigarettes_num {
-  width: 270px;
+.vertical_alignment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 

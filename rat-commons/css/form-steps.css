@@ -19,10 +19,11 @@
   text-align: center;
   font-weight: bold;
   margin: 0;
+  padding-left: 0px;
 /* style rules for the form "checkpoints" bar */
 }
 #form-steps ol span.spacer {
-  min-width: 10%;
+  min-width: 2%;
   display: inline-block;
   color: #868686;
   font-weight: bold;
@@ -84,3 +85,4 @@
   color: #fff;
   background: #2d73a5;
 }
+

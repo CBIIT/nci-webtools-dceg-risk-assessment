@@ -89,8 +89,9 @@ $(function() {
   	$('#riskForm').trigger('change');
 });
 
-// A functiona that will be called as a CallBack when the footer is loaded.  This function will be the same 
-// for all specificRats.
+// A function that will be called as a CallBack when the footer is loaded.  This function will be the same name
+// for all specificRats.  I believe that this function will scroll to the top of the #contactLink so it can be 
+// seen
 function specificRatFooterInitialization() {
   $("#contactLink").on("focusin", function() { $("html, body").animate( { scrollTop: $("#contactLink").position().top }) }) 
 }
