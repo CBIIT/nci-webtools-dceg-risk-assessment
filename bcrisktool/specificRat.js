@@ -229,12 +229,12 @@ function disableQuestionAndAnswers(event) {
 function enableQuestionAndAnswers(event) {
 
   $("input[name='biopsy_result']").attr("disabled", false)
-  $("input[id^='breastBiopsiesCount']").css("color", "#606060")
+  $("input[id^='breastBiopsiesCount']").next().css("color", "#606060")
   $("label[for^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("color", "#2E2E2E")
   $("label[for^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("tabindex","0")
 
   $("input[name='biopsy_ah']").attr("disabled", false)
-  $("input[id^='hadAh']").css("color", "#606060");
+  $("input[id^='hadAh']").next().css("color", "#606060");
   $("label[for^='hadAh']").parent().prev("[class*='questions']").css("color", "#2E2E2E")
   $("label[for^='hadAh']").parent().prev("[class*='questions']").css("tabindex","0")
 
