@@ -213,12 +213,12 @@ function womanHadBiopsy() {
 // breast biopsy
 function disableQuestionAndAnswers(event) {
   $("input[name='biopsy_result']").attr("disabled", true)
-  $("input[id^='breastBiopsiesCount']").css("color", "#C0C0C0")
+  $("input[id^='breastBiopsiesCount']").next().css("color", "#C0C0C0")
   $("label[for^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("color", "#C0C0C0")
   $("label[for^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("tabindex","-1")
 
   $("input[name='biopsy_ah']").attr("disabled", true)
-  $("input[id^='hadAh']").css("color", "#C0C0C0");
+  $("input[id^='hadAh']").next().css("color", "#C0C0C0");
   $("label[for^='hadAh']").parent().prev("[class*='questions']").css("color", "#C0C0C0")
   $("label[for^='hadAh']").parent().prev("[class*='questions']").css("tabindex","-1")
 
