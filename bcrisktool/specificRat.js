@@ -218,7 +218,7 @@ function disableQuestionAndAnswers(event) {
   $("label[for^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("tabindex","-1")
 
   $("input[name='biopsy_ah']").attr("disabled", true)
-  $("label[id^='hadAh']").css("color", "#C0C0C0");
+  $("input[id^='hadAh']").css("color", "#C0C0C0");
   $("label[for^='hadAh']").parent().prev("[class*='questions']").css("color", "#C0C0C0")
   $("label[for^='hadAh']").parent().prev("[class*='questions']").css("tabindex","-1")
 
@@ -234,7 +234,7 @@ function enableQuestionAndAnswers(event) {
   $("label[for^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("tabindex","0")
 
   $("input[name='biopsy_ah']").attr("disabled", false)
-  $("label[id^='hadAh']").css("color", "#606060");
+  $("input[id^='hadAh']").css("color", "#606060");
   $("label[for^='hadAh']").parent().prev("[class*='questions']").css("color", "#2E2E2E")
   $("label[for^='hadAh']").parent().prev("[class*='questions']").css("tabindex","0")
 

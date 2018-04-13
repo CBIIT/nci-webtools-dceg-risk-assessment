@@ -1145,7 +1145,6 @@ input.error + label.radio span {
   }
 
 
-  .vertical_aligment {}
 }
 
 @media (min-width: 193px) {
@@ -1184,10 +1183,6 @@ input.error + label.radio span {
     padding-right: 1em;
   }
 
-  .vertical_alignment {
-
-  }
-
   header img#logo {
     padding: 1em 1em 1em;
     width: 100%;
@@ -1213,6 +1208,16 @@ input.error + label.radio span {
     /* width: 365px; */
     margin-left: 0;
   }
+
+@media (min-width: 768px) {
+  .vertical_alignment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
+
+
+}
 
 
 /* Handles Cell Phones : The size of a cell phone should be no more than 480  */
@@ -1249,6 +1254,10 @@ input.error + label.radio span {
 
   #InputParameters td.answers {
     vertical-align: top;
+  }
+
+  .vertical_alignment {
+
   }
 }
 
@@ -1818,9 +1827,8 @@ section > fieldset > legend.questions {
   border: 1px solid #D3D3D3;
 }
 
-.vertical_alignment {
+/*.vertical_alignment {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
+}*/
