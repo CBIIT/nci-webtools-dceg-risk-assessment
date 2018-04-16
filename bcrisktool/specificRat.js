@@ -89,8 +89,9 @@ $(function() {
   	$('#riskForm').trigger('change');
 });
 
-// A functiona that will be called as a CallBack when the footer is loaded.  This function will be the same 
-// for all specificRats.
+// A function that will be called as a CallBack when the footer is loaded.  This function will be the same name
+// for all specificRats.  I believe that this function will scroll to the top of the #contactLink so it can be 
+// seen
 function specificRatFooterInitialization() {
   $("#contactLink").on("focusin", function() { $("html, body").animate( { scrollTop: $("#contactLink").position().top }) }) 
 }
@@ -212,30 +213,30 @@ function womanHadBiopsy() {
 // breast biopsy
 function disableQuestionAndAnswers(event) {
   $("input[name='biopsy_result']").attr("disabled", true)
-  $("input[id^='breastBiopsiesCount']").css("color", "#C0C0C0")
-  $("label[for^='breastBiopsiesCount']").css("color", "#C0C0C0")
-  $("label[for^='breastBiopsiesCount']").attr("tabindex", "-1")
+  $("input[id^='breastBiopsiesCount']").next().css("color", "#C0C0C0")
+  $("label[for^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("color", "#C0C0C0")
+  $("label[for^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("tabindex","-1")
 
   $("input[name='biopsy_ah']").attr("disabled", true)
-  $("label[id^='hadAh']").css("color", "#C0C0C0");
-  $("label[for^='hadAh']").css("color", "#C0C0C0");
-  $("label[for^='hadAh']").attr("tabindex","-1")
+  $("input[id^='hadAh']").next().css("color", "#C0C0C0");
+  $("label[for^='hadAh']").parent().prev("[class*='questions']").css("color", "#C0C0C0")
+  $("label[for^='hadAh']").parent().prev("[class*='questions']").css("tabindex","-1")
 
 }
 
 // Enable Questions and Answersi that are associated with a women having a
 //breast biopsy
 function enableQuestionAndAnswers(event) {
-  $("input[name='biopsy_result']").attr("disabled", false);
-  $("input[id^='breastBiopsiesCount']").css("color", "#606060")
-  $("label[for^='breastBiopsiesCount']").css("color", "#2E2E2E")
-  $("label[for^='breastBiopsiesCount']").attr("tabindex", "0")
 
-  $("input[name='biopsy_ah']").attr("disabled", false);
-  $("input[id^='hadAh']").css("color", "#606060");
-  $("label[for^='hadAh']").css("color", "#2E2E2E");
-  $("label[for^='hadAh']").attr("tabindex","0")
+  $("input[name='biopsy_result']").attr("disabled", false)
+  $("input[id^='breastBiopsiesCount']").next().css("color", "#606060")
+  $("label[for^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("color", "#2E2E2E")
+  $("label[for^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("tabindex","0")
 
+  $("input[name='biopsy_ah']").attr("disabled", false)
+  $("input[id^='hadAh']").next().css("color", "#606060");
+  $("label[for^='hadAh']").parent().prev("[class*='questions']").css("color", "#2E2E2E")
+  $("label[for^='hadAh']").parent().prev("[class*='questions']").css("tabindex","0")
 
   adjust_line_width();
 }

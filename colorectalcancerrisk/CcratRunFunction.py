@@ -7,6 +7,58 @@ def AbsRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
   genderAttributeRisks = CcratConstants.ATTRIBUTE_RISKS  [gender]
   genderCovariates     = CcratConstants.COVARIATES       [gender]
   #screening risk
+  covariate_breakdown = covariteBreakdown(gender, race, startAge, upperBoundAge, screening, yearsSmoking, cigarettesPerDay, nsaidRegimine, aspirinOnly, familyHistory, averageExercise, servingsPerDay, bmiTrend, hormoneUsage)
+  rectal_covariates   = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["rectal"  ])]))*genderAttributeRisks["rectal"  ]
+  proximal_covariates = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["proximal"])]))*genderAttributeRisks["proximal"]
+  distal_covariates   = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["distal"  ])]))
+  #relational risk factors become less relavent for distal cancer as the age goes up
+  absRisk = 0
+  survivalRate = 1
+  for currentAge in range(startAge,upperBoundAge):
+    ageInterval = int(math.floor((currentAge-50)/5))
+    yearlyHazards = rectal_covariates  *genderRaceRisk["rectal"]  [ageInterval] + \
+                    proximal_covariates*genderRaceRisk["proximal"][ageInterval]
+    if gender == "Female" and currentAge >= 65:
+      yearlyHazards += distal_covariates *genderRaceRisk["distal"]  [ageInterval]*genderAttributeRisks["distalOver65"]
+    else:
+      yearlyHazards += distal_covariates *genderRaceRisk["distal"]  [ageInterval]*genderAttributeRisks["distal"      ]
+    yearlyDeathRatio = yearlyHazards+genderRaceHazards[ageInterval]
+    yearlyDeathRate = math.exp(-yearlyDeathRatio)
+    absRisk += yearlyHazards/yearlyDeathRatio*survivalRate*(1-yearlyDeathRate)
+    survivalRate *= yearlyDeathRate
+  return absRisk
+
+def AvgRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, cigarettesPerDay, nsaidRegimine, aspirinOnly, familyHistory, averageExercise, servingsPerDay, bmiTrend, hormoneUsage):
+  genderRaceRisk       = CcratConstants.CANCER_RATES     [gender][race]
+  genderRaceHazards    = CcratConstants.COMPETING_HAZARDS[gender][race]
+  genderAttributeRisks = CcratConstants.ATTRIBUTE_RISKS  [gender]
+  genderCovariates     = CcratConstants.COVARIATES       [gender]
+    
+  #screening risk
+  covariate_breakdown = covariteBreakdown(gender, race, startAge, upperBoundAge, screening, yearsSmoking, cigarettesPerDay, nsaidRegimine, aspirinOnly, familyHistory, averageExercise, servingsPerDay, bmiTrend, hormoneUsage)
+
+  rectal_covariates   = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["rectal"  ])]))*genderAttributeRisks["rectal"  ]
+  proximal_covariates = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["proximal"])]))*genderAttributeRisks["proximal"]
+  distal_covariates   = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["distal"  ])]))
+  
+  #relational risk factors become less relavent for distal cancer as the age goes up
+  absRisk = 0
+  survivalRate = 1
+  for currentAge in range(startAge,upperBoundAge):
+    ageInterval = int(math.floor((currentAge-50)/5))
+    yearlyHazards = rectal_covariates  *genderRaceRisk["rectal"]  [ageInterval] + \
+                    proximal_covariates*genderRaceRisk["proximal"][ageInterval]
+    if gender == "Female" and currentAge >= 65:
+      yearlyHazards += distal_covariates *genderRaceRisk["distal"]  [ageInterval]*genderAttributeRisks["distalOver65"]
+    else:
+      yearlyHazards += distal_covariates *genderRaceRisk["distal"]  [ageInterval]*genderAttributeRisks["distal"      ]
+    yearlyDeathRatio = yearlyHazards+genderRaceHazards[ageInterval]
+    yearlyDeathRate = math.exp(-yearlyDeathRatio)
+    absRisk += yearlyHazards/yearlyDeathRatio*survivalRate*(1-yearlyDeathRate)
+    survivalRate *= yearlyDeathRate
+  return absRisk
+
+def covariteBreakdown(gender, race, startAge, upperBoundAge, screening, yearsSmoking, cigarettesPerDay, nsaidRegimine, aspirinOnly, familyHistory, averageExercise, servingsPerDay, bmiTrend, hormoneUsage):
   covariate_breakdown = [
     #screening:        [0] Sigmoidoscopy or Colonoscopy with no sign of polyps
     1 if screening==0 else 0,
@@ -61,23 +113,7 @@ def AbsRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
     #                  [0] All other conditions
     bmiTrend*(1-hormoneUsage)
   ];
-  rectal_covariates   = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["rectal"  ])]))*genderAttributeRisks["rectal"  ]
-  proximal_covariates = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["proximal"])]))*genderAttributeRisks["proximal"]
-  distal_covariates   = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["distal"  ])]))
-  #relational risk factors become less relavent for distal cancer as the age goes up
-  absRisk = 0
-  survivalRate = 1
-  for currentAge in range(startAge,upperBoundAge):
-    ageInterval = int(math.floor((currentAge-50)/5))
-    yearlyHazards = rectal_covariates  *genderRaceRisk["rectal"]  [ageInterval] + \
-                    proximal_covariates*genderRaceRisk["proximal"][ageInterval]
-    if gender == "Female" and currentAge >= 65:
-      yearlyHazards += distal_covariates *genderRaceRisk["distal"]  [ageInterval]*genderAttributeRisks["distalOver65"]
-    else:
-      yearlyHazards += distal_covariates *genderRaceRisk["distal"]  [ageInterval]*genderAttributeRisks["distal"      ]
-    yearlyDeathRatio = yearlyHazards+genderRaceHazards[ageInterval]
-    yearlyDeathRate = math.exp(-yearlyDeathRatio)
-    absRisk += yearlyHazards/yearlyDeathRatio*survivalRate*(1-yearlyDeathRate)
-    survivalRate *= yearlyDeathRate
-  return absRisk
+
+  return covariate_breakdown
+
 

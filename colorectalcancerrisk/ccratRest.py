@@ -2,9 +2,11 @@ import math
 import os
 import sys
 import json 
+import logging
 
 from flask import Flask, Response, request, jsonify, send_from_directory
 from CcratRunFunction import AbsRisk
+from CcratRunFunction import AvgRisk
 
 app = Flask(__name__, static_folder='', static_url_path='')
 
@@ -39,10 +41,16 @@ class ColorectalRiskAssessmentTool:
         parameters[field] = parameters[field][0]
       errorObject = {'missing':[],'nonnumeric':[],'message':[]}
       requiredParameters = ['age','height_ft','height_in','weight','veg_servings','exam','aspirin','non_aspirin','vigorous_months','family_cancer']
-      if ('race' not in parameters):
-        errorObject['missing'] += ['race']
-      else:
+      
+      # The valid values of race are White, African Amierican or Asian
+      # Whether you are hispanic or not is determined by another variable.
+      if ( ('race' not in parameters) and ('hispanic' not in parameters) ):
+        errorObject['missing'] += ['race or hispanic']
+      elif ( 'race' in parameters ):
         race = parameters['race']
+      else:
+        race = 'Hispanic'
+
       yearsSmoking = 0
       cigarettesPerDay = 0
       hormoneUsage = 0
@@ -54,7 +62,7 @@ class ColorectalRiskAssessmentTool:
         requiredParameters += ['period']
       else:
         errorObject['missing'] += ['gender']
-      if (parameters['exam'] == '0'):
+      if ( int(parameters['exam']) == 0 ):
         requiredParameters += ['polyp']
       for required in requiredParameters:
         if required not in parameters or parameters[required] == "":
@@ -124,6 +132,7 @@ class ColorectalRiskAssessmentTool:
           errorObject['nonnumeric'] += ['family_count']
         else:
           family_cancer += int(parameters['family_count'])
+
       hoursPerWeek = int(parameters['vigorous_months'])
       if hoursPerWeek > 0:
         if 'vigorous_hours' not in parameters or parameters['vigorous_hours'] == '':
@@ -145,9 +154,21 @@ class ColorectalRiskAssessmentTool:
             errorObject['nonnumeric'] += ['veg_amount']
       if len(errorObject['missing']) > 0 or len(errorObject['nonnumeric']) > 0 or len(errorObject['message']) > 0:
         return ColorectalRiskAssessmentTool.buildFailure(errorObject);
+      
+      # For this section 0 = "Yes", 1 = "No" and 2 or greater = "Unknown"
       screening = int(parameters['exam'])
-      if screening == 0:
-        screening += int(parameters['polyp'])
+      polyp = int(parameters['polyp']) if ('polyp' in parameters ) else "-1"
+      if ( screening == 0 and polyp == 1 ):
+        screening = 0
+      elif ( screening == 1 ):
+        screening = 1
+      elif ( screening == 0 and polyp == 0 ):
+        screening = 2
+      else:
+        screening = 3
+
+      #if screening == 0:
+      #screening += int(parameters['polyp'])
       if yearsSmoking == 0:
         yearsSmoking = 0
       elif yearsSmoking < 15:
@@ -156,6 +177,7 @@ class ColorectalRiskAssessmentTool:
         yearsSmoking = 2
       else:
         yearsSmoking = 3
+
       exercise = 3
       if hoursPerWeek > 4:
         exercise = 0
@@ -183,12 +205,48 @@ class ColorectalRiskAssessmentTool:
           bmi = 0
         else:
           bmi = 1
+
       aspirin = int(parameters['aspirin'])
       nonAspirin = int(parameters['non_aspirin'])
-      nsaidRegimine = min(aspirin,nonAspirin)
-      aspirinOnly = nonAspirin
+      
+      # Based on my reading of the link : http://www.obesityhelp.com/forums/amos/4081185/Is-excedrin,
+      # I am rewriting section since it seem Asprin and Non Asprin are considered a NSID Regime.
+      # nsaidRegimine ( 0 = yes, 1 = no)
+      #nsaidRegimine = min(aspirin,nonAspirin)
+      #aspirinOnly = nonAspirin
+      if ( aspirin == 0 or aspirin == 3 or nonAspirin == 0):
+        nsaidRegimine = 0
+      else:
+        nsaidRegimine = 1
+
+      # The next one is asprin only  aspirinOnly:      
+      # [0] Non-Aspirin medications are part of the NSAID regimine
+      # [1] Aspirin-only Regimine or there is no NSAID regimine
+      aspirinOnly = 0
+      if ( nonAspirin != 0 or nsaidRegimine == 1 ):
+        aspirinOnly = 1
+
       
       gender = "Male" if sex == 0 else "Female"
+
+      print("&&&&&&&&&&&&&&&&&&&&&& Parameters &&&&&&&&&&&&&&&&&&&&&&&&&")
+      print("The race                 = "   + str(race))
+      print("The age                  = "   + str(age))
+      print("Gender                   = "   + str(gender))
+      print("Feet                     = "   + str(parameters['height_ft']))
+      print("Inches                   = "   + str(parameters['height_in']))
+      print("Weight                   = "   + str(parameters['weight']))
+      print("veggies  (ok verified)   = "   + str(bmi))
+      print("The screening            = "   + str(screening))
+      print("Asprin                   = "   + str(aspirin))
+      print("Non Asprin =             = "   + str(nonAspirin))
+      print("Years Smoking      = "   + str(yearsSmoking))
+      print("Cigs per Day       = "   + str(cigarettesPerDay))
+      print("family_cancer      = "   + str(family_cancer))
+      print("exercise           = "   + str(exercise))
+      print("hormoneUsage       = "   + str(hormoneUsage))
+
+
 
       #************************************************************************************************************
       #* 5 Year Patient and Average Risk                                                                          *
@@ -209,20 +267,21 @@ class ColorectalRiskAssessmentTool:
         hormoneUsage)
       patient5YearRisk = round(patient5YearRisk*100,1)
 
-      average5YearRisk = AbsRisk(gender,
+      average5YearRisk = AvgRisk(gender,
         race,
         age,
         min(age+5,90),
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0)
+        screening,
+        yearsSmoking,
+        cigarettesPerDay,
+        nsaidRegimine,
+        aspirinOnly,
+        family_cancer,
+        exercise,
+        veggies,
+        bmi,
+        hormoneUsage)
+
       average5YearRisk = round(average5YearRisk*100,1)
 
       #************************************************************************************************************
@@ -244,20 +303,21 @@ class ColorectalRiskAssessmentTool:
         hormoneUsage)
       patient10YearRisk = round(patient10YearRisk*100,1)
 
-      average10YearRisk = AbsRisk(gender,
+      average10YearRisk = AvgRisk(gender,
         race,
         age,
         min(age+10,90),
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0)
+        screening,
+        yearsSmoking,
+        cigarettesPerDay,
+        nsaidRegimine,
+        aspirinOnly,
+        family_cancer,
+        exercise,
+        veggies,
+        bmi,
+        hormoneUsage)
+
       average10YearRisk = round(average10YearRisk*100,1)
 
       #************************************************************************************************************
@@ -279,20 +339,21 @@ class ColorectalRiskAssessmentTool:
         hormoneUsage)
       patientLifetimeRisk = round(patientLifetimeRisk*100,1)
 
-      averageLifetimeRisk = AbsRisk(gender,
+      averageLifetimeRisk = AvgRisk(gender,
         race,
-        age,
+        50,
         90,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0)
+        screening,
+        yearsSmoking,
+        cigarettesPerDay,
+        nsaidRegimine,
+        aspirinOnly,
+        family_cancer,
+        exercise,
+        veggies,
+        bmi,
+        hormoneUsage)
+
       averageLifetimekRisk = round(averageLifetimeRisk*100,1)
 
       #************************************************************************************************
@@ -312,6 +373,8 @@ class ColorectalRiskAssessmentTool:
       exc_type, exc_obj, exc_tb = sys.exc_info()
       fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
       print("EXCEPTION------------------------------", exc_type, fname, exc_tb.tb_lineno)
+      print("Exception------------------------------")
+      print(str(e))
       return ColorectalRiskAssessmentTool.buildFailure(str(e))
 
   def __init__(self,port,debug):

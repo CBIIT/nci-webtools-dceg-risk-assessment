@@ -83,13 +83,14 @@ function processSubmission(form){
     processData: false,
 	}).done(resultsDisplay)
 	.fail(function(xhr, ajaxOptions, thrownError) {
-		console.log("xhr = " + xhr.respsoneText())
+		console.log("xhr = " + xhr.ressponseText)
 		console.log("ajaxOptions = " + ajaxOptions.toString())
 		console.log("thrownError = " + thrownError)
 		console.log("error");
 		$("#systemError").modal("show");
 	})
 	.always(function() {
+		//resultsDisplay();
 		$('html,body').scrollTop(0);
 	});
 }
@@ -220,7 +221,8 @@ function formScrollSpy() {
 	window_top = window_top + calculateBottomOfFormSteps();
 
 	if ( ignoreIfOneSectionIsVisible() == false ) {
-		$.each($("#riskForm section"), function(ind, el) {
+
+		$.each($("#riskForm section:visible"), function(ind, el) {
 
 			// Retrieve the top most pixel of the header belonging to section
 			// If mobile
@@ -232,8 +234,12 @@ function formScrollSpy() {
 
 				// Remove the active style from any navigation link and apply it to the
 				// current link being processed.
+				//
+				// Rule : In order to be active the button must be visible.  For example
+				// in CCRAT the male question/answers have five sections and the female 
+				// has four sections.
 				$("#form-steps li").removeClass('active');
-				$("#form-steps li:eq(" + ind + ")").addClass('active');
+				$("#form-steps li:eq(" + ind + "):visible").addClass('active');
 				adjust_line_width(ind);
 			}
 		});
@@ -252,11 +258,9 @@ function formScrollSpy() {
     if ( ignoreIfOneSectionIsVisible() == true )
 		return;
 	else {
-		var currentScrollPosition = Math.ceil($(window).scrollTop() + $(window).height());
-		if ( currentScrollPosition >= $(document).height() ) {
+		if ( $("#form-steps li.active:visible").length == 0 ) {
 			$("#form-steps li").removeClass('active');
-			$('#form-steps li').last().addClass('active');
-		   	adjust_line_width($('#form-steps li').length - 1);
+			$("#form-steps li:visible:last").addClass("active")
 		}
 	}
 }
@@ -306,7 +310,6 @@ function gotoSection(event) {
 	}
 
 	var heightOfFormSteps = $("#form-steps").outerHeight(true)
-
 
 	// Find the top point of the section, but if its the first section then go to 0 point
 	// so the header will be displayed.  The heaer is only displayed when scrolled to 
@@ -377,7 +380,8 @@ function fixedToTop(div,use_mobile) {
 	}
 
 	// Determines if the user is viewing the results page
-	var onResultsPage = ( $("#form-steps").attr("class").indexOf("hide") > -1 ) ? true : false
+	var onResultsPage = ( ( String($("#form-steps").attr("class"))).indexOf("hidden") > -1 ) ? true : false
+
 
 	// if isMobile and onResultsPage then the user will be viewing the result page
 	// if isMobile and existFormSteps then the user will be viewing the input page
@@ -428,7 +432,6 @@ function fixedToTop(div,use_mobile) {
 		 	$("#line").find("hr").css("top",form_steps_height-30)
 		else
 		 	$("#line").find("hr").css("top",form_steps_height-37)
-			if ( existFormSteps() ) adjust_line_height_mobile();
 	} else {
 		if ( existFormSteps() ) {
 			$("#form-steps").removeClass('fixed');
@@ -463,16 +466,22 @@ function toggleFormDisplay(e) {
 // are highlight ( depends on which section is below the headers)            //
 ///////////////////////////////////////////////////////////////////////////////
 function handleScrollEvent(event) {
+	handleHeaderNavigationRedraw();
+
 	//alert("Handling Scroll Event");
-	var top_div = ( $(window).width() > 630 ) ? "main-nav" : "toolTitle";
-
-	fixedToTop(top_div);
-	formScrollSpy();
-
 	// Works wrong on IE9 - it blurs the whole browser window if active 
 	// element is document body. Better to check for this case:
 	// if (document.activeElement != document.body) document.activeElement.blur();
 
+}
+
+/* Resubable code to adjust the header/navigation bar                         */
+function handleHeaderNavigationRedraw() {
+	var top_div = ( $(window).width() > 630 ) ? "main-nav" : "toolTitle";
+
+	fixedToTop(top_div);
+	formScrollSpy();
+	if ( existFormSteps() == true ) adjustNavigationBarLine()
 }
 
 /******************************************************************************/
@@ -480,11 +489,17 @@ function handleScrollEvent(event) {
 /* create manual to connect the navigation buttons. Since the line is         */
 /* caclculated manually                                                       */
 /******************************************************************************/
-$(window).resize(function() {
-	if(window.location.pathname=="/melanomarisktool/calculator.html"){
-		adjustNavigationBarLine();
-	 }
-});
+// $(window).resize(function() {
+// 	//if(window.location.pathname=="/melanomarisktool/calculator.html"){
+// 	//	adjustNavigationBarLine();
+// 	// }
+// 	console.log("Calling resize 1  with all adjust")
+// 	var top_div = ( $(window).width() > 630 ) ? "main-nav" : "toolTitle";
+
+// 	fixedToTop(top_div);
+// 	formScrollSpy();
+// 	adjustNavigationBarLine()
+// });
 
 /******************************************************************************/
 /* Adjusts the line connections the navigation bar circles                   **/
@@ -503,10 +518,11 @@ function adjustNavigationBarLine() {
 /******************************************************************************/
 function adjust_line_width(ind){
 	var firstBubble = $("#form-steps > ol > li > a:nth-child(2)").first();
-	var lastBubble  = $("#form-steps > ol > li > a:last-child").last();
+	var lastBubble  = $("#form-steps > ol > li:visible:last > a:last-child")
 
 	var startingPoint = $(firstBubble).offset().left + $(firstBubble).width();
 	var endingPoint = $(lastBubble).offset().left - startingPoint;
+
 	$("#line").find("hr").css("left",  startingPoint);
 	$("#line").find("hr").css("width", endingPoint );
 }
@@ -540,7 +556,6 @@ function adjust_line_height_mobile() {
 	var firstBubbleTopPosition = $("#form-steps > ol > li > a:nth-child(2)").first().position().top;
 	var height = $("#form-steps > ol > li > a:nth-child(2)").first().height();
 	var startPoint = firstBubbleTopPosition + ( height /2 );
-
 	$("#line").find("hr").css("top", startPoint);
 }
 
@@ -667,8 +682,7 @@ function isTablet() {
 /* In order to keep the code as close to the original as possible ( since     */
 /* the code is being changed very late and I don't totally understand the     */
 /* situation, I only check the platform if the UserAgent returned false       */
-/* ( A double check to see if the    																					*/
-/* the device is mobile)																										  */
+/* ( A double check to see if the device is mobile)							  */
 /******************************************************************************/
 function isMobile() {
 	var checkUserAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -769,8 +783,8 @@ function enableCalculateButton() {
 				 if( ($('input[name='  +  name +']').is('input[type="number"]')  && $('input[name=' + name + ']').val().length == 0 ) ||
 					 ($('input[name='  +  name +']').is('input[type="radio"]')  && $('input[name=' + name + ']:checked').length==0) || 
 			 		 ($('select[name=' +  name +']').is('select') && input[0].selectedIndex==0)){
-						 disablebutton()
-						 valid=false
+						disablebutton()
+						valid=false
 					 }
 			 }
 	 });
@@ -859,10 +873,11 @@ function displayHelpWindow() {
 }
 
 /******************************************************************************/
-/* Does the Form Steps HTML Object Exist                                      */
+/* Does the Form Steps HTML Object Exist and are they visible.  If they are   */
+/* then they technically do not exist since the user cannot see them.         */
 /******************************************************************************/
 function existFormSteps() {
-	return ( $("#form-steps").length > 0 );
+	return ( $("#form-steps:visible").length > 0 );
 }
 
 // Two functions to disable and enable  the section headers ( Currently a
@@ -987,17 +1002,41 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 	// Number of SubQuestion One after another
 	var numberOfSubQuestionsInARow = -1
 
+	// Number of SubSubQuestions One after another ( this is two levels of indentation)
+	var numberOfSubSubQuestionsInARow = -1
+
+	// Number of SubSubSubQuestions.  One after another ( this is for three level of indentation)
+	var numberOfSubSubSubQuestionsInARow = -1
+	
+	// Number of SubSubSubSubQuestions.  One after another ( this is for four levels of indentation)
+
 	// Number of total subquestion before the current question
 	var numberOfSubQuestions = 0
+
+	// Number of total subSubQuestion before the current question ( this is two levels of indentation )
+	var numberOfSubSubQuestions = 0
+
+	// Number of total subSubSubQuestion before the current question ( this is for three levels of indentation )
+	var numberOfSubSubSubQuestions = 0
 
  	$(formName + " label.questions").filter(filterInputParameters).each(function(index, element) {
 
 		// Extracts the current answer from the input screen to the current question
+		//
 		// Assumption : The User has completed filling out the form
-		// Input  first response to current question
-		// Output The answer from the input page that the user selected.
-		// Output NA if there is no answer ( for some questions to be answered other
-		// questions must be answered with a specific value
+		//
+		// Input  
+		//	first response to current question
+		//
+		// Output 
+		//	The answer from the input page that the user selected.
+		// Output 
+		//	NA if there is no answer ( for some questions to be answered other questions must be answered with a specific value )
+		//
+		// Bug 
+		//	Between the div with the class question and the div with the class responseOptions do not put any div. Usually what 
+		//  would go between there would be a secondary question.  Use a paragraph tag instead of a div tag
+		//
 		function extractAnswerDispalyedOnGui(inputElement) {
 			var inputText = ""
 			if ( inputElement.is(":radio"))	{
@@ -1009,11 +1048,20 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 				// Select the answer text from the input page.
 				var nameSelector = "[name='" + name + "']"
 				var valueSelector = "[value='" + value + "']"
-				inputText = $(nameSelector + valueSelector).next().text()
+				inputText = $(nameSelector + valueSelector + ":checked").next().text()
 			} else if ( inputElement.is("select")) {
 				if ( $(inputElement).is(":enabled") ) {
 					inputText = $(inputElement).find(":selected").text();
 				}
+			} else {
+				if ( typeof ratSpecificAnswer == 'function') {
+					inputText = ratSpecificAnswer(element)
+				}
+			}
+
+			// If the elment is disabled there should be no answer to the question.
+			if ( $(inputElement).filter(":disabled").length > 0 ) {
+				inputText = ""
 			}
 
 			if ( !inputText ) { inputText = "n/a"}
@@ -1032,14 +1080,18 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 		 	//    Subquestions will use the alphabet for number.  The first one will get
 		 	//    an "A" and the second will get a "B".  Once a new question without
 		 	//    the data-subquestion attribute is found then the next subqestion will
-		 	//    get "A"
+			//    get "A"
+			//
+			// 	  Later on two enhanncments were added to have two more levels.  This code 
+			//    could be improved by making it recursive.
 		 	//
 		 	//		Returns to values
 		 	//			An index string for questions a number, but for subquestion a lowercase letters
 		 	//     		True if the element is a subqeustion
 		 	function handleIndex(index, element) {
 
-		 		var letters = [ "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "l", "m", "n" ]
+				var letters = [ "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "l", "m", "n" ]
+				var numbers = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" ] 
 			 	var indexString = ""
 			 	var isSubQuestion = false
 
@@ -1047,10 +1099,31 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 					numberOfSubQuestions = numberOfSubQuestions + 1
 					numberOfSubQuestionsInARow = numberOfSubQuestionsInARow + 1
 					indexString = letters[numberOfSubQuestionsInARow]
-					isSubQuestion = true
-			 	} else {
+
+					numberOfSubSubQuestionsInARow = -1
+					numberOfSubSubSubQuestionsInARow = -1
+
+					isSubQuestion = "Level 1"
+
+				} else if ( $(element).attr("data-subSubQuestion")) {
+					numberOfSubSubQuestions = numberOfSubSubQuestions + 1
+					numberOfSubSubQuestionsInARow = numberOfSubSubQuestionsInARow + 1
+					indexString = numbers[numberOfSubSubQuestionsInARow]
+
+					numberOfSubSubSubQuestionsInARow = -1
+
+					isSubQuestion = "Level 2"
+
+				} else if ( $(element).attr("data-subSubSubQuestion")) {
+					numberOfSubSubSubQuestions = numberOfSubSubSubQuestions + 1
+					numberOfSubSubSubQuestionsInARow = numberOfSubSubSubQuestionsInARow + 1
+					indexString = letters[numberOfSubSubSubQuestionsInARow]
+
+					isSubQuestion = "Level 3"
+					
+				} else { 
 					numberOfSubQuestionsInARow = -1
-					indexString = index - numberOfSubQuestions
+					indexString = index - numberOfSubQuestions - numberOfSubSubQuestions - numberOfSubSubSubQuestions
 			 	}
 
 			 	return { indexString: indexString, isSubQuestion: isSubQuestion }
@@ -1069,17 +1142,29 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
  		 	var lineNumber = $("<div></div>").append(lineNumberSpan).append(linePeriodSpan)
 
 		 	var questionDiv = container.append(lineNumber).append(questionText)
-		 	if ( indexData.isSubQuestion ) {
-			   questionDiv.css("margin-left", "1.8em")
-		 	}
+		 	if ( indexData.isSubQuestion == "Level 1" ) {
+			   questionDiv.addClass("levelIdentation1")
+		 	} else if ( indexData.isSubQuestion == "Level 2") {
+			   questionDiv.addClass("levelIndentation2")
+			} else if ( indexData.isSubQuestion == "Level 3") {
+			   questionDiv.addClass("levelIndentation3")
+			}
 
 		 	return question.append(questionDiv)
 		}
 
-		// Create the row that contains the line number, question and answer
-   		var inputElement = $($(element).nextUntil("label","div")[0]).children('input, select')
-   		var inputAnswerText = extractAnswerDispalyedOnGui(inputElement)
+		//////////////////////////////////////////////////////////////////////////////////////
+		// Create the row that contains the line number, question and answer                //
+		//////////////////////////////////////////////////////////////////////////////////////
 
+		// Gets the first answer markup.  The first answer will usually be a checkbox or a select box.  
+		// So, the user will be able to get the answer from the infromation.  However, if the answer
+		// is different ( ex. 3 text boxes for the height/width/lbs ) then the algorithm will call
+		// a routine from the specfic rat to handle the situation
+		var inputElement = $($(element).nextUntil("label","div")[0]).children('input, select')   
+		if ( $(inputElement.length) == 0 ) inputElement = element 
+
+   		var inputAnswerText = extractAnswerDispalyedOnGui(inputElement)
    		var question = createQuestionCell(index, $(element).text())
    		var answer = $("<td></td>").text(inputAnswerText).addClass("answers")
    		var tableRow = $("<tr></tr>").append(question).append(answer)
@@ -1121,12 +1206,7 @@ function filterInputParameters(index, element) {
 function genericResetForm() {
 	$('form').trigger('reset')
 
-	// Both lines are needed.  The first line scroll to the top, but
-	// the second line will force the correct navigation links in the
-	// form-steps to be highlighted since it creates a scroll event
-	// Rat.js uses the scroll event to update the form-steps
-	$(window).scrollTop(0);
-	$("html, body").animate({scrollTop: 0 }, 0 )
+	scrollTo(0,0);
 
 	$("form :input").attr('disabled', false);
 	$("[class*='questions']").css("color","#2e2e2e")
@@ -1177,10 +1257,10 @@ function jumpToSection(event) {
 function callIfFunctionExist() {
 
 	// Determines if function exist
-	var functionExist = ( typeof pecificRatFooterInitialization == "function" )
+	var functionExist = ( typeof specificRatFooterInitialization == "function" )
 	
 	if ( functionExist ) {
-		functionName()
+		specificRatFooterInitialization()
 	}
 }
 
@@ -1294,17 +1374,17 @@ $(document).ready(function() {
   	// Whenever the window is resizeid we need to recalculate the line that contains
 	// the navigation numbers so that it fits correctly.
 	$(window).resize(function() {
-		fixedToTop( ( $(window).width() ) ? "main-nav" : "toolTitle" );
-		if ( $("#form-steps").length > 0 ) {
-			var riskFormSectionIndex = $("#form-steps > ol > li").filter(".active").children("a:first").attr("data-riskFormSection");
-			adjust_line_width(riskFormSectionIndex);
-		}
+		handleHeaderNavigationRedraw()
 	});
 
 	$("#riskForm").validate({
 		ignore: ".skipValidate",
 		submitHandler: processSubmission,
 	});
+
+	//$("#calculate").on("click", function () {
+	//	processSubmission($("#riskForm"))
+	//});
 
 
 });
@@ -1409,7 +1489,11 @@ $(window).load(function(e) {
  		$("header").css("background","white");
 
 	} else {
-		if ( $("#form-steps").length > 0) adjustNavigationBarLine();
+		if ( $("#form-steps").length > 0) {
+			$("#form-steps ol li:first()").addClass('active');
+			adjustNavigationBarLine();
+		}
+
 	}
 
 	// Determine what spacing should be between the Content and the Buttons
