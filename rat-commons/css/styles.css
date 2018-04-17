@@ -549,6 +549,7 @@ a.btn:disabled {
   text-align: left;
   /* max-width: 365px; */
   padding-left : 1em;
+  max-height: 295px;
 }
 div[id^='results_box']{
   font-size: 18px;
@@ -563,6 +564,7 @@ div[id^='results_box']{
 
 div[id^='results_graph'] {
    margin-bottom: 2em;
+   max-height: 295px;
 }
 .results_header {
   text-align: center;
@@ -1137,15 +1139,23 @@ input.error + label.radio span {
   }
 }
 
-@media (max-width:1199px) {
+/* Set the Line Hieght to spec for the Side Menu Items                     */
+.nav-tabs > li > a {
+  line-height: 18px;
+}
 
-  /* Set the Line Hieght to spec for the Side Menu Items                     */
-  .nav-tabs > li > a {
-    line-height: 18px;
+/* @media (max-width:1199px) {
+
+
+
+  .vertical_alignment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
 
-}
+} */
 
 @media (min-width: 193px) {
 
@@ -1160,6 +1170,15 @@ input.error + label.radio span {
     padding-left: 5em;
     padding-right: 5em;
   }
+
+  .vertical_alignment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+
 }
 
 @media (max-width: 992px) {
@@ -1177,7 +1196,6 @@ input.error + label.radio span {
     padding-right: 1.0em;
   }
 
-
   .container-fluid {
     padding-left: 1em;
     padding-right: 1em;
@@ -1190,12 +1208,8 @@ input.error + label.radio span {
   }
   header #toolTitle {
     padding-left: 1em;
-    /* padding-top: 7px; */
-    /* padding-bottom: 7px; */
   }
   header #toolTitle a {
-    /* font-size: 12px;      */
-    /* line-height: 15px;    */
     font-family: Montserrat;
     color: #FFFFFF;
     font-weight: bold;
@@ -1203,10 +1217,11 @@ input.error + label.radio span {
   #results {
     padding: 1em;
   }
-  #results_text {
+
+  .results_text {
     text-align: left;
-    /* width: 365px; */
     margin-left: 0;
+    padding-top: 36px;
   }
 
 @media (min-width: 768px) {
@@ -1214,11 +1229,8 @@ input.error + label.radio span {
     display: flex;
     align-items: center;
     justify-content: center;
- }
-
-
+  }
 }
-
 
 /* Handles Cell Phones : The size of a cell phone should be no more than 480  */
 /* pixels.  At the point I wrote this code I did not understand breakpoints   */
@@ -1258,14 +1270,6 @@ input.error + label.radio span {
 
   .vertical_alignment {
 
-  }
-}
-
-/* Handles handheld media                                                     */
-@media handheld {
-
-  #print {
-    display: none;
   }
 }
 
@@ -1635,12 +1639,18 @@ a:focus {
   height: 0;
   padding-top: 100%;
   position: relative;
+  max-width: 209px;
+  max-height: 209px;
+  margin: 0 auto;
+
 }
 
 .svg-container > svg {
   position: absolute;
   top: 0;
   left: 0;
+
+
 }
 
 /* Disable Section Title                                                      */
