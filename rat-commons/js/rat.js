@@ -177,8 +177,8 @@ function make_pie_chart(percent, divContainerForChart, color1, color2){
 
         var svg = d3.select(divContainerForChart)
           .append('svg')
-          //.attr('width', width)
-          //.attr('height', height)
+          .attr('width', width)
+          .attr('height', height)
 	  .attr('viewBox', '0 0 ' + width + " " + height)
           .append('g')
           .attr('transform', 'translate(' + (width / 2) +
