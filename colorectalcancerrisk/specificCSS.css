@@ -110,12 +110,6 @@
   width: 250px;
 }
 
-.vertical_alignment {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 /* #race is used in another Race, so we override in the specific Rat */
 #race {
   width: auto;
