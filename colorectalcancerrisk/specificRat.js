@@ -531,16 +531,24 @@ function resultsDisplay(response, textStatus, xhr) {
     go_toresult()
     
     var messageBeginning = "Based on the information provided, the patient's estimated risk for developing colorectal cancer over "
-    var message5years    = "the next 5 years is !Fillin! compared to a risk of FillIn "
-    var message10years   = "the next 10 years is !FillIn! compareed to a risk of FillInc"
-    var messageLifeTime  = "their lifetime ( to age 90) is !Fill in! compared to a risk of !Fill In!"
+    var message5years    = "the next 5 years is !Fillin1!% compared to a risk of !Fillin2!% "
+    var message10years   = "the next 10 years is !Fillin3!% compareed to a risk of !Fillin4!% "
+    var messageLifeTime  = "their lifetime ( to age 90) is !Fillin5!% compared to a risk of !Fillin6!% "
     var messageEnding    = "for a patient of the same age and race/ethnicity from the general US population.";
+
+    message5years   = message5years.replace(  "!Fillin1!",    result.risk)
+    message5years   = message5years.replace(  "!Fillin2!",    result.average5YearRisk)
+    message10years  = message10years.replace( "!Fillin3!",    result.patient10YearRisk)
+    message10years  = message10years.replace( "!Fillin4!",    result.average10YearRisk)
+    messageLifeTime = messageLifeTime.replace("!Fillin5!",    result.patientLifetimeRisk)
+    messageLifeTime = messageLifeTime.replace("!Fillin6!",    result.averageLifetimeRisk)
   
-  
+
     $("#results_text_5_years").text(messageBeginning + message5years + messageEnding);
     $("#results_text_10_years").text(messageBeginning + message10years + messageEnding);
     $("#results_text_lifetime").text(messageBeginning + messageLifeTime + messageEnding);
-  
+
+
     var fiveYearPatientRiskColor    = ( result.risk > result.average5YearRisk            ) ? "#BB0E3D" : "#2DC799";
     var tenYearPatientRiskColor     = ( result.patient10YearRisk > result.average10YearRisk   ) ? "#BB0E3D" : "#2DC799";
     var lifetimePateientRiskColor   = ( result.patientLifetimeRisk > result.averageLifetimeRisk    ) ? "#BB0E3D" : "#2DC799";
