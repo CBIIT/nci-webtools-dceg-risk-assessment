@@ -493,8 +493,6 @@ function adjustSmokingOnRegularBasis() {
 /* Toggle the gender form Male to Female or Female to Male */
 function toggleGender(e) {
 
-    console.log("> Height of Form Steps " + $("#form-steps").outerHeight(true))
-
     var value = ( e === undefined ) ? "Unknown" : $(e.target).val()
     switch (value) {
         case "Male":
@@ -503,6 +501,9 @@ function toggleGender(e) {
 
             $(".female").removeClass('show');
             $(".male").addClass('show');
+
+            $(".female").find("input, select").removeAttr("required","required")
+            $(".male").find("input, select").attr("required", "required")
             break;
         case "Female":
             // Used for form steps since some extra styling need to done 
@@ -510,11 +511,14 @@ function toggleGender(e) {
 
             $(".male").removeClass('show');
             $(".female").addClass('show');
+
+            $(".male").find("input, select").removeAttr("required","required")
+            $(".female").find("input, select").attr("required","required")
             break;
         default:
 
             // Used for form steps since some extra styling need to done 
-            $(".male, .female").removeClass('show').find("input, select").removeAttr("required");
+            $(".female, .male").removeClass('show').find("input, select").removeAttr("required");
             $("#different").addClass("maleOnlyStep")
     }
 
