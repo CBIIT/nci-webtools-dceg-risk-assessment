@@ -33,8 +33,8 @@ function calcSizesOfSections()
 
 	$.each($("#riskForm section"), function(index, element) {
 
-		// Accumulates the Height of the header and section, so the form will scrolled to 
-		// the correct position for the next element.  This calcuation will using this in 
+		// Accumulates the Height of the header and section, so the form will scrolled to
+		// the correct position for the next element.  This calcuation will using this in
 		// currentHeight calculation for the next iteration
 		var currentTitleAndSecitonHeight = $(element).prev().outerHeight(true) + $(element).outerHeight(true);
 		//alert("The current Height = " + currentTitleAndSecitonHeight)
@@ -135,8 +135,8 @@ function go_toresult() {
 	else
 		$("#startOver").removeClass("spacerBetweenQuestionsAndStartButtonMobile")
 
-	// This code is a hack and this should be done in CSS.  I put the code in 
-	// here since we are trying to get it done and it might have unforseen 
+	// This code is a hack and this should be done in CSS.  I put the code in
+	// here since we are trying to get it done and it might have unforseen
 	// consequences if put in the CSS Style
 	if ( isTablet() ) {
 		$("#results_home").css("padding-top", "6px")
@@ -236,7 +236,7 @@ function formScrollSpy() {
 				// current link being processed.
 				//
 				// Rule : In order to be active the button must be visible.  For example
-				// in CCRAT the male question/answers have five sections and the female 
+				// in CCRAT the male question/answers have five sections and the female
 				// has four sections.
 				$("#form-steps li").removeClass('active');
 				$("#form-steps li:eq(" + ind + "):visible").addClass('active');
@@ -289,13 +289,13 @@ function gotoSection(event) {
 		var sectionButtonOrLinkedPushed = $(this).attr('data-riskFormSection')
 		if ( sectionButtonOrLinkedPushed == 0 && $(window).scrollTop() != 0)
 			$("html, body").animate({scrollTop: 0}, 2000)
-			
+
 		// Stops the event propogration or you could get weird events from happening.
 		$(this).blur()
 		event.preventDefault()
 
 	} else {
-		// The purose of this code is to handle the situation where there are multiple section being displayed.  
+		// The purose of this code is to handle the situation where there are multiple section being displayed.
 		indexOfSection = $(this).attr('data-riskFormSection')
 
 		// Remove the active style from the previous link and apply it to the
@@ -312,16 +312,16 @@ function gotoSection(event) {
 	var heightOfFormSteps = $("#form-steps").outerHeight(true)
 
 	// Find the top point of the section, but if its the first section then go to 0 point
-	// so the header will be displayed.  The heaer is only displayed when scrolled to 
+	// so the header will be displayed.  The heaer is only displayed when scrolled to
 	// the top most pixel
 	var scrollTo = ( indexOfSection == 0 ) ? 0 : $("#" + sectionName).position().top;
 
-	// This code was written due to an analysis of the code running.  When the first 
-	// naivagion button was highlighted and the user clicked any other navigation 
-	// button then the user was being scrolled to a pointer higher then was should 
-	// have been scrolled to.  This code fixeds the problem. 
+	// This code was written due to an analysis of the code running.  When the first
+	// naivagion button was highlighted and the user clicked any other navigation
+	// button then the user was being scrolled to a pointer higher then was should
+	// have been scrolled to.  This code fixeds the problem.
 	if ( indexOfSection != 0 && $(window).scrollTop() == 0) heightOfFormSteps = heightOfFormSteps * 2
-	
+
 	// Scrolls to the actual point
 	var possibleNewValue = scrollTo - heightOfFormSteps
 	scrollTo = ( possibleNewValue <= 0 ) ? 0 : possibleNewValue
@@ -387,19 +387,19 @@ function fixedToTop(div,use_mobile) {
 	// if isMobile and existFormSteps then the user will be viewing the input page
 	// else the user will be viewing the main or the about page
 	//
-	// window_top > 0 							: The window has been scrolled 
-	// window_top <= 0 (Usually else keyword ) 	: Effectivelty at the top of the window 
+	// window_top > 0 							: The window has been scrolled
+	// window_top <= 0 (Usually else keyword ) 	: Effectivelty at the top of the window
   	if ( isMobile()) {
 		if ( onResultsPage == true) {
 
 			if ( window_top > 0 ) {
 				$("header").addClass("fixed")
-				hideCalculatePageHeader("results_home", $("#results_home").css("margin-top"))				
+				hideCalculatePageHeader("results_home", $("#results_home").css("margin-top"))
 			} else {
 				$("header").removeClass("fixed")
 				showCalculatePageHeader("results_home", $("#results_home").css("margin-top"))
 			}
-			
+
 		} else if ( existFormSteps() ) {
 			if ( window_top > 0 )	{
 				header_height = 0
@@ -424,7 +424,7 @@ function fixedToTop(div,use_mobile) {
 		}
 		return
   	}
-	  
+
 	// Handle the Desktop Case since mobile is only for phones and tables
 	if ( isMobile() == false && window_top > 0) {
 		$("#form-steps").addClass('fixed');
@@ -469,7 +469,7 @@ function handleScrollEvent(event) {
 	handleHeaderNavigationRedraw();
 
 	//alert("Handling Scroll Event");
-	// Works wrong on IE9 - it blurs the whole browser window if active 
+	// Works wrong on IE9 - it blurs the whole browser window if active
 	// element is document body. Better to check for this case:
 	// if (document.activeElement != document.body) document.activeElement.blur();
 
@@ -644,6 +644,16 @@ $(function() {
 	})
 })
 
+// Problem with Internet Explorder.  When the screen is minized and then
+// resized $('#side_nav .glyphicon-menu-hamburger') which causes it to have
+// Form steps many pixels below the header.  This is a hack.  I cam keeping
+// this code in here becausse I might be changing it to
+$(function() {
+	$(window).on('resize', function(event) {
+		if ( $(window).width() >= 992 )  $('#side_nav').css('display', 'none');
+	})
+})
+
 /*****************************************************************************/
 /* Enables the Calculate Button                                              */
 /* Todo: Change the name to enableCalculateButton                            */
@@ -739,7 +749,7 @@ function mouseDownBorderToggle(event) {
 	$("*").addClass("removeOutline")
 	$("*").removeClass("addOutline")
 
-	// This may not be needed anymore since I added a focusOut event.  
+	// This may not be needed anymore since I added a focusOut event.
 	// In the future, this should be verified that it can be removed.
 	//document.activeElement.blur()
 }
@@ -781,7 +791,7 @@ function enableCalculateButton() {
 			 if(input[0].required==true){
 				 name=input[0].name
 				 if( ($('input[name='  +  name +']').is('input[type="number"]')  && $('input[name=' + name + ']').val().length == 0 ) ||
-					 ($('input[name='  +  name +']').is('input[type="radio"]')  && $('input[name=' + name + ']:checked').length==0) || 
+					 ($('input[name='  +  name +']').is('input[type="radio"]')  && $('input[name=' + name + ']:checked').length==0) ||
 			 		 ($('select[name=' +  name +']').is('select') && input[0].selectedIndex==0)){
 						disablebutton()
 						valid=false
@@ -1007,7 +1017,7 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 
 	// Number of SubSubSubQuestions.  One after another ( this is for three level of indentation)
 	var numberOfSubSubSubQuestionsInARow = -1
-	
+
 	// Number of SubSubSubSubQuestions.  One after another ( this is for four levels of indentation)
 
 	// Number of total subquestion before the current question
@@ -1025,16 +1035,16 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 		//
 		// Assumption : The User has completed filling out the form
 		//
-		// Input  
+		// Input
 		//	first response to current question
 		//
-		// Output 
+		// Output
 		//	The answer from the input page that the user selected.
-		// Output 
+		// Output
 		//	NA if there is no answer ( for some questions to be answered other questions must be answered with a specific value )
 		//
-		// Bug 
-		//	Between the div with the class question and the div with the class responseOptions do not put any div. Usually what 
+		// Bug
+		//	Between the div with the class question and the div with the class responseOptions do not put any div. Usually what
 		//  would go between there would be a secondary question.  Use a paragraph tag instead of a div tag
 		//
 		function extractAnswerDispalyedOnGui(inputElement) {
@@ -1082,7 +1092,7 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 		 	//    the data-subquestion attribute is found then the next subqestion will
 			//    get "A"
 			//
-			// 	  Later on two enhanncments were added to have two more levels.  This code 
+			// 	  Later on two enhanncments were added to have two more levels.  This code
 			//    could be improved by making it recursive.
 		 	//
 		 	//		Returns to values
@@ -1091,7 +1101,7 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 		 	function handleIndex(index, element) {
 
 				var letters = [ "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "l", "m", "n" ]
-				var numbers = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" ] 
+				var numbers = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" ]
 			 	var indexString = ""
 			 	var isSubQuestion = false
 
@@ -1120,8 +1130,8 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 					indexString = letters[numberOfSubSubSubQuestionsInARow]
 
 					isSubQuestion = "Level 3"
-					
-				} else { 
+
+				} else {
 					numberOfSubQuestionsInARow = -1
 					indexString = index - numberOfSubQuestions - numberOfSubSubQuestions - numberOfSubSubSubQuestions
 			 	}
@@ -1157,12 +1167,12 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 		// Create the row that contains the line number, question and answer                //
 		//////////////////////////////////////////////////////////////////////////////////////
 
-		// Gets the first answer markup.  The first answer will usually be a checkbox or a select box.  
+		// Gets the first answer markup.  The first answer will usually be a checkbox or a select box.
 		// So, the user will be able to get the answer from the infromation.  However, if the answer
 		// is different ( ex. 3 text boxes for the height/width/lbs ) then the algorithm will call
 		// a routine from the specfic rat to handle the situation
-		var inputElement = $($(element).nextUntil("label","div")[0]).children('input, select')   
-		if ( $(inputElement.length) == 0 ) inputElement = element 
+		var inputElement = $($(element).nextUntil("label","div")[0]).children('input, select')
+		if ( $(inputElement.length) == 0 ) inputElement = element
 
    		var inputAnswerText = extractAnswerDispalyedOnGui(inputElement)
    		var question = createQuestionCell(index, $(element).text())
@@ -1181,7 +1191,7 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 // Filter the list of input parameters based on some sort of critera          //
 //                                                                            //
 // This helper function exist since the filter function being called may or   //
-// may not exist and I dont't a runtime error                                 // 
+// may not exist and I dont't a runtime error                                 //
 //                                                                            //
 // Input:                                                                     //
 //   index, elemeent                                                          //
@@ -1193,7 +1203,7 @@ function filterInputParameters(index, element) {
 
 	// Determines if their is an filter to verify whether each element should be used
 	var filterExist = ( typeof filterForInputParametersDisplay == "function" )
-	
+
 	result =  ( filterExist ) ? filterForInputParametersDisplay(element) : true
 
 	return result
@@ -1225,9 +1235,9 @@ function printCurrentPage() {
 // affect the positon showing up at the top of the screen.
 //
 // Note : I am hardcoding 40 in here for two reason
-//   1. Not exaclty sure how to derive height from the css since 
+//   1. Not exaclty sure how to derive height from the css since
 //      I am using a span and can find the height since it is inline
-//   2. I know that 40px is the space between the header and the content 
+//   2. I know that 40px is the space between the header and the content
 //      since that was asked in an IR.
 ////////////////////////////////////////////////////////////////////////////////
 function jumpToSection(event) {
@@ -1237,18 +1247,18 @@ function jumpToSection(event) {
 
 	if ( $(window).scrollTop() == 0 ) {
 		var heightOfHeader 						= $("header").outerHeight(true)
-		var spaceBetweenHeaderAndFirstHeader 	= 40;	
+		var spaceBetweenHeaderAndFirstHeader 	= 40;
 		var hieghtOfToolTitle 					= $("#toolTitle").outerHeight(true)
 		var spacerHeightBetweenSections 		= $(url).css("marginTop").replace("px","")
-		position = $(url).offset().top - heightOfHeader - 
-										 spaceBetweenHeaderAndFirstHeader - 
-										 hieghtOfToolTitle - 
+		position = $(url).offset().top - heightOfHeader -
+										 spaceBetweenHeaderAndFirstHeader -
+										 hieghtOfToolTitle -
 										 spacerHeightBetweenSections
 	} else {
 		position = $(url).offset().top - spacerHeightBetweenSections
 	}
 
-	$('html, body').animate({ scrollTop: position }, 2000);		
+	$('html, body').animate({ scrollTop: position }, 2000);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1258,7 +1268,7 @@ function callIfFunctionExist() {
 
 	// Determines if function exist
 	var functionExist = ( typeof specificRatFooterInitialization == "function" )
-	
+
 	if ( functionExist ) {
 		specificRatFooterInitialization()
 	}
@@ -1278,7 +1288,7 @@ function moveElementIfCloseToBottom(element) {
 	  $("html, body").animate( { scrollTop: $(element).offset().top + $(element).height() })
 	}
   }
-  
+
 ////////////////////////////////////////////////////////////////////////////////
 // This function will determine if the HTML Object's bottom is very close to  //
 // the bottom.  If it is it will return true                                  //
@@ -1321,7 +1331,7 @@ $(document).ready(function() {
 	$("#footer").load("./rat-commons/html/footer.html" , function() { callIfFunctionExist() })
 
 	// Add the footter to the end of the page.  Also, setup the links so that when
-	// the user clicks on a footer link and is sent to a new page the outline for 
+	// the user clicks on a footer link and is sent to a new page the outline for
 	// the current item will disappear.
 	$("#footer").on("mouseup","a", function(event) { mouseDownBorderToggle(event) })
 
@@ -1354,11 +1364,11 @@ $(document).ready(function() {
 	// Rule: When blurred then have the outline removed
 	$("#startOver").on('focusin', 		function(event)  { focusBorderToggle(event);	});
 	$("#startOver").on('focusout',      function(event)  { removeOutline(event); 		});
-	
+
 
 	// Rule : When tabbing the user could make the "Skip to Content" appear. which could
-	// cause the form-step vertical line to not be in the correct position.  This code 
-	// should fix that 
+	// cause the form-step vertical line to not be in the correct position.  This code
+	// should fix that
 	$("*").on("focusin", function(event) { if ( existFormSteps() ) adjustNavigationBarLine(); })
 
 	// Rule : Whenever you leave any HTML Object the focus is removed
@@ -1404,7 +1414,7 @@ $(window).load(function(e) {
 	if( isMobile() ) $(".toggleTool").on("click keypress", toggleFormDisplay);
 
 	$(".responseOptions > label.radio,.responseOptionsWithoutIndent > label.radio").on('click keypress', function(e) {
-		// This code was the orignal code for clicking on an image and 
+		// This code was the orignal code for clicking on an image and
 		// expecting it to act like a radio button
 		// if ($(e.target).hasClass('radio')) {
 		// 	$(e.target).prev().trigger('click');
@@ -1424,13 +1434,13 @@ $(window).load(function(e) {
 		// }
 
 		// The code will force an image to act likie an input
-		if ( e.type == "click") { 
-			if ($(e.target).hasClass('radio')) 
+		if ( e.type == "click") {
+			if ($(e.target).hasClass('radio'))
 				$(e.target).prev().trigger('click');
-			else if ($(e.target).parents('.radio')) 
+			else if ($(e.target).parents('.radio'))
 				$(e.target).parents('.radio').prev().trigger('click');
 		} else {
-			if(e.type == "keypress") 
+			if(e.type == "keypress")
 				if ((e.keyCode == 13) || (e.keyCode == 32))
 					$(e.target).children(".radio").prev().trigger('click');
 		}
@@ -1477,8 +1487,8 @@ $(window).load(function(e) {
 
 			adjustNavigationBarLine();
 
-			// Sets the Form Steps as the same height as the Header so when 
-			// the mobile application is scrolled the Form Steps will cover 
+			// Sets the Form Steps as the same height as the Header so when
+			// the mobile application is scrolled the Form Steps will cover
 			// the Header fully.  When Scrolled, and not at the top, only
 			// the Form Steps should be seen.
 			//$("#form-steps").outerHeight($("header").outerHeight(true))
@@ -1527,5 +1537,3 @@ $(window).load(function(e) {
 		$("#jumpTitle").on("click", "a", function(event) { jumpToSection(event); })
 	}
 });
-
-

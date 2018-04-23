@@ -502,7 +502,7 @@ a.btn:disabled {
 }
 
 /* There seems to be a collision with another CSS Rules and the end result of display */
-/* was never getting set to block.  However an intermediate result was set to none   */ 
+/* was never getting set to block.  However an intermediate result was set to none   */
 /* So, I created the maleOnlyStep to provide the correct behavior, meaning that the  */
 /* list item will only show if it a male.                                            */
 #form-steps ol li.maleOnlyStep {
@@ -666,7 +666,7 @@ div[id^='results_graph'] {
 }
 
 #form-steps ol li.active:first-child a:nth-child(2):focus {
-  outline: none; 
+  outline: none;
   box-shadow: 0 0 2px 1px #4D90FE;
 }
 
@@ -1176,6 +1176,10 @@ input.error + label.radio span {
     justify-content: center;
     align-items: center;
   }
+
+   #side_nav.glyphicon-menu-hamburger {
+     display:none;
+   }
 
 
 
@@ -1832,7 +1836,7 @@ section > fieldset > legend.questions {
 }
 
 /* For some odd reason the border was not showing up in the IPhone Emulator,   */
-/* so I explicity set it.  I have no understanding of this behavior            */                                     
+/* so I explicity set it.  I have no understanding of this behavior            */
 .numberFieldBorder {
   border: 1px solid #D3D3D3;
 }
