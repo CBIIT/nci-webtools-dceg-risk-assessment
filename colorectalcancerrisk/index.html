@@ -5,11 +5,15 @@
   <title>Breast Cancer Risk Assessment Tool (BRAT)</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" type="text/css">
+-->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.css">
+  <!--
   <link href="common/css/style.css" rel="stylesheet" type="text/css">
+  -->
   <link href="rat-commons/css/styles.css" rel="stylesheet" type="text/css">
   <link href="rat-commons/css/form-steps.css" rel="stylesheet" type="text/css">
   <link href="specificCSS.css" rel="stylesheet" type="text/css"></link>
@@ -23,7 +27,7 @@
 </head>
 
 <body>
-  <header>
+  <header role="banner">
     <a id="skipContentHome" class="sr-only sr-only-focusable" tabindex="0" href="javascript:scrollPassLogo();">Skip to main content</a>
     <a href="http://cancer.gov" target="_blank">
       <img id="logo" src="/common/images/nci-logo-full.svg" alt="go to cancer.gov">
@@ -70,7 +74,7 @@
       </ul>
     </div>
   </header>
-  <div id="main_home">
+  <div id="main_home" role="main">
     <div class="container-fluid">
       <span class="spacerBetweenHeaderContentForIndexPage">&nbsp;</span>
       <h1>The Colorectal Cancer Risk Assessment Tool</h1>
@@ -164,7 +168,7 @@
       </ul>
     </div>
   </div>
-  <div id="footer" class="footer"></div>
+  <div id="footer" class="footer" role="contentinfo"></div>
   <script language="JavaScript" type="text/javaScript" src="//static.cancer.gov/webanalytics/WA_RAT_PageLoad.js"></script>
 </body>
 
