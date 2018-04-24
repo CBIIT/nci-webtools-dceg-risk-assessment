@@ -527,8 +527,15 @@ function toggleGender(e) {
 
 }
 
-/* Produces the results box for the RAT                                                        */
+/* Getting very close to the end and I don't have the time to fiture this out */
+/* Howeever, when the male radio is clicked, the yes and no text of the       */
+/* Do you currently smoke cigarettes?                                         */
+function fixSmokingSection() {
+  $("[for='currentlySmokeYes']").css("color", "#2E2E2E")
+  $("[for='currentlySmokeNo']").css("color", "#2E2E2E")
+}
 
+/* Produces the results box for the RAT                                                        */
 function resultsDisplay(response, textStatus, xhr) {
 
     var result = JSON.parse(response.message)
@@ -599,6 +606,9 @@ function resetForm() {
   $("#form-steps li:first-of-type").addClass("active")
 
   genericResetForm()
+  enableRadioButtonGroupQuestion("#polyp")
+  enableRadioButtonGroupQuestion("#family_count")
+  fixSmokingSection()
   enableSectionHeaders();
 
   adjustNavigationBarLine()
