@@ -213,6 +213,10 @@ a:focus {
   padding-top: 25px;
 }
 
+.footer ul {
+    text-align: center;
+}
+
 header {
   display: block;
   padding-top : 5px;
