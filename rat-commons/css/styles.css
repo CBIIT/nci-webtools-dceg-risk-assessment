@@ -207,6 +207,12 @@ a:focus {
   display: none;
 }
 
+.footer {
+    bottom: 0;
+    color: #444;
+    padding:25px 0;
+}
+
 .tab-content,
 .footer {
   display: block;
