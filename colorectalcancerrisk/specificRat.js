@@ -128,6 +128,8 @@ $(function() {
         toggleGender($("#maleGender"))
     }
 
+    updateQuitSmokingAge()
+
   });
 
 /* Sets the "Is the patient Hispanic or Latino?" Question to no */
@@ -662,3 +664,31 @@ function resetForm() {
       answer = $("[name='height_ft']").val() + "' " + $("[name='height_in']").val() + "'' and " + $("[name='weight']").val() + " lbs"
       return answer
   }
+
+// Update the Select Box for the Age that the person quit smoking
+function updateQuitSmokingAge(startAge = 6, endAge = 55) {
+
+    // A routine that will create a collection of option tags.   Each option tag
+    // will contain an age/value.
+    function createAgeOptionList() {
+        var optionsData = {
+          '0': 'Select',
+          '' : 'I have never smoked cigarettes regularly'
+        }
+
+        for ( var index = startAge; index <= endAge; index++ ) {
+          var indexAsStr = parseInt(index)
+          optionsData[indexAsStr] = indexAsStr
+        }
+
+        console.log("startAge = " + startAge)
+        console.log("endAge = " + endAge)
+        console.log("** Options")
+        console.log(optionsData)
+
+        return optionsData
+    }
+
+    var optionsData = createAgeOptionList()
+    
+}
