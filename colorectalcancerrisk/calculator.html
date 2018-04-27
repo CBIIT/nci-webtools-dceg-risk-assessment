@@ -57,11 +57,11 @@
         <div class="row">
           <div class="col-xs-12 col-md-12">
             <div class="selectContent">
-              <p>Atlthough a patient's risk may be accurately estimated, these predictions do not allow one to say precisely which patient will develop colorectal cancer.
+              <p>Although a patient's risk may be accurately estimated, these predictions do not allow one to say precisely which patient will develop colorectal cancer.
                 In fact, some patients who do not develop colorectal cancer have higher risk estimates than some patients who do develop colorectal.</p>
               <p>As a reminder, this tool was designed for use by health professionals. If you are not a health professional, you are encouraged to print these results and discuss them with your health care provider. </p>
-              <p>The tool uses a patient's medical history and the history of colorectal cancer among their first-degree relatives ( fathers, mothers, brothers, sitsers, sons, daughters) to estimate absolute
-                colorectal cancer risk-their change of probability of developing colorectal cancer in a defined age individual</p>
+              <p>The tool uses a patient's medical history and the history of colorectal cancer among their first-degree relatives (fathers, mothers, brothers, sistsers, sons, daughters) to estimate absolute
+                colorectal cancer risk-their change of probability of developing colorectal cancer in a defined age individual.</p>
             </div>
           </div>
         </div>
@@ -134,7 +134,7 @@
               </div>
               <div class="col-sm-12 col-md-4">
                 <div id="results_graph_6">
-                  <div class="patient_header">AverageRisk</div>
+                  <div class="patient_header">Average Risk</div>
                   <div class="risk_header" id="Risk6"></div>
                   <div id="pieChart6" class="svg-container"></div>
                 </div>
@@ -187,7 +187,7 @@
         <section id="demo-section">
           <label class="questions no-margin-top" id="hispanic" >Is the patient Hispanic or Latino?</label>
           <div class="responseOptions ">
-            <input id="hispanicYes" type="radio" name="hispanic" value="0" tabindex="0" required />
+            <input id="hispanicYes" type="radio" name="hispanic" data-plural="Hispanics/Latinos" value="0" tabindex="0" required />
             <label class="radio" tabindex="0" for="hispanicYes"><span></span>Yes</label>
           </div>
           <div class="responseOptions ">
@@ -199,15 +199,15 @@
             This tool does not yet apply to American Indians and Alaska Natives
           </p>
           <div class="responseOptions">
-            <input id="WhiteRace" type="radio" name="race" value="White" aria-label="White" required/>
+            <input id="WhiteRace" type="radio" name="race" value="White" data-plural="Whites" aria-label="White" required/>
             <label class="radio" tabindex="0" for="WhiteRace"><span></span>White</label>
           </div>
           <div class="responseOptions">
-            <input id="BlackRace" type="radio" name="race" value="Black" aria-label="Black or African American" required />
+            <input id="BlackRace" type="radio" name="race" value="Black" data-plural="Blacks or African Americans" aria-label="Black or African American" required />
             <label class="radio" tabindex="0" for="BlackRace"><span></span>Black or African American</label>
           </div>
           <div class="responseOptions ">
-            <input id="AsianRace" type="radio" name="race" value="Asian" aria-label="Asian or Pacific Islander" required />
+            <input id="AsianRace" type="radio" name="race" value="Asian" data-plural="Asians or Pacific Islanders" aria-label="Asian or Pacific Islander" required />
             <label class="no-margin-bottom radio" tabindex="0" for="AsianRace"><span></span>Asian or Pacific Islander</label>
           </div>
           <label class="questions " for="age">
@@ -825,16 +825,16 @@
                         </div>
                         <div class="cols-xs-12 col-sm-10 information_text">
                           <p>
-                            When we first developed this tool, we test it with white people and found it to be be accurate in estimating their risk of colorectal cancer.
-                            If you are Hispanic/Latino, this tool can still estimate your risk. But, because there is not as much data available fro these groups, your
+                            When we first developed this tool, we tested it with white people and found it to be accurate in estimating their risk of colorectal cancer.
+                            If you are <span id="raceValue"></span>, this tool can still estimate your risk. But, because there is not as much data available for these groups, your
                             results may be less accurate.
                           </p>
                          <p>
-                           In the future, we hope to make this tool more accurate for <span id="raceValue"></span> as researchers complete studies that will provide information to
+                           In the future, we hope to make this tool more accurate for <span id="raceValue1"></span> as researchers complete studies that will provide information to
                            update the tool for these groups.
                           </p>
                           <p>
-                            Although the tool is not perfect, the information you learn from using it can still help you and your doctor better understand your risk of colorectal cancer
+                            Although the tool is not perfect, the information you learn from using it can still help you better understand your patient's risk of colorectal cancer
                           </p>
                         </div>
                       </div>

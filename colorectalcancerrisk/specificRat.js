@@ -36,7 +36,7 @@ $(function() {
     // information and disble the form.
     $("input[name='hispanic']").on("click", function(event) {
         if(this.value == 0){
-            configureRaceDialog( "Hispanic/Latino", enableCRATFormWithRaceDisabled )
+            configureRaceDialog( "Hispanic/Latino", $(this).attr("data-plural"), enableCRATFormWithRaceDisabled )
    	    } else {
             $("#riskForm").trigger("change")
             enableRaceQuestion()
@@ -47,7 +47,8 @@ $(function() {
 
         // Bring up the dialog
         var currentRace = $(event.target).next().text()
-        configureRaceDialog(currentRace, enableCRATForm)
+        var currentPluralRace = $(event.target).attr("data-plural")
+        configureRaceDialog(currentRace, currentPluralRace, enableCRATForm)
 
         // Check the actual radio box
         $(event.target).prop("checked", true)
@@ -139,8 +140,9 @@ function setHispanicQuestionToNo() {
 }
 
 /* A function that will set the correct race for the #raceValue and correct callback for the OK Button */
-function configureRaceDialog( race, callbackForClickOkButton ) {
+function configureRaceDialog( race, racePlural, callbackForClickOkButton ) {
     $("#raceValue").text(race)
+    $("#raceValue1").text(racePlural)
     $("#raceOkButton").on("click",  callbackForClickOkButton)
     $("#raceModal").modal("show");
     disableCRATForm();
@@ -545,8 +547,8 @@ function resultsDisplay(response, textStatus, xhr) {
 
     var messageBeginning = "Based on the information provided, the patient's estimated risk for developing colorectal cancer over "
     var message5years    = "the next 5 years is !Fillin1!% compared to a risk of !Fillin2!% "
-    var message10years   = "the next 10 years is !Fillin3!% compareed to a risk of !Fillin4!% "
-    var messageLifeTime  = "their lifetime ( to age 90) is !Fillin5!% compared to a risk of !Fillin6!% "
+    var message10years   = "the next 10 years is !Fillin3!% compared to a risk of !Fillin4!% "
+    var messageLifeTime  = "their lifetime (to age 90) is !Fillin5!% compared to a risk of !Fillin6!% "
     var messageEnding    = "for a patient of the same age and race/ethnicity from the general US population.";
 
     message5years   = message5years.replace(  "!Fillin1!",    result.risk)
@@ -690,5 +692,5 @@ function updateQuitSmokingAge(startAge = 6, endAge = 55) {
     }
 
     var optionsData = createAgeOptionList()
-    
+
 }
