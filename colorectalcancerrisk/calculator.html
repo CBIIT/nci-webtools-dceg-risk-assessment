@@ -20,7 +20,7 @@
     <script src="specificRat.js"></script>
   </head>
   <body>
-    <header>
+    <header role="banner">
       <a id="skipContentCalculate" tabindex="0" class="sr-only sr-only-focusable">Skip to main content</a>
       <a href="http://cancer.gov" target="_blank"><img id="logo" src="/common/images/nci-logo-full.svg" alt="go to cancer.gov"></a>
       <div id="toolTitle"><a href="index.html">Colorectal Cancer Risk Assessment Tool</a>
@@ -48,7 +48,8 @@
       </div>
     </header>
 
-    <div id="results" class="container-fluid">
+    <div role="main">
+      <div id="results" class="container-fluid">
       <div id="results_home">
         <a href="javascript:goback_tocalc()"> &lt; Back to Calculator</a>
         <img id="print" src="rat-commons/images/print-icon.gif" alt="Button to print">
@@ -164,8 +165,7 @@
         </div>
       </div>
     </div>
-
-    <div id="form-steps">
+      <div id="form-steps">
       <div id="line">
         <hr class="line">
       </div>
@@ -177,7 +177,7 @@
         <li id="different" class="maleOnlyStep" > <a class="hidden-xs hidden-sm" href="#cigarette-section">Cigarette Usage</a><a href="#cigarette-section">5</a></li>
       </ol>
     </div>
-    <div class="container-fluid" id="main">
+      <div class="container-fluid" id="main">
       <form id="riskForm" name="riskForm" method="POST" action="calculate" autocomplete="off">
 
         <!-- ##############################################################  -->
@@ -725,33 +725,9 @@
 
       </form>
     </div>
-    <div class="footer">
-      <div class="center-block">
-        <ul class="list-inline">
-          <li><a target="_blank" title="Home" href="http://www.cancer.gov/">Home</a></li>
-          <li>|</li>
-          <li><a target="_top" title="Support" href="mailto:NCIMeansToRiskWebAdmin@mail.nih.gov?subject=Biomarker%20Tools">Support</a></li>
-          <li>|</li>
-          <li><a target="_blank" title="Policies" href="http://www.cancer.gov/global/web/policies">Policies</a></li>
-          <li>|</li>
-          <li><a target="_blank" title="Accessibility" href="http://www.cancer.gov/global/web/policies/accessibility">Accessibility</a></li>
-          <li>|</li>
-          <li><a target="_blank" title="Viewing Files" href="http://cancer.gov/global/viewing-files">Viewing Files</a></li>
-          <li>|</li>
-          <li><a target="_blank" title="FOIA" href="http://www.cancer.gov/global/web/policies/foia">FOIA</a></li>
-        </ul>
-        <ul class="list-inline">
-          <li><a target="_blank" href="http://www.hhs.gov/">U.S. Department of Health and Human Services</a></li>
-          <li>|</li>
-          <li><a target="_blank" href="http://www.nih.gov">National Institutes of Health</a></li>
-          <li>|</li>
-          <li><a target="_blank" href="http://www.cancer.gov/">National Cancer Institute</a></li>
-          <li>|</li>
-          <li><a target="_blank" href="http://usa.gov">USA.gov</a></li>
-        </ul>
-        <div class="text-center"><span>NIH ... Turning Discovery Into Health</span><sup>®</sup></div>
-      </div>
     </div>
+
+    <div id="footer" class="footer" role="contentinfo"></div>
 
     <!-- ###################################################### -->
     <!-- Modal Dialogs                                          -->
