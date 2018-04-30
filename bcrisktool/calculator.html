@@ -165,14 +165,16 @@
       <form id="riskForm" name="riskForm" method="POST" action="calculate" autocomplete="off">
         <h2 id="PatientEligibilitySectionTitle" class="sectionTitle">Patient Eligibility</h2>
         <section id="patient-eligibility-section">
-          <label class="questions no-margin-top">Does the woman have a medical history of any breast cancer or of ductal carcinoma in situ (DCIS) or lobular carcinoma in situ (LCIS) or has she received previous radiation therapy to the chest for treatment of Hodgkin lymphoma?</label>
-          <div class="responseOptions">
-            <input id="cancerAndRadiationHistoryYes" type="radio" name="cancerAndRadiationHistory" value="0" >
-            <label class="radio" tabindex="0" for="cancerAndRadiationHistoryYes"><span></span>Yes</label>
-          </div>
-          <div class="responseOptions">
-            <input id="cancerAndRadiationHistoryNo" type="radio" name="cancerAndRadiationHistory" value="1" >
-            <label class="radio" tabindex="0" for="cancerAndRadiationHistoryNo"><span></span>No</label>
+          <div id="questionAndAnswers1">
+            <label class="questions no-margin-top">Does the woman have a medical history of any breast cancer or of ductal carcinoma in situ (DCIS) or lobular carcinoma in situ (LCIS) or has she received previous radiation therapy to the chest for treatment of Hodgkin lymphoma?</label>
+            <div class="responseOptions">
+              <input id="cancerAndRadiationHistoryYes" type="radio" name="cancerAndRadiationHistory" value="0" >
+              <label class="radio" tabindex="0" for="cancerAndRadiationHistoryYes"><span></span>Yes</label>
+            </div>
+            <div class="responseOptions">
+              <input id="cancerAndRadiationHistoryNo" type="radio" name="cancerAndRadiationHistory" value="1" >
+              <label class="radio" tabindex="0" for="cancerAndRadiationHistoryNo"><span></span>No</label>
+            </div>
           </div>
           <label class="questions">
             Does the woman have a mutation in either the BRCA1 or BRCA2 gene, or a diagnosis of a genetic syndrome that may be associated with elevated risk of breast cancer?

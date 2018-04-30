@@ -7,7 +7,7 @@ var terms = {
 
 $(function() {
 
- 
+
   // Any time the form changes check all necessary (enabled) input have an answer
   //
   // Moved the add event here because originally when debugging the code the
@@ -16,7 +16,7 @@ $(function() {
   // would execute
   $("#riskForm").on("change", enableCalculateButton);
 
-  $("#BreastCancerHealth").on("focusin", function() { moveElementIfCloseToBottom("#BreastCancerHealth") }) 
+  $("#BreastCancerHealth").on("focusin", function() { moveElementIfCloseToBottom("#BreastCancerHealth") })
 
 	// Disables the form if the woman previously had cancer or trigger the form
   	// toc check if the calculate button can be enabled.``
@@ -24,8 +24,8 @@ $(function() {
 		if(this.value == 0){
 			      $("#womanWithCancerDialog").modal("show");
       			disableForm();
-            //$("input[name='cancerAndRadiationHistory']")[this.value].checked = false
 	  	} else {
+            enableBRATForm()
       			$("#riskForm").trigger("change")
       }
   });
@@ -41,9 +41,14 @@ $(function() {
      }
   });
 
+  // Enables the first question when user clicks ok.  Note that the
+  // 1st Questions will have the Answer Yes selected.
+  $("#womanWithCancerDialog").on("click", enableFirstQuestionAndAnswers)
+  $("#womanWithCancerDialog").on("click", setCancerHistoryQeustionToYes)
+
   // Enables the form when the user clicks ok for the dialog box be dispalyed
   // for any question in the patient eligibility phasse or the race
-  $("#okButtonCancerHistory").on("click",       enableBRATForm)
+  //$("#okButtonCancerHistory").on("click",       enableBRATForm)
   $("#okButtonMutationBRCA").on("click",        enableBRATForm)
   $("#okButtonHispanicIssue").on("click",       enableBRATForm);
   $("#okButtonUnknownIssue").on("click",        enableBRATForm);
@@ -89,11 +94,24 @@ $(function() {
   	$('#riskForm').trigger('change');
 });
 
+// Enables the first question and its associated Answers
+function enableFirstQuestionAndAnswers() {
+  $("#questionAndAnswers1 > label").css("color","#2E2E2E")
+  $("#questionAndAnswers1 input").attr("disabled", false)
+  $("#questionAndAnswers1 input").css("color", "#606060")
+  $("#questionAndAnswers1 label").css("color", "#2E2E2E")
+  $("#questionAndAnswers1 div").css("tabindex","0")
+}
+
+function setCancerHistoryQeustionToYes() {
+  $("#cancerAndRadiationHistoryYes").prop("checked","true")
+}
+
 // A function that will be called as a CallBack when the footer is loaded.  This function will be the same name
-// for all specificRats.  I believe that this function will scroll to the top of the #contactLink so it can be 
+// for all specificRats.  I believe that this function will scroll to the top of the #contactLink so it can be
 // seen
 function specificRatFooterInitialization() {
-  $("#contactLink").on("focusin", function() { $("html, body").animate( { scrollTop: $("#contactLink").position().top }) }) 
+  $("#contactLink").on("focusin", function() { $("html, body").animate( { scrollTop: $("#contactLink").position().top }) })
 }
 
 // Brings up the dialog box explaining why the data is inaccurate for hispnaics,
