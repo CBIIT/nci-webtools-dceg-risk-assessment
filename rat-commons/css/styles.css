@@ -402,7 +402,7 @@ a.btn:disabled {
   color: white;
 }
 
-#startOver {
+/* #startOver {
   box-sizing: border-box;
   width: 207px;
   height: 35px;
@@ -421,7 +421,44 @@ a.btn:disabled {
 #startOver:hover {
   background-color: #28b289;
   color: white;
+} */
+
+/* Styling for the buttons at the bottom of the result page.                 */
+.BottomResultPageButton {
+  box-sizing: border-box;
+  height: 35px;
+  border: 0px;
+  padding: 0px;
+
+  font-family: 'Montserrat';
+  font-size: 15px;
+  border-radius: 3px;
+
+  background-color: #2DCF99;
+  color: white;
+  border: none;
 }
+
+#startOverButton {
+  width: 207px;
+}
+
+#returnToCalculateButton {
+  width: 207px
+}
+
+#startOverButton:hover {
+  background-color: #28b289;
+  color: white;
+}
+
+#returnToCalculateButton:hover {
+  background-color: #28b289;
+  color: white;
+}
+
+
+
 
 /* Styles for the print button                                                */
 #print {
@@ -1130,6 +1167,17 @@ input.error + label.radio span {
    }
 }
 
+@media(max-width: 1200px) {
+
+  /* Avoid the "Start A New Assessment" and "Back To Calculator" Button */
+  /* from colliding                                                     */
+
+  #startOverButton {
+    margin-bottom: 20px;
+  }
+}
+
+
 /* Used for the style navbar-toggle ( set to a min width of 768 ) for causing */
 /* the Hamburger Menu to disappear.  This style handles the case where the    */
 /* Hamburger Icon is visible                                                  */
@@ -1557,16 +1605,6 @@ input.error + label.radio span {
 /* Centering for Mobile buttons that are link */
 .paddingForMobileLinkButtons {
   padding-top: 7px;
-}
-
-
-/* Specific Button for the Start Over Button on the Result Pages */
-.startOverButton {
-  background-color: #2DC799;
-  border-radius: 3px;
-  font-size: 15px;
-  font-family: 'Montserrat';
-  color: #FFFFFF;
 }
 
 /* Disable a link */
