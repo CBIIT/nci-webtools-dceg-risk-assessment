@@ -1172,7 +1172,7 @@ input.error + label.radio span {
   /* Avoid the "Start A New Assessment" and "Back To Calculator" Button */
   /* from colliding                                                     */
 
-  #startOverButton {
+  #returnToCalculateButton {
     margin-bottom: 20px;
   }
 }
