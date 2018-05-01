@@ -128,14 +128,16 @@
         <form id="riskForm" name="riskForm" method="POST" action="calculate" autocomplete="off">
         <h2 id="demo" class="sectionTitle">Demographics</h2>
         <section id="demo-section" class="sectionTitle">
-          <label class="questions no-margin-top">What is the patient's race?</label>
-          <div class="responseOptions">
-            <input id="nonHispanicWhiteRace" type="radio" name="race" value="0" required>
-            <label class="radio" tabindex="0" for="nonHispanicWhiteRace"><span></span>Non-Hispanic White</label>
-          </div>
-          <div class="responseOptions">
-            <input  id="notNonHispanicWhiteRadioButton" type="radio" name="race" value="1" required>
-            <label class="radio" tabindex="0" for="notNonHispanicWhiteRadioButton"><span></span>Other</label>
+          <div id="questionAndAnswers1">
+            <label class="questions no-margin-top">What is the patient's race?</label>
+            <div class="responseOptions">
+              <input id="nonHispanicWhiteRace" type="radio" name="race" value="0">
+              <label class="radio" tabindex="0" for="nonHispanicWhiteRace"><span></span>Non-Hispanic White</label>
+            </div>
+            <div class="responseOptions">
+              <input  id="notNonHispanicWhiteRadioButton" type="radio" name="race" value="1" >
+              <label class="radio" tabindex="0" for="notNonHispanicWhiteRadioButton"><span></span>Other</label>
+            </div>
           </div>
           <label class="questions" for="age">What is the patient's age?</label>
           <p class="questions_secondary">

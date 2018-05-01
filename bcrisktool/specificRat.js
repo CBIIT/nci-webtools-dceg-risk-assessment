@@ -18,8 +18,8 @@ $(function() {
 
   $("#BreastCancerHealth").on("focusin", function() { moveElementIfCloseToBottom("#BreastCancerHealth") })
 
-	// Disables the form if the woman previously had cancer or trigger the form
-  	// toc check if the calculate button can be enabled.``
+	// Disables the form if the woman previously had cancer or enable the form
+  // if the woman does not have cancer.
 	$("input[name='cancerAndRadiationHistory']").on("click", function(event) {
 		if(this.value == 0){
 			      $("#womanWithCancerDialog").modal("show");
@@ -43,7 +43,9 @@ $(function() {
 
   // Enables the first question when user clicks ok.  Note that the
   // 1st Questions will have the Answer Yes selected.
-  $("#womanWithCancerDialog").on("click", enableFirstQuestionAndAnswers)
+  $("#womanWithCancerDialog").on("click", function() {
+    enableFirstQuestionAndAnswers($("#questionAndAnswers1").attr("id"))
+  })
   $("#womanWithCancerDialog").on("click", setCancerHistoryQeustionToYes)
 
   // Enables the form when the user clicks ok for the dialog box be dispalyed
@@ -94,14 +96,7 @@ $(function() {
   	$('#riskForm').trigger('change');
 });
 
-// Enables the first question and its associated Answers
-function enableFirstQuestionAndAnswers() {
-  $("#questionAndAnswers1 > label").css("color","#2E2E2E")
-  $("#questionAndAnswers1 input").attr("disabled", false)
-  $("#questionAndAnswers1 input").css("color", "#606060")
-  $("#questionAndAnswers1 label").css("color", "#2E2E2E")
-  $("#questionAndAnswers1 div").css("tabindex","0")
-}
+
 
 function setCancerHistoryQeustionToYes() {
   $("#cancerAndRadiationHistoryYes").prop("checked","true")

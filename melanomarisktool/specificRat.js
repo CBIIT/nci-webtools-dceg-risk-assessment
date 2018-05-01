@@ -1,9 +1,9 @@
 $(function() {
 
 	// When tabbing, the element is being hidden by part of the browser, so I want to move it so the user can see it.
-	$("#melanomaRisk").on("focusin", function() { moveElementIfCloseToBottom("#melanomaRisk") }) 
-	$("#preventMelanoma").on("focusin", function() { moveElementIfCloseToBottom("#preventMelanoma") }) 
-	
+	$("#melanomaRisk").on("focusin", function() { moveElementIfCloseToBottom("#melanomaRisk") })
+	$("#preventMelanoma").on("focusin", function() { moveElementIfCloseToBottom("#preventMelanoma") })
+
 
 	$("input[name='gender']").on("change", toggleGender);
 	$("input[name='gender']").on("change", calcSizesOfSections);
@@ -13,8 +13,9 @@ $(function() {
 	$("input[id='notNonHispanicWhiteRadioButton']").on("change", function() {
 			disableMRATForm()
 			$("#raceModal").modal("show");
-			$("#nonHispanicWhiteRace")[0].checked = true;
 	});
+
+	$("input[id='nonHispanicWhiteRace']").on("click", enableMRATForm )
 
 	// Initialize the button that will reset the form
 	$("#reset").on("click", resetForm)
@@ -26,8 +27,21 @@ $(function() {
 
 	$('#riskForm').trigger('change');
 
-	// Enables the form when the user clicks ok for the dialog box be dispalyed
-	$("#okButtonRace").on("click", enableMRATForm)
+	// Enables the First Question only and disable the Command Button.
+	//
+	// Since the enableCalculateButton() does not check for the case where the
+	// number of enabled inputs is 0.  If the number of enabled input are 0 then
+	// all the questions have been answered, so the Calculate Button would be
+	// green. I decided to fix it here since I do not want to change rat.js
+	// this late in the task unless I need to.
+	//
+	$("#okButtonRace").on("click", function() {
+    enableFirstQuestionAndAnswers($("#questionAndAnswers1").attr("id"))
+  })
+
+	$("#okButtonRace").on("click", function() {
+		disablebutton()
+  })
 
 	$("termAndConditionsPge").removeClass("show")
 });
@@ -41,7 +55,7 @@ function go_toTermsAndConditions() {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Dispaly the Main About Page         
+// Dispaly the Main About Page
 ////////////////////////////////////////////////////////////////////////////////
 function go_toAboutPage() {
 	$("#mainAboutPage").addClass("show")
@@ -261,7 +275,7 @@ function resetForm() {
  }
 
  /*
-  * Filter the Input Parameters based on the current gendar ( male, female ) 
+  * Filter the Input Parameters based on the current gendar ( male, female )
   *
   *	Assumption : By now the user should have selected Male or Female
   *
@@ -272,10 +286,10 @@ function resetForm() {
   * When looking at this remember female contains male and will include("male") will return true for both.
   *
   * Input
-  *    An HTML Object 
-  * 
-  * Output 
-  *    Boolean ( true means the elemenet will not be filtered ) 
+  *    An HTML Object
+  *
+  * Output
+  *    Boolean ( true means the elemenet will not be filtered )
   */
  function filterForInputParametersDisplay(element)
  {
@@ -291,15 +305,15 @@ function resetForm() {
 	var containsMaleGender      = ( containsFemaleGender ) ? false :  ( cssStyles.indexOf(maleGender)  > -1 ) ? true : false
 
 	var isSelectedGenderFemale 	= ( selectedGender == femaleGender )
-	
+
 	var resultSelectedGender = false
-	if ( isSelectedGenderFemale == true && containsFemaleGender == true ) 
+	if ( isSelectedGenderFemale == true && containsFemaleGender == true )
 		resultSelectedGender = true
-	else if ( isSelectedGenderFemale == false && containsMaleGender == true ) 
+	else if ( isSelectedGenderFemale == false && containsMaleGender == true )
 		resultSelectedGender = true
-	
+
 	// In order to be true neither gender must be used or the select gender must be found in the CSS Styles
 	var result = ( (containsMaleGender == false && containsFemaleGender == false) || resultSelectedGender ) ? true : false
-	
+
 	return result;
  }
