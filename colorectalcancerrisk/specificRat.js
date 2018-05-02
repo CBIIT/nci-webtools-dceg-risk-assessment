@@ -129,7 +129,28 @@ $(function() {
         toggleGender($("#maleGender"))
     }
 
+    // The Quit Smoking Age will be dynamic since the value will be dependent
+    // on the age that the person start smoking.  The values will be equal
+    // to or greater than the values in the when did the pateient start Select
+    // box
     updateQuitSmokingAge()
+
+    // Make sure that the Quit Smoking only has ages greater than or equal to
+    // the age the patient started smoking.
+    $("#firstYearSmoke").on("change", function() {
+      var startAgeForQuitSmoking = $("#firstYearSmoke option:selected").val()
+      console.log("The value is " + startAgeForQuitSmoking)
+
+      if ( $.isNumeric("") )
+        updateQuitSmokingAge()
+      else {
+        var startSmokingAsInt = parseInt(startAgeForQuitSmoking)
+        if ( startSmokingAsInt == 0 )
+          updateQuitSmokingAge()
+        else
+          updateQuitSmokingAge(startSmokingAsInt)
+      }
+    })
 
   });
 
@@ -668,29 +689,48 @@ function resetForm() {
   }
 
 // Update the Select Box for the Age that the person quit smoking
+// If the screen is getting updated and the user has already selected a values
+// then
 function updateQuitSmokingAge(startAge = 6, endAge = 55) {
 
     // A routine that will create a collection of option tags.   Each option tag
     // will contain an age/value.
     function createAgeOptionList() {
-        var optionsData = {
-          '0': 'Select',
-          '' : 'I have never smoked cigarettes regularly'
-        }
 
-        for ( var index = startAge; index <= endAge; index++ ) {
-          var indexAsStr = parseInt(index)
-          optionsData[indexAsStr] = indexAsStr
-        }
+        var optionsData = []
 
-        console.log("startAge = " + startAge)
-        console.log("endAge = " + endAge)
-        console.log("** Options")
-        console.log(optionsData)
+        elementSelect = {}
+        elementSelect.value = 0
+        elementSelect.text = 'Select'
+        optionsData.push(elementSelect)
+
+        //elementNever = {}
+        //elementNever.value = 1
+        //elementNever.text = 'Never smoke Cigrarettes'
+        //optionsData.push(elementNever)
+
+        for ( var age = startAge; age <= endAge; age++ ) {
+          var ageAsStr = parseInt(age)
+
+          var element = {}
+          element.value = age
+          element.text = ageAsStr
+
+          optionsData.push(element)
+        }
 
         return optionsData
     }
 
+    // Main Algoirthm
+
+    $("#smoke_quit").children().remove()
+
     var optionsData = createAgeOptionList()
+    $.each( optionsData, function(key, value) {
+      $("#smoke_quit").append($("<option></option>").attr("value", value.value).text(value.text))
+    })
+
+
 
 }
