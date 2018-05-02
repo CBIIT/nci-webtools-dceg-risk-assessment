@@ -36,7 +36,7 @@ $(function() {
     // information and disble the form.
     $("input[name='hispanic']").on("click", function(event) {
         if(this.value == 0){
-            configureRaceDialog( "Hispanic/Latino", enableCRATFormWithRaceDisabled )
+            configureRaceDialog( "Hispanic/Latino", $(this).attr("data-plural"), enableCRATFormWithRaceDisabled )
    	    } else {
             $("#riskForm").trigger("change")
             enableRaceQuestion()
@@ -47,7 +47,8 @@ $(function() {
 
         // Bring up the dialog
         var currentRace = $(event.target).next().text()
-        configureRaceDialog(currentRace, enableCRATForm)
+        var currentPluralRace = $(event.target).attr("data-plural")
+        configureRaceDialog(currentRace, currentPluralRace, enableCRATForm)
 
         // Check the actual radio box
         $(event.target).prop("checked", true)
@@ -128,7 +129,28 @@ $(function() {
         toggleGender($("#maleGender"))
     }
 
+    // The Quit Smoking Age will be dynamic since the value will be dependent
+    // on the age that the person start smoking.  The values will be equal
+    // to or greater than the values in the when did the pateient start Select
+    // box
     updateQuitSmokingAge()
+
+    // Make sure that the Quit Smoking only has ages greater than or equal to
+    // the age the patient started smoking.
+    $("#firstYearSmoke").on("change", function() {
+      var startAgeForQuitSmoking = $("#firstYearSmoke option:selected").val()
+      console.log("The value is " + startAgeForQuitSmoking)
+
+      if ( $.isNumeric("") )
+        updateQuitSmokingAge()
+      else {
+        var startSmokingAsInt = parseInt(startAgeForQuitSmoking)
+        if ( startSmokingAsInt == 0 )
+          updateQuitSmokingAge()
+        else
+          updateQuitSmokingAge(startSmokingAsInt)
+      }
+    })
 
   });
 
@@ -139,8 +161,9 @@ function setHispanicQuestionToNo() {
 }
 
 /* A function that will set the correct race for the #raceValue and correct callback for the OK Button */
-function configureRaceDialog( race, callbackForClickOkButton ) {
+function configureRaceDialog( race, racePlural, callbackForClickOkButton ) {
     $("#raceValue").text(race)
+    $("#raceValue1").text(racePlural)
     $("#raceOkButton").on("click",  callbackForClickOkButton)
     $("#raceModal").modal("show");
     disableCRATForm();
@@ -545,8 +568,8 @@ function resultsDisplay(response, textStatus, xhr) {
 
     var messageBeginning = "Based on the information provided, the patient's estimated risk for developing colorectal cancer over "
     var message5years    = "the next 5 years is !Fillin1!% compared to a risk of !Fillin2!% "
-    var message10years   = "the next 10 years is !Fillin3!% compareed to a risk of !Fillin4!% "
-    var messageLifeTime  = "their lifetime ( to age 90) is !Fillin5!% compared to a risk of !Fillin6!% "
+    var message10years   = "the next 10 years is !Fillin3!% compared to a risk of !Fillin4!% "
+    var messageLifeTime  = "their lifetime (to age 90) is !Fillin5!% compared to a risk of !Fillin6!% "
     var messageEnding    = "for a patient of the same age and race/ethnicity from the general US population.";
 
     message5years   = message5years.replace(  "!Fillin1!",    result.risk)
@@ -666,29 +689,48 @@ function resetForm() {
   }
 
 // Update the Select Box for the Age that the person quit smoking
+// If the screen is getting updated and the user has already selected a values
+// then
 function updateQuitSmokingAge(startAge = 6, endAge = 55) {
 
     // A routine that will create a collection of option tags.   Each option tag
     // will contain an age/value.
     function createAgeOptionList() {
-        var optionsData = {
-          '0': 'Select',
-          '' : 'I have never smoked cigarettes regularly'
-        }
 
-        for ( var index = startAge; index <= endAge; index++ ) {
-          var indexAsStr = parseInt(index)
-          optionsData[indexAsStr] = indexAsStr
-        }
+        var optionsData = []
 
-        console.log("startAge = " + startAge)
-        console.log("endAge = " + endAge)
-        console.log("** Options")
-        console.log(optionsData)
+        elementSelect = {}
+        elementSelect.value = 0
+        elementSelect.text = 'Select'
+        optionsData.push(elementSelect)
+
+        //elementNever = {}
+        //elementNever.value = 1
+        //elementNever.text = 'Never smoke Cigrarettes'
+        //optionsData.push(elementNever)
+
+        for ( var age = startAge; age <= endAge; age++ ) {
+          var ageAsStr = parseInt(age)
+
+          var element = {}
+          element.value = age
+          element.text = ageAsStr
+
+          optionsData.push(element)
+        }
 
         return optionsData
     }
 
+    // Main Algoirthm
+
+    $("#smoke_quit").children().remove()
+
     var optionsData = createAgeOptionList()
-    
+    $.each( optionsData, function(key, value) {
+      $("#smoke_quit").append($("<option></option>").attr("value", value.value).text(value.text))
+    })
+
+
+
 }

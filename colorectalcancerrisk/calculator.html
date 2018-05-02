@@ -51,17 +51,17 @@
     <div role="main">
       <div id="results" class="container-fluid">
       <div id="results_home">
-        <a href="javascript:goback_tocalc()"> &lt; Back to Calculator</a>
+        <a href="javascript:goback_tocalc()"> &lt; Edit Response</a>
         <img id="print" src="rat-commons/images/print-icon.gif" alt="Button to print">
         <h1>Personalized Results</h1>
         <div class="row">
           <div class="col-xs-12 col-md-12">
             <div class="selectContent">
-              <p>Atlthough a patient's risk may be accurately estimated, these predictions do not allow one to say precisely which patient will develop colorectal cancer.
+              <p>Although a patient's risk may be accurately estimated, these predictions do not allow one to say precisely which patient will develop colorectal cancer.
                 In fact, some patients who do not develop colorectal cancer have higher risk estimates than some patients who do develop colorectal.</p>
               <p>As a reminder, this tool was designed for use by health professionals. If you are not a health professional, you are encouraged to print these results and discuss them with your health care provider. </p>
-              <p>The tool uses a patient's medical history and the history of colorectal cancer among their first-degree relatives ( fathers, mothers, brothers, sitsers, sons, daughters) to estimate absolute
-                colorectal cancer risk-their change of probability of developing colorectal cancer in a defined age individual</p>
+              <p>The tool uses a patient's medical history and the history of colorectal cancer among their first-degree relatives (fathers, mothers, brothers, sisters, sons, daughters) to estimate absolute
+                colorectal cancer risk-their change of probability of developing colorectal cancer in a defined age individual.</p>
             </div>
           </div>
         </div>
@@ -134,7 +134,7 @@
               </div>
               <div class="col-sm-12 col-md-4">
                 <div id="results_graph_6">
-                  <div class="patient_header">AverageRisk</div>
+                  <div class="patient_header">Average Risk</div>
                   <div class="risk_header" id="Risk6"></div>
                   <div id="pieChart6" class="svg-container"></div>
                 </div>
@@ -160,11 +160,24 @@
           </table>
         </div>
 
-        <div>
-          <button id="startOver" type="button" class="center-block btn btn-default vertical_alignment">Start Over</button>
+        <!-- Buttons -->
+        <div class="row">
+
+           <div class="col-md-12 col-lg-push-3 col-lg-3">
+             <button id="returnToCalculateButton" type="button" class="BottomResultPageButton center-block">Edit Responses</button>
+           </div>
+
+           <div class="col-md-12 col-lg-push-3 col-lg-3">
+             <button id="startOverButton" class="BottomResultPageButton center-block" type="button" class="center-block">Start A New Assessment</button>
+           </div>
+
         </div>
+
       </div>
     </div>
+
+       <!-- Form Steps -- Navigation Bar containing button and links  to each   -->
+       <!-- section                                                             -->
       <div id="form-steps">
       <div id="line">
         <hr class="line">
@@ -187,7 +200,7 @@
         <section id="demo-section">
           <label class="questions no-margin-top" id="hispanic" >Is the patient Hispanic or Latino?</label>
           <div class="responseOptions ">
-            <input id="hispanicYes" type="radio" name="hispanic" value="0" tabindex="0" required />
+            <input id="hispanicYes" type="radio" name="hispanic" data-plural="Hispanics/Latinos" value="0" tabindex="0" required />
             <label class="radio" tabindex="0" for="hispanicYes"><span></span>Yes</label>
           </div>
           <div class="responseOptions ">
@@ -199,15 +212,15 @@
             This tool does not yet apply to American Indians and Alaska Natives
           </p>
           <div class="responseOptions">
-            <input id="WhiteRace" type="radio" name="race" value="White" aria-label="White" required/>
+            <input id="WhiteRace" type="radio" name="race" value="White" data-plural="Whites" aria-label="White" required/>
             <label class="radio" tabindex="0" for="WhiteRace"><span></span>White</label>
           </div>
           <div class="responseOptions">
-            <input id="BlackRace" type="radio" name="race" value="Black" aria-label="Black or African American" required />
+            <input id="BlackRace" type="radio" name="race" value="Black" data-plural="Blacks or African Americans" aria-label="Black or African American" required />
             <label class="radio" tabindex="0" for="BlackRace"><span></span>Black or African American</label>
           </div>
           <div class="responseOptions ">
-            <input id="AsianRace" type="radio" name="race" value="Asian" aria-label="Asian or Pacific Islander" required />
+            <input id="AsianRace" type="radio" name="race" value="Asian" data-plural="Asians or Pacific Islanders" aria-label="Asian or Pacific Islander" required />
             <label class="no-margin-bottom radio" tabindex="0" for="AsianRace"><span></span>Asian or Pacific Islander</label>
           </div>
           <label class="questions " for="age">
@@ -336,7 +349,7 @@
 
             <label class="questions" for="moderate_months">Over the past 12 months, in how many months, if any, did the patient do any kind of moderate physical activity?</label>
             <p class="questions_secondary">
-              Moderate activities DO NOT cause you to sweat or breathe hard. Some examples include vacuuming, gardening, easy walking for exercise, and so on.
+              Moderate activities DO NOT cause the patient to sweat or breathe hard. Some examples include vacuuming, gardening, easy walking for exercise, and so on.
             </p>
             <div class="responseOptions ">
               <select id="moderate_months" name="moderate_months" required>
@@ -371,7 +384,7 @@
 
             <label class="questions" for="vigorous_months">Over the past 12 months, in how many months, if any, did the patient do any kind of vigorous physical activity?</label>
             <p class="questions_secondary">
-                Vigorous activities include all activities that DO cause you to sweat or breathe hard.
+                Vigorous activities include all activities that DO cause the patient to sweat or breathe hard.
                 Some examples include racquet sports, basketball, running, fast biking, exercise class,
                 weight lifting, backpacking, swimming, and heavy labor such as shoveling dirt.
             </p>
@@ -506,7 +519,7 @@
             </div>
 
             <div class ="female">
-                <label class="col-sm-offset-1 questions" data-subSubQuestion="true" id="hormone_treatment">During the past two years, have you used estrogen, progestin, or other female hormones</label>
+                <label class="col-sm-offset-1 questions" data-subSubQuestion="true" id="hormone_treatment">During the past two years, has the patient used estrogen, progestin, or other female hormones</label>
                 <p class="col-sm-offet-1 col-sm-offset-1 question_secondary">
                   These hormones may be given as hormone pills, oral contraceptives, shots, skin patches, vaginal creams, or as vaginal suppositories
                 </p>
@@ -556,7 +569,7 @@
           <section class="male" id="cigarette-section">
               <div class="male">
                 <label class="questions no-margin-top">
-                    In your entire lifetime, altogether, have you smoked 100 or more cigarettes?
+                    In the pateint&apos;s entire lifetime, altogether, has the patient smoked 100 or more cigarettes?
                 </label>
                 <div class="responseOptions">
                   <input id="smokeYes" class="no-margin-top" type="radio" value="0" name="cigarettes" aria-label="Yes" required>
@@ -569,11 +582,11 @@
               </div>
 
               <div class="male subquestion col-sm-offset-1 col-md-offset-1">
-                  <label class="questions" data-subQuestion="true" for="firstYearSmoke">How old were you when you started smoking cigarettes on a regular basis, that is, at least one cigarette a day for six months or longer? </label>
+                  <label class="questions" data-subQuestion="true" for="firstYearSmoke">How old was the patient when the patient started smoking cigarettes on a regular basis, that is, at least one cigarette a day for six months or longer? </label>
                   <div class="responseOptions">
                       <select id="firstYearSmoke" name="smoke_age" required>
                         <option value="">-select-</option>
-                        <option value="0">I have never smoked cigarettes regularly</option>
+                        <option value="0">Never smoked cigarettes regularly</option>
                         <option value="6">6</option>
                         <option value="7">7</option>
                         <option value="8">8</option>
@@ -627,7 +640,7 @@
                     </div>
 
                     <div class="male subquestion col-sm-offset-1 col-md-offset-1">
-                        <label class="questions" data-subSubQuestion="true" id="currentlySmoke">Do you currently smoke cigarettes?</label>
+                        <label class="questions" data-subSubQuestion="true" id="currentlySmoke">Does the patient currently smoke cigarettes?</label>
                         <div class="responseOptions">
                             <input id="currentlySmokeYes" class="no-margin-top" type="radio" value="1" name="smoke_now" aria-label="Yes" required tabindex="0">
                             <label class="no-margin-top radio" tabindex="0" for="currentlySmokeYes"><span></span>Yes</label>
@@ -636,69 +649,18 @@
                         </div>
 
                         <div class="male subquestion col-sm-offset-1 col-md-offset-1">
-                            <label class="questions" data-subSubSubQuestion="true" for="smoke_quit">How old were you when you quit smoking cigarettes completely?</label>
+                            <label class="questions" data-subSubSubQuestion="true" for="smoke_quit">How old was the patient when the patient quit smoking cigarettes completely?</label>
                             <p class="questions_secondary">
-                                NOTE: If you quit smoking cigarettes completely more than one time, please tell us how old you were the last time you quit smoking completely.
+                                NOTE: If the patient quit smoking cigarettes completely more than one time, please tell us how old was the patient wsa the last time the patient quit smoking completely.
                             </p>
                             <div class="responseOptions">
                               <select id="smoke_quit" name="smoke_quit" required>
-                                <option value="">-select-</option>
-                                <option value="0">I have never smoked cigarettes regularly</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                                <option value="13">13</option>
-                                <option value="14">14</option>
-                                <option value="15">15</option>
-                                <option value="16">16</option>
-                                <option value="17">17</option>
-                                <option value="18">18</option>
-                                <option value="19">19</option>
-                                <option value="20">20</option>
-                                <option value="21">21</option>
-                                <option value="22">22</option>
-                                <option value="23">23</option>
-                                <option value="24">24</option>
-                                <option value="25">25</option>
-                                <option value="26">26</option>
-                                <option value="27">27</option>
-                                <option value="28">28</option>
-                                <option value="29">29</option>
-                                <option value="30">30</option>
-                                <option value="31">31</option>
-                                <option value="32">32</option>
-                                <option value="33">33</option>
-                                <option value="34">34</option>
-                                <option value="35">35</option>
-                                <option value="36">36</option>
-                                <option value="37">37</option>
-                                <option value="38">38</option>
-                                <option value="39">39</option>
-                                <option value="40">40</option>
-                                <option value="41">41</option>
-                                <option value="42">42</option>
-                                <option value="43">43</option>
-                                <option value="44">44</option>
-                                <option value="45">45</option>
-                                <option value="46">46</option>
-                                <option value="47">47</option>
-                                <option value="48">48</option>
-                                <option value="49">49</option>
-                                <option value="50">50</option>
-                                <option value="51">51</option>
-                                <option value="52">52</option>
-                                <option value="53">53</option>
-                                <option value="54">54</option>
                               </select>
                             </div>
                         </div>
 
                         <div class="male">
-                          <label class="questions" data-subSubQuestion="true" for="cigarettes_num">Thinking back over the years you have smoked regularly, about how many cigarettes have you usually smoked a day?</label>
+                          <label class="questions" data-subSubQuestion="true" for="cigarettes_num">Thinking back over the years when the patient have smoked regularly, about how many cigarettes has the patient usually smoked a day?</label>
                           <div class="responseOptions">
                             <select id="cigarettes_num" name="cigarettes_num" required>
                               <option value="">-select-</option>
@@ -825,16 +787,16 @@
                         </div>
                         <div class="cols-xs-12 col-sm-10 information_text">
                           <p>
-                            When we first developed this tool, we test it with white people and found it to be be accurate in estimating their risk of colorectal cancer.
-                            If you are Hispanic/Latino, this tool can still estimate your risk. But, because there is not as much data available fro these groups, your
+                            When we first developed this tool, we tested it with white people and found it to be accurate in estimating their risk of colorectal cancer.
+                            If the patients&apos;s <span id="raceValue"></span>, this tool can still estimate the patients&apos; risk. But, because there is not as much data available for these groups, the patient&apos;
                             results may be less accurate.
                           </p>
                          <p>
-                           In the future, we hope to make this tool more accurate for <span id="raceValue"></span> as researchers complete studies that will provide information to
+                           In the future, we hope to make this tool more accurate for <span id="raceValue1"></span> as researchers complete studies that will provide information to
                            update the tool for these groups.
                           </p>
                           <p>
-                            Although the tool is not perfect, the information you learn from using it can still help you and your doctor better understand your risk of colorectal cancer
+                            Although the tool is not perfect, the information you learn from using it can still help you better understand your patient's risk of colorectal cancer.
                           </p>
                         </div>
                       </div>

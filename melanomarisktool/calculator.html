@@ -52,7 +52,7 @@
     <div role="main">
       <div id="results" class="container-fluid">
           <div id="results_home">
-            <a class="result_page_anchor" href="javascript:goback_tocalc()">< Back to Calculator</a>
+            <a class="result_page_anchor" href="javascript:goback_tocalc()">&lt Edit Response</a>
             <img id="print" src="rat-commons/images/print-icon.gif" alt="print the page">
             <h1>Personalized Results</h1>
             <div class="row">
@@ -96,11 +96,23 @@
               </table>
             </div>
 
-            <div>
-              <button id="startOver" type="button" class="center-block btn btn-default vertical_alignment">Start Over</button>
+            <!-- Buttons -->
+            <div class="row">
+
+               <div class="col-md-12 col-lg-push-3 col-lg-3">
+                 <button id="returnToCalculateButton" type="button" class="BottomResultPageButton center-block">Edit Responses</button>
+               </div>
+
+               <div class="col-md-12 col-lg-push-3 col-lg-3">
+                 <button id="startOverButton" class="BottomResultPageButton center-block" type="button" class="center-block">Start A New Assessment</button>
+               </div>
+
             </div>
           </div>
-      </div>
+        </div>
+
+      <!-- Form Steps -- Navigation Bar containing button and links  to each -->
+      <!-- section                                                           -->
       <div id="form-steps">
       <div id="line">
         <hr class="line">
@@ -116,14 +128,16 @@
         <form id="riskForm" name="riskForm" method="POST" action="calculate" autocomplete="off">
         <h2 id="demo" class="sectionTitle">Demographics</h2>
         <section id="demo-section" class="sectionTitle">
-          <label class="questions no-margin-top">What is the patient's race?</label>
-          <div class="responseOptions">
-            <input id="nonHispanicWhiteRace" type="radio" name="race" value="0" required>
-            <label class="radio" tabindex="0" for="nonHispanicWhiteRace"><span></span>Non-Hispanic White</label>
-          </div>
-          <div class="responseOptions">
-            <input  id="notNonHispanicWhiteRadioButton" type="radio" name="race" value="1" required>
-            <label class="radio" tabindex="0" for="notNonHispanicWhiteRadioButton"><span></span>Other</label>
+          <div id="questionAndAnswers1">
+            <label class="questions no-margin-top">What is the patient's race?</label>
+            <div class="responseOptions">
+              <input id="nonHispanicWhiteRace" type="radio" name="race" value="0">
+              <label class="radio" tabindex="0" for="nonHispanicWhiteRace"><span></span>Non-Hispanic White</label>
+            </div>
+            <div class="responseOptions">
+              <input  id="notNonHispanicWhiteRadioButton" type="radio" name="race" value="1" >
+              <label class="radio" tabindex="0" for="notNonHispanicWhiteRadioButton"><span></span>Other</label>
+            </div>
           </div>
           <label class="questions" for="age">What is the patient's age?</label>
           <p class="questions_secondary">

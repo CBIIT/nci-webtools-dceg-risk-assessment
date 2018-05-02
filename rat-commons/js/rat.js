@@ -129,11 +129,11 @@ function go_toresult() {
 	$(window).scrollTop(0);
 
 	// Certian Buttons are anchor tags and need to have the text centered for their form
-	$("#startOver").on("click", goto_calculatePage);
+	$("#startOverButton").on("click", goto_calculatePage);
 	if ( isMobile() )
-		$("#startOver").addClass("spacerBetweenQuestionsAndStartButtonMobile")
+		$("#startOverButton").addClass("spacerBetweenQuestionsAndStartButtonMobile")
 	else
-		$("#startOver").removeClass("spacerBetweenQuestionsAndStartButtonMobile")
+		$("#startOverButton").removeClass("spacerBetweenQuestionsAndStartButtonMobile")
 
 	// This code is a hack and this should be done in CSS.  I put the code in
 	// here since we are trying to get it done and it might have unforseen
@@ -1308,6 +1308,26 @@ function htmlObjectCloseToBottomOfScreen(htmlObject, threshold) {
 
 }
 
+///////////////////////////////////////////////////////////////////////////////
+// Enables the first question and its associated Answers.  An example usage  //
+// of this rouine is when the form is disabled, but you want one queston     //
+// enabled.                                                                  //
+//                                                                           //
+// Inuput : A div with an id attribute specified.
+//                                                                           //
+// Example -- Do the person have cancer                                      //
+//   User click Yes ( Since this is  preidictive tool, the form would be     //
+//                    disabled and this question would be enabled)           //
+//        click No then enable form                                          //
+///////////////////////////////////////////////////////////////////////////////
+function enableFirstQuestionAndAnswers(divId) {
+  $("#" + divId + " > label").css("color","#2E2E2E")
+  $("#" + divId + " input").attr("disabled", false)
+  $("#" + divId + " input").css("color", "#606060")
+  $("#" + divId + " label").css("color", "#2E2E2E")
+  $("#" + divId + " div").css("tabindex","0")
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // Startup Code
 ////////////////////////////////////////////////////////////////////////////////
@@ -1360,10 +1380,10 @@ $(document).ready(function() {
 	$("#AssessPatientRisk").on('focusin', 		function(event)  { focusBorderToggle(event);	});
 	$("#AssessPatientRisk").on('focusout',      function(event)  { removeOutline(event); 		});
 
-	// Rule: When the Start Over Button gains the focus from the Tab Key.  It sould be highlighted
-	// Rule: When blurred then have the outline removed
-	$("#startOver").on('focusin', 		function(event)  { focusBorderToggle(event);	});
-	$("#startOver").on('focusout',      function(event)  { removeOutline(event); 		});
+	// Rule: When the Start Over Button/Edit Repsonses gains the focus from the
+	// Tab Key.  It sould be highlighted and blurred then have the outline removed
+	$("#startOverButton, #returnToCalculateButton").on('focusin',  function(event)  { focusBorderToggle(event);	});
+	$("#startOverButton, #returnToCalculateButton").on('focusout', function(event)  { removeOutline(event); 		});
 
 
 	// Rule : When tabbing the user could make the "Skip to Content" appear. which could
@@ -1392,9 +1412,10 @@ $(document).ready(function() {
 		submitHandler: processSubmission,
 	});
 
-	//$("#calculate").on("click", function () {
-	//	processSubmission($("#riskForm"))
-	//});
+	// When the user is on the results page, this event will send the user back
+	// to the goto_calculatePage
+	$("#returnToCalculateButton").on("click", goback_tocalc)
+
 
 
 });
