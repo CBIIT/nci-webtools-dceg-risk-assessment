@@ -40,6 +40,7 @@ $(function() {
    	    } else {
             $("#riskForm").trigger("change")
             enableRaceQuestion()
+            clearAnswerToHispanicYes()
         }
     })
 
@@ -231,9 +232,10 @@ function enableCRATForm() {
     enableCRATGenericForm()
     if ( $("[name='hispanic']").prop("value") != "0" )
         disableRaceQuestion()
-    else
+    else {
         enableRaceQuestion()
-
+        clearAnswerToHispanicYes()
+    }
 }
 
 /* A generic functon for enabling the CRAT Form.  Hanldes all the common functionality */
@@ -344,8 +346,11 @@ function enableRaceQuestion() {
     $("#race").nextUntil("label.questions").children("input").attr("tabindex", "0")
 
     $("#hispanicYes").prop("checked", false)
+}
 
-
+// Clears the Yes answer to the question "Is the patient Hispanic or Latino?"
+function clearAnswerToHispanicYes() {
+  $("#hispanicYes").prop("checked", false)
 }
 
 // Standard Routine to disable a select box in the GUI
@@ -633,6 +638,8 @@ function resetForm() {
   genericResetForm()
   enableRadioButtonGroupQuestion("#polyp")
   enableRadioButtonGroupQuestion("#family_count")
+  enableHormoneTreatment()
+  enableRaceQuestion()
   fixSmokingSection()
   enableSectionHeaders();
 
