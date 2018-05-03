@@ -842,6 +842,10 @@ label.questions {
   margin-left: 1em;
   margin-top: 16px;
   line-height: 19px;
+
+  /* Needed since display=inline-block increases the height of the label */
+  /* this code will shrink it                                            */
+  height: 22px;
 }
 
 /* Use this when you are indenting with bootstrap.  The responseOptions       */
@@ -897,6 +901,14 @@ label.questions {
 
 .responseOptions label {
   font-weight: inherit;
+
+  /* The inline-block is needed since  a block would have a wdith of 100   */
+  /* With the previous setup the user would be on the right side of the    */
+  /* screen and the radio button would be hovered and showing the checkbox */
+  /* as selected                                                           */
+  /* The inline block guarentees that the lable and imge will only use the */
+  /* mininium height needed to display it.                                 */
+  display: inline-block;
 }
 .responseOptions input[type="radio"] {
   margin: 0 0.5em;
