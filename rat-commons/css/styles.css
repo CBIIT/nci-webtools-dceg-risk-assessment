@@ -856,6 +856,10 @@ label.questions {
   font-size: 16px;
   margin-top: 16px;
   line-height: 19px;
+
+  /* Needed since display=inline-block increases the height of the label */
+  /* this code will shrink it                                            */
+  height: 22px;
 }
 
 /* I admit that I messed up here. I should have had .responseOptionsText and use some other */
@@ -912,7 +916,7 @@ label.questions {
   /* be hovered over when the mouse is on the other side of the screen      */
   display: inline-block;
 
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 .responseOptions input[type="radio"] {
   margin: 0 0.5em;
