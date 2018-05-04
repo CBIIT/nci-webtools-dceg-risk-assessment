@@ -912,7 +912,7 @@ label.questions {
   /* be hovered over when the mouse is on the other side of the screen      */
   display: inline-block;
 
-  border: "1px solid #000"
+  border: 1px solid black;
 }
 .responseOptions input[type="radio"] {
   margin: 0 0.5em;
