@@ -902,13 +902,16 @@ label.questions {
 .responseOptions label {
   font-weight: inherit;
 
-  /* The inline-block is needed since  a block would have a wdith of 100   */
-  /* With the previous setup the user would be on the right side of the    */
-  /* screen and the radio button would be hovered and showing the checkbox */
-  /* as selected                                                           */
-  /* The inline block guarentees that the lable and imge will only use the */
-  /* mininium height needed to display it.                                 */
+  /* The inline-block is needed since  a block would have a wdith of 100%   */
+  /* With the previous setup the user would be on the right side of the     */
+  /* screen and the radio button would be hovered and showing the checkbox  */
+  /* as selected                                                            */
+  /* The inline block guarentees that the lable and image will only use the */
+  /* mininium width needed to display it.  The selected checkbox will never */
+  /* be hovered over when the mouse is on the other side of the screen      */
   display: inline-block;
+
+  border: "1px solid #000"
 }
 .responseOptions input[type="radio"] {
   margin: 0 0.5em;
