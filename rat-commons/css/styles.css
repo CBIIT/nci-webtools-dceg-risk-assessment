@@ -899,7 +899,8 @@ label.questions {
   margin-left: 1.5em;
 }
 
-.responseOptions label {
+.responseOptions label,
+.responseOptionsWithoutIndent label {
   font-weight: inherit;
 
   /* The inline-block is needed since  a block would have a wdith of 100%   */
