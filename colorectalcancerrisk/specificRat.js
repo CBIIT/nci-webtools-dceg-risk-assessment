@@ -86,7 +86,7 @@ $(function() {
     $("#last_period").on("change", adjustLastTimeSheHadPeriod)
 
     // Family History : Does the patient have any immediate relatives
-    $("#familyCancerYes").on("change",      enableAmountOfFamilyRelatives)
+    $("#familyCancerYes").on("change",      function() { enableRadioButtonGroupQuestion($("#family_count"))  })
     $("#familyCancerNo").on("change",       function() { disableRadioButtonGroupQuestion($("#family_count")) })
     $("#familyCancerUnknown").on("change",  function() { disableRadioButtonGroupQuestion($("#family_count")) })
 
@@ -258,6 +258,11 @@ function enableCRATGenericForm() {
     else
         enableRadioButtonGroupQuestion($("#polyp"))
 
+    //
+    // We are very close to a release, but if we get some time then I believe
+    // we can change disablleAmountOfFamilyRelatives, enableAmountOfFamilyRelatives
+    // to disableRadioButtonGroupQuestion/enableRadioButtonGroupQuestion
+    //
     if ( $("[name='family_cancer']:checked").val() == "0")
         disableAmountOfFamilyRelatives()
     else
