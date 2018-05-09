@@ -462,15 +462,19 @@ function enableCigarettesSmokedPerDay() {
 function disableHormoneTreatment() {
     $("#hormone_treatment").css("color", "#C0C0C0")
     $("#hormone_treatment").next().css("color", "#C0C0C0")
-    $("#hormone_treatment").next().next().children("label.radio").css("color","#C0C0C0")
-    $("#hormone_treatment").next().next().children("input").attr("disabled", true)
+    $("#hormone_treatment").nextUntil("label.questions").children("label.radio").css("color","#C0C0C0")
+    $("#hormone_treatment").nextUntil("label.questions").children("input").attr("disabled", true)
+    $("#hormone_treatment").nextUntil("label.questions").children("label.radio").attr("tabindex", "-1")
+    $("#hormone_treatment").nextUntil("label.questions").children("input").attr("tabindex", "-1")
 }
 
 function enableHormoneTreatment() {
     $("#hormone_treatment").css("color", "#2E2E2E")
     $("#hormone_treatment").next().css("color", "#2E2E2E")
-    $("#hormone_treatment").next().next().children("label.radio").css("color","#2E2E2E")
-    $("#hormone_treatment").next().next().children("input").attr("disabled", false)
+    $("#hormone_treatment").nextUntil("label.questions").children("label.radio").css("color","#2E2E2E")
+    $("#hormone_treatment").nextUntil("label.questions").children("input").attr("disabled", false)
+    $("#hormone_treatment").nextUntil("label.questions").children("label.radio").attr("tabindex", "0")
+    $("#hormone_treatment").nextUntil("label.questions").children("input").attr("tabindex", "0")
 }
 
 /* This section will disable and eanble the select boxes dynamically  and should be refactored later on */
@@ -499,6 +503,9 @@ function adjustHoursPerWeekVigorousActivity() {
     }
 }
 
+//
+// Todo : Fix the name of this function.  The problem is we are enabling/disabling
+// the hormone treatment, but the does not indicate that.
 function adjustLastTimeSheHadPeriod() {
     if ( $("[name='last_period']").val() == '0' || $("[name='last_period']").val() == '1') {
         disableHormoneTreatment()
@@ -599,23 +606,23 @@ function resultsDisplay(response, textStatus, xhr) {
     var tenYearPatientRiskColor     = ( result.patient10YearRisk > result.average10YearRisk   ) ? "#BB0E3D" : "#2DC799";
     var lifetimePateientRiskColor   = ( result.patientLifetimeRisk > result.averageLifetimeRisk    ) ? "#BB0E3D" : "#2DC799";
 
-	//$("#results_text_5_years").html(results_text_5_years);
+	  //$("#results_text_5_years").html(results_text_5_years);
     //$("#results_text_10_years").html(results_text_10_years);
     //$("#results_text_lifetime").html(results_text_lifetime)
 
-	$("#Risk1").text(result.risk+"%");
+	  $("#Risk1").text(result.risk+"%");
     $("#Risk2").text(result.average5YearRisk+"%");
-	$("#Risk3").text(result.patient10YearRisk+"%");
+	  $("#Risk3").text(result.patient10YearRisk+"%");
     $("#Risk4").text(result.average10YearRisk+"%");
-	$("#Risk5").text(result.patientLifetimeRisk+"%");
+	  $("#Risk5").text(result.patientLifetimeRisk+"%");
     $("#Risk6").text(result.averageLifetimeRisk+"%");
 
-	make_pie_chart(result.risk,                  "#pieChart1", fiveYearPatientRiskColor,  "#EFEFEF");
-    make_pie_chart(result.average5YearRisk,   "#pieChart2", "#40A5C1",                 "#EFEFEF");
-	make_pie_chart(result.patient10YearRisk,     "#pieChart3", tenYearPatientRiskColor,  "#EFEFEF");
-    make_pie_chart(result.average10YearRisk,     "#pieChart4", "#40A5C1",                 "#EFEFEF");
-	make_pie_chart(result.patientLifetimeRisk,   "#pieChart5", lifetimePateientRiskColor, "#EFEFEF");
-	make_pie_chart(result.averageLifetimeRisk,   "#pieChart6", "#40A5C1",                 "#EFEFEF");
+	  make_pie_chart(result.risk,                 "#pieChart1", fiveYearPatientRiskColor,  "#EFEFEF");
+    make_pie_chart(result.average5YearRisk,     "#pieChart2", "#40A5C1",                 "#EFEFEF");
+	  make_pie_chart(result.patient10YearRisk,    "#pieChart3", tenYearPatientRiskColor,   "#EFEFEF");
+    make_pie_chart(result.average10YearRisk,    "#pieChart4", "#40A5C1",                 "#EFEFEF");
+	  make_pie_chart(result.patientLifetimeRisk,  "#pieChart5", lifetimePateientRiskColor, "#EFEFEF");
+	  make_pie_chart(result.averageLifetimeRisk,  "#pieChart6", "#40A5C1",                 "#EFEFEF");
 }
 
 function resetForm() {
