@@ -1,3 +1,17 @@
+
+// A two data structure
+// When going from a number to a string you are associating an option from a select tag with a id for an img tag.
+// When going from a string to a number you are associating an id for an img tag with an option from a select tag
+var frecklingValue = {}
+frecklingValue["3"]									= "mildFreckling"
+frecklingValue["4"]									= "moderateFreckling"
+frecklingValue["5"]									= "severeFreckling"
+frecklingValue[""]									= "1"
+frecklingValue["Absent"]						= "2"
+frecklingValue["mildFreckling"]			= "3"
+frecklingValue["moderateFreckling"]	= "4"
+frecklingValue["severeFreckling"]		= "5"
+
 $(function() {
 
 	// When tabbing, the element is being hidden by part of the browser, so I want to move it so the user can see it.
@@ -44,7 +58,48 @@ $(function() {
   })
 
 	$("termAndConditionsPge").removeClass("show")
-});
+
+	// for the image for the "How extensive is the freckling on the patient's
+	// back and shoulders?" when clicked the border should be visible to show
+	// that it was selected and the select box should be set to the correct
+	// option.
+	$("#freckling").parent().parent().next().find("img").on("click",
+		function(event) {
+			var index = frecklingValue[ $(event.target).attr("id") ]
+			borderAroundPicture($("#freckling").parent().parent().next().find("img"), index )
+			selectionBasedOnImageSelect("freckling",  index )
+	})
+
+	// for the image for the "How extensive is the freckling on the patients's
+	// back and shoulders?".  When clicked the correct image should be selected
+	$("#freckling").on("change", function() {
+		var index = $(this).prop('selectedIndex') + 1
+		console.log("index = " + index)
+	  borderAroundPicture($("#freckling").parent().parent().next().find("img"), index)
+	});
+
+	// Handles the "Click to Enlarge Link");
+  $("#freckling").parent().parent().next().find("a").on("click", ) {
+		
+	}
+
+////////////////////////////////////////////////////////////////////////////////
+// For a collection of images draw a border around the current selected image //
+////////////////////////////////////////////////////////////////////////////////
+function borderAroundPicture(allImages, currentIndex) {
+	$(allImages).removeClass("selectableImageBorder")
+	$("#" + frecklingValue[currentIndex]).addClass("selectableImageBorder")
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// For the drop down select by index of value.  I used this because the       //
+// options go from nothing to servere and I believe the flow from top to      //
+// bottom will always increase in severity                                    //
+////////////////////////////////////////////////////////////////////////////////
+function selectionBasedOnImageSelect(id, index) {
+	$("#" + id + " option").prop("selected", false)
+	$("#" + id + " option:nth-child(" + index  + ")" ).prop("selected", true)
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Displays the Term and Conditions Page                                      //

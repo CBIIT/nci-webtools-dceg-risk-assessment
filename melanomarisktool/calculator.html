@@ -10,6 +10,7 @@
     <link href="common/css/style.css" rel="stylesheet" type="text/css">
     <link href="rat-commons/css/styles.css" rel="stylesheet" type="text/css">
     <link href="rat-commons/css/form-steps.css" rel="stylesheet" type="text/css">
+    <link href="specificRat.css" rel="stylesheet" type="text/css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="application/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js" type="application/javascript"></script>
@@ -310,25 +311,50 @@
             </label>
           </div>
           <label class="questions" for="freckling">How extensive is the freckling on the patient's back and shoulders?</label>
-          <div class="responseOptions">
-            <select id="freckling" name="freckling" required>
-              <option value="">Select</option>
-              <option value="0">Absent</option>
-              <option value="1">Mild</option>
-              <option value="2">Moderate</option>
-              <option value="3">Severe</option>
-            </select>
-          </div>
-          <div class="male">
-            <label class="questions" for="damage">Does the patient have severe solar damage on the shoulders?</label>
-            <div class="responseOptions">
-              <select id="damage" name="damage">
+          <div class="row">
+            <div class="col-sm-12 responseOptions">
+              <select id="freckling" name="freckling" required>
                 <option value="">Select</option>
-                <option value="0">Yes</option>
-                <option value="1">No</option>
+                <option value="0">Absent</option>
+                <option value="1">Mild</option>
+                <option value="2">Moderate</option>
+                <option value="3">Severe</option>
               </select>
             </div>
           </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <p class="center-block pictureText">Mild Freckling</p>
+                <img id="mildFreckling" class="img-responsive" src="rat-commons/images/mratMildLrg.jpg" alt="Example Picture of mild Freckling">
+                <p class="paragraphBottom pictureText"><a class="pictureText" href="">Click to Enlarge</a></p>
+              </div>
+              <div class="col-sm-4">
+                <p class="center-block pictureText">Moderate Freckling</p>
+                <img id="moderateFreckling" class="img-responsive" src="rat-commons/images/mratModLrg.jpg" alt="Example Picture of moderate Freckling">
+                <p class="paragraphBottom pictureText"><a class="pictureText" href="">Click to Enlarge</a></p>
+              </div>
+              <div class="col-sm-4">
+                <p class="center-block pictureText">Severe Freckling</p>
+                <img id="severeFreckling" class="img-responsive" src="rat-commons/images/mratSevereLrg.jpg" alt="Example Picture of severe Freckling">
+                <p class="paragraphBottom pictureText"><a href="">Click to Enlarge</a></p>
+              </div>
+          </div>
+          <div class="male">
+            <label class="questions" for="damage">Does the patient have severe solar damage on the shoulders?</label>
+            <div class="row">
+              <div class="col-sm-12 responseOptions">
+                <select id="damage" name="damage">
+                  <option value="">Select</option>
+                  <option value="0">Yes</option>
+                  <option value="1">No</option>
+                </select>
+              </div>
+              <div class="col-sm-12">
+                <img class="img-responsive" src="rat-commons/images/mratSevereLrg2.jpg" alt="male with sunburn">
+              </div>
+            </div>
+          </div>
+
         </section>
 
         <div class="center-block">

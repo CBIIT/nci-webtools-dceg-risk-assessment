@@ -1785,13 +1785,6 @@ section > fieldset > legend.questions {
    line-height: 25px;
 }
 
-/* styles maps such as the map of the United Styles use in the MRAT Program */
-.mapText {
-        font-size: 16px;
-        color: #2B7BBA;
-        font-family: 'Noto Sans'
-}
-
 /* style for the Skip to Content */
 #skipContentHome,
 #skipContentCalculate,
@@ -1906,6 +1899,10 @@ section > fieldset > legend.questions {
 /* so I explicity set it.  I have no understanding of this behavior            */
 .numberFieldBorder {
   border: 1px solid #D3D3D3;
+}
+
+.selectableImageBorder {
+  border: 1px solid #2E2E2E;
 }
 
 /*.vertical_alignment {
