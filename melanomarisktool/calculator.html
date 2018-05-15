@@ -322,20 +322,23 @@
               </select>
             </div>
           </div>
-            <div class="row">
-              <div class="col-sm-4">
-                <p class="center-block pictureText">Mild Freckling</p>
-                <img id="mildFreckling" class="img-responsive" src="rat-commons/images/mratMildLrg.jpg" alt="Example Picture of mild Freckling">
+            <div id="frecklePictures" class="row">
+              <div class="col-lg-4">
+                <p class="pictureText">Mild Freckling</p>
+                <p class="pictureText"><a id="freckleClick1" class="pictureText">Click To Select</a></p>
+                <img id="mildFreckling" data-name="Mild Freckling" class="img-responsive center-block" src="rat-commons/images/mratMildLrg.jpg" alt="Example Picture of mild Freckling">
                 <p class="paragraphBottom pictureText"><a class="pictureText" href="">Click to Enlarge</a></p>
               </div>
-              <div class="col-sm-4">
-                <p class="center-block pictureText">Moderate Freckling</p>
-                <img id="moderateFreckling" class="img-responsive" src="rat-commons/images/mratModLrg.jpg" alt="Example Picture of moderate Freckling">
+              <div class="col-lg-4">
+                <p class="pictureText">Moderate Freckling</p>
+                <p class="pictureText"><a id="freckleClick2" class="pictureText">Click To Select</a></p>
+                <img id="moderateFreckling" data-name="Moderate Freckling" class="img-responsive center-block" src="rat-commons/images/mratModLrg.jpg" alt="Example Picture of moderate Freckling">
                 <p class="paragraphBottom pictureText"><a class="pictureText" href="">Click to Enlarge</a></p>
               </div>
-              <div class="col-sm-4">
-                <p class="center-block pictureText">Severe Freckling</p>
-                <img id="severeFreckling" class="img-responsive" src="rat-commons/images/mratSevereLrg.jpg" alt="Example Picture of severe Freckling">
+              <div class="col-lg-4">
+                <p class="pictureText">Severe Freckling</p>
+                <p class="pictureText"><a id="freckleClick3" class="pictureText">Click To Select</a></p>
+                <img id="severeFreckling" data-name="Severe Freckling" class="img-responsive center-block" src="rat-commons/images/mratSevereLrg.jpg" alt="Example Picture of severe Freckling">
                 <p class="paragraphBottom pictureText"><a href="">Click to Enlarge</a></p>
               </div>
           </div>
@@ -349,7 +352,7 @@
                   <option value="1">No</option>
                 </select>
               </div>
-              <div class="col-sm-12">
+              <div class="col-md-12">
                 <img class="img-responsive" src="rat-commons/images/mratSevereLrg2.jpg" alt="male with sunburn">
               </div>
             </div>
@@ -419,6 +422,33 @@
         </div>
       </div>
     </div>
-    <script language="JavaScript" type="text/javascript" src="//static.cancer.gov/webanalytics/WA_RAT_PageLoad.js"></script>
+
+
+    <!-- Modal Alert this person that tools is used for non-hispanic whites  -->
+    <div class="modal eligibility-dialog fade removeOutline" id="pictureModal" tabindex="-1" role="dialog" data-backdrop="false" style="z-index:999">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="dialog_text_content">
+              <div class="row">
+                <div class="col-sm-12">
+                  <p id="text" class="pictureText"></p>
+                </div>
+                <div class="col-sm-12">
+                  <img id="image" class="img-responsive center-block" alt="freckling picture">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12 col-md-12">
+                  <button id="okButtonPic" class="center-block okButton" value="Ok" data-dismiss="modal">OK</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <script language="JavaScript" type="text/javascript" src="//static.cancer.gov/webanalytics/WA_RAT_PageLoad.js"></script>
   </body>
 </html>

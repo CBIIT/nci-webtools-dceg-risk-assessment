@@ -14,6 +14,8 @@ frecklingValue["severeFreckling"]		= "5"
 
 $(function() {
 
+	$("[class*='pictureText']").addClass("pictureTextEnabledColor")
+
 	// When tabbing, the element is being hidden by part of the browser, so I want to move it so the user can see it.
 	$("#melanomaRisk").on("focusin", function() { moveElementIfCloseToBottom("#melanomaRisk") })
 	$("#preventMelanoma").on("focusin", function() { moveElementIfCloseToBottom("#preventMelanoma") })
@@ -63,9 +65,9 @@ $(function() {
 	// back and shoulders?" when clicked the border should be visible to show
 	// that it was selected and the select box should be set to the correct
 	// option.
-	$("#freckling").parent().parent().next().find("img").on("click",
+	$("[id^=freckleClick]").on("click",
 		function(event) {
-			var index = frecklingValue[ $(event.target).attr("id") ]
+			var index = frecklingValue[ $(event.target).parent().siblings("img").first().attr("id") ]
 			borderAroundPicture($("#freckling").parent().parent().next().find("img"), index )
 			selectionBasedOnImageSelect("freckling",  index )
 	})
@@ -79,9 +81,25 @@ $(function() {
 	});
 
 	// Handles the "Click to Enlarge Link");
-  $("#freckling").parent().parent().next().find("a").on("click", ) {
-		
-	}
+  $("#freckling").parent().parent().next().find("a:contains('Click to Enlarge')").on("click", function(event) {
+
+		// Going to the URL will be prevented
+		event.preventDefault();
+
+		// Display the dialog
+		var image = $(this).parent().siblings("img").attr("src")
+		$("#pictureModal #image").attr("src", image)
+
+		var text = $(this).parent().prev().attr("data-name")
+		$("#pictureModal #text").text(text)
+		$("#pictureModal").modal("show");
+		disableMRATForm()
+
+
+
+	});
+
+});
 
 ////////////////////////////////////////////////////////////////////////////////
 // For a collection of images draw a border around the current selected image //
@@ -318,6 +336,13 @@ function resetForm() {
  function disableMRATForm() {
 	 disableForm()
 	 disableMap()
+	 $("img").addClass("image_disabled")
+	 $("p").addClass("picture")
+	 $("[class*='pictureText']").removeClass("pictureTextEnabledColor")
+	 $("[class*='pictureText']").addClass("pictureTextDisabledColor")
+
+
+
  }
 
  /*
@@ -327,6 +352,11 @@ function resetForm() {
 	 enableForm();
 	 enableMap();
 	 enableCalculateButton();
+
+	 $("[class*='pictureText']").addClass("pictureTextEnabledColor")
+	 $("[class*='pictureText']").removeClass("pictureTextDisabledColor")
+
+	 $("img").removeClass("image_disabled")
  }
 
  /*
