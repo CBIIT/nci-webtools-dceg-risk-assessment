@@ -92,11 +92,17 @@ $(function() {
 
 		var text = $(this).parent().prev().attr("data-name")
 		$("#pictureModal #text").text(text)
-		$("#pictureModal").modal("show");
+
 		disableMRATForm()
+		$("#pictureModal img").removeClass("image_disabled")
+		$("#pictureModal #text").removeClass("pictureTextDisabledColor")
+		$("#pictureModal").modal("show");
+	});
 
-
-
+	// When the dialog box showing the image is selected this function will
+	// enable the form.
+  $("#okButtonPic").on("click", function() {
+		enableMRATForm()
 	});
 
 });
@@ -336,8 +342,10 @@ function resetForm() {
  function disableMRATForm() {
 	 disableForm()
 	 disableMap()
+
 	 $("img").addClass("image_disabled")
 	 $("p").addClass("picture")
+
 	 $("[class*='pictureText']").removeClass("pictureTextEnabledColor")
 	 $("[class*='pictureText']").addClass("pictureTextDisabledColor")
 

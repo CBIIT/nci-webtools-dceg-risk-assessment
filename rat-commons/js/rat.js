@@ -909,6 +909,7 @@ function enableSectionHeaders() {
 ///////////////////////////////////////////////////////////////////////////////
 function disableForm() {
 	$("form :input").not("#reset").prop('disabled', true);
+	$("form a").prop('disbled', true)
 	$("form label.radio").css("color","#C0C0C0")
 	$("[class*='questions']").css("color","#c0c0c0");
 	disableSectionHeaders();
