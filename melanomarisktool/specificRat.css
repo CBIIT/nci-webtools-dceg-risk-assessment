@@ -1,0 +1,50 @@
+/* Style for the div that contains the image for the questions :              */
+/* Does the patient have severe solar damage on the shoulders?                */
+[for='damage'] +  div > div:nth-child(2),
+[for='freckling'] + div + div
+ {
+  margin-top: 15px;
+  margin-left: .5em;
+}
+
+/* styles maps such as the map of the United Styles use in the MRAT Program */
+/* styles for the text above and below the picture                          */
+.mapText,
+.pictureText {
+        font-size: 16px;
+        color: #2B7BBA;
+        font-family: 'Noto Sans';
+        line-height: 22px;
+}
+
+/* For text associated with the pictures and not the the maptext             */
+.pictureText {
+  text-align: center;
+}
+
+.pictureTextEnabledColor {
+  color: #2B7BBA;
+}
+
+.pictureTextDisabledColor {
+  color: #C0C0C0;
+}
+
+.paragraphBottom {
+  margin-top : 1em;
+  margin-bottom : 1em;
+}
+
+
+#okButtonPic {
+  margin-top: 2em;
+}
+
+@media ( max-width : 576px ) {
+
+  /* Having the left side of the picture line up with select box for Extra   */
+  /* small                                                                   */
+  [for='damage'] +  div > div:nth-child(2) {
+    margin-left: 0em;
+  }
+}

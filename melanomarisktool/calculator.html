@@ -10,6 +10,7 @@
     <link href="common/css/style.css" rel="stylesheet" type="text/css">
     <link href="rat-commons/css/styles.css" rel="stylesheet" type="text/css">
     <link href="rat-commons/css/form-steps.css" rel="stylesheet" type="text/css">
+    <link href="specificRat.css" rel="stylesheet" type="text/css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="application/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js" type="application/javascript"></script>
@@ -310,25 +311,53 @@
             </label>
           </div>
           <label class="questions" for="freckling">How extensive is the freckling on the patient's back and shoulders?</label>
-          <div class="responseOptions">
-            <select id="freckling" name="freckling" required>
-              <option value="">Select</option>
-              <option value="0">Absent</option>
-              <option value="1">Mild</option>
-              <option value="2">Moderate</option>
-              <option value="3">Severe</option>
-            </select>
-          </div>
-          <div class="male">
-            <label class="questions" for="damage">Does the patient have severe solar damage on the shoulders?</label>
-            <div class="responseOptions">
-              <select id="damage" name="damage">
+          <div class="row">
+            <div class="col-sm-12 responseOptions">
+              <select id="freckling" name="freckling" required>
                 <option value="">Select</option>
-                <option value="0">Yes</option>
-                <option value="1">No</option>
+                <option value="0">Absent</option>
+                <option value="1">Mild</option>
+                <option value="2">Moderate</option>
+                <option value="3">Severe</option>
               </select>
             </div>
           </div>
+            <div id="frecklePictures" class="row">
+              <div class="col-lg-4">
+                <p class="pictureText">Mild Freckling</p>
+                <p class="pictureText"><a id="freckleClick1" class="pictureText">Click To Select</a></p>
+                <img id="mildFreckling" data-name="Mild Freckling" class="img-responsive center-block" src="rat-commons/images/mratMildLrg.jpg" alt="Example Picture of mild Freckling">
+                <p class="paragraphBottom pictureText"><a class="pictureText" href="">Click to Enlarge</a></p>
+              </div>
+              <div class="col-lg-4">
+                <p class="pictureText">Moderate Freckling</p>
+                <p class="pictureText"><a id="freckleClick2" class="pictureText">Click To Select</a></p>
+                <img id="moderateFreckling" data-name="Moderate Freckling" class="img-responsive center-block" src="rat-commons/images/mratModLrg.jpg" alt="Example Picture of moderate Freckling">
+                <p class="paragraphBottom pictureText"><a class="pictureText" href="">Click to Enlarge</a></p>
+              </div>
+              <div class="col-lg-4">
+                <p class="pictureText">Severe Freckling</p>
+                <p class="pictureText"><a id="freckleClick3" class="pictureText">Click To Select</a></p>
+                <img id="severeFreckling" data-name="Severe Freckling" class="img-responsive center-block" src="rat-commons/images/mratSevereLrg.jpg" alt="Example Picture of severe Freckling">
+                <p class="paragraphBottom pictureText"><a class="pictureText" href="">Click to Enlarge</a></p>
+              </div>
+          </div>
+          <div class="male">
+            <label class="questions" for="damage">Does the patient have severe solar damage on the shoulders?</label>
+            <div class="row">
+              <div class="col-sm-12 responseOptions">
+                <select id="damage" name="damage">
+                  <option value="">Select</option>
+                  <option value="0">Yes</option>
+                  <option value="1">No</option>
+                </select>
+              </div>
+              <div class="col-md-12">
+                <img class="img-responsive" src="rat-commons/images/mratSevereLrg2.jpg" alt="male with sunburn">
+              </div>
+            </div>
+          </div>
+
         </section>
 
         <div class="center-block">
@@ -393,6 +422,33 @@
         </div>
       </div>
     </div>
-    <script language="JavaScript" type="text/javascript" src="//static.cancer.gov/webanalytics/WA_RAT_PageLoad.js"></script>
+
+
+    <!-- Modal Alert this person that tools is used for non-hispanic whites  -->
+    <div class="modal eligibility-dialog fade removeOutline" id="pictureModal" tabindex="-1" role="dialog" data-backdrop="false" style="z-index:999">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="dialog_text_content">
+              <div class="row">
+                <div class="col-sm-12">
+                  <p id="text" class="pictureText"></p>
+                </div>
+                <div class="col-sm-12">
+                  <img id="image" class="img-responsive center-block" alt="freckling picture">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12 col-md-12">
+                  <button id="okButtonPic" class="center-block okButton" value="Ok" data-dismiss="modal">OK</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <script language="JavaScript" type="text/javascript" src="//static.cancer.gov/webanalytics/WA_RAT_PageLoad.js"></script>
   </body>
 </html>
