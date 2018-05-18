@@ -1,6 +1,6 @@
 var app = angular.module("myapp");
 
-app.controller("MainCtrl", function($scope, $sce, $http, $localStorage, $location) {
+app.controller("MainCtrl", function($scope, $sce, $http, $sessionStorage, $location) {
 	
 	/* show results set to false. Disable your results tab until calculate is clicked */
 	$scope.resultsDisabled = true;

@@ -1,6 +1,6 @@
 var app = angular.module("myapp");
 
-app.controller("FormCtrl", function ($scope, $sce, $http, $localStorage, $location) {
+app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $location) {
   /* These globals are used in multiple ajax calls in different functions */
   var GLOBAL_DATA;
   /* RegEx for numerical field validation */
@@ -434,8 +434,8 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $localStorage, $locati
       .finally(function (data) {
         $scope.myForm.isInvalid = false;
         $scope.myForm.loading = false;
-        $localStorage.params = params;
-        $localStorage.myForm = $scope.myForm;
+        $sessionStorage.params = params;
+        $sessionStorage.myForm = $scope.myForm;
         $scope.$parent.resultsDisabled = false;
         $location.path('/results')
       });
