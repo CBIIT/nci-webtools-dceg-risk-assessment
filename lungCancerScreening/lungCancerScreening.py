@@ -10,7 +10,7 @@ from flask import Flask, send_file, render_template, request, jsonify, make_resp
 from rpy2.robjects.packages import SignatureTranslatedAnonymousPackage
 from rpy2.robjects.vectors import IntVector, FloatVector
 from socket import gethostname
-import pdfkit,tempfile, os
+import tempfile, os
 import random
 import os, base64
 import uuid
@@ -94,16 +94,7 @@ def lungCancerRest():
 # This route will return a list in JSON format
 @app.route('/exportPDF/', methods=['POST', 'GET'])
 def exportPDF():
-    # temp_file = tempfile.NamedTemporaryFile(mode="w+b+r",delete=True)
-    # options = {'page-size': 'Letter', 'page-width': '900pt', 'margin-top': '0.50in', 'no-outline': None, 'margin-right': '0.75in', 'page-height': '595pt', 'margin-left': '0.75in', 'encoding': 'UTF-8', 'margin-bottom': '0.75in'}
-    # pdfkit.from_string(request.data, temp_file.name, options=options)
-    # response = make_response(base64.b64encode(temp_file.read()))
-    # temp_file.close()
-    # response.headers["Content-type"] = "application/pdf"
-    # response.headers['Content-Transfer-Encoding'] = 'binary'
-    # return response
-
-
+   
     if request.method=='GET':
         f = open(request.args['dir'], 'rb')
         data = f.read()
