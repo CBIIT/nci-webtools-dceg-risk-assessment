@@ -40,11 +40,15 @@
   margin-top: 2em;
 }
 
+/* Used to center the three pictures propertly */
+  [for='damage'] + div > div:nth-child(2), [for='freckling'] + div + div {
+    margin-left: .5em;
+    margin-right: .5em;
+  }
+
 @media ( max-width : 576px ) {
 
-  /* Having the left side of the picture line up with select box for Extra   */
-  /* small                                                                   */
-  [for='damage'] +  div > div:nth-child(2) {
-    margin-left: 0em;
+  #map {
+    margin-top : 30px;
   }
 }

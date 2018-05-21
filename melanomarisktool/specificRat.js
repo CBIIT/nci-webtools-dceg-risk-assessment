@@ -68,7 +68,7 @@ $(function() {
 	$("[id^=freckleClick]").on("click",
 		function(event) {
 			var index = frecklingValue[ $(event.target).parent().siblings("img").first().attr("id") ]
-			borderAroundPicture($("#freckling").parent().parent().next().find("img"), index )
+			borderAroundPicture($("#freckling").parent().next().find("img"), index )
 			selectionBasedOnImageSelect("freckling",  index )
 	})
 
@@ -77,11 +77,11 @@ $(function() {
 	$("#freckling").on("change", function() {
 		var index = $(this).prop('selectedIndex') + 1
 		console.log("index = " + index)
-	  borderAroundPicture($("#freckling").parent().parent().next().find("img"), index)
+	  borderAroundPicture($("#freckling").parent().next().find("img"), index)
 	});
 
 	// Handles the "Click to Enlarge Link");
-  $("#freckling").parent().parent().next().find("a:contains('Click to Enlarge')").on("click", function(event) {
+  $("#freckling").parent().next().find("a:contains('Click to Enlarge')").on("click", function(event) {
 
 		// Going to the URL will be prevented
 		event.preventDefault();
