@@ -127,6 +127,9 @@ def generateCSV(key, data):
         csv.writer(f, lineterminator = '\n').writerows(data)
     return filepath
 
+createDirectory(app.config['upload_folder'])
+createDirectory(app.config['results_folder'])
+
 import argparse
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -138,9 +141,6 @@ if __name__ == '__main__':
     port_num = int(args.port_number);
     debug_option = args.debug_option == 'True'
     evalex_option = args.evalex_option == 'True'
-
-    createDirectory(app.config['upload_folder'])
-    createDirectory(app.config['results_folder'])
 
     hostname = gethostname()
     app.run(host='0.0.0.0', port = port_num, debug = debug_option, use_evalex = evalex_option)
