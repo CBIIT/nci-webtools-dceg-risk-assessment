@@ -85,13 +85,13 @@ function(root, resource, uploader, modal) {
             sections.snpInformation.familyHistory != 'Family history is not in the model')
             model.familyHistory = sections.snpInformation.familyHistory;
 
-        resource('/absoluteRiskRest/calculate')
+        resource('calculate')
             .save({parameters: model}, successCb, errorCb);
     }
 
     /* ------ Downloads a model from the server ------ */
     function downloadModel(id) {
-        resource('/absoluteRiskRest/fileDownload')
+        resource('fileDownload')
             .save({id: id, data: self.sections[id].model}, onSuccess, onError);
 
         function onSuccess(response) {
@@ -114,7 +114,7 @@ function(root, resource, uploader, modal) {
         if (file) {
             uploader.addFiles([file]);
             uploader.startUpload({
-                url: 'http://' + window.location.hostname + '/absoluteRiskRest/fileUpload',
+                url: window.location.href + '/fileUpload',
                 concurrency: 2,
                 onCompleted: function(file, response) {
                     response = JSON.parse(response);

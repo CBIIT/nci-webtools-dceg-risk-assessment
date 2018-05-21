@@ -17,7 +17,7 @@ app.config['allowed_extensions'] = ['.csv', '.rdata']
 arc['source']('rfiles/absoluteRiskCalculationWrapper.R')
 
 # This route takes in a RData file as input, saves it to the server, and returns the filename and contents
-@app.route('/absoluteRiskRest/fileUpload', methods=['POST'])
+@app.route('/fileUpload', methods=['POST'])
 def fileUpload():
     if request.method == 'POST':
         file = request.files['file']
@@ -39,7 +39,7 @@ def fileUpload():
     return ''
 
 # This route takes in a json object as input, saves it to the server as an RData file, and returns the filepath to the client
-@app.route('/absoluteRiskRest/fileDownload', methods=['POST'])
+@app.route('/fileDownload', methods=['POST'])
 def fileDownload():
     if request.method == 'POST':
         model = json.loads(request.data)
@@ -63,7 +63,7 @@ def fileDownload():
     return ''
 
 # This route takes in a json object as input and returns validation results
-@app.route('/absoluteRiskRest/validate', methods=['POST'])
+@app.route('/validate', methods=['POST'])
 def validate():
     if request.method == 'POST':
         try:
@@ -75,7 +75,7 @@ def validate():
     return ''
 
 # This route takes in a json object as input and returns calculation results
-@app.route('/absoluteRiskRest/calculate', methods=['POST'])
+@app.route('/calculate', methods=['POST'])
 def calculate():
     if request.method == 'POST':
         try:
