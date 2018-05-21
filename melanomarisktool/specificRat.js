@@ -221,6 +221,11 @@ function toggleGender(e) {
 			$.each($(".male, .female").find("input, select"), function(index, el) {
 				$(el).prop("required", false);
 			});
+
+			$("#mildFreckling").attr("src","")
+			$("#moderateFreckling").attr("src","")
+			$("#severeFreckling").attr("src","")
+
 			break;
 	}
 }
