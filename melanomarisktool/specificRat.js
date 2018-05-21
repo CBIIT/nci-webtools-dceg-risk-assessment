@@ -192,6 +192,10 @@ function toggleGender(e) {
 			});
 			$(".female").removeClass('show');
 			$(".male").addClass('show');
+
+			$("#mildFreckling").attr("src","rat-commons/images/mratMildLrg.jpg")
+			$("#moderateFreckling").attr("src","rat-commons/images/mratModLrg.jpg")
+			$("#severeFreckling").attr("src","rat-commons/images/mratSevereLrg.jpg")
 			break;
 		case "Female":
 			$('.small_mole_answer')[0].innerHTML="Less than five"
@@ -205,6 +209,10 @@ function toggleGender(e) {
 			$.each($(".female").find("input, select"), function(index, el) {
 				$(el).prop("required", true);
 			});
+
+			$("#mildFreckling").attr("src","rat-commons/images/mratMildLrg.jpg")
+			$("#moderateFreckling").attr("src","rat-commons/images/mratModLrg.jpg")
+			$("#severeFreckling").attr("src","rat-commons/images/mratSevereLrg.jpg")
 
 			$(".male").removeClass('show');
 			$(".female").addClass('show');
