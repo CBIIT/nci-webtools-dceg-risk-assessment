@@ -72,6 +72,12 @@ $(function() {
 			selectionBasedOnImageSelect("freckling",  index )
 	})
 
+	// When the image is clicked then delegate the event to the correct "Click to
+	// Select Button"
+	$("[id$='Freckling']").on("click", function(event) {
+			$(event.target).prev().children(":first()").click();
+	});
+
 	// for the image for the "How extensive is the freckling on the patients's
 	// back and shoulders?".  When clicked the correct image should be selected
 	$("#freckling").on("change", function() {

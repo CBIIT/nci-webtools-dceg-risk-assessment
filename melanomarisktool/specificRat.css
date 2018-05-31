@@ -42,9 +42,33 @@
 
 /* Used to center the three pictures propertly */
   [for='damage'] + div > div:nth-child(2), [for='freckling'] + div + div {
+    margin-top: 15px;
     margin-left: .5em;
     margin-right: .5em;
   }
+
+@media ( min-width:1200px ) {
+
+  /* For a small amount of pixels about 50, the Moderate Frecking string went */
+  /* populating one line to populating two line which HTML Elements to be     */
+  /* pushed farther down then the other two columns.   The fix was two        */
+  /* modify the margins, enough so that the text on line and the nohting      */
+  /* else changes                                                             */
+  #frecklePictures > div:nth-child(1) {
+    padding-left: 0px;
+  }
+
+  #frecklePictures div:nth-child(2) {
+    padding-left: 7px;
+    padding-right: 8px;
+  }
+
+  #frecklePictures div:nth-child(3) {
+    padding-right: 0px;
+  }
+
+  /****************************************************************************/
+}
 
 @media ( max-width : 576px ) {
 
