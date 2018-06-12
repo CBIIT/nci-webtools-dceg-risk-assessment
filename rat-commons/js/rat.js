@@ -1314,14 +1314,14 @@ function htmlObjectCloseToBottomOfScreen(htmlObject, threshold) {
 // of this rouine is when the form is disabled, but you want one queston     //
 // enabled.                                                                  //
 //                                                                           //
-// Inuput : A div with an id attribute specified.
+// Inuut : A div with an id attribute specified.
 //                                                                           //
 // Example -- Do the person have cancer                                      //
 //   User click Yes ( Since this is  preidictive tool, the form would be     //
 //                    disabled and this question would be enabled)           //
 //        click No then enable form                                          //
 ///////////////////////////////////////////////////////////////////////////////
-function enableFirstQuestionAndAnswers(divId) {
+function enableQuestionAndAnswers(divId) {
   $("#" + divId + " > label").css("color","#2E2E2E")
   $("#" + divId + " input").attr("disabled", false)
   $("#" + divId + " input").css("color", "#606060")

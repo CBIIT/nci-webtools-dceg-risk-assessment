@@ -11,22 +11,22 @@ $(function() {
   // Any time the form changes check all necessary (enabled) input have an answer
   //
   // Moved the add event here because originally when debugging the code the
-  // specifcRat code would excecute before the generic ratCode.  The incoorect
-  // assumption was the generic code would execute and then the specific code
+  // specifcRat code would excecute before the generic ratCode.  The incorrect
+  // assumption was the generic code would execute before the specific code
   // would execute
   $("#riskForm").on("change", enableCalculateButton);
 
   $("#BreastCancerHealth").on("focusin", function() { moveElementIfCloseToBottom("#BreastCancerHealth") })
 
-	// Disables the form if the woman previously had cancer or enable the form
-  // if the woman does not have cancer.
-	$("input[name='cancerAndRadiationHistory']").on("click", function(event) {
-		if(this.value == 0){
-			      $("#womanWithCancerDialog").modal("show");
-      			disableForm();
+   // Disables the form if the woman previously had cancer or enable the form
+   // if the woman does not have cancer.
+   $("input[name='cancerAndRadiationHistory']").on("click", function(event) {
+        if(this.value == 0){
+            $("#womanWithCancerDialog").modal("show");
+            disableForm();
 	  	} else {
-            enableBRATForm()
-      			$("#riskForm").trigger("change")
+	  	    enableBRATForm()
+	  	    $("#riskForm").trigger("change")
       }
   });
 
@@ -34,24 +34,24 @@ $(function() {
   // from to check if the calcualte button can be enabled
   $("input[name='geneticMakeup']").on("click", function(event) {
 	   if(this.value == 0 ) {
-      $("#hasBRCAMutation").modal("show");
-      disableForm();
+	        $("#hasBRCAMutation").modal("show");
+            disableForm();
 	   } else {
+	        enableBRATForm();
       		$("#riskForm").trigger("change")
-     }
+       }
   });
 
-  // Enables the first question when user clicks ok.  Note that the
-  // 1st Questions will have the Answer Yes selected.
-  $("#womanWithCancerDialog").on("click", function() {
-    enableFirstQuestionAndAnswers($("#questionAndAnswers1").attr("id"))
-  })
-  $("#womanWithCancerDialog").on("click", setCancerHistoryQeustionToYes)
+  // For the patient Eligibility Seciton : enables the first question when user clicks ok.
+  // Note that the 1st Questions will have the Answer Yes selected.
+  $("#okButtonCancerHistory").on("click", function() { enableQuestionAndAnswers($("#questionAndAnswers1").attr("id")); })
+  $("#okButtonCancerHistory").on("click", function() {$("#cancerAndRadiationHistoryYes").prop("checked","true"); })
+
+  $("#okButtonMutationBRCA").on("click", function() { enableQuestionAndAnswers($("#questionAndAnswers2").attr("id")) });
+  $("#okButtonMutationBRCA").on("click", function() { $("#geneticMakeupYes").prop("checked", true )} )
 
   // Enables the form when the user clicks ok for the dialog box be dispalyed
   // for any question in the patient eligibility phasse or the race
-  //$("#okButtonCancerHistory").on("click",       enableBRATForm)
-  $("#okButtonMutationBRCA").on("click",        enableBRATForm)
   $("#okButtonHispanicIssue").on("click",       enableBRATForm);
   $("#okButtonUnknownIssue").on("click",        enableBRATForm);
   $("#okButtonNativeAmericanIssue").on("click", enableBRATForm)
@@ -95,12 +95,6 @@ $(function() {
   	$("#riskForm").on("change", disableIfPatientIsNotEligible);
   	$('#riskForm').trigger('change');
 });
-
-
-
-function setCancerHistoryQeustionToYes() {
-  $("#cancerAndRadiationHistoryYes").prop("checked","true")
-}
 
 // A function that will be called as a CallBack when the footer is loaded.  This function will be the same name
 // for all specificRats.  I believe that this function will scroll to the top of the #contactLink so it can be
@@ -158,16 +152,6 @@ function attachSubraceItems() {
       })
   }
 }
-
-// Problem : On the iphone the String "Select sub race/ethnicity or place of birth"
-// goes way pass the border, so the width is adjusted for the device.
-//function adjustSubraceWidth() {
-//   if ( isMobile() && !isTablet() ) {
-//     $("#sub_race").addClass("mobile")
-//   } else {
-//     $("#sub_race").removeClass("mobile")
-//   }
-//}
 
 // When White, African American, Alaskan navtive or American Indian, unknown then
 // the subrace menu is not needed.
@@ -290,7 +274,6 @@ function disableSubRaceMenu() {
 }
 
 /* Produces the results box for the RAT                                      */
-
 function resultsDisplay(response, textStatus, xhr) {
   var result = JSON.parse(response.message)
 	go_toresult();
@@ -311,6 +294,7 @@ function resultsDisplay(response, textStatus, xhr) {
 	make_pie_chart(result.lifetime_average_risk, "#pieChart4", "#40A5C1",                 "#EFEFEF");
 }
 
+/* The code that resets the form */
 function resetForm() {
   genericResetForm()
   enableQuestionAndAnswers();
