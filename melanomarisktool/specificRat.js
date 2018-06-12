@@ -7,10 +7,10 @@ frecklingValue["3"]									= "mildFreckling"
 frecklingValue["4"]									= "moderateFreckling"
 frecklingValue["5"]									= "severeFreckling"
 frecklingValue[""]									= "1"
-frecklingValue["Absent"]						= "2"
-frecklingValue["mildFreckling"]			= "3"
-frecklingValue["moderateFreckling"]	= "4"
-frecklingValue["severeFreckling"]		= "5"
+frecklingValue["Absent"]						    = "2"
+frecklingValue["mildFreckling"]			            = "3"
+frecklingValue["moderateFreckling"]	                = "4"
+frecklingValue["severeFreckling"]		            = "5"
 
 $(function() {
 
@@ -362,7 +362,8 @@ function resetForm() {
 	 disableForm()
 	 disableMap()
 
-	 $("img").addClass("image_disabled")
+     // If the image is not in a dialog box then assume it is in a form and disable the image
+	 $("img").filter( function(index,element) { var result = ($(element).parents("[role='dialog']").length == 0) ? true : false; return result; } ).addClass("image_disabled");
 	 $("p").addClass("picture")
 
 	 $("[class*='pictureText']").removeClass("pictureTextEnabledColor")
