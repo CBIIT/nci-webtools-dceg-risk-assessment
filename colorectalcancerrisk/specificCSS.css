@@ -115,4 +115,11 @@
   width: auto;
 }
 
+/* Problem : When there are two paragraph tags with the with the class secondary style the margin bottom of the */
+/* first paragraph tag will put too mcuh space between them.  This style will remove the space between the two  */
+/* paragraph tags                                                                                               */
+#includesVegatables {
+    margin-bottom: 0px;
+}
+
 

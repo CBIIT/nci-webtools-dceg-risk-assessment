@@ -316,8 +316,8 @@
         <!-- ##################################################### -->
         <h2 id="DietPhysicalSectionTitle" class="sectionTitle">Diet &amp; Physical Activity</h2>
         <section id="activity-section">
-          <label class="questions no-margin-top" for="veg_servings">In the past 30 days, about how many servings per week of vegetables or leafy green salads did the patient eat?</label>
-          <p class="questions_secondary">
+          <label class="questions no-margin-top" for="veg_servings">In the last month, about how many servings of vegetables or leafy green salads did the patient eat per week?</label>
+          <p id="includesVegatables" class="questions_secondary">
             <b>Includes</b> leafy green salads and raw, cooked, canned, and frozen vegetables (including beans)
           </p>
           <p class="questions_secondary">
@@ -336,7 +336,7 @@
                 </select>
           </div>
 
-          <label class="col-sml-offset-1 questions" data-subquestion="true" for="veg_amount">In the past 30 days, how much did the patient usually eat in each serving of vegetables or leafy green salads?</label>
+          <label class="col-sm-offset-1 questions" data-subquestion="true" for="veg_amount">In the last month, how much did the patient usually eat in each serving of vegetables or leafy green salads?</label>
           <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
             <select id="veg_amount" name="veg_amount" required>
                   <option value="">- select -</option>
@@ -349,9 +349,9 @@
           </div>
 
 
-          <label class="questions" for="moderate_months">Over the past 12 months, in how many months, if any, did the patient do any kind of moderate physical activity?</label>
+          <label class="questions" for="moderate_months">In the last year, in how many months did the patient do any kind of moderate physical activity?</label>
           <p class="questions_secondary">
-            Moderate activities DO NOT cause the patient to sweat or breathe hard. Some examples include vacuuming, gardening, easy walking for exercise, and so on.
+            Moderate activities DO NOT cause the patient to sweat or breathe hard. Some examples include vacuming, gardening, easy walking for exercise, and so on.
           </p>
           <div class="responseOptions ">
             <select id="moderate_months" name="moderate_months" required>
@@ -384,7 +384,7 @@
                 </select>
           </div>
 
-          <label class="questions" for="vigorous_months">Over the past 12 months, in how many months, if any, did the patient do any kind of vigorous physical activity?</label>
+          <label class="questions" for="vigorous_months">In the last year, in how many months, if any, did the patient do any kind of vigorous activity?</label>
           <p class="questions_secondary">
             Vigorous activities include all activities that DO cause the patient to sweat or breathe hard. Some examples include racquet sports, basketball, running, fast biking, exercise class, weight lifting, backpacking, swimming, and heavy labor such as shoveling
             dirt.
