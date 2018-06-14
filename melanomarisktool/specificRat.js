@@ -359,11 +359,22 @@ function resetForm() {
  * Disable the MRAT Form
  */
  function disableMRATForm() {
+
+     // Which pictures should be excluded from being
+     // Returns (t) -- The element should be execluded
+     function exclusions(element) {
+
+        var resultPicInDialog = ($(element).parents("[role='dialog']").length == 0);
+        var resultPicInHeader = ($(element).parents("header").length == 0 );
+
+        return resultPicInDialog && resultPicInHeader;
+     }
+
 	 disableForm()
 	 disableMap()
 
      // If the image is not in a dialog box then assume it is in a form and disable the image
-	 $("img").filter( function(index,element) { var result = ($(element).parents("[role='dialog']").length == 0) ? true : false; return result; } ).addClass("image_disabled");
+	 $("img").filter( function(index,element) { var result = (exclusions(element) == true ) ? true : false;  return result; } ).addClass("image_disabled");
 	 $("p").addClass("picture")
 
 	 $("[class*='pictureText']").removeClass("pictureTextEnabledColor")
