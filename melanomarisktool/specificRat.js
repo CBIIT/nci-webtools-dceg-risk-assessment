@@ -52,7 +52,7 @@ $(function() {
 	// this late in the task unless I need to.
 	//
 	$("#okButtonRace").on("click", function() {
-    enableFirstQuestionAndAnswers($("#questionAndAnswers1").attr("id"))
+    enableQuestionAndAnswers($("#questionAndAnswers1").attr("id"))
   })
 
 	$("#okButtonRace").on("click", function() {
