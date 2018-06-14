@@ -37,7 +37,9 @@
                                     <div class="form-group" ng-class="{'has-error': myForm.ageNumericCriteria }">
                                         <label for="age" class="col-xs-12 col-md-6 control-label">Age</label>
                                         <div class="col-xs-12 col-md-6">
-                                            <input class="form-control input-sm" type="text" name="age" id="age" ng-model="myForm.age" ng-model-options="{ updateOn: 'blur' }" ng-required="true">
+                                            <select class="form-control input-sm" name="age" id="age" ng-model="myForm.age" ng-model-options="{ updateOn: 'blur' }" ng-required="true">
+                                                <option ng-repeat="i in ageRange()" value="{{i}}">{{i}}</option>>
+                                            </select>
                                         </div>
                                     </div>
                                     <div ng-show="myForm.ageNumericCriteria" class="row">
