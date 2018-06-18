@@ -446,6 +446,17 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
   };
 
   /* Utility functions */
+
+  var MIN_AGE = 50;
+  var MAX_AGE = 80;
+  $scope.ageRange = function() { 
+    var range = [];
+    for (var i = MIN_AGE; i <= MAX_AGE; ++i) {
+      range.push(i);
+    }
+    return range;
+  }
+    
   /* Age validation */
   function validateAges() {
     var age,
@@ -458,7 +469,7 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
 
     if (!$scope.myForm.ageNumericCriteria) {
       age = parseFloat($scope.myForm.age);
-      $scope.myForm.ageCriteria = (age < 50 || age > 80);
+      $scope.myForm.ageCriteria = (age < MIN_AGE || age > MAX_AGE);
     } else {
       $scope.myForm.ageCriteria = false;
     }
