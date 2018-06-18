@@ -114,6 +114,10 @@ def exportPDF():
         response = make_response(pdf_output_file)
     return response
 
+@app.route('/ping/', methods=['GET'])
+def heartbeat():
+    return ("", 200, [])
+
 @app.after_request
 def after_request(response):
     response.headers.add('Access-Control-Allow-Origin', '*')
