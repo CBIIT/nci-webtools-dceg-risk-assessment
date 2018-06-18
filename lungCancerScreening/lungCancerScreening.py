@@ -10,6 +10,7 @@ from flask import Flask, send_file, render_template, request, jsonify, make_resp
 from rpy2.robjects.packages import SignatureTranslatedAnonymousPackage
 from rpy2.robjects.vectors import IntVector, FloatVector
 from rpy2.robjects import r
+import traceback
 from socket import gethostname
 import tempfile, os
 import random
