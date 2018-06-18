@@ -170,7 +170,7 @@
                                     <div class="form-group">
                                         <label for="units" class="col-xs-12 col-md-6 control-label">Height and Weight, or BMI?</label>
                                         <div class="col-xs-12 col-md-6">
-                                            <select name="bmiSelection" id="bmiSelection" class="form-control input-sm" ng-model="myForm.bmiSelection" ng-change="myForm.changeBmiSelection()" ng-required="true" ng-disabled="myForm.validationFailed && !(myForm.bmiNumericCriteria || myForm.bmiHighCriteria || myForm.bmiLowCriteria)">
+                                            <select name="bmiSelection" id="bmiSelection" class="form-control input-sm" ng-model="myForm.bmiSelection" ng-change="myForm.changeBmiSelection()" ng-required="true" ng-disabled="myForm.validationFailed && !(myForm.bmiNumericCriteria || myForm.bmiHighCriteria || myForm.bmiLowCriteria || myForm.pHeightCriteria || myForm.subHeightCriteria || myForm.weightCriteria)">
                                                 <option value="">Select...</option>
                                                 <option value="bmi">BMI known</option>
                                                 <option value="hw">Height and Weight known</option>
@@ -195,7 +195,7 @@
                                     <div class="form-group" ng-show="myForm.bmiSelection === 'hw'">
                                         <label for="units" class="col-xs-12 col-md-6 control-label">Units for entering height and weight</label>
                                         <div class="col-xs-12 col-md-6">
-                                            <select name="units" id="units" class="form-control input-sm" ng-model="myForm.units" ng-disabled="myForm.validationFailed">
+                                            <select name="units" id="units" class="form-control input-sm" ng-model="myForm.units" ng-disabled="myForm.validationFailed && !(myForm.bmiNumericCriteria || myForm.bmiHighCriteria || myForm.bmiLowCriteria || myForm.pHeightCriteria || myForm.subHeightCriteria || myForm.weightCriteria)">
                                                 <option value="metric">Metric (e.g., 175 cm or 60 kg)</option>
                                                 <option value="us" selected>US (e.g., 5 feet 9 inches or 115 pounds)</option>
                                             </select>
