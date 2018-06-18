@@ -23,6 +23,7 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
     $scope.myForm.weightCriteria = false;
     $scope.myForm.bmiLowCriteria = false;
     $scope.myForm.bmiHighCriteria = false;
+    $scope.myForm.validationFailed = false;
     $scope.myForm.units = 'us';
     $scope.myForm.numericValidationMessage = 'Please ensure the age entered above does not have any non-numeric characters.';
     $scope.myForm.bmiNumericValidationMessage = 'Please ensure the BMI entered above does not have any non-numeric characters.';
@@ -50,7 +51,7 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
 
   /* $watchCollection allows watching of multiple properties and changing form state (valid/invalid) based on properties' values */
   /* scope.$watchCollection('[myForm.ageCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function(newValues) { */
-  $scope.$watchCollection('[myForm.bmiNumericCriteria, myForm.ageCriteria, myForm.typeCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function (newValues) {
+  $scope.$watchCollection('[myForm.bmiNumericCriteria, myForm.ageCriteria, myForm.typeCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, myForm.bmiNumericCriteria, myForm.bmiHighCriteria, myForm.bmiLowCriteria, lcsForm.$invalid]', function (newValues) {
 
     var flag = false;
 
@@ -60,6 +61,24 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
     }
 
     $scope.myForm.isInvalid = flag;
+
+    $scope.myForm.validationFailed = 
+        $scope.myForm.ageCriteria || 
+        $scope.myForm.ageNumericCriteria ||
+        $scope.myForm.typeCriteria ||
+        $scope.myForm.startAgeCriteria ||
+        $scope.myForm.startNumericCriteria ||
+        $scope.myForm.quitCriteria ||
+        $scope.myForm.quitNumericCriteria ||
+        $scope.myForm.quitAgeCriteria ||
+        $scope.myForm.cigsCriteria ||
+        $scope.myForm.cigsNumericCriteria ||
+        $scope.myForm.pHeightCriteria ||
+        $scope.myForm.subHeightCriteria ||
+        $scope.myForm.weightCriteria ||
+        $scope.myForm.bmiLowCriteria ||
+        $scope.myForm.bmiNumericCriteria ||
+        $scope.myForm.bmiHighCriteria;
   });
 
   // add dropdown value to myForm data object //
@@ -147,6 +166,9 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
     $scope.myForm.weight = '';
   };
 
+  var MIN_PACK_YEARS = 10;
+  var MAX_PACK_YEARS = 70;
+
   $scope.$watchCollection('[myForm.age, myForm.cigs, myForm.start, myForm.quit]', function (newValues) {
     $scope.myForm.cigsNumericCriteria = !numRegExp.test($scope.myForm.cigs ? $scope.myForm.cigs : '0');
 
@@ -173,7 +195,7 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
           $scope.myForm.packYears = ((quit - start) * (cigs / 20));
         }
 
-        $scope.myForm.cigsCriteria = $scope.myForm.packYears < 30;
+        $scope.myForm.cigsCriteria = $scope.myForm.packYears < MIN_PACK_YEARS || $scope.myForm.packYears > MAX_PACK_YEARS;
 
       }
     } else {
@@ -275,6 +297,7 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
     $scope.myForm.bmi = 0;
     $scope.myForm.pkyr_cat = 0;
     $scope.myForm.isInvalid = true;
+    $scope.myForm.validationFailed = false;
     $scope.myForm.summary = '';
     $scope.myForm.result0 = 0;
     $scope.myForm.result1 = 0;
@@ -416,6 +439,7 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
 
     $scope.myForm.loading = true;
     $scope.myForm.isInvalid = true;
+    $scope.myForm.validationFailed = true;
 
     /* Ajax call to process results */
     $http.post(url, GLOBAL_DATA)
@@ -433,6 +457,7 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
       })
       .finally(function (data) {
         $scope.myForm.isInvalid = false;
+        $scope.myForm.validationFailed = false;
         $scope.myForm.loading = false;
         $sessionStorage.params = params;
         $sessionStorage.myForm = $scope.myForm;
