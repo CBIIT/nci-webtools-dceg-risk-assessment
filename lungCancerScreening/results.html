@@ -1,7 +1,7 @@
 <div id="results">
     <div>
-        <h1>Your Results</h1>
-        <p>According to how you filled out the RNOT, you are:</p>
+        <h1>Your Answers</h1>
+        <p>These results are based upon how you answered the following questions:</p>
         <table class="results_summary">
             <tbody>
                 <tr>
@@ -11,42 +11,6 @@
                 <tr>
                     <th>Gender</th>
                     <td>{{gender[session.params.gender]}}</td>
-                </tr>
-                <tr>
-                    <th>Type of Smoker</th>
-                    <td>{{session.myForm.typeDesc}}</td>
-                </tr>
-                <!-- current smoker -->
-                <tr ng-if-start="session.myForm.type=='current'">
-                    <th class="indent">What age did you start smoking?</th>
-                    <td>{{session.myForm.start}}</td>
-                </tr>
-                <tr ng-if-end>
-                    <th class="indent">On a typical day, how many cigarettes do you smoke?</th>
-                    <td>{{session.myForm.cigs}}</td>
-                </tr>
-                <!-- current smoker -->
-                <!-- former smoker -->
-                <tr ng-if-start="session.myForm.type=='former'">
-                    <th class="indent">What your age did you start smoking?</th>
-                    <td>{{session.myForm.start}}</td>
-                </tr>
-                <tr>
-                    <th class="indent">How old where you when you quit successfully?</th>
-                    <td>{{session.myForm.quit}}</td>
-                </tr>
-                <tr ng-if-end>
-                    <th class="indent">On a typical day, how many cigarettes do you smoke?</th>
-                    <td>{{session.myForm.cigs}}</td>
-                </tr>
-                <!-- current smoker -->
-                <tr>
-                    <th>Lung Disease</th>
-                    <td>{{session.myForm.diseaseDesc}}</td>
-                </tr>
-                <tr>
-                    <th>Parents' or siblings' history of lung cancer (must be blood relative)</th>
-                    <td>{{session.myForm.historyDesc}}</td>
                 </tr>
                 <tr>
                     <th>Height</th>
@@ -67,18 +31,18 @@
                         </span>
                 </tr>
                 <tr>
-                    <th>Education</th>
+                    <th>BMI</th>
                     <td>
-                        <span ng-if="session.myForm.education != 7">
-                            {{session.myForm.educationDesc}}
-                        </span>
-                        <span ng-if="session.myForm.education == 7">
+                        <span ng-if="session.myForm.bmiSelection === 'unknown'"> 
                             Unknown
                         </span>
+                        <span ng-if="session.myForm.bmiSelection !== 'unknown'">
+                            {{session.params.bmi}} <span ng-if="session.params.bmi != session.params.realBmi">(your BMI is {{session.params.realBmi}}, which is outside of the 15-50 range. A default value of {{session.params.bmi}} was used for the risk calculation)</span>
+                        </span>       
                         </td>
                 </tr>
                 <tr>
-                    <th>Race or Ethnic Group</th>
+                    <th>Racial or ethnic group</th>
                     <td>
                         <span ng-if="session.myForm.group != 5">
                             {{session.myForm.groupDesc}}
@@ -89,15 +53,51 @@
                         </td>
                 </tr>
                 <tr>
-                    <th>BMI</th>
+                    <th>Highest level of education obtained</th>
                     <td>
-                        <span ng-if="session.myForm.bmiSelection === 'unknown'"> 
+                        <span ng-if="session.myForm.education != 7">
+                            {{session.myForm.educationDesc}}
+                        </span>
+                        <span ng-if="session.myForm.education == 7">
                             Unknown
                         </span>
-                        <span ng-if="session.myForm.bmiSelection !== 'unknown'">
-                            {{session.params.bmi}} <span ng-if="session.params.bmi != session.params.realBmi">(your BMI is {{session.params.realBmi}}, which is outside of the 15-50 range. A default value of {{session.params.bmi}} was used for the risk calculation)</span>
-                        </span>       
                         </td>
+                </tr>
+                <tr>
+                    <th>Type of smoker</th>
+                    <td>{{session.myForm.typeDesc}}</td>
+                </tr>
+                <!-- current smoker -->
+                <tr ng-if-start="session.myForm.type=='current'">
+                    <th class="indent">How old were you when you started smoking?</th>
+                    <td>{{session.myForm.start}}</td>
+                </tr>
+                <tr ng-if-end>
+                    <th class="indent">On a typical day, how many cigarettes do you smoke?</th>
+                    <td>{{session.myForm.cigs}}</td>
+                </tr>
+                <!-- current smoker -->
+                <!-- former smoker -->
+                <tr ng-if-start="session.myForm.type=='former'">
+                    <th class="indent">How old were you when you started smoking?</th>
+                    <td>{{session.myForm.start}}</td>
+                </tr>
+                <tr>
+                    <th class="indent">How old were you when you quit successfully?</th>
+                    <td>{{session.myForm.quit}}</td>
+                </tr>
+                <tr ng-if-end>
+                    <th class="indent">Before you successfully quit, on a typical day, how many cigarettes did you smoke?</th>
+                    <td>{{session.myForm.cigs}}</td>
+                </tr>
+                <!-- former smoker -->
+                <tr>
+                    <th>History of lung disease</th>
+                    <td>{{session.myForm.diseaseDesc}}</td>
+                </tr>
+                <tr>
+                    <th>Family history of lung cancer (must be blood relative), including parents and siblings</th>
+                    <td>{{session.myForm.historyDesc}}</td>
                 </tr>
                 <tr>
                     <th>Pack-years</th>
