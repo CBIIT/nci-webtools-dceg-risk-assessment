@@ -109,12 +109,12 @@
                                     <div class="form-group" ng-class="{'has-error': myForm.pHeightCriteria || myForm.subHeightCriteria }" ng-show="myForm.bmiSelection === 'hw'">
                                         <div for="height_feet" class="col-xs-12 col-md-6 control-label">Height?</div>
                                         <div class="col-xs-12 col-md-3" ng-show="myForm.units==='us'">
-                                            <input name="height_feet" id="height_feet" class="form-control input-sm" type="text" ng-model="myForm.pHeight" ng-model-options="{ updateOn: 'blur' }" ng-required="myForm.bmiSelection === 'hw'" ng-disabled="myForm.validationFailed && !(myForm.pHeightCriteria || myForm.subHeightCriteria || myForm.bmiHighCriteria || myForm.bmiLowCriteria)">
+                                            <input name="height_feet" id="height_feet" class="form-control input-sm" type="text" ng-model="myForm.pHeight" ng-model-options="{ updateOn: 'blur' }" ng-required="myForm.bmiSelection === 'hw'" ng-disabled="myForm.validationFailed && !(myForm.pHeightCriteria || myForm.subHeightCriteria)">
                                             <label class="label_below" for="height_feet">{{myForm.heightPrimary}}</label>
 
                                         </div>
                                         <div class="col-xs-12 col-md-3">
-                                            <input name="height_inches" id="height_inches" class="form-control input-sm" type="text" ng-model-options="{ updateOn: 'blur' }" ng-model="myForm.subHeight" ng-disabled="myFrom.validationFailed && !(myForm.pHeightCriteria || myForm.subHeightCriteria || myForm.bmiHighCriteria || myForm.bmiLowCriteria)">
+                                            <input name="height_inches" id="height_inches" class="form-control input-sm" type="text" ng-model-options="{ updateOn: 'blur' }" ng-model="myForm.subHeight" ng-disabled="myForm.validationFailed && !(myForm.pHeightCriteria || myForm.subHeightCriteria)">
                                             <label class="label_below" for="height_inches">{{myForm.heightSecondary}}</label>
                                         </div>
                                     </div>
@@ -127,7 +127,7 @@
                                     <div class="form-group" ng-class="{'has-error': myForm.weightCriteria }" ng-show="myForm.bmiSelection === 'hw'">
                                         <label for="weight" class="col-xs-12 col-md-6 control-label">Weight?</label>
                                         <div class="col-xs-12 col-md-6">
-                                            <input name="weight" id="weight" class="form-control input-sm" type="text" ng-model="myForm.weight" ng-model-options="{ updateOn: 'blur' }" ng-required="myForm.bmiSelection === 'hw'" ng-disabled="myForm.validationFailed && !(myForm.weightCriteria || myForm.bmiHighCriteria || myForm.bmiLowCriteria)">
+                                            <input name="weight" id="weight" class="form-control input-sm" type="text" ng-model="myForm.weight" ng-model-options="{ updateOn: 'blur' }" ng-required="myForm.bmiSelection === 'hw'" ng-disabled="myForm.validationFailed && !(myForm.weightCriteria)">
                                             <span>{{myForm.weightUnits}}</span>
                                         </div>
                                     </div>

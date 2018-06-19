@@ -60,7 +60,7 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
 
   /* $watchCollection allows watching of multiple properties and changing form state (valid/invalid) based on properties' values */
   /* scope.$watchCollection('[myForm.ageCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function(newValues) { */
-  $scope.$watchCollection('[myForm.bmiNumericCriteria, myForm.ageCriteria, myForm.typeCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, myForm.bmiNumericCriteria, myForm.bmiHighCriteria, myForm.bmiLowCriteria, lcsForm.$invalid]', function (newValues) {
+  $scope.$watchCollection('[myForm.bmiNumericCriteria, myForm.ageCriteria, myForm.typeCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function (newValues) {
 
     var flag = false;
 
@@ -85,9 +85,7 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
         $scope.myForm.pHeightCriteria ||
         $scope.myForm.subHeightCriteria ||
         $scope.myForm.weightCriteria ||
-        $scope.myForm.bmiLowCriteria ||
-        $scope.myForm.bmiNumericCriteria ||
-        $scope.myForm.bmiHighCriteria;
+        $scope.myForm.bmiNumericCriteria;
   });
 
   // add dropdown value to myForm data object //
