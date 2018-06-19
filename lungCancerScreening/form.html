@@ -39,6 +39,7 @@
                                         <label for="age" class="col-xs-12 col-md-6 control-label">Age</label>
                                         <div class="col-xs-12 col-md-6">
                                             <select class="form-control input-sm" name="age" id="age" ng-model="myForm.age" ng-model-options="{ updateOn: 'blur' }" ng-required="true" ng-disabled="myForm.validationFailed && !(myForm.ageCriteria || myForm.ageNumericCriteria) ">
+                                                <option value="">Select...</option>>
                                                 <option ng-repeat="i in ageRange()" value="{{i}}">{{i}}</option>>
                                             </select>
                                         </div>
