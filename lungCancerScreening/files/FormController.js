@@ -484,6 +484,15 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
     return range;
   }
 
+  $scope.startAgeRange = function() { 
+    var range = [];
+    var age = $scope.myForm.age || $scope.MAX_AGE;
+    for (var i = 1; i <= age; ++i) {
+      range.push(i);
+    }
+    return range;
+  }
+
   /* Age validation */
   function validateAges() {
     var age,
