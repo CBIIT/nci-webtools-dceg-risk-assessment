@@ -45,11 +45,13 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
     $scope.myForm.unstableRisk = false;
     $scope.myForm.eligibility = true;
     $scope.myForm.cigsPerDayAriaLabel = 'Number of cigarettes smoked per day'
-    $scope.MIN_PACK_YEARS = 30;
+    $scope.MIN_PACK_YEARS = 10;
+    $scope.MIN_RECOMMENDED_PACK_YEARS = 30;
     $scope.MAX_PACK_YEARS = 70;
     $scope.MIN_BMI = 15;
     $scope.MAX_BMI = 50;
-    $scope.MIN_AGE = 55;
+    $scope.MIN_AGE = 50;
+    $scope.MIN_RECOMMENDED_AGE = 55;
     $scope.MAX_AGE = 80;
     $scope.MAX_QUIT_YEARS = 15;
   }
