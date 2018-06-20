@@ -88,7 +88,7 @@ def lungCancerRest():
         f.write(resultContent)
         f.close()
 
-        linkToFile = request.url_root + 'lungCancerScreening/tmp/' + resultFile
+        linkToFile = 'tmp/' + resultFile
         string.append(linkToFile)
 
         return json.dumps(string)
