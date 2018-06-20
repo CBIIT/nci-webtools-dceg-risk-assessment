@@ -34,7 +34,7 @@
         <div class="container row-blue">
             <div class="row">
                 <div class="col-xs-12">
-                    <h4>Lung Cancer Risk Assessment</h4>
+                    <h4>Lung Cancer Risk Assessment Tool</h4>
                 </div>
             </div>
         </div>
@@ -55,12 +55,11 @@
             <div class="collapse navbar-collapse" id="lcs-navbar-collapse">
                 <ul class="nav navbar-nav">{{showResults}}
                     <li><button alt="home" ng-click="changeUrl('/')" ng-disabled="false" ng-class="{active: active=='/'}">Home</button></li>
-                    <li><button alt="Your Results" ng-click="changeUrl('/results')" ng-disabled="resultsDisabled" ng-class="{active: active=='/results'}">Your Results</button></li>
+                    <li><button alt="Personalized risk" ng-click="changeUrl('/results')" ng-disabled="resultsDisabled" ng-class="{active: active=='/results'}">Personalized risk</button></li>
                     <li class="dropdown">
                         <a href="#/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Further Information<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="https://analysistools.nci.nih.gov/lungCancerScreening" target="_blank">Risk-based NLST Outcome Tool (RNOT)</a></li>                            
-                            <li><a href="http://jama.jamanetwork.com/article.aspx?articleID=2522553" target="_blank">Development and Validation of Risk Models to Select Ever-Smokers for CT Lung Cancer Screening</a></li>                            
+                            <li><a href="https://analysistools.nci.nih.gov/lungCancerScreening" target="_blank">Risk-based NLST Outcome Tool (RNOT)</a></li>
                         </ul>
                     </li>
                 </ul>
