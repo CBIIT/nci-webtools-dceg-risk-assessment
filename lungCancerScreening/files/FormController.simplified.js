@@ -45,13 +45,22 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
     $scope.myForm.unstableRisk = false;
     $scope.myForm.eligibility = true;
     $scope.myForm.cigsPerDayAriaLabel = 'Number of cigarettes smoked per day'
+    $scope.MIN_PACK_YEARS = 10;
+    $scope.MIN_RECOMMENDED_PACK_YEARS = 30;
+    $scope.MAX_PACK_YEARS = 70;
+    $scope.MIN_BMI = 15;
+    $scope.MAX_BMI = 50;
+    $scope.MIN_AGE = 50;
+    $scope.MIN_RECOMMENDED_AGE = 55;
+    $scope.MAX_AGE = 80;
+    $scope.MAX_QUIT_YEARS = 15;
   }
   init();
 
 
   /* $watchCollection allows watching of multiple properties and changing form state (valid/invalid) based on properties' values */
   /* scope.$watchCollection('[myForm.ageCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function(newValues) { */
-  $scope.$watchCollection('[myForm.bmiNumericCriteria, myForm.ageCriteria, myForm.typeCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, myForm.bmiNumericCriteria, myForm.bmiHighCriteria, myForm.bmiLowCriteria, lcsForm.$invalid]', function (newValues) {
+  $scope.$watchCollection('[myForm.bmiNumericCriteria, myForm.ageCriteria, myForm.typeCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function (newValues) {
 
     var flag = false;
 
@@ -76,9 +85,7 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
         $scope.myForm.pHeightCriteria ||
         $scope.myForm.subHeightCriteria ||
         $scope.myForm.weightCriteria ||
-        $scope.myForm.bmiLowCriteria ||
-        $scope.myForm.bmiNumericCriteria ||
-        $scope.myForm.bmiHighCriteria;
+        $scope.myForm.bmiNumericCriteria;
   });
 
   // add dropdown value to myForm data object //
@@ -166,9 +173,6 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
     $scope.myForm.weight = '';
   };
 
-  var MIN_PACK_YEARS = 10;
-  var MAX_PACK_YEARS = 70;
-
   $scope.$watchCollection('[myForm.age, myForm.cigs, myForm.start, myForm.quit]', function (newValues) {
     $scope.myForm.cigsNumericCriteria = !numRegExp.test($scope.myForm.cigs ? $scope.myForm.cigs : '0');
 
@@ -195,7 +199,7 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
           $scope.myForm.packYears = ((quit - start) * (cigs / 20));
         }
 
-        $scope.myForm.cigsCriteria = $scope.myForm.packYears < MIN_PACK_YEARS || $scope.myForm.packYears > MAX_PACK_YEARS;
+        $scope.myForm.cigsCriteria = $scope.myForm.packYears < $scope.MIN_PACK_YEARS || $scope.myForm.packYears > $scope.MAX_PACK_YEARS;
 
       }
     } else {
@@ -261,8 +265,8 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
   /* Calculate BMI to show warning if bmi is outside range 15-50 */
   $scope.$watchGroup(['myForm.weight', 'myForm.subHeight', 'myForm.pHeight'], function () {
     bmi = calculateBMI();
-    $scope.myForm.bmiLowCriteria = bmi < 15;
-    $scope.myForm.bmiHighCriteria = bmi > 50;
+    $scope.myForm.bmiLowCriteria = bmi < $scope.MIN_BMI;
+    $scope.myForm.bmiHighCriteria = bmi > $scope.MAX_BMI;
   });
 
   $scope.$watch('myForm.weight', function () {
@@ -394,10 +398,10 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
       bmi = 28;
     }
     var realBmi = bmi;
-    if (bmi < 15) {
-      bmi = 15;
-    } else if (bmi > 50) {
-      bmi = 50;
+    if (bmi < $scope.MIN_BMI) {
+      bmi = $scope.MIN_BMI;
+    } else if (bmi > $scope.MAX_BMI) {
+      bmi = $scope.MAX_BMI;
     }
 
     qtyears = $scope.myForm.quit ? Math.round($scope.myForm.age - parseFloat($scope.myForm.quit)) : 0;
@@ -472,16 +476,23 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
 
   /* Utility functions */
 
-  var MIN_AGE = 50;
-  var MAX_AGE = 80;
   $scope.ageRange = function() { 
     var range = [];
-    for (var i = MIN_AGE; i <= MAX_AGE; ++i) {
+    for (var i = $scope.MIN_AGE; i <= $scope.MAX_AGE; ++i) {
       range.push(i);
     }
     return range;
   }
-    
+
+  $scope.startAgeRange = function() { 
+    var range = [];
+    var age = $scope.myForm.age || $scope.MAX_AGE;
+    for (var i = 1; i <= age; ++i) {
+      range.push(i);
+    }
+    return range;
+  }
+
   /* Age validation */
   function validateAges() {
     var age,
@@ -494,7 +505,7 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
 
     if (!$scope.myForm.ageNumericCriteria) {
       age = parseFloat($scope.myForm.age);
-      $scope.myForm.ageCriteria = (age < MIN_AGE || age > MAX_AGE);
+      $scope.myForm.ageCriteria = (age < $scope.MIN_AGE || age > $scope.MAX_AGE);
     } else {
       $scope.myForm.ageCriteria = false;
     }
@@ -507,7 +518,7 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
         if ($scope.myForm.type === 'former') {
           if (!$scope.myForm.quitNumericCriteria) {
             quit = parseFloat($scope.myForm.quit);
-            $scope.myForm.quitCriteria = (age - quit > 15);
+            $scope.myForm.quitCriteria = (age - quit > $scope.MAX_QUIT_YEARS);
             $scope.myForm.quitAgeCriteria = (quit > age || quit <= start);
           } else {
             $scope.myForm.quitAgeCriteria = false;
@@ -525,8 +536,8 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
 
     if (!$scope.myForm.bmiNumericCriteria) {
       bmi = parseFloat($scope.myForm.bmi);
-      $scope.myForm.bmiLowCriteria = bmi < 15;
-      $scope.myForm.bmiHighCriteria = bmi > 50;
+      $scope.myForm.bmiLowCriteria = bmi < $scope.MIN_BMI;
+      $scope.myForm.bmiHighCriteria = bmi > $scope.MAX_BMI;
     } else {
       $scope.myForm.bmiLowCriteria = false;
       $scope.myForm.bmiHighCriteria = false;
