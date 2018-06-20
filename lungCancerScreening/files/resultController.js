@@ -118,13 +118,7 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $sessionStor
     $scope.loading = true;
     $scope.$apply();
             
-    if (window.location.hostname=='localhost') {
-      url = 'http://' + window.location.hostname + ':9982/exportPDF/';
-    }
-    else {
-      url = 'https://' + window.location.hostname + '/lungCancerScreening/exportPDF/';
-    };
-
+    url = 'exportPDF/';
     var data = "";
     var html = createPrintablePage();
 

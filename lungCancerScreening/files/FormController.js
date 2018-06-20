@@ -356,12 +356,7 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
   };
 
   $scope.myForm.submit = function () {
-    /* add port for localhost testing purposes */
-    if (window.location.hostname == 'localhost') {
-      url = 'http://' + window.location.hostname + ':9982/lungCancerRest/';
-    } else {
-      url = 'https://' + window.location.hostname + '/lungCancerScreening/lungCancerRest/';
-    };
+    url = 'lungCancerRest/';
     var bmi = 0,
       h,
       w,
