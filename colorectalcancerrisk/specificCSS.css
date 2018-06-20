@@ -1,6 +1,11 @@
 @media (min-width: 1201px) {
   #AssessPatientRisk {
-    transform: translate(0, 120%);
+    margin: 40px 0;
+    /* transform: translate(0, 120%); */
+  }
+
+  .text-center-lt-lg {
+    text-align: left;
   }
 }
 @media (max-width: 1200px) {
@@ -13,8 +18,13 @@
     margin-right: 0px;
   }
 
+  .text-center-lt-lg {
+    text-align: center;
+  }
+
   #AssessPatientRisk {
-    transform: translate(0, 120%);
+    margin: 0 0 10px;
+    /* transform: translate(0, 120%); */
   }
 }
 
@@ -29,9 +39,10 @@
   }
 
   #AssessPatientRisk {
-    margin-top: 1em;
-    margin-bottom: 1em;
-    transform: none;
+    /* margin-top: 1em;
+    margin-bottom: 1em; */
+    margin: 0 0 10px;
+    /* transform: none; */
   }
 
 }
@@ -39,8 +50,8 @@
 @media(max-width: 768px ) {
     #form-steps ol span.spacer {
         min-width: 2%;
-    }   
-    
+    }
+
     #AssessPatientRisk {
       margin-bottom: 1em;
     }
@@ -55,14 +66,14 @@
 
 @media (max-width: 540px ) {
     #form-steps ol span.spacer {
-        min-width: 2%;   
+        min-width: 2%;
     }
 }
 
 @media (max-width: 199px ) {
     #form-steps ol span.spacer {
-        min-width: 1%;   
-    }   
+        min-width: 1%;
+    }
 
     #form-steps.fixed {
        /* width: 97%; */
@@ -121,5 +132,3 @@
 #includesVegatables {
     margin-bottom: 0px;
 }
-
-

@@ -587,11 +587,37 @@ a.btn:disabled {
   line-height: 22px;
   margin-top: .2em;
 }
+
+/*
+* This Section will style the box both generically and for each different RAT.
+* For each different RAT there is a different left/bottom property.
+*/
 .box {
-  /* max-width: 600px; */
   background-color: #dbf2f8;
-  /* padding: 1.5em; */
+  padding-right: 25px;
+  padding-top: 20px;
 }
+
+.ccrat-box {
+  padding-bottom: 20px;
+  padding-left: 20px;
+}
+
+.bcrat-box {
+  padding-left: 22px;
+  padding-bottom: 30px;
+}
+
+.mrat-box {
+  padding-left: 22px;
+  padding-bottom: 23px;
+}
+
+/*
+ * End section
+ */
+
+
 #results_text {
   text-align: left;
   /* max-width: 365px; */
@@ -1352,6 +1378,33 @@ input.error + label.radio span {
   .vertical_alignment {
 
   }
+
+  /*
+  * This Section will style the box both generically and for each different RAT.
+  * For each different RAT there is a different left/bottom property.
+  */
+  .box {
+    background-color: #dbf2f8;
+    padding-right: 13.2px;
+    padding-top: 14px;
+  }
+
+  .bcrat-box {
+    padding-left : 14.4px;
+    padding-bottom:21px;
+  }
+
+  .ccrat-box {
+    padding-bottom: 21px;
+    padding-left: 14.4px;
+  }
+
+  .mrat-box {
+    padding-bottom: 21px;
+    padding-left:14.4px;
+  }
+
+
 }
 
 /* The style should be used when the patient has a greater risk than average  */
