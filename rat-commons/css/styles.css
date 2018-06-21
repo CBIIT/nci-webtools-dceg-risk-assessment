@@ -461,9 +461,10 @@ a.btn:disabled {
 
 
 /* Styles for the print button                                                */
-#print {
+[id^="print"] {
   float:  right;
-  padding-top : 6px
+  padding-top : 6p;
+  transform: scale(1.5,1.5)
 }
 
 #calculate:disabled {
@@ -1216,10 +1217,25 @@ input.error + label.radio span {
 
   /* Avoid the "Start A New Assessment" and "Back To Calculator" Button */
   /* from colliding                                                     */
-
   #returnToCalculateButton {
     margin-bottom: 20px;
   }
+
+  /* On bottom of the screen the two buttons will become vertically stacked.  */
+  /* However, the print icon is to the right of.  The following two styles    */
+  /* will center the print icon when the screen is small                      */
+  #buttonsArea:last-child {
+    width: 100%;
+    display: inine-block;
+    text-align: center;
+  }
+
+  #printBottom {
+    float: none;
+    margin-top: 30px;
+  }
+
+
 }
 
 
@@ -1246,19 +1262,6 @@ input.error + label.radio span {
 .nav-tabs > li > a {
   line-height: 18px;
 }
-
-/* @media (max-width:1199px) {
-
-
-
-  .vertical_alignment {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-
-} */
 
 @media (min-width: 193px) {
 
@@ -1339,9 +1342,7 @@ input.error + label.radio span {
   }
 }
 
-/* Handles Cell Phones : The size of a cell phone should be no more than 480  */
-/* pixels.  At the point I wrote this code I did not understand breakpoints   */
-/* and bootstrap.  This should have been less than 480 pixels                 */
+/* This section will handle the styling for the smaller screens              */
 @media( max-width: 480px) {
   #race {
     width: 302px;
@@ -1557,9 +1558,6 @@ input.error + label.radio span {
     disabled: true;
   }
 
-  .box {
-    /* margin: 1em auto; */
-  }
   .btn-block {
     margin: 0 auto;
   }

@@ -1539,11 +1539,11 @@ $(window).load(function(e) {
 	$('html,body').scrollTop(0);
 
 	// Prints the Reuslts page
-	$("#print").on("click", printCurrentPage );
+	$("[id^='print']").on("click", printCurrentPage );
 
 	// The Print Button on the Results Pages should not be shown when the device
 	// is mobile
-	if ( isMobile() ) { $("#print").hide() }
+	if ( isMobile() ) { $("[id^='print']").hide() }
 
 	// The problem is HTML cannot handle about.html#OtherToolsSection ( It will only just to the page and not the section )
 	// When the link is clicked http will split this into a url and section ( stored in hash ).  The div with the id will
