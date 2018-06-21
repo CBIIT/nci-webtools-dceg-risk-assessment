@@ -5,7 +5,7 @@ var template_string='<div class="modal fade" id="modal" tabindex="-1" role="dial
   +'<div class="modal-dialog  modal-lg" role="document">'
     +'<div class="modal-content" >'
       +'<div class="modal-header">'
-        +'<b><h2 class="modal-title" id="modalTitle">Modal title</h4></b>'
+        +'<b><h2 class="modal-title" id="modalTitle">Modal title</h2></b>'
       +'</div>'
       +'<div class="modal-body"><div id ="container" >'
     

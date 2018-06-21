@@ -36,7 +36,7 @@
     </div>
     <!------------------------------Height and weight, or body mass index (BMI)---------------------------------->
     <div class="form-group">
-        <label for="units" class="col-xs-12 col-md-6 control-label">Height and weight, or body mass index (BMI)?</label>
+        <label for="bmiSelection" class="col-xs-12 col-md-6 control-label">Height and weight, or body mass index (BMI)?</label>
         <div class="col-xs-12 col-md-6">
             <select name="bmiSelection" id="bmiSelection" class="form-control input-sm" ng-model="myForm.bmiSelection" ng-change="myForm.changeBmiSelection()" ng-required="true" ng-disabled="myForm.validationFailed && !(myForm.bmiNumericCriteria || myForm.bmiHighCriteria || myForm.bmiLowCriteria || myForm.pHeightCriteria || myForm.subHeightCriteria || myForm.weightCriteria)">
                 <option value="">Select...</option>
