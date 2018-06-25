@@ -457,14 +457,15 @@ a.btn:disabled {
   color: white;
 }
 
-
-
-
 /* Styles for the print button                                                */
 [id^="print"] {
   float:  right;
-  padding-top : 6p;
-  transform: scale(1.5,1.5)
+  transform: scale(1.5,1.5);
+  cursor: pointer;
+}
+
+#printTop {
+  padding-top: 6px;
 }
 
 #calculate:disabled {

@@ -10,6 +10,7 @@
   <link href="common/css/style.css" rel="stylesheet" type="text/css">
   <link href="rat-commons/css/styles.css" rel="stylesheet" type="text/css">
   <link href="rat-commons/css/form-steps.css" rel="stylesheet" type="text/css">
+  <link href="rat-commons/css/print.css" rel="stylesheet" type="text/css">
   <link href="specificCSS.css" rel="stylesheet" type="text/css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -53,7 +54,7 @@
   <div role="main">
     <div id="results" class="container-fluid">
       <div id="results_home">
-        <a href="javascript:goback_tocalc()"> &lt; Edit Response</a>
+        <a class="result_page_anchor" href="javascript:goback_tocalc()"> &lt; Edit Response</a>
         <img id="printTop" src="rat-commons/images/print-icon.gif" alt="Button to print">
         <h1>Personalized Results</h1>
         <div class="row">
@@ -149,7 +150,7 @@
         </div>
 
         <!-- Show the input parameters -->
-        <div>
+        <div id="#displayInput">
           <h2>Your Answers</h2>
           <p class="selectContent">These results are based upon you answered the following questions:</p>
           <table id="InputParameters">
