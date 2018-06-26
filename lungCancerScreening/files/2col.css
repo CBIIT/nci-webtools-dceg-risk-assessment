@@ -342,6 +342,11 @@
         background-color: #2A71A5;
         height: 2.25em;
     }
+
+    .row-purple {
+        background-color: purple;
+        height: 2.25em;
+    }
     
     .footer {
         bottom: 0;
