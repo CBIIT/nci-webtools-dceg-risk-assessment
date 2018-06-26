@@ -48,4 +48,11 @@
     content: none;
   }
 
+  /* Fixes for the Internet Explorer */
+
+  /* Problem One Logo is not centering                                        */
+  .ie_center_logo {
+    text-align:center;
+  }
+
 }
