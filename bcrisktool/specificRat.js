@@ -76,7 +76,7 @@ $(function() {
  	//$("#hispanicIssue").on("change", changeSubraceMenu);
 
   	// If the Number of Biopsies is None or 0 the questions about "How many breast biopies" and "atypical hyperlasia" should be disabled
-	$("#biopsyAnswerYes").on("click", enableQuestionAndAnswers)
+	$("#biopsyAnswerYes").on("click", enableBiopsyQuestionAndAnswers)
  	$("#biopsyAnswerNo").on("click", disableQuestionAndAnswers);
   $("#biopsyAnswerUnknown").on("click", disableQuestionAndAnswers);
 
@@ -206,7 +206,7 @@ function womanHadBiopsy() {
   }
 }
 
-// Disable a question and it answers that are associated with a woman having a
+// Disable Questions and Answers that are associated with a women having a
 // breast biopsy
 function disableQuestionAndAnswers(event) {
   $("input[name='biopsy_result']").attr("disabled", true)
@@ -221,9 +221,9 @@ function disableQuestionAndAnswers(event) {
 
 }
 
-// Enable Questions and Answersi that are associated with a women having a
-//breast biopsy
-function enableQuestionAndAnswers(event) {
+// Enable Questions and Answers that are associated with a women having a
+// breast biopsy
+function enableBiopsyQuestionAndAnswers(event) {
 
   $("input[name='biopsy_result']").attr("disabled", false)
   $("input[id^='breastBiopsiesCount']").next().css("color", "#606060")
