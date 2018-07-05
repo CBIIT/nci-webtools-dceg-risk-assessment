@@ -1277,7 +1277,11 @@ input.error + label.radio span {
      display:none;
    }
 
-
+   div[id^='results_box'] {
+     width:85%;
+     margin-left:auto;
+     margin-right:auto;
+   }
 
 }
 
