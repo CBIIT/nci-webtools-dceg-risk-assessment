@@ -1616,6 +1616,13 @@ input.error + label.radio span {
   color: #2E2E2E;
 }
 
+/* Extra attribute for the results page.  As far ahead on the developtment of */
+/* this project as it current is (07/18), I do not want to change the styles  */
+/* globally                                                                   */
+.resultsPageContent {
+  line-height: 22px;
+}
+
 /* Styling for anchors going to a page in the web app */
 .about_page_anchor,
 .result_page_anchor {

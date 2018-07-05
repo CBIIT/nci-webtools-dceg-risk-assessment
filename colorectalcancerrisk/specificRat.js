@@ -584,10 +584,10 @@ function resultsDisplay(response, textStatus, xhr) {
     go_toresult()
 
     var messageBeginning = "Based on the information provided, the patient's estimated risk for developing colorectal cancer over "
-    var message5years    = "the next 5 years is !Fillin1!% compared to a risk of !Fillin2!% "
-    var message10years   = "the next 10 years is !Fillin3!% compared to a risk of !Fillin4!% "
-    var messageLifeTime  = "their lifetime (to age 90) is !Fillin5!% compared to a risk of !Fillin6!% "
-    var messageEnding    = "for a patient of the same age and race/ethnicity from the general US population.";
+    var message5years    = "the next 5 years is !Fillin1!% compared to the average risk of !Fillin2!% "
+    var message10years   = "the next 10 years is !Fillin3!% compared to the average risk of !Fillin4!% "
+    var messageLifeTime  = "their lifetime (to age 90) is !Fillin5!% compared to the average risk of !Fillin6!% "
+    var messageEnding    = "for a patient of the same age, gender, and race/ethnicity from the general US population.";
 
     message5years   = message5years.replace(  "!Fillin1!",    result.risk)
     message5years   = message5years.replace(  "!Fillin2!",    result.average5YearRisk)

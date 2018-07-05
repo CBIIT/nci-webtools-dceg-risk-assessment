@@ -110,10 +110,10 @@ class BreastRiskAssessmentTool:
       results={}
       results['risk']= risk
       results['averageFiveRisk'] = averageFiveYearRisk
-      results['message'] = "Based on the information provided, the woman's estimated risk for developing invasive breast cancer over the next 5 years is {0:g}% compared to a risk of {1:g}% for a woman of the same age and race/ethnicity from the general U.S. population.".format(risk,averageFiveYearRisk)
+      results['message'] = "Based on the information provided, the woman's estimated risk for developing invasive breast cancer over the next 5 years is {0:g}%, compared to the average risk of {1:g}% for women of the same age and race/ethnicity in the general U.S. population".format(risk,averageFiveYearRisk)
       results['lifetime_patient_risk']=lifetime_patient_risk
       results['lifetime_average_risk']=lifetime_average_risk
-      results['lifetime_message'] = "Based on the information provided, the woman's estimated risk for developing invasive breast cancer over her lifetime (to age 90) is {0:g}% compared to a risk of {1:g}% for a woman of the same age and race/ethnicity from the general U.S. population.".format(lifetime_patient_risk,lifetime_average_risk)
+      results['lifetime_message'] = "Based on the information provided, the woman's estimated risk for developing invasive breast cancer over her lifetime (to age 90) is {0:g}%, compared to the average risk of {1:g}% for women of the same age and race/ethnicity in the general U.S. population.".format(lifetime_patient_risk,lifetime_average_risk)
 
       json_data = json.dumps(results)
       return BreastRiskAssessmentTool.buildSuccess(json_data)

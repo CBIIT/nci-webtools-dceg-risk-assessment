@@ -164,8 +164,9 @@ function allowCalculate() {
 ////////////////////////////////////////////////////////////////////////////////
 function resultsDisplay(response, textStatus, xhr) {
 	var results=JSON.parse(response.message)
-	var message="Based on the information provided, the patient's estimated risk for developing melanoma over the next 5 years is "+results.risk+"%. For every 1,000 "+ results.gender+"s living in the " +results.regionKey+" region with these characteristics, on average about "+ results.ratio+" will develop melanoma in the next 5 years.";
 
+	var gender = ( $("input[name='gender']").val() == "male" ) ? "men" : "women"
+	var message= "Based on the information provided, the patient's estimated risk for developing melanoma over the next 5 years is "+results.risk+"%.  A risk of " + results.risk + "% means that out of 1,000 white " + gender + " with these characteristics living in the " + results.regionKey + " region, " + results.ratio + " will be expected to develop melanoma in the next 5 years."
 	go_toresult();
 
 	$("#results_text").html(message);
