@@ -135,6 +135,12 @@ function go_toresult() {
 	else
 		$("#startOverButton").removeClass("spacerBetweenQuestionsAndStartButtonMobile")
 
+	// If we are currently on a mobile phone then remove the margin from the
+	// "Start a New Assessment Button so the buttons are closer toegher"
+	if ( isMobile() ) {
+		$("#startOverButton").removeClass("spacerBetweenQuestionsAndStartButtonMobile")
+	}
+
 	// This code is a hack and this should be done in CSS.  I put the code in
 	// here since we are trying to get it done and it might have unforseen
 	// consequences if put in the CSS Style
