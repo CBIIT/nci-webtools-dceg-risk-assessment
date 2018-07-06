@@ -50,9 +50,8 @@
     <div role="main">
       <div id="results" class="container-fluid">
       <div id="results_home">
-          <a class="result_page_anchor" href="javascript:goback_tocalc()"> &lt; Edit Response</a>
-          <img id="printTop" src="rat-commons/images/print-icon.gif" alt="printing the page">
-        <h1>Personalized Results</h1>
+        <h1 class="makeTagInline">Personalized Results</h1>
+        <img id="printTop" src="rat-commons/images/print-icon.gif" alt="printing the page">
         <div class="row">
           <div class="col-xs-12 col-md-12">
             <ul class="content resultsPageContent">
@@ -137,20 +136,24 @@
           </table>
         </div>
 
-        <!-- Buttons -->
-        <div id="buttonsArea" class="row">
-
-          <div class="col-md-12 col-lg-push-3 col-lg-3">
-            <button id="returnToCalculateButton" type="button" class="BottomResultPageButton center-block">Edit Responses</button>
+        <!-- The Buttons at the very bottom of the screen                    -->
+        <div class="center-block">
+          <div class="row" id="buttons">
+            <div class="col-xs-12">
+                <button id="returnToCalculateButton" class="center-block text-center spacerBetweenCalculateButtonAndResetButton" type="button">Edit Responses</button>
+            </div>
           </div>
-
-           <div class="col-md-12 col-lg-push-3 col-lg-3">
-             <button id="startOverButton" type="button" class="BottomResultPageButton center-block" type="button" class="center-block">Start A New Assessment</button>
-           </div>
-
-           <div>
-             <img id="printBottom" src="rat-commons/images/print-icon.gif" alt="printing the page">
+          <div class="row">
+            <div class="col-xs-12">
+              <button id="startOverButton" type="button" class="center-block text-center">Start A New Assessment</button>
+            </div>
           </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <img id="printBottom" class="center-block text-center" src="rat-commons/images/print-icon.gif" alt="printing the page">
+            </div>
+          </div>
+        </div>
 
         </div>
       </div>

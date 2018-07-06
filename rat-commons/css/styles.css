@@ -98,6 +98,12 @@ h1 {
   line-height: 30.8px;
 }
 
+/* Problem : The H1 Tag needs to be the same line as the image tag.  However  */
+/* the H1 is block.  Use specifity to make it an inline-block                 */
+.makeTagInline {
+  display: inline-block;
+}
+
 h2 {
   color: #606060;
   font-weight: bold;
@@ -390,6 +396,7 @@ a.btn:disabled {
   font-family: 'Montserrat';
   font-size: 15px;
   border-radius: 3px;
+  line-height: 19px;
 
   background-color: #339FBD;
   color: white;
@@ -402,49 +409,21 @@ a.btn:disabled {
   color: white;
 }
 
-/* #startOver {
-  box-sizing: border-box;
-  width: 207px;
-  height: 35px;
-  border: 0px;
-  padding: 0px;
-
-  font-family: 'Montserrat';
-  font-size: 15px;
-  border-radius: 3px;
-
-  background-color: #2DCF99;
-  color: white;
-  border: none;
-}
-
-#startOver:hover {
-  background-color: #28b289;
-  color: white;
-} */
-
-/* Styling for the buttons at the bottom of the result page.                 */
-.BottomResultPageButton {
-  box-sizing: border-box;
-  height: 35px;
-  border: 0px;
-  padding: 0px;
-
-  font-family: 'Montserrat';
-  font-size: 15px;
-  border-radius: 3px;
-
-  background-color: #2DCF99;
-  color: white;
-  border: none;
-}
-
 #startOverButton {
+  box-sizing: border-box;
   width: 207px;
-}
+  height: 35px;
+  border: 0px;
+  padding: 0px;
 
-#returnToCalculateButton {
-  width: 207px
+  font-family: 'Montserrat';
+  font-size: 15px;
+  border-radius: 3px;
+  line-height: 19px;
+
+  background-color: #2DCF99;
+  color: white;
+  border: none;
 }
 
 #startOverButton:hover {
@@ -452,20 +431,51 @@ a.btn:disabled {
   color: white;
 }
 
+#returnToCalculateButton {
+  box-sizing: border-box;
+
+  height: 35px;
+  width: 188px;
+  border: 0px;
+  padding: 0px;
+
+  font-family: 'Montserrat';
+  font-size: 15px;
+  border-radius: 3px;
+  line-height: 19px;
+
+  background-color: #6150A2;
+  color: white;
+  border: none;
+
+}
+
 #returnToCalculateButton:hover {
-  background-color: #28b289;
+  background-color: #584B92;
   color: white;
 }
 
 /* Styles for the print button                                                */
-[id^="print"] {
-  float:  right;
+/* [id^="print"] {
+  float:`Right;
   transform: scale(1.5,1.5);
   cursor: pointer;
-}
+} */
 
 #printTop {
-  padding-top: 6px;
+  float: Right;
+  margin-top: 18px;
+  cursor: pointer;
+  width: 31px;
+  height: 26px;
+}
+
+#printBottom {
+  cursor: pointer;
+  width: 31px;
+  height: 26px;
+  margin-top: 2em;
+  margin-bottom: 1em;
 }
 
 #calculate:disabled {
@@ -1214,7 +1224,7 @@ input.error + label.radio span {
   /* On bottom of the screen the two buttons will become vertically stacked.  */
   /* However, the print icon is to the right of.  The following two styles    */
   /* will center the print icon when the screen is small                      */
-  #buttonsArea:last-child {
+  /* #buttonsArea:last-child {
     width: 100%;
     display: inine-block;
     text-align: center;
@@ -1223,7 +1233,7 @@ input.error + label.radio span {
   #printBottom {
     float: none;
     margin-top: 30px;
-  }
+  } */
 
 
 }
