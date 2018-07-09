@@ -9,6 +9,8 @@ import StringIO
 from flask import Flask, send_file, render_template, request, jsonify, make_response
 from rpy2.robjects.packages import SignatureTranslatedAnonymousPackage
 from rpy2.robjects.vectors import IntVector, FloatVector
+from rpy2.robjects import r
+import traceback
 from socket import gethostname
 import tempfile, os
 import random
@@ -86,7 +88,7 @@ def lungCancerRest():
         f.write(resultContent)
         f.close()
 
-        linkToFile = request.url_root + 'lungCancerScreening/tmp/' + resultFile
+        linkToFile = 'tmp/' + resultFile
         string.append(linkToFile)
 
         return json.dumps(string)
@@ -113,6 +115,16 @@ def exportPDF():
         os.remove(html_input_file)
         response = make_response(pdf_output_file)
     return response
+
+@app.route('/lungCancerRest/ping/', strict_slashes=False)
+@app.route('/ping/', strict_slashes=False)
+def ping():
+    try:
+        return r('"true"')[0]
+    except Exception as e:
+        print('------------EXCEPTION------------')
+        traceback.print_exc(1)
+        return str(e), 400
 
 @app.after_request
 def after_request(response):

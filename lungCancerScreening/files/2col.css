@@ -342,6 +342,11 @@
         background-color: #2A71A5;
         height: 2.25em;
     }
+
+    .row-purple {
+        background-color: purple;
+        height: 2.25em;
+    }
     
     .footer {
         bottom: 0;
@@ -559,4 +564,16 @@
         width: 10px !important;
         min-width: 10px;
         padding: 0px !important;
+    }
+
+    #title, #heading{
+        font-size: 15.6px;
+        color: white;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        line-height: 7.8px;
+    }
+
+    #heading {
+        color: inherit;
     }
