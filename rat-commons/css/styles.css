@@ -1843,6 +1843,14 @@ section > fieldset > legend.questions {
   padding-right: 1em;
 }
 
+#InputParameters .secondary_information {
+  font-family:  NotoSans;
+  font-size:    14px;
+  line-height:  19px;
+  color:        #2E2E2E;
+  text-align:   left;
+}
+
 /* The number of the input parameter.  Each major question has a number.  The */
 /* style allows use to separate the styling of the Number with the period.    */
 /* Allows use to have the number bold and the period as normal text           */
@@ -1855,6 +1863,12 @@ section > fieldset > legend.questions {
 #InputParameters td {
   border-bottom : 1px solid #dddddd;
   height: 48px;
+}
+
+/* When the question has extra infromation below it then decrease the maring  */
+/* so they are closer together                                                */
+.questionHasExtraInformation {
+  margin-bottom: 8px;
 }
 
 /* Make two <p> secitons resemble one <p> secton on the page */

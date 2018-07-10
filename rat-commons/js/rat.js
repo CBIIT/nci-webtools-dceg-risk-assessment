@@ -1059,6 +1059,7 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 			if ( inputElement.is(":radio"))	{
 				// Get the name attribute which the radio button use for the variable name of the Data
 				// Using the nane get the input value from the Form Data.
+
 				var name = $(inputElement).attr("name")
 				var value = $("input[name='" + name + "']:checked").val()
 
@@ -1073,6 +1074,7 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 			} else {
 				if ( typeof ratSpecificAnswer == 'function') {
 					inputText = ratSpecificAnswer(element)
+
 				}
 			}
 
@@ -1105,7 +1107,7 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 		 	//		Returns to values
 		 	//			An index string for questions a number, but for subquestion a lowercase letters
 		 	//     		True if the element is a subqeustion
-		 	function handleIndex(index, element) {
+		 	function handleIndex(index, element, inputElement) {
 
 				var letters = [ "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "l", "m", "n" ]
 				var numbers = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" ]
@@ -1157,8 +1159,14 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 		 	var lineNumberSpan = $("<span></span>").text(indexData.indexString).addClass("questionNumber")
  		 	var linePeriodSpan = $("<span></span>").text(".").css("padding-right", paddingRight)
  		 	var lineNumber = $("<div></div>").append(lineNumberSpan).append(linePeriodSpan)
+			var extraInformation = undefined;
+			if ( typeof addInformationToTheQuestions !== "undefined" ) extraInformation = addInformationToTheQuestions(inputElement)
 
-		 	var questionDiv = container.append(lineNumber).append(questionText)
+			// The Div is 50% width of the flx box and the paragraph tags take up the full width of the div that is a child of the flex box so each paragraph is on a certain line.
+			// use $('<p></p>') since .append("<p>" + questionText + "</p>") could have javascript injected into it
+			var questionTextBlock = ( extraInformation === null ) ? $("<p></p>").text(questionText) : $("<div></div>").append($('<p class="questionHasExtraInformation"></p>').text(questionText)).append(extraInformation)
+			var questionDiv = container.append(lineNumber).append(questionTextBlock);
+
 		 	if ( indexData.isSubQuestion == "Level 1" ) {
 			   questionDiv.addClass("levelIdentation1")
 		 	} else if ( indexData.isSubQuestion == "Level 2") {
@@ -1181,10 +1189,10 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 		var inputElement = $($(element).nextUntil("label","div")[0]).children('input, select')
 		if ( $(inputElement.length) == 0 ) inputElement = element
 
-   		var inputAnswerText = extractAnswerDispalyedOnGui(inputElement)
-   		var question = createQuestionCell(index, $(element).text())
-   		var answer = $("<td></td>").text(inputAnswerText).addClass("answers")
-   		var tableRow = $("<tr></tr>").append(question).append(answer)
+   	var inputAnswerText = extractAnswerDispalyedOnGui(inputElement)
+   	var question = createQuestionCell(index, $(element).text(), inputElement)
+   	var answer = $("<td></td>").text(inputAnswerText).addClass("answers")
+   	var tableRow = $("<tr></tr>").append(question).append(answer)
 
 		$(tableName + " tbody").append(tableRow)
 

@@ -58,11 +58,12 @@ $(function() {
   $("#okButtonAdminIssue").on("click", enableBRATForm)
 
   // There are two select boxes Race and Sub Race.   For both Asian and Hispanic
-  // there will be values found in the Sub Race Drop down.  For any other
-  // it should be the default question
+  // there will be values found in the Sub Race Drop down.  For all other disabled
   $("#race").on("change", attachSubraceItems)
-  $("#race").on("change", displayProblemWithRace)
   $("#race").on("change", adjustSubRaceMenuIfNecessary)
+
+  // TODO : We are late in the development cycle, can we get ride of this lineNumber
+  // since it is called above ?
   $("#race").ready(attachSubraceItems)
 
 	// On this IOS Phone 6 the navigation bar line in the center was not getting positioned
@@ -103,28 +104,9 @@ function specificRatFooterInitialization() {
   $("#contactLink").on("focusin", function() { $("html, body").animate( { scrollTop: $("#contactLink").position().top }) })
 }
 
-// Brings up the dialog box explaining why the data is inaccurate for hispnaics,
-// Native Americans/Alaskians and how the unknownn is handled
-function displayProblemWithRace() {
-    if( this.value == "Hispanic"){
-        $("#hispanicIssue").modal("show");
-        disableForm();
-    } else if ( this.value == "Other") {
-        $("#unknownIssue").modal()
-        disableForm();
-    } else if ( this.value == "Native American") {
-        $("#NativeAmericanIssue").modal();
-        disableForm();
-    }
-}
-
-// Attach the corrct items to the drop down for the subrace.  The correct items
-// is based on the race.
+// Attach the corrct items to the drop down for the subrace based on race
 function attachSubraceItems() {
 
-  // Problem : On the iphone the String "Select sub race/ethnicity or place of birth"
-  // goes way pass the border, so for the mobile phone the phrase will be
-  // "Select place of birth?"
   var properPhraseForQuestion = "Select"
 
   if ( this.value == "Hispanic") {
@@ -160,7 +142,8 @@ function adjustSubRaceMenuIfNecessary() {
       this.value == "Black" ||
       this.value == "Other" ) {
       disableSubRaceMenu()
-  } else if ( this.value == 'Asian') {
+  } else if ( this.value == 'Asian' ||
+              this.value == 'Hispanic') {
       changeSubraceMenu()
   }
 }
@@ -301,4 +284,38 @@ function resetForm() {
   disableSubRaceMenu();
   resetsDropDowns();
   enableSectionHeaders();
+}
+
+/******************************************************************************/
+/* To Add a Disclaimer to the HTML                                            */
+/* Input : The Element containing the answer used to get the extra information*/
+/* Output : null --> No Extra Information                                     */
+/* Output : not null --> A paragraph tag containing the disclaimer            */
+/******************************************************************************/
+function addInformationToTheQuestions(element) {
+
+  var returnHTML = null;
+  if ( $(element).attr("id") == $("#race").attr("id") ) {
+
+    var currentRaceSelected = $("#race option:selected").text();
+
+    var returnString = ""
+    if ( currentRaceSelected == 'Hispana/Latina') {
+      returnString = "Assessments for Hispanic women are subject to greater uncertainty than those for white and African American women."
+    }
+    else if ( currentRaceSelected == 'American Indian or Alaskan Native') {
+      returnString = "Assessments for American Indian or Alaskan Native women are uncertain and based on data for white women."
+    }
+    else if ( currentRaceSelected == 'Unknown') {
+      returnString = "The risk assessment was based on data for white females."
+    } else {
+      returnString = undefined
+    }
+
+    if ( returnString !== undefined ) {
+      returnHTML = '<p class="secondary_information">' + returnString + '</p>'
+    }
+  }
+
+  return returnHTML;
 }
