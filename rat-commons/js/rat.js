@@ -523,8 +523,10 @@ function adjustNavigationBarLine() {
 /* navigation circles so that all are connected                               */
 /******************************************************************************/
 function adjust_line_width(ind){
-	var firstBubble = $("#form-steps > ol > li > a:nth-child(2)").first();
-	var lastBubble  = $("#form-steps > ol > li:visible:last > a:last-child")
+	//var firstBubble = $("#form-steps > ol > li > a:nth-child(2)").first();
+	//var lastBubble  = $("#form-steps > ol > li:visible:last > a:last-child")
+	var firstBubble = $("#form-steps > ol > li > a.step-node").first();
+	var lastBubble  = $("#form-steps > ol > li:visible:last > a.step-node").first();
 
 	var startingPoint = $(firstBubble).offset().left + $(firstBubble).width();
 	var endingPoint = $(lastBubble).offset().left - startingPoint;
@@ -1522,6 +1524,7 @@ $(window).load(function(e) {
 	    	$("#riskForm").css("margin-top", height + "px");
 
 			adjustNavigationBarLine();
+
 
 			// Sets the Form Steps as the same height as the Header so when
 			// the mobile application is scrolled the Form Steps will cover
