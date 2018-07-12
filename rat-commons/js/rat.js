@@ -489,7 +489,7 @@ function handleHeaderNavigationRedraw() {
 	formScrollSpy();
 	if ( existFormSteps() == true ){
 		var midPointX = adjustNavigationBarLine()
-		adjustLinks(midPointX)
+		//adjustLinks(midPointX)
 	}
 }
 
@@ -516,12 +516,10 @@ function adjustLinks(midPointX) {
 	$("#form-steps ol > li:visible > a:nth-child(2)").each(function() {
 		console.log("Number is ", $(this).text())
 		console.log("height is ", $(this).css("height"))
-		//console.log("height of parent is " + $(this).first().parent().css("height"))
 		console.log("X Coordinate of line " + midPointX)
 
 		console.log("------- Parse Int")
 		console.log("height is ", $(this).css("height"))
-		//console.log("height is ", parseInt($(this).first().parent().css("height")))
 		console.log("X Coordinate of line " + parseInt(midPointX))
 		console.log("-----------------")
 
@@ -545,8 +543,9 @@ function adjust_line_width(ind){
 	//var firstBubble = $("#form-steps > ol > li > a:nth-child(2)").first();
 	//var lastBubble  = $("#form-steps > ol > li:visible:last > a:last-child")
 	var firstBubble = $("#form-steps > ol > li > a.step-node").first();
-	var lastBubble  = $("#form-steps > ol > li:visible:last > a.step-node").first();
-
+	//var lastBubble  = $("#form-steps > ol > li:visible:last > a.step-node").first();
+	var lastBubble  = $("#form-steps > ol > li:visible:last > a:nth-child(2)").last()
+	
 	var startingPoint = $(firstBubble).offset().left + $(firstBubble).width();
 	var endingPoint = $(lastBubble).offset().left - startingPoint;
 
@@ -564,11 +563,18 @@ function adjust_line_width(ind){
 /******************************************************************************/
 function adjust_line_height_dekstop(){
 
-	console.log("Form Steps Height = " + $("#form-steps").css("width"))
-	console.log("Form Steps Width  = ")
+  console.log("Form Steps Height = " + $("#form-steps").css("width"))
   var firstBubble = $("#form-steps ol li").not(".active").children().filter("a:nth-child(2)").first()
   var startPoint = $(firstBubble).position().top + $(firstBubble).height()/2;
   $("#line").find("hr").css("top", startPoint);
+
+
+	console.log("Form Steps Rectangle ",
+		$("#form-steps").height(),
+		",",
+		$("#form-steps").width())
+
+
 
 	return startPoint
 }
