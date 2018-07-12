@@ -77,7 +77,7 @@
   box-shadow: 0 0 2px 1px #4D90FE;
 } */
 
-#form-steps ol li.active:nth-child(3) a:first-child {
+#form-steps ol li.active:nth-child(3) a:nth-child(3) {
   color: #6150a3;
 }
 #form-steps ol li.active:nth-child(3) a:nth-child(2) {
@@ -242,4 +242,13 @@
     margin-left : 2px;
     margin-right: 2px;
   }
+}
+
+/*****************************************************************************/
+/* Just putting some code in her to test it.                                 */
+/*****************************************************************************/
+.test  {
+  display: flex;
+  align-items: center;
+  align-content: center;
 }
