@@ -150,15 +150,15 @@ function go_toresult() {
 
 }
 
-/*********************************************************************************/
-/* Create a pie chart                                                            */
-/*                                                                               */
-/* Parameters:                                                                   */
-/*   percent		       	The change that the victim will get cancer       	 */
-/*   divContainerForChart  	The HTML Container that will cotnain the chart   	 */
-/*   color1 			The color for the chance of getting cancer       		 */
-/*   color2  			The color for the chance of not getting cancer   		 */
-/*********************************************************************************/
+/******************************************************************************/
+/* Create a pie chart                                                         */
+/*                                                                            */
+/* Parameters:                                                                */
+/*   percent		       	The change that the victim will get cancer       	    */
+/*   divContainerForChart  	The HTML Container that will cotnain the chart   	*/
+/*   color1 			The color for the chance of getting cancer       		        */
+/*   color2  			The color for the chance of not getting cancer   		        */
+/******************************************************************************/
 function make_pie_chart(percent, divContainerForChart, color1, color2){
 
 	// Remoeves the pie charts created so tehy are not displayed next time.  This
@@ -487,35 +487,54 @@ function handleHeaderNavigationRedraw() {
 
 	fixedToTop(top_div);
 	formScrollSpy();
-	if ( existFormSteps() == true ) adjustNavigationBarLine()
+	if ( existFormSteps() == true ){
+		var midPointX = adjustNavigationBarLine()
+		adjustLinks(midPointX)
+	}
 }
-
-/******************************************************************************/
-/* Handles the resizing of window.  For the navigation component a line is    */
-/* create manual to connect the navigation buttons. Since the line is         */
-/* caclculated manually                                                       */
-/******************************************************************************/
-// $(window).resize(function() {
-// 	//if(window.location.pathname=="/melanomarisktool/calculator.html"){
-// 	//	adjustNavigationBarLine();
-// 	// }
-// 	console.log("Calling resize 1  with all adjust")
-// 	var top_div = ( $(window).width() > 630 ) ? "main-nav" : "toolTitle";
-
-// 	fixedToTop(top_div);
-// 	formScrollSpy();
-// 	adjustNavigationBarLine()
-// });
 
 /******************************************************************************/
 /* Adjusts the line connections the navigation bar circles                   **/
 /******************************************************************************/
 function adjustNavigationBarLine() {
 	adjust_line_width()
+
+	var midPointX = undefined
 	if( isMobile() )
-		adjust_line_height_mobile();
+		midPointX = adjust_line_height_mobile();
 	else
-		adjust_line_height_dekstop()
+		midPointX = adjust_line_height_dekstop()
+
+	return midPointX
+}
+
+function adjustLinks(midPointX) {
+	console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+	console.log("Midpoint Y = " + midPointX)
+	console.log("Placing Circles :::")
+
+	$("#form-steps ol > li:visible > a:nth-child(2)").each(function() {
+		console.log("Number is ", $(this).text())
+		console.log("height is ", $(this).css("height"))
+		//console.log("height of parent is " + $(this).first().parent().css("height"))
+		console.log("X Coordinate of line " + midPointX)
+
+		console.log("------- Parse Int")
+		console.log("height is ", $(this).css("height"))
+		//console.log("height is ", parseInt($(this).first().parent().css("height")))
+		console.log("X Coordinate of line " + parseInt(midPointX))
+		console.log("-----------------")
+
+		//var heightOfCircle = $(this).first().parent().css("height")
+		var heightOfCircle = $(this).css("height")
+		var topPointOfCircle = parseInt(midPointX) - (parseInt(heightOfCircle)/2)
+		console.log("Top Point of Circle = " + topPointOfCircle)
+		if ( topPointOfCircle < 100 ) {
+			var startingPointOfCircle = midPointX - topPointOfCircle
+			console.log("Starting point of circle = " + startingPointOfCircle )
+			$(this).css("top", startingPointOfCircle + "px")
+		}
+	})
 }
 
 /******************************************************************************/
@@ -544,9 +563,14 @@ function adjust_line_width(ind){
 /* active                                                                     */
 /******************************************************************************/
 function adjust_line_height_dekstop(){
+
+	console.log("Form Steps Height = " + $("#form-steps").css("width"))
+	console.log("Form Steps Width  = ")
   var firstBubble = $("#form-steps ol li").not(".active").children().filter("a:nth-child(2)").first()
   var startPoint = $(firstBubble).position().top + $(firstBubble).height()/2;
   $("#line").find("hr").css("top", startPoint);
+
+	return startPoint
 }
 
 /******************************************************************************/
@@ -565,6 +589,8 @@ function adjust_line_height_mobile() {
 	var height = $("#form-steps > ol > li > a:nth-child(2)").first().height();
 	var startPoint = firstBubbleTopPosition + ( height /2 );
 	$("#line").find("hr").css("top", startPoint);
+
+	return startPoint
 }
 
 /******************************************************************************/
@@ -933,7 +959,6 @@ function enableForm() {
 	$("form label.radio").css("color","#2E2E2E")
 	$("[class*='questions']").css("color","#2E2E2E")
 	enableSectionHeaders();
-	//$("#riskForm").trigger("change")
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1575,4 +1600,7 @@ $(window).load(function(e) {
 		$("#jumpTitle").attr('data-x-coord-to-jump-to', $("#mainAboutTitle").offset().top)
 		$("#jumpTitle").on("click", "a", function(event) { jumpToSection(event); })
 	}
+
+  //var midPointX = adjustNavigationBarLine()
+	//adjustLinks(midPointX)
 });
