@@ -540,12 +540,9 @@ function adjustLinks(midPointX) {
 /* navigation circles so that all are connected                               */
 /******************************************************************************/
 function adjust_line_width(ind){
-	//var firstBubble = $("#form-steps > ol > li > a:nth-child(2)").first();
-	//var lastBubble  = $("#form-steps > ol > li:visible:last > a:last-child")
 	var firstBubble = $("#form-steps > ol > li > a.step-node").first();
-	//var lastBubble  = $("#form-steps > ol > li:visible:last > a.step-node").first();
-	var lastBubble  = $("#form-steps > ol > li:visible:last > a:nth-child(2)").last()
-	
+	var lastBubble  = $("#form-steps > ol > li:visible:last > a.step-node").first();
+
 	var startingPoint = $(firstBubble).offset().left + $(firstBubble).width();
 	var endingPoint = $(lastBubble).offset().left - startingPoint;
 
