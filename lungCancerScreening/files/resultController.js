@@ -151,8 +151,8 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $sessionStor
 
   function createPrintablePage() {
     var html = "";
-    var source  = $("#results .ng-hide").remove()
-    var results = $("#results").html()
+    var source  = $("#results .ng-hide").remove();
+    var results = $("#results").html();
     results = results.replace(new RegExp('<br>', 'g'), '<br />');
     results = results.replace(new RegExp('(<img("[^"]*"|[^\/">])*)>', 'g'), '$1/>');
 
