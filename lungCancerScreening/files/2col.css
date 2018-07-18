@@ -114,17 +114,6 @@
         margin-top: 0px
     }
     
-    A {
-        color: #777
-    }
-    
-    a:link,
-    a:visited,
-    a:active,
-    a:hover {
-        color: #a90101
-    }
-    
     label.label_below {
         font-weight: normal
     }
@@ -576,4 +565,6 @@
 
     #heading {
         color: inherit;
+        font-weight: bold;
+        margin-bottom: 20px;
     }
