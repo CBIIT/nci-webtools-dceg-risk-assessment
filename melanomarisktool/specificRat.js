@@ -217,9 +217,9 @@ function toggleGender(e) {
 				$(el).prop("required", true);
 			});
 
-			$("#mildFreckling").attr("src","rat-commons/images/mratMildLrg.jpg")
-			$("#moderateFreckling").attr("src","rat-commons/images/mratModLrg.jpg")
-			$("#severeFreckling").attr("src","rat-commons/images/mratSevereLrg.jpg")
+			$("#mildFreckling").attr("src","rat-commons/images/few-freckling-female.jpg")
+			$("#moderateFreckling").attr("src","rat-commons/images/moderate-freckling-female.jpg")
+			$("#severeFreckling").attr("src","rat-commons/images/many-freckling-female.jpg")
 
 			$(".male").removeClass('show');
 			$(".female").addClass('show');
