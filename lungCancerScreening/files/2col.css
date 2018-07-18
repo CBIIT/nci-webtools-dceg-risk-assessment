@@ -89,7 +89,7 @@
     body {
         background-color: #fff;
         color: #777;
-        font-size: 13px;
+        font-size: 15px;
         font-family: Arial, Helvetica, sans-serif;
     }
     
@@ -329,7 +329,6 @@
     
     .row-blue {
         background-color: #2A71A5;
-        height: 2.25em;
     }
 
     .row-purple {
@@ -412,13 +411,16 @@
         min-width: 150px
     }
     
-    .nav.navbar-nav button {
+    .nav.navbar-nav button,
+    .nav.navbar-nav a
+    {
         color: #777;
         border: none;
         padding: 16px;
         background-color: transparent;
         width: 100%;
         margin: 0px;
+        font-weight: bold;
     }
     
     .nav.navbar-nav button.active {
@@ -556,15 +558,21 @@
     }
 
     #title, #heading{
-        font-size: 15.6px;
+        font-size: 1.3em;
         color: white;
         margin-top: 10px;
         margin-bottom: 10px;
         line-height: 7.8px;
+        font-weight: 700;
+        padding: 10px 20px;
     }
 
     #heading {
         color: inherit;
         font-weight: bold;
         margin-bottom: 20px;
+    }
+
+    #support-box {
+        background-color: #F2F1F8;
     }
