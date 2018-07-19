@@ -13,7 +13,6 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
     $scope.myForm.typeCriteria = false;
     $scope.myForm.startAgeCriteria = false;
     $scope.myForm.startNumericCriteria = false;
-    $scope.myForm.quitCriteria = false;
     $scope.myForm.quitNumericCriteria = false;
     $scope.myForm.quitAgeCriteria = false;
     $scope.myForm.cigsCriteria = false;
@@ -114,7 +113,7 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
     validateBMI();
   });
 
-  $scope.$watchCollection('[myForm.quitCriteria, myForm.cigsCriteria, myForm.ageCriteria]', function (newValues) {
+  $scope.$watchCollection('[myForm.cigsCriteria, myForm.ageCriteria]', function (newValues) {
     $scope.myForm.eligibility = !newValues[0] && !newValues[1] && !newValues[2];
 
     console.log('eligibility is: ', $scope.myForm.eligibility);
@@ -132,7 +131,6 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
     $scope.myForm.cigs = '';
     $scope.myForm.startAgeCriteria = false;
     $scope.myForm.startNumericCriteria = false;
-    $scope.myForm.quitCriteria = false;
     $scope.myForm.quitAgeCriteria = false;
     $scope.myForm.quitNumericCriteria = false;
     $scope.myForm.cigsCriteria = false;
@@ -510,7 +508,6 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
         if ($scope.myForm.type === 'former') {
           if (!$scope.myForm.quitNumericCriteria) {
             quit = parseFloat($scope.myForm.quit);
-            $scope.myForm.quitCriteria = (age - quit > $scope.MAX_QUIT_YEARS);
             $scope.myForm.quitAgeCriteria = (quit > age || quit <= start);
           } else {
             $scope.myForm.quitAgeCriteria = false;

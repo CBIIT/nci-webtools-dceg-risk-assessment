@@ -188,7 +188,7 @@
         <div class="col-xs-12 col-md-2"></div>
         <label for="quit" class="col-xs-12 col-md-4 control-label">How old were you when you quit successfully</label>
         <div class="col-xs-12 col-md-6">
-            <input class="form-control input-sm" type="text" name="quit" id="quit" ng-model="myForm.quit" ng-model-options="{ updateOn: 'blur' }" ng-required="myForm.type == 'former'" ng-disabled="myForm.validationFailed && !(myForm.quitNumericCriteria || myForm.quitCriteria || myForm.quitAgeCriteria)">
+            <input class="form-control input-sm" type="text" name="quit" id="quit" ng-model="myForm.quit" ng-model-options="{ updateOn: 'blur' }" ng-required="myForm.type == 'former'" ng-disabled="myForm.validationFailed && !(myForm.quitNumericCriteria || myForm.quitAgeCriteria)">
         </div>
     </div>                                    
     <div ng-show="myForm.startNumericCriteria" class="row">
