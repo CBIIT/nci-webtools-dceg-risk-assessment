@@ -59,8 +59,7 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
 
 
   /* $watchCollection allows watching of multiple properties and changing form state (valid/invalid) based on properties' values */
-  /* scope.$watchCollection('[myForm.ageCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function(newValues) { */
-  $scope.$watchCollection('[myForm.bmiNumericCriteria, myForm.ageCriteria, myForm.typeCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function (newValues) {
+  $scope.$watchCollection('[myForm.bmiNumericCriteria, myForm.ageCriteria, myForm.typeCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria,  myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function (newValues) {
 
     var flag = false;
 
@@ -69,23 +68,21 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
         flag = true;
     }
 
-    $scope.myForm.isInvalid = flag;
-
-    $scope.myForm.validationFailed = 
+    $scope.myForm.validationFailed =
         $scope.myForm.ageCriteria || 
         $scope.myForm.ageNumericCriteria ||
         $scope.myForm.typeCriteria ||
         $scope.myForm.startAgeCriteria ||
         $scope.myForm.startNumericCriteria ||
-        $scope.myForm.quitCriteria ||
         $scope.myForm.quitNumericCriteria ||
         $scope.myForm.quitAgeCriteria ||
-        $scope.myForm.cigsCriteria ||
         $scope.myForm.cigsNumericCriteria ||
         $scope.myForm.pHeightCriteria ||
         $scope.myForm.subHeightCriteria ||
         $scope.myForm.weightCriteria ||
         $scope.myForm.bmiNumericCriteria;
+
+      $scope.myForm.isInvalid = flag && $scope.myForm.validationFailed;
   });
 
   // add dropdown value to myForm data object //
