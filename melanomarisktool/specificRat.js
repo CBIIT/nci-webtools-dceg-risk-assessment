@@ -7,10 +7,10 @@ frecklingValue["3"]									= "mildFreckling"
 frecklingValue["4"]									= "moderateFreckling"
 frecklingValue["5"]									= "severeFreckling"
 frecklingValue[""]									= "1"
-frecklingValue["Absent"]						    = "2"
-frecklingValue["mildFreckling"]			            = "3"
-frecklingValue["moderateFreckling"]	                = "4"
-frecklingValue["severeFreckling"]		            = "5"
+frecklingValue["Absent"]						= "2"
+frecklingValue["mildFreckling"]			= "3"
+frecklingValue["moderateFreckling"]	= "4"
+frecklingValue["severeFreckling"]		= "5"
 
 $(function() {
 
@@ -82,12 +82,11 @@ $(function() {
 	// back and shoulders?".  When clicked the correct image should be selected
 	$("#freckling").on("change", function() {
 		var index = $(this).prop('selectedIndex') + 1
-		console.log("index = " + index)
 	  borderAroundPicture($("#freckling").parent().next().find("img"), index)
 	});
 
 	// Handles the "Click to Enlarge Link");
-  $("#freckling").parent().next().find("a:contains('Click to Enlarge')").on("click", function(event) {
+  $("a:contains('Enlarge')").on("click", function(event) {
 
 		// Going to the URL will be prevented
 		event.preventDefault();
@@ -442,3 +441,10 @@ function resetForm() {
 
 	return result;
  }
+
+ /*
+  * Retreives the Answer for the sunburn damage
+	*/
+	function ratSpecificAnswer(element) {
+		return $("[name='damage']:checked").next().text()
+	}

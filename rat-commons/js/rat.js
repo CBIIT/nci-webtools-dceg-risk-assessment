@@ -1055,6 +1055,7 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 		//  would go between there would be a secondary question.  Use a paragraph tag instead of a div tag
 		//
 		function extractAnswerDispalyedOnGui(inputElement) {
+
 			var inputText = ""
 			if ( inputElement.is(":radio"))	{
 				// Get the name attribute which the radio button use for the variable name of the Data
@@ -1186,7 +1187,7 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 		// So, the user will be able to get the answer from the infromation.  However, if the answer
 		// is different ( ex. 3 text boxes for the height/width/lbs ) then the algorithm will call
 		// a routine from the specfic rat to handle the situation
-		var inputElement = $($(element).nextUntil("label","div")[0]).children('input, select')
+		var inputElement = $($(element).nextUntil("label","div")[0]).find('input, select')
 		if ( $(inputElement.length) == 0 ) inputElement = element
 
    	var inputAnswerText = extractAnswerDispalyedOnGui(inputElement)
