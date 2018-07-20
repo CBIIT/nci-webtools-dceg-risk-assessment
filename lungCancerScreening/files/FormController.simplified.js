@@ -13,7 +13,6 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
     $scope.myForm.typeCriteria = false;
     $scope.myForm.startAgeCriteria = false;
     $scope.myForm.startNumericCriteria = false;
-    $scope.myForm.quitCriteria = false;
     $scope.myForm.quitNumericCriteria = false;
     $scope.myForm.quitAgeCriteria = false;
     $scope.myForm.cigsCriteria = false;
@@ -59,8 +58,7 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
 
 
   /* $watchCollection allows watching of multiple properties and changing form state (valid/invalid) based on properties' values */
-  /* scope.$watchCollection('[myForm.ageCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function(newValues) { */
-  $scope.$watchCollection('[myForm.bmiNumericCriteria, myForm.ageCriteria, myForm.typeCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria, myForm.cigsCriteria, myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function (newValues) {
+  $scope.$watchCollection('[myForm.bmiNumericCriteria, myForm.ageCriteria, myForm.typeCriteria, myForm.ageNumericCriteria, myForm.startAgeCriteria, myForm.startNumericCriteria, myForm.quitAgeCriteria, myForm.quitNumericCriteria,  myForm.cigsNumericCriteria, myForm.pHeightCriteria, myForm.subHeightCriteria, myForm.weightCriteria, lcsForm.$invalid]', function (newValues) {
 
     var flag = false;
 
@@ -69,23 +67,21 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
         flag = true;
     }
 
-    $scope.myForm.isInvalid = flag;
-
-    $scope.myForm.validationFailed = 
+    $scope.myForm.validationFailed =
         $scope.myForm.ageCriteria || 
         $scope.myForm.ageNumericCriteria ||
         $scope.myForm.typeCriteria ||
         $scope.myForm.startAgeCriteria ||
         $scope.myForm.startNumericCriteria ||
-        $scope.myForm.quitCriteria ||
         $scope.myForm.quitNumericCriteria ||
         $scope.myForm.quitAgeCriteria ||
-        $scope.myForm.cigsCriteria ||
         $scope.myForm.cigsNumericCriteria ||
         $scope.myForm.pHeightCriteria ||
         $scope.myForm.subHeightCriteria ||
         $scope.myForm.weightCriteria ||
         $scope.myForm.bmiNumericCriteria;
+
+      $scope.myForm.isInvalid = flag && $scope.myForm.validationFailed;
   });
 
   // add dropdown value to myForm data object //
@@ -117,7 +113,7 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
     validateBMI();
   });
 
-  $scope.$watchCollection('[myForm.quitCriteria, myForm.cigsCriteria, myForm.ageCriteria]', function (newValues) {
+  $scope.$watchCollection('[myForm.cigsCriteria, myForm.ageCriteria]', function (newValues) {
     $scope.myForm.eligibility = !newValues[0] && !newValues[1] && !newValues[2];
 
     console.log('eligibility is: ', $scope.myForm.eligibility);
@@ -135,7 +131,6 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
     $scope.myForm.cigs = '';
     $scope.myForm.startAgeCriteria = false;
     $scope.myForm.startNumericCriteria = false;
-    $scope.myForm.quitCriteria = false;
     $scope.myForm.quitAgeCriteria = false;
     $scope.myForm.quitNumericCriteria = false;
     $scope.myForm.cigsCriteria = false;
@@ -513,7 +508,6 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
         if ($scope.myForm.type === 'former') {
           if (!$scope.myForm.quitNumericCriteria) {
             quit = parseFloat($scope.myForm.quit);
-            $scope.myForm.quitCriteria = (age - quit > $scope.MAX_QUIT_YEARS);
             $scope.myForm.quitAgeCriteria = (quit > age || quit <= start);
           } else {
             $scope.myForm.quitAgeCriteria = false;

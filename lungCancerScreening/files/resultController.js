@@ -151,15 +151,15 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $sessionStor
 
   function createPrintablePage() {
     var html = "";
-    var source  = $("#results .ng-hide").remove()
-    var results = $("#results").html()
+    var source  = $("#results .ng-hide").remove();
+    var results = $("#results").html();
     results = results.replace(new RegExp('<br>', 'g'), '<br />');
     results = results.replace(new RegExp('(<img("[^"]*"|[^\/">])*)>', 'g'), '$1/>');
 
     html+= '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
     html+= '<html xmlns="http://www.w3.org/1999/xhtml">';
     html+= '  <head>';
-    html+= '  <title>National Lung Screening</title>';
+    html+= '  <title>Lung Cancer Screening</title>';
     html+= '  </head>';
     html+= '  <body>';
     html+= results;

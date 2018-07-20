@@ -337,52 +337,61 @@
               <div class="small_mole_answer">Twelve or more</div>
             </label>
           </div>
-          <label class="questions" for="freckling">How extensive is the freckling on the patient's back and shoulders?</label>
-          <div class="responseOptions">
-            <select id="freckling" name="freckling" required>
-              <option value="">Select</option>
-              <option value="0">Absent</option>
-              <option value="1">Mild</option>
-              <option value="2">Moderate</option>
-              <option value="3">Severe</option>
-            </select>
-          </div>
+          <label class="questions marginBetweeenQuestionAndPic" id="freckling">How extensive is the freckling on the patient's back and shoulders?</label>
             <div id="frecklePictures" class="row">
               <div class="col-lg-4">
-                <p class="pictureText">Mild Freckling</p>
-                <p class="pictureText"><a id="freckleClick1" class="pictureText" tabindex="0">Click To Select</a></p>
-                <img id="mildFreckling" data-name="Mild Freckling" class="img-responsive center-block" src="" alt="Example Picture of mild Freckling">
-                <p class="paragraphBottom pictureText"><a class="pictureText" href="">Click to Enlarge</a></p>
+                <img id="mildFreckling" data-name="Mild Freckling" class="img-responsive" src="" alt="Example Picture of mild Freckling">
+                <p class="pictureText"><a class="pictureText" href="">Enlarge</a></p>
+                <div class="responseOptions">
+                  <input id="mildFrecklingAnswer" type="radio" name="freckling" value="1" required >
+                  <label class="radio" tabindex="0" for="mildFrecklingAnswer"><span> </span>Mild Freckling</label>
+                </div>
               </div>
               <div class="col-lg-4">
-                <p class="pictureText">Moderate Freckling</p>
-                <p class="pictureText"><a id="freckleClick2" class="pictureText" tabindex="0" >Click To Select</a></p>
-                <img id="moderateFreckling" data-name="Moderate Freckling" class="img-responsive center-block" src="" alt="Example Picture of moderate Freckling">
-                <p class="paragraphBottom pictureText"><a class="pictureText" href="">Click to Enlarge</a></p>
+                <img id="moderateFreckling" data-name="Moderate Freckling" class="img-responsive" src="" alt="Example Picture of moderate Freckling">
+                <p class="pictureText"><a class="pictureText" href="">Enlarge</a></p>
+                <div class="responseOptions">
+                  <input id="moderateFrecklingAnswer" type="radio" name="freckling" value="2" required >
+                  <label class="radio" tabindex="0" for="moderateFrecklingAnswer"><span> </span>Moderate Freckling</label>
+                </div>
               </div>
               <div class="col-lg-4">
-                <p class="pictureText">Severe Freckling</p>
-                <p class="pictureText"><a id="freckleClick3" class="pictureText" tabindex="0">Click To Select</a></p>
-                <img id="severeFreckling" data-name="Severe Freckling" class="img-responsive center-block" src="" alt="Example Picture of severe Freckling">
-                <p class="paragraphBottom pictureText"><a class="pictureText" href="">Click to Enlarge</a></p>
-              </div>
-          </div>
-          <div class="male">
-            <label class="questions" for="damage">Does the patient have severe solar damage on the shoulders?</label>
-            <div class="row">
-              <div class="col-lg-12 responseOptions">
-                <select id="damage" name="damage">
-                  <option value="">Select</option>
-                  <option value="0">Yes</option>
-                  <option value="1">No</option>
-                </select>
+                <img id="severeFreckling" data-name="Severe Freckling" class="img-responsive" src="" alt="Example Picture of severe Freckling">
+                <p class="pictureText"><a class="pictureText" href="">Enlarge</a></p>
+                <div class="responseOptions">
+                  <input id="severeFrecklingAnswer" type="radio" name="freckling" value="3" required >
+                  <label class="radio" tabindex="0" for="servereFrecklingAnswer"><span> </span>Severe Freckling</label>
+                </div>
               </div>
               <div class="col-lg-12">
-                <img class="img-responsive" src="rat-commons/images/mratSevereLrg2.jpg" alt="male with sunburn">
+                <div class="responseOptions">
+                  <input id="AbsentFrecklingAnswer" type="radio" name="freckling" value="0" required>
+                  <label class="radio" tabindex="0" for="absentFrecklingAnswer"><span> </span>Absent</label>
+                </div>
+              </div>
+            </div>
+          <div class="male">
+          <label class="questions marginBetweeenQuestionAndPic" for="damage">Does the patient have severe solar damage on the shoulders?</label>
+          <div class="row">
+            <div class="col-lg-4">
+              <img id="solar-damage" class="img-responsive" data-name="Severe Solar Damage" src="rat-commons/images/mratSevereLrg2.jpg" alt="male with sunburn">
+              <p class="clearBottomMargin"><a class="pictureText" href="">Enlarge</a></p>
+            </div>
+          </div>
+          <div id="solarDamage" class="row">
+            <div class="col col-lg-12">
+              <div class="responseOptions">
+                <input id="yesDamage" type="radio" name="damage" value="0" required>
+                <label for="yesDamage" class="radio" tabindex="0"><span></span>Yes</label>
+              </div>
+            </div>
+            <div class="col col-lg-12">
+              <div class="responseOptions">
+                <input id="noDamage" type="radio" name="damage" value="1" required>
+                <label for="noDamage" class="radio" tabindex="0"><span></span>No</label>
               </div>
             </div>
           </div>
-
         </section>
 
         <div class="center-block">
