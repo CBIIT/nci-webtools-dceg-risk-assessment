@@ -86,7 +86,7 @@ $(function() {
 	});
 
 	// Handles the "Click to Enlarge Link");
-  $("#frecklePictures a:contains('Click to Enlarge')").on("click", function(event) {
+  $("a:contains('Enlarge')").on("click", function(event) {
 
 		// Going to the URL will be prevented
 		event.preventDefault();

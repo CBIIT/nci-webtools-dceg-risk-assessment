@@ -71,6 +71,12 @@
   margin-top: .5em;
 }
 
+/* Add some space between a question and an image.  Usually the quetion is   */
+/* followed by an image.                                                     */
+.marginBetweeenQuestionAndPic {
+  margin-bottom: 30px;
+}
+
 @media ( min-width: 1200px ) {
 
   /* For a small amount of pixels about 50, the Moderate Frecking string went */
