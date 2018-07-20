@@ -23,6 +23,12 @@
   margin-bottom: 1.0em;
 }
 
+/* This is a specific fix for the "Does the patient have server solar damage  */
+/* on the shoulders?                                                          */
+.clearBottomMargin {
+  margin-bottom: 0em;
+}
+
 .pictureTextEnabledColor {
   color: #2B7BBA;
 }

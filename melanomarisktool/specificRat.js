@@ -441,3 +441,10 @@ function resetForm() {
 
 	return result;
  }
+
+ /*
+  * Retreives the Answer for the sunburn damage
+	*/
+	function ratSpecificAnswer(element) {
+		return $("[name='damage']:checked").next().text()
+	}
