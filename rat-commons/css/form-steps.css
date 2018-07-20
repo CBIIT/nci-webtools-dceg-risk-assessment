@@ -30,12 +30,17 @@
   vertical-align: middle;
   letter-spacing: 5px;
 }
+
+/******************************************************************************/
+/* Controls the size of the Text Description of the link                      */
+/******************************************************************************/
 #form-steps ol li {
   display: inline-block;
   color: #868686;
   margin-right: 3%;
-  font-size: 19px;
 }
+
+
 #form-steps ol li a {
   display: block;
   color: inherit;
@@ -52,9 +57,11 @@
   position: relative;
   font-size: 23px;
 }
+
+/*
 #form-steps ol li.active {
   font-size: 24px;
-}
+} */
 #form-steps ol li.active:first-child a:first-child {
   color: #339fbe;
 }
@@ -65,7 +72,18 @@
   color: #fff;
   background: #339fbe;
 }
-#form-steps ol li.active:nth-child(3) a:first-child {
+
+#form-steps ol li:first-child a:nth-child(2):focus {
+  outline: none;
+  box-shadow: 0 0 2px 1px #4D90FE;
+}
+
+#form-steps ol li.active:first-child a:nth-child(2):focus {
+  outline: none;
+  box-shadow: 0 0 2px 1px #4D90FE;
+} 
+
+#form-steps ol li.active:nth-child(3) a:nth-child(3) {
   color: #6150a3;
 }
 #form-steps ol li.active:nth-child(3) a:nth-child(2) {
@@ -75,6 +93,17 @@
   color: #fff;
   background: #6150a3;
 }
+
+#form-steps ol li.active:nth-child(3) a:nth-child(2):focus {
+  outline: none;
+  box-shadow: 0 0 2px 1px #4D90FE;
+}
+
+#form-steps ol li:nth-child(3) a:nth-child(2):focus {
+  outline: none;
+  box-shadow: 0 0 2px 1px #4D90FE;
+}
+
 #form-steps ol li.active:nth-child(5) a:first-child {
   color: #2d73a5;
 }
@@ -86,3 +115,192 @@
   background: #2d73a5;
 }
 
+#form-steps ol li.active:nth-child(5) a:nth-child(2):focus {
+  outline: none;
+  box-shadow: 0 0 2px 1px #4D90FE;
+}
+
+#form-steps ol li:nth-child(5) a:nth-child(2):focus {
+  outline: none;
+  box-shadow: 0 0 2px 1px #4D90FE;
+}
+
+/* Navigation Bar -- The Fourth Colum Text and Circle Navigation */
+
+#form-steps ol li.active:nth-child(7) a:nth-child(3) {
+  color: #1095A1;
+}
+
+#form-steps ol li.active:nth-child(7) a:nth-child(2) {
+  width: 45px;
+  height: 45px;
+  font-size: 31px;
+  color: #fff;
+  background: #1095A1;
+}
+
+#form-steps ol li.active:nth-child(7) a:nth-child(2):focus {
+  outline: none;
+  box-shadow: 0 0 2px 1px #1095A1;
+}
+
+#form-steps ol li:nth-child(7) a:nth-child(2):focus {
+  outline: none;
+  box-shadow: 0 0 2px 1px #1095A1;
+}
+
+/* Navigation Bar -- The Fifth Colum Text and Circle Navigation */
+
+#form-steps ol li.active:nth-child(9) a:first-child {
+  color:#2D73A5;
+}
+
+#form-steps ol li.active:nth-child(9) a:nth-child(2) {
+  width: 45px;
+  height: 45px;
+  font-size: 31px;
+  color: #fff;
+  background:#2D73A5;
+}
+
+#form-steps ol li.active:nth-child(9) a:nth-child(2):focus {
+  outline: none;
+  box-shadow: 0 0 2px 1px #1095A1;
+}
+
+#form-steps ol li:nth-child(9) a:nth-child(2):focus {
+  outline: none;
+  box-shadow: 0 0 2px 1px #1095A1;
+}
+
+.step-node {
+}
+
+/* There seems to be a collision with another CSS Rules and the end result of display */
+/* was never getting set to block.  However an intermediate result was set to none   */
+/* So, I created the maleOnlyStep to provide the correct behavior, meaning that the  */
+/* list item will only show if it a male.                                            */
+#form-steps ol li.maleOnlyStep {
+  display: none;
+}
+
+/*****************************************************************************/
+/* Origianl Queries                                                          */
+/*****************************************************************************/
+@media (min-width: 1201px) {
+  #form-steps ol span.spacer {
+    min-width: 6%;
+  }
+
+  #form-steps ol li {
+    font-size: 18px;
+  }
+
+  #form-steps ol li.active:first-child a:first-child,
+  #form-steps ol li.active:nth-child(3) a:nth-child(3),
+  #form-steps ol li.active:nth-child(5) a:first-child,
+  #form-steps ol li.active:nth-child(7) a:nth-child(3),
+  #form-steps ol li.active:nth-child(9) a:first-child {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 1200px) {
+  #form-steps ol li {
+    font-size: 16px;
+  }
+
+  #form-steps ol li.active:first-child a:first-child,
+  #form-steps ol li.active:nth-child(3) a:nth-child(3),
+  #form-steps ol li.active:nth-child(5) a:first-child,
+  #form-steps ol li.active:nth-child(7) a:nth-child(3),
+  #form-steps ol li.active:nth-child(9) a:first-child {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 992px) {
+  #form-steps ol li {
+    font-size: 14px;
+  }
+
+  #form-steps ol li.active:first-child a:first-child,
+  #form-steps ol li.active:nth-child(3) a:nth-child(3),
+  #form-steps ol li.active:nth-child(5) a:first-child,
+  #form-steps ol li.active:nth-child(7) a:nth-child(3),
+  #form-steps ol li.active:nth-child(9) a:first-child {
+    font-size: 16px;
+  }
+
+}
+
+@media( max-width: 480px) {
+  #form-steps.fixed {
+    z-index: 1;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  #form-steps ol {
+    padding: 0;
+  }
+  #form-steps ol span.spacer {
+    margin: 0;
+  }
+  #form-steps ol li {
+    margin: 0.5em 0.1em;
+    border-radius: 20px;
+    margin-left: 4%;
+    margin-right: 4%;
+  }
+  #form-steps ol li a:first-child {
+    display: none;
+  }
+  #form-steps ol li a {
+    display: block;
+    color: inherit;
+  }
+  #form-steps ol li a:nth-child(2) {
+    width: 25px;
+    height: 25px;
+    font-size: 17px;
+  }
+
+  #form-steps ol li.active:first-child a:nth-child(2) {
+    width: 35px;
+    height: 35px;
+    font-size: 24px;
+  }
+  #form-steps ol li.active:nth-child(3) a:nth-child(2) {
+    width: 35px;
+    height: 35px;
+    font-size: 24px;
+  }
+  #form-steps ol li.active:nth-child(5) a:first-child {
+    color: #2d73a5;
+  }
+  #form-steps ol li.active:nth-child(5) a:nth-child(2) {
+    width: 35px;
+    height: 35px;
+    font-size: 24px;
+  }
+}
+
+
+
+
+@media (min-width: 193px) {
+
+  #form-steps > ol > li {
+    margin-left : 2px;
+    margin-right: 2px;
+  }
+}
+
+/*****************************************************************************/
+/* Just putting some code in her to test it.                                 */
+/*****************************************************************************/
+.test  {
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
