@@ -199,9 +199,9 @@ function toggleGender(e) {
 			$(".female").removeClass('show');
 			$(".male").addClass('show');
 
-			$("#mildFreckling").attr("src","rat-commons/images/mratMildLrg.jpg")
-			$("#moderateFreckling").attr("src","rat-commons/images/mratModLrg.jpg")
-			$("#severeFreckling").attr("src","rat-commons/images/mratSevereLrg.jpg")
+			$("#mildFreckling").attr("src","rat-commons/images/mild-freckling-enlarge.jpg")
+			$("#moderateFreckling").attr("src","rat-commons/images/moderate-freckling-enlarge.jpg")
+			$("#severeFreckling").attr("src","rat-commons/images/severe-freckling-enlarge.jpg")
 			break;
 		case "Female":
 			$('.small_mole_answer')[0].innerHTML="Less than five"
