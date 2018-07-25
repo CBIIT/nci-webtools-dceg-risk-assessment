@@ -106,7 +106,7 @@ $(function() {
 
 	// When the dialog box showing the image is selected this function will
 	// enable the form.
-  $("#okButtonPic").on("click", function() {
+  $("#pictureModal .close").on("click", function() {
 		enableMRATForm()
 	});
 

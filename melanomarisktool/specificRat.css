@@ -10,7 +10,8 @@
 /* styles maps such as the map of the United Styles use in the MRAT Program */
 /* styles for the text above and below the picture                          */
 .mapText,
-.pictureText {
+.pictureText,
+.dialogTitle {
         font-size: 16px;
         color: #2B7BBA;
         font-family: 'Noto Sans';
@@ -21,6 +22,26 @@
 .pictureText {
   text-align: left;
   margin-bottom: 1.0em;
+}
+
+/* Stack two divs at the same position                                      */
+.stack_dialog_header_div_title {
+  position: absolute;
+  top: 12px;
+  width: 100%;
+}
+
+.stack_dialog_header_div_close {
+  position: absolute;
+  top: 12px;
+  width: 96%;
+  margin-top: 6px;
+}
+
+/* For text associated with the class modal-header when the Enlarge Link    */
+/* is clicked.                                                              */
+.dialogTitle {
+  text-align: center;
 }
 
 /* This is a specific fix for the "Does the patient have server solar damage  */
@@ -46,6 +67,17 @@
 #okButtonPic {
   margin-top: 2em;
 }
+
+/* At some breakpints ( ex. min-wdith :768px ) the image is becoming too big  */
+/* The Venddor for chrome has the width set to 600 at that breakpoint, so I   */
+/* am putting the value for the width and the height that specified in the    */
+/* specification                                                              */
+/*#pictureModal {
+  width: 494px;
+  height: 550px;
+  margin-left: auto;
+  margin-right: auto;
+} */
 
 /* Used to center the three pictures propertly */
   [for='damage'] + div > div:nth-child(2), [for='freckling'] + div + div {
@@ -141,9 +173,43 @@
 /****************************************************************************/
 /* Allow the map not to collide with the answers                            */
 /****************************************************************************/
+
 @media ( max-width : 768px ) {
 
   #map {
     margin-top : 30px;
+  }
+
+  .modal-dialog {
+    margin: 10px auto;
+  }
+}
+
+@media ( min-width : 576px ) {
+
+  /* Use to shrink the acutal size of the dialog box */
+  #pictureModal .modal-dialog {
+    width: 493px;
+  }
+}
+
+/* Usually the media queries are have a condition based on the Bootstrap     */
+/* breakpoints.  However, the #pictureModal increase to 555 instead at       */
+/* staying at 430px so I need to add a different media query then what       */
+/* boostrap 3 uses                                                           */
+@media ( min-width: 520px ) {
+  #pictureModal .modal-dialog {
+    width: 493px;
+  }
+}
+
+@media ( max-width: 575px ) {
+  .stack_dialog_header_div_close {
+    width: 92%;
+  }
+
+  .modal-dialog {
+    margin-left: auto;
+    margin-right: auto;
   }
 }

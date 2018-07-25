@@ -1667,3 +1667,10 @@ section > fieldset > legend.questions {
 .remove_bootrap_gutter_left {
   padding-left : 0px;
 }
+
+/* Center image */
+.dialog-image-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
