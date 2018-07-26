@@ -1502,9 +1502,9 @@ $(window).load(function(e) {
 
 		// The code will force an image to act likie an input
 		if ( e.type == "click") {
-			if ($(e.target).hasClass('radio'))
+			if ($(e.target).hasClass('radio') && $(e.target).prev().prop("disabled") != true )
 				$(e.target).prev().trigger('click');
-			else if ($(e.target).parents('.radio'))
+			else if ($(e.target).parents('.radio') && $(e.target).parents('.radio').prev().prop("disabled") != true )
 				$(e.target).parents('.radio').prev().trigger('click');
 		} else {
 			if(e.type == "keypress")
