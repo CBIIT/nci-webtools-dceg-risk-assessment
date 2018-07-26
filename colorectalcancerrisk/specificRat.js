@@ -7,6 +7,10 @@
 
 $(function() {
 
+    // For the forms-step make sure that the last text link is right justified
+    // since we do not know the gender yet.
+    toggleGender();
+
     // A bug in the number field report see the CSS for comments for the numberField Border
     $(".numberField").addClass("numberFieldBorder")
 
@@ -541,6 +545,9 @@ function toggleGender(e) {
             // Used for form steps since some extra styling need to done
             $("#different").removeClass("maleOnlyStep")
 
+            $("#form-steps ol li:last-child a:nth-child(2)").css("margin-right", "0");
+            $("#form-steps ol li:nth-child(7) a:nth-child(2)").css("margin", "0 auto 0 auto")
+
             $(".female").removeClass('show');
             $(".male").addClass('show');
 
@@ -550,6 +557,7 @@ function toggleGender(e) {
         case "Female":
             // Used for form steps since some extra styling need to done
             $("#different").addClass("maleOnlyStep")
+            $("#form-steps ol li:nth-child(7) a:nth-child(2)").css("margin-right", "0 ")
 
             $(".male").removeClass('show');
             $(".female").addClass('show');
@@ -561,6 +569,7 @@ function toggleGender(e) {
 
             // Used for form steps since some extra styling need to done
             $(".female, .male").removeClass('show').find("input, select").removeAttr("required");
+            $("#form-steps ol li:nth-child(7) a:nth-child(2)").css("margin-right", "0")
             $("#different").addClass("maleOnlyStep")
     }
 

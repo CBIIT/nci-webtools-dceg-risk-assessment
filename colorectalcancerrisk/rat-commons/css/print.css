@@ -1,0 +1,58 @@
+/* Purpose : To style page when sent to the printer */
+@media print {
+
+  /* Section that make all components invisible that will not be one the      */
+  /* printed page                                                             */
+  #skipContentCalculate,
+  #toolTitle,
+  button,
+  #printTop,
+  #printBottom,
+  #tool_title,
+  #side_nav,
+  .result_page_anchor,
+  #buttonsArea,
+  #footer
+  {
+    display:none;
+  }
+
+  /* In order to get the style to work.  !Important is needed since bootstrap */
+  /* Also, I had to use the id to apply the rule due to the specitivity rules */
+  /* of css                                                                   */
+  #main-nav {
+    display:none     !important;
+  }
+
+  /* Section that will set a page break after every graph                     */
+  div[id^='results_box'] {
+    page-break-before: always;
+  }
+
+  #displayInput {
+    page-break-before: always;
+  }
+
+  /* Centers the logo                                                         */
+  #logo {
+    margin: 0px;
+    padding: 0px;
+    height: 82px;
+    width:600px;
+    display: inline-block;
+    text-align: center;
+  }
+
+  /* Removes the URL after it.  Only needed for bootstrap version 3.x */
+  a[href]:after {
+    content: none;
+  }
+
+  /* Fixes for the Internet Explorer */
+
+  /* Problem One Logo is not centering                                        */
+  .ie_center_logo {
+    text-align:center;
+  }
+
+}
