@@ -45,6 +45,15 @@
   display: block;
   color: inherit;
 }
+
+#form-steps ol li:first-child a:nth-child(2) {
+  margin: 0;
+}
+
+#form-steps ol li:last-child a:nth-child(2) {
+  margin-right: 0;
+}
+
 #form-steps ol li a:nth-child(2) {
   background: #868686;
   color: #fff;
@@ -81,7 +90,7 @@
 #form-steps ol li.active:first-child a:nth-child(2):focus {
   outline: none;
   box-shadow: 0 0 2px 1px #4D90FE;
-} 
+}
 
 #form-steps ol li.active:nth-child(3) a:nth-child(3) {
   color: #6150a3;
