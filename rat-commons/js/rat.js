@@ -509,27 +509,11 @@ function adjustNavigationBarLine() {
 }
 
 function adjustLinks(midPointX) {
-	console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-	console.log("Midpoint Y = " + midPointX)
-	console.log("Placing Circles :::")
-
 	$("#form-steps ol > li:visible > a:nth-child(2)").each(function() {
-		console.log("Number is ", $(this).text())
-		console.log("height is ", $(this).css("height"))
-		console.log("X Coordinate of line " + midPointX)
-
-		console.log("------- Parse Int")
-		console.log("height is ", $(this).css("height"))
-		console.log("X Coordinate of line " + parseInt(midPointX))
-		console.log("-----------------")
-
-		//var heightOfCircle = $(this).first().parent().css("height")
 		var heightOfCircle = $(this).css("height")
 		var topPointOfCircle = parseInt(midPointX) - (parseInt(heightOfCircle)/2)
-		console.log("Top Point of Circle = " + topPointOfCircle)
 		if ( topPointOfCircle < 100 ) {
 			var startingPointOfCircle = midPointX - topPointOfCircle
-			console.log("Starting point of circle = " + startingPointOfCircle )
 			$(this).css("top", startingPointOfCircle + "px")
 		}
 	})
@@ -560,18 +544,9 @@ function adjust_line_width(ind){
 /******************************************************************************/
 function adjust_line_height_dekstop(){
 
-  console.log("Form Steps Height = " + $("#form-steps").css("width"))
   var firstBubble = $("#form-steps ol li").not(".active").children().filter("a:nth-child(2)").first()
   var startPoint = $(firstBubble).position().top + $(firstBubble).height()/2;
   $("#line").find("hr").css("top", startPoint);
-
-
-	console.log("Form Steps Rectangle ",
-		$("#form-steps").height(),
-		",",
-		$("#form-steps").width())
-
-
 
 	return startPoint
 }
@@ -946,7 +921,7 @@ function enableSectionHeaders() {
 ///////////////////////////////////////////////////////////////////////////////
 function disableForm() {
 	$("form :input").not("#reset").prop('disabled', true);
-	$("form a").prop('disbled', true)
+	$("form a").addClass("disabled")
 	$("form label.radio").css("color","#C0C0C0")
 	$("[class*='questions']").css("color","#c0c0c0");
 	disableSectionHeaders();
@@ -959,6 +934,7 @@ function disableForm() {
 ////////////////////////////////////////////////////////////////////////////////
 function enableForm() {
 	$("form :input").not("#reset").attr('disabled', false);
+	$("form a").removeClass("disabled")
 	$("form label.radio").css("color","#2E2E2E")
 	$("[class*='questions']").css("color","#2E2E2E")
 	enableSectionHeaders();
@@ -1502,9 +1478,9 @@ $(window).load(function(e) {
 
 		// The code will force an image to act likie an input
 		if ( e.type == "click") {
-			if ($(e.target).hasClass('radio'))
+			if ($(e.target).hasClass('radio') && $(e.target).prev().prop("disabled") != true )
 				$(e.target).prev().trigger('click');
-			else if ($(e.target).parents('.radio'))
+			else if ($(e.target).parents('.radio') && $(e.target).parents('.radio').prev().prop("disabled") != true )
 				$(e.target).parents('.radio').prev().trigger('click');
 		} else {
 			if(e.type == "keypress")

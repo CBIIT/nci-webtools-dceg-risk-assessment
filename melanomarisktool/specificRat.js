@@ -360,8 +360,8 @@ function resetForm() {
  */
  function disableMRATForm() {
 
-     // Which pictures should be excluded from being
-     // Returns (t) -- The element should be execluded
+     // Which pictures should be excluded from being disabled.
+     // Returns (t) -- The element should be excluded
      function exclusions(element) {
 
         var resultPicInDialog = ($(element).parents("[role='dialog']").length == 0);
