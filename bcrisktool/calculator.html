@@ -56,13 +56,16 @@
         <div class="row">
           <div class="col-xs-12 col-md-12">
             <ul class="content resultsPageContent">
-              <li>Although a woman&apos;s risk may be accurately estimated, these predictions do not allow one to say precisely which woman will develop breast cancer. </li>
+              <li>This tool cannot accurately calculate risk for women with a medical history of breast cancer, DCIS or LCIS. Other tools may be more appropriate for women with known
+                mutations in either the BRCA1 or BRCA2 gene, or other hereditary syndromes associated with higher risks of breast cancer.
+                See <a href="about.html#OtherRiskAssessmentTools" target="_blank">Other Risk Assessment Tools</a> for more information. </li>
+              <li>Although a patient&apos;s risk may be accurately estimated, these predictions do not allow one to say precisely which woman will develop breast cancer. </li>
               <li>Some women who do not develop breast cancer have higher risk estimates than those who do develop the disease.</li>
               <li>This tool was designed for use by health professionals. If you are not a health professional, you are encouraged to print these results and discuss them with your provider.</li>
-              <li>The tool uses the answers provided to estimate absolute risk of developing invasive breast cancer during the next 5-year period and up to age 90 (lifetime risk).</li>
+              <li>The answers provided were used to estimate absolute risk of developing invasive breast cancer during the next 5-year period and up to age 90 (lifetime risk). </li>
                 <ul class="selectContent">
-                  <li>Factors included: woman&apos;s personal medical and reproductive history and the history of breast cancer among her first-degree relatives (mother, sisters, daughters).</li>
-                  <li>For comparison, the tool also provides 5-year and lifetime risk estimates for a woman of the same age and race/ethnicity who is at average risk for developing breast cancer.</li>
+                  <li>Factors included: patient&apos;s personal medical and reproductive history and the history of breast cancer among her first-degree relatives (mother, sisters, daughters).</li>
+                  <li>For comparison, the tool also presents 5-year and lifetime risk estimates for a woman of the same age and race/ethnicity who is at average risk for developing breast cancer.</li>
                 </ul>
               </ul>
           </div>
@@ -226,10 +229,10 @@
         <section id="demographics-section">
           <label class="questions no-margin-top" for="age">What is the patient&#8217;s age?</label>
            <p class="questions_secondary">
-              This tool calculates risk for women 35 years of age or older.</p>
+              This tool calculates risk for women between the ages of 35 and 85.</p>
            <div class="responseOptions">
              <select id="age" class="selectContent" name="age" required>
-               <option class="selectContent" value="">Select Age</option>
+               <option class="selectContent" value="">Select age</option>
                <option class="selectContent" value="35">35</option>
                <option class="selectContent" value="36">36</option>
                <option class="selectContent" value="37">37</option>
@@ -329,10 +332,10 @@
             </div>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
               <input id="breastBiopsiesCountLessThan0" type="radio" name="biopsy_result" value="2" required>
-              <label class="radio" tabindex="0" for="breastBiopsiesCountLessThan0"><span> </span>&gt;1</label>
+              <label class="radio" tabindex="0" for="breastBiopsiesCountLessThan0"><span> </span>2 or more</label>
             </div>
 
-            <label class="col-sm-offset-1 questions" data-subquestion="true">Has the woman had at least one breast biopsy with atypical hyperplasia?</label>
+            <label class="col-sm-offset-1 questions" data-subquestion="true">Has the woman ever had a breast biopsy with atypical hyperplasia?</label>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
               <input id="hadAhYes" type="radio" name="biopsy_ah" value="1.82" required>
               <label class="radio" tabindex="0" for="hadAhYes"><span> </span>Yes</label>
@@ -358,10 +361,10 @@
           </div>
           <div class="responseOptions">
             <input id="ageGt14" type="radio" name="age_period" value="0" required>
-            <label class="radio" tabindex="0" for="ageGt14"><span></span>Greater than or equal to 14</label>
+            <label class="radio" tabindex="0" for="ageGt14"><span></span>14 or older</label>
           </div>
 
-          <label class="questions" for="childbirth_age">What was the woman&#8217;s age at the time of her first live birth of a child?</label>
+          <label class="questions" for="childbirth_age">What was the woman&#8217;s age when she gave birth to her first child? </label>
           <div class="responseOptions">
             <select id="childbirth_age" name="childbirth_age" required>
               <option class="selectContent" value="">Select</option>
@@ -374,7 +377,7 @@
             </select>
           </div>
 
-          <label class="questions">How many of the woman&#8217;s first-degree relatives (mothers, sisters, daughters) have had breast cancer?</label>
+          <label class="questions">How many of the woman&#8217;s first-degree relatives (mother, sisters, daughters) have had breast cancer?</label>
           <div class="responseOptions">
             <input id="relativesNone" type="radio" name="relatives" value="0" required>
             <label class="radio" tabindex="0" for="relativesNone"><span></span>None</label>
@@ -422,7 +425,8 @@
                   </div>
                   <div class="col-sm-10 information_text">
                     <p>
-                      This tool cannot accurately calculate breast cancer risk for women with a medical history of any breast cancer or of DCIS or LCIS.  See <a href="about.html" target="_self">About the Calculator</a> for more information.
+                      This tool cannot accurately calculate breast cancer risk for women with a medical history of any breast cancer or DCIS or LCIS.
+                      See <a href="about.html#OtherRiskAssessmentTools" target="_blank">Other Risk Assessment Tools</a> for more information.</a>
                     </p>
                   </div>
                 </div>
@@ -449,8 +453,8 @@
                   </div>
                   <div class="col-sm-10 information_text">
                     <p>
-                      Other tools may be more appropriate for women with known mutations in either the BRCA1 or BRCA2 gene, or other hereditary
-                      syndromes associated with higher risks of breast cancer.  See <a href="about.html" target="_self">About the Calculator</a> for more information.
+                      Other tools may be more appropriate for women with known mutations in either the <span class="textItalicized">BRCA1</span> or <span class="textItalicized">BRCA2</span> gene, or other hereditary
+                      syndromes associated with higher risks of breast cancer.  See <a href="about.html#OtherRiskAssessmentTools" target="_blank">Other Risk Assessment Tools</a> for more information.
                     </p>
                   </div>
                 </div>
