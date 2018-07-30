@@ -117,6 +117,15 @@ function goback_tocalc(){
 
 	handleScrollEvent();
 	$('html,body').scrollTop(0);
+
+	// Problem : When hispanic is selected textual information is added to the
+	// Question/Answer.  However, the user can click on the Edit Response and
+	// if Hipsanic is still the answer the information will be attached twice.
+	// This code will remove the information when the user goes back to the
+	// calculate page.
+	$("[data-dynamicallyAdded='true']").each( function(index,element) {
+		element.parentNode.removeChild(element)
+	});
 }
 
 /*****************************************************************************/

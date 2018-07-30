@@ -83,17 +83,17 @@ $(function() {
  	// If the question about a women every having a biopsy is answered disable the questions associated with it.
   womanHadBiopsy();
 
-  	// Display the help window
-  	$(".definition").on("click", displayHelpWindow);
+  // Display the help window
+  $(".definition").on("click", displayHelpWindow);
 
-  	// Initialize the button that will reset the form
-  	$("#reset").on("click", resetForm)
+  // Initialize the button that will reset the form
+  $("#reset").on("click", resetForm)
 
-  	// Add specifc test for the Breast Cancer Rat ( All Patient Eligibility)
-  	// that make the caculate button disabled if all the question are not answered
-  	// with No
-  	$("#riskForm").on("change", disableIfPatientIsNotEligible);
-  	$('#riskForm').trigger('change');
+  // Add specifc test for the Breast Cancer Rat ( All Patient Eligibility)
+  // that make the caculate button disabled if all the question are not answered
+  // with No
+  $("#riskForm").on("change", disableIfPatientIsNotEligible);
+  $('#riskForm').trigger('change');
 });
 
 // A function that will be called as a CallBack when the footer is loaded.  This function will be the same name
@@ -122,7 +122,7 @@ function attachSubraceItems() {
         "Chinese"     : "Chinese",
         "Filipino"    : "Filipino",
         "Hawaiian"    : "Hawaiian",
-        "Islander"    : "Islander",
+        "Islander"    : "Pacific Islander",
         "Japanese"    : "Japanese",
         "Asian"       : "Other Asian"
       })
@@ -259,6 +259,7 @@ function disableSubRaceMenu() {
 function resultsDisplay(response, textStatus, xhr) {
   var result = JSON.parse(response.message)
 	go_toresult();
+  addInformationToResultPageIntroductionText()
 
 
 	var fiveYearPatientRiskColor = ( result.risk > result.averageFiveRisk) ? "#BB0E3D" : "#2DC799";
@@ -295,27 +296,52 @@ function resetForm() {
 function addInformationToTheQuestions(element) {
 
   var returnHTML = null;
+  var startTag = '<p class="secondary_information">'
+  var endTag = '</p>'
+
   if ( $(element).attr("id") == $("#race").attr("id") ) {
 
     var currentRaceSelected = $("#race option:selected").text();
 
     var returnString = ""
-    if ( currentRaceSelected == 'Hispana/Latina') {
-      returnString = "Assessments for Hispanic women are subject to greater uncertainty than those for white and African American women."
+    if ( currentRaceSelected.startsWith("His")) {
+      returnHTML =
+        startTag + "Assessments for Hispanic women are subject to greater uncertainty than those for white and African American women." + endTag +
+        startTag + "Researchers are conducting additional studies, including studies with minority populations, to gather more data and to increase the accuracy of the tool for women in these populations. " + endTag
     }
     else if ( currentRaceSelected == 'American Indian or Alaskan Native') {
-      returnString = "Assessments for American Indian or Alaskan Native women are uncertain and based on data for white women."
+      returnHTML =
+        startTag + "Risk estimates for American Indian/Alaska Native women are based on data for white women; further studies are needed to refine and validate this tool." + endTag
     }
     else if ( currentRaceSelected == 'Unknown') {
-      returnString = "The risk assessment was based on data for white females."
+      returnHTML = startTag + "The risk assessment was based on data for white females." + endTag
     } else {
-      returnString = undefined
-    }
-
-    if ( returnString !== undefined ) {
-      returnHTML = '<p class="secondary_information">' + returnString + '</p>'
+      returnHTML = ""
     }
   }
 
   return returnHTML;
+}
+
+function addInformationToResultPageIntroductionText() {
+  var returnHTML = null;
+  var startTag = '<li data-dynamicallyAdded="true">'
+  var endTag = '</li>'
+
+  var currentRaceSelected = $("#race option:selected").text();
+
+  var returnString = ""
+  if ( currentRaceSelected.startsWith("His")) {
+    returnHTML =
+          startTag + "Assessments for Hispanas/Latinas are subject to greater uncertainty than those for white and African "     +
+                     "American women. Researchers are conducting additional studies, including studies with minority "           +
+                     "populations, to gather more data and to increase the accuracy of the tool for women in these populations." + endTag
+  }
+  else if ( currentRaceSelected == 'American Indian or Alaskan Native') {
+      returnHTML =
+          startTag +  "Risk estimates for American Indian/Alaska Native women are based on data for white women; " +
+                      "further studies " + " are needed to refine and validate this tool." + endTag
+  }
+
+  $("#results_home ul.content.resultsPageContent").append(returnHTML)
 }
