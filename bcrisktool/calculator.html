@@ -196,11 +196,11 @@
           <div id="questionAndAnswers1">
             <label class="questions no-margin-top">Does the woman have a medical history of any breast cancer or of ductal carcinoma in situ (DCIS) or lobular carcinoma in situ (LCIS) or has she received previous radiation therapy to the chest for treatment of Hodgkin lymphoma?</label>
             <div class="responseOptions">
-              <input id="cancerAndRadiationHistoryYes" type="radio" name="cancerAndRadiationHistory" value="0" >
+              <input id="cancerAndRadiationHistoryYes" type="radio" name="cancerAndRadiationHistory" value="0" required>
               <label class="radio" tabindex="0" for="cancerAndRadiationHistoryYes"><span></span>Yes</label>
             </div>
             <div class="responseOptions">
-              <input id="cancerAndRadiationHistoryNo" type="radio" name="cancerAndRadiationHistory" value="1" >
+              <input id="cancerAndRadiationHistoryNo" type="radio" name="cancerAndRadiationHistory" value="1" required>
               <label class="radio" tabindex="0" for="cancerAndRadiationHistoryNo"><span></span>No</label>
             </div>
           </div>
@@ -209,21 +209,22 @@
               Does the woman have a mutation in either the BRCA1 or BRCA2 gene, or a diagnosis of a genetic syndrome that may be associated with elevated risk of breast cancer?
             </label>
             <div class="responseOptions">
-              <input id="geneticMakeupYes" type="radio" name="geneticMakeup" value="0" >
+              <input id="geneticMakeupYes" type="radio" name="geneticMakeup" value="0" required>
               <label class="radio" tabindex="0" for="geneticMakeupYes"><span></span>Yes</label>
             </div>
             <div class="responseOptions">
-              <input id="geneticMakeupNo" type="radio" name="geneticMakeup" value="1" >
+              <input id="geneticMakeupNo" type="radio" name="geneticMakeup" value="1" required>
               <label class="radio" tabindex="0" for="geneticMakeupNo" ><span></span>No</label>
             </div>
             <div class="responseOptions">
-              <input id="geneticMakeupUnknown" type="radio" name="geneticMakeup" value="2" >
+              <input id="geneticMakeupUnknown" type="radio" name="geneticMakeup" value="2" required>
               <label class="radio" tabindex="0" for="geneticMakeupUnknown"><span></span>Unknown</label>
             </div>
           </div>
         </section>
         <h2 id="demographicsSectionTitle" class="sectionTitle">Demographics</h2>
         <section id="demographics-section">
+          <div>
           <label class="questions no-margin-top" for="age">What is the patient&#8217;s age?</label>
            <p class="questions_secondary">
               This tool calculates risk for women 35 years of age or older.</p>
@@ -285,7 +286,9 @@
                <option class="selectContent" value="85">85</option>
              </select>
            </div>
+          </div>
 
+           <div>
            <label class="questions" for="race">What is the patient&#8217;s race/ethnicity?</label>
             <div class="responseOptions">
               <select id="race" class="selectContent" name="race" required>
@@ -298,16 +301,19 @@
                 <option class="selectContent" value="Other">Unknown</option>
               </select>
             </div>
-
+           </div>
+           <div>
              <label class="col-sm-offset-1 questions" for="sub_race" data-subquestion="true" >What is the sub race/ethnicity or place of birth?</label>
              <div class="col-sm-offset-1 responseOptionsWithoutIndent pl-3">
                <select id="sub_race" class="selectContent" name="sub_race" required>
                   <option class="selectContent" value="">Select sub race/ethnicity or place of birth?</option>
               </select>
              </div>
+           </div>
         </section>
         <h2 id="PatientAndFamilyHistorySecitonTitle" class="sectionTitle">Patient &amp; Family History</h2>
         <section id="patient-and-family-history-section">
+            <div>
             <label class="questions no-margin-top">Has the woman ever had a breast biopsy?</label>
             <div class="responseOptions">
               <input id="biopsyAnswerYes" type="radio" name="biopsy" value="1" required>
@@ -321,7 +327,9 @@
               <input id="biopsyAnswerUnknown" type="radio" name="biopsy" value="99" required>
               <label class="radio" tabindex="0" for="biopsyAnswerUnknown"><span> </span>Unknown</label>
             </div>
+            </div>
 
+            <div>
             <label class="col-sm-offset-1 questions" data-subquestion="true">How many breast biopsies (positive or negative) has the woman had?</label>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
               <input id="breastBiopsiesCount1" type="radio" name="biopsy_result" value="1" required>
@@ -331,7 +339,9 @@
               <input id="breastBiopsiesCountLessThan0" type="radio" name="biopsy_result" value="2" required>
               <label class="radio" tabindex="0" for="breastBiopsiesCountLessThan0"><span> </span>&gt;1</label>
             </div>
+            </div>
 
+          <div>
             <label class="col-sm-offset-1 questions" data-subquestion="true">Has the woman had at least one breast biopsy with atypical hyperplasia?</label>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
               <input id="hadAhYes" type="radio" name="biopsy_ah" value="1.82" required>
@@ -345,7 +355,9 @@
               <input id="hadAhUnknown" type="radio" name="biopsy_ah" value="1.0" required>
               <label class="radio" tabindex="0" for="hadAhUnknown"><span> </span>Unknown</label>
             </div>
+          </div>
 
+          <div>
           <label class="questions">What was the woman&#8217;s age at the time of her first menstrual period?</label>
           <div class="responseOptions">
             <input id="age7To11" type="radio" name="age_period" value="2" required>
@@ -360,7 +372,9 @@
             <input id="ageGt14" type="radio" name="age_period" value="0" required>
             <label class="radio" tabindex="0" for="ageGt14"><span></span>Greater than or equal to 14</label>
           </div>
+          </div>
 
+          <div>
           <label class="questions" for="childbirth_age">What was the woman&#8217;s age at the time of her first live birth of a child?</label>
           <div class="responseOptions">
             <select id="childbirth_age" name="childbirth_age" required>
@@ -373,7 +387,9 @@
               <option class="selectContent" value="99">Unknown</option>
             </select>
           </div>
+          </div>
 
+          <div>
           <label class="questions">How many of the woman&#8217;s first-degree relatives (mothers, sisters, daughters) have had breast cancer?</label>
           <div class="responseOptions">
             <input id="relativesNone" type="radio" name="relatives" value="0" required>
@@ -391,12 +407,14 @@
             <input id="relativesUnknown" type="radio" name="relatives" value="99" required>
             <label class="radio" tabindex="0" for="relativesUnknown"><span></span>Unknown</label>
           </div>
+          </div>
+
         </section>
 
         <div class="center-block">
           <div id="buttons">
             <div class="col-xs-12">
-              <input class="center-block text-center spacerBetweenCalculateButtonAndResetButton" type="submit" id="calculate" disabled="disabled" value="Calculate Risk">
+              <input class="center-block text-center spacerBetweenCalculateButtonAndResetButton" type="submit" id="calculate" value="Calculate Risk">
               <input class="center-block text-center" id="reset" type="reset" value="Reset">
             </div>
           </div>

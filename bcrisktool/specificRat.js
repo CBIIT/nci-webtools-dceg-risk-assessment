@@ -14,7 +14,6 @@ $(function() {
   // specifcRat code would excecute before the generic ratCode.  The incorrect
   // assumption was the generic code would execute before the specific code
   // would execute
-  $("#riskForm").on("change", enableCalculateButton);
 
   $("#BreastCancerHealth").on("focusin", function() { moveElementIfCloseToBottom("#BreastCancerHealth") })
 
@@ -162,7 +161,7 @@ function attachOptionsToAnHTMLObject(optionsValuesAndText) {
 function disableIfPatientIsNotEligible() {
   var totalButtonsSelected = $("#patient-eligibility-section input:checked").length
   var totalButtonsWithYes = $("#patient-eligibility-section input[id$='Yes']:checked").length
-  if ( (totalButtonsSelected != 2) || (totalButtonsWithYes > 0) )
+  if ( totalButtonsWithYes > 0 )
     disablebutton()
 }
 
@@ -279,7 +278,8 @@ function resultsDisplay(response, textStatus, xhr) {
 
 /* The code that resets the form */
 function resetForm() {
-  genericResetForm()
+  genericResetForm();
+  genericResetValidator();
   enableQuestionAndAnswers();
   disableSubRaceMenu();
   resetsDropDowns();

@@ -795,7 +795,7 @@ function removeOutline(event) {
 //////////////////////////////////////////////////////////////////////////////
 function enableCalculateButton() {
 
-	 var inputs = $("form#riskForm input:enabled, form#riskForm select:enabled");
+	/* var inputs = $("form#riskForm input:enabled, form#riskForm select:enabled");
 	 valid=true
 
 	 inputs.each(function(index) {
@@ -814,7 +814,7 @@ function enableCalculateButton() {
 	 if(valid==true) enablebutton();
 
 	 $("select").on("select", redrawHTMLObject);
-	 $("select").on("change", redrawHTMLObject);
+	 $("select").on("change", redrawHTMLObject);*/
 
 
 }
@@ -826,7 +826,7 @@ function enableCalculateButton() {
 ///////////////////////////////////////////////////////////////////////////////
 function enableButtonIfAllFieldHaveInput()
 {
-	 var inputs = $("form#riskForm input:enabled, form#riskForm select:enabled");
+	 /*var inputs = $("form#riskForm input:enabled, form#riskForm select:enabled");
 	 valid=true
 
 	 inputs.each(function(index) {
@@ -840,7 +840,7 @@ function enableButtonIfAllFieldHaveInput()
 		 }
 	});
 
-	if(valid==true) enablebutton();
+	if(valid==true) enablebutton();*/
 
 }
 
@@ -1242,7 +1242,13 @@ function genericResetForm() {
 
 	$("form :input").attr('disabled', false);
 	$("[class*='questions']").css("color","#2e2e2e")
-	$("#calculate").attr("disabled", "disabled")
+	//$("#calculate").attr("disabled", "disabled")
+}
+
+function genericResetValidator() {
+
+  var validator = $('form').data('validator');
+  validator && validator.resetForm();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1432,7 +1438,35 @@ $(document).ready(function() {
 	$("#riskForm").validate({
 		ignore: ".skipValidate",
 		submitHandler: processSubmission,
+		errorPlacement: function(error,element) {
+		  error.appendTo($(element).parent().prevAll('label.questions:first'));
+		},
+		invalidHandler: function(form,validator) {
+		  var errors = validator.numberOfInvalids();
+		  if (errors) {
+		    var element = validator.errorList[0].element;
+		    var targetScroll = $(element).parent().prevAll('label.questions:first');
+		    $('html, body').animate({
+		      scrollTop: targetScroll.parent().offset().top - $('#form-steps').outerHeight() },1000);
+		  }
+		 },
+		 showErrors: function(errorMap,errorList) {
+		   if (errorList.length) {
+                var error = errorList.shift();
+                var newErrorList = [];
+                newErrorList.push(error);
+                this.errorList = newErrorList;
+                //var borderElement = $(error.element).parent().prevAll('label.questions:first');
+                //$(borderElement).parent().css('border','2px solid red');
+
+           }
+		   this.defaultShowErrors();
+		 }
 	});
+
+    jQuery.extend(jQuery.validator.messages, {
+        required: "&nbsp;* This is required"
+     });
 
 	// When the user is on the results page, this event will send the user back
 	// to the goto_calculatePage
