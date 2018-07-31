@@ -1366,6 +1366,34 @@ function enableQuestionAndAnswers(divId) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// Removes the error the message from Input that changed                      //
+//		Input: Information about the event.                                   //
+//                                                                            //
+// Problem with prevUntil : If the element that matches the selector is the   //
+// element directly above then nothing will returned and prev must be used    //
+////////////////////////////////////////////////////////////////////////////////
+function removeErrorMessage(event) {
+	console.log("In remove error message ")
+	console.log("This = " + $(this).html())
+	//console.log("prev = " + $(this).parent().prevUntil("label.questions").prev().html())
+	//console.log("children =  " + $(this).parent().prevUntil("label.questions").prev().children().html())
+	//$(this).parent().prevUntil("label.questions").prev().children().remove()
+	
+	var getParent = $(this).parent()
+	console.log("getParent is " + getParent)
+	var question = $(getParent).prevUntil("label.questions").prev()
+	console.log("length of question is " + question.length)
+	console.log("question is " + question )
+	if ( question.length == 0 ) question = $(getParent).prev()
+	console.log("length of question is " + question.length)
+	console.log("question is " + question )
+	
+
+	$(question).children().remove()
+	console.log("-----------------")
+}
+
+////////////////////////////////////////////////////////////////////////////////
 // Startup Code
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -1470,8 +1498,15 @@ $(document).ready(function() {
 
            }
 		   this.defaultShowErrors();
-		 }
+		 },
+
+		 //rules: {
+			// age: { required: true }
+		//}
 	});
+
+	$("select").change(removeErrorMessage)
+
 
     jQuery.extend(jQuery.validator.messages, {
         required: "&nbsp;* This is required"

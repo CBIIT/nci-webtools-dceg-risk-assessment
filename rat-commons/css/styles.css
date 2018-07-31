@@ -884,18 +884,7 @@ input:disabled[type="radio"] + label.radio span {
   background-repeat: no-repeat;
   cursor: not-allowed;
 }
-select.error,
-input.error {
-  border-color: #bb0e3d;
-}
-select.error + label.radio,
-input.error + label.radio {
-  color: #bb0e3d;
-}
-select.error + label.radio span,
-input.error + label.radio span {
-  border-color: #bb0e3d;
-}
+
 .footer {
   background-color: #235e88;
   line-height: 4;
