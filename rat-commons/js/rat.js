@@ -1251,7 +1251,6 @@ function genericResetForm() {
 
 	$("form :input").attr('disabled', false);
 	$("[class*='questions']").css("color","#2e2e2e")
-	//$("#calculate").attr("disabled", "disabled")
 }
 
 function genericResetValidator() {
@@ -1373,24 +1372,15 @@ function enableQuestionAndAnswers(divId) {
 // element directly above then nothing will returned and prev must be used    //
 ////////////////////////////////////////////////////////////////////////////////
 function removeErrorMessage(event) {
-	console.log("In remove error message ")
-	console.log("This = " + $(this).html())
-	//console.log("prev = " + $(this).parent().prevUntil("label.questions").prev().html())
-	//console.log("children =  " + $(this).parent().prevUntil("label.questions").prev().children().html())
-	//$(this).parent().prevUntil("label.questions").prev().children().remove()
-	
-	var getParent = $(this).parent()
-	console.log("getParent is " + getParent)
+	console.log("Chucks Mistake")	
+	var getParent = $(event.target).parent()
 	var question = $(getParent).prevUntil("label.questions").prev()
-	console.log("length of question is " + question.length)
-	console.log("question is " + question )
 	if ( question.length == 0 ) question = $(getParent).prev()
-	console.log("length of question is " + question.length)
-	console.log("question is " + question )
-	
 
 	$(question).children().remove()
-	console.log("-----------------")
+
+	$(question).parent().removeClass("borderError");
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1473,6 +1463,7 @@ $(document).ready(function() {
 	});
 
 	$("#riskForm").validate({
+		debug: true,
 		ignore: ".skipValidate",
 		submitHandler: processSubmission,
 		errorPlacement: function(error,element) {
@@ -1493,19 +1484,26 @@ $(document).ready(function() {
                 var newErrorList = [];
                 newErrorList.push(error);
                 this.errorList = newErrorList;
-                //var borderElement = $(error.element).parent().prevAll('label.questions:first');
-                //$(borderElement).parent().css('border','2px solid red');
-
-           }
-		   this.defaultShowErrors();
+				$(error.element).parent().prevAll('label.questions:first').parent().addClass("borderError");
+		   }
+		   else if ( errorList.length == 0 ) {
+			$(".borderError").removeClass("borderError")
+		   }
+		   this.defaultShowErrors(); 
 		 },
 
-		 //rules: {
-			// age: { required: true }
-		//}
+	    onclick: function(element, event) {
+			 if ( $(event.currentTarget).is("select"))
+				 return false;
+			 else 
+				 $(element).valid() 
+		} 
+
+
 	});
 
 	$("select").change(removeErrorMessage)
+
 
 
     jQuery.extend(jQuery.validator.messages, {

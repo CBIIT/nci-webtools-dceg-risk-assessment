@@ -681,8 +681,8 @@ div[id^='results_graph'] {
 label.questions {
   font-weight: 700;
   color: #2e2e2e;
-  margin-top: 50px;
-  margin-bottom: 26px;
+  /* margin-top: 50px; */
+  /* margin-bottom: 26px; */
   font-size: 16px;
   font-family: "Noto Sans";
   line-height: 22px;
@@ -698,11 +698,11 @@ label.questions {
   font-family: Montserrat;
   font-size: 16px;
   margin-left: 1em;
-  //margin-top: 16px;
+  /* margin-top: 16px; */
   line-height: 19px;
   /* Needed since display=inline-block increases the height of the label */
   /* this code will shrink it                                            */
-  //height: 22px;
+  /* height: 22px;                                                       */
 }
 
 .checkbox, .radio {
@@ -715,12 +715,12 @@ label.questions {
   font-weight: normal;
   font-family: Montserrat;
   font-size: 16px;
-  margin-top: 16px;
+  /* margin-top: 16px; */
   line-height: 19px;
 
   /* Needed since display=inline-block increases the height of the label */
   /* this code will shrink it                                            */
-  height: 22px;
+  /* height: 22px;                                                       */
 }
 
 /* I admit that I messed up here. I should have had .responseOptionsText and use some other */
@@ -905,7 +905,7 @@ input:disabled[type="radio"] + label.radio span {
   margin-bottom: 20px;
   border: 0;
   border-top: 2px dotted #868686;
-  margin-top: 0;©
+  margin-top: 0;
 }
 .modal-body {
   overflow-y: hidden;
@@ -1682,3 +1682,24 @@ section > fieldset > legend.questions {
   padding-right: 0;
   list-style-type: disc;
 }
+
+/* The border that goes around the question and answer of an error           */
+.borderError {
+  border: 2px solid red;
+  padding: 5px;
+}
+
+/* Space between questions */
+.spaceBetweenQuestions {
+  margin-top: 50px;
+}
+
+/* Space Between Border and Question/Answer */
+.spaceBetweenQuestionAnswerAndBorder {
+  padding-bottom: 3px;
+}
+
+.spaceBetweenFirstQuestionAndResponse {
+  margin-top: 1em;
+}
+

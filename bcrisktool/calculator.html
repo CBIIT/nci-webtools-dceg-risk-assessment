@@ -198,7 +198,7 @@
         <section id="patient-eligibility-section">
           <div id="questionAndAnswers1">
             <label class="questions no-margin-top">Does the woman have a medical history of any breast cancer or of ductal carcinoma in situ (DCIS) or lobular carcinoma in situ (LCIS) or has she received previous radiation therapy to the chest for treatment of Hodgkin lymphoma?</label>
-            <div class="responseOptions">
+            <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
               <input id="cancerAndRadiationHistoryYes" type="radio" name="cancerAndRadiationHistory" value="0" required>
               <label class="radio" tabindex="0" for="cancerAndRadiationHistoryYes"><span></span>Yes</label>
             </div>
@@ -207,11 +207,11 @@
               <label class="radio" tabindex="0" for="cancerAndRadiationHistoryNo"><span></span>No</label>
             </div>
           </div>
-          <div id="questionAndAnswers2">
+          <div id="questionAndAnswers2" class="spaceBetweenQuestions">
             <label class="questions">
               Does the woman have a mutation in either the BRCA1 or BRCA2 gene, or a diagnosis of a genetic syndrome that may be associated with elevated risk of breast cancer?
             </label>
-            <div class="responseOptions">
+            <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
               <input id="geneticMakeupYes" type="radio" name="geneticMakeup" value="0" required>
               <label class="radio" tabindex="0" for="geneticMakeupYes"><span></span>Yes</label>
             </div>
@@ -227,11 +227,11 @@
         </section>
         <h2 id="demographicsSectionTitle" class="sectionTitle">Demographics</h2>
         <section id="demographics-section">
-          <div>
+          <div class="spaceBetweenQuestionAnswerAndBorder">
           <label class="questions no-margin-top" for="age">What is the patient&#8217;s age?</label>
            <p class="questions_secondary">
-              This tool clates risk for women between the ages of 35 and 85.</p>
-           <div class="responseOptions">
+              This tool calculates risk for women between the ages of 35 and 85.</p>
+           <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
              <select id="age" class="selectContent" name="age" required>
                <option class="selectContent" value="">Select age</option>
                <option class="selectContent" value="35">35</option>
@@ -291,9 +291,9 @@
            </div>
           </div>
 
-           <div>
-            <label class="questions" for="race">What is the patient&#8217;s race/ethnicity?</label>
-            <div class="responseOptions">
+           <div class="spaceBetweenQuestions spaceBetweenQuestionAnswerAndBorder">
+            <label class="questions " for="race">What is the patient&#8217;s race/ethnicity?</label>
+            <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
               <select id="race" class="selectContent" name="race" required>
                 <option class="selectContent" value="">Select Race</option>
                 <option class="selectContent" value="White">White</option>
@@ -305,7 +305,7 @@
               </select>
             </div>
            </div>
-           <div>
+           <div class="spaceBetweenQuestions spaceBetweenQuestionAnswerAndBorder">
              <label class="col-sm-offset-1 questions" for="sub_race" data-subquestion="true" >What is the sub race/ethnicity or place of birth?</label>
              <div class="col-sm-offset-1 responseOptionsWithoutIndent pl-3">
                <select id="sub_race" class="selectContent" name="sub_race" required>
@@ -316,9 +316,9 @@
         </section>
         <h2 id="PatientAndFamilyHistorySecitonTitle" class="sectionTitle">Patient &amp; Family History</h2>
         <section id="patient-and-family-history-section">
-            <div>
+            <div >
             <label class="questions no-margin-top">Has the woman ever had a breast biopsy?</label>
-            <div class="responseOptions">
+            <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
               <input id="biopsyAnswerYes" type="radio" name="biopsy" value="1" required>
               <label class="radio" tabindex="0" for="biopsyAnswerYes"><span> </span>Yes</label>
             </div>
@@ -332,9 +332,9 @@
             </div>
             </div>
 
-            <div>
-            <label class="col-sm-offset-1 questions" data-subquestion="true">How many breast biopsies (positive or negative) has the woman had?</label>
-            <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
+            <div class="spaceBetweenQuestions">
+            <label class="col-sm-offset-1 questions " data-subquestion="true">How many breast biopsies (positive or negative) has the woman had?</label>
+            <div class="responseOptionsWithoutIndent col-sm-offset-1 spaceBetweenFirstQuestionAndResponse pl-3">
               <input id="breastBiopsiesCount1" type="radio" name="biopsy_result" value="1" required>
               <label class="radio" tabindex="0" for="breastBiopsiesCount1"><span> </span>1</label>
             </div>
@@ -344,9 +344,9 @@
             </div>
             </div>
 
-          <div>
-            <label class="col-sm-offset-1 questions" data-subquestion="true">Has the woman ever had a breast biopsy with atypical hyperplasia?</label>
-            <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
+          <div class="spaceBetweenQuestions">
+            <label class="col-sm-offset-1 questions " data-subquestion="true">Has the woman ever had a breast biopsy with atypical hyperplasia?</label>
+            <div class="responseOptionsWithoutIndent col-sm-offset-1 spaceBetweenFirstQuestionAndResponse pl-3">
               <input id="hadAhYes" type="radio" name="biopsy_ah" value="1.82" required>
               <label class="radio" tabindex="0" for="hadAhYes"><span> </span>Yes</label>
             </div>
@@ -360,26 +360,26 @@
             </div>
           </div>
 
-          <div>
-          <label class="questions">What was the woman&#8217;s age at the time of her first menstrual period?</label>
-          <div class="responseOptions">
-            <input id="age7To11" type="radio" name="age_period" value="2" required>
-            <label class="radio" tabindex="0" for="age7To11"><span></span>7 to 11</label>
-          </div>
+          <div class="spaceBetweenQuestions">
+            <label class="questions  ">What was the woman&#8217;s age at the time of her first menstrual period?</label>
+            <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
+              <input id="age7To11" type="radio" name="age_period" value="2" required>
+              <label class="radio" tabindex="0" for="age7To11"><span></span>7 to 11</label>
+            </div>
 
-          <div class="responseOptions" >
-            <input id="age12To13" type="radio" name="age_period" value="1" required>
-            <label class="radio" tabindex="0" for="age12To13" ><span></span>12 to 13</label>
-          </div>
-          <div class="responseOptions">
-            <input id="ageGt14" type="radio" name="age_period" value="0" required>
-            <label class="radio" tabindex="0" for="ageGt14"><span></span>14 or older</label>
-          </div>
-          </div>
-
-          <div>
-            <label class="questions" for="childbirth_age">What was the woman&#8217;s age when she gave birth to her first child? </label>
+            <div class="responseOptions" >
+              <input id="age12To13" type="radio" name="age_period" value="1" required>
+              <label class="radio" tabindex="0" for="age12To13" ><span></span>12 to 13</label>
+            </div>
             <div class="responseOptions">
+              <input id="ageGt14" type="radio" name="age_period" value="0" required>
+              <label class="radio" tabindex="0" for="ageGt14"><span></span>14 or older</label>
+            </div>
+          </div>
+
+          <div class="spaceBetweenQuestions spaceBetweenQuestionAnswerAndBorder">
+            <label class="questions" for="childbirth_age">What was the woman&#8217;s age when she gave birth to her first child? </label>
+            <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
               <select id="childbirth_age" name="childbirth_age" class="selectContent" required>
                 <option class="selectContent" value="">Select</option>
                 <option class="selectContent" value="98">No Births</option>
@@ -392,9 +392,9 @@
             </div>
           </div>
 
-          <div>
-            <label class="questions">How many of the woman&#8217;s first-degree relatives (mother, sisters, daughters) have had breast cancer?</label>
-            <div class="responseOptions">
+          <div class="spaceBetweenQuestions">
+            <label class="questions ">How many of the woman&#8217;s first-degree relatives (mother, sisters, daughters) have had breast cancer?</label>
+            <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
               <input id="relativesNone" type="radio" name="relatives" value="0" required>
               <label class="radio" tabindex="0" for="relativesNone"><span></span>None</label>
             </div>
