@@ -174,11 +174,8 @@ function enableBRATForm() {
   changeSubraceMenu();
 
   if ( $("[name='biopsy']:checked").val() == 1 ) enableQuestionAndAnswers();
-
-  enableButtonIfAllFieldHaveInput();
-  //disablebutton();
-  disableIfPatientIsNotEligible()
-}
+    disableIfPatientIsNotEligible()
+  }
 
 // Function : Determine if the woman every had a biopsy and disable certain
 // questions if the answer was no

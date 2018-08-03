@@ -675,24 +675,6 @@ $(function() {
 	})
 })
 
-/*****************************************************************************/
-/* Enables the Calculate Button                                              */
-/* Todo: Change the name to enableCalculateButton                            */
-/*****************************************************************************/
-function enablebutton(){
-	$("#calculate").attr('disabled', false);
-	$("#calculate").removeClass("#calculate:disabled")
-}
-
-/******************************************************************************/
-/* Disables the Calculate Button                                              */
-/* TODO : Change the name to disableCalculateButton                           */
-/******************************************************************************/
-function disablebutton(){
-	$("#calculate").attr('disabled', true);
-	$("#caclulate").addClass("#calculate:disabled")
-}
-
 /******************************************************************************/
 /* Is the device a mobile tablet.  See isMobile for comments                  */
 /******************************************************************************/
@@ -797,60 +779,6 @@ function focusBorderToggle(event) {
 function removeOutline(event) {
 	$(event.target).addClass("removeOutline");
 	$(event.target).removeClass("addOutline");
-}
-
-///////////////////////////////////////////////////////////////////////////////
-// Enable the Caluclate Button if all non disabled inputs have a value
-//////////////////////////////////////////////////////////////////////////////
-function enableCalculateButton() {
-
-	/* var inputs = $("form#riskForm input:enabled, form#riskForm select:enabled");
-	 valid=true
-
-	 inputs.each(function(index) {
-			 var input = $(this);
-			 if(input[0].required==true){
-				 name=input[0].name
-				 if( ($('input[name='  +  name +']').is('input[type="number"]')  && $('input[name=' + name + ']').val().length == 0 ) ||
-					 ($('input[name='  +  name +']').is('input[type="radio"]')  && $('input[name=' + name + ']:checked').length==0) ||
-			 		 ($('select[name=' +  name +']').is('select') && input[0].selectedIndex==0)){
-						disablebutton()
-						valid=false
-					 }
-			 }
-	 });
-
-	 if(valid==true) enablebutton();
-
-	 $("select").on("select", redrawHTMLObject);
-	 $("select").on("change", redrawHTMLObject);*/
-
-
-}
-
-
-//////////////////////////////////////////////////////////////////////////////
-// Determine if the calculation button should be enabled.  If all the input  //
-// fields that are enabled have a value then enable the calculate button     //
-///////////////////////////////////////////////////////////////////////////////
-function enableButtonIfAllFieldHaveInput()
-{
-	 /*var inputs = $("form#riskForm input:enabled, form#riskForm select:enabled");
-	 valid=true
-
-	 inputs.each(function(index) {
-		var input = $(this);
-		if(input[0].required==true){
-			 name=input[0].name
-			 if(($('input[name=' + name +']').is('input') && $('input[name=' + name + ']:checked').length==0) || ($('select[name=' + name +']').is('select') && input[0].selectedIndex==0)){
-				disablebutton()
-			 	valid=false
-		 	 }
-		 }
-	});
-
-	if(valid==true) enablebutton();*/
-
 }
 
 /******************************************************************************/
@@ -1463,7 +1391,6 @@ $(document).ready(function() {
 	});
 
 	$("#riskForm").validate({
-		debug: true,
 		ignore: ".skipValidate",
 		submitHandler: processSubmission,
 		errorPlacement: function(error,element) {
@@ -1650,8 +1577,8 @@ $(window).load(function(e) {
 
 	// Due to the way this was written, when we click on a link to jump to a      //
 	// a section then the section goes past the viewable area and some of it is   //
-	// cut off.  The Plan is to scroll each secit0on to where the Main Title      //
-	// origanally was placed and scrool to there
+	// cut off.  The Plan is to scroll each seciton to where the Main Title      //
+	// origanally was placed and scrooll to there
 	if ( $("#mainAboutTitle").length == 1 && isMobile() == true ) {
 		$("#jumpTitle").attr('data-x-coord-to-jump-to', $("#mainAboutTitle").offset().top)
 		$("#jumpTitle").on("click", "a", function(event) { jumpToSection(event); })

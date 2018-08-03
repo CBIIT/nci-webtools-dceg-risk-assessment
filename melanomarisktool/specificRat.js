@@ -44,20 +44,13 @@ $(function() {
 	$('#riskForm').trigger('change');
 
 	// Enables the First Question only and disable the Command Button.
-	//
-	// Since the enableCalculateButton() does not check for the case where the
-	// number of enabled inputs is 0.  If the number of enabled input are 0 then
-	// all the questions have been answered, so the Calculate Button would be
-	// green. I decided to fix it here since I do not want to change rat.js
-	// this late in the task unless I need to.
-	//
 	$("#okButtonRace").on("click", function() {
-    enableQuestionAndAnswers($("#questionAndAnswers1").attr("id"))
-  })
+    	enableQuestionAndAnswers($("#questionAndAnswers1").attr("id"))
+  	})
 
 	$("#okButtonRace").on("click", function() {
 		disablebutton()
-  })
+	})
 
 	$("termAndConditionsPge").removeClass("show")
 
@@ -144,18 +137,6 @@ function go_toTermsAndConditions() {
 function go_toAboutPage() {
 	$("#mainAboutPage").addClass("show")
 	$("#termAndConditionsPage").removeClass("show")
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// Rules : When the user has not selected a male or female then the calculate
-// button should always be disabled, but when the user has selected male or
-// female then the calculate should follow the normal rat rules ( all inputs
-// question must have an answer unless they are disabled).
-////////////////////////////////////////////////////////////////////////////////
-function allowCalculate() {
-	  if ( $("input[name='gender']:checked").val() !== undefined ) {
-			$("#riskForm").on("change", enableCalculateButton);
-		}
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -338,14 +319,9 @@ function enableMap() {
 
 /* Resets the form back to default look and values that it contains           */
 function resetForm() {
-  genericResetForm()
+	genericResetForm()
 	enableMap();
-  enableSectionHeaders();
-
-	// Remove the capability for the application to make the calculate button
-	// enabled.  The calculate button can never be enabled until male or female
-	// has been selected`
-	$("#riskForm").unbind("change", enableCalculateButton);
+	enableSectionHeaders();
 
 	// Make the section skin, exam section invisible.
 	$("#skin-section").addClass("no_display")
@@ -390,7 +366,6 @@ function resetForm() {
  function enableMRATForm() {
 	 enableForm();
 	 enableMap();
-	 enableCalculateButton();
 
 	 $("[class*='pictureText']").addClass("pictureTextEnabledColor")
 	 $("[class*='pictureText']").removeClass("pictureTextDisabledColor")

@@ -28,14 +28,6 @@ $(function() {
         validateNumericAndDisplayErrorMessage($(this), "weightModal")
     })
 
-    // Any time the form changes check all necessary (enabled) input have an answer
-    //
-    // Moved the add event here because originally when debugging the code the
-    // specifcRat code would excecute before the generic ratCode.  The incoorect
-    // assumption was the generic code would execute and then the specific code
-    // would execute
-    $("#riskForm").on("change", enableCalculateButton);
-
     // Disables the form if the race is Hispanic or Latino then display some
     // information and disble the form.
     $("input[name='hispanic']").on("click", function(event) {
@@ -66,9 +58,7 @@ $(function() {
     $("#inch-notice").on("click",                   enableCRATForm)
     $("#weight-notice").on("click",                 enableCRATForm)
 
-    // Each time the gender is toggle the form should determine if the calculate button should be enabled */
     $("[name='gender']").on("change",          toggleGender);
-    $("[name='gender']").on("change",          enableCalculateButton);
 
     // For Diet and Activity Section if the user select no servings disable the amont per serving
     $("#veg_servings").on("change",                 adjustAmountPerServingBasedOnServings)
@@ -313,7 +303,6 @@ function enableCRATGenericForm() {
     if ( $("[name='race']:checked") != "" ) setHispanicQuestionToNo()
 
     // Enable Buttons if all inputs are valid
-    enableCalculateButton()
     if ( disableIfHeightOrWeightAreInvalid() ) disablebutton()
 
 }
