@@ -1161,6 +1161,11 @@ input:disabled[type="radio"] + label.radio span {
 
 /* This section will handle the styling for the smaller screens              */
 @media( max-width: 480px) {
+
+  .raceDivWidth {
+    width: 307px;
+  }
+
   #race {
     width: 302px;
   }
