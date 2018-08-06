@@ -1677,7 +1677,7 @@ section > fieldset > legend.questions {
   align-items: center;
 }
 
-/* Code to style a list item as a filled circle.  This style was implenented  */
+/* Code to style a list item as a filled circle.  This style was implemented  */
 /* because the spec has list 1,2,3, followed by two dark circles instead of   */
 /* numbers.  The development team thought it was a mistake and we numbered    */
 /* all the items instead 07-29-2017.  If this code is not being used it may   */
@@ -1706,5 +1706,9 @@ section > fieldset > legend.questions {
 
 .spaceBetweenFirstQuestionAndResponse {
   margin-top: 1em;
+}
+
+.remove_bullet {
+    list-style: none;
 }
 
