@@ -833,9 +833,11 @@ function displayHelpWindow() {
 
 /******************************************************************************/
 /* Does the Form Steps HTML Object Exist and are they visible.  If they are   */
-/* then they technically do not exist since the user cannot see them.         */
+/* not visible then they technically do not exist since the user cannot see   */
+/* them.                                                                      */
 /******************************************************************************/
 function existFormSteps() {
+	//console.log("Form Steps : " + $("#form-steps:visible").length)
 	return ( $("#form-steps:visible").length > 0 );
 }
 
@@ -1307,7 +1309,8 @@ function removeErrorMessage(event) {
 
 	$(question).children().remove()
 
-	$(question).parent().removeClass("borderError");
+	var objectWithBorder = $(question).parent() 
+	if ( objectWithBorder ) $(objectWithBorder).removeClass("borderError");
 
 }
 
@@ -1413,17 +1416,17 @@ $(document).ready(function() {
                 this.errorList = newErrorList;
 				$(error.element).parent().prevAll('label.questions:first').parent().addClass("borderError");
 		   }
-		   else if ( errorList.length == 0 ) {
-			$(".borderError").removeClass("borderError")
-		   }
 		   this.defaultShowErrors(); 
 		 },
 
 	    onclick: function(element, event) {
-			 if ( $(event.currentTarget).is("select"))
+			 if ( $(event.currentTarget).is("select")) {
 				 return false;
-			 else 
-				 $(element).valid() 
+			 } else { 
+				if ( $(element).valid() ) {
+					$(element).parent().prevAll('label.questions:first').parent().removeClass("borderError")
+				}
+			 }
 		} 
 
 
@@ -1470,7 +1473,7 @@ $(window).load(function(e) {
 		// }
 		// else {
 		// 	if(e.type == "keypress") {
-		// 		if ((e.keyCode == 13) || (e.keyCode == 32)){
+		// 		if ((e.keyCode == 13) 142| (e.keyCode == 32)){
 		// 			$(e.target).children(".radio").prev().trigger('click');
 		// 		}
 		// 	}

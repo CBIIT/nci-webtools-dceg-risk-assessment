@@ -297,7 +297,7 @@
               This tool calculates risk for men and women 50 to 85 years of age.
             </p>
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-              <select id="age" name="age" placeholder="Enter patient's age" required>
+              <select id="age" name="age" placeholder="Enter patient's age" class="selectContent" required>
                 <option value="">Select Age</option>
                 <option value="50">50</option>
                 <option value="51">51</option>
@@ -354,36 +354,21 @@
           </div>
 
           <div class="spaceBetweenQuestions">
-            <label id="heightWeightLbsQuestion" class="question">What is the patient&apos;s height and weight without shoes?</label>
-            <div class="row">
-              <div class="col-xs-12 col-sm-4">
-                <div class="responseOptions  spaceBetweenFirstQuestionAndResponse">
-                  <input class="numberField skipValidate" type="number" name="height_ft" min="2" max="17" aria-label="height feet" required
-                    tabindex="0" />
-                  <span>
-                    ft.
-                  </span>
-                </div>
+              <label id="heightWeightLbsQuestion" class="questions">What is the patient&apos;s height and weight without shoes?</label>
+              <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
+                <input class="numberField " type="number" name="height_ft" min="2" max="17" aria-label="height feet" required tabindex="0" />
+                <span class="numberEntryMarginRight">
+                  ft.
+                </span>
+                <input class="numberField" type="number" name="height_in" min="0" max="11" aria-label="height inches" required tabindex="0" />
+                <span class="numberEntryMarginRight">
+                  in.
+                </span>
+                <input class="numberField" type="number" name="weight" min="50" max="700" aria-label="weight in pounds" required tabindex="0" />
+                <span>
+                  lbs.
+                </span>
               </div>
-              <div class="col-xs-12 col-sm-4">
-                <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-                  <input class="numberField skipValidate" type="number" name="height_in" min="0" max="11" aria-label="height inches" required
-                    tabindex="0" />
-                  <span>
-                    in.
-                  </span>
-                </div>
-              </div>
-              <div class="col-xs-12 col-sm-4">
-                <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-                  <input class="numberField skipValidate" type="number" name="weight" min="50" max="700" aria-label="weight in pounds" required
-                    tabindex="0" />
-                  <span>
-                    lbs.
-                  </span>
-                </div>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -401,7 +386,7 @@
               <b>Does not include</b> fried vegetables like French fries or fried potatoes.
             </p>
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-              <select id="veg_servings" name="veg_servings" required>
+              <select id="veg_servings" name="veg_servings" class="selectContent" required>
                 <option value="">- select -</option>
                 <option value="0">None</option>
                 <option value=".5">Less than 1 serving per week</option>
@@ -417,7 +402,7 @@
           <div class="spaceBetweenQuestions">
             <label class="col-sm-offset-1 questions" data-subquestion="true" for="veg_amount">In the last month, how much did the patient usually eat in each serving of vegetables or leafy green salads?</label>
             <div class="responseOptionsWithoutIndent spaceBetweenFirstQuestionAndResponse col-sm-offset-1 pl-3">
-              <select id="veg_amount" name="veg_amount" required>
+              <select id="veg_amount" name="veg_amount" class="selectContent" required>
                 <option value="">- select -</option>
                 <option value=".25">1/2 cup or less</option>
                 <option value="1">Between 1/2 cup and 1 1/2 cups</option>
@@ -435,7 +420,7 @@
               for exercise, and so on.
             </p>
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-              <select id="moderate_months" name="moderate_months" required>
+              <select id="moderate_months" name="moderate_months" class="selectContent" required>
                 <option value="">- select -</option>
                 <option value="0">0</option>
                 <option value="1">1</option>
@@ -457,7 +442,7 @@
           <div class="spaceBetweenQuestions">
             <label class="col-sm-offset-1 questions" data-subquestion="true" for="moderate_hours">During those months, on average, about how many hours per week did the patient do moderate physical activities?</label>
             <div class="responseOptionsWithoutIndent spaceBetweenFirstQuestionAndResponse col-sm-offset-1 pl-3 ">
-              <select id="moderate_hours" name="moderate_hours" required>
+              <select id="moderate_hours" name="moderate_hours" class="selectContent" required>
                 <option value="">-select-</option>
                 <option value="0.5">Up to 1 hour per week</option>
                 <option value="1.5">Between 1-2 hours per week</option>
@@ -476,7 +461,7 @@
               labor such as shoveling dirt.
             </p>
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-              <select id="vigorous_months" name="vigorous_months" required>
+              <select id="vigorous_months" name="vigorous_months" class="selectContent" required>
                 <option value="">- select -</option>
                 <option value="0">0</option>
                 <option value="1">1</option>
@@ -498,7 +483,7 @@
           <div class="spaceBetweenQuestions">
             <label class="col-sm-offset-1 questions" for="vigorous_hours" data-subquestion="true">During those months, on average, about how many hours per week did the patient do vigorous physical activities?</label>
             <div class="responseOptionsWithoutIndent spaceBetweenFirstQuestionAndResponse col-sm-offset-1 pl-3">
-              <select id="vigorous_hours" name="vigorous_hours" required>
+              <select id="vigorous_hours" name="vigorous_hours" class="selectContent" required>
                 <option value="">-select-</option>
                 <option value=".5">Up to 1 hour per week</option>
                 <option value="1.5">Between 1-2 hours per week</option>
@@ -640,7 +625,7 @@
           <div class="female spaceBetweenQuestions">
             <label class="col-sm-offset-1 questions" data-subquestion="true" for="last_period">When did the patient have her last period</label>
             <div class="responseOptionsWithoutIndent spaceBetweenFirstQuestionAndResponse col-sm-offset-1 pl-3">
-              <select id="last_period" name="last_period">
+              <select id="last_period" name="last_period" class="selectContent">
                 <option value="">- Select -</option>
                 <option value="0">Within the last year</option>
                 <option value="1">Between 1 and 2 years ago</option>
@@ -820,7 +805,7 @@
                 last time the patient quit smoking completely.
               </p>
               <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-                <select id="smoke_quit" name="smoke_quit" required>
+                <select id="smoke_quit" name="smoke_quit" class="selectContent" required>
                 </select>
               </div>
             </div>
@@ -830,7 +815,7 @@
               <label class="questions" data-subSubQuestion="true" for="cigarettes_num">Thinking back over the years when the patient have smoked regularly, about how many cigarettes has the patient
                 usually smoked a day?</label>
               <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-                <select id="cigarettes_num" name="cigarettes_num" required>
+                <select id="cigarettes_num" name="cigarettes_num" class="selectContent" required>
                   <option value="">-select-</option>
                   <option value="0">0 Cigarettes a day</option>
                   <option value="1">1 to 10 Cigarettes a day</option>

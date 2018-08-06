@@ -36,9 +36,11 @@ $(function() {
    	    } else {
             $("#riskForm").trigger("change")
             enableRaceQuestion()
-            clearAnswerToHispanicYes()
         }
     })
+
+    $("#age").change(removeErrorMessage)
+ 
 
     $("[name='race']").not("[value='White']").on("click", function(event) {
 
@@ -111,7 +113,7 @@ $(function() {
 
     // While the user is typing the data inside the textbox enables/disable the
     // calculate buton if all the inputs are valid/invalid
-    $("input[type=number]").bind('keyup input', function() {
+    /*$("input[type=number]").bind('keyup input', function() {
         if ( disableIfHeightOrWeightAreInvalid() == true ) {
             disablebutton()
         }
@@ -119,6 +121,7 @@ $(function() {
             enableCalculateButton()
         }
     });
+    */
 
     if ( $("#maleGender").length > 0 ) {
         toggleGender($("#maleGender"))
@@ -151,8 +154,8 @@ $(function() {
 
 /* Sets the "Is the patient Hispanic or Latino?" Question to no */
 function setHispanicQuestionToNo() {
-    $("#hispanicNo").trigger("click")
     $("#hispanicNo").prop("checked", true)
+    $("#hispanicNo").trigger("click")
 }
 
 /* A function that will set the correct race for the #raceValue and correct callback for the OK Button */
@@ -228,7 +231,7 @@ function enableCRATForm() {
         disableRaceQuestion()
     else {
         enableRaceQuestion()
-        clearAnswerToHispanicYes()
+        //clearAnswerToHispanicYes()
     }
 }
 
@@ -295,15 +298,11 @@ function enableCRATGenericForm() {
 
     }
 
-    // If the race is not hispnaic then make sure that the No for the queistion :
+    // If the race is not hispnaic then make sure that the No for the question :
     // "Is the patient Hispanic or Latino is marked as No".  Since when user causes
     // the dialog to appear for race the answer to the answer to the
     // "Is the patient Hispanic" or Latino question will disappear
-    var hispanicNoRadioButton = $("[name='hispanic']:checked")
     if ( $("[name='race']:checked") != "" ) setHispanicQuestionToNo()
-
-    // Enable Buttons if all inputs are valid
-    if ( disableIfHeightOrWeightAreInvalid() ) disablebutton()
 
 }
 

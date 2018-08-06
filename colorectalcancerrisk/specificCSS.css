@@ -24,7 +24,6 @@
 
   #AssessPatientRisk {
     margin: 0 0 10px;
-    /* transform: translate(0, 120%); */
   }
 }
 
@@ -39,10 +38,19 @@
   }
 
   #AssessPatientRisk {
-    /* margin-top: 1em;
-    margin-bottom: 1em; */
     margin: 0 0 10px;
-    /* transform: none; */
+  }
+
+}
+
+@media(min-width: 769px ) {
+
+  .numberEntryMarginRight {
+    margin-right: 20%;
+  }
+
+  .numberEntryNoTextWrap {
+    white-space: no-wrap;
   }
 
 }
@@ -62,6 +70,15 @@
     #main_home > div > div:nth-child(4) > div > p:nth-child(1) {
       margin-top: 1em;
     }
+
+    .numberEntryMarginRight {
+      margin-right: 100%;
+    }
+
+    input[name='height_ft'],
+    input[name='height_in'] {
+      margin-bottom: 10px;
+    }
 }
 
 @media (max-width: 540px ) {
@@ -75,9 +92,6 @@
         min-width: 1%;
     }
 
-    #form-steps.fixed {
-       /* width: 97%; */
-    }
 
     header #toolTitle {
         padding-right: 16px;
@@ -132,3 +146,5 @@
 #includesVegatables {
     margin-bottom: 0px;
 }
+
+
