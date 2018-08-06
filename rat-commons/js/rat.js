@@ -1187,6 +1187,7 @@ function genericResetValidator() {
 
   var validator = $('form').data('validator');
   validator && validator.resetForm();
+  $(".borderError").removeClass("borderError")
 }
 
 ///////////////////////////////////////////////////////////////////////////////
