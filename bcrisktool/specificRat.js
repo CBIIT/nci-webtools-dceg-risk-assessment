@@ -139,7 +139,8 @@ function attachSubraceItems() {
 function adjustSubRaceMenuIfNecessary() {
   if( this.value == "White" ||
       this.value == "Black" ||
-      this.value == "Other" ) {
+      this.value == "Other" ||
+      this.value == "") {
       disableSubRaceMenu()
   } else if ( this.value == 'Asian' ||
               this.value == 'Hispanic') {
