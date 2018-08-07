@@ -28,14 +28,6 @@ $(function() {
         validateNumericAndDisplayErrorMessage($(this), "weightModal")
     })
 
-    // Any time the form changes check all necessary (enabled) input have an answer
-    //
-    // Moved the add event here because originally when debugging the code the
-    // specifcRat code would excecute before the generic ratCode.  The incoorect
-    // assumption was the generic code would execute and then the specific code
-    // would execute
-    $("#riskForm").on("change", enableCalculateButton);
-
     // Disables the form if the race is Hispanic or Latino then display some
     // information and disble the form.
     $("input[name='hispanic']").on("click", function(event) {
@@ -44,9 +36,11 @@ $(function() {
    	    } else {
             $("#riskForm").trigger("change")
             enableRaceQuestion()
-            clearAnswerToHispanicYes()
         }
     })
+
+    $("#age").change(removeErrorMessage)
+ 
 
     $("[name='race']").not("[value='White']").on("click", function(event) {
 
@@ -66,9 +60,7 @@ $(function() {
     $("#inch-notice").on("click",                   enableCRATForm)
     $("#weight-notice").on("click",                 enableCRATForm)
 
-    // Each time the gender is toggle the form should determine if the calculate button should be enabled */
     $("[name='gender']").on("change",          toggleGender);
-    $("[name='gender']").on("change",          enableCalculateButton);
 
     // For Diet and Activity Section if the user select no servings disable the amont per serving
     $("#veg_servings").on("change",                 adjustAmountPerServingBasedOnServings)
@@ -121,7 +113,7 @@ $(function() {
 
     // While the user is typing the data inside the textbox enables/disable the
     // calculate buton if all the inputs are valid/invalid
-    $("input[type=number]").bind('keyup input', function() {
+    /*$("input[type=number]").bind('keyup input', function() {
         if ( disableIfHeightOrWeightAreInvalid() == true ) {
             disablebutton()
         }
@@ -129,6 +121,7 @@ $(function() {
             enableCalculateButton()
         }
     });
+    */
 
     if ( $("#maleGender").length > 0 ) {
         toggleGender($("#maleGender"))
@@ -161,8 +154,8 @@ $(function() {
 
 /* Sets the "Is the patient Hispanic or Latino?" Question to no */
 function setHispanicQuestionToNo() {
-    $("#hispanicNo").trigger("click")
     $("#hispanicNo").prop("checked", true)
+    $("#hispanicNo").trigger("click")
 }
 
 /* A function that will set the correct race for the #raceValue and correct callback for the OK Button */
@@ -238,7 +231,7 @@ function enableCRATForm() {
         disableRaceQuestion()
     else {
         enableRaceQuestion()
-        clearAnswerToHispanicYes()
+        //clearAnswerToHispanicYes()
     }
 }
 
@@ -305,16 +298,11 @@ function enableCRATGenericForm() {
 
     }
 
-    // If the race is not hispnaic then make sure that the No for the queistion :
+    // If the race is not hispnaic then make sure that the No for the question :
     // "Is the patient Hispanic or Latino is marked as No".  Since when user causes
     // the dialog to appear for race the answer to the answer to the
     // "Is the patient Hispanic" or Latino question will disappear
-    var hispanicNoRadioButton = $("[name='hispanic']:checked")
     if ( $("[name='race']:checked") != "" ) setHispanicQuestionToNo()
-
-    // Enable Buttons if all inputs are valid
-    enableCalculateButton()
-    if ( disableIfHeightOrWeightAreInvalid() ) disablebutton()
 
 }
 

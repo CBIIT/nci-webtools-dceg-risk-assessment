@@ -1,10 +1,11 @@
 /* Style for the div that contains the image for the questions :              */
 /* Does the patient have severe solar damage on the shoulders?                */
-[for='damage'] +  div > div:nth-child(2),
-[for='freckling'] + div + div
- {
+[for='damage'] +  div {
   margin-top: 15px;
-  margin-left: .5em;
+}
+
+[for='freckling'] + div + div {
+  margin-top: 15px;
 }
 
 /* styles maps such as the map of the United Styles use in the MRAT Program */
@@ -21,7 +22,7 @@
 /* For text associated with the pictures and not the the maptext             */
 .pictureText {
   text-align: left;
-  margin-bottom: 1.0em;
+  margin-bottom: .5em;
 }
 
 /* Stack two divs at the same position                                      */
@@ -94,8 +95,8 @@
 
 /* Changing the Response Options Style to match the spec                      */
 #solarDamage div[class*='responseOptions'] {
-  margin-left: 0em;
-  margin-top: 10px;
+  margin-left: 0em; 
+  /* margin-top: 10px; */
 }
 
 /* Remove the space so we can add the margin to the picture css rule instead */
@@ -104,10 +105,21 @@
   white-space: nowrap
 }
 
-/* Adds space between the last picture element` and the Answer              */
-#frecklePictures div:last-child {
-  margin-top: .5em;
+#newFrecklePictures div.responseOptions {
+  white-space: nowrap;
 }
+
+#newFrecklePictures > div:nth-child(2) > label > span,
+#newFrecklePictures > div:nth-child(3) > label > span,
+#newFrecklePictures > div:nth-child(4) > label > span,
+#newFrecklePictures > div:nth-child(5) > label > span {
+  margin: 0px;
+}
+
+/* Adds space between the last picture element` and the Answer              */
+/* #frecklePictures div:last-child {
+  margin-top: .5em;
+} */
 
 /* Add some space between a question and an image.  Usually the quetion is   */
 /* followed by an image.                                                     */
@@ -123,7 +135,7 @@
   /* modify the margins, enough so that the text on line and the nohting      */
   /* else changes                                                             */
 
-  #frecklePictures {
+  /* #frecklePictures {
     margin-left: 0px;
     margin-right: 0px;
   }
@@ -148,17 +160,30 @@
   #frecklePictures input[type='radio'] + label.radio span {
     margin-right: 0px;
   }
+
+  */
+
+  #newFrecklePictures div.responseOptions,
+  #newSolarDamage div.responseOptions
+   {
+    margin-left: 0px;
+  }
 }
 
 @media ( max-width: 1199px) {
 
-  #frecklePictures > div:nth-child(1),
+  /* #frecklePictures > div:nth-child(1),
   #frecklePictures > div:nth-child(2) {
     margin-bottom: 4.5em;
   }
 
   #frecklePictures > div:nth-child(3) {
     margin-bottom: 1.0em;
+  } */
+
+  #newFrecklePictures  div:nth-child(3),
+  #newFrecklePictures  div:nth-child(4) {
+    margin-top: 2em;
   }
 
   #mildFreckling,
@@ -166,15 +191,20 @@
   #severeFreckling,
   #solar-damage {
     width: 202px;
-    height 158px;
+    height: 158px;
   }
+
+  [for='damage'] +  div {
+    margin-left: 1em;
+  }
+
 }
 
 /****************************************************************************/
 /* Allow the map not to collide with the answers                            */
 /****************************************************************************/
 
-@media ( max-width : 768px ) {
+@media ( max-width: 768px ) {
 
   #map {
     margin-top : 30px;
@@ -185,7 +215,7 @@
   }
 }
 
-@media ( min-width : 576px ) {
+@media ( min-width: 576px ) {
 
   /* Use to shrink the acutal size of the dialog box */
   #pictureModal .modal-dialog {
@@ -211,5 +241,13 @@
   .modal-dialog {
     margin-left: auto;
     margin-right: auto;
+  }
+
+
+}
+
+@media ( max-width: 480px ) {
+  [for='damage'] +  div {
+    margin-left: 0em;
   }
 }

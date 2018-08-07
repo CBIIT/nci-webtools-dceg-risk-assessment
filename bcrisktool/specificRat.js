@@ -14,7 +14,6 @@ $(function() {
   // specifcRat code would excecute before the generic ratCode.  The incorrect
   // assumption was the generic code would execute before the specific code
   // would execute
-  $("#riskForm").on("change", enableCalculateButton);
 
   $("#BreastCancerHealth").on("focusin", function() { moveElementIfCloseToBottom("#BreastCancerHealth") })
 
@@ -22,11 +21,11 @@ $(function() {
    // if the woman does not have cancer.
    $("input[name='cancerAndRadiationHistory']").on("click", function(event) {
         if(this.value == 0){
+            removeErrorMessage(event)
             $("#womanWithCancerDialog").modal("show");
             disableForm();
-	  	} else {
+        } else {
 	  	    enableBRATForm()
-	  	    $("#riskForm").trigger("change")
       }
   });
 
@@ -34,6 +33,7 @@ $(function() {
   // from to check if the calcualte button can be enabled
   $("input[name='geneticMakeup']").on("click", function(event) {
 	   if(this.value == 0 ) {
+          removeErrorMessage(event)
 	        $("#hasBRCAMutation").modal("show");
             disableForm();
 	   } else {
@@ -93,7 +93,6 @@ $(function() {
   // Add specifc test for the Breast Cancer Rat ( All Patient Eligibility)
   // that make the caculate button disabled if all the question are not answered
   // with No
-  $("#riskForm").on("change", disableIfPatientIsNotEligible);
   $('#riskForm').trigger('change');
 });
 
@@ -157,15 +156,6 @@ function attachOptionsToAnHTMLObject(optionsValuesAndText) {
   });
 }
 
-// If Any question is "Yes" in the Patient Eligibility is selected then
-// disable the calculate button
-function disableIfPatientIsNotEligible() {
-  var totalButtonsSelected = $("#patient-eligibility-section input:checked").length
-  var totalButtonsWithYes = $("#patient-eligibility-section input[id$='Yes']:checked").length
-  if ( (totalButtonsSelected != 2) || (totalButtonsWithYes > 0) )
-    disablebutton()
-}
-
 /* A specialized version of the enableForm function where we determine if  */
 /* certain fields should be enabled.                                       */
 function enableBRATForm() {
@@ -174,11 +164,7 @@ function enableBRATForm() {
   changeSubraceMenu();
 
   if ( $("[name='biopsy']:checked").val() == 1 ) enableQuestionAndAnswers();
-
-  enableButtonIfAllFieldHaveInput();
-  //disablebutton();
-  disableIfPatientIsNotEligible()
-}
+  }
 
 // Function : Determine if the woman every had a biopsy and disable certain
 // questions if the answer was no
@@ -253,6 +239,7 @@ function disableSubRaceMenu() {
   $("[for='sub_race']").css("color","#c0c0c0");
   $("#sub_race").prop("disabled", true)
   $("#sub_race option:eq(0)").prop("selected","selected");
+  removeErrorMessage({ target: $("#sub_race")});
 
 }
 
@@ -280,7 +267,8 @@ function resultsDisplay(response, textStatus, xhr) {
 
 /* The code that resets the form */
 function resetForm() {
-  genericResetForm()
+  genericResetForm();
+  genericResetValidator();
   enableQuestionAndAnswers();
   disableSubRaceMenu();
   resetsDropDowns();

@@ -7,10 +7,10 @@ frecklingValue["3"]									= "mildFreckling"
 frecklingValue["4"]									= "moderateFreckling"
 frecklingValue["5"]									= "severeFreckling"
 frecklingValue[""]									= "1"
-frecklingValue["Absent"]						= "2"
-frecklingValue["mildFreckling"]			= "3"
-frecklingValue["moderateFreckling"]	= "4"
-frecklingValue["severeFreckling"]		= "5"
+frecklingValue["Absent"]							= "2"
+frecklingValue["mildFreckling"]						= "3"
+frecklingValue["moderateFreckling"]					= "4"
+frecklingValue["severeFreckling"]					= "5"
 
 $(function() {
 
@@ -36,28 +36,12 @@ $(function() {
 	// Initialize the button that will reset the form
 	$("#reset").on("click", resetForm)
 
-	// When the male or female has been selected then the calculate button can be
-	// enabled, but only if all the fields that should be selected have been
-	$("#maleGender").on("change", allowCalculate);
-	$("#femaleGender").on("change", allowCalculate);
-
 	$('#riskForm').trigger('change');
 
 	// Enables the First Question only and disable the Command Button.
-	//
-	// Since the enableCalculateButton() does not check for the case where the
-	// number of enabled inputs is 0.  If the number of enabled input are 0 then
-	// all the questions have been answered, so the Calculate Button would be
-	// green. I decided to fix it here since I do not want to change rat.js
-	// this late in the task unless I need to.
-	//
 	$("#okButtonRace").on("click", function() {
-    enableQuestionAndAnswers($("#questionAndAnswers1").attr("id"))
-  })
-
-	$("#okButtonRace").on("click", function() {
-		disablebutton()
-  })
+    	enableQuestionAndAnswers($("#questionAndAnswers1").attr("id"))
+  	})
 
 	$("termAndConditionsPge").removeClass("show")
 
@@ -147,18 +131,6 @@ function go_toAboutPage() {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Rules : When the user has not selected a male or female then the calculate
-// button should always be disabled, but when the user has selected male or
-// female then the calculate should follow the normal rat rules ( all inputs
-// question must have an answer unless they are disabled).
-////////////////////////////////////////////////////////////////////////////////
-function allowCalculate() {
-	  if ( $("input[name='gender']:checked").val() !== undefined ) {
-			$("#riskForm").on("change", enableCalculateButton);
-		}
-}
-
-////////////////////////////////////////////////////////////////////////////////
 // Display the results for the Melenoma Cancer Risk Analysis Tool             //
 ////////////////////////////////////////////////////////////////////////////////
 function resultsDisplay(response, textStatus, xhr) {
@@ -236,94 +208,6 @@ function toggleGender(e) {
 	}
 }
 
-var validationMessages = {
-	region: {
-		required: "The region in which the patient resides must be selected."
-	},
-	gender: {
-		required: "The patient's gender must be selected."
-	},
-	race: {
-		required: "The patient's race must be selected."
-	},
-	age: {
-		required: "The patient's age must be selected."
-	},
-	sunburn: {
-		required: "Whether the patient has ever received a sunburn must be recorded."
-	},
-	complexion: {
-		required: "The patient's complexion must be selected."
-	},
-	"big-moles": {
-		required: "The number of moles greater than 5mm in diameter on the patient's back must be selected."
-	},
-	"small-moles": {
-		required: "The number of moles less than or equal to 5mm in diameter on the patient's back must be selected."
-	},
-	"tan": {
-		required: "The level to which the patient presents a tan must be selected."
-	},
-	freckling: {
-		required: "The extent of the freckling on the patient's back must be selected."
-	},
-	damage: {
-		required: "Whether the patient has severe solar damage on their next and shoulders must be selected."
-	}
-};
-
-var validationRules = {
-	region: {
-		required: true
-	},
-	gender: {
-		required: true
-	},
-	race: {
-		required: true
-	},
-	age: {
-		required: true
-	},
-	sunburn: {
-		required: {
-			depends: function(el) {
-				return  $('[name="gender"]').val() == "Male";
-			}
-		}
-	},
-	complexion: {
-		required: true
-	},
-	"big-moles": {
-		required: {
-			depends: function(el) {
-				return $('[name="gender"]').val() == "Male";
-			}
-		}
-	},
-	"small-moles": {
-		required: true
-	},
-	"tan": {
-		required: {
-			depends: function(el) {
-				return $('[name="gender"]').val() == "Female";
-			}
-		}
-	},
-	freckling: {
-		required: true
-	},
-	"damage": {
-		required: {
-			depends: function(el) {
-				return $('[name="gender"]').val() == "Male";
-			}
-		}
-	}
-};
-
 // Removes the capability for the user to interact with the map
 function disableMap() {
 	$("#state-listing").addClass("disabled");
@@ -338,14 +222,9 @@ function enableMap() {
 
 /* Resets the form back to default look and values that it contains           */
 function resetForm() {
-  genericResetForm()
+	genericResetForm()
 	enableMap();
-  enableSectionHeaders();
-
-	// Remove the capability for the application to make the calculate button
-	// enabled.  The calculate button can never be enabled until male or female
-	// has been selected`
-	$("#riskForm").unbind("change", enableCalculateButton);
+	enableSectionHeaders();
 
 	// Make the section skin, exam section invisible.
 	$("#skin-section").addClass("no_display")
@@ -390,7 +269,6 @@ function resetForm() {
  function enableMRATForm() {
 	 enableForm();
 	 enableMap();
-	 enableCalculateButton();
 
 	 $("[class*='pictureText']").addClass("pictureTextEnabledColor")
 	 $("[class*='pictureText']").removeClass("pictureTextDisabledColor")

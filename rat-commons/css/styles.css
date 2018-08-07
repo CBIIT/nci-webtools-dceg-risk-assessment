@@ -132,6 +132,10 @@ h4 {
   line-height: 22px;
 }
 
+.error {
+  color: red;
+}
+
 /* Need for specific margin this values should be used since it is more       */
 /* specific then the h4 tag                                                   */
 h4#reference_section {
@@ -677,7 +681,8 @@ div[id^='results_graph'] {
 label.questions {
   font-weight: 700;
   color: #2e2e2e;
-  margin-top: 50px;
+  /* margin-top: 50px; */
+  /* margin-bottom: 26px; */
   font-size: 16px;
   font-family: "Noto Sans";
   line-height: 22px;
@@ -693,26 +698,29 @@ label.questions {
   font-family: Montserrat;
   font-size: 16px;
   margin-left: 1em;
-  margin-top: 16px;
+  /* margin-top: 16px; */
   line-height: 19px;
-
   /* Needed since display=inline-block increases the height of the label */
   /* this code will shrink it                                            */
-  height: 22px;
+  /* height: 22px;                                                       */
 }
 
+.checkbox, .radio {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
 /* Use this when you are indenting with bootstrap.  The responseOptions       */
 /* margin-left will overwrite the bootstrap grid                              */
 .responseOptionsWithoutIndent {
   font-weight: normal;
   font-family: Montserrat;
   font-size: 16px;
-  margin-top: 16px;
+  /* margin-top: 16px; */
   line-height: 19px;
 
   /* Needed since display=inline-block increases the height of the label */
   /* this code will shrink it                                            */
-  height: 22px;
+  /* height: 22px;                                                       */
 }
 
 /* I admit that I messed up here. I should have had .responseOptionsText and use some other */
@@ -876,18 +884,7 @@ input:disabled[type="radio"] + label.radio span {
   background-repeat: no-repeat;
   cursor: not-allowed;
 }
-select.error,
-input.error {
-  border-color: #bb0e3d;
-}
-select.error + label.radio,
-input.error + label.radio {
-  color: #bb0e3d;
-}
-select.error + label.radio span,
-input.error + label.radio span {
-  border-color: #bb0e3d;
-}
+
 .footer {
   background-color: #235e88;
   line-height: 4;
@@ -908,7 +905,7 @@ input.error + label.radio span {
   margin-bottom: 20px;
   border: 0;
   border-top: 2px dotted #868686;
-  margin-top: 0;©
+  margin-top: 0;
 }
 .modal-body {
   overflow-y: hidden;
@@ -1164,6 +1161,11 @@ input.error + label.radio span {
 
 /* This section will handle the styling for the smaller screens              */
 @media( max-width: 480px) {
+
+  .raceDivWidth {
+    width: 313px;
+  }
+
   #race {
     width: 302px;
   }
@@ -1675,7 +1677,7 @@ section > fieldset > legend.questions {
   align-items: center;
 }
 
-/* Code to style a list item as a filled circle.  This style was implenented  */
+/* Code to style a list item as a filled circle.  This style was implemented  */
 /* because the spec has list 1,2,3, followed by two dark circles instead of   */
 /* numbers.  The development team thought it was a mistake and we numbered    */
 /* all the items instead 07-29-2017.  If this code is not being used it may   */
@@ -1685,3 +1687,28 @@ section > fieldset > legend.questions {
   padding-right: 0;
   list-style-type: disc;
 }
+
+/* The border that goes around the question and answer of an error           */
+.borderError {
+  border: 2px solid red;
+  padding: 5px;
+}
+
+/* Space between questions */
+.spaceBetweenQuestions {
+  margin-top: 50px;
+}
+
+/* Space Between Border and Question/Answer */
+.spaceBetweenQuestionAnswerAndBorder {
+  padding-bottom: 3px;
+}
+
+.spaceBetweenFirstQuestionAndResponse {
+  margin-top: 1em;
+}
+
+.remove_bullet {
+    list-style: none;
+}
+

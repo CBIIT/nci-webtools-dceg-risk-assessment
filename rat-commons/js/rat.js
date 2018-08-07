@@ -675,24 +675,6 @@ $(function() {
 	})
 })
 
-/*****************************************************************************/
-/* Enables the Calculate Button                                              */
-/* Todo: Change the name to enableCalculateButton                            */
-/*****************************************************************************/
-function enablebutton(){
-	$("#calculate").attr('disabled', false);
-	$("#calculate").removeClass("#calculate:disabled")
-}
-
-/******************************************************************************/
-/* Disables the Calculate Button                                              */
-/* TODO : Change the name to disableCalculateButton                           */
-/******************************************************************************/
-function disablebutton(){
-	$("#calculate").attr('disabled', true);
-	$("#caclulate").addClass("#calculate:disabled")
-}
-
 /******************************************************************************/
 /* Is the device a mobile tablet.  See isMobile for comments                  */
 /******************************************************************************/
@@ -799,60 +781,6 @@ function removeOutline(event) {
 	$(event.target).removeClass("addOutline");
 }
 
-///////////////////////////////////////////////////////////////////////////////
-// Enable the Caluclate Button if all non disabled inputs have a value
-//////////////////////////////////////////////////////////////////////////////
-function enableCalculateButton() {
-
-	 var inputs = $("form#riskForm input:enabled, form#riskForm select:enabled");
-	 valid=true
-
-	 inputs.each(function(index) {
-			 var input = $(this);
-			 if(input[0].required==true){
-				 name=input[0].name
-				 if( ($('input[name='  +  name +']').is('input[type="number"]')  && $('input[name=' + name + ']').val().length == 0 ) ||
-					 ($('input[name='  +  name +']').is('input[type="radio"]')  && $('input[name=' + name + ']:checked').length==0) ||
-			 		 ($('select[name=' +  name +']').is('select') && input[0].selectedIndex==0)){
-						disablebutton()
-						valid=false
-					 }
-			 }
-	 });
-
-	 if(valid==true) enablebutton();
-
-	 $("select").on("select", redrawHTMLObject);
-	 $("select").on("change", redrawHTMLObject);
-
-
-}
-
-
-//////////////////////////////////////////////////////////////////////////////
-// Determine if the calculation button should be enabled.  If all the input  //
-// fields that are enabled have a value then enable the calculate button     //
-///////////////////////////////////////////////////////////////////////////////
-function enableButtonIfAllFieldHaveInput()
-{
-	 var inputs = $("form#riskForm input:enabled, form#riskForm select:enabled");
-	 valid=true
-
-	 inputs.each(function(index) {
-		var input = $(this);
-		if(input[0].required==true){
-			 name=input[0].name
-			 if(($('input[name=' + name +']').is('input') && $('input[name=' + name + ']:checked').length==0) || ($('select[name=' + name +']').is('select') && input[0].selectedIndex==0)){
-				disablebutton()
-			 	valid=false
-		 	 }
-		 }
-	});
-
-	if(valid==true) enablebutton();
-
-}
-
 /******************************************************************************/
 /* If the element is disabled it enables it and if enabled it disables it.    */
 /******************************************************************************/
@@ -905,9 +833,11 @@ function displayHelpWindow() {
 
 /******************************************************************************/
 /* Does the Form Steps HTML Object Exist and are they visible.  If they are   */
-/* then they technically do not exist since the user cannot see them.         */
+/* not visible then they technically do not exist since the user cannot see   */
+/* them.                                                                      */
 /******************************************************************************/
 function existFormSteps() {
+	//console.log("Form Steps : " + $("#form-steps:visible").length)
 	return ( $("#form-steps:visible").length > 0 );
 }
 
@@ -1251,7 +1181,13 @@ function genericResetForm() {
 
 	$("form :input").attr('disabled', false);
 	$("[class*='questions']").css("color","#2e2e2e")
-	$("#calculate").attr("disabled", "disabled")
+}
+
+function genericResetValidator() {
+
+  var validator = $('form').data('validator');
+  validator && validator.resetForm();
+  $(".borderError").removeClass("borderError")
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1360,6 +1296,26 @@ function enableQuestionAndAnswers(divId) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// Removes the error the message from Input that changed                      //
+//		Input: Information about the event.                                   //
+//                                                                            //
+// Problem with prevUntil : If the element that matches the selector is the   //
+// element directly above then nothing will returned and prev must be used    //
+////////////////////////////////////////////////////////////////////////////////
+function removeErrorMessage(event) {
+	console.log("Chucks Mistake")	
+	var getParent = $(event.target).parent()
+	var question = $(getParent).prevUntil("label.questions").prev()
+	if ( question.length == 0 ) question = $(getParent).prev()
+
+	$(question).children().remove()
+
+	var objectWithBorder = $(question).parent() 
+	if ( objectWithBorder ) $(objectWithBorder).removeClass("borderError");
+
+}
+
+////////////////////////////////////////////////////////////////////////////////
 // Startup Code
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -1441,7 +1397,50 @@ $(document).ready(function() {
 	$("#riskForm").validate({
 		ignore: ".skipValidate",
 		submitHandler: processSubmission,
+		errorPlacement: function(error,element) {
+		  error.appendTo($(element).parent().prevAll('label.questions:first'));
+		},
+		invalidHandler: function(form,validator) {
+		  var errors = validator.numberOfInvalids();
+		  if (errors) {
+		    var element = validator.errorList[0].element;
+		    var targetScroll = $(element).parent().prevAll('label.questions:first');
+		    $('html, body').animate({
+		      scrollTop: targetScroll.parent().offset().top - $('#form-steps').outerHeight() },1000);
+		  }
+		 },
+		 showErrors: function(errorMap,errorList) {
+		   if (errorList.length) {
+                var error = errorList.shift();
+                var newErrorList = [];
+                newErrorList.push(error);
+                this.errorList = newErrorList;
+
+                $(".borderError").removeClass("borderError")
+				$(error.element).parent().prevAll('label.questions:first').parent().addClass("borderError");
+		   }
+		   this.defaultShowErrors(); 
+		 },
+
+	    onclick: function(element, event) {
+			 if ( $(event.currentTarget).is("select")) {
+				 return false;
+			 } else {
+				$(element).parent().prevAll('label.questions:first').parent().removeClass("borderError")
+				$(element).parent().prevAll('label.questions:first').find('.error').remove()
+			 }
+		} 
+
+
 	});
+
+	$("select").change(removeErrorMessage)
+
+
+
+    jQuery.extend(jQuery.validator.messages, {
+        required: "&nbsp;* This is required"
+     });
 
 	// When the user is on the results page, this event will send the user back
 	// to the goto_calculatePage
@@ -1476,7 +1475,7 @@ $(window).load(function(e) {
 		// }
 		// else {
 		// 	if(e.type == "keypress") {
-		// 		if ((e.keyCode == 13) || (e.keyCode == 32)){
+		// 		if ((e.keyCode == 13) 142| (e.keyCode == 32)){
 		// 			$(e.target).children(".radio").prev().trigger('click');
 		// 		}
 		// 	}
@@ -1583,8 +1582,8 @@ $(window).load(function(e) {
 
 	// Due to the way this was written, when we click on a link to jump to a      //
 	// a section then the section goes past the viewable area and some of it is   //
-	// cut off.  The Plan is to scroll each secit0on to where the Main Title      //
-	// origanally was placed and scrool to there
+	// cut off.  The Plan is to scroll each seciton to where the Main Title      //
+	// origanally was placed and scrooll to there
 	if ( $("#mainAboutTitle").length == 1 && isMobile() == true ) {
 		$("#jumpTitle").attr('data-x-coord-to-jump-to', $("#mainAboutTitle").offset().top)
 		$("#jumpTitle").on("click", "a", function(event) { jumpToSection(event); })
