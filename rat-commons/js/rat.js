@@ -1425,10 +1425,9 @@ $(document).ready(function() {
 	    onclick: function(element, event) {
 			 if ( $(event.currentTarget).is("select")) {
 				 return false;
-			 } else { 
-				if ( $(element).valid() ) {
-					$(element).parent().prevAll('label.questions:first').parent().removeClass("borderError")
-				}
+			 } else {
+				$(element).parent().prevAll('label.questions:first').parent().removeClass("borderError")
+				$(element).parent().prevAll('label.questions:first').find('.error').remove()
 			 }
 		} 
 
