@@ -1415,6 +1415,8 @@ $(document).ready(function() {
                 var newErrorList = [];
                 newErrorList.push(error);
                 this.errorList = newErrorList;
+
+                $(".borderError").removeClass("borderError")
 				$(error.element).parent().prevAll('label.questions:first').parent().addClass("borderError");
 		   }
 		   this.defaultShowErrors(); 
