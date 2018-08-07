@@ -93,7 +93,6 @@ $(function() {
   // Add specifc test for the Breast Cancer Rat ( All Patient Eligibility)
   // that make the caculate button disabled if all the question are not answered
   // with No
-  $("#riskForm").on("change", disableIfPatientIsNotEligible);
   $('#riskForm').trigger('change');
 });
 
@@ -157,15 +156,6 @@ function attachOptionsToAnHTMLObject(optionsValuesAndText) {
   });
 }
 
-// If Any question is "Yes" in the Patient Eligibility is selected then
-// disable the calculate button
-function disableIfPatientIsNotEligible() {
-  var totalButtonsSelected = $("#patient-eligibility-section input:checked").length
-  var totalButtonsWithYes = $("#patient-eligibility-section input[id$='Yes']:checked").length
-  if ( totalButtonsWithYes > 0 )
-    disablebutton()
-}
-
 /* A specialized version of the enableForm function where we determine if  */
 /* certain fields should be enabled.                                       */
 function enableBRATForm() {
@@ -174,7 +164,6 @@ function enableBRATForm() {
   changeSubraceMenu();
 
   if ( $("[name='biopsy']:checked").val() == 1 ) enableQuestionAndAnswers();
-    disableIfPatientIsNotEligible()
   }
 
 // Function : Determine if the woman every had a biopsy and disable certain
@@ -250,6 +239,7 @@ function disableSubRaceMenu() {
   $("[for='sub_race']").css("color","#c0c0c0");
   $("#sub_race").prop("disabled", true)
   $("#sub_race option:eq(0)").prop("selected","selected");
+  removeErrorMessage({ target: $("#sub_race")});
 
 }
 
