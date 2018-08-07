@@ -21,7 +21,7 @@ $(function() {
    // if the woman does not have cancer.
    $("input[name='cancerAndRadiationHistory']").on("click", function(event) {
         if(this.value == 0){
-            removeErrorMessage(event)
+            genericResetValidator();
             $("#womanWithCancerDialog").modal("show");
             disableForm();
         } else {
@@ -33,9 +33,9 @@ $(function() {
   // from to check if the calcualte button can be enabled
   $("input[name='geneticMakeup']").on("click", function(event) {
 	   if(this.value == 0 ) {
-          removeErrorMessage(event)
-	        $("#hasBRCAMutation").modal("show");
-            disableForm();
+          genericResetValidator();
+	      $("#hasBRCAMutation").modal("show");
+          disableForm();
 	   } else {
 	        enableBRATForm();
       		$("#riskForm").trigger("change")
