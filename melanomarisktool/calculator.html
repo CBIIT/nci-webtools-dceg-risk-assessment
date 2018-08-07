@@ -71,7 +71,7 @@
 
   <div role="main">
     <div id="results" class="container-fluid">
-      <div id="results">
+      <div>
         <h1 class="makeTagInline">Personalized Results</h1>
         <img id="printTop" src="rat-commons/images/print-icon.gif" alt="printing the page">
         <div id="results_home">
@@ -257,15 +257,15 @@
 
           <div class="col-xs-12 col-sm-6 no-padding">
             
-            <!--
+
             <label class="questions">Does the patient live in the Northern, Central, or Southern United States?</label>
-            -->
-            <!--
+
+
             <p class="questions_secondary">The model on which this tool is based is valid only for residents of the continental United States. This map
               is only a guide.</p>
-            -->
+
           
-            <!--
+
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
               <input id="northern" type="radio" name="region" value="north" required>
               <label class="radio" tabindex="0" for="northern">
@@ -281,21 +281,20 @@
               <label class="radio" tabindex="0" for="south">
                 <span> </span>Southern</label>
             </div>
-          -->
+
           </div>
   
         
-          <!--
+
           <div class="col-xs-12 col-sm-6 no-padding">
             <img class="img-responsive show" id="map" src="rat-commons/images/us-map.png" alt="The map is divided into three distinct areas.	Northern, Southern and Central">
             <a id="state-listing" class="mapText" data-toggle="modal" data-target="#mapModal">View state listings by area.</a>
           </div>
-        -->
 
         </div>
   
     
-        <div class="spaceBetweenQuestions">
+        <div class="spaceBetweenQuestions makeTagInline">
           <label class="questions">What is the patient's gender?</label>
           <p class="questions_secondary">This tool uses gender-specific risk models. It requires different information of male patients than female patients.
             The answer to this question will determine what other questions are asked below.</p>
@@ -440,7 +439,7 @@
               <a class="pictureText" href="">Enlarge</a>
             </p>
             <input id="severeFrecklingAnswer" type="radio" name="freckling" value="3" required>
-            <label class="radio" tabindex="0" for="servereFrecklingAnswer">
+            <label class="radio" tabindex="0" for="severeFrecklingAnswer">
               <span> </span>Severe Freckling</label>
           </div>
           <div class="col-lg-12 responseOptions">
@@ -468,6 +467,7 @@
             <label for="noDamage" class="radio" tabindex="0">
               <span></span>No</label>
           </div>
+        </div>
       </section>
 
       <div class="center-block">
@@ -481,7 +481,6 @@
 
     </form>
     </div>
-  </div>
 
   <div id="footer" class="footer" role="contentinfo"></div>
 
@@ -557,8 +556,6 @@
         </div>
       </div>
     </div>
-  </div>
-  </div>
   </div>
 
   <script language="JavaScript" type="text/javascript" src="//static.cancer.gov/webanalytics/WA_RAT_PageLoad.js"></script>
