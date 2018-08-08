@@ -1175,19 +1175,16 @@ function filterInputParameters(index, element) {
 // Handles the generic reset for all the risk analysis tools
 ////////////////////////////////////////////////////////////////////////////////
 function genericResetForm() {
-	$('form').trigger('reset')
-
+	$('form').trigger('reset');
 	scrollTo(0,0);
-
-	$("form :input").attr('disabled', false);
-	$("[class*='questions']").css("color","#2e2e2e")
+	enableForm();
 }
 
 function genericResetValidator() {
 
   var validator = $('form').data('validator');
   validator && validator.resetForm();
-  $(".borderError").removeClass("borderError")
+  $(".borderError").removeClass("borderError");
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1303,7 +1300,8 @@ function enableQuestionAndAnswers(divId) {
 // element directly above then nothing will returned and prev must be used    //
 ////////////////////////////////////////////////////////////////////////////////
 function removeErrorMessage(event) {
-	console.log("Chucks Mistake")	
+
+	console.log(`removeErrorMessage:: ${event}`)
 	var getParent = $(event.target).parent()
 	var question = $(getParent).prevUntil("label.questions").prev()
 	if ( question.length == 0 ) question = $(getParent).prev()
@@ -1406,7 +1404,7 @@ $(document).ready(function() {
 		    var element = validator.errorList[0].element;
 		    var targetScroll = $(element).parent().prevAll('label.questions:first');
 		    $('html, body').animate({
-		      scrollTop: targetScroll.parent().offset().top - $('#form-steps').outerHeight() },1000);
+		      scrollTop: targetScroll.parent().offset().top - $('#form-steps').outerHeight() - 15 },1000);
 		  }
 		 },
 		 showErrors: function(errorMap,errorList) {
@@ -1492,8 +1490,11 @@ $(window).load(function(e) {
 				$(e.target).parents('.radio').prev().trigger('click');
 		} else {
 			if(e.type == "keypress")
-				if ((e.keyCode == 13) || (e.keyCode == 32))
-					$(e.target).children(".radio").prev().trigger('click');
+				if ((e.keyCode == 13) || (e.keyCode == 32)) {
+				    if ($(e.target).hasClass('radio') && $(e.target).prev().prop("disabled") != true ) {
+					  $(e.target).prev('input:radio').trigger('click');
+					}
+				}
 		}
 
 	});

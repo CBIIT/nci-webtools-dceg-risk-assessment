@@ -171,7 +171,7 @@ function enableBRATForm() {
 // questions if the answer was no
 function womanHadBiopsy() {
   var biopsyValue = $("input:radio[name='biopsy']:checked").val();
-  if ( biopsyValue == 0 || biopsyValue == 99 ) {
+  if ( biopsyValue == 0 || biopsyValue == 99 || !biopsyValue) {
     		disableQuestionAndAnswers();
   }
 }
@@ -188,6 +188,8 @@ function disableQuestionAndAnswers(event) {
   $("input[id^='hadAh']").next().css("color", "#C0C0C0");
   $("label[for^='hadAh']").parent().prev("[class*='questions']").css("color", "#C0C0C0")
   $("label[for^='hadAh']").parent().prev("[class*='questions']").css("tabindex","-1")
+  removeErrorMessage({target: $('#breastBiopsiesCount1')});
+  removeErrorMessage({target: $('#hadAhYes')});
 
 }
 
