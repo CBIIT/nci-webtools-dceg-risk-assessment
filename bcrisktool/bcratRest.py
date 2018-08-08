@@ -115,10 +115,10 @@ class BreastRiskAssessmentTool:
       results={}
       results['risk']= risk
       results['averageFiveRisk'] = averageFiveYearRisk
-      results['message'] = "Based on the information provided, the patient's estimated risk for developing invasive breast cancer over the next 5 years is {0:g}% ".format(risk) + patientColorPresented5Year + " the average risk of {0:g}% (presented in blue) for women of the same age and race/ethnicity in the general U.S. population.".format(averageFiveYearRisk)
+      results['message'] = "Based on the information provided, the patient's estimated risk for developing invasive breast cancer over the next 5 years is {0:g}%, ".format(risk) + patientColorPresented5Year + " the average risk of {0:g}% (presented in blue) for women of the same age and race/ethnicity in the general U.S. population.".format(averageFiveYearRisk)
       results['lifetime_patient_risk']=lifetime_patient_risk
       results['lifetime_average_risk']=lifetime_average_risk
-      results['lifetime_message'] = "Based on the information provided, the woman's estimated risk for developing invasive breast cancer over her lifetime (to age 90) is {0:g}% ".format(lifetime_patient_risk) + patientColorPresentedLifetime + " the average risk of {0:g}% (presented in blue) for women of the same age and race/ethnicity in the general U.S. population.".format(lifetime_average_risk)
+      results['lifetime_message'] = "Based on the information provided, the woman's estimated risk for developing invasive breast cancer over her lifetime (to age 90) is {0:g}%, ".format(lifetime_patient_risk) + patientColorPresentedLifetime + " the average risk of {0:g}% (presented in blue) for women of the same age and race/ethnicity in the general U.S. population.".format(lifetime_average_risk)
       results['patientColorPresented5Year'] = patientColorPresented5Year
       results['patientColorPresentedLifetime'] = patientColorPresentedLifetime
       json_data = json.dumps(results)

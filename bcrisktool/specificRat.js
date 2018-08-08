@@ -274,6 +274,7 @@ function resetForm() {
   genericResetValidator();
   enableQuestionAndAnswers();
   disableSubRaceMenu();
+  disableQuestionAndAnswers();
   resetsDropDowns();
   enableSectionHeaders();
 }
