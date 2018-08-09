@@ -192,7 +192,7 @@
 
   <!-- Form Steps -- Navigation Bar containing button and links  to each   -->
   <!-- section                                                             -->
-  <div id="form-steps">
+  <div id="form-steps" role="navigation">
     <div id="line">
       <hr class="line">
     </div>
@@ -220,7 +220,7 @@
   <!-- Each section with question and answers that patient will be asked -->
   <div class="container-fluid" id="main">
     <div id="errors"></div>
-    <form id="riskForm" name="riskForm" method="POST" action="calculate" autocomplete="off">
+    <form id="riskForm" name="riskForm" method="POST" action="calculate" autocomplete="off" role="contentinfo">
       <h2 id="PatientEligibilitySectionTitle" class="sectionTitle">Patient Eligibility</h2>
       <section id="patient-eligibility-section">
         <div id="questionAndAnswers1">
@@ -475,7 +475,7 @@
     </form>
   </div>
 
-  <div id="footer" class="footer" role="contentinfo"></div>
+  <div id="footer" class="footer" role="navigation"></div>
 
 
   <!-- Modal for women with breast cancer or DCIS or LCIS -->
