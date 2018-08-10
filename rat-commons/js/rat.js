@@ -1394,6 +1394,8 @@ $(document).ready(function() {
 
 	$("#riskForm").validate({
 		ignore: ".skipValidate",
+		onkeyup: false,
+		onfocusout: false,
 		submitHandler: processSubmission,
 		errorPlacement: function(error,element) {
 		  error.appendTo($(element).parent().prevAll('label.questions:first'));
@@ -1405,6 +1407,12 @@ $(document).ready(function() {
 		    var targetScroll = $(element).parent().prevAll('label.questions:first');
 		    $('html, body').animate({
 		      scrollTop: targetScroll.parent().offset().top - $('#form-steps').outerHeight() - 15 },1000);
+
+		    if ($(element).is(':radio')) {
+		      $(element).next('label.radio').focus();
+		    } else {
+		      $(element).focus();
+		    }
 		  }
 		 },
 		 showErrors: function(errorMap,errorList) {

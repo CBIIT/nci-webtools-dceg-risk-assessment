@@ -17,6 +17,14 @@ $(function() {
 
   $("#BreastCancerHealth").on("focusin", function() { moveElementIfCloseToBottom("#BreastCancerHealth") })
 
+   $("#womanWithCancerDialog").on("hidden.bs.modal", function() {
+     $("input[name='cancerAndRadiationHistory']:checked").next('label.radio').focus();
+   });
+
+   $("#hasBRCAMutation").on("hidden.bs.modal", function() {
+        $("input[name='geneticMakeup']:checked").next('label.radio').focus();
+   });
+
    // Disables the form if the woman previously had cancer or enable the form
    // if the woman does not have cancer.
    $("input[name='cancerAndRadiationHistory']").on("click", function(event) {
