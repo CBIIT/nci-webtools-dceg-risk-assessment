@@ -1301,7 +1301,6 @@ function enableQuestionAndAnswers(divId) {
 ////////////////////////////////////////////////////////////////////////////////
 function removeErrorMessage(event) {
 
-	console.log(`removeErrorMessage:: ${event}`)
 	var getParent = $(event.target).parent()
 	var question = $(getParent).prevUntil("label.questions").prev()
 	if ( question.length == 0 ) question = $(getParent).prev()
