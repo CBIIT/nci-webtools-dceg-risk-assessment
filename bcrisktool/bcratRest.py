@@ -109,8 +109,22 @@ class BreastRiskAssessmentTool:
       lifetime_average_risk = RiskCalculation("Average", race, age, 90, 0, 0, 0, 0, 1)
       lifetime_average_risk = round( lifetime_average_risk * 100, 1)
 
-      patientColorPresented5Year    = "presented in red since hers is higher than" if ( risk > averageFiveYearRisk ) else "presented in green since hers is lower than"
-      patientColorPresentedLifetime = "presented in red since hers is higher than" if ( lifetime_patient_risk > lifetime_average_risk ) else "presented in green since hers is lower than"
+      patientColorPresented5Year = ""
+      if ( risk > averageFiveYearRisk ):
+          patientColorPresented5Year = "presented in red since hers is higher than"
+      elif ( risk < averageFiveYearRisk ):
+        patientColorPresented5Year = "presented in green since hers is lower than"
+      else:
+        patientColorPresented5Year = "presented in green since hers is equal to"
+
+      patientColorPresentedLifetime = ""
+      if ( lifetime_patient_risk > lifetime_average_risk ):
+            patientColorPresentedLifetime = "presented in red since hers is higher than"
+      elif ( lifetime_patient_risk < lifetime_average_risk):
+        patientColorPresentedLifetime = "presented in green since hers is lower than"
+      else:
+        patientColorPresentedLifetime = "presented in green since hers is equal to"
+
 
       results={}
       results['risk']= risk
