@@ -17,12 +17,14 @@ $(function() {
 
   $("#BreastCancerHealth").on("focusin", function() { moveElementIfCloseToBottom("#BreastCancerHealth") })
 
-   $("#womanWithCancerDialog").on("hidden.bs.modal", function() {
-     $("input[name='cancerAndRadiationHistory']:checked").next('label.radio').focus();
+   $("#womanWithCancerDialog").on("hidden.bs.modal", function(e) {
+	  if(!isMobile()) 
+         $("input[name='cancerAndRadiationHistory']:checked").next('[role=radio][aria-checked=true]').focus();
    });
 
    $("#hasBRCAMutation").on("hidden.bs.modal", function() {
-        $("input[name='geneticMakeup']:checked").next('label.radio').focus();
+	  if(!isMobile())  
+        $("input[name='geneticMakeup']:checked").next('[role=radio][aria-checked=true]').focus();
    });
 
    // Disables the form if the woman previously had cancer or enable the form
@@ -53,7 +55,7 @@ $(function() {
   // For the patient Eligibility Seciton : enables the first question when user clicks ok.
   // Note that the 1st Questions will have the Answer Yes selected.
   $("#okButtonCancerHistory").on("click", function() { enableQuestionAndAnswers($("#questionAndAnswers1").attr("id")); })
-  $("#okButtonCancerHistory").on("click", function() {$("#cancerAndRadiationHistoryYes").prop("checked","true"); })
+  $("#okButtonCancerHistory").on("click", function() {$("#cancerAndRadiationHistoryYes").prop("checked",true); })
 
   $("#okButtonMutationBRCA").on("click", function() { enableQuestionAndAnswers($("#questionAndAnswers2").attr("id")) });
   $("#okButtonMutationBRCA").on("click", function() { $("#geneticMakeupYes").prop("checked", true )} )
@@ -189,16 +191,16 @@ function womanHadBiopsy() {
 function disableQuestionAndAnswers(event) {
   $("input[name='biopsy_result']").attr("disabled", true)
   $("input[id^='breastBiopsiesCount']").next().css("color", "#C0C0C0")
-  $("label[for^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("color", "#C0C0C0")
-  $("label[for^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("tabindex","-1")
-
+  $("div[for^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("color", "#C0C0C0")
+  
   $("input[name='biopsy_ah']").attr("disabled", true)
   $("input[id^='hadAh']").next().css("color", "#C0C0C0");
-  $("label[for^='hadAh']").parent().prev("[class*='questions']").css("color", "#C0C0C0")
-  $("label[for^='hadAh']").parent().prev("[class*='questions']").css("tabindex","-1")
-  removeErrorMessage({target: $('#breastBiopsiesCount1')});
-  removeErrorMessage({target: $('#hadAhYes')});
-
+  $("div[for^='hadAh']").parent().prev("[class*='questions']").css("color", "#C0C0C0")
+  removeErrorMessage({target: $("#breastBiopsiesCount1")});
+  removeErrorMessage({target: $("#hadAhYes")});
+  
+  $("[aria-labelledby=biopsy_resultLabel]").find("[role=radio]").attr("tabindex","-1");
+  $("[aria-labelledby=biopsy_ahLabel]").find("[role=radio]").attr("tabindex","-1");
 }
 
 // Enable Questions and Answers that are associated with a women having a
@@ -207,14 +209,15 @@ function enableBiopsyQuestionAndAnswers(event) {
 
   $("input[name='biopsy_result']").attr("disabled", false)
   $("input[id^='breastBiopsiesCount']").next().css("color", "#606060")
-  $("label[for^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("color", "#2E2E2E")
-  $("label[for^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("tabindex","0")
-
+  $("div[for^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("color", "#2E2E2E")
+  
   $("input[name='biopsy_ah']").attr("disabled", false)
   $("input[id^='hadAh']").next().css("color", "#606060");
-  $("label[for^='hadAh']").parent().prev("[class*='questions']").css("color", "#2E2E2E")
-  $("label[for^='hadAh']").parent().prev("[class*='questions']").css("tabindex","0")
-
+  $("div[for^='hadAh']").parent().prev("[class*='questions']").css("color", "#2E2E2E")
+  
+  
+  $("[aria-labelledby=biopsy_resultLabel]").find("[role=radio]:first").attr("tabindex","0");
+  $("[aria-labelledby=biopsy_ahLabel]").find("[role=radio]:first").attr("tabindex","0");
   adjust_line_width();
 }
 

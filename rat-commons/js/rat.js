@@ -28,9 +28,7 @@ function calcSizesOfSections()
 	var heightOfHeader    = $("header").outerHeight(true);
 	var height = heightOfFormSteps
 
-	//alert("The height is " + height + " and the value of is isMobile is " + isMobile() )
-	//alert("The Height is " + height)
-
+	
 	$.each($("#riskForm section"), function(index, element) {
 
 		// Accumulates the Height of the header and section, so the form will scrolled to
@@ -861,7 +859,8 @@ function enableSectionHeaders() {
 function disableForm() {
 	$("form :input").not("#reset").prop('disabled', true);
 	$("form a").addClass("disabled")
-	$("form label.radio").css("color","#C0C0C0")
+	$("form [role=radio]").css("color","#C0C0C0");
+	$("form [role=radio]").attr("tabindex","-1");
 	$("[class*='questions']").css("color","#c0c0c0");
 	disableSectionHeaders();
 }
@@ -874,8 +873,15 @@ function disableForm() {
 function enableForm() {
 	$("form :input").not("#reset").attr('disabled', false);
 	$("form a").removeClass("disabled")
-	$("form label.radio").css("color","#2E2E2E")
+	$("form [role=radio]").css("color","#2E2E2E")
 	$("[class*='questions']").css("color","#2E2E2E")
+	$("form [role=radiogroup]").each(function() {
+		if( $(this).find("[role=radio][aria-checked=true]").length > 0 ) {
+		  $(this).find("[role=radio][aria-checked=true]").attr("tabindex","0");
+		} else {
+		  $(this).find("[role=radio]:first").attr("tabindex","0");	
+		}
+	});
 	enableSectionHeaders();
 }
 
@@ -1176,6 +1182,8 @@ function filterInputParameters(index, element) {
 ////////////////////////////////////////////////////////////////////////////////
 function genericResetForm() {
 	$('form').trigger('reset');
+	$("form [role=radio]").attr("tabindex","-1");
+	$("form [role=radio]").attr("aria-checked","false");
 	scrollTo(0,0);
 	enableForm();
 }
@@ -1285,11 +1293,12 @@ function htmlObjectCloseToBottomOfScreen(htmlObject, threshold) {
 //        click No then enable form                                          //
 ///////////////////////////////////////////////////////////////////////////////
 function enableQuestionAndAnswers(divId) {
-  $("#" + divId + " > label").css("color","#2E2E2E")
-  $("#" + divId + " input").attr("disabled", false)
-  $("#" + divId + " input").css("color", "#606060")
-  $("#" + divId + " label").css("color", "#2E2E2E")
-  $("#" + divId + " div").css("tabindex","0")
+  $("#" + divId + " > label").css("color","#2E2E2E");
+  $("#" + divId + " input").attr("disabled", false);
+  $("#" + divId + " input").css("color", "#606060");
+  $("#" + divId + " label").css("color", "#2E2E2E");
+  $("#" + divId + " div").css("color", "#2E2E2E");
+  $("#" + divId).find('[role=radio][aria-checked=true]:first').attr("tabindex","0");
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1312,6 +1321,113 @@ function removeErrorMessage(event) {
 
 }
 
+function registerCustomRadioAccess() {
+	$("[role=radio]").each(function(){
+		$(this).on('keydown',handleKeyDownRadioGroup);
+		$(this).on('click',handleKeyDownRadioGroup);
+		//$(this).on('focus',handleFocusRadioGroup);
+	});
+}
+
+var KEYCODE = {
+    DOWN: 40,
+    LEFT: 37,
+    RIGHT: 39,
+    SPACE: 32,
+    UP: 38,
+	TAB: 9
+}
+
+/*function handleFocusRadioGroup(event) {
+	if(isMobile()) return;
+	console.log("handleFocusRadioGroup::"+event);
+	var element = $(event.currentTarget);
+	var radioGroup = $(element).parent().parent();
+	var radioGroupSize = $(radioGroup).height()/2;
+	var heightPos = Math.max(		
+	  (radioGroup.offset().top - $('#form-steps').outerHeight())-radioGroupSize,0);
+	$('html, body').scrollTop(heightPos);
+}*/
+
+function handleKeyDownRadioGroup(event){
+  var type = event.type;
+  var next = false;
+  
+  var isDisabled = $(event.currentTarget).prev('input:radio').prop('disabled');
+  
+  if(isDisabled) {
+    return true;	   
+  }
+  
+  var setRadioButton = function(node,state,focus) {
+	  
+	  if (state) {
+		$(node).attr('aria-checked', 'true'); 
+		$(node).attr('tabIndex','0');
+		$(node).prev('input:radio').trigger('click');
+		if(focus) $(node).focus();
+	  }
+	  else {
+		$(node).attr('aria-checked', 'false'); 
+		$(node).attr('tabIndex','-1');
+	  }
+  }
+
+  var nextRadioButton = function(node) {
+	  return $(node).parent().next('div').find('[role=radio]');
+  }
+  
+  var previousRadioButton = function(node) {
+	  return $(node).parent().prev('div').find('[role=radio]');
+  }
+  
+  var firstRadioButton = function(node) {
+	  return $(node).parent().parent().children('div:first').find('[role=radio]');
+  }
+  
+  var lastRadioButton = function(node) {
+	  return $(node).parent().parent().children('div:last').find('[role=radio]');
+  }
+  
+  if(type === "keydown") {
+    var node = event.currentTarget;
+    var key = event.which || event.keyCode || 0;
+    switch (key) {
+      case KEYCODE.DOWN:
+      case KEYCODE.RIGHT:
+        var next = nextRadioButton(node);
+		if ($(next).length === 0) next = firstRadioButton(node);
+		break;
+
+      case KEYCODE.UP:
+      case KEYCODE.LEFT: 
+        next = previousRadioButton(node);
+        if ($(next).length === 0) next = lastRadioButton(node);
+        break;
+
+      case KEYCODE.SPACE:
+        next = node;
+        break;
+    }
+
+    if ($(next).length > 0) {
+	  $(node).parent().parent().children('div').find('[role=radio]').each(function(){
+		  setRadioButton($(this),false);
+	  });
+      event.preventDefault();
+	  event.stopPropagation();
+	  setRadioButton(next,true,true);
+	}
+  } else if (type === "click") {
+	  var node = event.currentTarget;
+	  $(node).parent().parent().children('div').find('[role=radio]').each(function(){
+		  setRadioButton($(this),false);
+	  });
+      setRadioButton(node,true);
+	  event.preventDefault();
+	  event.stopPropagation();
+  }
+}
 ////////////////////////////////////////////////////////////////////////////////
 // Startup Code
 ////////////////////////////////////////////////////////////////////////////////
@@ -1404,14 +1520,15 @@ $(document).ready(function() {
 		  if (errors) {
 		    var element = validator.errorList[0].element;
 		    var targetScroll = $(element).parent().prevAll('label.questions:first');
-		    $('html, body').animate({
-		      scrollTop: targetScroll.parent().offset().top - $('#form-steps').outerHeight() - 15 },1000);
-
+            
 		    if ($(element).is(':radio')) {
-		      $(element).next('label.radio').focus();
+		      $(element).next('[role=radio]').focus();
 		    } else {
 		      $(element).focus();
 		    }
+			
+			$('html, body').scrollTop(targetScroll.parent().offset().top - $('#form-steps').outerHeight() - 15);
+			
 		  }
 		 },
 		 showErrors: function(errorMap,errorList) {
@@ -1441,22 +1558,27 @@ $(document).ready(function() {
 
 	$("select").change(removeErrorMessage)
 
-
-
     jQuery.extend(jQuery.validator.messages, {
         required: "&nbsp;* This is required"
      });
 
 	// When the user is on the results page, this event will send the user back
 	// to the goto_calculatePage
-	$("#returnToCalculateButton").on("click", goback_tocalc)
+	$("#returnToCalculateButton").on("click", goback_tocalc);
 
-
+    $(document).keydown(function(e) {
+		if (e.which == 32 && $(e.target).is('[role=radio]') ) {
+          e.preventDefault();
+		}
+    });
+	
 
 });
 
+
 $(window).load(function(e) {
 
+   registerCustomRadioAccess();
   // Callsbacks to handle the Navigation Bar when user scrolls or uses an
   // touch event
 	$(window).on("scroll", handleScrollEvent);
@@ -1468,43 +1590,7 @@ $(window).load(function(e) {
 	}
 
 	if( isMobile() ) $(".toggleTool").on("click keypress", toggleFormDisplay);
-
-	$(".responseOptions > label.radio,.responseOptionsWithoutIndent > label.radio").on('click keypress', function(e) {
-		// This code was the orignal code for clicking on an image and
-		// expecting it to act like a radio button
-		// if ($(e.target).hasClass('radio')) {
-		// 	$(e.target).prev().trigger('click');
-		// }
-		// else if ($(e.target).parents('.radio')) {
-		// 	$(e.target).parents('.radio').prev().trigger('click');
-		// }
-		// else {
-		// 	if(e.type == "keypress") {
-		// 		if ((e.keyCode == 13) 142| (e.keyCode == 32)){
-		// 			$(e.target).children(".radio").prev().trigger('click');
-		// 		}
-		// 	}
-		// 	if(e.type == "click") {$("#form-steps > ol > li > a")
-		// 		$(e.target).children('.radio').prev().trigger('click');
-		// 	}
-		// }
-
-		// The code will force an image to act likie an input
-		if ( e.type == "click") {
-			if ($(e.target).hasClass('radio') && $(e.target).prev().prop("disabled") != true )
-				$(e.target).prev().trigger('click');
-			else if ($(e.target).parents('.radio') && $(e.target).parents('.radio').prev().prop("disabled") != true )
-				$(e.target).parents('.radio').prev().trigger('click');
-		} else {
-			if(e.type == "keypress")
-				if ((e.keyCode == 13) || (e.keyCode == 32)) {
-				    if ($(e.target).hasClass('radio') && $(e.target).prev().prop("disabled") != true ) {
-					  $(e.target).prev('input:radio').trigger('click');
-					}
-				}
-		}
-
-	});
+    
 	$("button.select").on('click keypress', function(e) {
 		if(e.type == "keypress") {
 			if ((e.keyCode == 13) || (e.keyCode == 32)) {
@@ -1597,6 +1683,11 @@ $(window).load(function(e) {
 		$("#jumpTitle").on("click", "a", function(event) { jumpToSection(event); })
 	}
 
-  //var midPointX = adjustNavigationBarLine()
-	//adjustLinks(midPointX)
+    //polyfill for now
+	if (!String.prototype.startsWith) {
+	  String.prototype.startsWith = function(searchString, position) {
+		position = position || 0;
+		return this.indexOf(searchString, position) === position;
+	};
+}
 });

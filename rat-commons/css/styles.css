@@ -836,6 +836,12 @@ input[type="radio"] + label.radio {
   color: #606060;
   font-weight: normal;
 }
+
+input[type="radio"] + div.radio {
+  color: #606060;
+  font-weight: normal;
+}
+
 input[type="radio"] + label.radio span {
   display: inline-block;
   width: 1.5em;
@@ -847,17 +853,46 @@ input[type="radio"] + label.radio span {
   cursor: pointer;
   background-repeat: no-repeat;
 }
+
+
+input[type="radio"] + div.radio span {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  margin: 0 0.5em 0 0;
+  vertical-align: middle;
+  background: url("../images/Radio_Button_Unselected.png");
+  color: #f2f2f2;
+  cursor: pointer;
+  background-repeat: no-repeat;
+}
+
 input[type="radio"] + label.radio:hover span {
   background: url("../images/Radio_Button_Selected.png");
   background-repeat: no-repeat;
 
 
 }
+
+input[type="radio"] + div.radio:hover span {
+  background: url("../images/Radio_Button_Selected.png");
+  background-repeat: no-repeat;
+
+
+}
+
 input[type="radio"]:checked + label.radio span {
   background: url("../images/Radio_Button_Selected.png");
   background-repeat: no-repeat;
 
 }
+
+input[type="radio"]:checked + div.radio span {
+  background: url("../images/Radio_Button_Selected.png");
+  background-repeat: no-repeat;
+
+}
+
 select:disabled,
 input:disabled {
   cursor: not-allowed;
@@ -865,7 +900,9 @@ input:disabled {
   border: none;
 }
 select:disabled[type="radio"] + label.radio,
-input:disabled[type="radio"] + label.radio {
+input:disabled[type="radio"] + label.radio,
+input:disabled[type="radio"] + div.radio
+ {
   background: none;
   border: none;
   color: #c0c0c0;
@@ -876,7 +913,9 @@ input:disabled[type="radio"] + label.radio {
 /* may be invalid.  I have confirmed the line with */
 /* a peer, but do not have the time to remove it.  */
 select:disabled[type="radio"] + label.radio span,
-input:disabled[type="radio"] + label.radio span {
+input:disabled[type="radio"] + label.radio span,
+input:disabled[type="radio"] + div.radio span
+ {
   opacity: 0.5;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
   filter: alpha(opacity=50);
