@@ -624,8 +624,7 @@ function calculatePositionToScrollTo(target) {
 /* all browsers/mobile devices, I create one algorithm for the desktop and    */
 /* one algorithm for the mobile.                                              */
 /******************************************************************************/
-function toggle_menu(){
-
+function toggle_menu(e){
 	  var top
 		if ( isMobile() == false )
 		{
@@ -642,7 +641,7 @@ function toggle_menu(){
 
 
     if($("#side_nav").width()>0){
-        $("#side_nav").stop().show().animate({ width: "0%" },{ complete: function() {
+        $("#side_nav").show().animate({ width: "0%" },{ duration: 300, complete: function() {
             $('#side_nav .glyphicon-menu-hamburger').css('display', 'none');
             $("#form-steps").css("z-index","1");
             }
@@ -650,7 +649,7 @@ function toggle_menu(){
 
     } else {
 		$("header").css("z-index","200")
-		$("#side_nav").show().animate({width: "70%"},{complete: function() {
+		$("#side_nav").stop(true,true).show().animate({width: "70%"},{ complete: function() {
 		  $('#side_nav .glyphicon-menu-hamburger').css('display', 'inline-block');
 		    }
 		    }
@@ -761,9 +760,11 @@ function mouseDownBorderToggle(event) {
 // whether it was a mouse event or the user tabbed into it.
 function focusBorderToggle(event) {
 	var $this = $(this);
-    var mouseDown = $this.data('mouseEvent');
+	var validator = $("#riskForm").data("validator");
+    var mouseDown = $this.data('mouseEvent') || $(validator).data('mouseEventSubmitForm');
 
     $this.removeData('mouseEvent');
+    $(validator).removeData('mouseEventSubmitForm');
 
 	if ( mouseDown ) {
         removeOutline(event)
@@ -1567,13 +1568,6 @@ $(document).ready(function() {
 	// to the goto_calculatePage
 	$("#returnToCalculateButton").on("click", goback_tocalc);
 
-    $(document).keydown(function(e) {
-		if (e.which == 32 && $(e.target).is('[role=radio]') ) {
-          e.preventDefault();
-		}
-    });
-	
-
 });
 
 
@@ -1657,6 +1651,10 @@ $(window).load(function(e) {
 	var cssClass = ( isMobile() )  ? "spacerBetweenQuestionsAndButtonsMobile" : "spacerBetweenQuestionsAndButtonsDesktop";
 	if ( $("#calculate").length > 0 ) $("#calculate").addClass(cssClass);
 
+    $("#calculate").on("click",function(e) {
+      var validator = $("#riskForm").data("validator");
+      $(validator).data("mouseEventSubmitForm",true);
+    });
 	// For the page with the Assess Patient Link Button set the click to calculate.html
 	if ( $("#AssessPatientRisk").length > 0 )	$("#AssessPatientRisk").on("click", goto_calculatePage);
 
