@@ -641,18 +641,16 @@ function toggle_menu(){
 		$("#side_nav").css("top", top)
 
 
-    if($("#side_nav").width()>0){ $("#side_nav").animate({ width: "0%" });
+    if($("#side_nav").width()>0){
+        $("#side_nav").stop().show().animate({ width: "0%" });
 
-			setTimeout(function() { $('#side_nav .glyphicon-menu-hamburger').css('display', 'none'); }, 250);
+		setTimeout(function() { $('#side_nav .glyphicon-menu-hamburger').css('display', 'none'); }, 250);
     	setTimeout(function(){ $("#form-steps").css("z-index","1"); }, 500);
     } else {
-			$("header").css("z-index","200")
-			$("#side_nav").animate({
-				width: "70%"
-			});
+		$("header").css("z-index","200")
+		$("#side_nav").show().animate({width: "70%"});
 
-			// $("#side_nav").css("width","70%")
-			setTimeout(function() { $('#side_nav .glyphicon-menu-hamburger').css('display', 'inline-block'); }, 250);
+		setTimeout(function() { $('#side_nav .glyphicon-menu-hamburger').css('display', 'inline-block'); }, 250);
     }
 }
 
@@ -1324,7 +1322,7 @@ function removeErrorMessage(event) {
 function registerCustomRadioAccess() {
 	$("[role=radio]").each(function(){
 		$(this).on('keydown',handleKeyDownRadioGroup);
-		$(this).on('click',handleKeyDownRadioGroup);
+		$(this).on('mousedown',handleKeyDownRadioGroup);
 		//$(this).on('focus',handleFocusRadioGroup);
 	});
 }
@@ -1418,14 +1416,13 @@ function handleKeyDownRadioGroup(event){
 	  event.stopPropagation();
 	  setRadioButton(next,true,true);
 	}
-  } else if (type === "click") {
+  } else if (type === "mousedown") {
 	  var node = event.currentTarget;
 	  $(node).parent().parent().children('div').find('[role=radio]').each(function(){
 		  setRadioButton($(this),false);
 	  });
       setRadioButton(node,true);
 	  event.preventDefault();
-	  event.stopPropagation();
   }
 }
 ////////////////////////////////////////////////////////////////////////////////
