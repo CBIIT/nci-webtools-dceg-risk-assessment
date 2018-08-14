@@ -35,9 +35,9 @@
     <div id="toolTitle">
       <a href="index.html">Breast Cancer Risk Assessment Tool</a>
       <button class="navbar-toggle collapsed" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse"
-        onclick="toggle_menu()">
+        onclick="toggle_menu()" tabindex="-1">
         <span class="sr-only">Toggle navigation</span>
-        <div class="glyphicon glyphicon-menu-hamburger"></div>
+        <div class="glyphicon glyphicon-menu-hamburger addOutlineSpaceBetween " tabindex="0"></div>
       </button>
     </div>
     <nav class="navbar-collapse collapse" id="main-nav" aria-expanded="false">
@@ -57,7 +57,7 @@
         <button class="navbar-toggle collapsed navbar-toggle_innermenu" type="button" aria-controls="main-nav" aria-expanded="false"
           data-toggle="collapse" onclick="toggle_menu()">
           <span class="sr-only">Toggle navigation</span>
-          <div class="glyphicon glyphicon-menu-hamburger" tabindex="0"></div>
+          <div class="glyphicon glyphicon-menu-hamburger addOutlineSpaceBetween" tabindex="0"></div>
         </button>
       </div>
       <ul class="nav nav-tabs">
@@ -75,7 +75,9 @@
     <div id="results" class="container-fluid">
       <div id="results_home">
         <h1 class="makeTagInline">Personalized Results</h1>
-        <img id="printTop" src="rat-commons/images/print-icon.gif" alt="printing the page">
+        <div id="printTop" class="text-center center-block addOutlineSpaceBetween" tabindex="0">
+          <img src="rat-commons/images/print-icon.gif" alt="printing the page">
+        </div>
         <div class="row">
           <div class="col-xs-12 col-md-12">
             <ul class="content resultsPageContent">
@@ -176,17 +178,19 @@
         <div class="center-block">
           <div class="row" id="resultButtons">
             <div class="col-xs-12">
-              <button id="returnToCalculateButton" class="center-block text-center spacerBetweenCalculateButtonAndResetButton" type="button">Edit Responses</button>
+              <button id="returnToCalculateButton" class="center-block text-center spacerBetweenCalculateButtonAndResetButton" tabindex="0" type="button">Edit Responses</button>
             </div>
           </div>
           <div class="row">
             <div class="col-xs-12">
-              <button id="startOverButton" type="button" class="center-block text-center">Start A New Assessment</button>
+              <button id="startOverButton" type="button" tabindex="0" class="center-block text-center">Start A New Assessment</button>
             </div>
           </div>
           <div class="row">
             <div class="col-xs-12">
-              <img id="printBottom" class="center-block text-center" src="rat-commons/images/print-icon.gif" alt="printing the page">
+              <div id="printBottom" class="text-center center-block addOutlineSpaceBetween" tabindex="0">
+                <img src="rat-commons/images/print-icon.gif" alt="printing the page">
+              </div>
             </div>
           </div>
         </div>

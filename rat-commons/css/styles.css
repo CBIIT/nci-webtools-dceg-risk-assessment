@@ -470,16 +470,25 @@ a.btn:disabled {
   float: Right;
   margin-top: 18px;
   cursor: pointer;
-  width: 31px;
-  height: 26px;
+  width: 37px;
+  height: 31px;
 }
 
 #printBottom {
   cursor: pointer;
-  width: 31px;
-  height: 26px;
-  margin-top: 2em;
-  margin-bottom: 1em;
+  width: 37px;
+  height: 31px;
+  padding-top: 3px;
+
+  margin-top: 1em;
+  margin-bottom: 2em;
+
+}
+
+#printBottom > img,
+#printTop > img {
+    width: 31px;
+    height: 26px;
 }
 
 #calculate:disabled {
@@ -1476,6 +1485,7 @@ svg {
   color: #2E2E2E;
   text-decoration: none;
   border-bottom: thin dotted;
+  outline: none;
 }
 
 .definition:hover, .definition:focus {
@@ -1491,6 +1501,10 @@ svg {
 
 .addOutline {
   outline: 1px solid #4D90FE;
+}
+
+.addOutlineSpaceBetween {
+    outline-offset: 4px;
 }
 
 /* It was thought that *:focus would be the style for all tag's focus */

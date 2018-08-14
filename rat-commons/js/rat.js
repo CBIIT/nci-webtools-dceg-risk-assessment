@@ -1482,10 +1482,25 @@ $(document).ready(function() {
 	$("#AssessPatientRisk").on('focusin', 		function(event)  { focusBorderToggle(event);	});
 	$("#AssessPatientRisk").on('focusout',      function(event)  { removeOutline(event); 		});
 
-	// Rule: When the Start Over Button/Edit Repsonses gains the focus from the
+	// Rule: When the Start Over Button/Edit Repsonses or the print icon gains the focus from the
 	// Tab Key.  It sould be highlighted and blurred then have the outline removed
 	$("#startOverButton, #returnToCalculateButton").on('focusin',  function(event)  { focusBorderToggle(event);	});
-	$("#startOverButton, #returnToCalculateButton").on('focusout', function(event)  { removeOutline(event); 		});
+	$("#startOverButton, #returnToCalculateButton").on('focusout', function(event)  { removeOutline(event);     });
+	$("#printBottom").on('focusin', function(event) { focusBorderToggle(event); });
+    $("#printTop").on('focusin', function(event) { focusBorderToggle(event); });
+
+    // The Side Menu at the top of the screen should be highlighted when it is tabbed into
+    $("#toolTitle > button > div").on('focusin', function(event) {
+        console.log("Entering focus");
+        focusBorderToggle(event);
+    });
+
+    $("#toolTitle > button > div").on('focusout', function(event) {
+        console.log("Leaving focus");
+        removeOutline(event);
+    });
+
+
 
 
 	// Rule : When tabbing the user could make the "Skip to Content" appear. which could
@@ -1567,6 +1582,13 @@ $(document).ready(function() {
 	// When the user is on the results page, this event will send the user back
 	// to the goto_calculatePage
 	$("#returnToCalculateButton").on("click", goback_tocalc);
+
+    $(document).keydown(function(e) {
+		if (e.which == 32 && $(e.target).is('[role=radio]') ) {
+          e.preventDefault();
+		}
+    });
+
 
 });
 
@@ -1663,6 +1685,13 @@ $(window).load(function(e) {
 
 	// Prints the Reuslts page
 	$("[id^='print']").on("click", printCurrentPage );
+
+	$("[id^='print']").on("keyup", function(event) {
+        event.preventDefault();
+        if ( event.keyCode == 13 ) {
+            printCurrentPage();
+        }
+    })
 
 	// The Print Button on the Results Pages should not be shown when the device
 	// is mobile
