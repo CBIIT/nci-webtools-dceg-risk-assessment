@@ -3,7 +3,12 @@
 
 <head>
   <script src="//assets.adobedtm.com/f1bfa9f7170c81b1a9a9ecdcc6c5215ee0b03c84/satelliteLib-4b219b82c4737db0e1797b6c511cf10c802c95cb.js"></script>
-  <title>Breast Cancer Risk Assessment Tool (BRAT) - Risk Calculator</title>
+  <title>Breast Cancer Risk Assessment Tool</title>
+  <meta name="description" content="An interactive tool, also known as The Gail Model, designed by scientists at the National Cancer Institute and the NSABP to estimate a woman's risk of developing invasive breast cancer." />
+  <meta property="og:description" content="An interactive tool, also known as The Gail Model, designed by scientists at the National Cancer Institute and the NSABP to estimate a woman's risk of developing invasive breast cancer." />
+  <meta property="og:site_name" content="Breast Cancer Risk Assessment Tool" />
+  <meta property="og:url" content="https://www.cancer.gov/bcrisktool" />
+  <meta property="keywords" content="breast cancer, gail model, bcrat, breast cancer risk, risk assessment, risk tool" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
@@ -228,12 +233,12 @@
             in situ (LCIS) or has she received previous radiation therapy to the chest for treatment of Hodgkin lymphoma?</label>
           <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
             <input id="cancerAndRadiationHistoryYes" type="radio" name="cancerAndRadiationHistory" value="0" required aria-label="cancerAndRadiationHistory" >
-            <div class="radio" tabindex="0" for="cancerAndRadiationHistoryYes" role="radio" aria-checked="false">
+            <div class="radio" tabindex="0" role="radio" aria-checked="false">
               <span></span>Yes</div>
           </div>
           <div class="responseOptions">
             <input id="cancerAndRadiationHistoryNo" type="radio" name="cancerAndRadiationHistory" value="1" required aria-label="cancerAndRadiationHistory">
-            <div class="radio" tabindex="-1" for="cancerAndRadiationHistoryNo" role="radio" aria-checked="false">
+            <div class="radio" tabindex="-1" role="radio" aria-checked="false">
               <span></span>No</div>
           </div>
         </div>
@@ -244,17 +249,17 @@
           </label>
           <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
             <input id="geneticMakeupYes" type="radio" name="geneticMakeup" value="0" required aria-label="geneticMakeup">
-            <div class="radio" tabindex="0" for="geneticMakeupYes" role="radio" aria-checked="false">
+            <div class="radio" tabindex="0" role="radio" aria-checked="false">
               <span></span>Yes</div>
           </div>
           <div class="responseOptions">
             <input id="geneticMakeupNo" type="radio" name="geneticMakeup" value="1" required aria-label="geneticMakeup">
-            <div class="radio" tabindex="-1" for="geneticMakeupNo" role="radio" aria-checked="false">
+            <div class="radio" tabindex="-1" role="radio" aria-checked="false">
               <span></span>No</div>
           </div>
           <div class="responseOptions">
             <input id="geneticMakeupUnknown" type="radio" name="geneticMakeup" value="2" required aria-label="geneticMakeup" >
-            <div class="radio" tabindex="-1" for="geneticMakeupUnknown" role="radio" aria-checked="false">
+            <div class="radio" tabindex="-1" role="radio" aria-checked="false">
               <span></span>Unknown</div>
           </div>
         </div>
@@ -354,17 +359,17 @@
           <label id="biopsyLabel" class="questions no-margin-top">Has the woman ever had a breast biopsy?</label>
           <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
             <input id="biopsyAnswerYes" type="radio" name="biopsy" value="1" required aria-label="biopsy">
-            <div class="radio" tabindex="0" for="biopsyAnswerYes" role="radio" aria-checked="false">
+            <div class="radio" tabindex="0" role="radio" aria-checked="false">
               <span> </span>Yes</div>
           </div>
           <div class="responseOptions">
             <input id="biopsyAnswerNo" type="radio" name="biopsy" value="0" required aria-label="biopsy">
-            <div class="radio" tabindex="-1" for="biopsyAnswerNo" role="radio" aria-checked="false" >
+            <div class="radio" tabindex="-1" role="radio" aria-checked="false" >
               <span> </span>No</div>
           </div>
           <div class="responseOptions">
             <input id="biopsyAnswerUnknown" type="radio" name="biopsy" value="99" required aria-label="biopsy">
-            <div class="radio" tabindex="-1" for="biopsyAnswerUnknown" role="radio" aria-checked="false" >
+            <div class="radio" tabindex="-1" role="radio" aria-checked="false" >
               <span> </span>Unknown</div>
           </div>
         </div>
@@ -373,12 +378,12 @@
           <label id="biopsy_resultLabel" class="col-sm-offset-1 questions " data-subquestion="true">How many breast biopsies (positive or negative) has the woman had?</label>
           <div class="responseOptionsWithoutIndent col-sm-offset-1 spaceBetweenFirstQuestionAndResponse pl-3">
             <input id="breastBiopsiesCount1" type="radio" name="biopsy_result" value="1" required aria-label="biopsy_result">
-            <div class="radio" tabindex="0" for="breastBiopsiesCount1" role="radio" aria-checked="false">
+            <div class="radio" tabindex="0" role="radio" aria-checked="false">
               <span> </span>1</div>
           </div>
           <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
             <input id="breastBiopsiesCountLessThan0" type="radio" name="biopsy_result" value="2" required aria-label="biopsy_result">
-            <div class="radio" tabindex="-1" for="breastBiopsiesCountLessThan0" role="radio" aria-checked="false">
+            <div class="radio" tabindex="-1" role="radio" aria-checked="false">
               <span> </span>2 or more</div>
           </div>
         </div>
@@ -387,17 +392,17 @@
           <label id="biopsy_ahLabel" class="col-sm-offset-1 questions " data-subquestion="true">Has the woman ever had a breast biopsy with atypical hyperplasia?</label>
           <div class="responseOptionsWithoutIndent col-sm-offset-1 spaceBetweenFirstQuestionAndResponse pl-3">
             <input id="hadAhYes" type="radio" name="biopsy_ah" value="1.82" required aria-label="biopsy_ah">
-            <div class="radio" tabindex="0" for="hadAhYes" role="radio" aria-checked="false">
+            <div class="radio" tabindex="0" role="radio" aria-checked="false">
               <span> </span>Yes</div>
           </div>
           <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
             <input id="hadAhNo" type="radio" name="biopsy_ah" value=".93" required aria-label="biopsy_ah">
-            <div class="radio" tabindex="-1" for="hadAhNo" role="radio" aria-checked="false" >
+            <div class="radio" tabindex="-1" role="radio" aria-checked="false" >
               <span> </span>No</div>
           </div>
           <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
             <input id="hadAhUnknown" type="radio" name="biopsy_ah" value="1.0" required aria-label="biopsy_ah">
-            <div class="radio" tabindex="-1" for="hadAhUnknown" role="radio" aria-checked="false" >
+            <div class="radio" tabindex="-1" role="radio" aria-checked="false" >
               <span> </span>Unknown</div>
           </div>
         </div>
@@ -406,18 +411,18 @@
           <label id="age_periodLabel" class="questions  ">What was the woman&#8217;s age at the time of her first menstrual period?</label>
           <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
             <input id="age7To11" type="radio" name="age_period" value="2" required aria-label="age_period">
-            <div class="radio" tabindex="0" for="age7To11" role="radio" aria-checked="false">
+            <div class="radio" tabindex="0" role="radio" aria-checked="false">
               <span></span>7 to 11</div>
           </div>
 
           <div class="responseOptions">
             <input id="age12To13" type="radio" name="age_period" value="1" required aria-label="age_period">
-            <div class="radio" tabindex="-1" for="age12To13" role="radio" aria-checked="false">
+            <div class="radio" tabindex="-1" role="radio" aria-checked="false">
               <span></span>12 to 13</div>
           </div>
           <div class="responseOptions">
             <input id="ageGt14" type="radio" name="age_period" value="0" required aria-label="age_period">
-            <div class="radio" tabindex="-1" for="ageGt14" role="radio" aria-checked="false">
+            <div class="radio" tabindex="-1" role="radio" aria-checked="false">
               <span></span>14 or older</div>
           </div>
         </div>
@@ -441,22 +446,22 @@
           <label id="relativesLabel" class="questions ">How many of the woman&#8217;s first-degree relatives (mother, sisters, daughters) have had breast cancer?</label>
           <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
             <input id="relativesNone" type="radio" name="relatives" value="0" required aria-label="relatives">
-            <div class="radio" tabindex="0" for="relativesNone" role="radio" aria-checked="false">
+            <div class="radio" tabindex="0" role="radio" aria-checked="false">
               <span></span>None</div>
           </div>
           <div class="responseOptions">
             <input id="relativesOne" type="radio" name="relatives" value="1" required aria-label="relatives">
-            <div class="radio" tabindex="-1" for="relativesOne" role="radio" aria-checked="false" >
+            <div class="radio" tabindex="-1" role="radio" aria-checked="false" >
               <span></span>One</div>
           </div>
           <div class="responseOptions">
             <input id="relativesGtOne" type="radio" name="relatives" value="2" required aria-label="relatives">
-            <div class="radio" tabindex="-1" for="relativesGtOne" role="radio" aria-checked="false" >
+            <div class="radio" tabindex="-1" role="radio" aria-checked="false" >
               <span></span>More than one</div>
           </div>
           <div class="responseOptions">
             <input id="relativesUnknown" type="radio" name="relatives" value="99" required aria-label="relatives">
-            <div class="radio" tabindex="-1" for="relativesUnknown" role="radio" aria-checked="false" >
+            <div class="radio" tabindex="-1" role="radio" aria-checked="false" >
               <span></span>Unknown</div>
           </div>
         </div>
