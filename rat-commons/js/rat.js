@@ -642,15 +642,19 @@ function toggle_menu(){
 
 
     if($("#side_nav").width()>0){
-        $("#side_nav").stop().show().animate({ width: "0%" });
+        $("#side_nav").stop().show().animate({ width: "0%" },{ complete: function() {
+            $('#side_nav .glyphicon-menu-hamburger').css('display', 'none');
+            $("#form-steps").css("z-index","1");
+            }
+        });
 
-		setTimeout(function() { $('#side_nav .glyphicon-menu-hamburger').css('display', 'none'); }, 250);
-    	setTimeout(function(){ $("#form-steps").css("z-index","1"); }, 500);
     } else {
 		$("header").css("z-index","200")
-		$("#side_nav").show().animate({width: "70%"});
-
-		setTimeout(function() { $('#side_nav .glyphicon-menu-hamburger').css('display', 'inline-block'); }, 250);
+		$("#side_nav").show().animate({width: "70%"},{complete: function() {
+		  $('#side_nav .glyphicon-menu-hamburger').css('display', 'inline-block');
+		    }
+		    }
+		);
     }
 }
 
