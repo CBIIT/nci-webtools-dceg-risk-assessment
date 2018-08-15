@@ -215,9 +215,19 @@ function enableBiopsyQuestionAndAnswers(event) {
   $("input[id^='hadAh']").next().css("color", "#606060");
   $("div[for^='hadAh']").parent().prev("[class*='questions']").css("color", "#2E2E2E")
   
-  
-  $("[aria-labelledby=biopsy_resultLabel]").find("[role=radio]:first").attr("tabindex","0");
-  $("[aria-labelledby=biopsy_ahLabel]").find("[role=radio]:first").attr("tabindex","0");
+  if ($("[aria-labelledby=biopsy_resultLabel]").find("[role=radio][aria-checked=true]").length > 0) {
+    $("[aria-labelledby=biopsy_resultLabel]").find("[role=radio][aria-checked=true]").attr("tabindex","0");
+  } else {
+    $("[aria-labelledby=biopsy_resultLabel]").find("[role=radio]:first").attr("tabindex","0");
+  }
+
+  if ($("[aria-labelledby=biopsy_ahLabel]").find("[role=radio][aria-checked=true]").length > 0) {
+    $("[aria-labelledby=biopsy_ahLabel]").find("[role=radio][aria-checked=true]").attr("tabindex","0");
+  } else {
+    $("[aria-labelledby=biopsy_ahLabel]").find("[role=radio]:first").attr("tabindex","0");
+  }
+
+
   adjust_line_width();
 }
 
