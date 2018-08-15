@@ -1504,7 +1504,7 @@ svg {
 }
 
 .addOutlineSpaceBetween {
-    outline-offset: 4px;
+    padding: 4px;
 }
 
 /* It was thought that *:focus would be the style for all tag's focus */
