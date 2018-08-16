@@ -159,6 +159,7 @@ function go_toresult() {
 	// set this to false when you go the resutls page
     var validator = $("#riskForm").data("validator");
     $(validator).data("mouseEventSubmitForm", false);
+    $(window).data('mouseEvent', false)
 
 }
 
@@ -166,10 +167,10 @@ function go_toresult() {
 /* Create a pie chart                                                         */
 /*                                                                            */
 /* Parameters:                                                                */
-/*   percent		       	The change that the victim will get cancer       	    */
-/*   divContainerForChart  	The HTML Container that will cotnain the chart   	*/
-/*   color1 			The color for the chance of getting cancer       		        */
-/*   color2  			The color for the chance of not getting cancer   		        */
+/*   percent		       	The change that the victim will get cancer        */
+/*   divContainerForChart  	The HTML Container that will cotnain the chart    */
+/*   color1 			The color for the chance of getting cancer            */
+/*   color2  			The color for the chance of not getting cancer        */
 /******************************************************************************/
 function make_pie_chart(percent, divContainerForChart, color1, color2){
 
@@ -766,13 +767,17 @@ function mouseDownBorderToggle(event) {
 function focusBorderToggle(event) {
 	var $this = $(this);
 	var validator = $("#riskForm").data("validator");
+
+	console.log("Current in focusBorderToggle working with target " + event.target)
+    console.log("Mouse Down is " + mouseDown)
+    console.log("Value of mouseEvent = " + $this.data('mouseEvent'))
+    console.log("Value of validator  = " + $(validator).data('mouseEventSubmitForm') )
     var mouseDown = $this.data('mouseEvent') || $(validator).data('mouseEventSubmitForm');
 
     $this.removeData('mouseEvent');
     $(validator).removeData('mouseEventSubmitForm');
 
-    console.log("Current in focusBorderToggle working with target " + event.target)
-    console.log("Mouse Down is " + mouseDown)
+
 
 	if ( mouseDown ) {
         removeOutline(event)
