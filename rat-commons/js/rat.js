@@ -155,6 +155,11 @@ function go_toresult() {
 		$("#results_home").css("padding-top", "6px")
 	}
 
+	// This is needed for the calculate button on the input entry form, so
+	// set this to false when you go the resutls page
+    var validator = $("#riskForm").data("validator");
+    $(validator).data("mouseEventSubmitForm", false);
+
 }
 
 /******************************************************************************/
@@ -766,12 +771,19 @@ function focusBorderToggle(event) {
     $this.removeData('mouseEvent');
     $(validator).removeData('mouseEventSubmitForm');
 
+    console.log("Current in focusBorderToggle working with target " + event.target)
+    console.log("Mouse Down is " + mouseDown)
+
 	if ( mouseDown ) {
         removeOutline(event)
     } else {
         $("*").removeClass("addOutline")
+        console.log("Removed all addOutline")
 		$(event.target).removeClass("removeOutline");
+		console.log("Remove removeOutline from target")
 		$(event.target).addClass("addOutline")
+		console.log("Remove addOutline from target")
+
 	}
 }
 
