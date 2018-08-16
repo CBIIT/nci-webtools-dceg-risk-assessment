@@ -1486,8 +1486,12 @@ $(document).ready(function() {
 	// Tab Key.  It sould be highlighted and blurred then have the outline removed
 	$("#startOverButton, #returnToCalculateButton").on('focusin',  function(event)  { focusBorderToggle(event);	});
 	$("#startOverButton, #returnToCalculateButton").on('focusout', function(event)  { removeOutline(event);     });
+
 	$("#printBottom").on('focusin', function(event) { focusBorderToggle(event); });
+	$("#printBottom").on('mouseDown', function(event) { mouseDownBorderToggle(event); });
+
     $("#printTop").on('focusin', function(event) { focusBorderToggle(event); });
+    $("#printTop").on('mousedown', function(event) { mouseDownBorderToggle(event); });
 
     // The Side Menu at the top of the screen should be highlighted when it is tabbed into
     $("#toolTitle > button > div").on('focusin', function(event) {

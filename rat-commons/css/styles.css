@@ -459,36 +459,24 @@ a.btn:disabled {
   color: white;
 }
 
-/* Styles for the print button                                                */
-/* [id^="print"] {
-  float:`Right;
-  transform: scale(1.5,1.5);
+.printButton {
+  height: 31px;
+  width: 37px;
   cursor: pointer;
-} */
+
+  background-color: white;
+  border : none; 
+}
 
 #printTop {
-  float: Right;
+  float: right;
   margin-top: 18px;
   cursor: pointer;
-  width: 37px;
-  height: 31px;
 }
 
 #printBottom {
-  cursor: pointer;
-  width: 37px;
-  height: 31px;
-  padding-top: 3px;
-
-  margin-top: 1em;
-  margin-bottom: 2em;
-
-}
-
-#printBottom > img,
-#printTop > img {
-    width: 31px;
-    height: 26px;
+  margin-top: 2em;
+  margin-bottom: 1em;
 }
 
 #calculate:disabled {
