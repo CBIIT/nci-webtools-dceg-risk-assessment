@@ -115,7 +115,7 @@ class BreastRiskAssessmentTool:
       elif ( risk < averageFiveYearRisk ):
         patientColorPresented5Year = "presented in green since hers is lower than"
       else:
-        patientColorPresented5Year = "presented in green since hers is equal to"
+        patientColorPresented5Year = "presented in blue since hers is equal to"
 
       patientColorPresentedLifetime = ""
       if ( lifetime_patient_risk > lifetime_average_risk ):
@@ -123,7 +123,7 @@ class BreastRiskAssessmentTool:
       elif ( lifetime_patient_risk < lifetime_average_risk):
         patientColorPresentedLifetime = "presented in green since hers is lower than"
       else:
-        patientColorPresentedLifetime = "presented in green since hers is equal to"
+        patientColorPresentedLifetime = "presented in blue since hers is equal to"
 
 
       results={}

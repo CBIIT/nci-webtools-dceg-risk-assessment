@@ -277,6 +277,9 @@ function resultsDisplay(response, textStatus, xhr) {
 	var fiveYearPatientRiskColor = ( result.risk > result.averageFiveRisk) ? "#BB0E3D" : "#2DC799";
 	var lifetimePateientRiskColor = ( result.lifetime_patient_risk > result.lifetime_average_risk) ? "#BB0E3D" : "#2DC799";
 
+    fiveYearPatientRiskColor = ( result.risk == result.averageFiveRisk ) ? "#40A5C1": fiveYearPatientRiskColor;
+    lifetimePateientRiskColor = ( result.lifetime_patient_risk == result.lifetime_average_risk ) ? "#40A5C1": lifetimePateientRiskColor;
+
 	$("#results_text1").html(result.message);
 	$("#results_text2").html(result.lifetime_message);
 	$("#Risk1").text(result.risk+"%");
@@ -327,7 +330,7 @@ function addInformationToTheQuestions(element) {
         startTag + "Risk estimates for American Indian/Alaska Native women are based on data for white women; further studies are needed to refine and validate this tool." + endTag
     }
     else if ( currentRaceSelected == 'Unknown') {
-      returnHTML = startTag + "The risk assessment was based on data for white females." + endTag
+      returnHTML = startTag + "Risk estimates for Unknown race/ethnicity are based on data for white women." + endTag
     } else {
       returnHTML = ""
     }
