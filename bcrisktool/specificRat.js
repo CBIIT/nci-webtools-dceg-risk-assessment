@@ -32,8 +32,8 @@ $(function() {
    $("input[name='cancerAndRadiationHistory']").on("click", function(event) {
         if(this.value == 0){
             genericResetValidator();
-            $("#womanWithCancerDialog").modal("show");
             disableForm();
+            setTimeout(function() {$("#womanWithCancerDialog").modal("show");},500);
         } else {
 	  	    enableBRATForm()
       }
@@ -44,8 +44,8 @@ $(function() {
   $("input[name='geneticMakeup']").on("click", function(event) {
 	   if(this.value == 0 ) {
           genericResetValidator();
-	      $("#hasBRCAMutation").modal("show");
-          disableForm();
+	      disableForm();
+	      setTimeout(function() {$("#hasBRCAMutation").modal("show");},500);
 	   } else {
 	        enableBRATForm();
       		$("#riskForm").trigger("change")
