@@ -837,6 +837,7 @@ input[type="radio"] + label.radio {
 input[type="radio"] + div.radio {
   color: #606060;
   font-weight: normal;
+  display: inline-block;
 }
 
 input[type="radio"] + label.radio span {

@@ -32,8 +32,8 @@ $(function() {
    $("input[name='cancerAndRadiationHistory']").on("click", function(event) {
         if(this.value == 0){
             genericResetValidator();
-            $("#womanWithCancerDialog").modal("show");
             disableForm();
+            setTimeout(function() {$("#womanWithCancerDialog").modal("show");},500);
         } else {
 	  	    enableBRATForm()
       }
@@ -44,8 +44,8 @@ $(function() {
   $("input[name='geneticMakeup']").on("click", function(event) {
 	   if(this.value == 0 ) {
           genericResetValidator();
-	      $("#hasBRCAMutation").modal("show");
-          disableForm();
+	      disableForm();
+	      setTimeout(function() {$("#hasBRCAMutation").modal("show");},500);
 	   } else {
 	        enableBRATForm();
       		$("#riskForm").trigger("change")
@@ -215,9 +215,19 @@ function enableBiopsyQuestionAndAnswers(event) {
   $("input[id^='hadAh']").next().css("color", "#606060");
   $("div[for^='hadAh']").parent().prev("[class*='questions']").css("color", "#2E2E2E")
   
-  
-  $("[aria-labelledby=biopsy_resultLabel]").find("[role=radio]:first").attr("tabindex","0");
-  $("[aria-labelledby=biopsy_ahLabel]").find("[role=radio]:first").attr("tabindex","0");
+  if ($("[aria-labelledby=biopsy_resultLabel]").find("[role=radio][aria-checked=true]").length > 0) {
+    $("[aria-labelledby=biopsy_resultLabel]").find("[role=radio][aria-checked=true]").attr("tabindex","0");
+  } else {
+    $("[aria-labelledby=biopsy_resultLabel]").find("[role=radio]:first").attr("tabindex","0");
+  }
+
+  if ($("[aria-labelledby=biopsy_ahLabel]").find("[role=radio][aria-checked=true]").length > 0) {
+    $("[aria-labelledby=biopsy_ahLabel]").find("[role=radio][aria-checked=true]").attr("tabindex","0");
+  } else {
+    $("[aria-labelledby=biopsy_ahLabel]").find("[role=radio]:first").attr("tabindex","0");
+  }
+
+
   adjust_line_width();
 }
 
@@ -266,6 +276,9 @@ function resultsDisplay(response, textStatus, xhr) {
 
 	var fiveYearPatientRiskColor = ( result.risk > result.averageFiveRisk) ? "#BB0E3D" : "#2DC799";
 	var lifetimePateientRiskColor = ( result.lifetime_patient_risk > result.lifetime_average_risk) ? "#BB0E3D" : "#2DC799";
+
+    fiveYearPatientRiskColor = ( result.risk == result.averageFiveRisk ) ? "#40A5C1": fiveYearPatientRiskColor;
+    lifetimePateientRiskColor = ( result.lifetime_patient_risk == result.lifetime_average_risk ) ? "#40A5C1": lifetimePateientRiskColor;
 
 	$("#results_text1").html(result.message);
 	$("#results_text2").html(result.lifetime_message);
@@ -317,7 +330,7 @@ function addInformationToTheQuestions(element) {
         startTag + "Risk estimates for American Indian/Alaska Native women are based on data for white women; further studies are needed to refine and validate this tool." + endTag
     }
     else if ( currentRaceSelected == 'Unknown') {
-      returnHTML = startTag + "The risk assessment was based on data for white females." + endTag
+      returnHTML = startTag + "Risk estimates for Unknown race/ethnicity are based on data for white women." + endTag
     } else {
       returnHTML = ""
     }

@@ -88,8 +88,9 @@ function processSubmission(form){
 		$("#systemError").modal("show");
 	})
 	.always(function() {
-		//resultsDisplay();
 		$('html,body').scrollTop(0);
+		$('body').attr('tabindex','-1');
+		$('body').focus();
 	});
 }
 
@@ -1443,8 +1444,7 @@ function handleKeyDownRadioGroup(event){
 	  $(node).parent().parent().children('div').find('[role=radio]').each(function(){
 		  setRadioButton($(this),false);
 	  });
-      setRadioButton(node,true);
-	  event.preventDefault();
+      setRadioButton(node,true,true);
   }
 }
 ////////////////////////////////////////////////////////////////////////////////
