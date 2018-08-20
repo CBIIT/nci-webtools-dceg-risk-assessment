@@ -30,8 +30,10 @@
       <a id="skipContentHome" class="sr-only sr-only-focusable" tabindex="0" href="javascript:scrollPassLogo();">Skip to main content</a>
       <a href="http://cancer.gov" target="_blank"><img id="logo" src="/common/images/nci-logo-full.svg" alt="Go to the website for NCI"></a>
       <div id="toolTitle"><a id="toolHomeLink" href="index.html">Breast Cancer Risk Assessment Tool</a>
-        <button class="navbar-toggle collapsed" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()"><span class="sr-only">Toggle navigation</span>
-          <div class="glyphicon glyphicon-menu-hamburger"></div>
+        <button class="navbar-toggle collapsed" type="button" aria-controls="main-nav"
+                aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()">
+          <span class="sr-only" tabindex="-1">Toggle navigation</span>
+          <div class="glyphicon glyphicon-menu-hamburger addOutlineSpaceBetween" tabindex="0"></div>
         </button>
       </div>
       <nav class="navbar-collapse collapse" id="main-nav" aria-expanded="false">
@@ -45,7 +47,7 @@
           <span>Menu</span>
           <button class="navbar-toggle collapsed navbar-toggle_innermenu" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()">
             <span class="sr-only">Toggle navigation</span>
-            <div class="glyphicon glyphicon-menu-hamburger"></div>
+            <div class="glyphicon glyphicon-menu-hamburger addOutlineSpaceBetween" tabindex="0"></div>
           </button>
         </div>
 
@@ -63,7 +65,7 @@
           <div class=" col-sm-8 col-lg-9 col-xs-12">
             <div class="content">
               <p>
-                The Breast Cancer Risk Assessment Tool allows health professionals to estimate a woman&apos;s risk of developing <span class="definition">invasive breast cancer</span> over the next 5 years and up to age 90 (lifetime risk).
+                The Breast Cancer Risk Assessment Tool allows health professionals to estimate a woman&apos;s risk of developing <span tabindex="0" class="definition">invasive breast cancer</span> over the next 5 years and up to age 90 (lifetime risk).
               </p>
               <p>
                 The tool uses a woman&#8217;s personal medical and reproductive history and the history of breast cancer among her first-degree relatives (mother, sisters, daughters)

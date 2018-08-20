@@ -156,16 +156,22 @@ function go_toresult() {
 		$("#results_home").css("padding-top", "6px")
 	}
 
+	// This is needed for the calculate button on the input entry form, so
+	// set this to false when you go the resutls page
+    var validator = $("#riskForm").data("validator");
+    $(validator).data("mouseEventSubmitForm", false);
+    $(window).data('mouseEvent', false)
+
 }
 
 /******************************************************************************/
 /* Create a pie chart                                                         */
 /*                                                                            */
 /* Parameters:                                                                */
-/*   percent		       	The change that the victim will get cancer       	    */
-/*   divContainerForChart  	The HTML Container that will cotnain the chart   	*/
-/*   color1 			The color for the chance of getting cancer       		        */
-/*   color2  			The color for the chance of not getting cancer   		        */
+/*   percent		       	The change that the victim will get cancer        */
+/*   divContainerForChart  	The HTML Container that will cotnain the chart    */
+/*   color1 			The color for the chance of getting cancer            */
+/*   color2  			The color for the chance of not getting cancer        */
 /******************************************************************************/
 function make_pie_chart(percent, divContainerForChart, color1, color2){
 
@@ -762,17 +768,28 @@ function mouseDownBorderToggle(event) {
 function focusBorderToggle(event) {
 	var $this = $(this);
 	var validator = $("#riskForm").data("validator");
+
+	console.log("Current in focusBorderToggle working with target " + event.target)
+    console.log("Mouse Down is " + mouseDown)
+    console.log("Value of mouseEvent = " + $this.data('mouseEvent'))
+    console.log("Value of validator  = " + $(validator).data('mouseEventSubmitForm') )
     var mouseDown = $this.data('mouseEvent') || $(validator).data('mouseEventSubmitForm');
 
     $this.removeData('mouseEvent');
     $(validator).removeData('mouseEventSubmitForm');
 
+
+
 	if ( mouseDown ) {
         removeOutline(event)
     } else {
         $("*").removeClass("addOutline")
+        console.log("Removed all addOutline")
 		$(event.target).removeClass("removeOutline");
+		console.log("Remove removeOutline from target")
 		$(event.target).addClass("addOutline")
+		console.log("Remove addOutline from target")
+
 	}
 }
 
@@ -1482,10 +1499,27 @@ $(document).ready(function() {
 	$("#AssessPatientRisk").on('focusin', 		function(event)  { focusBorderToggle(event);	});
 	$("#AssessPatientRisk").on('focusout',      function(event)  { removeOutline(event); 		});
 
-	// Rule: When the Start Over Button/Edit Repsonses gains the focus from the
+	// Rule: When the Start Over Button/Edit Repsonses or the print icon gains the focus from the
 	// Tab Key.  It sould be highlighted and blurred then have the outline removed
 	$("#startOverButton, #returnToCalculateButton").on('focusin',  function(event)  { focusBorderToggle(event);	});
-	$("#startOverButton, #returnToCalculateButton").on('focusout', function(event)  { removeOutline(event); 		});
+	$("#startOverButton, #returnToCalculateButton").on('focusout', function(event)  { removeOutline(event);     });
+
+	$("#printBottom").on('focusin', function(event) { focusBorderToggle(event); });
+	$("#printBottom").on('mousedown', function(event) { mouseDownBorderToggle(event); });
+
+    $("#printTop").on('focusin', function(event) { focusBorderToggle(event); });
+    $("#printTop").on('mousedown', function(event) { mouseDownBorderToggle(event); });
+
+    // The Side Menu at the top of the screen should be highlighted when it is tabbed into
+    $("#toolTitle > button > div").on('focusin', function(event) {
+        focusBorderToggle(event);
+    });
+
+    $("#toolTitle > button > div").on('focusout', function(event) {
+        removeOutline(event);
+    });
+
+
 
 
 	// Rule : When tabbing the user could make the "Skip to Content" appear. which could
@@ -1567,6 +1601,13 @@ $(document).ready(function() {
 	// When the user is on the results page, this event will send the user back
 	// to the goto_calculatePage
 	$("#returnToCalculateButton").on("click", goback_tocalc);
+
+    $(document).keydown(function(e) {
+		if (e.which == 32 && $(e.target).is('[role=radio]') ) {
+          e.preventDefault();
+		}
+    });
+
 
 });
 
@@ -1663,6 +1704,13 @@ $(window).load(function(e) {
 
 	// Prints the Reuslts page
 	$("[id^='print']").on("click", printCurrentPage );
+
+	$("[id^='print']").on("keyup", function(event) {
+        event.preventDefault();
+        if ( event.keyCode == 13 ) {
+            printCurrentPage();
+        }
+    })
 
 	// The Print Button on the Results Pages should not be shown when the device
 	// is mobile
