@@ -769,10 +769,6 @@ function focusBorderToggle(event) {
 	var $this = $(this);
 	var validator = $("#riskForm").data("validator");
 
-	console.log("Current in focusBorderToggle working with target " + event.target)
-    console.log("Mouse Down is " + mouseDown)
-    console.log("Value of mouseEvent = " + $this.data('mouseEvent'))
-    console.log("Value of validator  = " + $(validator).data('mouseEventSubmitForm') )
     var mouseDown = $this.data('mouseEvent') || $(validator).data('mouseEventSubmitForm');
 
     $this.removeData('mouseEvent');
@@ -784,11 +780,8 @@ function focusBorderToggle(event) {
         removeOutline(event)
     } else {
         $("*").removeClass("addOutline")
-        console.log("Removed all addOutline")
 		$(event.target).removeClass("removeOutline");
-		console.log("Remove removeOutline from target")
 		$(event.target).addClass("addOutline")
-		console.log("Remove addOutline from target")
 
 	}
 }
