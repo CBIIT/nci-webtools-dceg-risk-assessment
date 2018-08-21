@@ -1599,6 +1599,7 @@ section > fieldset > legend.questions {
   width: 100%;
   margin-bottom: 32px;
   counter-reset: row-num;
+  table-layout: fixed;
 }
 
 #InputParameters th {
