@@ -20,7 +20,7 @@
   /* In order to get the style to work.  !Important is needed since bootstrap */
   /* Also, I had to use the id to apply the rule due to the specitivity rules */
   /* of css                                                                   */
-  #main-nav {
+  #main-nav, #returnToCalculateButton, #startOverButton {
     display:none     !important;
   }
 
@@ -62,27 +62,42 @@
 
     #results_box > div {
        display: flex;
+       flex-wrap: wrap;
        width: 100%;
        height: 100%
     }
 
     #results_box2 > div {
        display: flex;
+       flex-wrap: wrap;
        width: 100%;
        height: 100%;
     }
 
     .results_text {
-      width: 33%
+      width: 100%;
+      padding-top: 0;
+      padding-bottom: 1%;
     }
 
     .results_graph {
-      width: 33%
+      width: 48%
     }
 
     svg {
       width: 100%;
       height: 100%;
+    }
+
+    .svg-container {
+      padding-top: 60%;
+    }
+
+    #InputParameters .answers {
+      overflow-wrap: break-word;
+      word-break: break-word;
+      padding-left: 0.5em;
+      padding-right: 1em;
     }
 
 }
