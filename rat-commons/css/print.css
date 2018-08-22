@@ -93,4 +93,11 @@
       padding-top: 60%;
     }
 
+    #InputParameters .answers {
+      overflow-wrap: break-word;
+      word-break: break-word;
+      padding-left: 0.5em;
+      padding-right: 1em;
+    }
+
 }
