@@ -577,21 +577,41 @@ function fixSmokingSection() {
 /* Produces the results box for the RAT                                                        */
 function resultsDisplay(response, textStatus, xhr) {
 
+    function returnColorText(risk, averageRisk) {
+        var colorText = undefined;
+        if ( risk < averageRisk ) {
+            colorText = "presented in green since it is lower than";
+        } else if ( risk > averageRisk ) {
+            colorText = "presented in red since it higher than";
+        } else {
+            colorText = "presented in green since it is the same as";
+        }
+
+        return colorText;
+    }
+
     var result = JSON.parse(response.message)
     go_toresult()
 
     var messageBeginning = "Based on the information provided, the patient's estimated risk for developing colorectal cancer over "
-    var message5years    = "the next 5 years is !Fillin1!% compared to the average risk of !Fillin2!% "
-    var message10years   = "the next 10 years is !Fillin3!% compared to the average risk of !Fillin4!% "
-    var messageLifeTime  = "their lifetime (to age 90) is !Fillin5!% compared to the average risk of !Fillin6!% "
+    var message5years    = "the next 5 years is !Fillin1!% !Color1! the average risk of !Fillin2!% "
+    var message10years   = "the next 10 years is !Fillin3!% !Color2! the average risk of !Fillin4!% "
+    var messageLifeTime  = "their lifetime (to age 90) is !Fillin5!% !Color3! the average risk of !Fillin6!% "
     var messageEnding    = "for a patient of the same age, gender, and race/ethnicity from the general US population.";
 
-    message5years   = message5years.replace(  "!Fillin1!",    result.risk)
-    message5years   = message5years.replace(  "!Fillin2!",    result.average5YearRisk)
-    message10years  = message10years.replace( "!Fillin3!",    result.patient10YearRisk)
-    message10years  = message10years.replace( "!Fillin4!",    result.average10YearRisk)
-    messageLifeTime = messageLifeTime.replace("!Fillin5!",    result.patientLifetimeRisk)
-    messageLifeTime = messageLifeTime.replace("!Fillin6!",    result.averageLifetimeRisk)
+    var colorText1 = returnColorText(result.risk, result.average5YearRisk);
+    var colorText2 = returnColorText(result.patient10YearRisk, result.average10YearRisk);
+    var colorText3 = returnColorText(result.patientLifetimeRisk, result.averageLifetimeRisk);
+
+    message5years          = message5years.replace(  "!Fillin1!",    result.risk)
+    message5years          = message5years.replace(  "!Color1!",     colorText1)
+    message5years          = message5years.replace(  "!Fillin2!",    result.average5YearRisk)
+    message10years         = message10years.replace( "!Fillin3!",    result.patient10YearRisk)
+    message10years         = message5years.replace(  "!Color2!",     colorText2)
+    message10years         = message10years.replace( "!Fillin4!",    result.average10YearRisk)
+    messageLifeTime        = messageLifeTime.replace("!Fillin5!",    result.patientLifetimeRisk)
+    messageLifeTime        = message5years.replace(  "!Color3!",     colorText3)
+    messageLifeTime        = messageLifeTime.replace("!Fillin6!",    result.averageLifetimeRisk)
 
 
     $("#results_text_5_years").text(messageBeginning + message5years + messageEnding);
@@ -603,23 +623,21 @@ function resultsDisplay(response, textStatus, xhr) {
     var tenYearPatientRiskColor     = ( result.patient10YearRisk > result.average10YearRisk   ) ? "#BB0E3D" : "#2DC799";
     var lifetimePateientRiskColor   = ( result.patientLifetimeRisk > result.averageLifetimeRisk    ) ? "#BB0E3D" : "#2DC799";
 
-	  //$("#results_text_5_years").html(results_text_5_years);
-    //$("#results_text_10_years").html(results_text_10_years);
-    //$("#results_text_lifetime").html(results_text_lifetime)
 
-	  $("#Risk1").text(result.risk+"%");
+
+	$("#Risk1").text(result.risk+"%");
     $("#Risk2").text(result.average5YearRisk+"%");
-	  $("#Risk3").text(result.patient10YearRisk+"%");
+	$("#Risk3").text(result.patient10YearRisk+"%");
     $("#Risk4").text(result.average10YearRisk+"%");
-	  $("#Risk5").text(result.patientLifetimeRisk+"%");
+	$("#Risk5").text(result.patientLifetimeRisk+"%");
     $("#Risk6").text(result.averageLifetimeRisk+"%");
 
-	  make_pie_chart(result.risk,                 "#pieChart1", fiveYearPatientRiskColor,  "#EFEFEF");
+	make_pie_chart(result.risk,                 "#pieChart1", fiveYearPatientRiskColor,  "#EFEFEF");
     make_pie_chart(result.average5YearRisk,     "#pieChart2", "#40A5C1",                 "#EFEFEF");
-	  make_pie_chart(result.patient10YearRisk,    "#pieChart3", tenYearPatientRiskColor,   "#EFEFEF");
+	make_pie_chart(result.patient10YearRisk,    "#pieChart3", tenYearPatientRiskColor,   "#EFEFEF");
     make_pie_chart(result.average10YearRisk,    "#pieChart4", "#40A5C1",                 "#EFEFEF");
-	  make_pie_chart(result.patientLifetimeRisk,  "#pieChart5", lifetimePateientRiskColor, "#EFEFEF");
-	  make_pie_chart(result.averageLifetimeRisk,  "#pieChart6", "#40A5C1",                 "#EFEFEF");
+	make_pie_chart(result.patientLifetimeRisk,  "#pieChart5", lifetimePateientRiskColor, "#EFEFEF");
+	make_pie_chart(result.averageLifetimeRisk,  "#pieChart6", "#40A5C1",                 "#EFEFEF");
 }
 
 function resetForm() {
@@ -707,7 +725,12 @@ function resetForm() {
 // Update the Select Box for the Age that the person quit smoking
 // If the screen is getting updated and the user has already selected a values
 // then
-function updateQuitSmokingAge(startAge = 6, endAge = 55) {
+function updateQuitSmokingAge(startAge, endAge) {
+
+    // For Internt Explorer you can define parameters in the function prototype
+    // function updateQuitSmokingAge(startAge = 6, endAge = 55) {
+    startAge = startAge || 6
+    endAge = endAge || 55
 
     // A routine that will create a collection of option tags.   Each option tag
     // will contain an age/value.
