@@ -56,7 +56,12 @@
   }
 
     #results_box {
-      width: 100%,
+      width: 100%;
+      height: 100%
+    }
+
+    #results_box2 {
+      width: 100%;
       height: 100%
     }
 
