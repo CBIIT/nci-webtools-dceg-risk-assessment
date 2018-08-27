@@ -1339,7 +1339,7 @@ function registerCustomRadioAccess() {
 	$("[role=radio]").each(function(){
 		$(this).on('keydown',handleKeyDownRadioGroup);
 		$(this).on('mousedown',handleKeyDownRadioGroup);
-		//$(this).on('focus',handleFocusRadioGroup);
+		$(this).on('focus',handleFocusRadioGroup);
 	});
 }
 
@@ -1352,16 +1352,16 @@ var KEYCODE = {
 	TAB: 9
 }
 
-/*function handleFocusRadioGroup(event) {
-	if(isMobile()) return;
-	console.log("handleFocusRadioGroup::"+event);
+function handleFocusRadioGroup(event) {
+	if(isMobile() || $(event.currentTarget).parent().parent().isInViewport() ) return;
+
 	var element = $(event.currentTarget);
 	var radioGroup = $(element).parent().parent();
 	var radioGroupSize = $(radioGroup).height()/2;
 	var heightPos = Math.max(		
 	  (radioGroup.offset().top - $('#form-steps').outerHeight())-radioGroupSize,0);
 	$('html, body').scrollTop(heightPos);
-}*/
+}
 
 function handleKeyDownRadioGroup(event){
   var type = event.type;
@@ -1722,6 +1722,15 @@ $(window).load(function(e) {
 		$("#jumpTitle").attr('data-x-coord-to-jump-to', $("#mainAboutTitle").offset().top)
 		$("#jumpTitle").on("click", "a", function(event) { jumpToSection(event); })
 	}
+
+	$.fn.isInViewport = function() {
+	    var fixedOffset = $('#form-steps').outerHeight();
+        var elementTop = $(this).offset().top;
+        var elementBottom = elementTop + $(this).outerHeight();
+        var viewportTop = $(window).scrollTop() + fixedOffset;
+        var viewportBottom = viewportTop + $(window).height();
+        return elementTop > viewportTop && elementBottom < viewportBottom;
+    };
 
     //polyfill for now
 	if (!String.prototype.startsWith) {
