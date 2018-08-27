@@ -887,7 +887,7 @@ function disableForm() {
 function enableForm() {
 	$("form :input").not("#reset").attr('disabled', false);
 	$("form a").removeClass("disabled")
-	$("form [role=radio]").css("color","#2E2E2E")
+	$("form [role=radio]").css("color","#606060")
 	$("[class*='questions']").css("color","#2E2E2E")
 	$("form [role=radiogroup]").each(function() {
 		if( $(this).find("[role=radio][aria-checked=true]").length > 0 ) {

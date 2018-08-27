@@ -191,11 +191,11 @@ function womanHadBiopsy() {
 function disableQuestionAndAnswers(event) {
   $("input[name='biopsy_result']").attr("disabled", true)
   $("input[id^='breastBiopsiesCount']").next().css("color", "#C0C0C0")
-  $("div[for^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("color", "#C0C0C0")
+  $("input[id^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("color", "#C0C0C0")
   
   $("input[name='biopsy_ah']").attr("disabled", true)
   $("input[id^='hadAh']").next().css("color", "#C0C0C0");
-  $("div[for^='hadAh']").parent().prev("[class*='questions']").css("color", "#C0C0C0")
+  $("input[id^='hadAh']").parent().prev("[class*='questions']").css("color", "#C0C0C0")
   removeErrorMessage({target: $("#breastBiopsiesCount1")});
   removeErrorMessage({target: $("#hadAhYes")});
   
@@ -209,11 +209,11 @@ function enableBiopsyQuestionAndAnswers(event) {
 
   $("input[name='biopsy_result']").attr("disabled", false)
   $("input[id^='breastBiopsiesCount']").next().css("color", "#606060")
-  $("div[for^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("color", "#2E2E2E")
+  $("input[id^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("color", "#2E2E2E")
   
   $("input[name='biopsy_ah']").attr("disabled", false)
   $("input[id^='hadAh']").next().css("color", "#606060");
-  $("div[for^='hadAh']").parent().prev("[class*='questions']").css("color", "#2E2E2E")
+  $("input[id^='hadAh']").parent().prev("[class*='questions']").css("color", "#2E2E2E")
   
   if ($("[aria-labelledby=biopsy_resultLabel]").find("[role=radio][aria-checked=true]").length > 0) {
     $("[aria-labelledby=biopsy_resultLabel]").find("[role=radio][aria-checked=true]").attr("tabindex","0");
