@@ -12,8 +12,8 @@
                         <li>your risk of a <a href="http://www.cancer.gov/publications/dictionaries/cancer-terms?cdrid=340929" target="_blank">false</a> alarm (a person has a positive screening test but does not actually have lung cancer)</li>
                     </ul>
                 </p>
-                <p class="text-bold">The best way to lower your risk of lung cancer, and all smoking-related diseases, is to quit smoking. Learn more by visiting <a href="http://smokefree.gov" target="smokefree">smokefree.gov</a> and the CDC page on <a href="http://www.cdc.gov/tobacco/quit_smoking/" target="cdcSmokeFree">quitting smoking</a> or call 1-800-QUIT-NOW.</p>                
-            </div>            
+                <p class="text-bold">The best way to lower your risk of lung cancer, and all smoking-related diseases, is to quit smoking. Learn more by visiting <a href="http://smokefree.gov" target="smokefree">smokefree.gov</a> and the CDC page on <a href="http://www.cdc.gov/tobacco/quit_smoking/" target="cdcSmokeFree">quitting smoking</a> or call 1-800-QUIT-NOW.</p>
+            </div>
         </div>
         <div class="row">
             <div class="col-xs-12 col-md-12">
@@ -97,7 +97,7 @@
                                         <div class="col-xs-12 col-md-6">
                                             <input class="form-control input-sm" type="text" name="quit" id="quit" ng-model="myForm.quit" ng-model-options="{ updateOn: 'blur' }" ng-required="myForm.type == 'former'">
                                         </div>
-                                    </div>                                    
+                                    </div>
                                     <div ng-show="myForm.startNumericCriteria" class="row">
                                         <div class="col-xs-12 has-error">
                                             <span class="help-block">{{myForm.numericValidationMessage}}</span>
@@ -143,7 +143,7 @@
                                                 <p>Please be sure you have entered smoking history and age correctly.</p>
                                             </span>
                                         </div>
-                                    </div>                                    
+                                    </div>
                                     <div ng-show="myForm.cigsNumericCriteria" class="row">
                                         <div class="col-xs-12 has-error">
                                             <span class="help-block">
@@ -205,7 +205,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="units" class="col-xs-12 col-md-6 control-label">Height and Weight, or BMI?</label>
+                                        <label for="bmiSelection" class="col-xs-12 col-md-6 control-label">Height and Weight, or BMI?</label>
                                         <div class="col-xs-12 col-md-6">
                                             <select name="bmiSelection" id="bmiSelection" class="form-control input-sm" ng-model="myForm.bmiSelection" ng-change="myForm.changeBmiSelection()" ng-required="true">
                                                 <option value="">Select...</option>
@@ -276,7 +276,7 @@
                                                 <p>Your BMI is less than 15, the following risks are calculated based on BMI=15.</p>
                                             </span>
                                         </div>
-                                    </div>   
+                                    </div>
 
                                     <div class="form-group" ng-show="myForm.bmiHighCriteria">
                                         <div class="col-xs-12 col-md-6"></div>
@@ -285,7 +285,7 @@
                                                 <p>Your BMI is greater than 50, the following risks are calculared based on BMI=50.</p>
                                             </span>
                                         </div>
-                                    </div>                                                            
+                                    </div>
                                     <div class="form-group">
                                         <label for="education" class="col-xs-12 col-md-6 control-label">Education?</label>
                                         <div class="col-xs-12 col-md-6">
@@ -315,7 +315,7 @@
                                                 <option value="5">Unknown</option>
                                             </select>
                                         </div>
-                                    </div>                                    
+                                    </div>
                                     <div class="form-group">
                                         <div class="col-xs-12">
                                             <div class="btn-toolbar pull-right">
@@ -323,7 +323,7 @@
                                                 <button class="btn btn-default" type="reset" ng-click="myForm.resetForm()">Reset</button>
                                             </div>
                                         </div>
-                                        <div class="loading_text" ng-show="myForm.loading">Calculating</div>                                            
+                                        <div class="loading_text" ng-show="myForm.loading">Calculating</div>
                                     </div>
                                 </form>
                             </div>
