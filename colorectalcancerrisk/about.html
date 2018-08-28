@@ -1,47 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script src="//assets.adobedtm.com/f1bfa9f7170c81b1a9a9ecdcc6c5215ee0b03c84/satelliteLib-4b219b82c4737db0e1797b6c511cf10c802c95cb.js"></script>    
-    <title>Colorectal Risk Assessment Tool (CCRAT) - About the Model and Source Code</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="//assets.adobedtm.com/f1bfa9f7170c81b1a9a9ecdcc6c5215ee0b03c84/satelliteLib-4b219b82c4737db0e1797b6c511cf10c802c95cb.js"></script>
+    <title>Colorectal Cancer Risk Assessment Tool (CCRAT)</title>
+    <meta name="description"        content="An interactive tool designed by scientists at the National Cancer Institute and the NSABP to estimate a person's risk of developing Colorectal Cancer Risk Assessment." />
+    <meta property="og:description" content="An interactive tool designed by scientists at the National Cancer Institute and the NSABP to estimate a person's risk of developing Colorectal Cancer Risk Assessment." />
+    <meta property="og:site_name"   content="Colorectal Cancer Risk Assessment Tool" />
+    <meta property="og:url"         content="https://www.cancer.gov/colorectalcancerrisk/" />
+    <meta property="keywords"       content="colorectal cancer, ccrat, colorectal cancer risk, risk assessment, risk tool" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" type="text/css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.css">
     <link href="common/css/style.css" rel="stylesheet" type="text/css">
     <link href="rat-commons/css/styles.css" rel="stylesheet" type="text/css">
     <link href="rat-commons/css/form-steps.css" rel="stylesheet" type="text/css">
+    <link href="specificCSS.css" rel="stylesheet" type="text/css"></link>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="application/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js" type="application/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods.js" type="application/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="rat-commons/js/rat.js" type="text/javascript"></script>
-
+    <script src="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.js"></script>
+    <script src="specificRat.js" type="text/javascript"></script>
+    <script src="./rat-commons/js/rat.js" type="text/javascript"></script>
   </head>
   <body>
     <header role="banner">
       <a id="skipContentCalculate" tabindex="0" class="sr-only sr-only-focusable">Skip to main content</a>
       <a href="http://cancer.gov" target="_blank"><img id="logo" src="/common/images/nci-logo-full.svg" alt="go to cancer.gov"></a>
       <div id="toolTitle"><a href="index.html">Colorectal Cancer Risk Assessment Tool</a>
-        <button class="navbar-toggle collapsed" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()"><span class="sr-only">Toggle navigation</span>
-          <div class="glyphicon glyphicon-menu-hamburger"></div>
+        <button class="navbar-toggle collapsed" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()" tabindex="-1"><span class="sr-only">Toggle navigation</span>
+          <div class="glyphicon glyphicon-menu-hamburger addOutlineSpaceBetween" tabindex="0"></div>
         </button>
       </div>
       <nav class="navbar-collapse collapse" id="main-nav" aria-expanded="false">
         <ul class="nav nav-tabs">
           <li role="presentation"><a href="calculator.html">Risk Calculator</a></li>
-          <li role="presentation"><a href="about.html">About the Calculator</a></li>
+          <li class="active" role="presentation"><a href="about.html">About the Calculator</a></li>
         </ul>
       </nav>
       <div class="sidenav" id="side_nav">
         <div class="div" id="inner_menu"><span>Menu</span>
           <button class="navbar-toggle collapsed navbar-toggle_innermenu" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()"><span class="sr-only">Toggle navigation</span>
-            <div class="glyphicon glyphicon-menu-hamburger"></div>
+            <div class="glyphicon glyphicon-menu-hamburger  addOutlineSpaceBetween" tabindex="0"></div>
           </button>
         </div>
         <ul class="nav nav-tabs">
-          <li role="presentation" id="Risk"><a href="calculator.html">Risk Calculator</a></li>
-          <li role="presentation" id="About"><a href="about.html">About the Calculator</a></li>
+          <li class="calc_list_item"  role="presentation" id="Risk"><a href="calculator.html">Risk Calculator</a></li>
+          <li class="about_list_item" role="presentation" id="About"><a href="about.html">About the Calculator</a></li>
         </ul>
       </div>
     </header>
@@ -49,36 +57,36 @@
       <div class="container-fluid">
         <span class="spacerBetweenHeaderContentForAboutPage">&nbsp;</span>
         <h1>About the Calculator</h1>
-        <p>The Cancer Colorectal Risk Assessment Tool(CCRAT) is based on the first absolute risk model for the colorectal cancer incidence.  The model was developed using data from:
+        <p>The Colorectal Risk Cancer Assessment Tool(CCRAT) is based on the first absolute risk model for colorectal cancer incidence.  The model was developed using data from:
           <ul>
-            <li>two large U.S population-based case-control studies of colon and rectal cancer,</li>
+            <li>two large US population-based case-control studies of colon and rectal cancer,</li>
             <li>incidence data from 13 NCI Surveillance, Epidemiology, and End Results (SEER) registries, and</li>
             <li>from national mortality rates</li>
           </ul>
-        <p>The tool uses the answers about risk and preventive factors to calculate a person’s absolute risk of colorectal cancer for a specific time period.</p>
-        <p>The model was tested in a large population and has been shown to be accurate in predicting absolute risk.
-          Because the majority of participants in the case-control studies were non-Hispanic whites, relative risks for other racial or ethnic groups could not be estimated.
-          Researchers have since updated the tool using SEER rates for black, Asian American/Pacific Islander,
-          and Hispanic/Latino populations to enable the tool to be applicable for men and women in these populations.
-          As more data becomes available, researchers will be able to test and validate the tool for these populations.
+        <p>The tool uses the information about risk and preventive factors to calculate a patient’s absolute risk of colorectal cancer.</p>
+        <p>The model was tested in a large population of non-Hispanic whites and has been shown to be accurate in predicting absolute risk.<span>&nbsp;&nbsp;</span>
+           Relative risks for other racial or ethnic groups could not be estimated; the tool uses relative risks for non-Hispanic whites combined with SEER incidence
+           rates and mortality rates for black, Asian American/Pacific Islander, and Hispanic/Latino patients to produce estimates for men and women in these populations.
+           <span>&nbsp;&nbsp;</span>As more data becomes available, researchers will be able to test and validate the tool for these populations.
         </p>
-        <p>The <a href="calculator.html">risk calculator </a>will be updated periodically as new data or research becomes available. In addition, the tool may prove useful to researchers who are designing research intervention studies.</p>
+        <p>The <a href="calculator.html">tool </a>will be updated periodically as new data or research becomes available.</p>
         <h2>Download the Source Code</h2>
-        <p>The CCRAT may be updated periodically as new data or research becomes available. The algorithm was last updated in October 2014. The current software version is 1.1.</p>
-        <p>To project absolute colon cancer risk, according to the NCI CCRAT algorithm, download the SAS macro or Gauss file.
-          Both have separate files for the models for men and women, useful for research purposes when one needs risk projections for an entire study population.
-          The Gauss Program also computes 95% confidence intervals for risk projections.
+        <p>To project absolute colorectal cancer risk according to the CCRAT algorithm, download the SAS macro or Gauss program (there are separate files for the models for men and women,
+           useful for projecting risk for an entire study or population).<span>&nbsp;&nbsp;</span>The Gauss Program also computes 95% confidence intervals for risk projections.
+        <p>
+          The algorithm was last updated in October 2014. The current software version is 1.1.
+        </p>
         <h3>References</h3>
         <ol>
           <li>
             Freedman AN, Slattery ML, Ballard-Barbash R, Willis G, Cann B, Pee D, Gail MH, Pfeiffer RM.
             A colorectal cancer risk prediction tool for white men and women without known susceptibility.
-            J Clin Oncol 2009 Feb 10;27(5):686-93. Epub 2008 Dec 29. [<a href="https://www.ncbi.nlm.nih.gov/pubmed/19114701" target="_blank">PubMed Abstract</a>]
+            J Clin Oncol 2009 Feb 10;27(5):686-93. [<a href="https://www.ncbi.nlm.nih.gov/pubmed/19114701" target="_blank">PubMed Abstract</a>]
           </li>
           <li>
             Park Y, Freedman AN, Gail MH, Pee D, Hollenbeck A, Schatzkin A, Pfeiffer RM.
             Validation of a colorectal cancer risk prediction model among whites 50 years old and over.
-            J Clin Oncol 2009 Feb 10;27(5):694-8. Epub 2008 Dec 29. [<a href="https://www.ncbi.nlm.nih.gov/pubmed/19114700" target="_blank">PubMed Abstract</a>]
+            J Clin Oncol 2009 Feb 10;27(5):694-8. [<a href="https://www.ncbi.nlm.nih.gov/pubmed/19114700" target="_blank">PubMed Abstract</a>]
           </li>
         </ol>
 

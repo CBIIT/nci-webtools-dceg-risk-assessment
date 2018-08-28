@@ -7,9 +7,11 @@
 
 $(function() {
 
+    disableFields()
+
     // For the forms-step make sure that the last text link is right justified
     // since we do not know the gender yet.
-    toggleGender();
+    if ( existFormSteps() ) toggleGender();
 
     // A bug in the number field report see the CSS for comments for the numberField Border
     $(".numberField").addClass("numberFieldBorder")
@@ -32,7 +34,7 @@ $(function() {
     // information and disble the form.
     $("input[name='hispanic']").on("click", function(event) {
         if(this.value == 0){
-            configureRaceDialog( "Hispanic/Latino", $(this).attr("data-plural"), enableCRATFormWithRaceDisabled )
+            configureRaceDialog( "hispanic", enableCRATFormWithRaceDisabled )
    	    } else {
             $("#riskForm").trigger("change")
             enableRaceQuestion()
@@ -45,9 +47,7 @@ $(function() {
     $("[name='race']").not("[value='White']").on("click", function(event) {
 
         // Bring up the dialog
-        var currentRace = $(event.target).next().text()
-        var currentPluralRace = $(event.target).attr("data-plural")
-        configureRaceDialog(currentRace, currentPluralRace, enableCRATForm)
+        configureRaceDialog($(this).val(), enableCRATForm)
 
         // Check the actual radio box
         $(event.target).prop("checked", true)
@@ -111,18 +111,6 @@ $(function() {
     // Initialize the button that will reset the form
     $("#reset").on("click", resetForm)
 
-    // While the user is typing the data inside the textbox enables/disable the
-    // calculate buton if all the inputs are valid/invalid
-    /*$("input[type=number]").bind('keyup input', function() {
-        if ( disableIfHeightOrWeightAreInvalid() == true ) {
-            disablebutton()
-        }
-        else {
-            enableCalculateButton()
-        }
-    });
-    */
-
     if ( $("#maleGender").length > 0 ) {
         toggleGender($("#maleGender"))
     }
@@ -159,11 +147,27 @@ function setHispanicQuestionToNo() {
 }
 
 /* A function that will set the correct race for the #raceValue and correct callback for the OK Button */
-function configureRaceDialog( race, racePlural, callbackForClickOkButton ) {
-    $("#raceValue").text(race)
-    $("#raceValue1").text(racePlural)
+function configureRaceDialog( race, callbackForClickOkButton ) {
+    var msg = "";
+    if ( race === "hispanic" ) {
+        msg = "When we first developed this tool, we tested it among non-Hispanic whites and found it to be accurate in estimating their risk of colorectal cancer. "
+        msg = msg + "<span>&nbsp;&nbsp;</span>If the patient is Hispanic/Latino, this tool can still estimate their risk, but, "
+        msg = msg + "because there are not as much data available for this group, the results may be less accurate."
+    } else if ( race == "Black") {
+        msg = "When we first developed this tool, we tested it with non-Hispanic whites and found it to be accurate in estimating their risk of colorectal cancer. "
+        msg = msg + "<span>&nbsp;&nbsp;</span>If your patient is black/African American, this tool can still estimate their risk, but, "
+        msg = msg + "because there are not as much data available for this group, the results may be less accurate."
+    } else if ( race === 'Asian') {
+        msg = "When we first developed this tool, we tested it among non-Hispanic whites and found it to be accurate in estimating their risk of colorectal cancer. "
+        msg = msg + "<span>&nbsp;&nbsp;</span>If your patient is Asian or Pacific Islander, this tool can still estimate their risk, but, "
+        msg = msg + "because there are not as much data available for this group, the results may be less accurate. "
+    }
+
+    $
+    $("#raceModalParagraph1").text(msg);
     $("#raceOkButton").on("click",  callbackForClickOkButton)
     $("#raceModal").modal("show");
+    setTimeout( function() { $("#raceModal").modal("show"); } , 500 )
     disableCRATForm();
 }
 
@@ -304,6 +308,8 @@ function enableCRATGenericForm() {
     // "Is the patient Hispanic" or Latino question will disappear
     if ( $("[name='race']:checked") != "" ) setHispanicQuestionToNo()
 
+    disableFields()
+
 }
 
 /* Disabled the Age Quit Smoking Select Box when the user is currently smokng */
@@ -323,11 +329,10 @@ function correctlyEnableSmokeQuit() {
 function disableRaceQuestion() {
     $("#race").css("color", "#C0C0C0")
     $("#race").next().css("color", "#C0C0C0")
-    $("#race").nextUntil("label.questions").children("label.radio").css("color","#C0C0C0")
+    $("#race").nextUntil("label.questions").children("div.responseOptions > div").css("color","#C0C0C0")
     $("#race").nextUntil("label.questions").children("input").attr("disabled","disabled")
 
-    $("#race").nextUntil("label.questions").children("label.radio").attr("tabindex", "-1")
-    $("#race").nextUntil("label.questions").children("input").attr("tabindex", "-1")
+    $("#race").nextUntil("label.questions").children("div.responseOptions > div").attr("tabindex", "-1")
 
     $("#hispanicYes").prop("checked", true)
 }
@@ -336,11 +341,11 @@ function disableRaceQuestion() {
 function enableRaceQuestion() {
     $("#race").css("color", "#2E2E2E")
     $("#race").next().css("color", "#2E2E2E")
-    $("#race").nextUntil("label.questions").children("label.radio").css("color","#2E2E2E")
+    $("#race").nextUntil("label.questions").children("div.responseOptions > div").css("color","#2E2E2E")
     $("#race").nextUntil("label.questions").children("input").attr("disabled",false)
 
     $("#race").nextUntil("label.questions").children("label.radio").attr("tabindex", "0")
-    $("#race").nextUntil("label.questions").children("input").attr("tabindex", "0")
+    $("#race").nextUntil("label.questions").children("div.responseOptions > div").attr("tabindex", "0")
 
     $("#hispanicYes").prop("checked", false)
 }
@@ -367,27 +372,27 @@ function enableSelectBox(element) {
 // Standard routine to disable a question and answer with radio buttons
 function disableRadioButtonGroupQuestion(element) {
     $(element).css("color", "#C0C0C0")
-    $(element).nextUntil("label.questions").children("label.radio").css("color","#C0C0C0")
+    $(element).nextUntil("label.questions").children("div.radio").css("color","#C0C0C0")
     $(element).nextUntil("label.questions").children("input").attr("disabled", true)
 
-    $(element).nextUntil("label.questions").children("label.radio").attr("tabindex", "-1")
+    $(element).nextUntil("label.questions").children("div.radio").attr("tabindex", "-1")
     $(element).nextUntil("label.questions").children("input").attr("tabindex", "-1")
 }
 
 function enableRadioButtonGroupQuestion(element) {
     $(element).css("color", "#2E2E2E")
-    $(element).nextUntil("label.questions").children("label.radio").css("color","#2E2E2E")
+    $(element).nextUntil("label.questions").children("div.radio").css("color","#2E2E2E")
     $(element).nextUntil("label.questions").children("input").attr("disabled", false)
 
-    $(element).nextUntil("label.questions").children("label.radio").attr("tabindex", "0")
+    $(element).nextUntil("label.questions").children("div.radio").attr("tabindex", "0")
     $(element).nextUntil("label.questions").children("input").attr("tabindex", "0")
 }
 
 function disableAmountOfFamilyRelatives() {
     $("#family_count").css("color", "#C0C0C0")
     $("#family_count").next().children("input").attr("disabled", true)
-    $("#family_count").next().children("label.radio").css("color", "#C0C0C0")
-    $("#family_count").nextUntil("label.questions").children("label.radio").attr("tabindex", "-1")
+    $("#family_count").next().children("div.radio").css("color", "#C0C0C0")
+    $("#family_count").nextUntil("label.questions").children("div.radio").attr("tabindex", "-1")
     $("#family_count").nextUntil("label.questions").children("input").attr("tabindex", "-1")
 
 }
@@ -402,44 +407,44 @@ function enableAmountOfFamilyRelatives() {
 }
 
 function disableCurrentlySmokeCigarettes() {
-    $("#currentlySmoke").css("color", "#C0C0C0")
-    $("#currentlySmoke").nextUntil("label.questions").children("input").attr("disabled", true)
-    $("#currentlySmoke").nextUntil("label.questions").children("label.radio").css("color", "#C0C0C0")
+    $("#currentlySmokeLabel").css("color", "#C0C0C0")
+    $("#currentlySmokeLabel").nextUntil("label.questions").children("input").attr("disabled", true)
+    $("#currentlySmokeLabel").nextUntil("label.questions").children("div.radio").css("color", "#C0C0C0")
 
-    $("#currentlySmoke").nextUntil("label.questions").children("label.radio").attr("tabindex", "-1")
-    $("#currentlySmoke").nextUntil("label.questions").children("input").attr("tabindex", "-1")
+    $("#currentlySmokeLabel").nextUntil("label.questions").children("div.radio").attr("tabindex", "-1")
+    $("#currentlySmokeLabel").nextUntil("label.questions").children("input").attr("tabindex", "-1")
 
 }
 
 function enableCurrentlySmokeCigarettes() {
-    $("#currentlySmoke").css("color", "#2E2E2E")
-    $("#currentlySmoke").nextUntil("label.questions").children("input").attr("disabled", false)
-    $("#currentlySmoke").nextUntil("label.questions").children("label.radio").css("color", "#2E2E2E")
+    $("#currentlySmokeLabel").css("color", "#2E2E2E")
+    $("#currentlySmokeLabel").nextUntil("label.questions").children("input").attr("disabled", false)
+    $("#currentlySmokeLabel").nextUntil("label.questions").children("div.radio").css("color", "#2E2E2E")
 
-    $("#currentlySmoke").nextUntil("label.questions").children("label.radio").attr("tabindex", "0")
-    $("#currentlySmoke").nextUntil("label.questions").children("input").attr("tabindex", "0")
+    $("#currentlySmokeLabel").nextUntil("label.questions").children("div.radio").attr("tabindex", "0")
+    $("#currentlySmokeLabel").nextUntil("label.questions").children("input").attr("tabindex", "0")
 
 }
 
 function disableAgeQuitSmoking() {
-    $("[for='smoke_quit']").css("color", "#C0C0C0")
-    $("[for='smoke_quit']").next().css("color", "#C0C0C0")
-    $("[for='smoke_quit']").nextUntil("label.questions").children("select").attr("disabled", true)
-    $("[for='smoke_quit']").nextUntil("label.questions").children("select").attr("tabindex", "-1")
+    $("#smokeQuitLabel").css("color", "#C0C0C0")
+    $("#smokeQuitLabel").next().css("color", "#C0C0C0")
+    $("#smokeQuitLabel").nextAll("div").children("select").attr("disabled", true)
+    $("#smokeQuitLabel").nextUntil("label.questions").children("select").attr("tabindex", "-1")
 
 }
 
 function enableAgeQuitSmoking() {
-    $("[for='smoke_quit']").css("color", "#2E2E2E")
-    $("[for='smoke_quit']").next().css("color", "#2E2E2E")
-    $("[for='smoke_quit']").nextUntil("label.questions").children("select").attr("disabled", false)
-    $("[for='smoke_quit']").nextUntil("label.questions").children("select").attr("tabindex", "0")
+    $("#smokeQuitLabel").css("color", "#2E2E2E")
+    $("#smokeQuitLabel").next().css("color", "#2E2E2E")
+    $("#smokeQuitLabel").nextAll("div").children("select").attr("disabled", false)
+    $("#smokeQuitLabel").nextUntil("label.questions").children("select").attr("tabindex", "0")
 
 }
 
 function disableCigarettesSmokedPerDay() {
     $("[for='cigarettes_num']").css("color", "#C0C0C0")
-    $("[for='cigarettes_num']").next().children("select").attr("disabled", true)
+    $("[for='cigarettes_num']").nextAll("div").children("select").attr("disabled", true)
     $("[for='smoke_quit']").nextUntil("label.questions").children("select").attr("tabindex", "-1")
 
 }
@@ -454,24 +459,24 @@ function enableCigarettesSmokedPerDay() {
 function disableHormoneTreatment() {
     $("#hormone_treatment").css("color", "#C0C0C0")
     $("#hormone_treatment").next().css("color", "#C0C0C0")
-    $("#hormone_treatment").nextUntil("label.questions").children("label.radio").css("color","#C0C0C0")
+    $("#hormone_treatment").nextUntil("label.questions").children("div.radio").css("color","#C0C0C0")
     $("#hormone_treatment").nextUntil("label.questions").children("input").attr("disabled", true)
-    $("#hormone_treatment").nextUntil("label.questions").children("label.radio").attr("tabindex", "-1")
+    $("#hormone_treatment").nextUntil("label.questions").children("div.radio").attr("tabindex", "-1")
     $("#hormone_treatment").nextUntil("label.questions").children("input").attr("tabindex", "-1")
 }
 
 function enableHormoneTreatment() {
     $("#hormone_treatment").css("color", "#2E2E2E")
     $("#hormone_treatment").next().css("color", "#2E2E2E")
-    $("#hormone_treatment").nextUntil("label.questions").children("label.radio").css("color","#2E2E2E")
+    $("#hormone_treatment").nextUntil("label.questions").children("div.radio").css("color","#2E2E2E")
     $("#hormone_treatment").nextUntil("label.questions").children("input").attr("disabled", false)
-    $("#hormone_treatment").nextUntil("label.questions").children("label.radio").attr("tabindex", "0")
+    $("#hormone_treatment").nextUntil("label.questions").children("div.radio").attr("tabindex", "0")
     $("#hormone_treatment").nextUntil("label.questions").children("input").attr("tabindex", "0")
 }
 
 /* This section will disable and eanble the select boxes dynamically  and should be refactored later on */
 function adjustAmountPerServingBasedOnServings() {
-    if ( $("#veg_servings").val() == '0' ) {
+    if ( $("#veg_servings").val() == '0' || $("#veg_servings").val() == '' ) {
         disableSelectBox($("[for='veg_amount']"))
     } else {
         enableSelectBox($("[for='veg_amount']"))
@@ -479,7 +484,7 @@ function adjustAmountPerServingBasedOnServings() {
 }
 
 function adjustHoursPerWeekModerateActivity() {
-    if ( $("#moderate_months").val() == '0' ) {
+    if ( $("#moderate_months").val() == '0' || $("#moderate_months").val() == '' ) {
         disableSelectBox($("[for='moderate_hours']"))
     } else {
         enableSelectBox($("[for='moderate_hours']"))
@@ -488,7 +493,7 @@ function adjustHoursPerWeekModerateActivity() {
 }
 
 function adjustHoursPerWeekVigorousActivity() {
-    if ( $("#vigorous_months").val() == '0' ) {
+    if ( $("#vigorous_months").val() == '0' || $("#vigorous_months").val() == '') {
         disableSelectBox($("[for='vigorous_hours']"))
     } else {
         enableSelectBox($("[for='vigorous_hours']"))
@@ -539,8 +544,8 @@ function toggleGender(e) {
             $(".female").removeClass('show');
             $(".male").addClass('show');
 
-            $(".female").find("input, select").removeAttr("required","required")
-            $(".male").find("input, select").attr("required", "required")
+            $(".female").find("input, select").removeProp("required")
+            $(".male").find("input, select").prop("required")
             break;
         case "Female":
             // Used for form steps since some extra styling need to done
@@ -550,13 +555,14 @@ function toggleGender(e) {
             $(".male").removeClass('show');
             $(".female").addClass('show');
 
-            $(".male").find("input, select").removeAttr("required","required")
-            $(".female").find("input, select").attr("required","required")
+            $(".male").find("input, select").removeProp("required")
+            $(".female").find("input, select").prop("required")
             break;
         default:
 
             // Used for form steps since some extra styling need to done
-            $(".female, .male").removeClass('show').find("input, select").removeAttr("required");
+            $(".female, .male").removeClass('show')
+            $(".female, .male").find("input, select").removeProp("required");
             $("#form-steps ol li:nth-child(7) a:nth-child(2)").css("margin-right", "0")
             $("#different").addClass("maleOnlyStep")
     }
@@ -603,27 +609,26 @@ function resultsDisplay(response, textStatus, xhr) {
     var colorText2 = returnColorText(result.patient10YearRisk, result.average10YearRisk);
     var colorText3 = returnColorText(result.patientLifetimeRisk, result.averageLifetimeRisk);
 
+    console.log("The result is " + console.log(result))
+    console.log("The message is ")
+
     message5years          = message5years.replace(  "!Fillin1!",    result.risk)
     message5years          = message5years.replace(  "!Color1!",     colorText1)
     message5years          = message5years.replace(  "!Fillin2!",    result.average5YearRisk)
     message10years         = message10years.replace( "!Fillin3!",    result.patient10YearRisk)
-    message10years         = message5years.replace(  "!Color2!",     colorText2)
+    message10years         = message10years.replace(  "!Color2!",     colorText2)
     message10years         = message10years.replace( "!Fillin4!",    result.average10YearRisk)
     messageLifeTime        = messageLifeTime.replace("!Fillin5!",    result.patientLifetimeRisk)
-    messageLifeTime        = message5years.replace(  "!Color3!",     colorText3)
+    messageLifeTime        = messageLifeTime.replace(  "!Color3!",     colorText3)
     messageLifeTime        = messageLifeTime.replace("!Fillin6!",    result.averageLifetimeRisk)
-
 
     $("#results_text_5_years").text(messageBeginning + message5years + messageEnding);
     $("#results_text_10_years").text(messageBeginning + message10years + messageEnding);
     $("#results_text_lifetime").text(messageBeginning + messageLifeTime + messageEnding);
 
-
     var fiveYearPatientRiskColor    = ( result.risk > result.average5YearRisk            ) ? "#BB0E3D" : "#2DC799";
     var tenYearPatientRiskColor     = ( result.patient10YearRisk > result.average10YearRisk   ) ? "#BB0E3D" : "#2DC799";
     var lifetimePateientRiskColor   = ( result.patientLifetimeRisk > result.averageLifetimeRisk    ) ? "#BB0E3D" : "#2DC799";
-
-
 
 	$("#Risk1").text(result.risk+"%");
     $("#Risk2").text(result.average5YearRisk+"%");
@@ -671,6 +676,8 @@ function resetForm() {
   enableSectionHeaders();
 
   adjustNavigationBarLine()
+
+  disableFields()
 }
 
 /*
@@ -769,7 +776,52 @@ function updateQuitSmokingAge(startAge, endAge) {
     $.each( optionsData, function(key, value) {
       $("#smoke_quit").append($("<option></option>").attr("value", value.value).text(value.text))
     })
-
-
-
 }
+
+// When the application is started are refreshed some of the questions/answers will be disabled.
+function disableFields() {
+
+    function noValueForSelectBox(htmlObject) {
+        return ( $(htmlObject).val() == '0' || $(htmlObject).val() == '' ) ? true : false
+    }
+
+    function noValueForRadioGroup(htmlObjectName) {
+        var selector = "[name='" + htmlObjectName + "']:checked"
+        return ( $(selector).length == 0 ) ? true : false;
+    }
+
+    if ( noValueForSelectBox($("#veg_servings")) ) {
+        disableSelectBox($("[for='veg_amount']"))
+    }
+
+    if ( noValueForSelectBox($("#moderate_months")) ) {
+        disableSelectBox($("[for='moderate_hours']"))
+    }
+
+    if ( noValueForSelectBox($("#vigorous_months")) ) {
+        disableSelectBox($("[for='vigorous_hours']"))
+    }
+
+    if ( noValueForRadioGroup("exam") ) {
+        disableRadioButtonGroupQuestion("#polyp")
+    }
+
+    if ( noValueForRadioGroup("familyCount") ) {
+        disableRadioButtonGroupQuestion("#family_count")
+    }
+
+    if ( noValueForRadioGroup("peroid") ) {
+        disableSelectBox($("[for='last_period']"))
+        disableHormoneTreatment()
+    }
+
+    if ( noValueForRadioGroup("cigarettes") ) {
+        disableSelectBox($("[for='firstYearSmoke']"))
+        disableCurrentlySmokeCigarettes()
+        disableAgeQuitSmoking()
+        disableCigarettesSmokedPerDay()
+    }
+}
+
+
+

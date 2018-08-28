@@ -2,9 +2,14 @@
 <html lang="en">
 
 <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <script src="//assets.adobedtm.com/f1bfa9f7170c81b1a9a9ecdcc6c5215ee0b03c84/satelliteLib-4b219b82c4737db0e1797b6c511cf10c802c95cb.js"></script>
   <title>Colorectal Risk Assessment Tool (CCRAT) - Risk Calculator</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description"        content="An interactive tool designed by scientists at the National Cancer Institute and the NSABP to estimate a person's risk of developing Colorectal Cancer Risk Assessment." />
+  <meta property="og:description" content="An interactive tool designed by scientists at the National Cancer Institute and the NSABP to estimate a person's risk of developing Colorectal Cancer Risk Assessment." />
+  <meta property="og:site_name"   content="Colorectal Cancer Risk Assessment Tool" />
+  <meta property="og:url"         content="https://www.cancer.gov/colorectalcancerrisk/" />
+  <meta property="keywords"       content="colorectal cancer, ccrat, colorectal cancer risk, risk assessment, risk tool" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -23,18 +28,19 @@
   <script src="specificRat.js"></script>
 </head>
 
-<body>
-  <header role="banner">
+<body aria-live="polite">
+  <header class="ie_center_logo" role="banner">
     <a id="skipContentCalculate" tabindex="0" class="sr-only sr-only-focusable">Skip to main content</a>
-    <a href="http://cancer.gov" target="_blank">
+    <a href="http://cancer.gov"  tabindex="0" target="_blank">
       <img id="logo" src="/common/images/nci-logo-full.svg" alt="go to cancer.gov">
     </a>
     <div id="toolTitle">
       <a href="index.html">Colorectal Cancer Risk Assessment Tool</a>
-      <button class="navbar-toggle collapsed" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse"
+      <button class="navbar-toggle collapsed" type="button" aria-controls="main-nav"
+              aria-expanded="false" data-toggle="collapse"
         onclick="toggle_menu()">
         <span class="sr-only">Toggle navigation</span>
-        <div class="glyphicon glyphicon-menu-hamburger"></div>
+        <div class="glyphicon glyphicon-menu-hamburger addOutlineSpaceBetween" tabindex="0"></div>
       </button>
     </div>
     <nav class="navbar-collapse collapse" id="main-nav" aria-expanded="false">
@@ -54,7 +60,7 @@
         <button class="navbar-toggle collapsed navbar-toggle_innermenu" type="button" aria-controls="main-nav" aria-expanded="false"
           data-toggle="collapse" onclick="toggle_menu()">
           <span class="sr-only">Toggle navigation</span>
-          <div class="glyphicon glyphicon-menu-hamburger"></div>
+          <div class="glyphicon glyphicon-menu-hamburger addOutlineSpaceBetween" tabindex="0"></div>
         </button>
       </div>
       <ul class="nav nav-tabs">
@@ -72,7 +78,9 @@
     <div id="results" class="container-fluid">
       <div id="results_home">
         <h1 class="makeTagInline">Personalized Results</h1>
-        <img id="printTop" src="rat-commons/images/print-icon.gif" alt="printing the page">
+        <button id="printTop" type="button" tabindex="0" class="printButton center-block text-center">
+          <img src="rat-commons/images/print-icon.gif" alt="printing the page">
+        </button>
         <div class="row">
           <div class="col-xs-12 col-md-12">
             <div class="content resultsPageContent">
@@ -97,21 +105,21 @@
 
           <div class="row vertical_alignment">
 
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-12 col-md-4 results_graph">
               <div id="results_graph_1">
                 <div class="patient_header">Patient Risk</div>
                 <div class="risk_header" id="Risk1"></div>
                 <div id="pieChart1" class="svg-container"> </div>
               </div>
             </div>
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-12 col-md-4 results_graph">
               <div id="results_graph_2">
                 <div class="patient_header">Average Risk</div>
                 <div class="risk_header" id="Risk2"></div>
                 <div id="pieChart2" class="svg-container"> </div>
               </div>
             </div>
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-12 col-md-4 results_text">
               <div id="results_text_5_years" class="vertical_alignment"></div>
             </div>
           </div>
@@ -123,14 +131,14 @@
 
           <div class="row vertical_alignment">
 
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-12 col-md-4 results_graph">
               <div id="results_graph_3">
                 <div class="patient_header">Patient Risk</div>
                 <div class="risk_header" id="Risk3"></div>
                 <div id="pieChart3" class="svg-container"> </div>
               </div>
             </div>
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-12 col-md-4 results_graph">
               <div id="results_graph_4">
                 <div class="patient_header">Average Risk</div>
                 <div class="risk_header" id="Risk4"></div>
@@ -138,7 +146,7 @@
               </div>
             </div>
 
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-12 col-md-4 results_text">
               <div id="results_text_10_years" class="vertical_alginment"></div>
             </div>
           </div>
@@ -150,14 +158,14 @@
 
           <div class="row vertical_alignment">
 
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-12 col-md-4 results_graph">
               <div id="results_graph_5">
                 <div class="patient_header">Patient Risk</div>
                 <div class="risk_header" id="Risk5"></div>
                 <div id="pieChart5" class="svg-container"> </div>
               </div>
             </div>
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-12 col-md-4 results_graph">
               <div id="results_graph_6">
                 <div class="patient_header">Average Risk</div>
                 <div class="risk_header" id="Risk6"></div>
@@ -165,14 +173,14 @@
               </div>
             </div>
 
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-12 col-md-4 results_text">
               <div id="results_text_lifetime" class="vertical_alignment"></div>
             </div>
           </div>
         </div>
 
         <!-- Show the input parameters -->
-        <div id="#displayInput">
+        <div id="displayInput">
           <h2>Your Answers</h2>
           <p class="selectContent">These results are based upon you answered the following questions:</p>
           <table id="InputParameters">
@@ -189,18 +197,18 @@
         <div class="center-block">
           <div class="row" id="resultButtons">
             <div class="col-xs-12">
-              <button id="returnToCalculateButton" class="center-block text-center spacerBetweenCalculateButtonAndResetButton" type="button">Edit Responses</button>
+              <button id="returnToCalculateButton" class="center-block text-center spacerBetweenCalculateButtonAndResetButton" tabindex="0" type="button">Edit Responses</button>
             </div>
           </div>
           <div class="row">
             <div class="col-xs-12">
-              <button id="startOverButton" type="button" class="center-block text-center">Start A New Assessment</button>
+              <button id="startOverButton" tabindex="0" type="button" class="center-block text-center">Start A New Assessment</button>
             </div>
           </div>
           <div class="row">
-            <div class="col-xs-12">
-              <img id="printBottom" class="center-block text-center" src="rat-commons/images/print-icon.gif" alt="printing the page">
-            </div>
+            <button id="printBottom" type="button" tabindex="0" class="printButton center-block text-center">
+              <img src="rat-commons/images/print-icon.gif" alt="printing the page">
+            </button>
           </div>
         </div>
 
@@ -209,7 +217,7 @@
 
     <!-- Form Steps -- Navigation Bar containing button and links  to each   -->
     <!-- section                                                             -->
-    <div id="form-steps">
+    <div id="form-steps" role="navigation" aria-label="form steps">
       <div id="line">
         <hr class="line">
       </div>
@@ -217,11 +225,11 @@
         <li class="active">
           <a class="hidden-xs" href="#demo-section">Demographics</a>
           <a class="step-node" href="#demo-section">1</a>
-          <span class="hidden-xs">&nbsp;</span>
+          <span class="hidden-xs" aria-hidden="true" >&nbsp;</span>
         </li>
         <span class="spacer"></span>
         <li>
-          <span class="hidden-xs">&nbsp;</span>
+          <span class="hidden-xs"  aria-hidden="true">&nbsp;</span>
           <a class="step-node" href="#activity-section">2</a>
           <a class="hidden-xs" href="#activity-section">Diet &amp; Physical Activity</a>
         </li>
@@ -229,11 +237,11 @@
         <li>
           <a class="hidden-xs" href="#medical-section">Medical History</a>
           <a class="step-node" href="#medical-section">3</a>
-          <span class="hidden-xs">&nbsp;</span>
+          <span class="hidden-xs" aria-hidden="true">&nbsp;</span>
         </li>
         <span class="spacer"></span>
         <li>
-          <span class="hidden-xs">&nbsp;</span>
+          <span class="hidden-xs" aria-hidden="true">&nbsp;</span>
           <a class="step-node" href="#family-section">4</a>
           <a class="hidden-xs" href="#family-section">Family History</a>
         </li>
@@ -241,7 +249,7 @@
         <li id="different" class="maleOnlyStep">
           <a class="hidden-xs" href="#cigarette-section">Cigarette Usage</a>
           <a class="step-node" href="#cigarette-section">5</a>
-          <span class="hidden-xs">&nbsp;</span>
+          <span class="hidden-xs" aria-hidden="true">&nbsp;</span>
         </li>
       </ol>
     </div>
@@ -253,40 +261,38 @@
         <!-- ##############################################################  -->
         <h2 id="DemographicsSectionTitle" class="sectionTitle">Demographics</h2>
         <section id="demo-section">
-          <div>
+          <div role="radiogroup" aria-labelledby="hipanic">
             <label class="questions no-margin-top" id="hispanic">Is the patient Hispanic or Latino?</label>
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-              <input id="hispanicYes" type="radio" name="hispanic" data-plural="Hispanics/Latinos" value="0" tabindex="0" required />
-              <label class="radio" tabindex="0" for="hispanicYes">
-                <span></span>Yes</label>
+              <input id="hispanicYes" type="radio" name="hispanic" data-plural="Hispanics/Latinos" value="0" required aria-label="hispanic" />
+              <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="1">
+                <span></span>Yes</div>
             </div>
             <div class="responseOptions ">
-              <input id="hispanicNo" type="radio" name="hispanic" tabindex="0" value="1" required/>
-              <label class="radio" tabindex="0" for="hispanicNo">
-                <span></span>No</label>
+              <input id="hispanicNo" type="radio" name="hispanic" tabindex="0" value="1" required aria-label="hispanic" />
+              <div class="radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="2">
+                <span></span>No</div>
             </div>
           </div>
-          <div class="spaceBetweenQuestions">
+          <div class="spaceBetweenQuestions" role="radiogroup" aria-labelledby="race">
             <label class="questions" id="race">To which of the following does the patient identify</label>
             <p class="questions_secondary">
               This tool does not yet apply to American Indians and Alaska Natives
             </p>
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
               <input id="WhiteRace" type="radio" name="race" value="White" data-plural="Whites" aria-label="White" required/>
-              <label class="radio" tabindex="0" for="WhiteRace">
-                <span></span>White</label>
+              <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="1">
+                <span></span>White</div>
             </div>
             <div class="responseOptions">
-              <input id="BlackRace" type="radio" name="race" value="Black" data-plural="Blacks or African Americans" aria-label="Black or African American"
-                required />
-              <label class="radio" tabindex="0" for="BlackRace">
-                <span></span>Black or African American</label>
+              <input id="BlackRace" type="radio" name="race" value="Black" data-plural="Blacks or African Americans" aria-label="race" required />
+              <div class="radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="2">
+                <span></span>Black or African American</div>
             </div>
             <div class="responseOptions ">
-              <input id="AsianRace" type="radio" name="race" value="Asian" data-plural="Asians or Pacific Islanders" aria-label="Asian or Pacific Islander"
-                required />
-              <label class="no-margin-bottom radio" tabindex="0" for="AsianRace">
-                <span></span>Asian or Pacific Islander</label>
+              <input id="AsianRace" type="radio" name="race" value="Asian" data-plural="Asians or Pacific Islanders" aria-label="race" required />
+              <div class="radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="3">
+                <span></span>Asian or Pacific Islander</div>
             </div>
           </div>
           <div class="spaceBetweenQuestions">
@@ -297,8 +303,8 @@
               This tool calculates risk for men and women 50 to 85 years of age.
             </p>
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-              <select id="age" name="age" placeholder="Enter patient's age" class="selectContent" required>
-                <option value="">Select Age</option>
+              <select id="age" name="age" class="selectContent" required>
+                <option value="">Select age</option>
                 <option value="50">50</option>
                 <option value="51">51</option>
                 <option value="52">52</option>
@@ -338,25 +344,24 @@
               </select>
             </div>
           </div>
-          <div class="spaceBetweenQuestions">
+          <div class="spaceBetweenQuestions" role="radiogroup" aria-labelledby="gender">
             <label class="questions" id="gender">What is the patient&#8217;s sex?</label>
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-              <input id="maleGender" type="radio" name="gender" value="Male" aria-label="Male" required />
-              <label class="radio" tabindex="0" for="maleGender">
-                <span></span>Male</label>
+              <input id="maleGender" type="radio" name="gender" value="Male" required aria-label="gender"/>
+              <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="1">
+                <span></span>Male</div>
             </div>
             <div class="responseOptions ">
-              <input id="femaleGender" class="no-margin-bottom" type="radio" name="gender" value="Female" aria-label="Female" required
-              />
-              <label class="radio" tabindex="0" for="femaleGender">
-                <span></span>Female</label>
+              <input id="femaleGender" class="no-margin-bottom" type="radio" name="gender" value="Female" required aria-label="gender" />
+              <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="2">
+                <span></span>Female</div>
             </div>
           </div>
 
           <div class="spaceBetweenQuestions">
-              <label id="heightWeightLbsQuestion" class="questions">What is the patient&apos;s height and weight without shoes?</label>
+              <label id="heightWeightLbsQuestion" class="questions bold">What is the patient&apos;s height and weight without shoes?</label>
               <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-                <input class="numberField " type="number" name="height_ft" min="2" max="17" aria-label="height feet" required tabindex="0" />
+                <input class="numberField " type="number" name="height_ft" min="3" max="8" aria-label="height feet" required tabindex="0" />
                 <span class="numberEntryMarginRight">
                   ft.
                 </span>
@@ -501,47 +506,46 @@
         <h2 id="historySectionTtile" class="sectionTitle">Medical History</h2>
         <section id="medical-section">
 
-          <div>
+          <div role="radiogroup" aria-labelledby="exam">
             <label class="questions no-margin-top" id="exam">During the past 10 years, did the patient have a colonoscopy, sigmoidoscopy, or both?</label>
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-              <input id="colonSigmoidoscopyYes" type="radio" name="exam" value="0" aria-label="yes" required>
-              <label class="radio" tabindex="0" for="colonSigmoidoscopyYes">
-                <span></span>Yes</label>
+              <input id="colonSigmoidoscopyYes" type="radio" name="exam" value="0" aria-label="exam" required>
+              <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="1">
+                <span></span>Yes</div>
             </div>
             <div class="responseOptions">
-              <input id="colonSigmoidoscopyNo" type="radio" name="exam" value="1" aria-label="no" required>
-              <label class="radio" tabindex="0" for="colonSigmoidoscopyNo">
-                <span></span>No</label>
+              <input id="colonSigmoidoscopyNo" type="radio" name="exam" value="1" required aria-label="exam">
+              <div class="radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="2">
+                <span></span>No</div>
             </div>
             <div class="responseOptions">
-              <input id="colonSigmoidoscopyUnknown" class="no-margin-bottom" type="radio" name="exam" value="2" aria-label="doesn't know"
-                required>
-              <label class="no-margin-bottom radio" tabindex="0" for="colonSigmoidoscopyUnknown">
-                <span></span>Doesn't know</label>
+              <input id="colonSigmoidoscopyUnknown" class="no-margin-bottom" type="radio" name="exam" value="2" required aria-label="exam" >
+              <div class="no-margin-bottom radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="3">
+                <span></span>Doesn't know</div>
             </div>
           </div>
 
-          <div class="subquestion spaceBetweenQuestions col-sm-offset-1 col-md-offset-1">
+          <div class="subquestion spaceBetweenQuestions col-sm-offset-1 col-md-offset-1" role="radiogroup" aria-labelledby="polyp">
             <label class="questions" data-subquestion="true" id="polyp">In the past 10 years, did a healthcare provider tell the patient that he or she had a colon or rectal polyp?</label>
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-              <input id="polypYes" type="radio" name="polyp" value="0" aria-label="yes" required tabindex="0">
-              <label class="radio" tabindex="0" for="polypYes">
-                <span></span>Yes</label>
+              <input id="polypYes" type="radio" name="polyp" value="0" required aria-label="polyp">
+              <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="1">
+                <span></span>Yes</div>
             </div>
             <div class="responseOptions">
-              <input id="polypNo" type="radio" name="polyp" value="1" aria-label="No" required tabindex="0">
-              <label class="radio" tabindex="0" for="polypNo">
-                <span></span>No</label>
+              <input id="polypNo" type="radio" name="polyp" value="1" required aria-label="polyp" >
+              <div class="radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="2">
+                <span></span>No</div>
             </div>
             <div class="responseOptions">
-              <input id="polypUnknown" class="no-margin-bottom" name="polyp" type="radio" value="2" aria-label="Unknown" required tabindex="0">
-              <label class="no-margin-bottom radio" tabindex="0" for="polypUnknown">
-                <span></span>Doesn't know</label>
+              <input id="polypUnknown" type="radio" class="no-margin-bottom" name="polyp" value="2" required aria-label="polyp" >
+              <div class="no-margin-bottom radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="3">
+                <span></span>Doesn't know</div>
             </div>
           </div>
 
-          <div class="spaceBetweenQuestions">
-            <label class="questions">
+          <div class="spaceBetweenQuestions" role="radiogroup" aria-labelledby="aspirin">
+            <label id="aspirin" class="questions">
               <div>
                 During the past 30 days, did the patient take medications containing aspirin at least 3 times a week, such as:
                 <ul class="forAsprinsUnorderedList">
@@ -556,26 +560,26 @@
               </div>
             </label>
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-              <input id="aspirinYes" type="radio" name="aspirin" value="0" aria-label="yes" required>
-              <label class="radio" tabindex="0" for="aspirinYes">
-                <span></span>Yes</label>
+              <input id="aspirinYes" type="radio" name="aspirin" value="0" required aria-label="aspirin">
+              <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="1" >
+                <span></span>Yes</div>
             </div>
             <div class="responseOptions">
-              <input id="aspirinNo" type="radio" name="aspirin" value="1" aria-label="no" required>
-              <label class="radio" tabindex="0" for="aspirinNo">
-                <span></span>No</label>
+              <input id="aspirinNo" type="radio" name="aspirin" value="1" required aria-label="aspirin" >
+              <div class="radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="2">
+                <span></span>No</div>
             </div>
             <div class="responseOptions">
-              <input id="aspirinUnknown" type="radio" name="aspirin" value="3" aria-label="doesn't know" required>
-              <label class="radio" tabindex="0" for="aspirinUnknown">
-                <span></span>Doesn't know</label>
+              <input id="aspirinUnknown" type="radio" name="aspirin" value="3" required aria-label="aspirin">
+              <div class="radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="3">
+                <span></span>Doesn't know</div>
             </div>
           </div>
 
-          <div class="spaceBetweenQuestions">
+          <div class="spaceBetweenQuestions" role="radiogroup" aria-labelledby="medications">
             <label class="questions" id="medications">
               <div>
-                During the past 30 days, did the patient take medications that do not contain aspirin at least 3 times a week, such as:
+                During the past 30 days, did the patient take medications that <span class="underline">do not</span> contain aspirin at least 3 times a week, such as:
                 <ul class="forAsprinsUnorderedList">
                   <li class="forAsprinListItem">Advil</li>
                   <li class="forAsprinListItem">Aleve</li>
@@ -591,34 +595,33 @@
               </div>
             </label>
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-              <input id="nonAspirinTypeYes" type="radio" name="non_aspirin" value="0" aria-label="yes" required>
-              <label class="radio" for="nonAspirinTypeYes">
-                <span></span>Yes</label>
+              <input id="nonAspirinTypeYes" type="radio" name="non_aspirin" value="0" required aria-label="non_aspirin" >
+              <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="1">
+                <span></span>Yes</div>
             </div>
             <div class="responseOptions">
-              <input id="nonAspirinTypeNo" type="radio" name="non_aspirin" value="1" aria-label="no" required>
-              <label class="radio" for="nonAspirinTypeNo">
-                <span></span>No</label>
+              <input id="nonAspirinTypeNo" type="radio" name="non_aspirin" value="1" required aria-label="non_aspirin">
+              <div class="radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="2">
+                <span></span>No</div>
             </div>
             <div class="responseOptions">
-              <input id="nonAspirinTypeUnknown" class="no-margin-bottom" type="radio" name="non_aspirin" value="3" aria-label="doesn't know"
-                required>
-              <label class="no-margin-bottom radio" for="nonAspirinTypeUnknown">
-                <span></span>Doesn't know</label>
+              <input id="nonAspirinTypeUnknown" class="no-margin-bottom" type="radio" required name="non_aspirin" value="3" aria-label="non_aspirin">
+              <div class="no-margin-bottom radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="3">
+                <span></span>Doesn't know</div>
             </div>
           </div>
 
-          <div class="female spaceBetweenQuestions">
-            <label class="questions" id="period">Does the patient still have periods?</label>
+          <div class="female spaceBetweenQuestions" role="radiogroup" aria-labelledby="periodLabel">
+            <label class="questions" id="periodLabel">Does the patient still have periods?</label>
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-              <input id="periodYes" type="radio" name="period" value="0" aria-label="yes">
-              <label class="radio" tabindex="0" for="periodYes">
-                <span></span>Yes</label>
+              <input id="periodYes" type="radio" name="period" value="0" aria-label="period">
+              <div class="radio" tabindex="0" aria-checked="false" role="radio" aria-setsize="2" aria-posinset="1">
+                <span></span>Yes</div>
             </div>
             <div class="responseOptions">
-              <input id="periodNo" class="no-margin-bottom" type="radio" name="period" value="1" aria-label="no">
-              <label class="no-margin-bottom radio" tabindex="0" for="periodNo">
-                <span></span>No</label>
+              <input id="periodNo" class="no-margin-bottom" type="radio" name="period" value="1" aria-label="period">
+              <div class="no-margin-bottom radio" tabindex="-1" aria-checked="false" role="radio" aria-setsize="2" aria-posinset="2">
+                <span></span>No</div>
             </div>
           </div>
 
@@ -634,21 +637,21 @@
             </div>
           </div>
 
-          <div class="female spaceBetweenQuestions">
+          <div class="female spaceBetweenQuestions" role="radiogroup" aria-labelledby="hormone_treatment">
             <label class="col-sm-offset-1 questions" data-subSubQuestion="true" id="hormone_treatment">During the past two years, has the patient used estrogen, progestin, or other female hormones</label>
             <p class="col-sm-offet-1 col-sm-offset-1 question_secondary">
               These hormones may be given as hormone pills, oral contraceptives, shots, skin patches, vaginal creams, or as vaginal suppositories
             </p>
 
             <div class="responseOptionsWithoutIndent spaceBetweenFirstQuestionAndResponse col-sm-offset-1 pl-3">
-              <input id="hormonesYes" class="no-margin-top" type="radio" name="hormones" value="0" aria-label="yes">
-              <label class="no-margin-top radio" for="hormonesYes">
-                <span></span>Yes</label>
+              <input id="hormonesYes" class="no-margin-top" type="radio" name="hormones" value="0" aria-label="hormones">
+              <div class="no-margin-top radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="1">
+                <span></span>Yes</div>
             </div>
             <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
-              <input id="hormonesNo" class="no-margin-bottom" type="radio" name="hormones" value="1" aria-label="no">
-              <label class="no-margin-bottom radio" for="hormonesNo">
-                <span></span>No</label>
+              <input id="hormonesNo" class="no-margin-bottom" type="radio" name="hormones" value="1" aria-label="hormones">
+              <div class="no-margin-bottom radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="2">
+                <span></span>No</div>
             </div>
           </div>
         </section>
@@ -658,46 +661,48 @@
         <!-- ##################################################### -->
         <h2 id="FamilyHistorySectionTitle" class="sectionTitle">Family History </h2>
         <section id="family-section">
-          <div>
+          <div role="radiogroup" aria-labelledby="family_cancer">
             <label class="questions no-margin-top" id="family_cancer">
-              Does the patient have any immediate relatives (biological mother and father, full brothers and sisters, and/or biological
-              sons or daughters) who, at any time in their lives, have ever had cancer of the colon or rectum (cancer of
+              Does the patient have any immediate relatives(mother, father, brothers or sisters,
+              sons or daughters) who ever had cancer of the colon or rectum (cancer of
               the lower intestine)?
             </label>
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-              <input id="familyCancerYes" type="radio" name="family_cancer" value="1" aria-label="yes" required>
-              <label class="radio" tabindex="0" for="familyCancerYes">
-                <span></span>Yes</label>
+              <input id="familyCancerYes" type="radio" name="family_cancer" value="1" aria-label="family_cancer" required>
+              <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="1">
+                <span></span>Yes</div>
             </div>
             <div class="responseOptions">
-              <input id="familyCancerNo" type="radio" name="family_cancer" value="0" aria-label="no" required>
-              <label class="radio" tabindex="0" for="familyCancerNo">
-                <span></span>No</label>
+              <input id="familyCancerNo" type="radio" name="family_cancer" value="0" aria-label="family_cancer" required>
+              <div class="radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="2">
+                <span></span>No</div>
             </div>
             <div class="responseOptions">
-              <input id="familyCancerUnknown" type="radio" value="0" name="family_cancer" aria-label="doesn't know" required>
-              <label class="radio" tabindex="0" for="familyCancerUnknown">
-                <span></span>Doesn't know</label>
+              <input id="familyCancerUnknown" type="radio" value="0" name="family_cancer" aria-label="family_cancer" required>
+              <div class="radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="3">
+                <span></span>Doesn't know</div>
             </div>
           </div>
 
           <div class="spaceBetweenFirstQuestionAndResponse"></div>
 
-          <label class="col-sm-offset-1 questions" data-subquestion="true" id="family_count">How many of these relatives had cancer of the colon or rectum (cancer of the lower intestine)?</label>
-          <div class="responseOptionsWithoutIndent spaceBetweenFirstQuestionAndResponse col-sm-offset-1 pl-3">
-            <input id="familyCountYes" type="radio" value="0" name="family_count" aria-label="yes" required tabindex="0">
-            <label class="radio" tabindex="0" for="familyCountYes">
-              <span></span>1</label>
-          </div>
-          <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
-            <input id="familyCountNo" type="radio" value="1" name="family_count" aria-label="2 or more" required tabindex="0">
-            <label class="radio" tabindex="0" for="familyCountNo">
-              <span></span>2 or more</label>
-          </div>
-          <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
-            <input id="familyCountUnknown" type="radio" value="0" name="family_count" aria-label="doesn't know" required tabindex="0">
-            <label class="radio" tabindex="0" for="familyCountUnknown">
-              <span></span>Doesn't know</label>
+          <div role="radiogroup" aria-labelledby="family_count">
+            <label class="col-sm-offset-1 questions" data-subquestion="true" id="family_count">How many of these relatives had cancer of the colon or rectum (cancer of the lower intestine)?</label>
+            <div class="responseOptionsWithoutIndent spaceBetweenFirstQuestionAndResponse col-sm-offset-1 pl-3">
+              <input id="familyCountYes" type="radio" value="0" name="family_count" aria-label="family_count" required>
+              <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="1">
+                <span></span>1</div>
+            </div>
+            <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
+              <input id="familyCountNo" type="radio" value="1" name="family_count" aria-label="family_count" required>
+              <div class="radio" role="radio" tabindex="-1" aria-checked="false" aria-setsize="3" aria-posinset="2">
+                <span></span>2 or more</div>
+            </div>
+            <div class="responseOptionsWithoutIndent col-sm-offset-1 pl-3">
+              <input id="familyCountUnknown" type="radio" value="0" name="family_count" aria-label="family_count" required>
+              <div class="radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="3">
+                <span></span>Doesn't know</div>
+            </div>
           </div>
         </section>
 
@@ -706,30 +711,31 @@
         <!-- ###################################################### -->
         <h2 id="smokingSectionTitle" class="male sectionTitle">Cigarette Usage</h2>
         <section class="male" id="cigarette-section">
-          <div class="male">
-            <label class="questions no-margin-top">In the pateint&apos;s entire lifetime, altogether, has the patient smoked 100 or more cigarettes?</label>
+
+          <div class="male" role="radiogroup" aria-labelledby="hasSmokedLabel">
+            <label id="hasSmokedLabel" class="questions no-margin-top">Has the patient smoked 100 or more cigarettes in his/her lifetime?</label>
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-              <input id="smokeYes" type="radio" value="0" name="cigarettes" aria-label="yes" required>
-              <label class="radio" tabindex="0" for="smokeYes">
+              <input id="smokeYes" type="radio" value="0" name="cigarettes" aria-label="cigarettes">
+              <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="1" >
                 <span></span>Yes</label>
             </div>
-            <div class="responseOptions">
-              <input id="smokeNo" type="radio" value="1" name="cigarettes" aria-label="No" required>
-              <label class="radio" tabindex="0" for="smokeNo">
-                <span></span>No</label>
-            </div>
-            <div class="responseOptions">
-              <input id="smokeUnknown" type="radio" value="2" name="cigarettes" aria-label="Unknown" required>
-              <label class="radio" tabindex="0" for="smokeUnknown">
-                <span></span>Unknown</label>
-            </div>
           </div>
+          <div class="responseOptions">
+            <input id="smokeNo" type="radio" value="1" name="cigarettes" aria-label="cigarettes">
+            <div class="radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="2" >
+              <span></span>No</div>
+          </div>
+          <div class="responseOptions">
+            <input id="smokeUnknown" type="radio" value="2" name="cigarettes" aria-label="cigarettes">
+            <div class="radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="3">
+              <span></span>Unknown</div>
+          </div>
+        </div>
 
           <div class="male subquestion spaceBetweenQuestions col-sm-offset-1 col-md-offset-1">
-            <label class="questions" data-subQuestion="true" for="firstYearSmoke">How old was the patient when the patient started smoking cigarettes on a regular basis, that is, at least one
-              cigarette a day for six months or longer? </label>
+            <label class="questions" data-subQuestion="true" for="firstYearSmoke">At what age did the patient start smoking regularly (at least one cigarette per day for six months or longer)? </label>
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-              <select id="firstYearSmoke" name="smoke_age" required>
+              <select id="firstYearSmoke" name="smoke_age" class="selectContent">
                 <option value="">-select-</option>
                 <option value="0">Never smoked cigarettes regularly</option>
                 <option value="6">6</option>
@@ -783,46 +789,46 @@
                 <option value="54">54</option>
               </select>
             </div>
+          </div>
 
-            <div class="male subquestion spaceBetweenQuestions col-sm-offset-1 col-md-offset-1">
-              <label class="questions" data-subSubQuestion="true" id="currentlySmoke">Does the patient currently smoke cigarettes?</label>
-              <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-                <input id="currentlySmokeYes" type="radio" value="1" name="smoke_now" aria-label="Yes" required tabindex="0">
-                <label class="radio" tabindex="0" for="currentlySmokeYes">
-                  <span></span>Yes</label>
-              </div>
-              <div class="responseOptions">
-                <input id="currentlySmokeNo" type="radio" value="0" name="smoke_now" aria-label="No" required tabindex="0">
-                <label class="radio" tabindex="0" for="currentlySmokeNo">
-                  <span></span>No</label>
-              </div>
+          <div role="radiogroup" class="male subquestion spaceBetweenQuestions col-sm-offset-1 col-md-offset-1" aria-label="currentlySmokeLabel" >
+            <label id="currentlySmokeLabel" class="questions" data-subSubQuestion="true" id="currentlySmoke">Does the patient currently smoke cigarettes?</label>
+            <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
+              <input id="currentlySmokeYes" type="radio" value="1" name="smoke_now" aria-label="Yes" >
+              <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="1">
+                <span></span>Yes</div>
             </div>
-
-            <div class="male subquestion spaceBetweenQuestions col-sm-offset-1 col-md-offset-1">
-              <label class="questions" data-subSubSubQuestion="true" for="smoke_quit">How old was the patient when the patient quit smoking cigarettes completely?</label>
-              <p class="questions_secondary">
-                NOTE: If the patient quit smoking cigarettes completely more than one time, please tell us how old was the patient wsa the
-                last time the patient quit smoking completely.
-              </p>
-              <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-                <select id="smoke_quit" name="smoke_quit" class="selectContent" required>
-                </select>
-              </div>
+            <div class="responseOptions">
+              <input id="currentlySmokeNo" type="radio" value="0" name="smoke_now" aria-label="No" >
+              <div class="radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="2">
+                <span></span>No</div>
             </div>
-          
+          </div>
 
-            <div class="male spaceBetweenQuestions">
-              <label class="questions" data-subSubQuestion="true" for="cigarettes_num">Thinking back over the years when the patient have smoked regularly, about how many cigarettes has the patient
-                usually smoked a day?</label>
-              <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-                <select id="cigarettes_num" name="cigarettes_num" class="selectContent" required>
-                  <option value="">-select-</option>
-                  <option value="0">0 Cigarettes a day</option>
-                  <option value="1">1 to 10 Cigarettes a day</option>
-                  <option value="2">11 to 20 Cigarettes a day</option>
-                  <option value="3">More than 20 Cigarettes a day</option>
-                </select>
-              </div>
+          <div class="male subquestion spaceBetweenQuestions col-sm-offset-1 col-md-offset-1" aria-label="smokeQuitLabel">
+            <label class="questions" data-subSubSubQuestion="true" id="smokeQuitLabel">At whag age did the person quit smoking cigarettes completely?</label>
+            <p class="questions_secondary">
+              NOTE: If the patient quit smoking completely more than once, use the age at the last quit time.
+              last time the patient quit smoking completely
+            </p>
+            <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
+              <select id="smoke_quit" name="smoke_quit" class="selectContent"  aria-label="smoke_quit" aria-required="true"  >
+              </select>
+            </div>
+          </div>
+
+
+          <div class="male spaceBetweenQuestions">
+            <label class="questions" data-subSubQuestion="true" for="cigarettes_num">When the patient was smoking regularly, about how many cigarettes did he/she
+              smoked per day?</label>
+            <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
+              <select id="cigarettes_num" name="cigarettes_num" class="selectContent" >
+                <option value="">-select-</option>
+                <option value="0">0 cigarettes a day</option>
+                <option value="1">1 to 10 cigarettes a day</option>
+                <option value="2">11 to 20 cigarettes a day</option>
+                <option value="3">More than 20 cigarettes a day</option>
+              </select>
             </div>
           </div>
         </section>
@@ -936,20 +942,7 @@
                   <img class="center-block imgsize" src="rat-commons/images/info.png" alt="info icon">
                 </div>
                 <div class="cols-xs-12 col-sm-10 information_text">
-                  <p>
-                    When we first developed this tool, we tested it with white people and found it to be accurate in estimating their risk of
-                    colorectal cancer. If the patient is
-                    <span id="raceValue"></span>, this tool can still estimate the patients&apos; risk. But, because there is not as much data
-                    available for these groups, the patient&apos; results may be less accurate.
-                  </p>
-                  <p>
-                    In the future, we hope to make this tool more accurate for
-                    <span id="raceValue1"></span> as researchers complete studies that will provide information to update the tool for these groups.
-                  </p>
-                  <p>
-                    Although the tool is not perfect, the information you learn from using it can still help you better understand your patient's
-                    risk of colorectal cancer.
-                  </p>
+                  <p id="raceModalParagraph1"></p>
                 </div>
               </div>
               <div class="col-sm-12">
@@ -961,6 +954,7 @@
       </div>
     </div>
   </div>
+
 
   <script src="//static.cancer.gov/webanalytics/WA_RAT_PageLoad.js"></script>
   <script type="text/javascript">_satellite.pageBottom();</script>
