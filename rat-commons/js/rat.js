@@ -1311,7 +1311,7 @@ function enableQuestionAndAnswers(divId) {
   $("#" + divId + " input").attr("disabled", false);
   $("#" + divId + " input").css("color", "#606060");
   $("#" + divId + " label").css("color", "#2E2E2E");
-  $("#" + divId + " div").css("color", "#2E2E2E");
+  $("#" + divId + " div").css("color", "#606060");
   $("#" + divId).find('[role=radio][aria-checked=true]:first').attr("tabindex","0");
 }
 
@@ -1353,7 +1353,9 @@ var KEYCODE = {
 }
 
 function handleFocusRadioGroup(event) {
-	if(isMobile() || $(event.currentTarget).parent().parent().isInViewport() ) return;
+    var mouseEvent = $(this).data("radioMouseEvent");
+    $(this).removeData("radioMouseEvent");
+	if(isMobile() || mouseEvent || $(event.currentTarget).parent().parent().isInViewport() ) return;
 
 	var element = $(event.currentTarget);
 	var radioGroup = $(element).parent().parent();
@@ -1437,6 +1439,7 @@ function handleKeyDownRadioGroup(event){
 	  $(node).parent().parent().children('div').find('[role=radio]').each(function(){
 		  setRadioButton($(this),false);
 	  });
+	  $(this).data("radioMouseEvent",true);
       setRadioButton(node,true,true);
   }
 }
@@ -1577,8 +1580,10 @@ $(document).ready(function() {
 			 if ( $(event.currentTarget).is("select")) {
 				 return false;
 			 } else {
-				$(element).parent().prevAll('label.questions:first').parent().removeClass("borderError")
-				$(element).parent().prevAll('label.questions:first').find('.error').remove()
+			    setTimeout( function() {
+				    $(element).parent().prevAll('label.questions:first').parent().removeClass("borderError");
+				    $(element).parent().prevAll('label.questions:first').find('.error').remove();
+				    },100);
 			 }
 		} 
 
