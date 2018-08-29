@@ -1199,6 +1199,10 @@ input:disabled[type="radio"] + div.radio span
 /* This section will handle the styling for the smaller screens              */
 @media( max-width: 480px) {
 
+  #InputParameters .questions {
+	width: 40% !important;
+  }
+
   .raceDivWidth {
     width: 313px;
   }
