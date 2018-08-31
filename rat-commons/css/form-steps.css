@@ -150,12 +150,12 @@
 
 #form-steps ol li.active:nth-child(7) a:nth-child(2):focus {
   outline: none;
-  box-shadow: 0 0 2px 1px #1095A1;
+  box-shadow: 0 0 2px 1px #4D90FE;
 }
 
 #form-steps ol li:nth-child(7) a:nth-child(2):focus {
   outline: none;
-  box-shadow: 0 0 2px 1px #1095A1;
+  box-shadow: 0 0 2px 1px #4D90FE;
 }
 
 /* Navigation Bar -- The Fifth Colum Text and Circle Navigation */
@@ -174,12 +174,12 @@
 
 #form-steps ol li.active:nth-child(9) a:nth-child(2):focus {
   outline: none;
-  box-shadow: 0 0 2px 1px #1095A1;
+  box-shadow: 0 0 2px 1px #4D90FE;
 }
 
 #form-steps ol li:nth-child(9) a:nth-child(2):focus {
   outline: none;
-  box-shadow: 0 0 2px 1px #1095A1;
+  box-shadow: 0 0 2px 1px #4D90FE;
 }
 
 .step-node {

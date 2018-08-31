@@ -413,6 +413,10 @@ a.btn:disabled {
   color: white;
 }
 
+.okButton:focus {
+    outline: none;
+}
+
 #startOverButton {
   box-sizing: border-box;
   width: 207px;
