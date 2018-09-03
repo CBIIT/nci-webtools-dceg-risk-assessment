@@ -41,6 +41,11 @@
     white-space: no-wrap;
   }
 
+  .separateField {
+    display: block-inline;
+    margin-right: 20%;
+  }
+
 }
 
 @media(max-width: 768px ) {
@@ -55,8 +60,14 @@
       margin-top: 1em;
     }
 
+    /*
     .numberEntryMarginRight {
       margin-right: 100%;
+    }
+    */
+
+    .separateField {
+        display: block;
     }
 
     input[name='height_ft'],

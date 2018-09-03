@@ -43,7 +43,7 @@ $(function() {
         validateNumericAndDisplayErrorMessage($(this), "inchesModal", $(event.relatedTarget))
     })
 
-    $("[name='weight']").on("blur", function() {
+    $("[name='weight']").on("blur", function(event) {
         $("#heightWeightLbsQuestion").parent().removeClass("borderError")
         $("#heightWeightLbsQuestion").find(".error").remove()
         validateNumericAndDisplayErrorMessage($(this), "weightModal", $(event.relatedTarget))
@@ -159,6 +159,12 @@ $(function() {
       }
     })
 
+    // A problem with IE, sometimes a radio group will be skipped from a selectBox
+    $("#vigorous_hours").on("blur", function(event) {
+        if ( document.activeElement != undefined && ( document.activeElement == "INPUT" || document.activeElement == "SELECT" ))
+            $(document.activeElement).focus();
+    })
+
   });
 
 /* Sets the "Is the patient Hispanic or Latino?" Question to no */
@@ -200,8 +206,8 @@ function validateNumericAndDisplayErrorMessage( element, modal, nextHTMLElement 
         var validationPassed = validateNumber(element)
         if ( validationPassed == false ) {
             var id = $(nextHTMLElement).prop("id")
-            if ( id == "" ) {
-                id = $(nextHTMLElement).prev().prop("id")
+            if ( id == "" || id === undefined ) {
+                id = $(nextHTMLElement).prev().prop("id") || document.activeElement.id
             }
             $("#" + modal).prop("data-caller-name", id)
             disableCRATForm();
@@ -463,7 +469,7 @@ function adjustSmokingOnRegularBasis() {
     } else {
         enableRadioButtonGroupQuestion($("#currentlySmokeLabel"))
 
-        if ( $("[name='smoke_now']:checked").val() == "0" || $("[name='smoke_now']:checked").val() == 1 )
+        if ( $("[name='smoke_now']:checked").val() == "0" || $("[name='smoke_now']:checked").val() == "" )
             enableSelectBox($("[for='smoke_quit']"))
         else
             disableSelectBox($("[for='smoke_quit']"))
@@ -648,10 +654,15 @@ function resetForm() {
      var femaleGender 	    = $("#femaleGender").val().toLowerCase()
 
      // Get the CSS Styles and determine whether it contians male or female ( remember female.include(male) == true )
-     var cssStyles = $(element).parent().attr("class").toLowerCase()
-     var containsFemaleGender 	    = cssStyles.includes(femaleGender);
-     var containsMaleGender         = ( containsFemaleGender ) ? false : cssStyles.includes(maleGender)
-     var isSelectedGenderFemale 	= ( selectedGender == femaleGender )
+     var containsMaleGender = false;
+     var containsFemaleGender = false;
+     var isSelectedGenderFemale = false;
+     if ( $(element).parent().attr("class") == false ) {
+        var cssStyles = $(element).parent().attr("class").toLowerCase()
+        containsFemaleGender 	    = cssStyles.includes(femaleGender);
+        containsMaleGender         = ( containsFemaleGender ) ? false : cssStyles.includes(maleGender)
+        isSelectedGenderFemale 	= ( selectedGender == femaleGender )
+     }
 
      var resultSelectedGender = false
      if ( isSelectedGenderFemale == true && containsFemaleGender == true )
