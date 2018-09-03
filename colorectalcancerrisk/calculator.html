@@ -60,7 +60,7 @@
         <button class="navbar-toggle collapsed navbar-toggle_innermenu" type="button" aria-controls="main-nav" aria-expanded="false"
           data-toggle="collapse" onclick="toggle_menu()">
           <span class="sr-only">Toggle navigation</span>
-          <div class="glyphicon glyphicon-menu-hamburger addOutlineSpaceBetween" tabindex="0"></div>
+          <div class="glyphicon glyphicon-menu-hamburger addOutlineSpaceBetween removeOutline" tabindex="0"></div>
         </button>
       </div>
       <ul class="nav nav-tabs">
@@ -348,12 +348,12 @@
             <label class="questions" id="gender">What is the patient&#8217;s sex?</label>
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
               <input id="maleGender" type="radio" name="gender" value="Male" required aria-label="gender"/>
-              <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="1">
+              <div id="maleFocus" class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="1">
                 <span></span>Male</div>
             </div>
             <div class="responseOptions ">
               <input id="femaleGender" class="no-margin-bottom" type="radio" name="gender" value="Female" required aria-label="gender" />
-              <div class="radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="2">
+              <div id="femaleFocus" class="radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="2">
                 <span></span>Female</div>
             </div>
 
@@ -362,14 +362,16 @@
           <div class="spaceBetweenQuestions">
               <label id="heightWeightLbsQuestion" class="questions bold">What is the patient&apos;s height and weight without shoes?</label>
               <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-                <input id="height_ft" class="numberField " type="number" name="height_ft" min="3" max="8" aria-label="height feet" required tabindex="0" />
-                <span class="numberEntryMarginRight">
+                <input id="height_ft" class="numberField" type="number" name="height_ft" min="3" max="8" aria-label="height feet" required tabindex="0" />
+                <span>
                   ft.
                 </span>
+                <span class="separateField"></span>
                 <input id="height_in" class="numberField" type="number" name="height_in" min="0" max="11" aria-label="height inches" required tabindex="0" />
-                <span class="numberEntryMarginRight">
+                <span>
                   in.
                 </span>
+                <span class="separateField"></span>
                 <input id="weight" class="numberField" type="number" name="weight" min="50" max="700" aria-label="weight in pounds" required tabindex="0" />
                 <span>
                   lbs.
@@ -529,17 +531,17 @@
           <div class="subquestion spaceBetweenQuestions col-sm-offset-1 col-md-offset-1" role="radiogroup" aria-labelledby="polyp">
             <label class="questions" data-subquestion="true" id="polyp">In the past 10 years, did a healthcare provider tell the patient that he or she had a colon or rectal polyp?</label>
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-              <input id="polypYes" type="radio" name="polyp" value="0" required aria-label="polyp">
+              <input id="polypYes" type="radio" name="polyp" value="0" aria-label="polyp">
               <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="1">
                 <span></span>Yes</div>
             </div>
             <div class="responseOptions">
-              <input id="polypNo" type="radio" name="polyp" value="1" required aria-label="polyp" >
+              <input id="polypNo" type="radio" name="polyp" value="1" aria-label="polyp" >
               <div class="radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="2">
                 <span></span>No</div>
             </div>
             <div class="responseOptions">
-              <input id="polypUnknown" type="radio" class="no-margin-bottom" name="polyp" value="2" required aria-label="polyp" >
+              <input id="polypUnknown" type="radio" class="no-margin-bottom" name="polyp" value="2" aria-label="polyp" >
               <div class="no-margin-bottom radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="3">
                 <span></span>Doesn't know</div>
             </div>
@@ -640,7 +642,7 @@
 
           <div class="female spaceBetweenQuestions" role="radiogroup" aria-labelledby="hormone_treatment">
             <label class="col-sm-offset-1 questions" data-subSubQuestion="true" id="hormone_treatment">During the past two years, has the patient used estrogen, progestin, or other female hormones</label>
-            <p class="col-sm-offet-1 col-sm-offset-1 question_secondary">
+            <p class="col-sm-offet-1 col-sm-offset-1 questions_secondary">
               These hormones may be given as hormone pills, oral contraceptives, shots, skin patches, vaginal creams, or as vaginal suppositories
             </p>
 
@@ -733,21 +735,93 @@
           </div>
         </div>
 
-          <div class="male subquestion spaceBetweenQuestions col-sm-offset-1 col-md-offset-1">
-            <label class="questions" data-subQuestion="true" for="firstYearSmoke">How many years has the patient been smoking regularly (at least one cigarette per day for six months or longer)? </label>
+          <div class="male subquestion spaceBetweenQuestionsSmaller col-sm-offset-1 col-md-offset-1">
+            <label class="questions" data-subQuestion="true" for="firstYearSmoke">At what age did the patient start smoking regularly (at least one cigarette per day for six months or longer)? </label>
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
               <select id="firstYearSmoke" name="smoke_age" class="selectContent">
                 <option value="">-select-</option>
-                <option value="0">Years: 0</option>
-                <option value="1">Years cigarette smoking > 0 and < 15</option>
-                <option value="2">Years cigarette smoking >= 15 and < 35 </option>
-                <option value="3">Years cigarette smoking >= 35</option>
+                <option value="0">Never smoked cigarettes regularly</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+                <option value="32">32</option>
+                <option value="33">33</option>
+                <option value="34">34</option>
+                <option value="35">35</option>
+                <option value="36">36</option>
+                <option value="37">37</option>
+                <option value="38">38</option>
+                <option value="39">39</option>
+                <option value="40">40</option>
+                <option value="41">41</option>
+                <option value="42">42</option>
+                <option value="43">43</option>
+                <option value="44">44</option>
+                <option value="45">45</option>
+                <option value="46">46</option>
+                <option value="47">47</option>
+                <option value="48">48</option>
+                <option value="49">49</option>
+                <option value="50">50</option>
+                <option value="51">51</option>
+                <option value="52">52</option>
+                <option value="53">53</option>
+                <option value="54">54</option>
               </select>
             </div>
           </div>
 
-          <div class="male spaceBetweenQuestions">
-            <label class="questions" data-subSubQuestion="true" for="cigarettes_num">When the patient was smoking regularly, how many cigarettes did he/she
+          <div role="radiogroup" class="male subquestion spaceBetweenQuestions col-sm-offset-2 col-md-offset-2" aria-label="currentlySmokeLabel" >
+            <label id="currentlySmokeLabel" class="questions" data-subSubQuestion="true" id="currentlySmoke">Does the patient currently smoke cigarettes?</label>
+            <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
+              <input id="currentlySmokeYes" type="radio" value="1" name="smoke_now" aria-label="Yes" >
+              <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="1">
+                <span></span>Yes</div>
+            </div>
+            <div class="responseOptions">
+              <input id="currentlySmokeNo" type="radio" value="0" name="smoke_now" aria-label="No" >
+              <div class="radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="2">
+                <span></span>No</div>
+            </div>
+          </div>
+
+          <div class="male subquestion spaceBetweenQuestionsSmaller col-sm-offset-3 col-md-offset-3" aria-label="smokeQuitLabel">
+            <label class="questions" data-subSubSubQuestion="true" id="smokeQuitLabel" for="smoke_quit">At what age did the person quit smoking cigarettes completely?</label>
+            <p class="questions_secondary">
+              NOTE: If the patient quit smoking completely more than once, use the age at the last quit time.
+            </p>
+            <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
+              <select id="smoke_quit" name="smoke_quit" class="selectContent"  aria-label="smoke_quit"   >
+              </select>
+            </div>
+          </div>
+
+
+          <div class="male spaceBetweenQuestions col-sm-offset-2 col-md-offset-2" aria-label="amountSmokedPerDayLabel">
+            <label id="amountSmokedPerDayLabel" class="questions" data-subSubQuestion="true" for="cigarettes_num">When the patient was smoking regularly, how many cigarettes did he/she
               smoked per day?</label>
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
               <select id="cigarettes_num" name="cigarettes_num" class="selectContent" >
