@@ -1189,6 +1189,7 @@ function filterInputParameters(index, element) {
 
 	result =  ( filterExist ) ? filterForInputParametersDisplay(element) : true
 
+    console.log("The result is " + result)
 	return result
 
 }
