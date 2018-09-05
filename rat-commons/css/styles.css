@@ -1206,7 +1206,6 @@ input:disabled[type="radio"] + div.radio span
 
   #InputParameters .questions {
 	width: 40% !important;
-	word-break: break-all;
   }
 
   .raceDivWidth {
@@ -1692,6 +1691,8 @@ section > fieldset > legend.questions {
 
 .levelIndentation3 {
   margin-left: 5.8em;
+  word-break: break-all;
+
 }
 
 /*******************************************************************************/
