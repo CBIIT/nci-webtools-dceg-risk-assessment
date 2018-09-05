@@ -72,14 +72,15 @@
   font-size: 24px;
 } */
 #form-steps ol li.active:first-child a:first-child {
-  color: #339fbe;
+  color: #287D95;
+
 }
 #form-steps ol li.active:first-child a:nth-child(2) {
   width: 45px;
   height: 45px;
   font-size: 31px;
   color: #fff;
-  background: #339fbe;
+  background: #287D95;
 }
 
 #form-steps ol li:first-child a:nth-child(2):focus {
