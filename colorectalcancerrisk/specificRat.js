@@ -146,7 +146,6 @@ $(function() {
     // the age the patient started smoking.
     $("#firstYearSmoke").on("change", function() {
       var startAgeForQuitSmoking = $("#firstYearSmoke option:selected").val()
-      console.log("The value is " + startAgeForQuitSmoking)
 
       if ( $.isNumeric("") )
         updateQuitSmokingAge()
@@ -558,9 +557,6 @@ function resultsDisplay(response, textStatus, xhr) {
     var colorText2 = returnColorText(result.patient10YearRisk, result.average10YearRisk);
     var colorText3 = returnColorText(result.patientLifetimeRisk, result.averageLifetimeRisk);
 
-    console.log("The result is " + console.log(result))
-    console.log("The message is ")
-
     message5years          = message5years.replace(  "!Fillin1!",    result.risk)
     message5years          = message5years.replace(  "!Color1!",     colorText1)
     message5years          = message5years.replace(  "!Fillin2!",    result.average5YearRisk)
@@ -636,7 +632,7 @@ function resetForm() {
   *	Assumption : By now the user should have selected Male or Female
   *
   * The rat.js will be expecting the following prototype and the exact function name
-  *		prototype: boolean filterForInputParametersDisplay(HTMLObject)
+  *		prototype: boolean filterForInputParametersDisplayfilterForInputParametersDisplay(HTMLObject)
   *     functionName : filterForInputParametersDisplay
   *
   * When looking at this remember female contains male and will include("male") will return true for both.
@@ -657,7 +653,7 @@ function resetForm() {
      var containsMaleGender = false;
      var containsFemaleGender = false;
      var isSelectedGenderFemale = false;
-     if ( $(element).parent().attr("class") == false ) {
+     if ( $(element).parent().attr("class") != false ) {
         var cssStyles = $(element).parent().attr("class").toLowerCase()
         containsFemaleGender 	    = cssStyles.includes(femaleGender);
         containsMaleGender         = ( containsFemaleGender ) ? false : cssStyles.includes(maleGender)
@@ -701,7 +697,7 @@ function updateQuitSmokingAge(startAge, endAge) {
         var optionsData = []
 
         elementSelect = {}
-        elementSelect.value = 0
+        elementSelect.value = ""
         elementSelect.text = 'Select'
         optionsData.push(elementSelect)
 
