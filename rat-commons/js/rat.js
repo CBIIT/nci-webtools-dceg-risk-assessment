@@ -1546,8 +1546,10 @@ $(document).ready(function() {
 		onkeyup: false,
 		onfocusout: false,
 		submitHandler: processSubmission,
+		errorElement: 'div',
 		errorPlacement: function(error,element) {
 		  error.appendTo($(element).parent().prevAll('label.questions:first'));
+		  $(error).attr("role","alert");
 		},
 		invalidHandler: function(form,validator) {
 		  var errors = validator.numberOfInvalids();
