@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <script src="//assets.adobedtm.com/f1bfa9f7170c81b1a9a9ecdcc6c5215ee0b03c84/satelliteLib-4b219b82c4737db0e1797b6c511cf10c802c95cb.js"></script>
   <title>Colorectal Cancer Risk Assessment Tool (CCRAT)</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description"        content="An interactive tool designed by scientists at the National Cancer Institute and the NSABP to estimate a person's risk of developing Colorectal Cancer Risk Assessment." />
+  <meta property="og:description" content="An interactive tool designed by scientists at the National Cancer Institute and the NSABP to estimate a person's risk of developing Colorectal Cancer Risk Assessment." />
+  <meta property="og:site_name"   content="Colorectal Cancer Risk Assessment Tool" />
+  <meta property="og:url"         content="https://www.cancer.gov/colorectalcancerrisk/" />
+  <meta property="keywords"       content="colorectal cancer, ccrat, colorectal cancer risk, risk assessment, risk tool" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!--
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" type="text/css">
--->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.css">
-  <!--
   <link href="common/css/style.css" rel="stylesheet" type="text/css">
-  -->
   <link href="rat-commons/css/styles.css" rel="stylesheet" type="text/css">
   <link href="rat-commons/css/form-steps.css" rel="stylesheet" type="text/css">
   <link href="specificCSS.css" rel="stylesheet" type="text/css"></link>
@@ -23,51 +23,38 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods.js" type="application/javascript"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.js"></script>
-  <script src="./rat-commons/js/rat.js" type="text/javascript"></script>
   <script src="specificRat.js" type="text/javascript"></script>
+  <script src="./rat-commons/js/rat.js" type="text/javascript"></script>
 </head>
-
 <body>
   <header role="banner">
     <a id="skipContentHome" class="sr-only sr-only-focusable" tabindex="0" href="javascript:scrollPassLogo();">Skip to main content</a>
-    <a href="http://cancer.gov" target="_blank">
-      <img id="logo" src="/common/images/nci-logo-full.svg" alt="go to cancer.gov">
-    </a>
-    <div id="toolTitle">
-      <a id="toolHomeLink" href="index.html">Colorectal Cancer Risk Assessment Tool</a>
-      <button class="navbar-toggle collapsed" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse"
-        onclick="toggle_menu()">
-        <span class="sr-only">Toggle navigation</span>
-        <div class="glyphicon glyphicon-menu-hamburger"></div>
+    <a href="http://cancer.gov" target="_blank"><img id="logo" src="/common/images/nci-logo-full.svg" alt="go to cancer.gov"></a>
+    <div id="toolTitle"><a id="toolHomeLink" href="index.html">Colorectal Cancer Risk Assessment Tool</a>
+      <button class="navbar-toggle collapsed" type="button" aria-controls="main-nav"
+              aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()">
+        <span class="sr-only" tabindex="-1">Toggle navigation</span>
+        <div class="glyphicon glyphicon-menu-hamburger addOutlineSpaceBetween" tabindex="0"></div>
       </button>
     </div>
     <nav class="navbar-collapse collapse" id="main-nav" aria-expanded="false">
       <ul class="nav nav-tabs">
-        <li role="presentation">
-          <a href="calculator.html">Risk Calculator</a>
-        </li>
-        <li role="presentation">
-          <a href="about.html">About the Calculator</a>
-        </li>
+        <li role="presentation"><a href="calculator.html">Risk Calculator</a></li>
+        <li role="presentation"><a href="about.html">About the Calculator</a></li>
       </ul>
     </nav>
     <div class="sidenav" id="side_nav">
       <div class="div" id="inner_menu">
         <span>Menu</span>
-        <button class="navbar-toggle collapsed navbar-toggle_innermenu" type="button" aria-controls="main-nav" aria-expanded="false"
-          data-toggle="collapse" onclick="toggle_menu()">
+        <button class="navbar-toggle collapsed navbar-toggle_innermenu" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()">
           <span class="sr-only">Toggle navigation</span>
-          <div class="glyphicon glyphicon-menu-hamburger"></div>
+          <div class="glyphicon glyphicon-menu-hamburger addOutlineSpaceBetween removeOutline" tabindex="0"></div>
         </button>
       </div>
 
       <ul class="nav nav-tabs">
-        <li class="calc_list_item" role="presentation" id="Risk">
-          <a href="calculator.html">Risk Calculator</a>
-        </li>
-        <li class="about_list_item" role="presentation" id="About">
-          <a href="about.html">About the Calculator</a>
-        </li>
+        <li class="calc_list_item" role="presentation" id="Risk"><a href="calculator.html">Risk Calculator</a></li>
+        <li class="about_list_item" role="presentation" id="About"><a href="about.html">About the Calculator</a></li>
       </ul>
     </div>
   </header>
@@ -75,45 +62,37 @@
     <div class="container-fluid">
       <span class="spacerBetweenHeaderContentForIndexPage">&nbsp;</span>
       <h1>The Colorectal Cancer Risk Assessment Tool</h1>
-
       <div class="row">
-
         <div class="col-sm-9 col-xs-12 ">
-
           <div class="row">
             <div class="col-sm-12 col-xs-12 content">
               <p>
-                The Colorectal Risk Assessment Tool was designed for use by doctors and other health care providers with their patients. The
+                The Colorectal Cancer Risk Assessment Tool was designed for use by doctors and other health care providers with their patients. The
                 tool can estimate the risk of colorectal cancer over the next 5 years, 10 years, and the lifetime risk for
                 men and women who are:
               </p>
             </div>
           </div>
-
           <div class="row">
             <div class="col-xs-12 col-lg-6">
               <ul>
                 <li>Between the ages of 50 and 85</li>
                 <li>White</li>
-                <li>Black</li>
+                <li>African American</li>
                 <li>Asian American/Pacific Islander</li>
                 <li>Hispanic/Latino</li>
               </ul>
-
-              <p>This calculator will take about 5 minutes to complete. </p>
-            </div>
-
-            <div class="col-xs-12 col-lg-6 text-center-lt-lg">
-              <input id="AssessPatientRisk" class="btn btn-default" type="button" value="Assess Patient Risk">
+              <p>This tool takes about 5 minutes to complete. </p>
             </div>
           </div>
-
+          <div class="col-xs-12">
+            <input id="AssessPatientRisk" class="center-block" type="button" value="Assess Patient Risk">
+          </div>
         </div>
-
         <div class="col col-sm-3 col-xs-12 pull-right">
           <div class="box ccrat-box content">
             <p>
-              This tool cannot accurately estimate risk of colorectal cancer for people who have the following problems:
+              This tool cannot accurately estimate risk of colorectal cancer for people who have the following health conditions:
             </p>
             <ul>
               <li>Ulcerative colitis</li>
@@ -124,22 +103,19 @@
             </ul>
           </div>
         </div>
-
         <div class="col col-sm-9 col-xs-12">
           <p>
-            There is not as much data available for blacks, Asian Americans/Pacific Islanders, or Hispanics/Latinos. Until researchers
-            complete studies that will provide information to update the tool for these groups, results may be less accurate.
-            Although the tool is not perfect, it can still help doctors and their patients better understand personal risk
+            There is not as much data available for African Americans, Asian Americans/Pacific Islanders, or Hispanics/Latinos. Until researchers
+            complete studies to provide more information about these groups, results may be less accurate.<span>&nbsp;&nbsp;</span>
+            While the tool is not perfect, it can still help doctors and their patients better understand personal risk
             of colorectal cancer.
           </p>
-
           <p>
-            This tool does not yet apply to American Indians and Alaska Natives, but we are working to improve the tool for use by these
+            This tool does not yet apply to American Indians and Alaska Natives, we plan to improve the tool for use by these
             groups.
           </p>
-
           <p>
-            This tool cannot accurately estimate risk of colorectal cancer for people who have the following problems:
+            This tool cannot accurately estimate risk of colorectal cancer for people who have the following health conditions:
           </p>
           <ul>
             <li>Ulcerative colitis</li>
@@ -155,9 +131,9 @@
 
       <h4>Resources</h4>
       <ul class="list-unstyled">
-        <li><a target="blank" href="https://www.cancer.gov/types/colorectal/hp">Colorectal Cancer&#8212;Health Professional Version</a></li>
-        <li><a target="blank" href="https://www.cancer.gov/types/colorectal/screening-fact-sheet">Tests to Detect Colorectal Cancer and Polyps</a><li>
-        <li><a target="blnak" href="https://epi.grants.cancer.gov/cancer_risk_prediction/">Cancer Risk Prediction and Assessment</a>
+        <li><a class="index_page_link_separator" target="blank" href="https://www.cancer.gov/types/colorectal/hp">Colorectal Cancer&#8212;Health Professional Version</a></li>
+        <li><a class="index_page_link_separator" target="blank" href="https://www.cancer.gov/types/colorectal/screening-fact-sheet">Tests to Detect Colorectal Cancer and Polyps</a><li>
+        <li><a class="index_page_link_separator" target="blnak" href="https://epi.grants.cancer.gov/cancer_risk_prediction/">Cancer Risk Prediction and Assessment</a>
         </li>
       </ul>
     </div>
