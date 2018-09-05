@@ -1,3 +1,5 @@
+
+
 /* A function calculates and stores the position of each header and so that
  * when a navigation button or link is clicked or the user scrolls to a position
  * on the screen , the correct navigation buttion and link will be selected and
@@ -1745,3 +1747,5 @@ $(window).load(function(e) {
 	};
 }
 });
+
+
