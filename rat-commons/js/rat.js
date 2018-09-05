@@ -856,12 +856,12 @@ function existFormSteps() {
 // Two functions to disable and enable  the section headers ( Currently a
 // seciton header is text embedded in a h2 tag
 function disableSectionHeaders() {
-	$(".sectionTitle").attr("disabled","disabled")
+	$(".sectionTitle").attr("disabled","disabled").attr("aria-disabled",true);
 	$(".sectionTitle").addClass("disableSectionTitle")
 }
 
 function enableSectionHeaders() {
-	$(".sectionTitle").removeAttr("disabled")
+	$(".sectionTitle").removeAttr("disabled").attr("aria-disabled",false);
 	$(".sectionTitle").removeClass("disableSectionTitle")
 }
 
@@ -874,8 +874,8 @@ function disableForm() {
 	$("form :input").not("#reset").prop('disabled', true);
 	$("form a").addClass("disabled")
 	$("form [role=radio]").css("color","#C0C0C0");
-	$("form [role=radio]").attr("tabindex","-1");
-	$("[class*='questions']").css("color","#c0c0c0");
+	$("form [role=radio]").attr("tabindex","-1").attr("aria-disabled",true);
+	$("[class*='questions']").css("color","#c0c0c0").attr("aria-disabled",true);
 	disableSectionHeaders();
 }
 
@@ -887,8 +887,8 @@ function disableForm() {
 function enableForm() {
 	$("form :input").not("#reset").attr('disabled', false);
 	$("form a").removeClass("disabled")
-	$("form [role=radio]").css("color","#606060")
-	$("[class*='questions']").css("color","#2E2E2E")
+	$("form [role=radio]").css("color","#606060").attr("aria-disabled",false);
+	$("[class*='questions']").css("color","#2E2E2E").attr("aria-disabled",false);
 	$("form [role=radiogroup]").each(function() {
 		if( $(this).find("[role=radio][aria-checked=true]").length > 0 ) {
 		  $(this).find("[role=radio][aria-checked=true]").attr("tabindex","0");

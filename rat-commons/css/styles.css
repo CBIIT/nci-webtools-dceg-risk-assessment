@@ -380,13 +380,13 @@ a.btn:disabled {
   border-radius: 3px;
 
   background-color: #2DCF99;
-  color: white;
+  color: #163A5F;
   border: none;
 }
 
 #AssessPatientRisk:hover {
   background-color: #28b289;
-  color: white;
+  color: #163A5F;
 }
 
 .okButton {
@@ -426,13 +426,13 @@ a.btn:disabled {
   line-height: 19px;
 
   background-color: #2DCF99;
-  color: white;
+  color: #163A5F;
   border: none;
 }
 
 #startOverButton:hover {
   background-color: #28b289;
-  color: white;
+  color: #163A5F;
 }
 
 #returnToCalculateButton {
@@ -509,7 +509,7 @@ a.btn:disabled {
   border-radius: 3px;
 
   background-color: #2DCF99;
-  color: white;
+  color: #163A5F;
   border: none;
 
 }
@@ -521,7 +521,7 @@ a.btn:disabled {
 }
 
 #calculate:enabled:hover {
-  color: white;
+  color: #163A5F;
   background-color: #28b289;
   padding: 0px;
 }

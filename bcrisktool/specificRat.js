@@ -191,16 +191,16 @@ function womanHadBiopsy() {
 function disableQuestionAndAnswers(event) {
   $("input[name='biopsy_result']").attr("disabled", true)
   $("input[id^='breastBiopsiesCount']").next().css("color", "#C0C0C0")
-  $("input[id^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("color", "#C0C0C0")
+  $("input[id^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("color", "#C0C0C0").attr("aria-disabled",true);
   
   $("input[name='biopsy_ah']").attr("disabled", true)
   $("input[id^='hadAh']").next().css("color", "#C0C0C0");
-  $("input[id^='hadAh']").parent().prev("[class*='questions']").css("color", "#C0C0C0")
+  $("input[id^='hadAh']").parent().prev("[class*='questions']").css("color", "#C0C0C0").attr("aria-disabled",true);
   removeErrorMessage({target: $("#breastBiopsiesCount1")});
   removeErrorMessage({target: $("#hadAhYes")});
   
-  $("[aria-labelledby=biopsy_resultLabel]").find("[role=radio]").attr("tabindex","-1");
-  $("[aria-labelledby=biopsy_ahLabel]").find("[role=radio]").attr("tabindex","-1");
+  $("[aria-labelledby=biopsy_resultLabel]").find("[role=radio]").attr("tabindex","-1").attr("aria-disabled",true);
+  $("[aria-labelledby=biopsy_ahLabel]").find("[role=radio]").attr("tabindex","-1").attr("aria-disabled",true);
 }
 
 // Enable Questions and Answers that are associated with a women having a
@@ -209,11 +209,14 @@ function enableBiopsyQuestionAndAnswers(event) {
 
   $("input[name='biopsy_result']").attr("disabled", false)
   $("input[id^='breastBiopsiesCount']").next().css("color", "#606060")
-  $("input[id^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("color", "#2E2E2E")
+  $("input[id^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("color", "#2E2E2E").attr("aria-disabled",false);
   
   $("input[name='biopsy_ah']").attr("disabled", false)
   $("input[id^='hadAh']").next().css("color", "#606060");
-  $("input[id^='hadAh']").parent().prev("[class*='questions']").css("color", "#2E2E2E")
+  $("input[id^='hadAh']").parent().prev("[class*='questions']").css("color", "#2E2E2E").attr("aria-disabled",false);
+
+  $("[aria-labelledby=biopsy_resultLabel]").find("[role=radio]").attr("aria-disabled",false);
+  $("[aria-labelledby=biopsy_ahLabel]").find("[role=radio]").attr("aria-disabled",false);
   
   if ($("[aria-labelledby=biopsy_resultLabel]").find("[role=radio][aria-checked=true]").length > 0) {
     $("[aria-labelledby=biopsy_resultLabel]").find("[role=radio][aria-checked=true]").attr("tabindex","0");
