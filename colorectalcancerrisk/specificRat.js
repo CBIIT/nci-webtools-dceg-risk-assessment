@@ -279,8 +279,8 @@ function enableCRATForm() {
 function enableCRATGenericForm() {
     enableForm();
 
-    // Style the Height and Weight to show they are neabled
-    $("[class*='numberField']").css("color","#2E2E2E")
+    // Style the Height and Weight to show they are enabled
+    $("[class*='numberField']").css("color","#606060")
     $("[class*='numberField']").prop("disabled", false)
     $("[class*='numberField']").next("span").css("color", "#2E2E2E")
 
@@ -361,7 +361,7 @@ function disableRaceQuestion() {
 function enableRaceQuestion() {
     $("#race").css("color", "#2E2E2E")
     $("#race").next().css("color", "#2E2E2E")
-    $("#race").nextUntil("label.questions").children("div.responseOptions > div").css("color","#2E2E2E")
+    $("#race").nextUntil("label.questions").children("div.responseOptions > div").css("color","#606060")
     $("#race").nextUntil("label.questions").children("input").attr("disabled",false)
 
     if ($("#race").parent().find("[role=radio][aria-checked=true]").length > 0) {
@@ -410,7 +410,7 @@ function disableRadioButtonGroupQuestion(element) {
 
 function enableRadioButtonGroupQuestion(element) {
     $(element).css("color", "#2E2E2E")
-    $(element).nextUntil("label.questions").children("div.radio").css("color","#2E2E2E")
+    $(element).nextUntil("label.questions").children("div.radio").css("color","#606060")
     $(element).parent().find(".questions_secondary").css("color","#2E2E2E")
     $(element).nextUntil("label.questions").children("input").attr("disabled", false)
     $(element).nextUntil("label.questions").children("input").prop("required", true)
@@ -525,8 +525,8 @@ function toggleGender(e) {
 }
 
 function fixSmokingSection() {
-  $("[for='currentlySmokeYes']").css("color", "#2E2E2E")
-  $("[for='currentlySmokeNo']").css("color", "#2E2E2E")
+  $("[for='currentlySmokeYes']").css("color", "#606060")
+  $("[for='currentlySmokeNo']").css("color", "#606060")
 }
 
 /* Produces the results box for the RAT                                                        */
