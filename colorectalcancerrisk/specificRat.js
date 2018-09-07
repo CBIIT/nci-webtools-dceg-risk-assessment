@@ -578,10 +578,23 @@ function resultsDisplay(response, textStatus, xhr) {
         } else if ( risk > averageRisk ) {
             colorText = "presented in red since it higher than";
         } else {
-            colorText = "presented in green since it is the same as";
+            colorText = "presented in blue since it is the same as";
         }
 
         return colorText;
+    }
+
+    function returnColorValue(risk, averageRisk) {
+        var color = undefined;
+        if ( risk < averageRisk ) {
+            color = "#2DC799"
+        } else if ( risk > averageRisk ) {
+            color = "#BB0E3D"
+        } else {
+            color = "#40A5C1"
+        }
+
+        return color
     }
 
     var result = JSON.parse(response.message)
@@ -601,19 +614,19 @@ function resultsDisplay(response, textStatus, xhr) {
     message5years          = message5years.replace(  "!Color1!",     colorText1)
     message5years          = message5years.replace(  "!Fillin2!",    result.average5YearRisk)
     message10years         = message10years.replace( "!Fillin3!",    result.patient10YearRisk)
-    message10years         = message10years.replace(  "!Color2!",     colorText2)
+    message10years         = message10years.replace(  "!Color2!",    colorText2)
     message10years         = message10years.replace( "!Fillin4!",    result.average10YearRisk)
     messageLifeTime        = messageLifeTime.replace("!Fillin5!",    result.patientLifetimeRisk)
-    messageLifeTime        = messageLifeTime.replace(  "!Color3!",     colorText3)
+    messageLifeTime        = messageLifeTime.replace(  "!Color3!",   colorText3)
     messageLifeTime        = messageLifeTime.replace("!Fillin6!",    result.averageLifetimeRisk)
 
     $("#results_text_5_years").text(messageBeginning + message5years + messageEnding);
     $("#results_text_10_years").text(messageBeginning + message10years + messageEnding);
     $("#results_text_lifetime").text(messageBeginning + messageLifeTime + messageEnding);
 
-    var fiveYearPatientRiskColor    = ( result.risk > result.average5YearRisk            ) ? "#BB0E3D" : "#2DC799";
-    var tenYearPatientRiskColor     = ( result.patient10YearRisk > result.average10YearRisk   ) ? "#BB0E3D" : "#2DC799";
-    var lifetimePateientRiskColor   = ( result.patientLifetimeRisk > result.averageLifetimeRisk    ) ? "#BB0E3D" : "#2DC799";
+    var fiveYearPatientRiskColor    = returnColorValue( result.risk, result.average5YearRisk)
+    var tenYearPatientRiskColor     = returnColorValue( result.patient10YearRisk, result.average10YearRisk )
+    var lifetimePateientRiskColor   = returnColorValue( result.patientLifetimeRisk, result.averageLifetimeRisk )
 
 	$("#Risk1").text(result.risk+"%");
     $("#Risk2").text(result.average5YearRisk+"%");
