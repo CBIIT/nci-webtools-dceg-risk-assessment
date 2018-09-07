@@ -19,7 +19,7 @@ $(function() {
         $("#" + idAttribute).focus();
    })
 
-
+    addAriaDisabledAttribute()
     disableFields(false)
 
     // For the forms-step make sure that the last text link is right justified
@@ -159,9 +159,13 @@ $(function() {
     })
 
     // A problem with IE, sometimes a radio group will be skipped from a selectBox
+    // Note : With IE the next element is kept in document.activeElement and sets the event.relatedTarget to
     $("#vigorous_hours").on("blur", function(event) {
-        if ( document.activeElement != undefined && ( document.activeElement == "INPUT" || document.activeElement == "SELECT" ))
+        if ( event.relatedTarget !== undefined ) {
+            $(event.relatedTarget).focus();
+        } else if ( document.activeElement != undefined && ( document.activeElement == "INPUT" || document.activeElement == "SELECT" )) {
             $(document.activeElement).focus();
+        }
     })
 
   });
@@ -202,12 +206,27 @@ function configureRaceDialog( race, callbackForClickOkButton, nameAttributeValue
 
 /* Function validate Numeric are valid and if not shows a message  */
 function validateNumericAndDisplayErrorMessage( element, modal, nextHTMLElement ) {
-        var validationPassed = validateNumber(element)
-        if ( validationPassed == false ) {
-            var id = $(nextHTMLElement).prop("id")
-            if ( id == "" || id === undefined ) {
-                id = $(nextHTMLElement).prev().prop("id") || document.activeElement.id
+
+        function addIdAttribute(element) {
+            var idAttribute = $(element).attr("id")
+            if ( idAttribute == undefined ) {
+                idAttribute = "A" + $.now()
+                $(element).attr("id", idAttribute)
             }
+
+            return idAttribute
+        }
+
+
+        var validationPassed = validateNumber(element)
+        var id = ""
+        if ( validationPassed == false ) {
+            if ( nextHTMLElement ) {
+                id = addIdAttribute(nextHTMLElement)
+            } else if ( document.activeElement ) {
+                id = addIdAttribute(document.activeElement)
+            }
+
             $("#" + modal).prop("data-caller-name", id)
             disableCRATForm();
             setTimeout( function() { $("#" + modal).modal("show"); } , 500 )
@@ -225,7 +244,7 @@ function validateNumber(element) {
     let min=$(element).prop("min")
     let max=$(element).prop("max")
 
-    /* If the valeu returned from parseInt is not a number then it will be the empty string */
+    /* If the value returned from parseInt is not a number then it will be the empty string */
     /* Any time we have no data gotoSectionider the validation to pass since there is nogthung to  */
     /* check                                                                                */
     var actualValueAsNumber = parseInt(actualValue)
@@ -254,6 +273,10 @@ function disableCRATForm() {
     $("[class*='numberField']").css("color","#C0C0C0")
     $("[class*='numberField']").prop("disabled", true)
     $("[class*='numberField']").next("span").css("color", "#C0C0C0")
+
+    $("[class*='numberField']").parent().parent().find("label").attr("aria-disabled","true")
+    $("[class*='numberField']").attr("aria-disabled","true")
+
 }
 
 /** Group of fucntions that disable/enable the next question should be put together in one function */
@@ -279,9 +302,12 @@ function enableCRATGenericForm() {
     enableForm();
 
     // Style the Height and Weight to show they are enabled
-    $("[class*='numberField']").css("color","#606060")
+    $("[class*='numberField']").css("color","#2E2E2E")
     $("[class*='numberField']").prop("disabled", false)
     $("[class*='numberField']").next("span").css("color", "#2E2E2E")
+
+    $("[class*='numberField']").parent().parent().find("label").attr("aria-disabled","false")
+    $("[class*='numberField']").attr("aria-disabled","false")
 
     // Enable and Disable the HTML Objects based on the current values of the form.
     adjustAmountPerServingBasedOnServings()
@@ -339,37 +365,20 @@ function enableCRATGenericForm() {
     // "Is the patient Hispanic" or Latino question will disappear
     if ( $("[name='race']:checked") != "" ) setHispanicQuestionToNo()
 
-    disableFields()
+    disableFields(false)
 
 }
 
 /* Disables the race question and its answers                                                */
 /* This section should be refactored, but can be done as a TODO later on                     */
 function disableRaceQuestion() {
-    $("#race").css("color", "#C0C0C0")
-    $("#race").next().css("color", "#C0C0C0")
-    $("#race").nextUntil("label.questions").children("div.responseOptions > div").css("color","#C0C0C0")
-    $("#race").nextUntil("label.questions").children("input").attr("disabled","disabled")
-
-    $("[aria-labelledby=race]").find("[role=radio]").attr("tabindex","-1");
-
+    disableRadioButtonGroupQuestion("#race")
     $("#hispanicYes").prop("checked", true)
 }
 
 /* Enables the race question and its answers */
 function enableRaceQuestion() {
-    $("#race").css("color", "#2E2E2E")
-    $("#race").next().css("color", "#2E2E2E")
-    $("#race").nextUntil("label.questions").children("div.responseOptions > div").css("color","#606060")
-    $("#race").nextUntil("label.questions").children("input").attr("disabled",false)
-
-    if ($("#race").parent().find("[role=radio][aria-checked=true]").length > 0) {
-        $("#race").parent().find("[role=radio][aria-checked=true]").attr("tabindex","0");
-    } else {
-        $("#race").parent().find("[role=radio]:first").attr("tabindex","0");
-    }
-
-
+    enableRadioButtonGroupQuestion("#race")
     $("#hispanicYes").prop("checked", false)
 }
 
@@ -385,6 +394,9 @@ function disableSelectBox(element) {
     $(element).nextUntil("label.questions").children("select").attr("disabled", true)
     $(element).nextUntil("label.questions").children("select").attr("required", false)
 
+    $(element).attr("aria-disabled", true);
+    $(element).siblings("div").children("select").attr("aria-disabled", true)
+
 }
 
 // Standard Routine to enable a select box in the GUI
@@ -393,6 +405,9 @@ function enableSelectBox(element) {
     $(element).parent().find(".questions_secondary").css("color","#2E2E2E")
     $(element).nextUntil("label.questions").children("select").attr("disabled", false)
     $(element).nextUntil("label.questions").children("select").attr("required", true)
+
+    $(element).attr("aria-disabled", false);
+    $(element).siblings("div").children("select").attr("aria-disabled", false)
 }
 
 // Standard routine to disable a question and answer with radio buttons
@@ -403,8 +418,10 @@ function disableRadioButtonGroupQuestion(element) {
     $(element).nextUntil("label.questions").children("input").attr("disabled", true)
     $(element).nextUntil("label.questions").children("input").removeProp("required")
 
-    $(element).parent().find("[role=radio]").attr("tabindex","-1");
+    $(element).parent().find("[role=radio]").attr("tabindex","-1")
 
+    $(element).attr("aria-disabled", true)
+    $(element).parent().find("[role=radio]").attr("aria-disabled",true);
 }
 
 function enableRadioButtonGroupQuestion(element) {
@@ -421,6 +438,9 @@ function enableRadioButtonGroupQuestion(element) {
     } else {
         $(startingPoint).find("[role=radio]:first").attr("tabindex","0");
     }
+
+    $(element).attr("aria-disabled", false)
+    $(element).parent().find("[role=radio]").attr("aria-disabled", false);
 }
 
 /* This section will disable and eanble the select boxes dynamically  and should be refactored later on */
@@ -482,6 +502,16 @@ function adjustSmokingOnRegularBasis() {
 /* Toggle the gender form Male to Female or Female to Male */
 function toggleGender(e) {
 
+    function setfemaleAriaTagsForMale() {
+        disableRadioButtonGroupQuestion("periodLabel")
+        disablePeriodSection()
+    }
+
+    function setMaleAriaTagsFemale() {
+        disableRadioButtonGroupQuestion("hasSmokedLabel")
+        disableCigarettesSection()
+    }
+
     var value = ( e === undefined ) ? "Unknown" : $(e.target).val()
     switch (value) {
         case "Male":
@@ -494,8 +524,12 @@ function toggleGender(e) {
             $(".female").removeClass('show');
             $(".male").addClass('show');
 
-            $(".female").find("input, select").removeProp("required")
+            $(".female").find("input, select").removeProp("required").removeAttr("required")
             $(".male").find("input, select").prop("required", "true")
+
+            setfemaleAriaTagsForMale()
+
+
             break;
         case "Female":
             // Used for form steps since some extra styling need to done
@@ -505,16 +539,22 @@ function toggleGender(e) {
             $(".male").removeClass('show');
             $(".female").addClass('show');
 
-            $(".male").find("input, select").removeProp("required")
+            $(".male").find("input, select").removeProp("required").removeAttr("required")
             $(".female").find("input, select").prop("required", "true")
+
+            setMaleAriaTagsFemale()
+
             break;
         default:
 
             // Used for form steps since some extra styling need to done
             $(".female, .male").removeClass('show')
-            $(".female, .male").find("input, select").removeProp("required");
+            $(".female, .male").find("input, select").removeProp("required").removeAttr("required")
             $("#form-steps ol li:nth-child(7) a:nth-child(2)").css("margin-right", "0")
             $("#different").addClass("maleOnlyStep")
+
+            setfemaleAriaTagsForMale()
+            setMaleAriaTagsFemale()
     }
 
     adjustNavigationBarLine()
@@ -722,6 +762,16 @@ function updateQuitSmokingAge(startAge, endAge) {
     $.each( optionsData, function(key, value) {
       $("#smoke_quit").append($("<option></option>").attr("value", value.value).text(value.text))
     })
+}
+
+// Adds an aria-disabled attribute to every HTML Object that should have it.  Note the attribute will be set to true
+// so use the disableFields to set everything to false that should be set to false.
+function addAriaDisabledAttribute() {
+    $("label").attr("aria-disabled",            false)
+    $("[role='radio']").attr("aria-disabled",   false)
+    $("select").attr("aria-disabled",           false)
+    $(".numberField").attr("aria-disabled",     false)
+
 }
 
 // When the application is started are refreshed some of the questions/answers will be disabled.
