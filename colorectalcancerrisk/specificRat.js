@@ -90,43 +90,37 @@ $(function() {
 
     // For Medical History : During the past 10 years, did the patient have a colonoscopy, sigmoidoscopy, or both?
     $("#colonSigmoidoscopyYes").on("change",        function() { enableRadioButtonGroupQuestion($("#polyp")) })
-    $("#colonSigmoidoscopyNo").on("change",         function() { disableRadioButtonGroupQuestion($("#polyp"))  })
-    $("#colonSigmoidoscopyUnknown").on("change",    function() { disableRadioButtonGroupQuestion($("#polyp"))  })
+    $("#colonSigmoidoscopyNo").on("change",         function() { disableRadioButtonGroupQuestion($("#polyp")) ; removeErrorMessage({target: $("#polypYes")})  })
+    $("#colonSigmoidoscopyUnknown").on("change",    function() { disableRadioButtonGroupQuestion($("#polyp")) ; removeErrorMessage({target: $("#polypYes")})  })
 
     // For Medical History : Does the patient still have periods
     $("#periodYes").on("click",  function() { disableSelectBox($("[for='last_period']")) })
-    $("#periodYes").on("click",  function() { disableRadioButtonGroupQuestion($("#hormone_treatment")) })
-    $("#periodNo").on("click",   function() { enableSelectBox($("[for='last_period']")) })
+    $("#periodYes").on("click",  function() { disableRadioButtonGroupQuestion($("#hormone_treatment"))  })
+    $("#periodYes").on("click",  function() { removeErrorMessage({target: $("#last_period")}) ; removeErrorMessage({target: $("#hormonesYes")})})
+    $("#periodNo").on("click",   function() { enableSelectBox($("[for='last_period']")) ; })
     $("#periodNo").on("click",   adjustLastTimeSheHadPeriod)
 
     // For Medical History : when did the patient have her last period
     $("#last_period").on("change", adjustLastTimeSheHadPeriod)
 
     // Family History : Does the patient have any immediate relatives
-    $("#familyCancerYes").on("change",      function() { enableRadioButtonGroupQuestion($("#family_count"))  })
-    $("#familyCancerNo").on("change",       function() { disableRadioButtonGroupQuestion($("#family_count")) })
-    $("#familyCancerUnknown").on("change",  function() { disableRadioButtonGroupQuestion($("#family_count")) })
+    $("#familyCancerYes").on("change",      function() { enableRadioButtonGroupQuestion($("#family_count")) })
+    $("#familyCancerNo").on("change",       function() { disableRadioButtonGroupQuestion($("#family_count")) ; removeErrorMessage({target: $("#familyCountYes")})   })
+    $("#familyCancerUnknown").on("change",  function() { disableRadioButtonGroupQuestion($("#family_count")) ; removeErrorMessage({target: $("#familyCountYes")})   })
 
     // Smoking : Has the patient every smoke more than 100 Cigarettes
     $("#smokeYes").on("click",      function() { enableSelectBox($("[for='firstYearSmoke']")) })
     $("#smokeYes").on("click",      function() { enableRadioButtonGroupQuestion($("#currentlySmokeLabel")) })
     $("#smokeYes").on("click",      adjustSmokingOnRegularBasis)
 
-    $("#smokeNo").on("click",       function() { disableSelectBox($("[for='firstYearSmoke']")) })
-    $("#smokeNo").on("click",       function() { disableRadioButtonGroupQuestion($("#currentlySmokeLabel")) })
-    $("#smokeNo").on("click",       function() { disableSelectBox($("[for='smoke_quit']")) })
-    $("#smokeNo").on("click",       function() { disableSelectBox("[for='cigarettes_num']")})
-
-    $("#smokeUnknown").on("click",  function() { disableSelectBox($("[for='firstYearSmoke']")) })
-    $("#smokeUnknown").on("click",  function() { disableRadioButtonGroupQuestion($("#currentlySmokeLabel")) })
-    $("#smokeUnknown").on("click",  function() { disableSelectBox($("[for='smoke_quit']")) })
-    $("#smokeUnknown").on("click",  function() { disableSelectBox("[for='cigarettes_num']")})
+    $("#smokeNo").on("click", disableCigarettesSection)
+    $("#smokeUnknown").on("click", disableCigarettesSection)
 
     // Smoking : Has the person ever smoked Cigrarettes regulary
     $("#firstYearSmoke").on("change", adjustSmokingOnRegularBasis)
 
     // Smoking : Do you currently smoke cigarettes
-    $("#currentlySmokeYes").on("click", function() { disableSelectBox($("[for='smoke_quit']")) })
+    $("#currentlySmokeYes").on("click", function() { disableSelectBox($("[for='smoke_quit']")) ; removeErrorMessage({target: $("#smoke_quit")})  })
     $("#currentlySmokeNo").on("click",  function() { enableSelectBox($("[for='smoke_quit']")) })
 
     // Initialize the button that will reset the form
@@ -447,6 +441,7 @@ function enableRadioButtonGroupQuestion(element) {
 function adjustAmountPerServingBasedOnServings() {
     if ( $("#veg_servings").val() == '0' || $("#veg_servings").val() == '' ) {
         disableSelectBox($("[for='veg_amount']"))
+        removeErrorMessage({target: $("#veg_amount")});
     } else {
         enableSelectBox($("[for='veg_amount']"))
     }
@@ -455,6 +450,7 @@ function adjustAmountPerServingBasedOnServings() {
 function adjustHoursPerWeekModerateActivity() {
     if ( $("#moderate_months").val() == '0' || $("#moderate_months").val() == '' ) {
         disableSelectBox($("[for='moderate_hours']"))
+        removeErrorMessage({target: $("#moderate_hours")});
     } else {
         enableSelectBox($("[for='moderate_hours']"))
     }
@@ -464,6 +460,7 @@ function adjustHoursPerWeekModerateActivity() {
 function adjustHoursPerWeekVigorousActivity() {
     if ( $("#vigorous_months").val() == '0' || $("#vigorous_months").val() == '') {
         disableSelectBox($("[for='vigorous_hours']"))
+        removeErrorMessage({target: $("#vigorous_hours")});
     } else {
         enableSelectBox($("[for='vigorous_hours']"))
     }
@@ -477,6 +474,7 @@ function adjustLastTimeSheHadPeriod() {
         enableRadioButtonGroupQuestion($("#hormone_treatment"))
     } else {
         disableRadioButtonGroupQuestion($("#hormone_treatment"))
+        removeErrorMessage({target: $("#hormonesYes")})
     }
 }
 
@@ -485,14 +483,20 @@ function adjustSmokingOnRegularBasis() {
         disableRadioButtonGroupQuestion($("#currentlySmokeLabel"))
         disableSelectBox($("[for='smoke_quit']"))
         disableSelectBox("[for='cigarettes_num']")
+
+        removeErrorMessage({target: $("#currentlySmokeYes")})
+        removeErrorMessage({target: $("#smoke_quit")})
+        removeErrorMessage({target: $("#cigarettes_num")})
     } else {
         enableRadioButtonGroupQuestion($("#currentlySmokeLabel"))
 
-        if ( $("[name='smoke_now']:checked").val() == "0" || $("[name='smoke_now']:checked").val() == "" )
+        if ( $("[name='smoke_now']:checked").val() == "0" || $("[name='smoke_now']:checked").val() == "" ) {
             enableSelectBox($("[for='smoke_quit']"))
-        else
+        } else {
             disableSelectBox($("[for='smoke_quit']"))
-
+            removeErrorMessage({target: $("#smoke_quit")})
+            removeErrorMessage({target: $("#cigarettes_num")})
+        }
 
         enableSelectBox("[for='cigarettes_num']")
     }
@@ -529,6 +533,11 @@ function toggleGender(e) {
 
             setfemaleAriaTagsForMale()
 
+            if ( $("#smokeYes").val() == "0" ) {
+                enableSelectBox($("[for='firstYearSmoke']"))
+                adjustSmokingOnRegularBasis();
+            }
+
 
             break;
         case "Female":
@@ -543,6 +552,12 @@ function toggleGender(e) {
             $(".female").find("input, select").prop("required", "true")
 
             setMaleAriaTagsFemale()
+
+            if ( $("#periodNo").val() == "1") {
+                enableSelectBox($("[for='last_period']"))
+                adjustLastTimeSheHadPeriod()
+
+            }
 
             break;
         default:
@@ -834,9 +849,18 @@ function disableCigarettesSection() {
     disableRadioButtonGroupQuestion($("#currentlySmokeLabel"))
     disableSelectBox($("[for='smoke_quit']"))
     disableSelectBox("[for='cigarettes_num']")
+
+    removeErrorMessage({target: $("#firstYearSmoke") })
+    removeErrorMessage({target: $("#currentlySmokeYes")})
+    removeErrorMessage({target: $("#smoke_quit")})
+    removeErrorMessage({target: $("#cigarettes_num")})
+
 }
 
 function disablePeriodSection() {
     disableSelectBox($("[for='last_period']"))
     disableRadioButtonGroupQuestion($("#hormone_treatment"))
+
+    removeErrorMessage("#last_period")
+    removeErrorMessage("#hormoneYes")
 }
