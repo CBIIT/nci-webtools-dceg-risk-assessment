@@ -1331,10 +1331,13 @@ function removeErrorMessage(event) {
 	var question = $(getParent).prevUntil("label.questions").prev()
 	if ( question.length == 0 ) question = $(getParent).prev()
 
-	$(question).children().remove()
+	//$(question).children().remove()
 
 	var objectWithBorder = $(question).parent() 
-	if ( objectWithBorder ) $(objectWithBorder).removeClass("borderError");
+	if ( objectWithBorder ) {
+	    $(objectWithBorder).removeClass("borderError");
+	    $(objectWithBorder).find("[role='alert']").remove()
+	}
 
 }
 
