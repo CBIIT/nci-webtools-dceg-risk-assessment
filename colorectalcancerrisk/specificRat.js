@@ -388,6 +388,7 @@ function disableSelectBox(element) {
     $(element).nextUntil("label.questions").children("select").attr("disabled", true)
     $(element).nextUntil("label.questions").children("select").attr("required", false)
 
+    $(element).parent().find(".questions_secondary").attr("aria-disabled",true);
 }
 
 // Standard Routine to enable a select box in the GUI
@@ -396,6 +397,9 @@ function enableSelectBox(element) {
     $(element).parent().find(".questions_secondary").css("color","#2E2E2E")
     $(element).nextUntil("label.questions").children("select").attr("disabled", false)
     $(element).nextUntil("label.questions").children("select").attr("required", true)
+
+    $(element).parent().find(".questions_secondary").attr("aria-disabled",false);
+
 }
 
 // Standard routine to disable a question and answer with radio buttons
