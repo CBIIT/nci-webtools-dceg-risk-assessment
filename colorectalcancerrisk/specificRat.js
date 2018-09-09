@@ -19,7 +19,7 @@ $(function() {
         $("#" + idAttribute).focus();
    })
 
-    addAriaDisabledAttribute()
+    //addAriaDisabledAttribute()
     disableFields(false)
 
     // For the forms-step make sure that the last text link is right justified
@@ -300,8 +300,8 @@ function enableCRATGenericForm() {
     $("[class*='numberField']").prop("disabled", false)
     $("[class*='numberField']").next("span").css("color", "#2E2E2E")
 
-    $("[class*='numberField']").parent().parent().find("label").attr("aria-disabled","false")
-    $("[class*='numberField']").attr("aria-disabled","false")
+    //$("[class*='numberField']").parent().parent().find("label").attr("aria-disabled","false")
+    //$("[class*='numberField']").attr("aria-disabled","false")
 
     // Enable and Disable the HTML Objects based on the current values of the form.
     adjustAmountPerServingBasedOnServings()
@@ -388,9 +388,6 @@ function disableSelectBox(element) {
     $(element).nextUntil("label.questions").children("select").attr("disabled", true)
     $(element).nextUntil("label.questions").children("select").attr("required", false)
 
-    $(element).attr("aria-disabled", true);
-    $(element).siblings("div").children("select").attr("aria-disabled", true)
-
 }
 
 // Standard Routine to enable a select box in the GUI
@@ -399,9 +396,6 @@ function enableSelectBox(element) {
     $(element).parent().find(".questions_secondary").css("color","#2E2E2E")
     $(element).nextUntil("label.questions").children("select").attr("disabled", false)
     $(element).nextUntil("label.questions").children("select").attr("required", true)
-
-    $(element).attr("aria-disabled", false);
-    $(element).siblings("div").children("select").attr("aria-disabled", false)
 }
 
 // Standard routine to disable a question and answer with radio buttons
@@ -415,6 +409,7 @@ function disableRadioButtonGroupQuestion(element) {
     $(element).parent().find("[role=radio]").attr("tabindex","-1")
 
     $(element).attr("aria-disabled", true)
+    $(element).parent().find(".questions_secondary").attr("aria-disabled", true)
     $(element).parent().find("[role=radio]").attr("aria-disabled",true);
 }
 
@@ -434,6 +429,7 @@ function enableRadioButtonGroupQuestion(element) {
     }
 
     $(element).attr("aria-disabled", false)
+    $(element).parent().find(".questions_secondary").attr("aria-disabled", false)
     $(element).parent().find("[role=radio]").attr("aria-disabled", false);
 }
 
@@ -792,15 +788,17 @@ function updateQuitSmokingAge(startAge, endAge) {
     })
 }
 
-// Adds an aria-disabled attribute to every HTML Object that should have it.  Note the attribute will be set to true
-// so use the disableFields to set everything to false that should be set to false.
-function addAriaDisabledAttribute() {
-    $("label").attr("aria-disabled",            false)
-    $("[role='radio']").attr("aria-disabled",   false)
-    $("select").attr("aria-disabled",           false)
-    $(".numberField").attr("aria-disabled",     false)
+// Adds an aria-disabled attribute to every HTML Object that should have it.  Note the attribute will be set to false
+// so use the disableFields to set everything to true that should be set to disabled.
+//function addAriaDisabledAttribute() {
 
-}
+    //$("[role='radio']").attr("aria-disabled",        false)
+    //$(".questions_secondary").attr("aria-dsiabled",   false)
+    //$("label").attr("aria-disabled",            false)
+    //$("select").attr("aria-disabled",           false)
+    //$(".numberField").attr("aria-disabled",     false)
+
+//}
 
 // When the application is started are refreshed some of the questions/answers will be disabled.
 // Input Parameters : forceReset : If true then do a reset no matter what.
