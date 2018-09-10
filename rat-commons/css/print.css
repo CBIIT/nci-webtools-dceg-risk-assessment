@@ -1,6 +1,16 @@
 /* Purpose : To style page when sent to the printer */
 @media print {
 
+  @page {
+    margin: 2cm;
+  }
+
+  #container-fluid {
+	width: 100%;
+	margin: 0;
+	float: none;
+  }
+
   /* Section that make all components invisible that will not be one the      */
   /* printed page                                                             */
   #skipContentCalculate,
@@ -12,7 +22,8 @@
   #side_nav,
   .result_page_anchor,
   #buttonsArea,
-  #footer
+  #footer,
+  .center-block
   {
     display:none;
   }
@@ -21,16 +32,7 @@
   /* Also, I had to use the id to apply the rule due to the specitivity rules */
   /* of css                                                                   */
   #main-nav, #returnToCalculateButton, #startOverButton {
-    display:none     !important;
-  }
-
-  /* Section that will set a page break after every graph                     */
-  div[id^='results_box'] {
-    page-break-before: always;
-  }
-
-  #displayInput {
-    page-break-before: always;
+    display:none !important;
   }
 
   /* Centers the logo                                                         */
@@ -53,63 +55,110 @@
   /* Problem One Logo is not centering                                        */
   .ie_center_logo {
     text-align:center;
+   }
+
+  h1, h2 {
+	   margin-bottom: 0.05cm;
+	   margin-top: 0.01cm;
+	   margin-left: 0;
+	   margin-right: 0;
+	   padding: 0;
+   }
+
+   p {
+    margin: 0;
+   }
+
+  #results {
+	padding: 0;
   }
 
-    #results_box {
-      width: 100%;
-      height: 100%
-    }
+  #results_home {
+	margin-bottom: 0;
+  }
 
-    #results_box2 {
-      width: 100%;
-      height: 100%
-    }
+  #results_home > div {
+	margin-top:0;
+	margin-bottom:0;
+	margin-left: auto;
+	margin-right: auto;
+  }
 
-    #results_box > div {
-       display: flex;
-       flex-wrap: wrap;
-       width: 100%;
-       height: 100%
-    }
+  #results_home > div > div {
+	padding-top: 0;
+	padding-bottom: 0;
+	padding-right: 0.07cm;
+	padding-left: 0.07cm;
+  }
 
-    #results_box2 > div {
-       display: flex;
-       flex-wrap: wrap;
-       width: 100%;
-       height: 100%;
-    }
+  #displayInput {
+    page-break-inside: avoid !important;
+  }
 
-    #results_box3 > div {
-       display: flex;
-       flex-wrap: wrap;
-       width: 100%;
-       height: 100%;
-        }
+  #InputParameters {
+	margin-bottom: 0;
+	padding-right: 0;
+	padding-left: 0;
+  }
 
-    .results_text {
-      width: 100%;
-      padding-top: 0;
-      padding-bottom: 1%;
-    }
+  #InputParameters th, #InputParameters td {
+    border-bottom: 0.005cm solid #dddddd;
+	padding-top:0;
+	padding-bottom: 0;
+    height: 0.4cm;
+  }
 
-    .results_graph {
-      width: 48%
-    }
-
-    svg {
-      width: 100%;
-      height: 100%;
-    }
-
-    .svg-container {
-      padding-top: 60%;
-    }
-
-    #InputParameters .answers {
+  #InputParameters .answers {
       overflow-wrap: break-word;
       word-break: break-word;
       padding-left: 0.5em;
       padding-right: 1em;
-    }
+  }
+
+   div[id^='pieChart'],
+   .results_text {
+	   display: none;
+   }
+
+   .results_graph {
+      width: 32%;
+      margin-bottom: 0;
+	  margin-top:0;
+	  margin-left:auto;
+	  margin-right:auto;
+   }
+
+   div[id^='results_graph'] {
+	   margin-bottom: 0;
+	   margin-top:0;
+	   margin-left:auto;
+	   margin-right:auto;
+   }
+
+   div[id^='results_box'] {
+	   margin-bottom: 0 !important;
+	   margin-top:0.1cm !important;
+	   margin-left:auto;
+	   margin-right:auto;
+	   padding: 0;
+	   border: 0.005cm #6150a3 solid;
+	   width: 65%;
+	   page-break-inside: avoid;
+   }
+
+   div[id^='results_box'] > div {
+	   display: flex;
+   }
+
+   .results_header {
+	   margin-bottom: 0;
+	   line-height: 22px;
+	   font-size: 18px;
+   }
+
+   .patient_header, .risk_header {
+       font-size: 16px;
+   }
+
 
 }
