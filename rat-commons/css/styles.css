@@ -480,6 +480,7 @@ a.btn:disabled {
   cursor: pointer;
 }
 
+
 #printBottom {
   margin-top: 2em;
   margin-bottom: 1em;
@@ -1248,6 +1249,12 @@ input:disabled[type="radio"] + div.radio span
   .vertical_alignment {
 
   }
+}
+
+@media ( max-width: 405px ) {
+    .makeSpaceForPrintIcon {
+        width: 25%;
+    }
 }
 
 /* The style should be used when the patient has a greater risk than average  */
