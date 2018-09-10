@@ -205,14 +205,15 @@ a:focus {
   background: #6150a3;
 }
 .sectionTitle:nth-child(5) {
-  background: #2d73a5;
+  background: #245C84;
 }
 .sectionTitle:nth-child(7) {
-  background: #1095A1;
+  /* background: #1095A1; */
+  background: #0E818B;
 }
 
 .sectionTitle:nth-child(9) {
-  background: #2D73A5;
+  background: #245C84;
 }
 .no_display {
   display: none;

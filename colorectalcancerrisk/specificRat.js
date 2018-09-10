@@ -19,7 +19,7 @@ $(function() {
         $("#" + idAttribute).focus();
    })
 
-
+    //addAriaDisabledAttribute()
     disableFields(false)
 
     // For the forms-step make sure that the last text link is right justified
@@ -90,43 +90,37 @@ $(function() {
 
     // For Medical History : During the past 10 years, did the patient have a colonoscopy, sigmoidoscopy, or both?
     $("#colonSigmoidoscopyYes").on("change",        function() { enableRadioButtonGroupQuestion($("#polyp")) })
-    $("#colonSigmoidoscopyNo").on("change",         function() { disableRadioButtonGroupQuestion($("#polyp"))  })
-    $("#colonSigmoidoscopyUnknown").on("change",    function() { disableRadioButtonGroupQuestion($("#polyp"))  })
+    $("#colonSigmoidoscopyNo").on("change",         function() { disableRadioButtonGroupQuestion($("#polyp")) ; removeErrorMessage({target: $("#polypYes")})  })
+    $("#colonSigmoidoscopyUnknown").on("change",    function() { disableRadioButtonGroupQuestion($("#polyp")) ; removeErrorMessage({target: $("#polypYes")})  })
 
     // For Medical History : Does the patient still have periods
     $("#periodYes").on("click",  function() { disableSelectBox($("[for='last_period']")) })
-    $("#periodYes").on("click",  function() { disableRadioButtonGroupQuestion($("#hormone_treatment")) })
-    $("#periodNo").on("click",   function() { enableSelectBox($("[for='last_period']")) })
+    $("#periodYes").on("click",  function() { disableRadioButtonGroupQuestion($("#hormone_treatment"))  })
+    $("#periodYes").on("click",  function() { removeErrorMessage({target: $("#last_period")}) ; removeErrorMessage({target: $("#hormonesYes")})})
+    $("#periodNo").on("click",   function() { enableSelectBox($("[for='last_period']")) ; })
     $("#periodNo").on("click",   adjustLastTimeSheHadPeriod)
 
     // For Medical History : when did the patient have her last period
     $("#last_period").on("change", adjustLastTimeSheHadPeriod)
 
     // Family History : Does the patient have any immediate relatives
-    $("#familyCancerYes").on("change",      function() { enableRadioButtonGroupQuestion($("#family_count"))  })
-    $("#familyCancerNo").on("change",       function() { disableRadioButtonGroupQuestion($("#family_count")) })
-    $("#familyCancerUnknown").on("change",  function() { disableRadioButtonGroupQuestion($("#family_count")) })
+    $("#familyCancerYes").on("change",      function() { enableRadioButtonGroupQuestion($("#family_count")) })
+    $("#familyCancerNo").on("change",       function() { disableRadioButtonGroupQuestion($("#family_count")) ; removeErrorMessage({target: $("#familyCountYes")})   })
+    $("#familyCancerUnknown").on("change",  function() { disableRadioButtonGroupQuestion($("#family_count")) ; removeErrorMessage({target: $("#familyCountYes")})   })
 
     // Smoking : Has the patient every smoke more than 100 Cigarettes
     $("#smokeYes").on("click",      function() { enableSelectBox($("[for='firstYearSmoke']")) })
     $("#smokeYes").on("click",      function() { enableRadioButtonGroupQuestion($("#currentlySmokeLabel")) })
     $("#smokeYes").on("click",      adjustSmokingOnRegularBasis)
 
-    $("#smokeNo").on("click",       function() { disableSelectBox($("[for='firstYearSmoke']")) })
-    $("#smokeNo").on("click",       function() { disableRadioButtonGroupQuestion($("#currentlySmokeLabel")) })
-    $("#smokeNo").on("click",       function() { disableSelectBox($("[for='smoke_quit']")) })
-    $("#smokeNo").on("click",       function() { disableSelectBox("[for='cigarettes_num']")})
-
-    $("#smokeUnknown").on("click",  function() { disableSelectBox($("[for='firstYearSmoke']")) })
-    $("#smokeUnknown").on("click",  function() { disableRadioButtonGroupQuestion($("#currentlySmokeLabel")) })
-    $("#smokeUnknown").on("click",  function() { disableSelectBox($("[for='smoke_quit']")) })
-    $("#smokeUnknown").on("click",  function() { disableSelectBox("[for='cigarettes_num']")})
+    $("#smokeNo").on("click", disableCigarettesSection)
+    $("#smokeUnknown").on("click", disableCigarettesSection)
 
     // Smoking : Has the person ever smoked Cigrarettes regulary
     $("#firstYearSmoke").on("change", adjustSmokingOnRegularBasis)
 
     // Smoking : Do you currently smoke cigarettes
-    $("#currentlySmokeYes").on("click", function() { disableSelectBox($("[for='smoke_quit']")) })
+    $("#currentlySmokeYes").on("click", function() { disableSelectBox($("[for='smoke_quit']")) ; removeErrorMessage({target: $("#smoke_quit")})  })
     $("#currentlySmokeNo").on("click",  function() { enableSelectBox($("[for='smoke_quit']")) })
 
     // Initialize the button that will reset the form
@@ -159,9 +153,13 @@ $(function() {
     })
 
     // A problem with IE, sometimes a radio group will be skipped from a selectBox
+    // Note : With IE the next element is kept in document.activeElement and sets the event.relatedTarget to
     $("#vigorous_hours").on("blur", function(event) {
-        if ( document.activeElement != undefined && ( document.activeElement == "INPUT" || document.activeElement == "SELECT" ))
+        if ( event.relatedTarget !== undefined ) {
+            $(event.relatedTarget).focus();
+        } else if ( document.activeElement != undefined && ( document.activeElement == "INPUT" || document.activeElement == "SELECT" )) {
             $(document.activeElement).focus();
+        }
     })
 
   });
@@ -202,12 +200,27 @@ function configureRaceDialog( race, callbackForClickOkButton, nameAttributeValue
 
 /* Function validate Numeric are valid and if not shows a message  */
 function validateNumericAndDisplayErrorMessage( element, modal, nextHTMLElement ) {
-        var validationPassed = validateNumber(element)
-        if ( validationPassed == false ) {
-            var id = $(nextHTMLElement).prop("id")
-            if ( id == "" || id === undefined ) {
-                id = $(nextHTMLElement).prev().prop("id") || document.activeElement.id
+
+        function addIdAttribute(element) {
+            var idAttribute = $(element).attr("id")
+            if ( idAttribute == undefined ) {
+                idAttribute = "A" + $.now()
+                $(element).attr("id", idAttribute)
             }
+
+            return idAttribute
+        }
+
+
+        var validationPassed = validateNumber(element)
+        var id = ""
+        if ( validationPassed == false ) {
+            if ( nextHTMLElement ) {
+                id = addIdAttribute(nextHTMLElement)
+            } else if ( document.activeElement ) {
+                id = addIdAttribute(document.activeElement)
+            }
+
             $("#" + modal).prop("data-caller-name", id)
             disableCRATForm();
             setTimeout( function() { $("#" + modal).modal("show"); } , 500 )
@@ -225,7 +238,7 @@ function validateNumber(element) {
     let min=$(element).prop("min")
     let max=$(element).prop("max")
 
-    /* If the valeu returned from parseInt is not a number then it will be the empty string */
+    /* If the value returned from parseInt is not a number then it will be the empty string */
     /* Any time we have no data gotoSectionider the validation to pass since there is nogthung to  */
     /* check                                                                                */
     var actualValueAsNumber = parseInt(actualValue)
@@ -254,6 +267,10 @@ function disableCRATForm() {
     $("[class*='numberField']").css("color","#C0C0C0")
     $("[class*='numberField']").prop("disabled", true)
     $("[class*='numberField']").next("span").css("color", "#C0C0C0")
+
+    $("[class*='numberField']").parent().parent().find("label").attr("aria-disabled","true")
+    $("[class*='numberField']").attr("aria-disabled","true")
+
 }
 
 /** Group of fucntions that disable/enable the next question should be put together in one function */
@@ -279,9 +296,12 @@ function enableCRATGenericForm() {
     enableForm();
 
     // Style the Height and Weight to show they are enabled
-    $("[class*='numberField']").css("color","#606060")
+    $("[class*='numberField']").css("color","#2E2E2E")
     $("[class*='numberField']").prop("disabled", false)
     $("[class*='numberField']").next("span").css("color", "#2E2E2E")
+
+    //$("[class*='numberField']").parent().parent().find("label").attr("aria-disabled","false")
+    //$("[class*='numberField']").attr("aria-disabled","false")
 
     // Enable and Disable the HTML Objects based on the current values of the form.
     adjustAmountPerServingBasedOnServings()
@@ -339,37 +359,20 @@ function enableCRATGenericForm() {
     // "Is the patient Hispanic" or Latino question will disappear
     if ( $("[name='race']:checked") != "" ) setHispanicQuestionToNo()
 
-    disableFields()
+    disableFields(false)
 
 }
 
 /* Disables the race question and its answers                                                */
 /* This section should be refactored, but can be done as a TODO later on                     */
 function disableRaceQuestion() {
-    $("#race").css("color", "#C0C0C0")
-    $("#race").next().css("color", "#C0C0C0")
-    $("#race").nextUntil("label.questions").children("div.responseOptions > div").css("color","#C0C0C0")
-    $("#race").nextUntil("label.questions").children("input").attr("disabled","disabled")
-
-    $("[aria-labelledby=race]").find("[role=radio]").attr("tabindex","-1");
-
+    disableRadioButtonGroupQuestion("#race")
     $("#hispanicYes").prop("checked", true)
 }
 
 /* Enables the race question and its answers */
 function enableRaceQuestion() {
-    $("#race").css("color", "#2E2E2E")
-    $("#race").next().css("color", "#2E2E2E")
-    $("#race").nextUntil("label.questions").children("div.responseOptions > div").css("color","#606060")
-    $("#race").nextUntil("label.questions").children("input").attr("disabled",false)
-
-    if ($("#race").parent().find("[role=radio][aria-checked=true]").length > 0) {
-        $("#race").parent().find("[role=radio][aria-checked=true]").attr("tabindex","0");
-    } else {
-        $("#race").parent().find("[role=radio]:first").attr("tabindex","0");
-    }
-
-
+    enableRadioButtonGroupQuestion("#race")
     $("#hispanicYes").prop("checked", false)
 }
 
@@ -385,6 +388,7 @@ function disableSelectBox(element) {
     $(element).nextUntil("label.questions").children("select").attr("disabled", true)
     $(element).nextUntil("label.questions").children("select").attr("required", false)
 
+    $(element).parent().find(".questions_secondary").attr("aria-disabled",true);
 }
 
 // Standard Routine to enable a select box in the GUI
@@ -393,6 +397,9 @@ function enableSelectBox(element) {
     $(element).parent().find(".questions_secondary").css("color","#2E2E2E")
     $(element).nextUntil("label.questions").children("select").attr("disabled", false)
     $(element).nextUntil("label.questions").children("select").attr("required", true)
+
+    $(element).parent().find(".questions_secondary").attr("aria-disabled",false);
+
 }
 
 // Standard routine to disable a question and answer with radio buttons
@@ -403,8 +410,11 @@ function disableRadioButtonGroupQuestion(element) {
     $(element).nextUntil("label.questions").children("input").attr("disabled", true)
     $(element).nextUntil("label.questions").children("input").removeProp("required")
 
-    $(element).parent().find("[role=radio]").attr("tabindex","-1");
+    $(element).parent().find("[role=radio]").attr("tabindex","-1")
 
+    $(element).attr("aria-disabled", true)
+    $(element).parent().find(".questions_secondary").attr("aria-disabled", true)
+    $(element).parent().find("[role=radio]").attr("aria-disabled",true);
 }
 
 function enableRadioButtonGroupQuestion(element) {
@@ -421,12 +431,17 @@ function enableRadioButtonGroupQuestion(element) {
     } else {
         $(startingPoint).find("[role=radio]:first").attr("tabindex","0");
     }
+
+    $(element).attr("aria-disabled", false)
+    $(element).parent().find(".questions_secondary").attr("aria-disabled", false)
+    $(element).parent().find("[role=radio]").attr("aria-disabled", false);
 }
 
 /* This section will disable and eanble the select boxes dynamically  and should be refactored later on */
 function adjustAmountPerServingBasedOnServings() {
     if ( $("#veg_servings").val() == '0' || $("#veg_servings").val() == '' ) {
         disableSelectBox($("[for='veg_amount']"))
+        removeErrorMessage({target: $("#veg_amount")});
     } else {
         enableSelectBox($("[for='veg_amount']"))
     }
@@ -435,6 +450,7 @@ function adjustAmountPerServingBasedOnServings() {
 function adjustHoursPerWeekModerateActivity() {
     if ( $("#moderate_months").val() == '0' || $("#moderate_months").val() == '' ) {
         disableSelectBox($("[for='moderate_hours']"))
+        removeErrorMessage({target: $("#moderate_hours")});
     } else {
         enableSelectBox($("[for='moderate_hours']"))
     }
@@ -444,6 +460,7 @@ function adjustHoursPerWeekModerateActivity() {
 function adjustHoursPerWeekVigorousActivity() {
     if ( $("#vigorous_months").val() == '0' || $("#vigorous_months").val() == '') {
         disableSelectBox($("[for='vigorous_hours']"))
+        removeErrorMessage({target: $("#vigorous_hours")});
     } else {
         enableSelectBox($("[for='vigorous_hours']"))
     }
@@ -457,6 +474,7 @@ function adjustLastTimeSheHadPeriod() {
         enableRadioButtonGroupQuestion($("#hormone_treatment"))
     } else {
         disableRadioButtonGroupQuestion($("#hormone_treatment"))
+        removeErrorMessage({target: $("#hormonesYes")})
     }
 }
 
@@ -465,14 +483,20 @@ function adjustSmokingOnRegularBasis() {
         disableRadioButtonGroupQuestion($("#currentlySmokeLabel"))
         disableSelectBox($("[for='smoke_quit']"))
         disableSelectBox("[for='cigarettes_num']")
+
+        removeErrorMessage({target: $("#currentlySmokeYes")})
+        removeErrorMessage({target: $("#smoke_quit")})
+        removeErrorMessage({target: $("#cigarettes_num")})
     } else {
         enableRadioButtonGroupQuestion($("#currentlySmokeLabel"))
 
-        if ( $("[name='smoke_now']:checked").val() == "0" || $("[name='smoke_now']:checked").val() == "" )
+        if ( $("[name='smoke_now']:checked").val() == "0" || $("[name='smoke_now']:checked").val() == "" ) {
             enableSelectBox($("[for='smoke_quit']"))
-        else
+        } else {
             disableSelectBox($("[for='smoke_quit']"))
-
+            removeErrorMessage({target: $("#smoke_quit")})
+            removeErrorMessage({target: $("#cigarettes_num")})
+        }
 
         enableSelectBox("[for='cigarettes_num']")
     }
@@ -481,6 +505,16 @@ function adjustSmokingOnRegularBasis() {
 
 /* Toggle the gender form Male to Female or Female to Male */
 function toggleGender(e) {
+
+    function setfemaleAriaTagsForMale() {
+        disableRadioButtonGroupQuestion("periodLabel")
+        disablePeriodSection()
+    }
+
+    function setMaleAriaTagsFemale() {
+        disableRadioButtonGroupQuestion("hasSmokedLabel")
+        disableCigarettesSection()
+    }
 
     var value = ( e === undefined ) ? "Unknown" : $(e.target).val()
     switch (value) {
@@ -494,8 +528,17 @@ function toggleGender(e) {
             $(".female").removeClass('show');
             $(".male").addClass('show');
 
-            $(".female").find("input, select").removeProp("required")
+            $(".female").find("input, select").removeProp("required").removeAttr("required")
             $(".male").find("input, select").prop("required", "true")
+
+            setfemaleAriaTagsForMale()
+
+            if ( $("#smokeYes").val() == "0" ) {
+                enableSelectBox($("[for='firstYearSmoke']"))
+                adjustSmokingOnRegularBasis();
+            }
+
+
             break;
         case "Female":
             // Used for form steps since some extra styling need to done
@@ -505,16 +548,28 @@ function toggleGender(e) {
             $(".male").removeClass('show');
             $(".female").addClass('show');
 
-            $(".male").find("input, select").removeProp("required")
+            $(".male").find("input, select").removeProp("required").removeAttr("required")
             $(".female").find("input, select").prop("required", "true")
+
+            setMaleAriaTagsFemale()
+
+            if ( $("#periodNo").val() == "1") {
+                enableSelectBox($("[for='last_period']"))
+                adjustLastTimeSheHadPeriod()
+
+            }
+
             break;
         default:
 
             // Used for form steps since some extra styling need to done
             $(".female, .male").removeClass('show')
-            $(".female, .male").find("input, select").removeProp("required");
+            $(".female, .male").find("input, select").removeProp("required").removeAttr("required")
             $("#form-steps ol li:nth-child(7) a:nth-child(2)").css("margin-right", "0")
             $("#different").addClass("maleOnlyStep")
+
+            setfemaleAriaTagsForMale()
+            setMaleAriaTagsFemale()
     }
 
     adjustNavigationBarLine()
@@ -538,10 +593,23 @@ function resultsDisplay(response, textStatus, xhr) {
         } else if ( risk > averageRisk ) {
             colorText = "presented in red since it higher than";
         } else {
-            colorText = "presented in green since it is the same as";
+            colorText = "presented in blue since it is the same as";
         }
 
         return colorText;
+    }
+
+    function returnColorValue(risk, averageRisk) {
+        var color = undefined;
+        if ( risk < averageRisk ) {
+            color = "#2DC799"
+        } else if ( risk > averageRisk ) {
+            color = "#BB0E3D"
+        } else {
+            color = "#40A5C1"
+        }
+
+        return color
     }
 
     var result = JSON.parse(response.message)
@@ -561,19 +629,19 @@ function resultsDisplay(response, textStatus, xhr) {
     message5years          = message5years.replace(  "!Color1!",     colorText1)
     message5years          = message5years.replace(  "!Fillin2!",    result.average5YearRisk)
     message10years         = message10years.replace( "!Fillin3!",    result.patient10YearRisk)
-    message10years         = message10years.replace(  "!Color2!",     colorText2)
+    message10years         = message10years.replace(  "!Color2!",    colorText2)
     message10years         = message10years.replace( "!Fillin4!",    result.average10YearRisk)
     messageLifeTime        = messageLifeTime.replace("!Fillin5!",    result.patientLifetimeRisk)
-    messageLifeTime        = messageLifeTime.replace(  "!Color3!",     colorText3)
+    messageLifeTime        = messageLifeTime.replace(  "!Color3!",   colorText3)
     messageLifeTime        = messageLifeTime.replace("!Fillin6!",    result.averageLifetimeRisk)
 
     $("#results_text_5_years").text(messageBeginning + message5years + messageEnding);
     $("#results_text_10_years").text(messageBeginning + message10years + messageEnding);
     $("#results_text_lifetime").text(messageBeginning + messageLifeTime + messageEnding);
 
-    var fiveYearPatientRiskColor    = ( result.risk > result.average5YearRisk            ) ? "#BB0E3D" : "#2DC799";
-    var tenYearPatientRiskColor     = ( result.patient10YearRisk > result.average10YearRisk   ) ? "#BB0E3D" : "#2DC799";
-    var lifetimePateientRiskColor   = ( result.patientLifetimeRisk > result.averageLifetimeRisk    ) ? "#BB0E3D" : "#2DC799";
+    var fiveYearPatientRiskColor    = returnColorValue( result.risk, result.average5YearRisk)
+    var tenYearPatientRiskColor     = returnColorValue( result.patient10YearRisk, result.average10YearRisk )
+    var lifetimePateientRiskColor   = returnColorValue( result.patientLifetimeRisk, result.averageLifetimeRisk )
 
 	$("#Risk1").text(result.risk+"%");
     $("#Risk2").text(result.average5YearRisk+"%");
@@ -724,6 +792,18 @@ function updateQuitSmokingAge(startAge, endAge) {
     })
 }
 
+// Adds an aria-disabled attribute to every HTML Object that should have it.  Note the attribute will be set to false
+// so use the disableFields to set everything to true that should be set to disabled.
+//function addAriaDisabledAttribute() {
+
+    //$("[role='radio']").attr("aria-disabled",        false)
+    //$(".questions_secondary").attr("aria-dsiabled",   false)
+    //$("label").attr("aria-disabled",            false)
+    //$("select").attr("aria-disabled",           false)
+    //$(".numberField").attr("aria-disabled",     false)
+
+//}
+
 // When the application is started are refreshed some of the questions/answers will be disabled.
 // Input Parameters : forceReset : If true then do a reset no matter what.
 function disableFields(forceReset) {
@@ -771,9 +851,18 @@ function disableCigarettesSection() {
     disableRadioButtonGroupQuestion($("#currentlySmokeLabel"))
     disableSelectBox($("[for='smoke_quit']"))
     disableSelectBox("[for='cigarettes_num']")
+
+    removeErrorMessage({target: $("#firstYearSmoke") })
+    removeErrorMessage({target: $("#currentlySmokeYes")})
+    removeErrorMessage({target: $("#smoke_quit")})
+    removeErrorMessage({target: $("#cigarettes_num")})
+
 }
 
 function disablePeriodSection() {
     disableSelectBox($("[for='last_period']"))
     disableRadioButtonGroupQuestion($("#hormone_treatment"))
+
+    removeErrorMessage("#last_period")
+    removeErrorMessage("#hormoneYes")
 }
