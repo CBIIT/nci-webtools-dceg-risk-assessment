@@ -1331,7 +1331,7 @@ function removeErrorMessage(event) {
 	var question = $(getParent).prevUntil("label.questions").prev()
 	if ( question.length == 0 ) question = $(getParent).prev()
 
-	//$(question).children().remove()
+    $(event.target).removeClass("error")
 
 	var objectWithBorder = $(question).parent() 
 	if ( objectWithBorder ) {

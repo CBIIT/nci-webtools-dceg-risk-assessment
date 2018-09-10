@@ -80,6 +80,38 @@
     #form-steps ol span.spacer {
         min-width: 2%;
     }
+
+    #veg_servings.error {
+      width: 250px;
+    }
+
+    #veg_amount.error {
+       width: 250px;
+    }
+
+    #moderate_hours.error {
+      width: 250px;
+    }
+
+    #vigorous_hours.error {
+      width: 250px;
+    }
+
+    #last_period.error {
+      width: 250px;
+    }
+
+    #firstYearSmoke.error {
+      width: 250px;
+    }
+
+    #smoke_quit.error {
+      width: 250px;
+    }
+
+    #cigarettes_num.error {
+      width: 250px;
+    }
 }
 
 @media (max-width: 199px ) {
@@ -115,11 +147,11 @@
 }
 
 #firstYearSmoke {
-  width: 350px;
+  width: 300px;
 }
 
 #smoke_quit {
-  width: 350px;
+  width: 300px;
 }
 
 #cigarettes_num {
@@ -129,6 +161,7 @@
 #last_period {
   width: 250px;
 }
+
 
 /* #race is used in another Race, so we override in the specific Rat */
 #race {
