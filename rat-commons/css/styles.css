@@ -1249,6 +1249,10 @@ input:disabled[type="radio"] + div.radio span
   .vertical_alignment {
 
   }
+
+  #results_home > h1 {
+    width: 85%;
+  }
 }
 
 @media ( max-width: 405px ) {
