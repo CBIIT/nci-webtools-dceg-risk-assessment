@@ -109,8 +109,8 @@ $(function() {
     $("#familyCancerUnknown").on("change",  function() { disableRadioButtonGroupQuestion($("#family_count")) ; removeErrorMessage({target: $("#familyCountYes")})   })
 
     // Smoking : Has the patient every smoke more than 100 Cigarettes
-    $("#smokeYes").on("click",      function() { enableSelectBox($("[for='firstYearSmoke']")) })
-    $("#smokeYes").on("click",      function() { enableRadioButtonGroupQuestion($("#currentlySmokeLabel")) })
+    //$("#smokeYes").on("click",      function() { enableSelectBox($("[for='firstYearSmoke']")) })
+    //$("#smokeYes").on("click",      function() { enableRadioButtonGroupQuestion($("#currentlySmokeLabel")) })
     $("#smokeYes").on("click",      adjustSmokingOnRegularBasis)
 
     $("#smokeNo").on("click", disableCigarettesSection)
@@ -345,7 +345,7 @@ function enableCRATGenericForm() {
         var cigarettesCount = $("[name='cigarettes']:checked").val()
         if (  cigarettesCount == "0" || cigarettesCount === undefined )
         {
-            enableSelectBox($("[for='firstYearSmoke']"))
+            //enableSelectBox($("[for='firstYearSmoke']"))
             adjustSmokingOnRegularBasis()
         } else {
             disableCigarettesSection()
@@ -439,7 +439,8 @@ function enableRadioButtonGroupQuestion(element) {
 
 /* This section will disable and eanble the select boxes dynamically  and should be refactored later on */
 function adjustAmountPerServingBasedOnServings() {
-    if ( $("#veg_servings").val() == '0' || $("#veg_servings").val() == '' ) {
+    //if ( $("#veg_servings").val() == '0' || $("#veg_servings").val() == '' ) {
+    if ( $("#veg_servings").val() == '' ) {
         disableSelectBox($("[for='veg_amount']"))
         removeErrorMessage({target: $("#veg_amount")});
     } else {
@@ -479,27 +480,37 @@ function adjustLastTimeSheHadPeriod() {
 }
 
 function adjustSmokingOnRegularBasis() {
-    if ( $("[name='smoke_age']").val() == "0" || $("[name='smoke_age']").val() == "" ) {
-        disableRadioButtonGroupQuestion($("#currentlySmokeLabel"))
-        disableSelectBox($("[for='smoke_quit']"))
-        disableSelectBox("[for='cigarettes_num']")
+    //if ( $("[name='smoke_age']").val() == "0" || $("[name='smoke_age']").val() == "" ) {
+    //    disableRadioButtonGroupQuestion($("#currentlySmokeLabel"))
+    //    disableSelectBox($("[for='smoke_quit']"))
+    //    disableSelectBox("[for='cigarettes_num']")
 
-        removeErrorMessage({target: $("#currentlySmokeYes")})
-        removeErrorMessage({target: $("#smoke_quit")})
-        removeErrorMessage({target: $("#cigarettes_num")})
-    } else {
-        enableRadioButtonGroupQuestion($("#currentlySmokeLabel"))
+    //    removeErrorMessage({target: $("#currentlySmokeYes")})
+    //    removeErrorMessage({target: $("#smoke_quit")})
+    //    removeErrorMessage({target: $("#cigarettes_num")})
+    //} else {
+    //    enableRadioButtonGroupQuestion($("#currentlySmokeLabel"))
 
-        if ( $("[name='smoke_now']:checked").val() == "0" || $("[name='smoke_now']:checked").val() == "" ) {
-            enableSelectBox($("[for='smoke_quit']"))
-        } else {
-            disableSelectBox($("[for='smoke_quit']"))
-            removeErrorMessage({target: $("#smoke_quit")})
-            removeErrorMessage({target: $("#cigarettes_num")})
-        }
+    //    if ( $("[name='smoke_now']:checked").val() == "0" || $("[name='smoke_now']:checked").val() == "" ) {
+    //        enableSelectBox($("[for='smoke_quit']"))
+    //    } else {
+    //        disableSelectBox($("[for='smoke_quit']"))
+    //        removeErrorMessage({target: $("#smoke_quit")})
+    //        removeErrorMessage({target: $("#cigarettes_num")})
+    //    }
+    //
+    //    enableSelectBox("[for='cigarettes_num']")
+    //}
 
-        enableSelectBox("[for='cigarettes_num']")
-    }
+    removeErrorMessage("[for='yearsSmoked']")
+    removeErrorMessage("[for='cigarettes_num']")
+
+    enableSelectBox("[for='yearsSmoked']")
+    enableSelectBox("[for='cigarettes_num']")
+
+
+
+
 
 }
 
@@ -534,7 +545,7 @@ function toggleGender(e) {
             setfemaleAriaTagsForMale()
 
             if ( $("#smokeYes").val() == "0" ) {
-                enableSelectBox($("[for='firstYearSmoke']"))
+                //enableSelectBox($("[for='firstYearSmoke']"))
                 adjustSmokingOnRegularBasis();
             }
 
@@ -847,15 +858,21 @@ function disableFields(forceReset) {
 }
 
 function disableCigarettesSection() {
-    disableSelectBox($("[for='firstYearSmoke']"))
-    disableRadioButtonGroupQuestion($("#currentlySmokeLabel"))
-    disableSelectBox($("[for='smoke_quit']"))
+    //disableSelectBox($("[for='firstYearSmoke']"))
+    //disableRadioButtonGroupQuestion($("#currentlySmokeLabel"))
+    //disableSelectBox($("[for='smoke_quit']"))
+    //disableSelectBox("[for='cigarettes_num']")
+
+    disableSelectBox("[for='yearsSmoked']")
     disableSelectBox("[for='cigarettes_num']")
 
-    removeErrorMessage({target: $("#firstYearSmoke") })
-    removeErrorMessage({target: $("#currentlySmokeYes")})
-    removeErrorMessage({target: $("#smoke_quit")})
-    removeErrorMessage({target: $("#cigarettes_num")})
+    removeErrorMessage("[for='yearsSmoked']")
+    removeErrorMessage("[for='cigarettes_num']")
+
+    //removeErrorMessage({target: $("#firstYearSmoke") })
+    //removeErrorMessage({target: $("#currentlySmokeYes")})
+    //removeErrorMessage({target: $("#smoke_quit")})
+    //removeErrorMessage({target: $("#cigarettes_num")})
 
 }
 

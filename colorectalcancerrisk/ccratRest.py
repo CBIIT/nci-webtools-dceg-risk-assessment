@@ -33,6 +33,37 @@ class ColorectalRiskAssessmentTool:
     response.status_code = 200
     return response
 
+  # For the question about medications that contain Aspirin/No Aspirin the "I don't know" should be treated as No
+  @staticmethod
+  def unknownMeansNo(answer):
+    return 1 if answer == 3 else answer
+
+  # Calculate the Aspirin Only and nsaids values
+  # For any input the value 0 = "Yes" and value 1 == "No"
+  @staticmethod
+  def generateAspirinOnlyAndNsaids(aspirin, non_aspirin):
+    values = {}
+    if ( aspirin == 1 and non_aspirin == 1 ):
+      values['aspirinOnly'] = 1
+      values['nsaidRegime'] = 1
+    elif ( aspirin == 0 and non_aspirin == 1 ):
+      values['aspirinOnly'] = 0
+      values['nsaidRegime'] = 1
+    else:
+      values['aspirinOnly'] = 0
+      values['nsaidRegime'] = 0
+
+    return values
+
+  #@staticmethod
+  #def getInt(name, parameters, errorObject):
+  #  ''' From the paramter list conver the value reference by name into an integer if it is present and a number '''
+  #  if name not in parameters or parameters['yearsSmoked'] == '':
+  #    errorObject['missing'] += [name]
+  #  elif not parameters[name].isnumeric():
+  #    errorObject['nonnumeric'] += [name]
+  #  return int(parameters['yearsSmoked'])
+
   @app.route('/calculate', methods=['POST'] )
   def ccratRisk():
     try:
@@ -78,38 +109,45 @@ class ColorectalRiskAssessmentTool:
           errorObject['message'] += ["This tool cannot be used to assess risk for those under the age of 50 or over the age of 89."]
       if sex == 0:
         if 'cigarettes' not in errorObject['missing'] and parameters['cigarettes'] == '0':
-          if 'smoke_age' not in parameters or parameters['smoke_age'] == '':
-            errorObject['missing'] += ['smoke_age']
-          elif not parameters['smoke_age'].isnumeric():
-            errorObject['nonnumeric'] += ['smoke_age']
-          elif parameters['smoke_age'] != '0':
-            smoke_age = int(parameters['smoke_age'])
-            if smoke_age > age:
-              errorObject['message'] += ["You are not old enough to have started smoke at age "+str(smoke_age)]
-            else:
-              if 'cigarettes_num' not in parameters or parameters['cigarettes_num'] == '':
-                errorObject['missing'] += ['cigarettes_num']
-              elif not parameters['cigarettes_num'].isnumeric():
-                errorObject['nonnumeric'] += ['cigarettes_num']
-              else:
-                cigarettesPerDay = int(parameters['cigarettes_num'])
-              if 'smoke_now' not in parameters or parameters['smoke_now'] == '':
-                errorObject['missing'] += ['smoke_now']
-              elif parameters['smoke_now'] == '1':
-                yearsSmoking = age - smoke_age
-              elif parameters['smoke_now'] == '0':
-                if 'smoke_quit' not in parameters or parameters['smoke_quit'] == '':
-                  errorObject['missing'] += ['smoke_quit']
-                elif not parameters['smoke_quit'].isnumeric():
-                  errorObject['nonnumeric'] += ['smoke_quit']
-                else:
-                  quit_age = int(parameters['smoke_quit'])
-                  if quit_age < smoke_age:
-                    errorObject['message'] += ["You can't have quit smoking before you started"]
-                  else:
-                    yearsSmoking = quit_age - smoke_age
-              else:
-                errorObject['missing'] += ['smoke_now']
+          #if 'smoke_age' not in parameters or parameters['smoke_age'] == '':
+          # errorObject['missing'] += ['smoke_age']
+          #elif not parameters['smoke_age'].isnumeric():
+          #  errorObject['nonnumeric'] += ['smoke_age']
+          #elif parameters['smoke_age'] != '0':
+          #  smoke_age = int(parameters['smoke_age'])
+          #  if smoke_age > age:
+          #    errorObject['message'] += ["You are not old enough to have started smoke at age "+str(smoke_age)]
+          #  else:
+          if 'cigarettes_num' not in parameters or parameters['cigarettes_num'] == '':
+            errorObject['missing'] += ['cigarettes_num']
+          elif not parameters['cigarettes_num'].isnumeric():
+            errorObject['nonnumeric'] += ['cigarettes_num']
+          #else:
+
+          if 'yearsSmoked' not in parameters or parameters['yearsSmoked'] == '':
+            errorObject['missing'] += ['yearsSmoked']
+          elif not parameters['cigarettes_num'].isnumeric():
+            errorObject['nonnumeric'] += ['cigarettes_num']
+          yearsSmoking = int(parameters['yearsSmoked'])
+
+          #  cigarettesPerDay = int(parameters['cigarettes_num'])
+          #    if 'smoke_now' not in parameters or parameters['smoke_now'] == '':
+          #      errorObject['missing'] += ['smoke_now']
+          #    elif parameters['smoke_now'] == '1':
+          #      yearsSmoking = age - smoke_age
+          #    elif parameters['smoke_now'] == '0':
+          #      if 'smoke_quit' not in parameters or parameters['smoke_quit'] == '':
+          #        errorObject['missing'] += ['smoke_quit']
+          #      elif not parameters['smoke_quit'].isnumeric():
+          #        errorObject['nonnumeric'] += ['smoke_quit']
+          #      else:
+          #        quit_age = int(parameters['smoke_quit'])
+          #        if quit_age < smoke_age:
+          #          errorObject['message'] += ["You can't have quit smoking before you started"]
+          #       else:
+          #          yearsSmoking = quit_age - smoke_age
+          #    else:
+          #      errorObject['missing'] += ['smoke_now']
       else:
         hormoneUsage = 0
         if 'period' not in errorObject['missing'] and 'period' not in errorObject['nonnumeric'] and parameters['period'] == '1':
@@ -140,6 +178,7 @@ class ColorectalRiskAssessmentTool:
         else:
           try:
             hoursPerWeek = hoursPerWeek/12 * float(parameters['vigorous_hours'])
+            print("Hours Per Week = " + hoursPerWeek)
           except:
             errorObject['nonnumeric'] += ['vigorous_hours']
       servingsPerDay = 0
@@ -206,25 +245,43 @@ class ColorectalRiskAssessmentTool:
         else:
           bmi = 1
 
-      aspirin = int(parameters['aspirin'])
-      nonAspirin = int(parameters['non_aspirin'])
-      
+      aspirin = -1
+      try:
+        aspirin     = ColorectalRiskAssessmentTool.unknownMeansNo(int(parameters['aspirin']))
+      except:
+        errorObject['nonnumeric'].append("aspirin")
+      print("Aspirin == " + str(aspirin))
+
+      nonAspirin = -1
+      try:
+        nonAspirin  = ColorectalRiskAssessmentTool.unknownMeansNo(int(parameters['non_aspirin']))
+      except:
+        errorObject['nonnumeric'].append("non_aspirin")
+
+      returnValues = ColorectalRiskAssessmentTool.generateAspirinOnlyAndNsaids(aspirin, nonAspirin)
+
+      nsaidRegime = returnValues['nsaidRegime']
+      aspirinOnly = returnValues['aspirinOnly']
+
+
       # Based on my reading of the link : http://www.obesityhelp.com/forums/amos/4081185/Is-excedrin,
       # I am rewriting section since it seem Asprin and Non Asprin are considered a NSID Regime.
       # nsaidRegimine ( 0 = yes, 1 = no)
       #nsaidRegimine = min(aspirin,nonAspirin)
       #aspirinOnly = nonAspirin
-      if ( aspirin == 0 or aspirin == 3 or nonAspirin == 0):
-        nsaidRegimine = 0
-      else:
-        nsaidRegimine = 1
+      #if ( aspirin == 0 or aspirin == 3 or nonAspirin == 0):
+      #  nsaidRegimine = 0
+      #else:
+      #  nsaidRegimine = 1
 
       # The next one is asprin only  aspirinOnly:      
       # [0] Non-Aspirin medications are part of the NSAID regimine
       # [1] Aspirin-only Regimine or there is no NSAID regimine
-      aspirinOnly = 0
-      if ( nonAspirin != 0 or nsaidRegimine == 1 ):
-        aspirinOnly = 1
+      #aspirinOnly = 0
+      #if ( nonAspirin != 0 or nsaidRegimine == 1 ):
+      #  aspirinOnly = 1
+
+
 
       
       gender = "Male" if sex == 0 else "Female"
@@ -240,6 +297,7 @@ class ColorectalRiskAssessmentTool:
       print("The screening            = "   + str(screening))
       print("Asprin                   = "   + str(aspirin))
       print("Non Asprin =             = "   + str(nonAspirin))
+      print("nsaidRegime              = "   + str(nsaidRegime))
       print("Years Smoking      = "   + str(yearsSmoking))
       print("Cigs per Day       = "   + str(cigarettesPerDay))
       print("family_cancer      = "   + str(family_cancer))
@@ -258,7 +316,7 @@ class ColorectalRiskAssessmentTool:
         screening,
         yearsSmoking,
         cigarettesPerDay,
-        nsaidRegimine,
+        nsaidRegime,
         aspirinOnly,
         family_cancer,
         exercise,
@@ -274,7 +332,7 @@ class ColorectalRiskAssessmentTool:
         screening,
         yearsSmoking,
         cigarettesPerDay,
-        nsaidRegimine,
+        nsaidRegime,
         aspirinOnly,
         family_cancer,
         exercise,
@@ -294,7 +352,7 @@ class ColorectalRiskAssessmentTool:
         screening,
         yearsSmoking,
         cigarettesPerDay,
-        nsaidRegimine,
+        nsaidRegime,
         aspirinOnly,
         family_cancer,
         exercise,
@@ -310,7 +368,7 @@ class ColorectalRiskAssessmentTool:
         screening,
         yearsSmoking,
         cigarettesPerDay,
-        nsaidRegimine,
+        nsaidRegime,
         aspirinOnly,
         family_cancer,
         exercise,
@@ -330,7 +388,7 @@ class ColorectalRiskAssessmentTool:
         screening,
         yearsSmoking,
         cigarettesPerDay,
-        nsaidRegimine,
+        nsaidRegime,
         aspirinOnly,
         family_cancer,
         exercise,
@@ -346,7 +404,7 @@ class ColorectalRiskAssessmentTool:
         screening,
         yearsSmoking,
         cigarettesPerDay,
-        nsaidRegimine,
+        nsaidRegime,
         aspirinOnly,
         family_cancer,
         exercise,

@@ -6,6 +6,20 @@ def AbsRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
   genderRaceHazards    = CcratConstants.COMPETING_HAZARDS[gender][race]
   genderAttributeRisks = CcratConstants.ATTRIBUTE_RISKS  [gender]
   genderCovariates     = CcratConstants.COVARIATES       [gender]
+
+  if gender == "Male" and yearsSmoking == 0 and cigarettesPerDay > 0:
+    cigarettesPerDay = 0
+    yearsSmoking = 0
+
+  if gender == "Male" and yearsSmoking > 0 and cigarettesPerDay == 0:
+    cigarettesPerDay = 0
+    yearsSmoking = 0
+
+  print( "Values for CigarettesPerDay/yearsSmoking might have been changed")
+  print( "cigarettesPerDay = " + str(cigarettesPerDay))
+  print( "yearsSmoking = " + str(yearsSmoking))
+
+
   #screening risk
   covariate_breakdown = covariteBreakdown(gender, race, startAge, upperBoundAge, screening, yearsSmoking, cigarettesPerDay, nsaidRegimine, aspirinOnly, familyHistory, averageExercise, servingsPerDay, bmiTrend, hormoneUsage)
   rectal_covariates   = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["rectal"  ])]))*genderAttributeRisks["rectal"  ]
@@ -33,13 +47,43 @@ def AvgRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
   genderRaceHazards    = CcratConstants.COMPETING_HAZARDS[gender][race]
   genderAttributeRisks = CcratConstants.ATTRIBUTE_RISKS  [gender]
   genderCovariates     = CcratConstants.COVARIATES       [gender]
-    
+
+  print("--- Inside Average Risk")
+
+  print("The gender Attribute Risks are : " + str(genderAttributeRisks))
+
+  # set the variables genderAttributeRisks to One
+  genderAttributeRisks = { x:1 for x in genderAttributeRisks }
+  print("The gender covariates = " + str(genderAttributeRisks))
+
+  print("Pass genderAttributeRisks")
+
   #screening risk
   covariate_breakdown = covariteBreakdown(gender, race, startAge, upperBoundAge, screening, yearsSmoking, cigarettesPerDay, nsaidRegimine, aspirinOnly, familyHistory, averageExercise, servingsPerDay, bmiTrend, hormoneUsage)
 
-  rectal_covariates   = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["rectal"  ])]))*genderAttributeRisks["rectal"  ]
-  proximal_covariates = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["proximal"])]))*genderAttributeRisks["proximal"]
-  distal_covariates   = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["distal"  ])]))
+  print("Pass the covariate breakdown")
+
+  #rectal_covariates   = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["rectal"  ])]))*genderAttributeRisks["rectal"  ]
+  #proximal_covariates = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["proximal"])]))*genderAttributeRisks["proximal"]
+  #distal_covariates   = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["distal"  ])]))
+
+  #print(str(rectal_covariates))
+  #print(str(proximal_covariates))
+  #print(str(distal_covariates))
+
+  #print("Pass the original covariates")
+
+  # Set the variables rectal_covariates proximal_covariates and distal_covariates all equal to one
+  rectal_covariates   = 1
+  proximal_covariates = 1
+  distal_covariates   = 1
+
+  print(str(rectal_covariates))
+  print(str(proximal_covariates))
+  print(str(distal_covariates))
+
+  print("Pass the covariates")
+
   
   #relational risk factors become less relavent for distal cancer as the age goes up
   absRisk = 0

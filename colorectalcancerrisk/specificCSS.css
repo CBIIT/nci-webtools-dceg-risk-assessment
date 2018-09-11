@@ -112,6 +112,10 @@
     #cigarettes_num.error {
       width: 250px;
     }
+
+    #yearsSmoked {
+      width: 250px;
+    }
 }
 
 @media (max-width: 199px ) {
@@ -127,7 +131,7 @@
 }
 
 #veg_servings {
-  width: 285px;
+  width: 490px;
 }
 
 #veg_amount {
@@ -160,6 +164,10 @@
 
 #last_period {
   width: 250px;
+}
+
+#yearsSmoked {
+  width: 330px;
 }
 
 
