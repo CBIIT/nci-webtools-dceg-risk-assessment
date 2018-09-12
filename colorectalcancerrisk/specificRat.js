@@ -480,27 +480,6 @@ function adjustLastTimeSheHadPeriod() {
 }
 
 function adjustSmokingOnRegularBasis() {
-    //if ( $("[name='smoke_age']").val() == "0" || $("[name='smoke_age']").val() == "" ) {
-    //    disableRadioButtonGroupQuestion($("#currentlySmokeLabel"))
-    //    disableSelectBox($("[for='smoke_quit']"))
-    //    disableSelectBox("[for='cigarettes_num']")
-
-    //    removeErrorMessage({target: $("#currentlySmokeYes")})
-    //    removeErrorMessage({target: $("#smoke_quit")})
-    //    removeErrorMessage({target: $("#cigarettes_num")})
-    //} else {
-    //    enableRadioButtonGroupQuestion($("#currentlySmokeLabel"))
-
-    //    if ( $("[name='smoke_now']:checked").val() == "0" || $("[name='smoke_now']:checked").val() == "" ) {
-    //        enableSelectBox($("[for='smoke_quit']"))
-    //    } else {
-    //        disableSelectBox($("[for='smoke_quit']"))
-    //        removeErrorMessage({target: $("#smoke_quit")})
-    //        removeErrorMessage({target: $("#cigarettes_num")})
-    //    }
-    //
-    //    enableSelectBox("[for='cigarettes_num']")
-    //}
 
     removeErrorMessage("[for='yearsSmoked']")
     removeErrorMessage("[for='cigarettes_num']")
@@ -803,18 +782,6 @@ function updateQuitSmokingAge(startAge, endAge) {
     })
 }
 
-// Adds an aria-disabled attribute to every HTML Object that should have it.  Note the attribute will be set to false
-// so use the disableFields to set everything to true that should be set to disabled.
-//function addAriaDisabledAttribute() {
-
-    //$("[role='radio']").attr("aria-disabled",        false)
-    //$(".questions_secondary").attr("aria-dsiabled",   false)
-    //$("label").attr("aria-disabled",            false)
-    //$("select").attr("aria-disabled",           false)
-    //$(".numberField").attr("aria-disabled",     false)
-
-//}
-
 // When the application is started are refreshed some of the questions/answers will be disabled.
 // Input Parameters : forceReset : If true then do a reset no matter what.
 function disableFields(forceReset) {
@@ -858,21 +825,12 @@ function disableFields(forceReset) {
 }
 
 function disableCigarettesSection() {
-    //disableSelectBox($("[for='firstYearSmoke']"))
-    //disableRadioButtonGroupQuestion($("#currentlySmokeLabel"))
-    //disableSelectBox($("[for='smoke_quit']"))
-    //disableSelectBox("[for='cigarettes_num']")
 
     disableSelectBox("[for='yearsSmoked']")
     disableSelectBox("[for='cigarettes_num']")
 
     removeErrorMessage("[for='yearsSmoked']")
     removeErrorMessage("[for='cigarettes_num']")
-
-    //removeErrorMessage({target: $("#firstYearSmoke") })
-    //removeErrorMessage({target: $("#currentlySmokeYes")})
-    //removeErrorMessage({target: $("#smoke_quit")})
-    //removeErrorMessage({target: $("#cigarettes_num")})
 
 }
 

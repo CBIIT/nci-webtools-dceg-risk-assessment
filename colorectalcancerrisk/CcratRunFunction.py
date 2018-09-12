@@ -16,9 +16,8 @@ def AbsRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
     yearsSmoking = 0
 
   print( "Values for CigarettesPerDay/yearsSmoking might have been changed")
-  print( "cigarettesPerDay = " + str(cigarettesPerDay))
-  print( "yearsSmoking = " + str(yearsSmoking))
-
+  print( "New Values cigarettesPerDay : " + str(cigarettesPerDay))
+  print( "New Values yearsSmoking     : " + str(yearsSmoking))
 
   #screening risk
   covariate_breakdown = covariteBreakdown(gender, race, startAge, upperBoundAge, screening, yearsSmoking, cigarettesPerDay, nsaidRegimine, aspirinOnly, familyHistory, averageExercise, servingsPerDay, bmiTrend, hormoneUsage)
@@ -63,24 +62,14 @@ def AvgRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
 
   print("Pass the covariate breakdown")
 
-  #rectal_covariates   = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["rectal"  ])]))*genderAttributeRisks["rectal"  ]
-  #proximal_covariates = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["proximal"])]))*genderAttributeRisks["proximal"]
-  #distal_covariates   = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["distal"  ])]))
-
-  #print(str(rectal_covariates))
-  #print(str(proximal_covariates))
-  #print(str(distal_covariates))
-
-  #print("Pass the original covariates")
-
   # Set the variables rectal_covariates proximal_covariates and distal_covariates all equal to one
   rectal_covariates   = 1
   proximal_covariates = 1
   distal_covariates   = 1
 
-  print(str(rectal_covariates))
-  print(str(proximal_covariates))
-  print(str(distal_covariates))
+  print("Rectal Covariates   --> " + str(rectal_covariates))
+  print("Proximal Covariates --> " + str(proximal_covariates))
+  print("Distal Covariates   --> " + str(distal_covariates))
 
   print("Pass the covariates")
 
