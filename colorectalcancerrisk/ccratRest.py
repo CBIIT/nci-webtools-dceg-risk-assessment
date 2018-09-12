@@ -44,13 +44,13 @@ class ColorectalRiskAssessmentTool:
   def generateAspirinOnlyAndNsaids(aspirin, non_aspirin):
     values = {}
     if ( aspirin == 1 and non_aspirin == 1 ):
-      values['aspirinOnly'] = 1
+      values['aspirin']     = 1
       values['nsaidRegime'] = 1
     elif ( aspirin == 0 and non_aspirin == 1 ):
-      values['aspirinOnly'] = 0
+      values['aspirin']     = 0
       values['nsaidRegime'] = 1
     else:
-      values['aspirinOnly'] = 0
+      values['aspirin']     = 0
       values['nsaidRegime'] = 0
 
     return values
@@ -68,6 +68,7 @@ class ColorectalRiskAssessmentTool:
   def ccratRisk():
     try:
       parameters = dict(request.form)
+      print("The parameters from the request are : " + str(parameters))
       for field in parameters:
         parameters[field] = parameters[field][0]
       errorObject = {'missing':[],'nonnumeric':[],'message':[]}
@@ -113,7 +114,6 @@ class ColorectalRiskAssessmentTool:
             errorObject['missing'] += ['cigarettes_num']
           elif not parameters['cigarettes_num'].isnumeric():
             errorObject['nonnumeric'] += ['cigarettes_num']
-          #else:
 
           if 'yearsSmoked' not in parameters or parameters['yearsSmoked'] == '':
             errorObject['missing'] += ['yearsSmoked']
@@ -150,7 +150,6 @@ class ColorectalRiskAssessmentTool:
         else:
           try:
             hoursPerWeek = hoursPerWeek/12 * float(parameters['vigorous_hours'])
-            print("Hours Per Week = " + hoursPerWeek)
           except:
             errorObject['nonnumeric'] += ['vigorous_hours']
       servingsPerDay = 0
@@ -163,6 +162,27 @@ class ColorectalRiskAssessmentTool:
             servingsPerDay *= float(parameters['veg_amount'])/3.5 #Half Cup servings per day
           except:
             errorObject['nonnumeric'] += ['veg_amount']
+
+      # Calculate the nsaidRegime and Aspirin variables
+      aspirin = -1
+      try:
+        aspirin     = ColorectalRiskAssessmentTool.unknownMeansNo(int(parameters['aspirin']))
+      except:
+        errorObject['nonnumeric'].append("aspirin")
+      print("Aspirin == " + str(aspirin))
+
+      nonAspirin = -1
+      try:
+        nonAspirin  = ColorectalRiskAssessmentTool.unknownMeansNo(int(parameters['non_aspirin']))
+      except:
+        errorObject['nonnumeric'].append("non_aspirin")
+
+      returnValues = ColorectalRiskAssessmentTool.generateAspirinOnlyAndNsaids(aspirin, nonAspirin)
+
+      nsaidRegime = returnValues['nsaidRegime']
+      aspirin = returnValues['aspirin']
+
+      # End Calculation if there are any errors
       if len(errorObject['missing']) > 0 or len(errorObject['nonnumeric']) > 0 or len(errorObject['message']) > 0:
         return ColorectalRiskAssessmentTool.buildFailure(errorObject);
       
@@ -178,17 +198,6 @@ class ColorectalRiskAssessmentTool:
       else:
         screening = 3
 
-      #if screening == 0:
-      #screening += int(parameters['polyp'])
-      if yearsSmoking == 0:
-        yearsSmoking = 0
-      elif yearsSmoking < 15:
-        yearsSmoking = 1
-      elif yearsSmoking < 35:
-        yearsSmoking = 2
-      else:
-        yearsSmoking = 3
-
       exercise = 3
       if hoursPerWeek > 4:
         exercise = 0
@@ -198,8 +207,9 @@ class ColorectalRiskAssessmentTool:
         exercise = 2
       else:
         exercise = 3
+
       veggies = 1
-      if servingsPerDay > 5:
+      if servingsPerDay >= 5:
         veggies = 0
       height = (int(parameters['height_ft'])*12+int(parameters['height_in']))*.0254
       weight = int(parameters['weight'])*0.453592
@@ -217,45 +227,6 @@ class ColorectalRiskAssessmentTool:
         else:
           bmi = 1
 
-      aspirin = -1
-      try:
-        aspirin     = ColorectalRiskAssessmentTool.unknownMeansNo(int(parameters['aspirin']))
-      except:
-        errorObject['nonnumeric'].append("aspirin")
-      print("Aspirin == " + str(aspirin))
-
-      nonAspirin = -1
-      try:
-        nonAspirin  = ColorectalRiskAssessmentTool.unknownMeansNo(int(parameters['non_aspirin']))
-      except:
-        errorObject['nonnumeric'].append("non_aspirin")
-
-      returnValues = ColorectalRiskAssessmentTool.generateAspirinOnlyAndNsaids(aspirin, nonAspirin)
-
-      nsaidRegime = returnValues['nsaidRegime']
-      aspirinOnly = returnValues['aspirinOnly']
-
-
-      # Based on my reading of the link : http://www.obesityhelp.com/forums/amos/4081185/Is-excedrin,
-      # I am rewriting section since it seem Asprin and Non Asprin are considered a NSID Regime.
-      # nsaidRegimine ( 0 = yes, 1 = no)
-      #nsaidRegimine = min(aspirin,nonAspirin)
-      #aspirinOnly = nonAspirin
-      #if ( aspirin == 0 or aspirin == 3 or nonAspirin == 0):
-      #  nsaidRegimine = 0
-      #else:
-      #  nsaidRegimine = 1
-
-      # The next one is asprin only  aspirinOnly:      
-      # [0] Non-Aspirin medications are part of the NSAID regimine
-      # [1] Aspirin-only Regimine or there is no NSAID regimine
-      #aspirinOnly = 0
-      #if ( nonAspirin != 0 or nsaidRegimine == 1 ):
-      #  aspirinOnly = 1
-
-
-
-      
       gender = "Male" if sex == 0 else "Female"
 
       print("&&&&&&&&&&&&&&&&&&&&&& Parameters &&&&&&&&&&&&&&&&&&&&&&&&&")
@@ -268,13 +239,12 @@ class ColorectalRiskAssessmentTool:
       print("veggies  (ok verified)   = "   + str(bmi))
       print("The screening            = "   + str(screening))
       print("Asprin                   = "   + str(aspirin))
-      print("Non Asprin =             = "   + str(nonAspirin))
       print("nsaidRegime              = "   + str(nsaidRegime))
-      print("Years Smoking      = "   + str(yearsSmoking))
-      print("Cigs per Day       = "   + str(cigarettesPerDay))
-      print("family_cancer      = "   + str(family_cancer))
-      print("exercise           = "   + str(exercise))
-      print("hormoneUsage       = "   + str(hormoneUsage))
+      print("Years Smoking            = "   + str(yearsSmoking))
+      print("Cigs per Day             = "   + str(cigarettesPerDay))
+      print("family_cancer            = "   + str(family_cancer))
+      print("exercise                 = "   + str(exercise))
+      print("hormoneUsage             = "   + str(hormoneUsage))
 
 
 
@@ -289,7 +259,7 @@ class ColorectalRiskAssessmentTool:
         yearsSmoking,
         cigarettesPerDay,
         nsaidRegime,
-        aspirinOnly,
+        aspirin,
         family_cancer,
         exercise,
         veggies,
@@ -305,7 +275,7 @@ class ColorectalRiskAssessmentTool:
         yearsSmoking,
         cigarettesPerDay,
         nsaidRegime,
-        aspirinOnly,
+        aspirin,
         family_cancer,
         exercise,
         veggies,
@@ -325,7 +295,7 @@ class ColorectalRiskAssessmentTool:
         yearsSmoking,
         cigarettesPerDay,
         nsaidRegime,
-        aspirinOnly,
+        aspirin,
         family_cancer,
         exercise,
         veggies,
@@ -341,7 +311,7 @@ class ColorectalRiskAssessmentTool:
         yearsSmoking,
         cigarettesPerDay,
         nsaidRegime,
-        aspirinOnly,
+        aspirin,
         family_cancer,
         exercise,
         veggies,
@@ -361,7 +331,7 @@ class ColorectalRiskAssessmentTool:
         yearsSmoking,
         cigarettesPerDay,
         nsaidRegime,
-        aspirinOnly,
+        aspirin,
         family_cancer,
         exercise,
         veggies,
@@ -377,7 +347,7 @@ class ColorectalRiskAssessmentTool:
         yearsSmoking,
         cigarettesPerDay,
         nsaidRegime,
-        aspirinOnly,
+        aspirin,
         family_cancer,
         exercise,
         veggies,

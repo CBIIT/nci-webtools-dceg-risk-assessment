@@ -7,6 +7,8 @@ def AbsRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
   genderAttributeRisks = CcratConstants.ATTRIBUTE_RISKS  [gender]
   genderCovariates     = CcratConstants.COVARIATES       [gender]
 
+  print("--- Inside AbsRisk")
+
   if gender == "Male" and yearsSmoking == 0 and cigarettesPerDay > 0:
     cigarettesPerDay = 0
     yearsSmoking = 0
@@ -39,13 +41,14 @@ def AbsRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
     yearlyDeathRate = math.exp(-yearlyDeathRatio)
     absRisk += yearlyHazards/yearlyDeathRatio*survivalRate*(1-yearlyDeathRate)
     survivalRate *= yearlyDeathRate
+
+
   return absRisk
 
 def AvgRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, cigarettesPerDay, nsaidRegimine, aspirinOnly, familyHistory, averageExercise, servingsPerDay, bmiTrend, hormoneUsage):
   genderRaceRisk       = CcratConstants.CANCER_RATES     [gender][race]
   genderRaceHazards    = CcratConstants.COMPETING_HAZARDS[gender][race]
   genderAttributeRisks = CcratConstants.ATTRIBUTE_RISKS  [gender]
-  genderCovariates     = CcratConstants.COVARIATES       [gender]
 
   print("--- Inside Average Risk")
 
@@ -53,7 +56,7 @@ def AvgRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
 
   # set the variables genderAttributeRisks to One
   genderAttributeRisks = { x:1 for x in genderAttributeRisks }
-  print("The gender covariates = " + str(genderAttributeRisks))
+  print("Fix : The gender covariates = " + str(genderAttributeRisks))
 
   print("Pass genderAttributeRisks")
 
@@ -89,6 +92,9 @@ def AvgRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
     yearlyDeathRate = math.exp(-yearlyDeathRatio)
     absRisk += yearlyHazards/yearlyDeathRatio*survivalRate*(1-yearlyDeathRate)
     survivalRate *= yearlyDeathRate
+
+  print("Fix Making sure they did not change : The gender covariates = " + str(genderAttributeRisks))
+
   return absRisk
 
 def covariteBreakdown(gender, race, startAge, upperBoundAge, screening, yearsSmoking, cigarettesPerDay, nsaidRegimine, aspirinOnly, familyHistory, averageExercise, servingsPerDay, bmiTrend, hormoneUsage):
