@@ -149,11 +149,7 @@ class ColorectalRiskAssessmentTool:
           errorObject['missing'] += ['vigorous_hours']
         else:
           try:
-            print("--- Equation for Hours Per Week -----")
-            print("Hours Per Week = " + str(hoursPerWeek))
-            print(" Vigorous Hours : " + str(float(parameters['vigorous_hours'])))
             hoursPerWeek = hoursPerWeek/12 * float(parameters['vigorous_hours'])
-            print("Eqauation : hours per week " + str(hoursPerWeek))
           except:
             errorObject['nonnumeric'] += ['vigorous_hours']
 
@@ -162,15 +158,11 @@ class ColorectalRiskAssessmentTool:
       print(str(errorObject))
       if 'veg_servings' not in errorObject['missing'] and 'veg_servings' not in errorObject['nonnumeric']:
         servingsPerDay = float(parameters['veg_servings'])
-        print("--- Calculating ")
         if 'veg_amount' not in parameters or parameters['veg_amount'] == "":
           errorObject['missing'] += ['veg_amount']
         else:
           try:
-            print("Servings Per Day = " + str(servingsPerDay))
-            print("Amount Per Serving = " + str(float(parameters['veg_amount'])))
             servingsPerDay *= float(parameters['veg_amount'])/3.5 #Half Cup servings per day
-            print("Answer = " + str(servingsPerDay))
           except:
             errorObject['nonnumeric'] += ['veg_amount']
 
@@ -208,7 +200,7 @@ class ColorectalRiskAssessmentTool:
       else:
         screening = 3
 
-      print("Raw hours per week. " + str(hoursPerWeek))
+      print("Exercise Raw hours per week. " + str(hoursPerWeek))
       exercise = 3
       if hoursPerWeek > 4:
         exercise = 0
@@ -218,7 +210,6 @@ class ColorectalRiskAssessmentTool:
         exercise = 2
       else:
         exercise = 3
-      exercise = 1
 
       print("Serving of Vegatables per day is " + str(servingsPerDay))
       veggies = 1
@@ -385,6 +376,7 @@ class ColorectalRiskAssessmentTool:
       results['averageLifetimeRisk']  = averageLifetimekRisk
 
       json_data = json.dumps(results)
+      print("The JSON Data is " + json_data)
       return ColorectalRiskAssessmentTool.buildSuccess(json_data)
     except Exception as e:
       exc_type, exc_obj, exc_tb = sys.exc_info()
