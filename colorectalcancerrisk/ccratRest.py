@@ -68,7 +68,6 @@ class ColorectalRiskAssessmentTool:
   def ccratRisk():
     try:
       parameters = dict(request.form)
-      print("The parameters from the request are : " + str(parameters))
       for field in parameters:
         parameters[field] = parameters[field][0]
       errorObject = {'missing':[],'nonnumeric':[],'message':[]}
@@ -143,23 +142,35 @@ class ColorectalRiskAssessmentTool:
         else:
           family_cancer += int(parameters['family_count'])
 
+      print("--- Calculating ")
       hoursPerWeek = int(parameters['vigorous_months'])
       if hoursPerWeek > 0:
         if 'vigorous_hours' not in parameters or parameters['vigorous_hours'] == '':
           errorObject['missing'] += ['vigorous_hours']
         else:
           try:
+            print("--- Equation for Hours Per Week -----")
+            print("Hours Per Week = " + str(hoursPerWeek))
+            print(" Vigorous Hours : " + str(float(parameters['vigorous_hours'])))
             hoursPerWeek = hoursPerWeek/12 * float(parameters['vigorous_hours'])
+            print("Eqauation : hours per week " + str(hoursPerWeek))
           except:
             errorObject['nonnumeric'] += ['vigorous_hours']
+
+      print("--- Servings Per Day")
       servingsPerDay = 0
-      if 'veg_servings' not in errorObject['missing'] and 'veg_servings' not in errorObject['nonnumeric'] and parameters['veg_servings'] != '0':
+      print(str(errorObject))
+      if 'veg_servings' not in errorObject['missing'] and 'veg_servings' not in errorObject['nonnumeric']:
         servingsPerDay = float(parameters['veg_servings'])
+        print("--- Calculating ")
         if 'veg_amount' not in parameters or parameters['veg_amount'] == "":
           errorObject['missing'] += ['veg_amount']
         else:
           try:
+            print("Servings Per Day = " + str(servingsPerDay))
+            print("Amount Per Serving = " + str(float(parameters['veg_amount'])))
             servingsPerDay *= float(parameters['veg_amount'])/3.5 #Half Cup servings per day
+            print("Answer = " + str(servingsPerDay))
           except:
             errorObject['nonnumeric'] += ['veg_amount']
 
@@ -169,7 +180,6 @@ class ColorectalRiskAssessmentTool:
         aspirin     = ColorectalRiskAssessmentTool.unknownMeansNo(int(parameters['aspirin']))
       except:
         errorObject['nonnumeric'].append("aspirin")
-      print("Aspirin == " + str(aspirin))
 
       nonAspirin = -1
       try:
@@ -198,6 +208,7 @@ class ColorectalRiskAssessmentTool:
       else:
         screening = 3
 
+      print("Raw hours per week. " + str(hoursPerWeek))
       exercise = 3
       if hoursPerWeek > 4:
         exercise = 0
@@ -207,13 +218,18 @@ class ColorectalRiskAssessmentTool:
         exercise = 2
       else:
         exercise = 3
+      exercise = 1
 
+      print("Serving of Vegatables per day is " + str(servingsPerDay))
       veggies = 1
       if servingsPerDay >= 5:
         veggies = 0
+
+
       height = (int(parameters['height_ft'])*12+int(parameters['height_in']))*.0254
       weight = int(parameters['weight'])*0.453592
       bmi = weight/height/height
+      print("RAW BMI = " + str(bmi))
       if sex == 0:
         if bmi < 24.9:
           bmi = 0
@@ -236,7 +252,8 @@ class ColorectalRiskAssessmentTool:
       print("Feet                     = "   + str(parameters['height_ft']))
       print("Inches                   = "   + str(parameters['height_in']))
       print("Weight                   = "   + str(parameters['weight']))
-      print("veggies  (ok verified)   = "   + str(bmi))
+      print("bmi                      = "   + str(bmi))
+      print("veggies  (ok verified)   = "   + str(veggies))
       print("The screening            = "   + str(screening))
       print("Asprin                   = "   + str(aspirin))
       print("nsaidRegime              = "   + str(nsaidRegime))
@@ -325,7 +342,7 @@ class ColorectalRiskAssessmentTool:
       #************************************************************************************************************
       patientLifetimeRisk = AbsRisk(gender,
         race,
-        age,
+        50,
         90,
         screening,
         yearsSmoking,

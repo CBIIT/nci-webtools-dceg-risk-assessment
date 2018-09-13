@@ -7,8 +7,6 @@ def AbsRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
   genderAttributeRisks = CcratConstants.ATTRIBUTE_RISKS  [gender]
   genderCovariates     = CcratConstants.COVARIATES       [gender]
 
-  print("--- Inside AbsRisk")
-
   if gender == "Male" and yearsSmoking == 0 and cigarettesPerDay > 0:
     cigarettesPerDay = 0
     yearsSmoking = 0
@@ -16,10 +14,6 @@ def AbsRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
   if gender == "Male" and yearsSmoking > 0 and cigarettesPerDay == 0:
     cigarettesPerDay = 0
     yearsSmoking = 0
-
-  print( "Values for CigarettesPerDay/yearsSmoking might have been changed")
-  print( "New Values cigarettesPerDay : " + str(cigarettesPerDay))
-  print( "New Values yearsSmoking     : " + str(yearsSmoking))
 
   #screening risk
   covariate_breakdown = covariteBreakdown(gender, race, startAge, upperBoundAge, screening, yearsSmoking, cigarettesPerDay, nsaidRegimine, aspirinOnly, familyHistory, averageExercise, servingsPerDay, bmiTrend, hormoneUsage)
@@ -50,33 +44,17 @@ def AvgRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
   genderRaceHazards    = CcratConstants.COMPETING_HAZARDS[gender][race]
   genderAttributeRisks = CcratConstants.ATTRIBUTE_RISKS  [gender]
 
-  print("--- Inside Average Risk")
-
-  print("The gender Attribute Risks are : " + str(genderAttributeRisks))
-
   # set the variables genderAttributeRisks to One
   genderAttributeRisks = { x:1 for x in genderAttributeRisks }
-  print("Fix : The gender covariates = " + str(genderAttributeRisks))
-
-  print("Pass genderAttributeRisks")
 
   #screening risk
   covariate_breakdown = covariteBreakdown(gender, race, startAge, upperBoundAge, screening, yearsSmoking, cigarettesPerDay, nsaidRegimine, aspirinOnly, familyHistory, averageExercise, servingsPerDay, bmiTrend, hormoneUsage)
-
-  print("Pass the covariate breakdown")
 
   # Set the variables rectal_covariates proximal_covariates and distal_covariates all equal to one
   rectal_covariates   = 1
   proximal_covariates = 1
   distal_covariates   = 1
 
-  print("Rectal Covariates   --> " + str(rectal_covariates))
-  print("Proximal Covariates --> " + str(proximal_covariates))
-  print("Distal Covariates   --> " + str(distal_covariates))
-
-  print("Pass the covariates")
-
-  
   #relational risk factors become less relavent for distal cancer as the age goes up
   absRisk = 0
   survivalRate = 1
@@ -92,8 +70,6 @@ def AvgRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
     yearlyDeathRate = math.exp(-yearlyDeathRatio)
     absRisk += yearlyHazards/yearlyDeathRatio*survivalRate*(1-yearlyDeathRate)
     survivalRate *= yearlyDeathRate
-
-  print("Fix Making sure they did not change : The gender covariates = " + str(genderAttributeRisks))
 
   return absRisk
 
