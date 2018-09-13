@@ -325,7 +325,7 @@ function addInformationToTheQuestions(element) {
     var returnString = ""
     if ( currentRaceSelected.startsWith("His")) {
       returnHTML =
-        startTag + "Assessments for Hispanic women are subject to greater uncertainty than those for white and African American women." + endTag +
+        startTag + "Assessments for Hispanas/Latinas are subject to greater uncertainty than those for white and African American/black women." + endTag +
         startTag + "Researchers are conducting additional studies, including studies with minority populations, to gather more data and to increase the accuracy of the tool for women in these populations. " + endTag
     }
     else if ( currentRaceSelected == 'American Indian or Alaskan Native') {
@@ -353,7 +353,7 @@ function addInformationToResultPageIntroductionText() {
   if ( currentRaceSelected.startsWith("His")) {
     returnHTML =
           startTag + "Assessments for Hispanas/Latinas are subject to greater uncertainty than those for white and African "     +
-                     "American women. Researchers are conducting additional studies, including studies with minority "           +
+                     "American/black women. Researchers are conducting additional studies, including studies with minority "           +
                      "populations, to gather more data and to increase the accuracy of the tool for women in these populations." + endTag
   }
   else if ( currentRaceSelected == 'American Indian or Alaskan Native') {

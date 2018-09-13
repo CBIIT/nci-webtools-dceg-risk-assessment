@@ -1132,7 +1132,7 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 
 			// The Div is 50% width of the flx box and the paragraph tags take up the full width of the div that is a child of the flex box so each paragraph is on a certain line.
 			// use $('<p></p>') since .append("<p>" + questionText + "</p>") could have javascript injected into it
-			var questionTextBlock = ( extraInformation === null ) ? $("<p></p>").text(questionText) : $("<div></div>").append($('<p class="questionHasExtraInformation"></p>').text(questionText)).append(extraInformation)
+			var questionTextBlock = ( extraInformation === null ) ? $("<p></p>").append(questionText) : $("<div></div>").append($('<p class="questionHasExtraInformation"></p>').append(questionText)).append(extraInformation)
 			var questionDiv = container.append(lineNumber).append(questionTextBlock);
 
 		 	if ( indexData.isSubQuestion == "Level 1" ) {
@@ -1158,7 +1158,7 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 		if ( $(inputElement.length) == 0 ) inputElement = element
 
    	var inputAnswerText = extractAnswerDispalyedOnGui(inputElement)
-   	var question = createQuestionCell(index, $(element).text(), inputElement)
+   	var question = createQuestionCell(index, $(element).html(), inputElement)
    	var answer = $("<td></td>").text(inputAnswerText).addClass("answers")
    	var tableRow = $("<tr></tr>").append(question).append(answer)
 
