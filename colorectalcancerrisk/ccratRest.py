@@ -161,7 +161,7 @@ class ColorectalRiskAssessmentTool:
       print("Exercise : Hourse Per Week = " + str(hoursPerWeek))
 
       servingsPerDay = 0
-      if 'veg_servings' not in errorObject['missing'] and 'veg_servings' not in errorObject['nonnumeric']:
+      if 'veg_servings' not in errorObject['missing'] and 'veg_servings' not in errorObject['nonnumeric'] and parameters['veg_servings'] != '0' :
         servingsPerDay = float(parameters['veg_servings'])
         if 'veg_amount' not in parameters or parameters['veg_amount'] == "":
           errorObject['missing'] += ['veg_amount']
@@ -191,7 +191,7 @@ class ColorectalRiskAssessmentTool:
       returnValues = ColorectalRiskAssessmentTool.generateAspirinOnlyAndNsaids(aspirin, nonAspirin)
 
       nsaidRegime = returnValues['nsaidRegime']
-      aspirinOnly = returnValues['aspirin']
+      aspirinOnly = returnValues['aspirinOnly']
 
       # End Calculation if there are any errors
       if len(errorObject['missing']) > 0 or len(errorObject['nonnumeric']) > 0 or len(errorObject['message']) > 0:
@@ -263,14 +263,14 @@ class ColorectalRiskAssessmentTool:
       print("Weight                   = "   + str(parameters['weight']))
       print("bmi                      = "   + str(bmi))
       print("veggies  (ok verified)   = "   + str(veggies))
+      print("exercise                 = "   + str(exercise))
       print("The screening            = "   + str(screening))
       print("Asprin                   = "   + str(aspirinOnly))
       print("nsaidRegime              = "   + str(nsaidRegime))
-      print("Years Smoking            = "   + str(yearsSmoking))
-      print("Cigs per Day             = "   + str(cigarettesPerDay))
       print("family_cancer            = "   + str(family_cancer))
-      print("exercise                 = "   + str(exercise))
-      print("hormoneUsage             = "   + str(hormoneUsage))
+      print("Male Years Smoking       = "   + str(yearsSmoking))
+      print("Male Cigs per Day        = "   + str(cigarettesPerDay))
+      print("Female hormoneUsage      = "   + str(hormoneUsage))
 
 
 
