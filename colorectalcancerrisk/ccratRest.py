@@ -142,7 +142,6 @@ class ColorectalRiskAssessmentTool:
         else:
           family_cancer += int(parameters['family_count'])
 
-      print("--- Calculating ")
       hoursPerWeek = int(parameters['vigorous_months'])
       if hoursPerWeek > 0:
         if 'vigorous_hours' not in parameters or parameters['vigorous_hours'] == '':
@@ -153,12 +152,7 @@ class ColorectalRiskAssessmentTool:
           except:
             errorObject['nonnumeric'] += ['vigorous_hours']
 
-      print("Exercise : Vigorous Months = " + str(parameters['vigorous_months']) + "")
-      if 'vigorous_hours' not in parameters or parameters['vigorous_hours'] == '':
-        print("Exercise : Vigorous Hours = Not Used")
-      else:
-        print("Exercise: VigorousHours = " + str(parameters['vigorous_hours']))
-      print("Exercise : Hourse Per Week = " + str(hoursPerWeek))
+
 
       servingsPerDay = 0
       if 'veg_servings' not in errorObject['missing'] and 'veg_servings' not in errorObject['nonnumeric'] and parameters['veg_servings'] != '0' :
@@ -170,9 +164,6 @@ class ColorectalRiskAssessmentTool:
             servingsPerDay *= float(parameters['veg_amount'])/3.5 #Half Cup servings per day
           except:
             errorObject['nonnumeric'] += ['veg_amount']
-
-      print("Servings Per Day : Veg Servings = " + str(parameters['veg_servings']) + "," + str(parameters['veg_amount']))
-      print("Servings Per Day : " + str(servingsPerDay))
 
       # Calculate the nsaidRegime and Aspirin variables
       aspirin = -1
@@ -187,7 +178,6 @@ class ColorectalRiskAssessmentTool:
       except:
         errorObject['nonnumeric'].append("non_aspirin")
 
-      print("Original Values of Aspirin, nonAspirin = " + str(aspirin) + "," + str(nonAspirin))
       returnValues = ColorectalRiskAssessmentTool.generateAspirinOnlyAndNsaids(aspirin, nonAspirin)
 
       nsaidRegime = returnValues['nsaidRegime']
@@ -200,15 +190,6 @@ class ColorectalRiskAssessmentTool:
       # For this section 0 = "Yes", 1 = "No" and 2 or greater = "Unknown"
       screening = int(parameters['exam'])
       polyp = int(parameters['polyp']) if ('polyp' in parameters ) else "-1"
-      print("Values for screening = " + str(screening) + "," + "polyp  = " + str(polyp))
-      #if ( screening == 0 and polyp == 1 ):
-      #  screening = 0
-      #elif ( screening == 1 ):
-      #  screening = 1
-      #elif ( screening == 0 and polyp == 0 ):
-      #  screening = 2
-      #else:
-      #  screening = 3
       if ( screening == 0 and polyp == 1 ):
         screening = 0
       elif ( screening == 0 and polyp == 2):
@@ -238,7 +219,6 @@ class ColorectalRiskAssessmentTool:
       height = (int(parameters['height_ft'])*12+int(parameters['height_in']))*.0254
       weight = int(parameters['weight'])*0.453592
       bmi = weight/height/height
-      print("RAW BMI = " + str(bmi))
       if sex == 0:
         if bmi < 24.9:
           bmi = 0
@@ -261,10 +241,29 @@ class ColorectalRiskAssessmentTool:
       print("Feet                     = "   + str(parameters['height_ft']))
       print("Inches                   = "   + str(parameters['height_in']))
       print("Weight                   = "   + str(parameters['weight']))
+      print("RAW BMI = " + str(bmi))
       print("bmi                      = "   + str(bmi))
+      print ("--- Exercise ")
+      print("Exercise : Vigorous Months = " + str(parameters['vigorous_months']) + "")
+      if 'vigorous_hours' not in parameters or parameters['vigorous_hours'] == '':
+        print("Exercise : Vigorous Hours = Not Used")
+      else:
+        print("Exercise: VigorousHours = " + str(parameters['vigorous_hours']))
+      print("Exercise : Hourse Per Week = " + str(hoursPerWeek))
+      print("--- End Exercise")
+      print "--- Vegatable Intake "
+      print("Servings Per Day : Veg Servings = " + str(parameters['veg_servings']))
+      if 'veg_amount' not in parameters or parameters['veg_amount'] == "":
+        print("Servings Per Day : Veg Servings is not used")
+      else:
+        print("Servings Per Day : Veg Servings = " + str(parameters['veg_amount']))
+      print("Servings Per Day : " + str(servingsPerDay))
+      print("--- End Vegatable Intake")
       print("veggies  (ok verified)   = "   + str(veggies))
       print("exercise                 = "   + str(exercise))
+      print("Values for screening = " + str(screening) + "," + "polyp  = " + str(polyp))
       print("The screening            = "   + str(screening))
+      print("Original Values of Aspirin, nonAspirin = " + str(aspirin) + "," + str(nonAspirin))
       print("Asprin                   = "   + str(aspirinOnly))
       print("nsaidRegime              = "   + str(nsaidRegime))
       print("family_cancer            = "   + str(family_cancer))
@@ -351,7 +350,7 @@ class ColorectalRiskAssessmentTool:
       #************************************************************************************************************
       patientLifetimeRisk = AbsRisk(gender,
         race,
-        50,
+        age,
         90,
         screening,
         yearsSmoking,
@@ -367,7 +366,7 @@ class ColorectalRiskAssessmentTool:
 
       averageLifetimeRisk = AvgRisk(gender,
         race,
-        50,
+        age,
         90,
         screening,
         yearsSmoking,
