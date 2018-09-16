@@ -439,8 +439,7 @@ function enableRadioButtonGroupQuestion(element) {
 
 /* This section will disable and eanble the select boxes dynamically  and should be refactored later on */
 function adjustAmountPerServingBasedOnServings() {
-    //if ( $("#veg_servings").val() == '0' || $("#veg_servings").val() == '' ) {
-    if ( $("#veg_servings").val() == '' ) {
+    if ( $("#veg_servings").val() == '0' || $("#veg_servings").val() == '' ) {
         disableSelectBox($("[for='veg_amount']"))
         removeErrorMessage({target: $("#veg_amount")});
     } else {

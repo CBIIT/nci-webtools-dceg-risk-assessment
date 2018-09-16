@@ -409,11 +409,17 @@
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
               <select id="veg_servings" name="veg_servings" class="selectContent" required>
                 <option value="">- select -</option>
-                <option value="3.56">(&lt;) less than five servings of vegetables per week </option>
-                <option value="11.0"> (&ge;) greater or equal to five servings of vegetables per week</option>
+                <option value="0">None</option>
+                <option value=".5">Less than 1 serving per week</option>
+                <option value="1.5">1-2 servings per week</option>
+                <option value="3.5">3-4 servings per week</option>
+                <option value="5.5">5-6 servings per week</option>
+                <option value="8.5">7-10 servings per week</option>
+                <option value="11">More than 10 servings per week</option>
               </select>
             </div>
           </div>
+
 
           <div class="spaceBetweenQuestions">
             <label class="col-sm-offset-1 questions" data-subquestion="true" for="veg_amount">In the last month, how much did the patient usually eat in each serving of vegetables or leafy green salads?</label>
@@ -501,10 +507,12 @@
             <div class="responseOptionsWithoutIndent spaceBetweenFirstQuestionAndResponse col-sm-offset-1 pl-3">
               <select id="vigorous_hours" name="vigorous_hours" class="selectContent" required>
                 <option value="">-select-</option>
-                <option value="0">0 Hours Per Week</option>
-                <option value="2">More than 0 and less or equal 2 hrs./wk.</option>
-                <option value="4">More than 2 and less or equal 4 hrs./wk.</option>
-                <option value="6">More than 4 hrs. per week</option>
+                <option value="0">None</option>
+                <option value=".5">Up to 1 hour per week</option>
+                <option value="1.5">Between 1-2 hours per week</option>
+                <option value="2.5">Between 2-3 hours per week</option>
+                <option value="3.5">Between 3-4 hours per week</option>
+                <option value="5">More than 4 hours per week</option>
               </select>
             </div>
           </div>
