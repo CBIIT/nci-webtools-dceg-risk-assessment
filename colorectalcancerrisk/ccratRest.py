@@ -55,15 +55,6 @@ class ColorectalRiskAssessmentTool:
 
     return values
 
-  #@staticmethod
-  #def getInt(name, parameters, errorObject):
-  #  ''' From the paramter list conver the value reference by name into an integer if it is present and a number '''
-  #  if name not in parameters or parameters['yearsSmoked'] == '':
-  #    errorObject['missing'] += [name]
-  #  elif not parameters[name].isnumeric():
-  #    errorObject['nonnumeric'] += [name]
-  #  return int(parameters['yearsSmoked'])
-
   @app.route('/calculate', methods=['POST'] )
   def ccratRisk():
     try:
