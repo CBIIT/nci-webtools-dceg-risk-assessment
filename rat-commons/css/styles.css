@@ -1255,7 +1255,7 @@ input:disabled[type="radio"] + div.radio span
   }
 }
 
-@media all and ( max-width: 405px ) {
+@media ( max-width: 405px ) {
     .makeSpaceForPrintIcon {
         width: 25%;
     }
