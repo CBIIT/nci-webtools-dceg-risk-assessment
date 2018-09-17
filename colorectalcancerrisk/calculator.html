@@ -15,7 +15,7 @@
   <meta property="og:site_name" content="Colorectal Cancer Risk Assessment Tool" />
   <meta property="og:url" content="https://www.cancer.gov/ccrisktool" />
   <!-- # For keyword search -->
-  <meta name=”keywords” content="colorectal cancer, ccrat, colorectal cancer risk, risk assessment, risk tool" />
+  <meta name="keywords" content="colorectal cancer, ccrat, colorectal cancer risk, risk assessment, risk tool" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -221,7 +221,7 @@
       </div>
     </div>
 
-    <!-- Form Steps -- Navigation Bar containing button and links  to each   -->
+    <!-- Form Steps :Navigation Bar containing button and links  to each   -->
     <!-- section                                                             -->
     <div id="form-steps" role="navigation" aria-label="form steps">
       <div id="line">
@@ -413,6 +413,7 @@
             </div>
           </div>
 
+
           <div class="spaceBetweenQuestions">
             <label class="col-sm-offset-1 questions" data-subquestion="true" for="veg_amount">In the last month, how much did the patient usually eat in each serving of vegetables or leafy green salads?</label>
             <div class="responseOptionsWithoutIndent spaceBetweenFirstQuestionAndResponse col-sm-offset-1 pl-3">
@@ -499,6 +500,7 @@
             <div class="responseOptionsWithoutIndent spaceBetweenFirstQuestionAndResponse col-sm-offset-1 pl-3">
               <select id="vigorous_hours" name="vigorous_hours" class="selectContent" required>
                 <option value="">-select-</option>
+                <option value="0">None</option>
                 <option value=".5">Up to 1 hour per week</option>
                 <option value="1.5">Between 1-2 hours per week</option>
                 <option value="2.5">Between 2-3 hours per week</option>
@@ -726,9 +728,8 @@
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
               <input id="smokeYes" type="radio" value="0" name="cigarettes" aria-label="cigarettes">
               <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="1" >
-                <span></span>Yes</label>
+                <span></span>Yes</div>
             </div>
-          </div>
           <div class="responseOptions">
             <input id="smokeNo" type="radio" value="1" name="cigarettes" aria-label="cigarettes">
             <div class="radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="2" >
@@ -741,90 +742,18 @@
           </div>
         </div>
 
-          <div class="male subquestion spaceBetweenQuestionsSmaller col-sm-offset-1 col-md-offset-1">
-            <label class="questions" data-subQuestion="true" for="firstYearSmoke">At what age did the patient start smoking regularly (at least one cigarette per day for six months or longer)? </label>
+          <div class="male spaceBetweenQuestions col-sm-offset-2 col-md-offset-2" aria-label="yearsSmokingLabel">
+            <label id="yearsSmokingLabel" class="questions" data-subSubQuestion="true" for="yearsSmoked">What was the total number of years the patient smoked?</label>
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-              <select id="firstYearSmoke" name="smoke_age" class="selectContent">
-                <option value="">-select-</option>
-                <option value="0">Never smoked cigarettes regularly</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-                <option value="21">21</option>
-                <option value="22">22</option>
-                <option value="23">23</option>
-                <option value="24">24</option>
-                <option value="25">25</option>
-                <option value="26">26</option>
-                <option value="27">27</option>
-                <option value="28">28</option>
-                <option value="29">29</option>
-                <option value="30">30</option>
-                <option value="31">31</option>
-                <option value="32">32</option>
-                <option value="33">33</option>
-                <option value="34">34</option>
-                <option value="35">35</option>
-                <option value="36">36</option>
-                <option value="37">37</option>
-                <option value="38">38</option>
-                <option value="39">39</option>
-                <option value="40">40</option>
-                <option value="41">41</option>
-                <option value="42">42</option>
-                <option value="43">43</option>
-                <option value="44">44</option>
-                <option value="45">45</option>
-                <option value="46">46</option>
-                <option value="47">47</option>
-                <option value="48">48</option>
-                <option value="49">49</option>
-                <option value="50">50</option>
-                <option value="51">51</option>
-                <option value="52">52</option>
-                <option value="53">53</option>
-                <option value="54">54</option>
+              <select id="yearsSmoked" name="yearsSmoked" class="selectContent" >
+                <option value="">- select -</option>
+                <option value="0">Years 0</option>
+                <option value="1">Years smoking &gt; 0 and &lt; 15</option>
+                <option value="2">Years smoking &ge; 15 and &lt; 35 </option>
+                <option value="3">Years smoking &gt; 35 </option>
               </select>
             </div>
           </div>
-
-          <div role="radiogroup" class="male subquestion spaceBetweenQuestions col-sm-offset-2 col-md-offset-2" aria-label="currentlySmokeLabel" >
-            <label id="currentlySmokeLabel" class="questions" data-subSubQuestion="true" id="currentlySmoke">Does the patient currently smoke cigarettes?</label>
-            <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-              <input id="currentlySmokeYes" type="radio" value="1" name="smoke_now" aria-label="Yes" >
-              <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="1">
-                <span></span>Yes</div>
-            </div>
-            <div class="responseOptions">
-              <input id="currentlySmokeNo" type="radio" value="0" name="smoke_now" aria-label="No" >
-              <div class="radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="2">
-                <span></span>No</div>
-            </div>
-          </div>
-
-          <div class="male subquestion spaceBetweenQuestionsSmaller col-sm-offset-3 col-md-offset-3" aria-label="smokeQuitLabel">
-            <label class="questions" data-subSubSubQuestion="true" id="smokeQuitLabel" for="smoke_quit">At what age did the person quit smoking cigarettes completely?</label>
-            <p class="questions_secondary">
-              NOTE: If the patient quit smoking completely more than once, use the age at the last quit time.
-            </p>
-            <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-              <select id="smoke_quit" name="smoke_quit" class="selectContent"  aria-label="smoke_quit"   >
-              </select>
-            </div>
-          </div>
-
 
           <div class="male spaceBetweenQuestions col-sm-offset-2 col-md-offset-2" aria-label="amountSmokedPerDayLabel">
             <label id="amountSmokedPerDayLabel" class="questions" data-subSubQuestion="true" for="cigarettes_num">When the patient was smoking regularly, how many cigarettes did he/she

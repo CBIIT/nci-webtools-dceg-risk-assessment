@@ -6,6 +6,15 @@ def AbsRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
   genderRaceHazards    = CcratConstants.COMPETING_HAZARDS[gender][race]
   genderAttributeRisks = CcratConstants.ATTRIBUTE_RISKS  [gender]
   genderCovariates     = CcratConstants.COVARIATES       [gender]
+
+  if gender == "Male" and yearsSmoking == 0 and cigarettesPerDay > 0:
+    cigarettesPerDay = 0
+    yearsSmoking = 0
+
+  if gender == "Male" and yearsSmoking > 0 and cigarettesPerDay == 0:
+    cigarettesPerDay = 0
+    yearsSmoking = 0
+
   #screening risk
   covariate_breakdown = covariteBreakdown(gender, race, startAge, upperBoundAge, screening, yearsSmoking, cigarettesPerDay, nsaidRegimine, aspirinOnly, familyHistory, averageExercise, servingsPerDay, bmiTrend, hormoneUsage)
   rectal_covariates   = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["rectal"  ])]))*genderAttributeRisks["rectal"  ]
@@ -26,21 +35,26 @@ def AbsRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
     yearlyDeathRate = math.exp(-yearlyDeathRatio)
     absRisk += yearlyHazards/yearlyDeathRatio*survivalRate*(1-yearlyDeathRate)
     survivalRate *= yearlyDeathRate
+
+
   return absRisk
 
 def AvgRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, cigarettesPerDay, nsaidRegimine, aspirinOnly, familyHistory, averageExercise, servingsPerDay, bmiTrend, hormoneUsage):
   genderRaceRisk       = CcratConstants.CANCER_RATES     [gender][race]
   genderRaceHazards    = CcratConstants.COMPETING_HAZARDS[gender][race]
   genderAttributeRisks = CcratConstants.ATTRIBUTE_RISKS  [gender]
-  genderCovariates     = CcratConstants.COVARIATES       [gender]
-    
+
+  # set the variables genderAttributeRisks to One
+  genderAttributeRisks = { x:1 for x in genderAttributeRisks }
+
   #screening risk
   covariate_breakdown = covariteBreakdown(gender, race, startAge, upperBoundAge, screening, yearsSmoking, cigarettesPerDay, nsaidRegimine, aspirinOnly, familyHistory, averageExercise, servingsPerDay, bmiTrend, hormoneUsage)
 
-  rectal_covariates   = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["rectal"  ])]))*genderAttributeRisks["rectal"  ]
-  proximal_covariates = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["proximal"])]))*genderAttributeRisks["proximal"]
-  distal_covariates   = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["distal"  ])]))
-  
+  # Set the variables rectal_covariates proximal_covariates and distal_covariates all equal to one
+  rectal_covariates   = 1
+  proximal_covariates = 1
+  distal_covariates   = 1
+
   #relational risk factors become less relavent for distal cancer as the age goes up
   absRisk = 0
   survivalRate = 1
@@ -56,6 +70,7 @@ def AvgRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
     yearlyDeathRate = math.exp(-yearlyDeathRatio)
     absRisk += yearlyHazards/yearlyDeathRatio*survivalRate*(1-yearlyDeathRate)
     survivalRate *= yearlyDeathRate
+
   return absRisk
 
 def covariteBreakdown(gender, race, startAge, upperBoundAge, screening, yearsSmoking, cigarettesPerDay, nsaidRegimine, aspirinOnly, familyHistory, averageExercise, servingsPerDay, bmiTrend, hormoneUsage):
