@@ -480,14 +480,13 @@ function adjustLastTimeSheHadPeriod() {
 
 function adjustSmokingOnRegularBasis() {
 
-    removeErrorMessage("[for='yearsSmoked']")
-    removeErrorMessage("[for='cigarettes_num']")
-
     enableSelectBox("[for='yearsSmoked']")
 
     var optionValue = $("#yearsSmoked").val()
-    if ( optionValue === "0" || optionValue === "" )
+    if ( optionValue === "0" || optionValue === "" ) {
         disableSelectBox("[for='cigarettes_num']")
+        removeErrorMessage({target: $("#cigarettes_num")})
+    }
     else
         enableSelectBox("[for='cigarettes_num']")
 }
@@ -827,8 +826,8 @@ function disableCigarettesSection() {
     disableSelectBox("[for='yearsSmoked']")
     disableSelectBox("[for='cigarettes_num']")
 
-    removeErrorMessage("[for='yearsSmoked']")
-    removeErrorMessage("[for='cigarettes_num']")
+    removeErrorMessage({target: $("#yearsSmoked")})
+    removeErrorMessage({target: $("#cigarettes_num")})
 
 }
 
@@ -836,6 +835,6 @@ function disablePeriodSection() {
     disableSelectBox($("[for='last_period']"))
     disableRadioButtonGroupQuestion($("#hormone_treatment"))
 
-    removeErrorMessage("#last_period")
-    removeErrorMessage("#hormoneYes")
+    removeErrorMessage({target: $("#last_period")})
+    removeErrorMessage({target: $("#hormoneYes")})
 }
