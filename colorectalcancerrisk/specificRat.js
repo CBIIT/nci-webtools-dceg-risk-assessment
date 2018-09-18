@@ -34,18 +34,21 @@ $(function() {
     $("[name='height_ft']").on("blur", function(event) {
         $("#heightWeightLbsQuestion").parent().removeClass("borderError")
         $("#heightWeightLbsQuestion").find(".error").remove()
+        $("#heightWeightLbsQuestion").next().find("input").removeAttr("aria-describedby")
         validateNumericAndDisplayErrorMessage($(this), "feetModal", $(event.relatedTarget))
     })
 
     $("[name='height_in']").on("blur", function(event) {
         $("#heightWeightLbsQuestion").parent().removeClass("borderError")
         $("#heightWeightLbsQuestion").find(".error").remove()
+        $("#heightWeightLbsQuestion").next().find("input").removeAttr("aria-describedby")
         validateNumericAndDisplayErrorMessage($(this), "inchesModal", $(event.relatedTarget))
     })
 
     $("[name='weight']").on("blur", function(event) {
         $("#heightWeightLbsQuestion").parent().removeClass("borderError")
         $("#heightWeightLbsQuestion").find(".error").remove()
+        $("#heightWeightLbsQuestion").next().find("input").removeAttr("aria-describedby")
         validateNumericAndDisplayErrorMessage($(this), "weightModal", $(event.relatedTarget))
     })
 
@@ -262,6 +265,12 @@ function disableCRATForm() {
     $("[class*='numberField']").parent().parent().find("label").attr("aria-disabled","true")
     $("[class*='numberField']").attr("aria-disabled","true")
 
+    $("span:contains('in.')").attr("aria-disabled", "true")
+    $("span:contains('ft.')").attr("aria-disabled", "true")
+    $("span:contains('lbs.')").attr("aria-disabled", "true")
+
+
+
 }
 
 /** Group of fucntions that disable/enable the next question should be put together in one function */
@@ -278,7 +287,6 @@ function enableCRATForm() {
         disableRaceQuestion()
     else {
         enableRaceQuestion()
-        //clearAnswerToHispanicYes()
     }
 }
 
@@ -291,8 +299,10 @@ function enableCRATGenericForm() {
     $("[class*='numberField']").prop("disabled", false)
     $("[class*='numberField']").next("span").css("color", "#2E2E2E")
 
-    //$("[class*='numberField']").parent().parent().find("label").attr("aria-disabled","false")
-    //$("[class*='numberField']").attr("aria-disabled","false")
+    $("span:contains('in.')").removeAttr("aria-disabled")
+    $("span:contains('ft.')").removeAttr("aria-disabled")
+    $("span:contains('lbs.')").removeAttr("aria-disabled")
+
 
     // Enable and Disable the HTML Objects based on the current values of the form.
     adjustAmountPerServingBasedOnServings()

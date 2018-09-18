@@ -851,7 +851,6 @@ function displayHelpWindow() {
 /* them.                                                                      */
 /******************************************************************************/
 function existFormSteps() {
-	//console.log("Form Steps : " + $("#form-steps:visible").length)
 	return ( $("#form-steps:visible").length > 0 );
 }
 
@@ -1189,7 +1188,6 @@ function filterInputParameters(index, element) {
 
 	result =  ( filterExist ) ? filterForInputParametersDisplay(element) : true
 
-    console.log("The result is " + result)
 	return result
 
 }
@@ -1332,6 +1330,7 @@ function removeErrorMessage(event) {
 	if ( question.length == 0 ) question = $(getParent).prev()
 
     $(event.target).removeClass("error")
+    $(event.target).removeAttr("aria-describedBy")
 
 	var objectWithBorder = $(question).parent() 
 	if ( objectWithBorder ) {
