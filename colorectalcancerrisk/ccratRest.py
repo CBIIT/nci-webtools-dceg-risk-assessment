@@ -100,16 +100,29 @@ class ColorectalRiskAssessmentTool:
           errorObject['message'] += ["This tool cannot be used to assess risk for those under the age of 50 or over the age of 89."]
       if sex == 0:
         if 'cigarettes' not in errorObject['missing'] and parameters['cigarettes'] == '0':
-          if 'cigarettes_num' not in parameters or parameters['cigarettes_num'] == '':
-            errorObject['missing'] += ['cigarettes_num']
-          elif not parameters['cigarettes_num'].isnumeric():
-            errorObject['nonnumeric'] += ['cigarettes_num']
 
           if 'yearsSmoked' not in parameters or parameters['yearsSmoked'] == '':
             errorObject['missing'] += ['yearsSmoked']
-          elif not parameters['cigarettes_num'].isnumeric():
-            errorObject['nonnumeric'] += ['cigarettes_num']
-          yearsSmoking = int(parameters['yearsSmoked'])
+          elif not parameters['yearsSmoked'].isnumeric():
+            errorObject['nonnumeric'] += ['yearsSmoked']
+          else:
+            yearsSmoking = int(parameters['yearsSmoked'])
+
+          if ( yearsSmoking > 0 ):
+            if 'cigarettes_num' not in parameters or parameters['cigarettes_num'] == '':
+              errorObject['missing'] += ['cigarettes_num']
+            elif not parameters['cigarettes_num'].isnumeric():
+              errorObject['nonnumeric'] += ['cigarettes_num']
+            else:
+              cigarettesPerDay = int(parameters['cigarettes_num'])
+
+          if ( cigarettesPerDay == 0 ):
+            yearsSmoking = 0
+
+          if ( yearsSmoking == 0 ):
+            cigarettesPerDay = 0
+
+
       else:
         hormoneUsage = 0
         if 'period' not in errorObject['missing'] and 'period' not in errorObject['nonnumeric'] and parameters['period'] == '1':

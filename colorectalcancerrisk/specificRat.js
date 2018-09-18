@@ -108,20 +108,11 @@ $(function() {
     $("#familyCancerNo").on("change",       function() { disableRadioButtonGroupQuestion($("#family_count")) ; removeErrorMessage({target: $("#familyCountYes")})   })
     $("#familyCancerUnknown").on("change",  function() { disableRadioButtonGroupQuestion($("#family_count")) ; removeErrorMessage({target: $("#familyCountYes")})   })
 
-    // Smoking : Has the patient every smoke more than 100 Cigarettes
-    //$("#smokeYes").on("click",      function() { enableSelectBox($("[for='firstYearSmoke']")) })
-    //$("#smokeYes").on("click",      function() { enableRadioButtonGroupQuestion($("#currentlySmokeLabel")) })
     $("#smokeYes").on("click",      adjustSmokingOnRegularBasis)
+    $("#smokeNo").on("click",       disableCigarettesSection)
+    $("#smokeUnknown").on("click",  disableCigarettesSection)
 
-    $("#smokeNo").on("click", disableCigarettesSection)
-    $("#smokeUnknown").on("click", disableCigarettesSection)
-
-    // Smoking : Has the person ever smoked Cigrarettes regulary
-    $("#firstYearSmoke").on("change", adjustSmokingOnRegularBasis)
-
-    // Smoking : Do you currently smoke cigarettes
-    $("#currentlySmokeYes").on("click", function() { disableSelectBox($("[for='smoke_quit']")) ; removeErrorMessage({target: $("#smoke_quit")})  })
-    $("#currentlySmokeNo").on("click",  function() { enableSelectBox($("[for='smoke_quit']")) })
+    $("#yearsSmoked").on("change", adjustSmokingOnRegularBasis)
 
     // Initialize the button that will reset the form
     $("#reset").on("click", resetForm)
@@ -345,7 +336,6 @@ function enableCRATGenericForm() {
         var cigarettesCount = $("[name='cigarettes']:checked").val()
         if (  cigarettesCount == "0" || cigarettesCount === undefined )
         {
-            //enableSelectBox($("[for='firstYearSmoke']"))
             adjustSmokingOnRegularBasis()
         } else {
             disableCigarettesSection()
@@ -484,12 +474,12 @@ function adjustSmokingOnRegularBasis() {
     removeErrorMessage("[for='cigarettes_num']")
 
     enableSelectBox("[for='yearsSmoked']")
-    enableSelectBox("[for='cigarettes_num']")
 
-
-
-
-
+    var optionValue = $("#yearsSmoked").val()
+    if ( optionValue === "0" || optionValue === "" )
+        disableSelectBox("[for='cigarettes_num']")
+    else
+        enableSelectBox("[for='cigarettes_num']")
 }
 
 /* Toggle the gender form Male to Female or Female to Male */
@@ -523,7 +513,6 @@ function toggleGender(e) {
             setfemaleAriaTagsForMale()
 
             if ( $("#smokeYes").val() == "0" ) {
-                //enableSelectBox($("[for='firstYearSmoke']"))
                 adjustSmokingOnRegularBasis();
             }
 
