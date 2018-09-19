@@ -93,6 +93,7 @@
 
   #displayInput {
     page-break-inside: avoid !important;
+    page-break-before: always;
   }
 
   #InputParameters {
@@ -159,10 +160,6 @@
 
    .patient_header, .risk_header {
        font-size: 16px;
-   }
-
-   #displayInput {
-        page-break-before: always;
    }
 
 
