@@ -93,7 +93,11 @@
 
   #displayInput {
     page-break-inside: avoid !important;
-    page-break-before: always;
+    page-break-before: avoid;
+  }
+
+  #displayInput.printAppleOnly {
+    page-break-before: always !Important;
   }
 
   #InputParameters {

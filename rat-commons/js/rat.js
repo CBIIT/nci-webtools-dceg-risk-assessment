@@ -1348,6 +1348,16 @@ function registerCustomRadioAccess() {
 	});
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// (T)rue if an apple product
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function isAppleProduct() {
+    var isSafari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/)
+    var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
+
+    return isSafari || iOS
+}
+
 var KEYCODE = {
     DOWN: 40,
     LEFT: 37,
@@ -1618,6 +1628,11 @@ $(document).ready(function() {
 
 
 $(window).load(function(e) {
+
+	// For the printing the Apple needs something a little different css
+	if ( isAppleProduct() ) {
+	    $("#displayInput").addClass("printAppleOnly")
+	}
 
    registerCustomRadioAccess();
   // Callsbacks to handle the Navigation Bar when user scrolls or uses an
