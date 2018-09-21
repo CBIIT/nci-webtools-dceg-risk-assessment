@@ -41,7 +41,8 @@
             <select name="bmiSelection" id="bmiSelection" class="form-control input-sm" ng-model="myForm.bmiSelection" ng-change="myForm.changeBmiSelection()" ng-required="true" ng-disabled="myForm.validationFailed && !(myForm.bmiNumericCriteria || myForm.bmiHighCriteria || myForm.bmiLowCriteria || myForm.pHeightCriteria || myForm.subHeightCriteria || myForm.weightCriteria)">
                 <option value="">Select...</option>
                 <option value="bmi">BMI</option>
-                <option value="hw">height and weight</option>
+                <option value="hw">Height and Weight</option>
+                <option value="unknown">Unknown</option>
             </select>
         </div>
     </div>
