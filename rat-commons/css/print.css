@@ -166,5 +166,10 @@
        font-size: 16px;
    }
 
+   .avoidPageBreak {
+        page-break-before: avoid;
+        page-break-inside: avoid;
+   }
+
 
 }
