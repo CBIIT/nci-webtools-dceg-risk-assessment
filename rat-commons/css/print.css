@@ -98,6 +98,7 @@
 
   #displayInput.printAppleOnly {
     page-break-before: always !Important;
+    padding-top: 2.65cm !important;
   }
 
   #InputParameters {
@@ -170,6 +171,5 @@
         page-break-before: avoid;
         page-break-inside: avoid;
    }
-
 
 }
