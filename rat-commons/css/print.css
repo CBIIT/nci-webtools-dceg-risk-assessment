@@ -120,6 +120,15 @@
       word-break: break-word;
       padding-left: 0.5em;
       padding-right: 1em;
+      vertical-align: middle;
+  }
+
+  #InputParameters.printAppleOnly tr > td > div {
+    padding-top: .5cm;
+  }
+
+  #InputParameters.printAppleOnly .answers {
+    vertical-align: bottom;
   }
 
    div[id^='pieChart'],
@@ -171,5 +180,7 @@
         page-break-before: avoid;
         page-break-inside: avoid;
    }
+
+
 
 }

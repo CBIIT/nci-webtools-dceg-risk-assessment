@@ -1632,6 +1632,7 @@ $(window).load(function(e) {
 	// For the printing the Apple needs something a little different css
 	if ( isAppleProduct() ) {
 	    $("#displayInput").addClass("printAppleOnly")
+	    $("#InputParameters").addClass("printAppleOnly")
 	}
 
    registerCustomRadioAccess();
