@@ -408,7 +408,7 @@ class ColorectalRiskAssessmentTool:
       return ColorectalRiskAssessmentTool.buildFailure(str(e))
 
   def __init__(self,port,debug):
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run(host='10.133.1.240', port=port, debug=True)
 
 if __name__ == '__main__':
   import argparse

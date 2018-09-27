@@ -170,18 +170,16 @@ function configureRaceDialog( race, callbackForClickOkButton, nameAttributeValue
     var attributeNameValue = ""
     if ( race === "hispanic" ) {
         msg = "When we first developed this tool, we tested it among non-Hispanic whites and found it to be accurate in estimating their risk of colorectal cancer. "
-        msg = msg + "<span>&nbsp;&nbsp;</span>If the patient is Hispanic/Latino, this tool can still estimate their risk, but, "
-        msg = msg + "because there are not as much data available for this group, the results may be less accurate."
-
+        msg = msg + "If your patient is Hispanic/Latino, this tool can still estimate his/her risk, but, because there are not as much data available for this  "
+        msg = msg + "group, the results may be less accurate."
     } else if ( race == "Black") {
         msg = "When we first developed this tool, we tested it with non-Hispanic whites and found it to be accurate in estimating their risk of colorectal cancer. "
-        msg = msg + "<span>&nbsp;&nbsp;</span>If your patient is black/African American, this tool can still estimate his/her risk, but, "
-        msg = msg + "because there are not as much data available for this group, the results may be less accurate."
+        msg = msg + "If your patient is black/African American, this tool can still estimate his/her risk, but, because there are not as much data available for this "
+        msg = msg + "group, the results may be less accurate."
     } else if ( race === 'Asian') {
-        msg = "When we first developed this tool, we tested it among non-Hispanic whites and found it to be accurate in estimating their risk of colorectal cancer. "
-        msg = msg + "<span>&nbsp;&nbsp;</span>If your patient is Asian or Pacific Islander, this tool can still estimate his/her risk, but, "
-        msg = msg + "because there are not as much data available for this group, the results may be less accurate. "
-
+        msg = "When we first developed this tool, we tested it with non-Hispanic whites and found it to be accurate in estimating their risk of colorectal cancer. "
+        msg = msg + "If your patient is Asian American/Pacific Islander, this tool can still estimate his/her risk, but, because there are not as much data available for these "
+        msg = msg + "groups, the results may be less accurate. "
     }
 
     $("#raceModal").attr("data-caller-name", nameAttributeValue)
