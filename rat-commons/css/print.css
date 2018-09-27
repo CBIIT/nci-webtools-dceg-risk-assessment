@@ -98,7 +98,6 @@
 
   #displayInput.printAppleOnly {
     page-break-before: always !Important;
-    padding-top: 2.65cm !important;
   }
 
   #InputParameters {
@@ -120,14 +119,9 @@
       word-break: break-word;
       padding-left: 0.5em;
       padding-right: 1em;
-      vertical-align: middle;
   }
 
-  #InputParameters.printAppleOnly tr > td > div {
-    padding-top: .5cm;
-  }
-
-  #InputParameters.printAppleOnly .answers {
+  #InputParameters.printIphoneOnly .answers {
     vertical-align: bottom;
   }
 

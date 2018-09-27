@@ -1352,10 +1352,17 @@ function registerCustomRadioAccess() {
 // (T)rue if an apple product
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function isAppleProduct() {
+    var hardware = ( navigator.platform === 'MacIntel' || navigator.platform === 'iPad' || navigator.platform === 'iPhone') ? true: false
     var isSafari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/)
-    var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
+    return hardware && isSafari
+}
 
-    return isSafari || iOS
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// (T) if an iphone
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function isApplePhone() {
+    var isPhone = ( navigator.platform === 'iPhone' ) ? true : false
+    return isPhone
 }
 
 var KEYCODE = {
@@ -1630,9 +1637,12 @@ $(document).ready(function() {
 $(window).load(function(e) {
 
 	// For the printing the Apple needs something a little different css
-	if ( isAppleProduct() ) {
+	if ( isAppleProduct() == true ) {
 	    $("#displayInput").addClass("printAppleOnly")
-	    $("#InputParameters").addClass("printAppleOnly")
+	}
+
+	if ( isApplePhone() ) {
+		$("#InputParameters").addClass("printIphoneOnly")
 	}
 
    registerCustomRadioAccess();
