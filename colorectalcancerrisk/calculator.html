@@ -92,9 +92,9 @@
             <div class="col-xs-12 col-md-12">
               <div class="content resultsPageContent">
                 <ul>
-                  <li>Although a patient&apos;s risk may be accurately estimated, these predictions do not allow one to say precisely
+                  <li>While a patient&apos;s risk may be accurately estimated, these predictions do not allow one to say precisely
                     which patient will develop colorectal cancer. </li>
-                  <li>Some Patients who do not develop colorectal cancer have higher risk estimates than patients who do develop
+                  <li>Some patients who do not develop colorectal cancer have higher risk estimates than patients who do develop
                     colorectal cancer.</li>
                   <li>As a reminder, this tool was designed for use by health professionals. If you are not a health professional,
                     you are encouraged to print these results and discuss them with your provider.</li>
@@ -295,7 +295,7 @@
             <div class="responseOptions">
               <input id="BlackRace" type="radio" name="race" value="Black" data-plural="Blacks or African Americans" aria-label="race" required />
               <div class="radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="2">
-                <span></span>Black or African American</div>
+                <span></span>Black/African American</div>
             </div>
             <div class="responseOptions ">
               <input id="AsianRace" type="radio" name="race" value="Asian" data-plural="Asians or Pacific Islanders" aria-label="race" required />
@@ -421,10 +421,10 @@
             <div class="responseOptionsWithoutIndent spaceBetweenFirstQuestionAndResponse col-sm-offset-1 pl-3">
               <select id="veg_amount" name="veg_amount" class="selectContent" required>
                 <option value="">- select -</option>
-                <option value=".25">1/2 cup or less</option>
-                <option value="1">Between 1/2 cup and 1 1/2 cups</option>
-                <option value="2.25">Between 1 1/2 cups and 3 cups</option>
-                <option value="4">Between 3 cups and 5 cups</option>
+                <option value=".25">&frac12; cup or less</option>
+                <option value="1">&frac12; cup and 1&frac12; cups</option>
+                <option value="2.25">1&frac12; cups and 3 cups</option>
+                <option value="4">3 cups and 5 cups</option>
                 <option value="6">More than 5 cups</option>
               </select>
             </div>
@@ -462,9 +462,9 @@
               <select id="moderate_hours" name="moderate_hours" class="selectContent" required>
                 <option value="">-select-</option>
                 <option value="0.5">Up to 1 hour per week</option>
-                <option value="1.5">Between 1-2 hours per week</option>
-                <option value="2.5">Between 2-3 hours per week</option>
-                <option value="3.5">Between 3-4 hours per week</option>
+                <option value="1.5">1-2 hours per week</option>
+                <option value="2.5">2-3 hours per week</option>
+                <option value="3.5">3-4 hours per week</option>
                 <option value="5">More than 4 hours per week</option>
               </select>
             </div>
@@ -501,13 +501,13 @@
             <label class="col-sm-offset-1 questions" for="vigorous_hours" data-subquestion="true">During those months, on average, about how many hours per week did the patient do vigorous physical activities?</label>
             <div class="responseOptionsWithoutIndent spaceBetweenFirstQuestionAndResponse col-sm-offset-1 pl-3">
               <select id="vigorous_hours" name="vigorous_hours" class="selectContent" required>
-                <option value="">-select-</option>
+                <option value="">- select -</option>
                 <option value="0">None</option>
                 <option value=".5">Up to 1 hour per week</option>
-                <option value="1.5">Between 1-2 hours per week</option>
-                <option value="2.5">Between 2-3 hours per week</option>
-                <option value="3.5">Between 3-4 hours per week</option>
-                <option value="5">More than 4 hours per week</option>
+                <option value="1.5">1-2 hours per week</option>
+                <option value="2.5">2-3 hours per week</option>
+                <option value="3.5">3-4 hours per week</option>
+                <option value="5">4 hours per week</option>
               </select>
             </div>
           </div>
@@ -565,7 +565,7 @@
                   <li class="forAsprinListItem">Bufferin</li>
                   <li class="forAsprinListItem">Bayer</li>
                   <li class="forAsprinListItem">Excedrin</li>
-                  <li class="forAsprinListItem">Other Generic Forms</li>
+                  <li class="forAsprinListItem">Other generic forms</li>
                 </ul>
               </div>
               <div class="questions">
@@ -592,7 +592,7 @@
           <div class="spaceBetweenQuestions" role="radiogroup" aria-labelledby="medications">
             <label class="questions" id="medications">
               <div>
-                During the past 30 days, did the patient take medications that <span class="underline">do not contain</span> aspirin at least 3 times a week, such as:
+                During the past 30 days, did the patient take medications that <span class="underline">do not contain aspirin</span> at least 3 times a week, such as:
                 <ul class="forAsprinsUnorderedList">
                   <li class="forAsprinListItem">Advil</li>
                   <li class="forAsprinListItem">Aleve</li>
@@ -726,7 +726,7 @@
         <section class="male" id="cigarette-section">
 
           <div class="male" role="radiogroup" aria-labelledby="hasSmokedLabel">
-            <label id="hasSmokedLabel" class="questions no-margin-top">Has the patient smoked 100 or more cigarettes in his/her lifetime?</label>
+            <label id="hasSmokedLabel" class="questions no-margin-top">Has the patient smoked 100 or more cigarettes in his lifetime?</label>
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
               <input id="smokeYes" type="radio" value="0" name="cigarettes" aria-label="cigarettes">
               <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="1" >
