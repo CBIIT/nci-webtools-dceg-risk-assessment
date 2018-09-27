@@ -5,60 +5,15 @@
         <table class="results_summary">
             <caption>Questions:</caption>
             <tbody>
+                <!-- Age -->
                 <tr>
                     <th>Age</th>
                     <td>{{session.params.age}}</td>
                 </tr>
-                <tr>
-                    <th>Racial or ethnic group</th>
-                    <td>
-                        <span ng-if="session.myForm.group != 5">
-                            {{session.myForm.groupDesc}}
-                        </span>
-                        <span ng-if="session.myForm.group == 5">
-                            Unknown. This risk assessment was based on data for whites.
-                        </span>
-                    </td>
-                </tr>
+                <!-- Gender -->
                 <tr>
                     <th>Gender</th>
                     <td>{{gender[session.params.gender]}}</td>
-                </tr>
-                <tr>
-                    <th>Type of smoker</th>
-                    <td>{{session.myForm.typeDesc}}</td>
-                </tr>
-                <!-- current smoker -->
-                <tr ng-if-start="session.myForm.type=='current'">
-                    <th class="indent">How old were you when you started smoking?</th>
-                    <td>{{session.myForm.start}}</td>
-                </tr>
-                <tr ng-if-end>
-                    <th class="indent">On a typical day, how many cigarettes do you smoke?</th>
-                    <td>{{session.myForm.cigs}}</td>
-                </tr>
-                <!-- former smoker -->
-                <tr ng-if-start="session.myForm.type=='former'">
-                    <th class="indent">How old were you when you started smoking?</th>
-                    <td>{{session.myForm.start}}</td>
-                </tr>
-                <tr>
-                    <th class="indent">How old were you when you quit successfully?</th>
-                    <td>{{session.myForm.quit}}</td>
-                </tr>
-                <tr ng-if-end>
-                    <th class="indent">On a typical day, how many cigarettes did you smoke?</th>
-                    <td>{{session.myForm.cigs}}</td>
-                </tr>
-                <!-- Pack-years -->
-                <tr>
-                    <th>Pack-years</th>
-                    <td>{{parsePackYears()}}</td>
-                </tr>
-                <!-- Disease -->
-                <tr>
-                    <th>History of lung disease</th>
-                    <td>{{session.myForm.diseaseDesc}}</td>
                 </tr>
                 <!-- Height -->
                 <tr>
@@ -93,6 +48,72 @@
                                 of {{session.params.bmi}} was used for the risk calculation)</span>
                         </span>
                     </td>
+                </tr>
+                <!-- Racial group -->
+                <tr>
+                    <th>Racial or ethnic group</th>
+                    <td>
+                        <span ng-if="session.myForm.group != 5">
+                            {{session.myForm.groupDesc}}
+                        </span>
+                        <span ng-if="session.myForm.group == 5">
+                            Unknown. This risk assessment was based on data for whites.
+                        </span>
+                    </td>
+                </tr>
+                <!-- Education -->
+                <tr>
+                    <th>Education</th>
+                    <td>
+                        <span ng-if="session.myForm.education != 7">
+                            {{session.myForm.educationDesc}}
+                        </span>
+                        <span ng-if="session.myForm.education == 7">
+                            Unknown
+                        </span>
+                    </td>
+                </tr>
+                <!-- Type of smoker -->
+                <tr>
+                    <th>Type of smoker</th>
+                    <td>{{session.myForm.typeDesc}}</td>
+                </tr>
+                <!-- current smoker -->
+                <tr ng-if-start="session.myForm.type=='current'">
+                    <th class="indent">How old were you when you started smoking?</th>
+                    <td>{{session.myForm.start}}</td>
+                </tr>
+                <tr ng-if-end>
+                    <th class="indent">On a typical day, how many cigarettes do you smoke?</th>
+                    <td>{{session.myForm.cigs}}</td>
+                </tr>
+                <!-- former smoker -->
+                <tr ng-if-start="session.myForm.type=='former'">
+                    <th class="indent">How old were you when you started smoking?</th>
+                    <td>{{session.myForm.start}}</td>
+                </tr>
+                <tr>
+                    <th class="indent">How old were you when you quit successfully?</th>
+                    <td>{{session.myForm.quit}}</td>
+                </tr>
+                <tr ng-if-end>
+                    <th class="indent">On a typical day, how many cigarettes did you smoke?</th>
+                    <td>{{session.myForm.cigs}}</td>
+                </tr>
+                <!-- Disease -->
+                <tr>
+                    <th>History of lung disease</th>
+                    <td>{{session.myForm.diseaseDesc}}</td>
+                </tr>
+                <!-- Family History -->
+                <tr>
+                    <th>Family history of lung cancer (must be blood relative), including parents and siblings</th>
+                    <td>{{session.myForm.historyDesc}}</td>
+                </tr>>
+                <!-- Pack-years -->
+                <tr>
+                    <th>Pack-years</th>
+                    <td>{{parsePackYears()}}</td>
                 </tr>
             </tbody>
         </table>
