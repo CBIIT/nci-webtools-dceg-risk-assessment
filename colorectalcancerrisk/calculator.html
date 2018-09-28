@@ -187,7 +187,36 @@
             </div>
           </div>
 
-
+        <!-- -->
+        <div id="tableForPrintPage" class="showOnlyForPrint tableForPrint">
+          <label> This patient&apos;s absolute risk of developing colorectal cancer:</label>
+          <table>
+            <thead>
+              <tr>
+                <th class="tableForPrint_header"></th>
+                <th class="tableForPrint_header">Patient&apos;s Risk</th>
+                <th class="tableForPrint_header">Average Risk</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="tableForPrint_cells-border tableForPrint_namedCells">5&#8212;Year</td>
+                <td id="print1" class="tableForPrint_cells-border tableForPrint_numericCells" ></td>
+                <td id="print2" class="tableForPrint_cells-border tableForPrint_numericCells" ></td>
+              </tr>
+              <tr>
+                <td class="tableForPrint_cells-border tableForPrint_namedCells">10&#8212;Year</td>
+                <td id="print3" class="tableForPrint_cells-border tableForPrint_numericCells"></td>
+                <td id="print4" class="tableForPrint_cells-border tableForPrint_numericCells"></td>
+              </tr>
+              <tr>
+                <td class="tableForPrint_cells-border tableForPrint_namedCells">Lifetime</td>
+                <td id="print5" class="tableForPrint_cells-border tableForPrint_numericCells"></td>
+                <td id="print6" class="tableForPrint_cells-border tableForPrint_numericCells"></td>
+              </tr>
+          </tbody>
+          </table>
+        </div>
 
         <!-- Show the input parameters -->
         <div id="displayInput">

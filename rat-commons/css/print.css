@@ -23,16 +23,23 @@
   .result_page_anchor,
   #buttonsArea,
   #footer,
-  .center-block
+  .center-block,
+  div[id^='results_box']
   {
     display:none;
   }
+
+
 
   /* In order to get the style to work.  !Important is needed since bootstrap */
   /* Also, I had to use the id to apply the rule due to the specitivity rules */
   /* of css                                                                   */
   #main-nav, #returnToCalculateButton, #startOverButton {
     display:none !important;
+  }
+
+  .showOnlyForPrint {
+    display: block;
   }
 
   /* Centers the logo                                                         */
@@ -125,6 +132,7 @@
     vertical-align: bottom;
   }
 
+
    div[id^='pieChart'],
    .results_text {
 	   display: none;
@@ -175,6 +183,7 @@
         page-break-inside: avoid;
    }
 
+   /* Style for flattening a list */
    .flattenList_ul {
         list-style-type: none;
         margin-left: .2cm;
@@ -184,7 +193,6 @@
    }
 
    .flattenList_li {
-        /* float: left; */
         display: inline;
    }
 
@@ -192,6 +200,38 @@
         content: ",\000a"
    }
 
+    /* Section for talbe to display 5, 10, lifetime results */
 
+    .tableForPrint {
+        padding-left: .2cm;
+        page-break-before: avoid;
+    }
+
+    .tableForPrint_title {
+        text-decoration: underline;
+    }
+
+    .tableForPrint_header {
+        text-align: center;
+    }
+
+    .tableForPrint_cells-border {
+        border: 1px solid black;
+    }
+
+    .tableForPrint_namedCells {
+        text-align: right;
+        width: 2.5cm;
+        padding-right: .1cm;
+    }
+
+    .tableForPrint_numericCells {
+        text-align: center;
+        width: 4.0cm;
+    }
+
+    .tableForPrint_numericCells:after {
+        content: "%";
+    }
 
 }

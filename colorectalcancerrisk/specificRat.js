@@ -597,6 +597,15 @@ function resultsDisplay(response, textStatus, xhr) {
         return color
     }
 
+    function createPrintVersion(result) {
+        $("#print1").text(result.risk)
+        $("#print2").text(result.average5YearRisk)
+        $("#print3").text(result.patient10YearRisk)
+        $("#print4").text(result.average10YearRisk)
+        $("#print5").text(result.patientLifetimeRisk)
+        $("#print6").text(result.averageLifetimeRisk)
+    }
+
     var result = JSON.parse(response.message)
     go_toresult()
 
@@ -641,6 +650,8 @@ function resultsDisplay(response, textStatus, xhr) {
     make_pie_chart(result.average10YearRisk,    "#pieChart4", "#40A5C1",                 "#EFEFEF");
 	make_pie_chart(result.patientLifetimeRisk,  "#pieChart5", lifetimePateientRiskColor, "#EFEFEF");
 	make_pie_chart(result.averageLifetimeRisk,  "#pieChart6", "#40A5C1",                 "#EFEFEF");
+
+	createPrintVersion(result)
 }
 
 function resetForm() {

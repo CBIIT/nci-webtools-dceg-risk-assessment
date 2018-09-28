@@ -1778,4 +1778,9 @@ section > fieldset > legend.questions {
     list-style: none;
 }
 
+.showOnlyForPrint {
+    display: none
+}
+
+
 
