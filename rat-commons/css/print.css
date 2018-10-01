@@ -186,7 +186,6 @@
    /* Style for flattening a list */
    .flattenList_ul {
         list-style-type: none;
-        margin-left: .2cm;
         margin-bottom: 0cm;
         padding: 0;
         display: block;

@@ -1782,5 +1782,9 @@ section > fieldset > legend.questions {
     display: none
 }
 
+.skipOneLine {
+    margin-top: 1em;
+}
+
 
 

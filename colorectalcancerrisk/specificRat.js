@@ -576,7 +576,7 @@ function resultsDisplay(response, textStatus, xhr) {
         if ( risk < averageRisk ) {
             colorText = "presented in green since it is lower than";
         } else if ( risk > averageRisk ) {
-            colorText = "presented in red since it higher than";
+            colorText = "presented in red since it is higher than";
         } else {
             colorText = "presented in blue since it is the same as";
         }
