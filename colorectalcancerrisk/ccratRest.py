@@ -33,10 +33,9 @@ class ColorectalRiskAssessmentTool:
     response.status_code = 200
     return response
 
-  # For the question about medications that contain Aspirin/No Aspirin the "I don't know" should be treated as No
   @staticmethod
-  def unknownMeansNo(answer):
-    return 1 if answer == 3 else answer
+  def mapMedicationUnknown(answer):
+    return 0 if answer == 3 else answer
 
   # Calculate the Aspirin Only and nsaids values
   # For any input the value 0 = "Yes" and value 1 == "No"
@@ -44,13 +43,10 @@ class ColorectalRiskAssessmentTool:
   def generateAspirinOnlyAndNsaids(aspirin, non_aspirin):
     values = {}
     if ( aspirin == 1 and non_aspirin == 1 ):
-      values['aspirinOnly']     = 1
-      values['nsaidRegime'] = 1
-    elif ( aspirin == 0 and non_aspirin == 1 ):
-      values['aspirinOnly']     = 0
+      values['aspirinOnly'] = 1
       values['nsaidRegime'] = 1
     else:
-      values['aspirinOnly']     = 0
+      values['aspirinOnly'] = 0
       values['nsaidRegime'] = 0
 
     return values
@@ -172,13 +168,13 @@ class ColorectalRiskAssessmentTool:
       # Calculate the nsaidRegime and Aspirin variables
       aspirin = -1
       try:
-        aspirin     = ColorectalRiskAssessmentTool.unknownMeansNo(int(parameters['aspirin']))
+        aspirin     = ColorectalRiskAssessmentTool.mapMedicationUnknown(int(parameters['aspirin']))
       except:
         errorObject['nonnumeric'].append("aspirin")
 
       nonAspirin = -1
       try:
-        nonAspirin  = ColorectalRiskAssessmentTool.unknownMeansNo(int(parameters['non_aspirin']))
+        nonAspirin  = ColorectalRiskAssessmentTool.mapMedicationUnknown(int(parameters['non_aspirin']))
       except:
         errorObject['nonnumeric'].append("non_aspirin")
 
