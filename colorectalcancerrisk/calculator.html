@@ -84,7 +84,7 @@
     <div  id="results" class="container-fluid">
       <div id="results_home">
         <div  class="avoidPageBreak">
-          <h1 class="makeTagInline makeSpaceForPrintIcon">Personalized Results</h1>
+          <h1 class="makeTagInline makeSpaceForPrintIcon">Personalized Risk of Developing Colorectal Cancer</h1>
           <button id="printTop" type="button" tabindex="0" class="printButton center-block text-center">
             <img src="rat-commons/images/print-icon.gif" alt="printing the page">
           </button>
@@ -99,7 +99,7 @@
                   <li>As a reminder, this tool was designed for use by health professionals. If you are not a health professional,
                     you are encouraged to print these results and discuss them with your health care provider.</li>
                   <li>The tool uses a patient&apos;s medical history and the history of colorectal cancer among their first-degree
-                    relatives (father, mother, sisters, sons, daughters) to estimate absolute colorectal cancer risk&#8212;the
+                    relatives (father, mother, sisters, brothers, sons, daughters) to estimate absolute colorectal cancer risk&#8212;the
                     chance or probability of developing colorectal cancer over a defined time period.</li>
                 </ul>
               </div>
@@ -187,7 +187,7 @@
             </div>
           </div>
 
-        <!-- Table for displaying the percentagbes for print only. -->
+        <!-- Table for displaying the percentages for print only. -->
         <div id="tableForPrintPage" class="showOnlyForPrint tableForPrint">
           <label> This patient&apos;s absolute risk of developing colorectal cancer:</label>
           <table>
@@ -221,7 +221,7 @@
         <!-- Show the input parameters -->
         <div id="displayInput">
           <h2>Your Answers</h2>
-          <p class="selectContent">These results are based upon you answered the following questions:</p>
+          <p class="selectContent">These results are based upon you answered the following information:</p>
           <table id="InputParameters">
             <tbody>
               <tr>
@@ -326,12 +326,12 @@
             <div class="responseOptions">
               <input id="BlackRace" type="radio" name="race" value="Black" data-plural="Blacks or African Americans" aria-label="race" required />
               <div class="radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="2">
-                <span></span>Black/African American</div>
+                <span></span>African American</div>
             </div>
             <div class="responseOptions ">
               <input id="AsianRace" type="radio" name="race" value="Asian" data-plural="Asians or Pacific Islanders" aria-label="race" required />
               <div class="radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="3">
-                <span></span>Asian or Pacific Islander</div>
+                <span></span>Asian American or Pacific Islander</div>
             </div>
           </div>
           <div class="spaceBetweenQuestions">
@@ -437,11 +437,11 @@
                 <option value="">- select -</option>
                 <option value="0">None</option>
                 <option value=".5">Less than 1 serving per week</option>
-                <option value="1.5">1-2 servings per week</option>
-                <option value="3.5">3-4 servings per week</option>
-                <option value="5.5">5-6 servings per week</option>
-                <option value="8.5">7-10 servings per week</option>
-                <option value="11">More than 10 servings per week</option>
+                <option value="1.5">1-2 servings/week</option>
+                <option value="3.5">3-4 servings/week</option>
+                <option value="5.5">5-6 servings/week</option>
+                <option value="8.5">7-10 servings/week</option>
+                <option value="11">More than 10 servings/week</option>
               </select>
             </div>
           </div>
@@ -453,9 +453,9 @@
               <select id="veg_amount" name="veg_amount" class="selectContent" required>
                 <option value="">- select -</option>
                 <option value=".25">&frac12; cup or less</option>
-                <option value="1">&frac12; cup and 1&frac12; cups</option>
-                <option value="2.25">1&frac12; cups and 3 cups</option>
-                <option value="4">3 cups and 5 cups</option>
+                <option value="1">Between &frac12; cup - 1&frac12; cups</option>
+                <option value="2.25">1&frac12; cups - 3 cups</option>
+                <option value="4">3 cups - 5 cups</option>
                 <option value="6">More than 5 cups</option>
               </select>
             </div>
@@ -493,9 +493,9 @@
               <select id="moderate_hours" name="moderate_hours" class="selectContent" required>
                 <option value="">- select -</option>
                 <option value="0.5">Up to 1 hour/week</option>
-                <option value="1.5">1-2 hours/week</option>
-                <option value="2.5">2-3 hours/week</option>
-                <option value="3.5">3-4 hours/week</option>
+                <option value="1.5">1 - 2 hours/week</option>
+                <option value="2.5">2 - 3 hours/week</option>
+                <option value="3.5">3 - 4 hours/week</option>
                 <option value="5">More than 4 hours per week</option>
               </select>
             </div>
@@ -535,10 +535,10 @@
                 <option value="">- select -</option>
                 <option value="0">None</option>
                 <option value=".5">Up to 1 hour/week</option>
-                <option value="1.5">1-2 hours/week</option>
-                <option value="2.5">2-3 hours/week</option>
-                <option value="3.5">3-4 hours/week</option>
-                <option value="5">4 hours per week</option>
+                <option value="1.5">1 - 2 hours/week</option>
+                <option value="2.5">2 - 3 hours/week</option>
+                <option value="3.5">3 - 4 hours/week</option>
+                <option value="5">More than 4 hours per week</option>
               </select>
             </div>
           </div>
@@ -789,7 +789,7 @@
           </div>
 
           <div class="male spaceBetweenQuestions col-sm-offset-3 col-md-offset-3" aria-label="amountSmokedPerDayLabel">
-            <label id="amountSmokedPerDayLabel" class="questions" data-subSubQuestion="true" for="cigarettes_num">When the patient was smoking regularly, how many cigarettes did he/she
+            <label id="amountSmokedPerDayLabel" class="questions" data-subSubQuestion="true" for="cigarettes_num">When the patient was smoking regularly, how many cigarettes did he
               smoked per day?</label>
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
               <select id="cigarettes_num" name="cigarettes_num" class="selectContent" >

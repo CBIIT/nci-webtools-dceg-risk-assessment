@@ -174,7 +174,7 @@ function configureRaceDialog( race, callbackForClickOkButton, nameAttributeValue
         msg = msg + "group, the results may be less accurate."
     } else if ( race == "Black") {
         msg = "When we first developed this tool, we tested it with non-Hispanic whites and found it to be accurate in estimating their risk of colorectal cancer. "
-        msg = msg + "If your patient is black/African American, this tool can still estimate his/her risk, but, because there are not as much data available for this "
+        msg = msg + "If your patient is African American, this tool can still estimate his/her risk, but, because there are not as much data available for this "
         msg = msg + "group, the results may be less accurate."
     } else if ( race === 'Asian') {
         msg = "When we first developed this tool, we tested it with non-Hispanic whites and found it to be accurate in estimating their risk of colorectal cancer. "
@@ -571,7 +571,7 @@ function fixSmokingSection() {
 /* Produces the results box for the RAT                                                        */
 function resultsDisplay(response, textStatus, xhr) {
 
-    function returnColorText(risk, averageRisk) {
+    function returnPatientColorText(risk, averageRisk) {
         var colorText = undefined;
         if ( risk < averageRisk ) {
             colorText = "presented in green since it is lower than";
@@ -582,6 +582,10 @@ function resultsDisplay(response, textStatus, xhr) {
         }
 
         return colorText;
+    }
+
+    function returnAverageColorText() {
+        return "(presented in blue)"
     }
 
     function returnColorValue(risk, averageRisk) {
@@ -610,24 +614,33 @@ function resultsDisplay(response, textStatus, xhr) {
     go_toresult()
 
     var messageBeginning = "Based on the information provided, the patient's estimated risk for developing colorectal cancer over "
-    var message5years    = "the next 5 years is !Fillin1!% !Color1! the average risk of !Fillin2!% "
-    var message10years   = "the next 10 years is !Fillin3!% !Color2! the average risk of !Fillin4!% "
-    var messageLifeTime  = "their lifetime (to age 90) is !Fillin5!% !Color3! the average risk of !Fillin6!% "
+    var message5years    = "the next 5 years is !Fillin1!%, !Color1! the average risk of !Fillin2!% !averageRiskColor1! "
+    var message10years   = "the next 10 years is !Fillin3!%, !Color2! the average risk of !Fillin4!% !averageRiskColor2! "
+    var messageLifeTime  = "their lifetime (to age 90) is !Fillin5!%, !Color3! the average risk of !Fillin6!% !averageRiskColor3! "
     var messageEnding    = "for a patient of the same age, gender, and race/ethnicity from the general US population.";
 
-    var colorText1 = returnColorText(result.risk, result.average5YearRisk);
-    var colorText2 = returnColorText(result.patient10YearRisk, result.average10YearRisk);
-    var colorText3 = returnColorText(result.patientLifetimeRisk, result.averageLifetimeRisk);
+    var colorText1 = returnPatientColorText(result.risk, result.average5YearRisk);
+    var colorText2 = returnPatientColorText(result.patient10YearRisk, result.average10YearRisk);
+    var colorText3 = returnPatientColorText(result.patientLifetimeRisk, result.averageLifetimeRisk);
 
-    message5years          = message5years.replace(  "!Fillin1!",    result.risk)
-    message5years          = message5years.replace(  "!Color1!",     colorText1)
-    message5years          = message5years.replace(  "!Fillin2!",    result.average5YearRisk)
-    message10years         = message10years.replace( "!Fillin3!",    result.patient10YearRisk)
-    message10years         = message10years.replace(  "!Color2!",    colorText2)
-    message10years         = message10years.replace( "!Fillin4!",    result.average10YearRisk)
-    messageLifeTime        = messageLifeTime.replace("!Fillin5!",    result.patientLifetimeRisk)
-    messageLifeTime        = messageLifeTime.replace(  "!Color3!",   colorText3)
-    messageLifeTime        = messageLifeTime.replace("!Fillin6!",    result.averageLifetimeRisk)
+    var averageRiskColor1 = returnAverageColorText()
+    var averageRiskColor2 = returnAverageColorText()
+    var averageRiskColor3 = returnAverageColorText()
+
+    message5years          = message5years.replace(  "!Fillin1!",               result.risk)
+    message5years          = message5years.replace(  "!Color1!",                colorText1)
+    message5years          = message5years.replace(  "!Fillin2!",               result.average5YearRisk)
+    message5years          = message5years.replace(  "!averageRiskColor1!",     averageRiskColor1)
+    message10years         = message10years.replace( "!Fillin3!",               result.patient10YearRisk)
+    message10years         = message10years.replace(  "!Color2!",               colorText2)
+    message10years         = message10years.replace(  "!Fillin4!",              result.average10YearRisk)
+    message10years         = message5years.replace(   "!averageRiskColor2!",    averageRiskColor2)
+    messageLifeTime        = messageLifeTime.replace( "!Fillin5!",              result.patientLifetimeRisk)
+    messageLifeTime        = messageLifeTime.replace( "!Color3!",               colorText3)
+    messageLifeTime        = messageLifeTime.replace( "!Fillin6!",              result.averageLifetimeRisk)
+    messageLifeTime        = messageLifeTime.replace( "!averageRiskColor3!",    averageRiskColor3)
+
+
 
     $("#results_text_5_years").text(messageBeginning + message5years + messageEnding);
     $("#results_text_10_years").text(messageBeginning + message10years + messageEnding);
