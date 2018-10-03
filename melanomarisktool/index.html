@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script src="//assets.adobedtm.com/f1bfa9f7170c81b1a9a9ecdcc6c5215ee0b03c84/satelliteLib-4b219b82c4737db0e1797b6c511cf10c802c95cb.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" type="text/css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.css">
+    <script src="//assets.adobedtm.com/f1bfa9f7170c81b1a9a9ecdcc6c5215ee0b03c84/satelliteLib-4b219b82c4737db0e1797b6c511cf10c802c95cb.js"></script>
     <!-– # Browser title/meta titleb    -->
     <title>Melanoma Risk Assessment Tool</title>
     <!-– # Meta Description             -->
     <meta name="description" content="An interactive tool designed by scientists at the National Cancer Institute to estimate an individual’s risk of developing melanoma." />
     <!-– # Open Graph Protocol Description - for social media like Facebook -->
     <meta property="og:description" content="An interactive tool designed by scientists at the National Cancer Institute to estimate a person's risk of developing melanoma." />
-    <meta property="description" content="An interactive tool designed by scientists at the National Cancer Institute to estimate a person's risk of developing melanoma." />
+    <meta property="description"
+          content="An interactive tool designed by scientists at the National Cancer Institute to estimate a person's risk of developing melanoma." />
     <meta property="og:site_name" content="Melanoma Risk Assessment Tool" />
     <meta property="og:url" content="https://www.cancer.gov/mrisktool" />
     <!-– # For keyword search           -->
     <meta name=”keywords” content=”melanoma, mrat, melanoma risk, risk assessment, risk tool” />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.css">
     <link href="common/css/style.css" rel="stylesheet" type="text/css">
     <link href="rat-commons/css/styles.css" rel="stylesheet" type="text/css">
     <link href="rat-commons/css/form-steps.css" rel="stylesheet" type="text/css">
+    <link href="specificCSS.css" rel="stylesheet" type="text/css"></link>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="application/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js" type="application/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods.js" type="application/javascript"></script>
@@ -32,11 +34,13 @@
   </head>
   <body>
     <header role="banner">
-      <a id="skipContentHome" class="sr-only sr-only-focusable" href="#main_home">Skip to main content</a>
+      <a id="skipContentHome" class="sr-only sr-only-focusable" tabindex="0">Skip to main content</a>
       <a href="http://cancer.gov" target="_blank"><img id="logo" src="/common/images/nci-logo-full.svg" alt="go to cancer.gov"></a>
-      <div id="toolTitle"><a href="index.html">Melanoma Risk Assessment Tool</a>
-        <button class="navbar-toggle collapsed" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()"><span class="sr-only">Toggle navigation</span>
-          <div class="glyphicon glyphicon-menu-hamburger"></div>
+      <div id="toolTitle"><a id="toolHomeLink" href="index.html">Melanoma Risk Assessment Tool</a>
+        <button class="navbar-toggle collapsed" type="button" aria-controls="main-nav"
+                aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()">
+          <span class="sr-only" tabindex="-1">Toggle navigation</span>
+          <div class="glyphicon glyphicon-menu-hamburger addOutlineSpaceBetween" tabindex="0"></div>
         </button>
       </div>
       <nav class="navbar-collapse collapse" id="main-nav" aria-expanded="false">
@@ -48,23 +52,24 @@
       <div class="sidenav" id="side_nav">
         <div class="div" id="inner_menu">
           <span>Menu</span>
-          <button class="navbar-toggle collapsed navbar-toggle_innermenu" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()"><span class="sr-only">Toggle navigation</span>
-            <div class="glyphicon glyphicon-menu-hamburger"></div>
+          <button class="navbar-toggle collapsed navbar-toggle_innermenu" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()">
+            <span class="sr-only">Toggle navigation</span>
+            <div class="glyphicon glyphicon-menu-hamburger addOutlineSpaceBetween removeOutline"></div>
           </button>
         </div>
+
         <ul class="nav nav-tabs">
-          <li role="presentation" id="Risk"><a href="calculator.html">Risk Calculator</a></li>
-          <li role="presentation" id="About"><a href="about.html">About the Calculator</a></li>
+          <li class="calc_list_item" role="presentation" id="Risk"><a href="calculator.html">Risk Calculator</a></li>
+          <li class="about_list_item" role="presentation" id="About"><a href="about.html">About the Calculator</a></li>
         </ul>
       </div>
     </header >
-
     <div id="main_home" role="main">
       <div class="container-fluid">
         <span class="spacerBetweenHeaderContentForIndexPage">&nbsp;</span>
         <h1>The Melanoma Risk Assessment Tool</h1>
         <div class="row">
-          <div class="col-sm-8 col-lg-9 col-xs-12">
+          <div class="col-sm-9 col-xs-12">
             <div class="content">
               <p>
                 The Melanoma Risk Assessment Tool was developed for use by health professionals to estimate a patient's absolute risk of developing invasive melanoma. Absolute risk is the likelihood that a person will develop a specific type of cancer over a certain period of time, in this case 5 years.</p>
@@ -86,8 +91,7 @@
               </p>
             </div>
           </div>
-
-          <div class="col col-sm-4 col-lg-3 col-xs-12">
+          <div class="col col-sm-3 col-xs-12 pull-right">
             <div class="box mrat-box content">
               <p>Patients who have had one of the following diagnoses should be in screening and surveillance for melanoma and should not use this tool to estimate their risk:</p>
                 <ul>
@@ -100,18 +104,18 @@
           </div>
 
         </div>
+
         <h4>Resources</h4>
         <ul class="list-unstyled">
-          <li> <a target="_blank"  href="https://www.cancer.gov/types/skin/hp">Skin Cancer (Including Melanoma)&mdash;Health Professional Version</a></li>
-          <li> <a target="_blank" href="https://analysistools.nci.nih.gov/nevustool/">Moles to Melanoma</a></li>
-          <li><a  target="_blank" id="melanomaRisk"     href="https://www.cancer.gov/types/skin/moles-fact-sheet">Common Moles, Dysplastic Nevi, and Risk of Melanoma</a></li>
-          <li> <a target="_blank" id="preventMelanoma"  href="https://www.cancer.gov/about-cancer/treatment/clinical-trials/search/results?protocolsearchid=6180514&vers=2">Current Clinical Trials to Prevent Melanoma</a></li>
-          <li> <a target="_blank" href="https://www.cancer.gov/about-cancer/treatment/clinical-trials/search/results?protocolsearchid=6189764&vers=2">Current Clinical Trials to Treat Melanoma</a></li>
-          <li> <span>Skin Cancer informatin for non-white patients:&nbsp;</span></spna><a target="_blank" href="https://www.cancer.gov/types/skin/anyone-can-get-skin-cancer">Anyone Can Get Skin Cancer</a></li>
+          <li> <a class="index_page_link_separator" target="_blank" href="https://www.cancer.gov/types/skin/hp">Skin Cancer (Including Melanoma)&mdash;Health Professional Version</a></li>
+          <li> <a class="index_page_link_separator" target="_blank" href="https://analysistools.nci.nih.gov/nevustool/">Moles to Melanoma</a></li>
+          <li> <a class="index_page_link_separator" target="_blank" id="melanomaRisk"     href="https://www.cancer.gov/types/skin/moles-fact-sheet">Common Moles, Dysplastic Nevi, and Risk of Melanoma</a></li>
+          <li> <a class="index_page_link_separator" target="_blank" id="preventMelanoma"  href="https://www.cancer.gov/about-cancer/treatment/clinical-trials/search/results?protocolsearchid=6180514&vers=2">Current Clinical Trials to Prevent Melanoma</a></li>
+          <li> <a class="index_page_link_separator" target="_blank" href="https://www.cancer.gov/about-cancer/treatment/clinical-trials/search/results?protocolsearchid=6189764&vers=2">Current Clinical Trials to Treat Melanoma</a></li>
+          <li> <span>Skin Cancer informatin for non-white patients:&nbsp;</span></span><a target="_blank" href="https://www.cancer.gov/types/skin/anyone-can-get-skin-cancer">Anyone Can Get Skin Cancer</a></li>
         </ul>
       </div>
     </div>
-
     <div id="footer" class="footer" role="contentinfo"></div>
     <script language="JavaScript" type="text/javascript" src="//static.cancer.gov/webanalytics/WA_RAT_PageLoad.js"></script>
     <script type="text/javascript">_satellite.pageBottom();</script>
