@@ -97,6 +97,9 @@
                   <li>The tool uses the answers provided to estimate 5-year absolute risk of developing melanoma. This includes
                     the patient&apos;s personal medical history, risk factor information, and an examination of the skin
                     on the patient&apos;s back and shoulders.</li>
+                  <li>Patients can reduce their risk for melanoma by engaging in sun-protective behaviors, such as seeking
+                    shade, avoiding sun during peak hours (10 AM – 2PM), wearing a wide-brimmed hat and covering up exposed
+                    skin, and using sunblock with an SPF of 30 or higher.</li>
                 </ul>
               </div>
             </div>
@@ -306,8 +309,9 @@
     
         <div class="spaceBetweenQuestions makeTagInline">
           <label class="questions">What is the patient's gender?</label>
-          <p class="questions_secondary">This tool uses gender-specific risk models. It requires different information of male patients than female patients.
-            The answer to this question will determine what other questions are asked below.</p>
+          <p class="questions_secondary">This tool uses gender-specific risk models; different male patients are asked
+            about history of blistering sunburn and evidence of solar damage; female patients are asked about how their
+            skin responds to sun exposure. </p>
           <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
             <input id="maleGender" type="radio" name="gender" value="Male" required>
             <label class="radio" tabindex="0" for="maleGender">
@@ -390,7 +394,7 @@
           <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
             <input id="bigMole" type="radio" name="big-moles" value="0">
             <label class="radio" tabindex="0" for="bigMole">
-              <span> </span>Less than two</label>
+              <span> </span>Fewer than two</label>
           </div>
           <div class="responseOptions">
             <input id="manyBigMoles" type="radio" name="big-moles" value="1">
@@ -404,7 +408,7 @@
             <input id="smallMoleAnswerLt5" type="radio" name="small-moles" value="0" required>
             <label for="smallMoleAnswerLt5" class="radio" tabindex="0">
               <span></span>
-              <div class="small_mole_answer" for="smallMoldeAnswer">Less than five</div>
+              <div class="small_mole_answer" for="smallMoldeAnswer">Fewer than five</div>
             </label>
           </div>
           <div class="responseOptions">
@@ -506,8 +510,9 @@
                   <img class="imgsize center-block" src="rat-commons/images/stop.png" alt-icon alt="Stop Picture">
                 </div>
                 <div class="col-sm-10">
-                  <p>This tool can only accurately calculate melanoma risk for patients who are non-Hispanic whites. For more
-                    information, see
+                  <p>Data on non-whites is sparse. As a result, this tool can only accurately calculate melanoma risk
+                    for non-Hispanic whites patients. For information about melanoma in patients
+                    of other races/ethnicitie
                     <a target="_blank" href="https://www.cancer.gov/types/skin/anyone-can-get-skin-cancer">Anyone Can Get Skin Cancer</a>.</p>
                 </div>
               </div>

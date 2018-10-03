@@ -137,12 +137,12 @@ function resultsDisplay(response, textStatus, xhr) {
 	var results=JSON.parse(response.message)
 
 	var gender = ( $("input[name='gender']").val() == "male" ) ? "men" : "women"
-	var message= "Based on the information provided, the patient's estimated risk for developing melanoma over the next 5 years is "+results.risk+"%.  A risk of " + results.risk + "% means that out of 1,000 white " + gender + " with these characteristics living in the " + results.regionKey + " region, " + results.ratio + " will be expected to develop melanoma in the next 5 years."
+	var message= "Based on the information provided, the patient's estimated risk for developing melanoma over the next 5 years is "+results.risk+"%.  A risk of " + results.risk + "% means that out of 1,000 white " + gender+ " with these characteristics living in the " + results.regionKey + " region, " + results.ratio + " will be expected to develop melanoma in the next 5 years."
 	go_toresult();
 
 	$("#results_text").html(message);
 	$("#Risk1").text(results.risk+"%");
-	make_pie_chart(results.risk, "#Pie_chart", "#2DC799", "#EFEFEF");
+	make_pie_chart(results.risk, "#Pie_chart", "#BB0E3D", "#EFEFEF");
 
 }
 
@@ -157,7 +157,7 @@ function toggleGender(e) {
 	$("#physical").removeClass("no_display")
 	switch (value) {
 		case "Male":
-			$('.small_mole_answer')[0].innerHTML="Less than seven"
+			$('.small_mole_answer')[0].innerHTML="Fewer than seven"
 			$('.small_mole_answer')[1].innerHTML="Seven to sixteen"
 			$('.small_mole_answer')[2].innerHTML="Seventeen or more"
 			$('#small_moles').parent().addClass("spaceBetweenQuestions")
@@ -177,7 +177,7 @@ function toggleGender(e) {
 			$("#severeFreckling").attr("src","rat-commons/images/severe-freckling-enlarge.jpg")
 			break;
 		case "Female":
-			$('.small_mole_answer')[0].innerHTML="Less than five"
+			$('.small_mole_answer')[0].innerHTML="Fewer than five"
 			$('.small_mole_answer')[1].innerHTML="Five to eleven"
 			$('.small_mole_answer')[2].innerHTML="Twelve or more"
             $('#small_moles').parent().removeClass("spaceBetweenQuestions")
