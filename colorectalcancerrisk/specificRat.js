@@ -174,7 +174,7 @@ function configureRaceDialog( race, callbackForClickOkButton, nameAttributeValue
         msg = msg + "group, the results may be less accurate."
     } else if ( race == "Black") {
         msg = "When we first developed this tool, we tested it with non-Hispanic whites and found it to be accurate in estimating their risk of colorectal cancer. "
-        msg = msg + "If your patient is African American, this tool can still estimate his/her risk, but, because there are not as much data available for this "
+        msg = msg + "If your patient is black/African American, this tool can still estimate his/her risk, but, because there are not as much data available for this "
         msg = msg + "group, the results may be less accurate."
     } else if ( race === 'Asian') {
         msg = "When we first developed this tool, we tested it with non-Hispanic whites and found it to be accurate in estimating their risk of colorectal cancer. "
