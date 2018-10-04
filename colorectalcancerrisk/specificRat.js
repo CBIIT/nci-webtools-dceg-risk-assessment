@@ -730,7 +730,7 @@ function resetForm() {
      var containsMaleGender = false;
      var containsFemaleGender = false;
      var isSelectedGenderFemale = false;
-     if ( $(element).parent().attr("class") != false ) {
+     if ( $(element).parent().attr("class") ) {
         var cssStyles = $(element).parent().attr("class").toLowerCase()
         containsFemaleGender 	    = cssStyles.includes(femaleGender);
         containsMaleGender         = ( containsFemaleGender ) ? false : cssStyles.includes(maleGender)
