@@ -16,7 +16,6 @@
   #skipContentCalculate,
   #toolTitle,
   button,
-  #printTop,
   #printBottom,
   #tool_title,
   #side_nav,
@@ -27,6 +26,10 @@
   div[id^='results_box']
   {
     display:none;
+  }
+
+  .makeSpaceForPrintIcon {
+    width: 100%;
   }
 
 
