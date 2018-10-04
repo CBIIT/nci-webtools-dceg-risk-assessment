@@ -296,7 +296,6 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
     $scope.myForm.smokeShow = false;
     $scope.myForm.bmi = 0;
     $scope.myForm.pkyr_cat = 0;
-    $scope.myForm.isInvalid = true;
     $scope.myForm.validationFailed = false;
     $scope.myForm.summary = '';
     $scope.myForm.result0 = 0;
