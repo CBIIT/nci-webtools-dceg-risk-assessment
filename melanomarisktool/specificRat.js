@@ -128,6 +128,7 @@ function go_toTermsAndConditions() {
 function go_toAboutPage() {
 	$("#mainAboutPage").addClass("show")
 	$("#termAndConditionsPage").removeClass("show")
+	$("[href='javascript:go_toTermsAndConditions()']").focus()
 }
 
 ////////////////////////////////////////////////////////////////////////////////
