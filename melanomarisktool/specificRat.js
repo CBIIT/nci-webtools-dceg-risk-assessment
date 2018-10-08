@@ -14,6 +14,13 @@ frecklingValue["severeFreckling"]					= "5"
 
 $(function() {
 
+   $("#raceModal").on("hidden.bs.modal", function(e) {
+	  if(!isMobile())
+	     var nameAttribute = $(e.target).attr("data-caller-name")
+	     var selector = "input[name='" + nameAttribute + "']:checked"
+         $(selector).next('[role=radio][aria-checked=true]').focus();
+   })
+
 	$("[class*='pictureText']").addClass("pictureTextEnabledColor")
 
 	// When tabbing, the element is being hidden by part of the browser, so I want to move it so the user can see it.
@@ -27,6 +34,8 @@ $(function() {
 	// If the person is not Non-Hispanic White then dispaly a dilog and sets
 	// the value to Non-Hispanic White
 	$("input[id='notNonHispanicWhiteRadioButton']").on("change", function() {
+	    if ( $(this).value == 0 )
+	        $("#raceModal").attr("data-caller-name", $(this).prop("name"))
 			disableMRATForm()
 			$("#raceModal").modal("show");
 	});
