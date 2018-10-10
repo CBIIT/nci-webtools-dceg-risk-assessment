@@ -11,23 +11,7 @@
 	float: none;
   }
 
-  /* Section that make all components invisible that will not be one the      */
-  /* printed page                                                             */
-  #skipContentCalculate,
-  #toolTitle,
-  button,
-  #printTop,
-  #printBottom,
-  #tool_title,
-  #side_nav,
-  .result_page_anchor,
-  #buttonsArea,
-  #footer,
-  .center-block,
-  div[id^='results_box']
-  {
-    display:none;
-  }
+
 
   .makeSpaceForPrintIcon {
     width: 100%;
@@ -235,6 +219,24 @@
 
     .tableForPrint_numericCells:after {
         content: "%";
+    }
+
+    /* Section that make all components invisible that will not be one the      */
+    /* printed page                                                             */
+    #skipContentCalculate,
+    #toolTitle,
+    button,
+    #printTop,
+    #printBottom,
+    #tool_title,
+    #side_nav,
+    .result_page_anchor,
+    #buttonsArea,
+    #footer,
+    .center-block,
+    div[id^='results_box']
+    {
+        display:none;
     }
 
 }

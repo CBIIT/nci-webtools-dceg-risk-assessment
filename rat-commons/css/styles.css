@@ -1786,5 +1786,9 @@ section > fieldset > legend.questions {
     margin-top: 1em;
 }
 
+.makeSpaceForPrintIcon {
+    width: 85%;
+}
+
 
 
