@@ -11,8 +11,6 @@
 	float: none;
   }
 
-
-
   .makeSpaceForPrintIcon {
     width: 100%;
   }
@@ -220,6 +218,55 @@
     .tableForPrint_numericCells:after {
         content: "%";
     }
+
+    div[id^='pieChart'],
+    div[id^='Pie_chart'],
+    .results_text,
+     #results_text {
+        display: none;
+    }
+
+    .results_graph {
+        width: 32%;
+        margin-bottom: 0;
+        margin-top:0;
+    	margin-left:auto;
+    	margin-right:auto;
+    }
+
+    div[id^='results_graph'] {
+        margin-bottom: 0;
+    	margin-top:0;
+    	margin-left:auto;
+    	margin-right:auto;
+    }
+
+    div[id^='results_box'] {
+    	margin-bottom: 0 !important;
+    	margin-top:0.1cm !important;
+    	margin-left:auto;
+    	margin-right:auto;
+    	padding: 0;
+    	border: 0.005cm #6150a3 solid;
+    	width: 65%;
+    	page-break-inside: avoid;
+    }
+
+    div[id^='results_box'] > div {
+    	display: flex;
+    }
+
+    .results_header {
+    	margin-bottom: 0;
+    	line-height: 22px;
+    	font-size: 18px;
+    }
+
+    .patient_header, .risk_header {
+        font-size: 16px;
+        text-align: center;
+    }
+
 
     /* Section that make all components invisible that will not be one the      */
     /* printed page                                                             */

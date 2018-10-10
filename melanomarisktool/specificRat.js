@@ -14,6 +14,13 @@ frecklingValue["severeFreckling"]					= "5"
 
 $(function() {
 
+   $("#raceModal").on("hidden.bs.modal", function(e) {
+	  if(!isMobile())
+	     var nameAttribute = $(e.target).attr("data-caller-name")
+	     var selector = "input[name='" + nameAttribute + "']:checked"
+         $(selector).next('[role=radio][aria-checked=true]').focus();
+   })
+
 	$("[class*='pictureText']").addClass("pictureTextEnabledColor")
 
 	// When tabbing, the element is being hidden by part of the browser, so I want to move it so the user can see it.
@@ -26,10 +33,30 @@ $(function() {
 
 	// If the person is not Non-Hispanic White then dispaly a dilog and sets
 	// the value to Non-Hispanic White
-	$("input[id='notNonHispanicWhiteRadioButton']").on("change", function() {
-			disableMRATForm()
-			$("#raceModal").modal("show");
-	});
+	//$("input[id='notNonHispanicWhiteRadioButton']").on("change", function() {
+	//    if ( $(this).value == 0 )
+	//        $("#raceModal").attr("data-caller-name", $(this).prop("name"))
+	//		disableMRATForm()
+	//		$("#raceModal").modal("show");
+	//});
+
+	$("input[name='race']").on("click", function(event) {
+	    if ( this.value == 1 ) {
+	        genericResetValidator();
+	        $("#raceModal").attr("data-caller-name", $(this).prop("name"))
+	        disableMRATForm()
+
+            // When the dialog box appeared the Other Checkbox from the
+            // "What is the patient's race" the checkbox state changed
+            // from checked to not checked.  This line fixed the problem,
+            // but I am unsure why this is happening.
+	        $("#notNonHispanicWhiteRadioButton").prop("checked", true)
+	        setTimeout( function() { $("#raceModal").modal("show"); } , 500 )
+	    } else {
+            $("#riskForm").trigger("change")
+            enableMRATForm()
+	    }
+	})
 
 	$("input[id='nonHispanicWhiteRace']").on("click", enableMRATForm )
 
@@ -38,9 +65,8 @@ $(function() {
 
 	$('#riskForm').trigger('change');
 
-	// Enables the First Question only and disable the Command Button.
 	$("#okButtonRace").on("click", function() {
-    	enableQuestionAndAnswers($("#questionAndAnswers1").attr("id"))
+	    enableMRATForm();
   	})
 
 	$("termAndConditionsPge").removeClass("show")
@@ -162,6 +188,7 @@ function toggleGender(e) {
 			$('.small_mole_answer')[1].innerHTML="Seven to sixteen"
 			$('.small_mole_answer')[2].innerHTML="Seventeen or more"
 			$('#small_moles').parent().addClass("spaceBetweenQuestions")
+
 			$.each($(".female").find("input, select"), function(index, el) {
 				$(el).prop("required", false);
 				$("#riskForm").validate().element(el);
@@ -170,6 +197,7 @@ function toggleGender(e) {
 			$.each($(".male").find("input, select"), function(index, el) {
 				$(el).prop("required", true);
 			});
+
 			$(".female").removeClass('show');
 			$(".male").addClass('show');
 

@@ -2,15 +2,16 @@
 <html lang="en">
 
 <head>
-  <script src="//assets.adobedtm.com/f1bfa9f7170c81b1a9a9ecdcc6c5215ee0b03c84/satelliteLib-4b219b82c4737db0e1797b6c511cf10c802c95cb.js"></script>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <script src="//assets.adobedtm.com/f1bfa9f7170c81b1a9a9ecdcc6c5215ee0b03c84/satelliteLib-4b219b82c4737db0e1797b6c511cf10c802c95cb.js"></script>
   <!-– # Browser title/meta                           -->
   <title>Melanoma Risk Assessment Tool</title>
   <!– # Meta Description                              -->
   <meta name="description" content="An interactive tool designed by scientists at the National Cancer Institute to estimate an individual’s risk of developing melanoma." />
   <!-– # Open Graph Protocol Description - for social media like Facebook
   <meta property="og:description" content="An interactive tool designed by scientists at the National Cancer Institute to estimate a person's risk of developing melanoma." />
-  <meta property="description"    content="An interactive tool designed by scientists at the National Cancer Institute to estimate a person's risk of developing melanoma." />
+  <meta property="description"
+        content="An interactive tool designed by scientists at the National Cancer Institute to estimate a person's risk of developing melanoma." />
   <meta property="og:site_name" content="Melanoma Risk Assessment Tool" />
   <meta property="og:url" content="https://www.cancer.gov/mrisktool" />
   <!-– # For keyword search -->
@@ -18,38 +19,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
   <link href="common/css/style.css" rel="stylesheet" type="text/css">
   <link href="rat-commons/css/styles.css" rel="stylesheet" type="text/css">
   <link href="rat-commons/css/form-steps.css" rel="stylesheet" type="text/css">
-  <link href="specificRat.css" rel="stylesheet" type="text/css">
   <link href="rat-commons/css/print.css" rel="stylesheet" type="text/css">
+  <link href="specificRat.css" rel="stylesheet" type="text/css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="application/javascript"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js" type="application/javascript"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/additional-methods.js" type="application/javascript"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://d3js.org/d3.v4.min.js" type="application/javascript"></script>
-  <script src="rat-commons/js/rat.js" type="text/javascript"></script>
   <script src="specificRat.js" type="text/javascript"></script>
+  <script src="rat-commons/js/rat.js" type="text/javascript"></script>
 </head>
 
-<body>
-  <header role="banner">
-    <a id="skipContentCalculate" class="sr-only sr-only-focusable" href="#main">Skip to main content</a>
-    <a href="http://cancer.gov" target="_blank">
+<body aria-live="polite">
+  <header class="ie_center_log">
+    <a id="skipContentCalculate" tabindex="0" class="sr-only sr-only-focusable" href="#main">Skip to main content</a>
+    <a href="http://cancer.gov"  tabindex="0" target="_blank">
       <img id="logo" src="/common/images/nci-logo-full.svg" alt="go to cancer.gov">
     </a>
     <div id="toolTitle">
       <a href="index.html">Melanoma Risk Assessment Tool</a>
-      <button class="navbar-toggle collapsed" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse"
+      <button class="navbar-toggle collapsed" type="button" aria-controls="main-nav"
+              aria-expanded="false" data-toggle="collapse"
         onclick="toggle_menu()">
         <span class="sr-only">Toggle navigation</span>
-        <div class="glyphicon glyphicon-menu-hamburger"></div>
+        <div class="glyphicon glyphicon-menu-hamburger addOutlineSpaceBetween " tabindex="0" ></div>
       </button>
     </div>
     <nav class="navbar-collapse collapse" id="main-nav" aria-expanded="false">
       <ul class="nav nav-tabs">
-        <li role="presentation">
+        <li class="active" role="presentation">
           <a href="calculator.html">Risk Calculator</a>
         </li>
         <li role="presentation">
@@ -64,27 +66,28 @@
         <button class="navbar-toggle collapsed navbar-toggle_innermenu" type="button" aria-controls="main-nav" aria-expanded="false"
           data-toggle="collapse" onclick="toggle_menu()">
           <span class="sr-only">Toggle navigation</span>
-          <div class="glyphicon glyphicon-menu-hamburger"></div>
+          <div class="glyphicon glyphicon-menu-hamburger addOutlineSpaceBetween removeOutline" tabindex="0"></div>
         </button>
       </div>
       <ul class="nav nav-tabs">
-        <li role="presentation" id="Risk">
+        <li class="active calc_list_item" role="presentation" id="Risk">
           <a href="calculator.html">Risk Calculator</a>
         </li>
-        <li role="presentation" id="About">
+        <li class="calc_list_item" role="presentation" id="About">
           <a href="about.html">About the Calculator</a>
         </li>
       </ul>
     </div>
-
   </header>
 
   <div role="main">
     <div id="results" class="container-fluid">
-      <div>
-        <h1 class="makeTagInline">Personalized Results</h1>
-        <img id="printTop" src="rat-commons/images/print-icon.gif" alt="printing the page">
-        <div id="results_home">
+      <div id="results_home">
+        <div class="avoidPageBreak">
+          <h1 class="makeTagInline">Personalized Results</h1>
+          <button id="printTop" type="button" tabindex="0" class="printButton center-block text-center">
+            <img src="rat-commons/images/print-icon.gif" alt="printing the page">
+          </button>
           <div class="row">
             <div class="col-xs-12 col-md-12">
               <div class="content resultsPageContent">
@@ -108,8 +111,10 @@
           <!-- Result Box for Five Year Results                               -->
           <div id="results_box" class="row">
             <p class="results_header">5&#8212;Year Absolute Risk of Developing Melanoma</p>
+
             <div class="row vertical_alignment">
-              <div class="col-sm-12 col-md-4">
+
+              <div class="col-sm-12 col-md-4 results_graph">
                 <div id="results_graph">
                   <div class="patient_header">Patient Risk</div>
                   <div class="risk_header" id="Risk1"></div>
@@ -121,6 +126,7 @@
               </div>
             </div>
           </div>
+        </div>
 
           <!-- Show the input parameters -->
           <div id="displayInput">
@@ -140,26 +146,24 @@
           <div class="center-block">
             <div class="row" id="resultButtons">
               <div class="col-xs-12">
-                <button id="returnToCalculateButton" class="center-block text-center spacerBetweenCalculateButtonAndResetButton" type="button">Edit Responses</button>
+                <button id="returnToCalculateButton" class="center-block text-center spacerBetweenCalculateButtonAndResetButton" tabindex="0" type="button">Edit Responses</button>
               </div>
             </div>
             <div class="row">
               <div class="col-xs-12">
-                <button id="startOverButton" type="button" class="center-block text-center">Start A New Assessment</button>
+                <button id="startOverButton" tabindex="0" type="button" class="center-block text-center">Start A New Assessment</button>
               </div>
             </div>
             <div class="row">
-              <div class="col-xs-12">
-                <img id="printBottom" class="center-block text-center" src="rat-commons/images/print-icon.gif" alt="printing the page">
+                <button id="printBottom" type="button" tabindex="0" class="printButton center-block text-center">
+                  <img src="rat-commons/images/print-icon.gif" alt="printing the page">
+                </button>
               </div>
-            </div>
           </div>
 
-        </div>
       </div>
-    </div>
-  </div>
 
+    </div>
   <!-- Form Steps -- Navigation Bar containing button and links  to each -->
   <!-- section                                                           -->
   <div id="form-steps">
@@ -170,38 +174,41 @@
       <li class="active">
         <a class="hidden-xs" href="#demo-section">Demographics</a>
         <a class="step-node" href="#demo-section">1</a>
-        <span class="hidden-xs">&nbsp;</span>
+        <span class="hidden-xs" aria-hidden="true" >&nbsp;</span>
       </li>
       <span class="spacer"></span>
       <li>
-        <span class="hidden-xs">&nbsp;</span>
-        <a class="step-node" href="#skin">2</a>
-        <a class="hidden-xs" href="#skin">Skin Characteristics</a>
+        <span class="hidden-xs"  aria-hidden="true">&nbsp;</span>
+        <a class="step-node" href="#skin-section">2</a>
+        <a class="hidden-xs" href="#skin-section">Skin Characteristics</a>
       </li>
       <span class="spacer"></span>
       <li>
-        <a class="hidden-xs" href="#physical">Physical Exam</a>
-        <a class="step-node" href="#physical">3</a>
-        <span class="hidden-xs">&nbsp;</span>
+        <a class="hidden-xs" href="#physica-section">Physical Exam</a>
+        <a class="step-node" href="#physical-section">3</a>
+        <span class="hidden-xs" aria-hidden="true">&nbsp;</span>
       </li>
     </ol>
   </div>
   <div class="container-fluid" id="main">
-    <div id="errors"></div>
     <form id="riskForm" name="riskForm" method="POST" action="calculate" autocomplete="off">
+
+      <!-- ##############################################################  -->
+      <!-- Demographics                                                    -->
+      <!-- ##############################################################  -->
       <h2 id="demo" class="sectionTitle">Demographics</h2>
       <section id="demo-section">
-        <div id="questionAndAnswers1">
-          <label class="questions no-margin-top">What is the patient's race?</label>
+        <div role="radiogroup" id="questionAndAnswers1" aria-labelledby="raceQuestion">
+          <label class="questions no-margin-top" id="raceQuestion">What is the patient's race?</label>
           <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-            <input id="nonHispanicWhiteRace" type="radio" name="race" value="0" required>
-            <label class="radio" tabindex="0" for="nonHispanicWhiteRace">
-              <span></span>Non-Hispanic White</label>
+            <input id="nonHispanicWhiteRace" type="radio" name="race" value="0" required aria-label="race">
+            <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="1">
+              <span></span>Non-Hispanic White</div>
           </div>
           <div class="responseOptions">
-            <input id="notNonHispanicWhiteRadioButton" type="radio" name="race" value="1">
-            <label class="radio" tabindex="0" for="notNonHispanicWhiteRadioButton">
-              <span></span>Other</label>
+            <input id="notNonHispanicWhiteRadioButton" type="radio" name="race" tabindex="0" value="1" required aria-label="race" >
+            <div class="radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="2">
+              <span></span>Other</div>
           </div>
         </div>
         <div class="spaceBetweenQuestions">
@@ -267,219 +274,224 @@
         </div>
 
         <div class="pull-left spaceBetweenQuestions">
-
-          <div class="col-xs-12 col-sm-6 no-padding">
-            
-
-            <label class="questions">Does the patient live in the Northern, Central, or Southern United States?</label>
-
-
+          <div class="col-xs-12 col-sm-6 no-padding" role="radiogroup" aria-labelledby="location">
+            <label class="questions" id="location">Does the patient live in the Northern, Central, or Southern United States?</label>
             <p class="questions_secondary">The model on which this tool is based is valid only for residents of the continental United States. This map
               is only a guide.</p>
-
-          
-
             <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-              <input id="northern" type="radio" name="region" value="north" required>
-              <label class="radio" tabindex="0" for="northern">
-                <span> </span>Northern</label>
+              <input id="northern" type="radio" name="region" value="north" required aria-label="region">
+              <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="1">
+                <span> </span>Northern</div>
             </div>
             <div class="responseOptions">
-              <input id="central" type="radio" name="region" value="central" required>
-              <label class="radio" tabindex="0" for="central">
-                <span> </span>Central</label>
+              <input id="central" type="radio" name="region" value="central" required aria-label="region">
+              <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="2">
+                <span> </span>Central</div>
             </div>
             <div class="responseOptions">
-              <input id="south" type="radio" name="region" value="south" required>
-              <label class="radio" tabindex="0" for="south">
-                <span> </span>Southern</label>
+              <input id="south" type="radio" name="region" value="south" required aria-label="regioin">
+              <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="3">
+                <span> </span>Southern</div>
             </div>
-
           </div>
-  
-        
-
           <div class="col-xs-12 col-sm-6 no-padding">
             <img class="img-responsive show" id="map" src="rat-commons/images/us-map.png" alt="The map is divided into three distinct areas.	Northern, Southern and Central">
             <a id="state-listing" class="mapText" data-toggle="modal" data-target="#mapModal">View state listings by area.</a>
           </div>
-
         </div>
   
     
-        <div class="spaceBetweenQuestions makeTagInline">
-          <label class="questions">What is the patient's gender?</label>
+        <div class="spaceBetweenQuestions makeTagInline" role="radiogroup" aria-labelledby="gender">
+          <label class="questions" id="gender">What is the patient's gender?</label>
           <p class="questions_secondary">This tool uses gender-specific risk models; different male patients are asked
             about history of blistering sunburn and evidence of solar damage; female patients are asked about how their
             skin responds to sun exposure. </p>
           <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-            <input id="maleGender" type="radio" name="gender" value="Male" required>
-            <label class="radio" tabindex="0" for="maleGender">
-              <span></span>Male</label>
+            <input id="maleGender" type="radio" name="gender" value="Male" required aria-label="gender">
+            <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="1">
+              <span></span>Male</div>
           </div>
           <div class="responseOptions">
-            <input id="femaleGender" type="radio" name="gender" value="Female" required>
-            <label class="radio" tabindex="0" for="femaleGender">
-              <span></span>Female</label>
+            <input id="femaleGender" type="radio" name="gender" value="Female" required aria-label="gender">
+            <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="2">
+              <span></span>Female</div>
           </div>
         </div>
-
-
-
       </section>
+
+      <!-- ##############################################################  -->
+      <!-- Demographics                                                    -->
+      <!-- ##############################################################  -->
       <h2 class="sectionTitle no_display" id="skin">Skin Characteristics</h2>
       <section class="no_display" id="skin-section">
-        <div>
-          <label class="no-margin-top questions">Is the patient's complexion light, medium, or dark?</label>
+        <div role="radiogroup" aria-labelledby="complexionQuestion">
+          <label class="no-margin-top questions" id="complexionQuestion">Is the patient's complexion light, medium, or dark?</label>
           <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-            <input id="lightComplexion" type="radio" name="complexion" value="0" required>
-            <label class="radio" tabindex="0" for="lightComplexion">
-              <span></span>Light</label>
+            <input id="lightComplexion" type="radio" name="complexion" value="0" required aria-label="complexion">
+            <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="1">
+              <span></span>Light</div>
           </div>
           <div class="responseOptions">
-            <input id="mediumComplexion" type="radio" name="complexion" value="1" required>
-            <label class="radio" tabindex="0" for="mediumComplexion">
-              <span></span>Medium</label>
+            <input id="mediumComplexion" type="radio" name="complexion" value="1" required aria-label="complexion">
+            <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="2">
+              <span></span>Medium</div>
           </div>
           <div class="responseOptions">
-            <input id="darkComplexion" type="radio" name="complexion" value="2" required>
-            <label class="radio" tabindex="0" for="darkComplexion">
-              <span></span>Dark</label>
+            <input id="darkComplexion" type="radio" name="complexion" value="2" required aria-label="complexion">
+            <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="3">
+              <span></span>Dark</div>
           </div>
         </div>
-        <div class="male spaceBetweenQuestions">
-          <label class="questions">Has the patient ever gotten a blistering sunburn?</label>
+
+        <div class="male spaceBetweenQuestions" role="radiogroup" aria-labelledby="sunburnQuestion" >
+          <label class="questions" id="sunburnQuestion">Has the patient ever gotten a blistering sunburn?</label>
           <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-            <input id="sunburnYes" type="radio" name="sunburn" value="0">
-            <label class="radio" tabindex="0" for="sunburnYes">
-              <span></span>Yes</label>
+            <input id="sunburnYes" type="radio" name="sunburn" value="0" aria-label="sunburn">
+            <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="1">
+              <span></span>Yes</div>
           </div>
           <div class="responseOptions">
-            <input id="sunburnNo" type="radio" name="sunburn" value="1">
-            <label class="radio" tabindex="0" for="sunburnNo">
-              <span></span>No</label>
+            <input id="sunburnNo" type="radio" name="sunburn" value="1" aria-label="sunburn">
+            <div class="radio" tabindex="0" role="radio"  aria-checked="false" aria-setsize="2" aria-posinset="2">
+              <span></span>No</div>
           </div>
         </div>
-        <div class="female spaceBetweenQuestions">
-          <label class="questions">
+
+        <div class="female spaceBetweenQuestions" role="radiogroup" aria-labelledby="tanQuestion">
+          <label class="questions" id="tanQuestion" >
             Ask the patient: After repeated and prolonged exposure to sunlight, at the age you are now, would your skin become very brown
             and deeply tanned, moderately tanned, lightly tanned, or no tan at all?
           </label>
-          <div class="responseOptions">
-            <input id="deeplyTan" type="radio" name="tan" value="0">
-            <label class="radio" tabindex="0" for="deeplyTan">
-              <span></span>Very brown and deeply tanned</label>
+          <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
+            <input id="deeplyTan" type="radio" name="tan" value="0" aria-label="tan">
+            <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="4" aria-posinset="1">
+              <span></span>Very brown and deeply tanned</div>
           </div>
           <div class="responseOptions">
-            <input id="moderateTan" type="radio" name="tan" value="1">
-            <label class="radio" tabindex="0" for="moderateTan">
-              <span></span>Moderately tanned</label>
+            <input id="moderateTan" type="radio" name="tan" value="1" aria-label="tan">
+            <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="4" aria-posinset="2">
+              <span></span>Moderately tanned</div>
           </div>
           <div class="responseOptions">
-            <input id="lightTan" type="radio" name="tan" value="2">
-            <label class="radio" tabindex="0" for="lightTan">
-              <span></span>Lightly tanned</label>
+            <input id="lightTan" type="radio" name="tan" value="2" aria-label="tan">
+            <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="4" aria-posinset="3">
+              <span></span>Lightly tanned</div>
           </div>
           <div class="responseOptions">
-            <input id="noTan" type="radio" name="tan" value="3">
-            <label class="radio" tabindex="0" for="noTan">
-              <span></span>No tan at all</label>
+            <input id="noTan" type="radio" name="tan" value="3" aria-label="tan">
+            <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="4" aria-posinset="4">
+              <span></span>No tan at all</div>
           </div>
         </div>
       </section>
+
+      <!-- ##############################################################  -->
+      <!-- Demographics                                                    -->
+      <!-- ##############################################################  -->
       <h2 class="sectionTitle no_display" id="physical">Physical Exam</h2>
       <section class="no_display" id="physical-section">
-        <div class="male">
+
+        <div class="male" role="radiogroup" aria-labelledby="large_moles" >
           <label class="no-margin-top questions" id="large_moles">How many moles larger than 5mm in diameter are on the patient's back?</label>
           <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-            <input id="bigMole" type="radio" name="big-moles" value="0">
-            <label class="radio" tabindex="0" for="bigMole">
-              <span> </span>Fewer than two</label>
+            <input id="bigMole" type="radio" name="big-moles" value="0" aria-label="big-moles">
+            <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="1">
+              <span> </span>Fewer than two</div>
           </div>
           <div class="responseOptions">
-            <input id="manyBigMoles" type="radio" name="big-moles" value="1">
-            <label class="radio" tabindex="0" for="manyBigMoles">
-              <span></span>Two or more</label>
+            <input id="manyBigMoles" type="radio" name="big-moles" value="1" aria-label="big-moles">
+            <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="2">
+              <span></span>Two or more</div>
           </div>
         </div>
-        <div class="spaceBetweenQuestions">
+
+        <div class="spaceBetweenQuestions" role="radiogroup" aria-labelledby="small_moles">
           <label class="questions" id="small_moles">How many moles less than or equal to 5mm in diameter are on the patient's back?</label>
           <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-            <input id="smallMoleAnswerLt5" type="radio" name="small-moles" value="0" required>
-            <label for="smallMoleAnswerLt5" class="radio" tabindex="0">
+            <input id="smallMoleAnswerLt5" type="radio" name="small-moles" value="0" required aria-label="small-moles">
+            <div for="smallMoleAnswerLt5" class="radio" role="radio" tabindex="0" aria-checked="false" aria-setsize="3" aria-posinset="1">
               <span></span>
-              <div class="small_mole_answer" for="smallMoldeAnswer">Fewer than five</div>
-            </label>
+              <div class="small_mole_answer">Fewer than five</div>
+            </div>
           </div>
           <div class="responseOptions">
-            <input id="smallMoleAnswerGe5Lt11" type="radio" name="small-moles" value="1" required>
-            <label for="smallMoleAnswerGe5Lt11" class="radio" tabindex="0">
+            <input id="smallMoleAnswerGe5Lt11" type="radio" name="small-moles" value="1" required aria-label="small-moles">
+            <div for="smallMoleAnswerGe5Lt11" class="radio" role="radio" tabindex="0" aria-checked="false" aria-setsize="3" aria-posinset="2">
               <span></span>
               <div class="small_mole_answer">Five to eleven</div>
-            </label>
+            </div>
           </div>
           <div class="responseOptions">
-            <input id="smallMoleAnswerGe12" type="radio" name="small-moles" value="2" required>
-            <label for="smallMoleAnswerGe12" class="radio" tabindex="0">
+            <input id="smallMoleAnswerGe12" type="radio" name="small-moles" value="2" required aria-label="small-moles">
+            <div for="smallMoleAnswerGe12" class="radio" role="radio" tabindex="0" aria-checked="false" aria-setsize="3" aria-posinset="3">
               <span></span>
               <div class="small_mole_answer">Twelve or more</div>
-            </label>
+            </div>
           </div>
         </div>
-        <div id="newFrecklePictures" class="spaceBetweenQuestions row">
+
+        <div id="newFrecklePictures" role="radiogroup" class="spaceBetweenQuestions row" aria-labelledby="freckling">
           <label class="questions marginBetweeenQuestionAndPic col-lg-12" id="freckling">How extensive is the freckling on the patient's back and shoulders?</label>
 
-          <div class="col-lg-4 responseOptions">
-            <img id="mildFreckling" data-name="Mild Freckling" class="img-responsive" src="" alt="Example Picture of mild Freckling">
+          <div class="col-lg-4">
+            <img id="mildFreckling" data-name="Mild Freckling" class="img-responsive" src="" alt="Example Picture of mild Freckling" role="img" aria-label="Example Picture of mild Freckling">
             <p class="pictureText">
-              <a class="pictureText" href="">Enlarge</a>
+              <a class="pictureText" href="" tabindex="0">Enlarge</a>
             </p>
-            <input id="mildFrecklingAnswer" type="radio" name="freckling" value="1" required>
-            <label class="radio" tabindex="0" for="mildFrecklingAnswer">
-              <span> </span>Mild Freckling</label>
+          </div>
+          <div class="col-lg-4">
+            <img id="moderateFreckling" data-name="Moderate Freckling" class="img-responsive" src="" alt="Example Picture of moderate Freckling" role="img" aria-label="Example Picture of moderate Freckling">
+            <p class="pictureText">
+              <a class="pictureText" href="" tabindex="0">Enlarge</a>
+            </p>
+          </div>
+          <div class="col-lg-4">
+            <img id="severeFreckling" data-name="Severe Freckling" class="img-responsive" src="" alt="Example Picture of severe Freckling" role="img" aria-label="Example Picture of mild Freckling">
+            <p class="pictureText">
+              <a class="pictureText" href="" tabindex="0">Enlarge</a>
+            </p>
+          </div>
+
+          <div class="col-lg-4 responseOptions">
+            <input id="mildFrecklingAnswer" type="radio" name="freckling" value="1" required aria-label="freckling">
+            <div class="radio" role="radio" tabindex="0" aria-checked="false" aria-setsize="4" aria-posinset="1">
+              <span> </span>Mild Freckling</div>
           </div>
           <div class="col-lg-4 responseOptions">
-            <img id="moderateFreckling" data-name="Moderate Freckling" class="img-responsive" src="" alt="Example Picture of moderate Freckling">
-            <p class="pictureText">
-              <a class="pictureText" href="">Enlarge</a>
-            </p>
-            <input id="moderateFrecklingAnswer" type="radio" name="freckling" value="2" required>
-            <label class="radio" tabindex="0" for="moderateFrecklingAnswer">
-              <span> </span>Moderate Freckling</label>
+            <input id="moderateFrecklingAnswer" type="radio" name="freckling" value="2" required aria-label="freckling">
+            <div class="radio" role="radio" tabindex="0"  aria-checked="false" aria-setsize="4" aria-posinset="2">
+              <span> </span>Moderate Freckling</div>
           </div>
           <div class="col-lg-4 responseOptions">
-            <img id="severeFreckling" data-name="Severe Freckling" class="img-responsive" src="" alt="Example Picture of severe Freckling">
-            <p class="pictureText">
-              <a class="pictureText" href="">Enlarge</a>
-            </p>
-            <input id="severeFrecklingAnswer" type="radio" name="freckling" value="3" required>
-            <label class="radio" tabindex="0" for="severeFrecklingAnswer">
-              <span> </span>Severe Freckling</label>
+            <input id="severeFrecklingAnswer" type="radio" name="freckling" value="3" required aria-label="freckling" >
+            <div class="radio" role="radio" tabindex="0" for="severeFrecklingAnswer"  aria-checked="false" aria-setsize="4" aria-posinset="3">
+              <span> </span>Severe Freckling</div>
           </div>
+
           <div class="col-lg-12 responseOptions">
-            <input id="absentFrecklingAnswer" type="radio" name="freckling" value="0" required>
-            <label class="radio" tabindex="0" for="absentFrecklingAnswer">
-              <span> </span>Absent</label>
+            <input id="absentFrecklingAnswer" type="radio" name="freckling" value="0" required aria-label="freckling">
+            <div class="radio" role="radio" tabindex="0" for="absentFrecklingAnswer" aria-checked="false" aria-setsize="4" aria-posinset="4">
+              <span> </span>Absent</div>
           </div>
         </div>
-        <div id="newSolarDamage" class="male spaceBetweenQuestions row">
+
+        <div id="newSolarDamage" role="radiogroup" class="male spaceBetweenQuestions row" aria-labelledby="solar-damage">
           <label class="questions col-lg-12" for="solar-damage">Does the patient have severe solar damage on the shoulders?</label>
           <div class="col-lg-4">
-            <img id="solar-damage" class="img-responsive" data-name="Severe Solar Damage" src="rat-commons/images/solar-damage-enlarge.jpg"
-              alt="male with sunburn">
+            <img id="solar-damage" class="img-responsive" data-name="Severe Solar Damage" src="rat-commons/images/solar-damage-enlarge.jpg" alt="male with sunburn" role="img" aria-label="Example of servere solar damage">
             <p class="clearBottomMargin">
-              <a class="pictureText" href="">Enlarge</a>
+              <a class="pictureText" href="" tabindex="0">Enlarge</a>
             </p>
           </div>
           <div class="col-lg-12 responseOptions spaceBetweenFirstQuestionAndResponse">
-            <input id="yesDamage" type="radio" name="damage" value="0" required>
-            <label for="yesDamage" class="radio" tabindex="0">
-              <span></span>Yes</label>
+            <input id="yesDamage" type="radio" name="damage" value="0" required aria-label="damage">
+            <div for="yesDamage" class="radio" role="radio" tabindex="0" aria-checked="false" aria-setsize="2" aria-posinset="1">
+              <span></span>Yes</div>
           </div>
           <div class="col-lg-12 responseOptions">
-            <input id="noDamage" type="radio" name="damage" value="1" required>
-            <label for="noDamage" class="radio" tabindex="0">
-              <span></span>No</label>
+            <input id="noDamage" type="radio" name="damage" value="1" required aria-label="damage">
+            <div for="noDamage" class="radio" role="radio" tabindex="0" aria-checked="false" aria-setsize="2" aria-posinset="2">
+              <span></span>No</div>
           </div>
         </div>
       </section>
@@ -495,19 +507,19 @@
 
     </form>
     </div>
-
+  </div>
   <div id="footer" class="footer" role="contentinfo"></div>
 
   <!-- Modal Alert this person that tools is used for non-hispanic whites  -->
-  <div class="modal eligibility-dialog fade removeOutline" id="raceModal" tabindex="-1" role="dialog" data-backdrop="false">
+  <div class="modal eligibility-dialog fade removeOutline" id="raceModal" tabindex="-1" role="dialog" data-caller-name="" data-backdrop="false">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-body">
           <div class="container col-sm-12 dialog_text_content">
-            <div class col-sm-12>
+            <div class="col-sm-12">
               <div class="row">
                 <div class="col-sm-2">
-                  <img class="imgsize center-block" src="rat-commons/images/stop.png" alt-icon alt="Stop Picture">
+                  <img class="imgsize center-block" src="rat-commons/images/stop.png" alt-icon alt="Stop Picture" role="img" aria-label="Image to visually show the patient an example of the answer">
                 </div>
                 <div class="col-sm-10">
                   <p>Data on non-whites is sparse. As a result, this tool can only accurately calculate melanoma risk
@@ -553,7 +565,7 @@
   </div>
 
 
-  <!-- Modal Alert this person that tools is used for non-hispanic whites  -->
+  <!-- Modal Alert used when the image is enlarged -->
   <div class="modal eligibility-dialog fade removeOutline" id="pictureModal" tabindex="-1" role="dialog" data-backdrop="false"
     style="z-index:999">
     <div class="modal-dialog" role="document">
@@ -566,7 +578,7 @@
         </div>
         <div class="modal-body">
           <div class="dialog_text_content dialog-image-div">
-            <img id="image" class="img-responsive" alt="freckling picture">
+            <img id="image" class="img-responsive" alt="freckling picture"  role="img" aria-label="Image to visually show the patient an example of the answer">
           </div>
         </div>
       </div>
