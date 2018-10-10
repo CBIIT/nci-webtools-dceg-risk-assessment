@@ -7,6 +7,7 @@
 
 $(function() {
 
+
    $("#raceModal").on("hidden.bs.modal", function(e) {
 	  if(!isMobile())
 	     var nameAttribute = $(e.target).attr("data-caller-name")
@@ -860,3 +861,8 @@ function disablePeriodSection() {
     removeErrorMessage({target: $("#last_period")})
     removeErrorMessage({target: $("#hormoneYes")})
 }
+
+function specificRatFooterInitialization() {
+   $("#contactLink").prop("href", "https://www.cancer.gov/colorectalcancerrisk/")
+}
+
