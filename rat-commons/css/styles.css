@@ -417,6 +417,8 @@ a.btn:disabled {
 
 .okButton:focus {
     outline: none;
+    color:white;
+    background-color: #2c8eaa;
 }
 
 #startOverButton {
