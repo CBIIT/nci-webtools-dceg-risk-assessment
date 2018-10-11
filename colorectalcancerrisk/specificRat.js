@@ -168,7 +168,6 @@ function setHispanicQuestionToNo() {
 /* A function that will set the correct race for the #raceValue and correct callback for the OK Button */
 function configureRaceDialog( race, callbackForClickOkButton, nameAttributeValue ) {
 
-    console.log("Entering the configureRaceDialog ---")
     var msg = "";
     var attributeNameValue = ""
     if ( race === "hispanic" ) {
@@ -366,20 +365,13 @@ function enableCRATGenericForm() {
 function disableRaceQuestion() {
     disableRadioButtonGroupQuestion("#race")
     $("#hispanicYes").prop("checked", true)
-
 }
 
 /* Enables the race question and its answers */
 function enableRaceQuestion() {
     enableRadioButtonGroupQuestion("#race")
     $("#hispanicNo").prop("checked", true)
-
 }
-
-// Clears the Yes answer to the question "Is the patient Hispanic or Latino?"
-//function clearAnswerToHispanicYes() {
-//  $("#hispanicYes").prop("checked", false)
-//}
 
 // Standard Routine to disable a select box in the GUI
 function disableSelectBox(element) {
