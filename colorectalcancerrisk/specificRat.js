@@ -167,6 +167,8 @@ function setHispanicQuestionToNo() {
 
 /* A function that will set the correct race for the #raceValue and correct callback for the OK Button */
 function configureRaceDialog( race, callbackForClickOkButton, nameAttributeValue ) {
+
+    console.log("Entering the configureRaceDialog ---")
     var msg = "";
     var attributeNameValue = ""
     if ( race === "hispanic" ) {
@@ -185,6 +187,8 @@ function configureRaceDialog( race, callbackForClickOkButton, nameAttributeValue
 
     $("#raceModal").attr("data-caller-name", nameAttributeValue)
     $("#raceModalParagraph1").html(msg);
+
+    $("#raceOkButton").off("click")
     $("#raceOkButton").on("click",  callbackForClickOkButton)
     disableCRATForm();
     setTimeout( function() { $("#raceModal").modal("show"); } , 500 )
@@ -282,7 +286,8 @@ function enableCRATFormWithRaceDisabled() {
 
 function enableCRATForm() {
     enableCRATGenericForm()
-    if ( $("[name='hispanic']").prop("value") != "0" )
+    var result =  $("[name='hispanic']:checked").prop("value")
+    if ( result == "0"  )
         disableRaceQuestion()
     else {
         enableRaceQuestion()
@@ -352,12 +357,6 @@ function enableCRATGenericForm() {
 
     }
 
-    // If the race is not hispnaic then make sure that the No for the question :
-    // "Is the patient Hispanic or Latino is marked as No".  Since when user causes
-    // the dialog to appear for race the answer to the answer to the
-    // "Is the patient Hispanic" or Latino question will disappear
-    if ( $("[name='race']:checked") != "" ) setHispanicQuestionToNo()
-
     disableFields(false)
 
 }
@@ -367,18 +366,20 @@ function enableCRATGenericForm() {
 function disableRaceQuestion() {
     disableRadioButtonGroupQuestion("#race")
     $("#hispanicYes").prop("checked", true)
+
 }
 
 /* Enables the race question and its answers */
 function enableRaceQuestion() {
     enableRadioButtonGroupQuestion("#race")
-    $("#hispanicYes").prop("checked", false)
+    $("#hispanicNo").prop("checked", true)
+
 }
 
 // Clears the Yes answer to the question "Is the patient Hispanic or Latino?"
-function clearAnswerToHispanicYes() {
-  $("#hispanicYes").prop("checked", false)
-}
+//function clearAnswerToHispanicYes() {
+//  $("#hispanicYes").prop("checked", false)
+//}
 
 // Standard Routine to disable a select box in the GUI
 function disableSelectBox(element) {
