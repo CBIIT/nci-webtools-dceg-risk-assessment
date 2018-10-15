@@ -179,13 +179,13 @@
       <span class="spacer"></span>
       <li>
         <span class="hidden-xs"  aria-hidden="true">&nbsp;</span>
-        <a class="step-node" href="#skin-section">2</a>
-        <a class="hidden-xs" href="#skin-section">Skin Characteristics</a>
+        <a class="step-node" href="">2</a>
+        <a class="hidden-xs" href="">Skin Characteristics</a>
       </li>
       <span class="spacer"></span>
       <li>
-        <a class="hidden-xs" href="#physica-section">Physical Exam</a>
-        <a class="step-node" href="#physical-section">3</a>
+        <a class="hidden-xs" href="">Physical Exam</a>
+        <a class="step-node" href="">3</a>
         <span class="hidden-xs" aria-hidden="true">&nbsp;</span>
       </li>
     </ol>
@@ -296,7 +296,7 @@
           </div>
           <div class="col-xs-12 col-sm-6 no-padding">
             <img class="img-responsive show" id="map" src="rat-commons/images/us-map.png" alt="The map is divided into three distinct areas.	Northern, Southern and Central">
-            <a id="state-listing" class="mapText" data-toggle="modal" data-target="#mapModal">View state listings by area.</a>
+            <a id="state-listing" class="mapText" data-toggle="modal" tabindex="0" data-target="#mapModal">View state listings by area.</a>
           </div>
         </div>
   
@@ -320,7 +320,7 @@
       </section>
 
       <!-- ##############################################################  -->
-      <!-- Demographics                                                    -->
+      <!-- Skin                                                            -->
       <!-- ##############################################################  -->
       <h2 class="sectionTitle no_display" id="skin">Skin Characteristics</h2>
       <section class="no_display" id="skin-section">
@@ -386,7 +386,7 @@
       </section>
 
       <!-- ##############################################################  -->
-      <!-- Demographics                                                    -->
+      <!-- Physical                                                        -->
       <!-- ##############################################################  -->
       <h2 class="sectionTitle no_display" id="physical">Physical Exam</h2>
       <section class="no_display" id="physical-section">
@@ -464,13 +464,13 @@
           </div>
           <div class="col-lg-4 responseOptions">
             <input id="severeFrecklingAnswer" type="radio" name="freckling" value="3" required aria-label="freckling" >
-            <div class="radio" role="radio" tabindex="-1" for="severeFrecklingAnswer"  aria-checked="false" aria-setsize="4" aria-posinset="3">
+            <div class="radio" role="radio" tabindex="-1" aria-checked="false" aria-setsize="4" aria-posinset="3">
               <span> </span>Severe Freckling</div>
           </div>
 
           <div class="col-lg-12 responseOptions">
             <input id="absentFrecklingAnswer" type="radio" name="freckling" value="0" required aria-label="freckling">
-            <div class="radio" role="radio" tabindex="-1" for="absentFrecklingAnswer" aria-checked="false" aria-setsize="4" aria-posinset="4">
+            <div class="radio" role="radio" tabindex="-1" aria-checked="false" aria-setsize="4" aria-posinset="4">
               <span> </span>Absent</div>
           </div>
         </div>
@@ -485,12 +485,12 @@
           </div>
           <div class="col-lg-12 responseOptions spaceBetweenFirstQuestionAndResponse">
             <input id="yesDamage" type="radio" name="damage" value="0" required aria-label="damage">
-            <div for="yesDamage" class="radio" role="radio" tabindex="0" aria-checked="false" aria-setsize="2" aria-posinset="1">
+            <div class="radio" role="radio" tabindex="0" aria-checked="false" aria-setsize="2" aria-posinset="1">
               <span></span>Yes</div>
           </div>
           <div class="col-lg-12 responseOptions">
             <input id="noDamage" type="radio" name="damage" value="1" required aria-label="damage">
-            <div for="noDamage" class="radio" role="radio" tabindex="-1" aria-checked="false" aria-setsize="2" aria-posinset="2">
+            <div class="radio" role="radio" tabindex="-1" aria-checked="false" aria-setsize="2" aria-posinset="2">
               <span></span>No</div>
           </div>
         </div>

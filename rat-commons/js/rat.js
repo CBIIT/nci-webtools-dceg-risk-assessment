@@ -299,6 +299,9 @@ function gotoSection(event) {
 	var sectionName = undefined
 	var scrollFor = undefined
 
+    //if ( $(event.target).parent().hasClass("active") )
+    //    return;
+
 	if ( ignoreIfOneSectionIsVisible() ) {
 
 		// The purpose of this code is to handle the situation where there is only a signle section being dispalyed.  An exmaple
@@ -1420,7 +1423,7 @@ function handleKeyDownRadioGroup(event){
   }
   
   var firstRadioButton = function(node) {
-	  return $(node).parent().parent().children('div:first').find('[role=radio]');
+	  return $(node).parent().parent().children('div.responseOptions:first').find('[role=radio]');
   }
   
   var lastRadioButton = function(node) {

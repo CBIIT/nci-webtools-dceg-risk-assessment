@@ -27,7 +27,9 @@ $(function() {
 	$("#melanomaRisk").on("focusin", function() { moveElementIfCloseToBottom("#melanomaRisk") })
 	$("#preventMelanoma").on("focusin", function() { moveElementIfCloseToBottom("#preventMelanoma") })
 
-
+    $("input[name='gender']").on("change", formStepsSection508)
+    $("input[name='gender']").on("change", enableSkinSection);
+    $("input[name='gender']").on("change", enablePhysicalSection);
 	$("input[name='gender']").on("change", toggleGender);
 	$("input[name='gender']").on("change", calcSizesOfSections);
 
@@ -111,7 +113,8 @@ $(function() {
 		disableMRATForm()
 		$("#pictureModal img").removeClass("image_disabled")
 		$("#pictureModal #text").removeClass("pictureTextDisabledColor")
-		$("#pictureModal").modal("show");
+        setTimeout( function() { $("#pictureModal").modal("show"); } , 500 )
+
 	});
 
 	// When the dialog box showing the image is selected this function will
@@ -119,6 +122,17 @@ $(function() {
   $("#pictureModal .close").on("click", function() {
 		enableMRATForm()
 	});
+
+	// The starting state for all the controls in the Skin and Physical Section
+	// should be disabled since they are not seen when the application first
+	// appears
+	$("#skin-section").each(function(index,el) {
+	    disableRadioGroupSection508(el)
+	})
+
+	$("#physical-section").each(function(index,el) {
+	    disableRadioGroupSection508(el)
+	})
 
 });
 
@@ -182,6 +196,7 @@ function toggleGender(e) {
 	$("#skin").removeClass("no_display")
 	$("#physical-section").removeClass("no_display")
 	$("#physical").removeClass("no_display")
+
 	switch (value) {
 		case "Male":
 			$('.small_mole_answer')[0].innerHTML="Fewer than seven"
@@ -189,13 +204,18 @@ function toggleGender(e) {
 			$('.small_mole_answer')[2].innerHTML="Seventeen or more"
 			$('#small_moles').parent().addClass("spaceBetweenQuestions")
 
-			$.each($(".female").find("input, select"), function(index, el) {
-				$(el).prop("required", false);
-				$("#riskForm").validate().element(el);
+			//$.each($(".female").find("input, select"), function(index, el) {
+			//	$(el).prop("required", false);
+			//	$("#riskForm").validate().element(el);
+            //});
+
+			$.each($(".female"), function(index, el) {
+				 disableRadioGroupSection508(el)
 			});
 
-			$.each($(".male").find("input, select"), function(index, el) {
-				$(el).prop("required", true);
+
+			$.each($(".male"), function(index, el) {
+			    enableRadioGroupSection508(el)
 			});
 
 			$(".female").removeClass('show');
@@ -211,13 +231,12 @@ function toggleGender(e) {
 			$('.small_mole_answer')[2].innerHTML="Twelve or more"
             $('#small_moles').parent().removeClass("spaceBetweenQuestions")
 
-			$.each($(".male").find("input, select"), function(index, el) {
-				$(el).prop("required", false);
-				$("#riskForm").validate().element(el);
+			$.each($(".male"), function(index, el) {
+                disableRadioGroupSection508(el)
 			});
 
-			$.each($(".female").find("input, select"), function(index, el) {
-				$(el).prop("required", true);
+			$.each($(".female"), function(index, el) {
+			    enableRadioGroupSection508(el)
 			});
 
 			$("#mildFreckling").attr("src","rat-commons/images/few-freckling-female.jpg")
@@ -235,6 +254,14 @@ function toggleGender(e) {
 			$("#mildFreckling").attr("src","")
 			$("#moderateFreckling").attr("src","")
 			$("#severeFreckling").attr("src","")
+
+            $.each($(".male"), function(index, el) {
+                disableRadioGroupSection508(el)
+            });
+
+            $.each($(".female"), function(index, el) {
+                enableRadioGroupSection508(el)
+            });
 
 			break;
 	}
@@ -358,3 +385,84 @@ function resetForm() {
 	function ratSpecificAnswer(element) {
 		return $("[name='damage']:checked").next().text()
 	}
+
+	/*
+	 * A set of functions for setting the enable and disable of the HTML Elements
+	 */
+	function disableRadioGroupSection508(startingDiv) {
+	    $(startingDiv).find("input").prop("disabled", true)
+        $(startingDiv).find("input").removeProp("required")
+
+	    $(startingDiv).find("[role=radio]").attr("tabindex","-1")
+
+        $(startingDiv).find(".questions").attr("aria-disabled", true)
+        $(startingDiv).find("input").attr("aria-disabled", true)
+        $(startingDiv).find(".questions_secondary").attr("aria-disabled", true)
+        $(startingDiv).find("[role='radio']").attr("aria-disabled",true);
+	}
+
+	function enableRadioGroupSection508(startingDiv) {
+        $(startingDiv).find("input").prop("disabled", false)
+        $(startingDiv).find("input").prop("required", true)
+
+        if ( $(startingDiv).find("[role=radio][aria-checked=true]").length > 0) {
+            $(startingDiv).find("[role=radio][aria-checked=true]").attr("tabindex","0");
+        } else {
+            $(startingDiv).find("[role='radio']:first").attr("tabindex","0");
+        }
+
+        $(startingDiv).find(".questions").attr("aria-disabled", false)
+        $(startingDiv).find("input").attr("aria-disabled", false)
+        $(startingDiv).find(".questions_secondary").attr("aria-disabled", false)
+        $(startingDiv).find("[role='radio']").attr("aria-disabled", false);
+   	}
+
+    function enableSelectBoxSection508(element) {
+        $(startingDiv).find("select").prop("disabled", false)
+        $(startingDiv).find("select").prop("required", true)
+
+        $(startingDiv).find(".questions").attr("aria-disabled", false)
+        $(startingDiv).find(".questions_secondary").attr("aria-disabled",false);
+        $(startingDiv).find("select").attr("aria-disabled", false);
+    }
+
+    function disableSelectBoxSection508(element) {
+        $(startingDiv).find("select").prop("disabled", true)
+        $(startingDiv).find("select").prop("required", false)
+
+        $(startingDiv).find(".questions").attr("aria-disabled", true)
+        $(startingDiv).find(".questions_secondary").attr("aria-disabled",true);
+        $(startingDiv).find("select").attr("aria-disabled", true);
+
+    }
+
+    // Problem from we got the following issue : The skip-link target should exist and be focusable
+    // This was caused by using #references
+    // Solution : include the # references only when male or female has been selected.
+    function formStepsSection508() {
+        $("#form-steps ol li:nth(1) a").prop("href", "#skin-section")
+        $("#form-steps ol li:nth(2) a").prop("href", "#physical-section")
+    }
+
+   /*******/
+
+  function enableSkinSection() {
+    enableSection("#skin-section")
+  }
+
+  function enablePhysicalSection() {
+    enableSection("#physical-section")
+  }
+
+   // Enables all the Radio Groups for the Skin and Physical Section
+   function enableSection(sectionName) {
+        $(sectionName).children().not(".male, .female").each(function(index,el) {
+            enableRadioGroupSection508(el)
+        })
+   }
+
+    // (t) The div contains a radio group
+    // Each Question will conatain 1 type of answer ( radio group or select )
+    //function containsRaidoGroup(startingDiv) {
+    //    if ( $(startDiv))
+    //}
