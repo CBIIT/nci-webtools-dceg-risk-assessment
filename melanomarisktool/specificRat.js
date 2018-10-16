@@ -21,6 +21,20 @@ $(function() {
          $(selector).next('[role=radio][aria-checked=true]').focus();
    })
 
+    $('#pictureModal').on('hidden.bs.modal', function (e) {
+        enableMRATForm()
+
+        var nameAttribute = $(e.target).attr("data-caller-name")
+
+        if ( isMobile() || nameAttribute === undefined) {
+            return;
+        } else {
+            var selector = "#" + nameAttribute
+            $(selector).next("div").focus();
+            $(selector).next("div").addClass("addOutline")
+        }
+    })
+
 	$("[class*='pictureText']").addClass("pictureTextEnabledColor")
 
 	// When tabbing, the element is being hidden by part of the browser, so I want to move it so the user can see it.
@@ -33,20 +47,13 @@ $(function() {
 	$("input[name='gender']").on("change", toggleGender);
 	$("input[name='gender']").on("change", calcSizesOfSections);
 
-	// If the person is not Non-Hispanic White then dispaly a dilog and sets
-	// the value to Non-Hispanic White
-	//$("input[id='notNonHispanicWhiteRadioButton']").on("change", function() {
-	//    if ( $(this).value == 0 )
-	//        $("#raceModal").attr("data-caller-name", $(this).prop("name"))
-	//		disableMRATForm()
-	//		$("#raceModal").modal("show");
-	//});
-
 	$("input[name='race']").on("click", function(event) {
 	    if ( this.value == 1 ) {
 	        genericResetValidator();
 	        $("#raceModal").attr("data-caller-name", $(this).prop("name"))
 	        disableMRATForm()
+
+	        event.stopPropagation();
 
             // When the dialog box appeared the Other Checkbox from the
             // "What is the patient's race" the checkbox state changed
@@ -72,17 +79,6 @@ $(function() {
   	})
 
 	$("termAndConditionsPge").removeClass("show")
-
-	// for the image for the "How extensive is the freckling on the patient's
-	// back and shoulders?" when clicked the border should be visible to show
-	// that it was selected and the select box should be set to the correct
-	// option.
-	$("[id^=freckleClick]").on("click",
-		function(event) {
-			var index = frecklingValue[ $(event.target).parent().siblings("img").first().attr("id") ]
-			borderAroundPicture($("#freckling").parent().next().find("img"), index )
-			selectionBasedOnImageSelect("freckling",  index )
-	})
 
 	// When the image is clicked then delegate the event to the correct "Click to
 	// Select Button"
@@ -117,11 +113,31 @@ $(function() {
 
 	});
 
-	// When the dialog box showing the image is selected this function will
-	// enable the form.
-  $("#pictureModal .close").on("click", function() {
-		enableMRATForm()
-	});
+    // Shows the image when the enter is pressed on a selected answer
+	$("#newSolarDamage .radio, #newFrecklePictures .radio").not(":first").on("keypress", function(event) {
+	    if ( event.which == 13 ) {
+
+	    	// Going to the URL will be prevented
+        	event.preventDefault();
+
+        	//Display the dialog
+        	var picture = $(this).parent().prev().children("img")
+        	$("#pictureModal #image").prop("src", $(picture).prop("src"))
+        	$("#pictureModal #text").text($(picture).attr("data-name"))
+
+            disableMRATForm()
+            $("#pictureModal img").removeClass("image_disabled")
+            $("#pictureModal #text").removeClass("pictureTextDisabledColor")
+            $("#pictureModal").attr("data-caller-name", $(this).prev().prop("id"))
+            setTimeout( function() { $("#pictureModal").modal("show"); } , 500 )
+	    }
+	})
+
+	// Move the answer abou freckles into view, so the user can see the answer
+	$("#newFrecklePictures .radio").on("focus", function(event) {
+	    handleFocusRadioGroupForFreckle(event)
+	})
+
 
 	// The starting state for all the controls in the Skin and Physical Section
 	// should be disabled since they are not seen when the application first
@@ -224,6 +240,9 @@ function toggleGender(e) {
 			$("#mildFreckling").attr("src","rat-commons/images/mild-freckling-enlarge.jpg")
 			$("#moderateFreckling").attr("src","rat-commons/images/moderate-freckling-enlarge.jpg")
 			$("#severeFreckling").attr("src","rat-commons/images/severe-freckling-enlarge.jpg")
+
+			registerFreckleCustomRadioAccess()
+
 			break;
 		case "Female":
 			$('.small_mole_answer')[0].innerHTML="Fewer than five"
@@ -245,6 +264,8 @@ function toggleGender(e) {
 
 			$(".male").removeClass('show');
 			$(".female").addClass('show');
+
+			registerFreckleCustomRadioAccess()
 			break;
 		default:
 			$.each($(".male, .female").find("input, select"), function(index, el) {
@@ -461,8 +482,146 @@ function resetForm() {
         })
    }
 
-    // (t) The div contains a radio group
-    // Each Question will conatain 1 type of answer ( radio group or select )
-    //function containsRaidoGroup(startingDiv) {
-    //    if ( $(startDiv))
-    //}
+////////////////////////////////////////////////////////////////////////////////////////////////
+// handleKeyDown originally came from rat.js however, the algorithm is not working for the    //
+// freckling section ("Question : How extensive is the freckling on the patient's back and    //
+// shoulders?")                                                                               //
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+var KEYCODE = {
+    DOWN: 40,
+    LEFT: 37,
+    RIGHT: 39,
+    SPACE: 32,
+    UP: 38,
+	TAB: 9
+}
+
+
+
+function registerFreckleCustomRadioAccess() {
+	$("#newFrecklePictures [role=radio]").each(function(){
+
+		$(this).unbind('keydown',      handleKeyDownRadioGroup)
+		$(this).unbind('mousedown',    handleKeyDownRadioGroup)
+		$(this).unbind('focus',        handleFocusRadioGroup)
+
+	    $(this).on('keydown',   handleKeyDownRadioGroupForFreckle);
+        $(this).on('mousedown', handleKeyDownRadioGroupForFreckle);
+        //$(this).on('focus',     handleFocusRadioGroupForFreckle);
+	});
+}
+
+function scrollIntoView(event) {
+  	var element = $(event.currentTarget);
+  	var radioGroup = $(element).parent().prev()
+  	var radioGroupSize = $(radioGroup).height()/2;
+  	var heightPos = Math.max(
+  	  (radioGroup.offset().top - $('#form-steps').outerHeight())-radioGroupSize,0);
+  	$('html, body').scrollTop(heightPos);
+  }
+
+function handleFocusRadioGroupForFreckle(event) {
+    var mouseEvent = $(this).data("radioMouseEvent");
+    $(this).removeData("radioMouseEvent");
+	if(isMobile() || mouseEvent || $(event.currentTarget).parent().parent().isInViewport() ) return;
+
+	var element = $(event.currentTarget);
+	var radioGroup = $(element).parent().parent();
+	var radioGroupSize = $(radioGroup).height()/2;
+	var heightPos = Math.max(
+	  (radioGroup.offset().top - $('#form-steps').outerHeight())-radioGroupSize,0);
+	$('html, body').scrollTop(heightPos);
+
+}
+
+
+
+function handleKeyDownRadioGroupForFreckle(event){
+  var type = event.type;
+  var next = false;
+
+  var isDisabled = $(event.currentTarget).prev('input:radio').prop('disabled');
+
+  if(isDisabled) {
+    return true;
+  }
+
+  var setRadioButton = function(node,state,focus) {
+
+	  if (state) {
+		$(node).attr('aria-checked', 'true');
+		$(node).attr('tabIndex','0');
+		$(node).prev('input:radio').trigger('click');
+		if(focus) $(node).focus();
+	  }
+	  else {
+		$(node).attr('aria-checked', 'false');
+		$(node).attr('tabIndex','-1');
+	  }
+  }
+
+  var nextRadioButton = function(node) {
+	  return $(node).parent().next('div').next('div').find('[role=radio]');
+  }
+
+  var previousRadioButton = function(node) {
+	  return $(node).parent().prev('div').prev('div').find('[role=radio]');
+  }
+
+  var firstRadioButton = function(node) {
+	  return $(node).parent().parent().children('div.responseOptions:first').find('[role=radio]');
+  }
+
+  var lastRadioButton = function(node) {
+	  return $(node).parent().parent().children('div:last').find('[role=radio]');
+  }
+
+  if(type === "keydown") {
+    var node = event.currentTarget;
+    var key = event.which || event.keyCode || 0;
+    switch (key) {
+      case KEYCODE.DOWN:
+      case KEYCODE.RIGHT:
+        var next = nextRadioButton(node);
+		if ($(next).length === 0) {
+		    next = firstRadioButton(node);
+		    event.currentTarget = next;
+		}
+		break;
+
+      case KEYCODE.UP:
+      case KEYCODE.LEFT:
+        next = previousRadioButton(node);
+        if ($(next).length === 0) {
+            next = lastRadioButton(node);
+            event.currentTarget = next;
+        }
+        break;
+
+      case KEYCODE.SPACE:
+        next = node;
+        break;
+    }
+
+    if ($(next).length > 0) {
+	  $(node).parent().parent().children('div').find('[role=radio]').each(function(){
+		  setRadioButton($(this),false);
+	  });
+      event.preventDefault();
+	  event.stopPropagation();
+	  setRadioButton(next,true,true);
+	  scrollIntoView(event)
+	}
+  } else if (type === "mousedown") {
+	  var node = event.currentTarget;
+	  $(node).parent().parent().children('div').find('[role=radio]').each(function(){
+		  setRadioButton($(this),false);
+	  });
+	  $(this).data("radioMouseEvent",true);
+      setRadioButton(node,true,true);
+  }
+
+///// End Section
+
+}

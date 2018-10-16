@@ -69,16 +69,14 @@
   margin-top: 2em;
 }
 
-/* At some breakpints ( ex. min-wdith :768px ) the image is becoming too big  */
-/* The Venddor for chrome has the width set to 600 at that breakpoint, so I   */
-/* am putting the value for the width and the height that specified in the    */
-/* specification                                                              */
-/*#pictureModal {
-  width: 494px;
-  height: 550px;
-  margin-left: auto;
-  margin-right: auto;
-} */
+#newFrecklePictures > label,
+#newSolarDamage > label {
+    padding-left: 0;
+}
+
+.frecklePicture {
+    margin-top: 2em;
+}
 
 /* Used to center the three pictures propertly */
   [for='damage'] + div > div:nth-child(2), [for='freckling'] + div + div {
@@ -94,9 +92,10 @@
 }
 
 /* Changing the Response Options Style to match the spec                      */
-#solarDamage div[class*='responseOptions'] {
-  margin-left: 0em; 
+#newSolarDamage div[class*='responseOptions'] {
+  /* margin-left: 0em; */
   /* margin-top: 10px; */
+  padding-left: 0px;
 }
 
 /* Remove the space so we can add the margin to the picture css rule instead */
@@ -107,6 +106,7 @@
 
 #newFrecklePictures div.responseOptions {
   white-space: nowrap;
+  padding-left: 0;
 }
 
 #newFrecklePictures > div:nth-child(2) > label > span,
@@ -127,49 +127,6 @@
   margin-bottom: 30px;
 }
 
-@media ( min-width: 1200px ) {
-
-  /* For a small amount of pixels about 50, the Moderate Frecking string went */
-  /* populating one line to populating two line which HTML Elements to be     */
-  /* pushed farther down then the other two columns.   The fix was two        */
-  /* modify the margins, enough so that the text on line and the nohting      */
-  /* else changes                                                             */
-
-  /* #frecklePictures {
-    margin-left: 0px;
-    margin-right: 0px;
-  }
-
-  #frecklePictures > div:nth-child(1) {
-    padding-left: 0px;
-  }
-
-  #frecklePictures > div:nth-child(2) {
-    padding-left: 7px;
-    padding-right: 8px;
-  }
-
-  #frecklePictures > div:nth-child(3) {
-    padding-right: 0px;
-  }
-
-  #frecklePictures > div:last-child {
-    padding-left: 0px;
-  }
-
-  #frecklePictures input[type='radio'] + label.radio span {
-    margin-right: 0px;
-  }
-
-  */
-
-  #newFrecklePictures div.responseOptions,
-  #newSolarDamage div.responseOptions
-   {
-    margin-left: 0px;
-  }
-}
-
 @media ( max-width: 1199px) {
 
   /* #frecklePictures > div:nth-child(1),
@@ -180,11 +137,6 @@
   #frecklePictures > div:nth-child(3) {
     margin-bottom: 1.0em;
   } */
-
-  #newFrecklePictures  div:nth-child(3),
-  #newFrecklePictures  div:nth-child(4) {
-    margin-top: 2em;
-  }
 
   #mildFreckling,
   #moderateFreckling,
@@ -249,5 +201,15 @@
 @media ( max-width: 480px ) {
   [for='damage'] +  div {
     margin-left: 0em;
+  }
+
+  #newFrecklePictures div[class*='responseOptions'] {
+    padding-left: 15px;
+    margin-top: 0px;
+  }
+
+  /* Changing the Response Options Style to match the spec                      */
+  #newSolarDamage div[class*='responseOptions'] {
+    padding-left: 15px;
   }
 }

@@ -280,10 +280,9 @@
     .result_page_anchor,
     #buttonsArea,
     #footer,
-    .center-block,
-    div[id^='results_box']
+    .center-block
     {
-        display:none;
+        display:none !important;
     }
 
 }

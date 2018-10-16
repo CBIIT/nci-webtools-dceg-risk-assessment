@@ -430,57 +430,61 @@
           </div>
         </div>
 
-        <div id="newFrecklePictures" role="radiogroup" class="spaceBetweenQuestions row" aria-labelledby="freckling">
+
+        <div id="newFrecklePictures" role="radiogroup" class="spaceBetweenQuestions clearfix" aria-labelledby="freckling">
           <label class="questions marginBetweeenQuestionAndPic col-lg-12" id="freckling">How extensive is the freckling on the patient's back and shoulders?</label>
-
-          <div class="col-lg-4">
-            <img id="mildFreckling" data-name="Mild Freckling" class="img-responsive" src="" alt="Example Picture of mild Freckling">
-            <p class="pictureText">
-              <a class="pictureText" href="" tabindex="0">Enlarge</a>
-            </p>
-          </div>
-          <div class="col-lg-4">
-            <img id="moderateFreckling" data-name="Moderate Freckling" class="img-responsive" src="" alt="Example Picture of moderate Freckling" >
-            <p class="pictureText">
-              <a class="pictureText" href="" tabindex="0">Enlarge</a>
-            </p>
-          </div>
-          <div class="col-lg-4">
-            <img id="severeFreckling" data-name="Severe Freckling" class="img-responsive" src="" alt="Example Picture of severe Freckling" >
-            <p class="pictureText">
-              <a class="pictureText" href="" tabindex="0">Enlarge</a>
-            </p>
-          </div>
-
-          <div class="col-lg-4 responseOptions">
-            <input id="mildFrecklingAnswer" type="radio" name="freckling" value="1" required aria-label="freckling">
-            <div class="radio" role="radio" tabindex="0" aria-checked="false" aria-setsize="4" aria-posinset="1">
-              <span> </span>Mild Freckling</div>
-          </div>
-          <div class="col-lg-4 responseOptions">
-            <input id="moderateFrecklingAnswer" type="radio" name="freckling" value="2" required aria-label="freckling">
-            <div class="radio" role="radio" tabindex="-1"  aria-checked="false" aria-setsize="4" aria-posinset="2">
-              <span> </span>Moderate Freckling</div>
-          </div>
-          <div class="col-lg-4 responseOptions">
-            <input id="severeFrecklingAnswer" type="radio" name="freckling" value="3" required aria-label="freckling" >
-            <div class="radio" role="radio" tabindex="-1" aria-checked="false" aria-setsize="4" aria-posinset="3">
-              <span> </span>Severe Freckling</div>
-          </div>
 
           <div class="col-lg-12 responseOptions">
             <input id="absentFrecklingAnswer" type="radio" name="freckling" value="0" required aria-label="freckling">
-            <div class="radio" role="radio" tabindex="-1" aria-checked="false" aria-setsize="4" aria-posinset="4">
+            <div class="radio" role="radio" tabindex="0" aria-checked="false" aria-setsize="4" aria-posinset="1">
               <span> </span>Absent</div>
           </div>
+
+          <div class="col-lg-4 frecklePicture">
+            <img id="mildFreckling" data-name="Mild Freckling" class="img-responsive clearfix" src="" alt="Example Picture of mild Freckling">
+            <p class="pictureText">
+              <a class="pictureText" href="" tabindex="-1">Enlarge</a>
+            </p>
+          </div>
+          <div class="col-lg-12 responseOptions">
+            <input id="mildFrecklingAnswer" type="radio" name="freckling" value="1" required aria-label="freckling">
+            <div class="radio" role="radio" tabindex="-1" aria-checked="false" aria-setsize="4" aria-posinset="2">
+              <span> </span>Mild Freckling</div>
+          </div>
+
+          <div class="col-lg-4 frecklePicture">
+            <img id="moderateFreckling" data-name="Moderate Freckling" class="img-responsive" src="" alt="Example Picture of moderate Freckling" >
+            <p class="pictureText">
+              <a class="pictureText" href="" tabindex="-1">Enlarge</a>
+            </p>
+          </div>
+          <div class="col-lg-12 responseOptions">
+            <input id="moderateFrecklingAnswer" type="radio" name="freckling" value="2" required aria-label="freckling">
+            <div class="radio" role="radio" tabindex="-1"  aria-checked="false" aria-setsize="4" aria-posinset="3">
+              <span> </span>Moderate Freckling</div>
+          </div>
+
+          <div class="col-lg-4 frecklePicture">
+            <img id="severeFreckling" data-name="Severe Freckling" name="severeFrecklingLink" class="img-responsive" src="" alt="Example Picture of severe Freckling" >
+            <p class="pictureText">
+              <a class="pictureText" href="" tabindex="-1">Enlarge</a>
+            </p>
+          </div>
+          <div class="col-lg-12 responseOptions">
+            <input id="severeFrecklingAnswer" type="radio" name="freckling" value="3" required aria-label="freckling" >
+            <div class="radio" role="radio" tabindex="-1" aria-checked="false" aria-setsize="4" aria-posinset="4">
+              <span> </span>Severe Freckling</div>
+          </div>
+
+
         </div>
 
-        <div id="newSolarDamage" role="radiogroup" class="male spaceBetweenQuestions row" aria-labelledby="solar-damage">
-          <label class="questions col-lg-12" for="solar-damage">Does the patient have severe solar damage on the shoulders?</label>
+        <div id="newSolarDamage" role="radiogroup" class="male spaceBetweenQuestions clearfix" aria-labelledby="solar-damage">
+          <label class="questions col-lg-12" id="#solar-damage">Does the patient have severe solar damage on the shoulders?</label>
           <div class="col-lg-4">
             <img id="solar-damage" class="img-responsive" data-name="Severe Solar Damage" src="rat-commons/images/solar-damage-enlarge.jpg" alt="male with sunburn" >
             <p class="clearBottomMargin">
-              <a class="pictureText" href="" tabindex="0">Enlarge</a>
+              <a class="pictureText" href="" tabindex="-1">Enlarge</a>
             </p>
           </div>
           <div class="col-lg-12 responseOptions spaceBetweenFirstQuestionAndResponse">
