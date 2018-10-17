@@ -320,7 +320,7 @@ function gotoSection(event) {
 		event.preventDefault()
 
 	} else {
-		// The purose of this code is to handle the situation where there are multiple section being displayed.
+		// The purpose of this code is to handle the situation where there are multiple section being displayed.
 		indexOfSection = $(this).attr('data-riskFormSection')
 
 		// Remove the active style from the previous link and apply it to the
@@ -351,6 +351,18 @@ function gotoSection(event) {
 	var possibleNewValue = scrollTo - heightOfFormSteps
 	scrollTo = ( possibleNewValue <= 0 ) ? 0 : possibleNewValue
 	$("html, body").animate({scrollTop: scrollTo  }, scrollFor )
+}
+
+/* Makes a Section of the Forms Active ( Bubble and Text )                    */
+/*                                                                            */
+/* Input : An index starting at 1 ( index of list item to make active         */
+/*                                                                            */
+function makeFormStepsSectionActive(index) {
+
+   $("#form-steps ol li").removeClass("active")
+
+   var stringSelector = $("#form-steps ol li:nth-child(" + index + ")")
+   $(stringSelector).addClass("active")
 }
 
 /* Determine if either male or female has been selected                       */

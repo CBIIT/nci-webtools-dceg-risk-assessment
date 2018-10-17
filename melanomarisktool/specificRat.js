@@ -193,7 +193,7 @@ function go_toAboutPage() {
 function resultsDisplay(response, textStatus, xhr) {
 	var results=JSON.parse(response.message)
 
-	var gender = ( $("input[name='gender']").val() == "male" ) ? "men" : "women"
+	var gender = ( $("input[name='gender']:checked").val() == "Male" ) ? "men" : "women"
 	var message= "Based on the information provided, the patient's estimated risk for developing melanoma over the next 5 years is "+results.risk+"%.  A risk of " + results.risk + "% means that out of 1,000 white " + gender+ " with these characteristics living in the " + results.regionKey + " region, " + results.ratio + " will be expected to develop melanoma in the next 5 years."
 	go_toresult();
 
@@ -219,11 +219,6 @@ function toggleGender(e) {
 			$('.small_mole_answer')[1].innerHTML="Seven to sixteen"
 			$('.small_mole_answer')[2].innerHTML="Seventeen or more"
 			$('#small_moles').parent().addClass("spaceBetweenQuestions")
-
-			//$.each($(".female").find("input, select"), function(index, el) {
-			//	$(el).prop("required", false);
-			//	$("#riskForm").validate().element(el);
-            //});
 
 			$.each($(".female"), function(index, el) {
 				 disableRadioGroupSection508(el)
@@ -311,6 +306,9 @@ function resetForm() {
 	$("#skin").addClass("no_display")
 	$("#physical-section").addClass("no_display")
 	$("#physical").addClass("no_display")
+
+	// Set the form steps so section is the active one.
+    makeFormStepsSectionActive(1)
 
 }
 
