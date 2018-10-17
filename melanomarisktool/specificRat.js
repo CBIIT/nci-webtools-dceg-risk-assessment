@@ -134,9 +134,9 @@ $(function() {
 	})
 
 	// Move the answer abou freckles into view, so the user can see the answer
-	$("#newFrecklePictures .radio").on("focus", function(event) {
-	    handleFocusRadioGroupForFreckle(event)
-	})
+	//$("#newFrecklePictures .radio").on("focus", function(event) {
+	//    handleFocusRadioGroupForFreckle(event)
+	//})
 
 
 	// The starting state for all the controls in the Skin and Physical Section
@@ -510,6 +510,16 @@ function registerFreckleCustomRadioAccess() {
         $(this).on('mousedown', handleKeyDownRadioGroupForFreckle);
         //$(this).on('focus',     handleFocusRadioGroupForFreckle);
 	});
+
+    // A fix for internet exploer.  When tabbging to absent (freckle question)
+    // from the question below the absent answer would be under the form steps
+    // component.
+    $("#absentFrecklingAnswer").next().on("focus", function(event) {
+
+        if ( $(this).isInViewport() == false ) {
+            scrollIntoView(event)
+        }
+    })
 }
 
 function scrollIntoView(event) {
@@ -620,6 +630,7 @@ function handleKeyDownRadioGroupForFreckle(event){
 	  });
 	  $(this).data("radioMouseEvent",true);
       setRadioButton(node,true,true);
+
   }
 
 ///// End Section
