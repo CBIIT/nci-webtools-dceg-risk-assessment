@@ -112,11 +112,22 @@ $(function() {
     $("#familyCancerNo").on("change",       function() { disableRadioButtonGroupQuestion($("#family_count")) ; removeErrorMessage({target: $("#familyCountYes")})   })
     $("#familyCancerUnknown").on("change",  function() { disableRadioButtonGroupQuestion($("#family_count")) ; removeErrorMessage({target: $("#familyCountYes")})   })
 
+    // Smoking Section
+    $("#smokeYes").on("click",      function() { enableSelectBox($("[for='firstYearSmoke']")) })
+    $("#smokeYes").on("click",      function() { enableRadioButtonGroupQuestion($("#currentlySmokeLabel")) })
     $("#smokeYes").on("click",      adjustSmokingOnRegularBasis)
+
     $("#smokeNo").on("click",       disableCigarettesSection)
     $("#smokeUnknown").on("click",  disableCigarettesSection)
 
-    $("#yearsSmoked").on("change", adjustSmokingOnRegularBasis)
+    // Smoking : Has the person ever smoked Cigrarettes regulary
+    $("#firstYearSmoke").on("change", adjustSmokingOnRegularBasis)
+
+    // Smoking : Do you currently smoke cigarettes
+    $("#currentlySmokeYes").on("click", function() { disableSelectBox($("[for='smoke_quit']")) ; removeErrorMessage({target: $("#smoke_quit")})  })
+    $("#currentlySmokeNo").on("click",  function() { enableSelectBox($("[for='smoke_quit']")) })
+
+    //$("#yearsSmoked").on("change", adjustSmokingOnRegularBasis)
 
     // Initialize the button that will reset the form
     $("#reset").on("click", resetForm)
@@ -839,6 +850,22 @@ function disableFields(forceReset) {
 
 function disableCigarettesSection() {
 
+    disableSelectBox($("[for='firstYearSmoke']"))
+    disableRadioButtonGroupQuestion($("#currentlySmokeLabel"))
+    disableSelectBox($("[for='smoke_quit']"))
+    disableSelectBox("[for='cigarettes_num']")
+
+    //disableSelectBox("[for='yearsSmoked']")
+    //disableSelectBox("[for='cigarettes_num']")
+
+    removeErrorMessage("[for='yearsSmoked']")
+    removeErrorMessage("[for='cigarettes_num']")
+
+    removeErrorMessage({target: $("#firstYearSmoke") })
+    removeErrorMessage({target: $("#currentlySmokeYes")})
+    removeErrorMessage({target: $("#smoke_quit")})
+    removeErrorMessage({target: $("#cigarettes_num")})
+
     disableSelectBox("[for='yearsSmoked']")
     disableSelectBox("[for='cigarettes_num']")
 
@@ -857,5 +884,86 @@ function disablePeriodSection() {
 
 function specificRatFooterInitialization() {
    $("#contactLink").prop("href", "https://www.cancer.gov/colorectalcancerrisk/")
+}
+
+function adjustSmokingOnRegularBasis() {
+
+    if ( $("[name='smoke_age']").val() == "0" || $("[name='smoke_age']").val() == "" ) {
+        disableRadioButtonGroupQuestion($("#currentlySmokeLabel"))
+        disableSelectBox($("[for='smoke_quit']"))
+        disableSelectBox("[for='cigarettes_num']")
+
+        removeErrorMessage({target: $("#currentlySmokeYes")})
+        removeErrorMessage({target: $("#smoke_quit")})
+        removeErrorMessage({target: $("#cigarettes_num")})
+    } else {
+        enableRadioButtonGroupQuestion($("#currentlySmokeLabel"))
+
+        if ( $("[name='smoke_now']:checked").val() == "0" || $("[name='smoke_now']:checked").val() == "" ) {
+            enableSelectBox($("[for='smoke_quit']"))
+        } else {
+            disableSelectBox($("[for='smoke_quit']"))
+            removeErrorMessage({target: $("#smoke_quit")})
+            removeErrorMessage({target: $("#cigarettes_num")})
+        }
+
+        enableSelectBox("[for='cigarettes_num']")
+    }
+
+
+    //removeErrorMessage("[for='yearsSmoked']")
+    //removeErrorMessage("[for='cigarettes_num']")
+
+    //enableSelectBox("[for='yearsSmoked']")
+    //enableSelectBox("[for='cigarettes_num']")
+}
+
+function fixSmokingSection() {
+  $("[for='currentlySmokeYes']").css("color", "#606060")
+  $("[for='currentlySmokeNo']").css("color", "#606060")
+}
+
+// Update the Select Box for the Age that the person quit smoking
+// If the screen is getting updated and the user has already selected a values
+// then
+function updateQuitSmokingAge(startAge, endAge) {
+
+    // For Internt Explorer you can define parameters in the function prototype
+    // function updateQuitSmokingAge(startAge = 6, endAge = 55) {
+    startAge = startAge || 6
+    endAge = endAge || 55
+
+    // A routine that will create a collection of option tags.   Each option tag
+    // will contain an age/value.
+    function createAgeOptionList() {
+
+        var optionsData = []
+
+        elementSelect = {}
+        elementSelect.value = ""
+        elementSelect.text = 'Select'
+        optionsData.push(elementSelect)
+
+        for ( var age = startAge; age <= endAge; age++ ) {
+          var ageAsStr = parseInt(age)
+
+          var element = {}
+          element.value = age
+          element.text = ageAsStr
+
+          optionsData.push(element)
+        }
+
+        return optionsData
+    }
+
+    // Main Algoirthm
+
+    $("#smoke_quit").children().remove()
+
+    var optionsData = createAgeOptionList()
+    $.each( optionsData, function(key, value) {
+      $("#smoke_quit").append($("<option></option>").attr("value", value.value).text(value.text))
+    })
 }
 

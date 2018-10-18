@@ -97,20 +97,39 @@ class ColorectalRiskAssessmentTool:
       if sex == 0:
         if 'cigarettes' not in errorObject['missing'] and parameters['cigarettes'] == '0':
 
-          if 'yearsSmoked' not in parameters or parameters['yearsSmoked'] == '':
-            errorObject['missing'] += ['yearsSmoked']
-          elif not parameters['yearsSmoked'].isnumeric():
-            errorObject['nonnumeric'] += ['yearsSmoked']
-          else:
-            yearsSmoking = int(parameters['yearsSmoked'])
-
-          if ( yearsSmoking > 0 ):
-            if 'cigarettes_num' not in parameters or parameters['cigarettes_num'] == '':
-              errorObject['missing'] += ['cigarettes_num']
-            elif not parameters['cigarettes_num'].isnumeric():
-              errorObject['nonnumeric'] += ['cigarettes_num']
+          if 'smoke_age' not in parameters or parameters['smoke_age'] == '':
+            errorObject['missing'] += ['smoke_age']
+          elif not parameters['smoke_age'].isnumeric():
+            errorObject['nonnumeric'] += ['smoke_age']
+          elif parameters['smoke_age'] != '0':
+            smoke_age = int(parameters['smoke_age'])
+            if smoke_age > age:
+              errorObject['message'] += ["You are not old enough to have started smoke at age "+str(smoke_age)]
             else:
-              cigarettesPerDay = int(parameters['cigarettes_num'])
+              if 'cigarettes_num' not in parameters or parameters['cigarettes_num'] == '':
+                errorObject['missing'] += ['cigarettes_num']
+              elif not parameters['cigarettes_num'].isnumeric():
+                errorObject['nonnumeric'] += ['cigarettes_num']
+              else:
+                cigarettesPerDay = int(parameters['cigarettes_num'])
+              if 'smoke_now' not in parameters or parameters['smoke_now'] == '':
+                errorObject['missing'] += ['smoke_now']
+              elif parameters['smoke_now'] == '1':
+                yearsSmoking = age - smoke_age
+              elif parameters['smoke_now'] == '0':
+                if 'smoke_quit' not in parameters or parameters['smoke_quit'] == '':
+                  errorObject['missing'] += ['smoke_quit']
+                elif not parameters['smoke_quit'].isnumeric():
+                  errorObject['nonnumeric'] += ['smoke_quit']
+                else:
+                  quit_age = int(parameters['smoke_quit'])
+                  if quit_age < smoke_age:
+                    errorObject['message'] += ["You can't have quit smoking before you started"]
+                  else:
+                    yearsSmoking = quit_age - smoke_age
+              else:
+                errorObject['missing'] += ['smoke_now']
+
 
           if ( cigarettesPerDay == 0 ):
             yearsSmoking = 0
@@ -200,6 +219,15 @@ class ColorectalRiskAssessmentTool:
         screening = 2
       elif ( screening == 2):
         screening = 3
+
+      if yearsSmoking == 0:
+        yearsSmoking = 0
+      elif yearsSmoking < 15:
+        yearsSmoking = 1
+      elif yearsSmoking < 35:
+        yearsSmoking = 2
+      else:
+        yearsSmoking = 3
 
       exercise = 3
       if hoursPerWeek > 4:
