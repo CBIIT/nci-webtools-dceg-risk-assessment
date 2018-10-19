@@ -14,6 +14,9 @@ frecklingValue["severeFreckling"]					= "5"
 
 $(function() {
 
+	//disableFormStepLinksSection508()
+
+
    $("#raceModal").on("hidden.bs.modal", function(e) {
 	  if(!isMobile())
 	     var nameAttribute = $(e.target).attr("data-caller-name")
@@ -215,9 +218,9 @@ function toggleGender(e) {
 
 	switch (value) {
 		case "Male":
-			$('.small_mole_answer')[0].innerHTML="Fewer than seven"
-			$('.small_mole_answer')[1].innerHTML="Seven to sixteen"
-			$('.small_mole_answer')[2].innerHTML="Seventeen or more"
+			$('.small_mole_answer')[0].innerHTML="Few&shy;er than sev&shy;en"
+			$('.small_mole_answer')[1].innerHTML="Se&shy;ven to six&shy;teen"
+			$('.small_mole_answer')[2].innerHTML="Seven&shy;teen or more"
 			$('#small_moles').parent().addClass("spaceBetweenQuestions")
 
 			$.each($(".female"), function(index, el) {
@@ -240,8 +243,8 @@ function toggleGender(e) {
 
 			break;
 		case "Female":
-			$('.small_mole_answer')[0].innerHTML="Fewer than five"
-			$('.small_mole_answer')[1].innerHTML="Five to eleven"
+			$('.small_mole_answer')[0].innerHTML="Few&shy;er than five"
+			$('.small_mole_answer')[1].innerHTML="Five to el&shy;even"
 			$('.small_mole_answer')[2].innerHTML="Twelve or more"
             $('#small_moles').parent().removeClass("spaceBetweenQuestions")
 
@@ -300,6 +303,7 @@ function resetForm() {
 	genericResetForm()
 	enableMap();
 	enableSectionHeaders();
+	disableFormStepLinksSection508()
 
 	// Make the section skin, exam section invisible.
 	$("#skin-section").addClass("no_display")
@@ -455,12 +459,41 @@ function resetForm() {
 
     }
 
+    function disableFormStepLinksSection508() {
+         //var formStepLinks = $("#form-steps ol li").not(":first").children("a")
+
+         $("#step2_name").attr("disabled")
+         $("#step2_name").attr("aria-disabled", true)
+         $("#step2_number").attr("disabled")
+         $("#step2_number").attr("aria-disabled", true)
+
+         $("#step3_name").attr("disabled")
+         $("#step3_name").attr("aria-disabled", true)
+         $("#step3_number").attr("disabled", true)
+         $("#step3_number").attr("aria-disabled", true)
+    }
+
+    function enableFormStepLinksSection508() {
+        //var formStepLinks = $("#form-steps ol li ").not(":first").children("a")
+        $("#step2_name").removeAttr("disabled")
+        $("#step2_name").attr("aria-disabled", false)
+        $("#step2_number").removeAttr("disabled")
+        $("#step2_number").attr("aria-disabled", false)
+
+        $("#step3_name").removeAttr("disabled")
+        $("#step3_name").attr("aria-disabled", false)
+        $("#step3_number").removeAttr("disabled")
+        $("#step3_number").attr("aria-disabled", false)
+    }
+
     // Problem from we got the following issue : The skip-link target should exist and be focusable
     // This was caused by using #references
     // Solution : include the # references only when male or female has been selected.
     function formStepsSection508() {
         $("#form-steps ol li:nth(1) a").prop("href", "#skin-section")
         $("#form-steps ol li:nth(2) a").prop("href", "#physical-section")
+
+        enableFormStepLinksSection508()
     }
 
    /*******/
