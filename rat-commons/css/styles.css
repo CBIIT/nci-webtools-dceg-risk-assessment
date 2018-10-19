@@ -1705,8 +1705,8 @@ section > fieldset > legend.questions {
 
 .levelIndentation3 {
   margin-left: 5.8em;
-  word-break: break-all;
-
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 /*******************************************************************************/

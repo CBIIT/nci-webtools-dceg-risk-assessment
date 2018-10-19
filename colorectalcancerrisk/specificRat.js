@@ -144,17 +144,19 @@ $(function() {
 
     // Make sure that the Quit Smoking only has ages greater than or equal to
     // the age the patient started smoking.
-    $("#firstYearSmoke").on("change", function() {
+    $("#firstYearSmoke, #age").on("change", function() {
+      var patientCurrentAge = $('#age option:selected').val()
       var startAgeForQuitSmoking = $("#firstYearSmoke option:selected").val()
 
       if ( $.isNumeric("") )
         updateQuitSmokingAge()
       else {
         var startSmokingAsInt = parseInt(startAgeForQuitSmoking)
+        var patientCurrentAgeAsInt = parseInt(patientCurrentAge)
         if ( startSmokingAsInt == 0 )
           updateQuitSmokingAge()
         else
-          updateQuitSmokingAge(startSmokingAsInt)
+          updateQuitSmokingAge(startSmokingAsInt,patientCurrentAge)
       }
     })
 
@@ -762,50 +764,6 @@ function resetForm() {
       return answer
   }
 
-// Update the Select Box for the Age that the person quit smoking
-// If the screen is getting updated and the user has already selected a values
-// then
-function updateQuitSmokingAge(startAge, endAge) {
-
-    // For Internt Explorer you can define parameters in the function prototype
-    // function updateQuitSmokingAge(startAge = 6, endAge = 55) {
-    startAge = startAge || 6
-    endAge = endAge || 55
-
-    // A routine that will create a collection of option tags.   Each option tag
-    // will contain an age/value.
-    function createAgeOptionList() {
-
-        var optionsData = []
-
-        elementSelect = {}
-        elementSelect.value = ""
-        elementSelect.text = 'Select'
-        optionsData.push(elementSelect)
-
-        for ( var age = startAge; age <= endAge; age++ ) {
-          var ageAsStr = parseInt(age)
-
-          var element = {}
-          element.value = age
-          element.text = ageAsStr
-
-          optionsData.push(element)
-        }
-
-        return optionsData
-    }
-
-    // Main Algoirthm
-
-    $("#smoke_quit").children().remove()
-
-    var optionsData = createAgeOptionList()
-    $.each( optionsData, function(key, value) {
-      $("#smoke_quit").append($("<option></option>").attr("value", value.value).text(value.text))
-    })
-}
-
 // When the application is started are refreshed some of the questions/answers will be disabled.
 // Input Parameters : forceReset : If true then do a reset no matter what.
 function disableFields(forceReset) {
@@ -930,8 +888,8 @@ function updateQuitSmokingAge(startAge, endAge) {
 
     // For Internt Explorer you can define parameters in the function prototype
     // function updateQuitSmokingAge(startAge = 6, endAge = 55) {
-    startAge = startAge || 6
-    endAge = endAge || 55
+    startAge = startAge || 12
+    endAge = endAge || 85
 
     // A routine that will create a collection of option tags.   Each option tag
     // will contain an age/value.
@@ -944,7 +902,7 @@ function updateQuitSmokingAge(startAge, endAge) {
         elementSelect.text = 'Select'
         optionsData.push(elementSelect)
 
-        for ( var age = startAge; age <= endAge; age++ ) {
+        for ( var age = startAge; age < endAge; age++ ) {
           var ageAsStr = parseInt(age)
 
           var element = {}
@@ -966,4 +924,3 @@ function updateQuitSmokingAge(startAge, endAge) {
       $("#smoke_quit").append($("<option></option>").attr("value", value.value).text(value.text))
     })
 }
-
