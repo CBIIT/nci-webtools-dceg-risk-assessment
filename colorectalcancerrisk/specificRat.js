@@ -182,12 +182,8 @@ $(function() {
       $("#firstYearSmoke").find("option:gt(39)").remove();
 
       var optionsToAppend;
-      //min age is 50 but start age smoking max is 54, if start smoking at 54 but age is 50 , that would not work.
-      if(patientCurrentAgeAsInt && patientCurrentAgeAsInt > 49 && patientCurrentAgeAsInt < 54 ) {
-        optionsToAppend = createOptionList(50,patientCurrentAgeAsInt)
-      } else {
-        optionsToAppend = createOptionList(50,54)
-      }
+
+      optionsToAppend = createOptionList(50,patientCurrentAge || 85)
 
       $.each( optionsToAppend, function(key, value) {
         $("#firstYearSmoke").append($("<option></option>").attr("value", value.value).text(value.text))
