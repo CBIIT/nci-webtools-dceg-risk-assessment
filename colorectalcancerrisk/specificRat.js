@@ -160,6 +160,41 @@ $(function() {
       }
     })
 
+    $("#age").on("change", function() {
+
+      var createOptionList = function createAgeOptionList(startAge,endAge) {
+        var optionsData = []
+
+        for ( var age = startAge; age <= endAge; age++ ) {
+          var ageAsStr = parseInt(age)
+
+          var element = {}
+          element.value = age
+          element.text = ageAsStr
+
+          optionsData.push(element)
+        }
+        return optionsData
+      }
+
+      var patientCurrentAge = $('#age option:selected').val()
+      var patientCurrentAgeAsInt = parseInt(patientCurrentAge)
+      $("#firstYearSmoke").find("option:gt(39)").remove();
+
+      var optionsToAppend;
+      //min age is 50 but start age smoking max is 54, if start smoking at 54 but age is 50 , that would not work.
+      if(patientCurrentAgeAsInt && patientCurrentAgeAsInt > 49 && patientCurrentAgeAsInt < 54 ) {
+        optionsToAppend = createOptionList(50,patientCurrentAgeAsInt)
+      } else {
+        optionsToAppend = createOptionList(50,54)
+      }
+
+      $.each( optionsToAppend, function(key, value) {
+        $("#firstYearSmoke").append($("<option></option>").attr("value", value.value).text(value.text))
+      })
+
+    })
+
     // A problem with IE, sometimes a radio group will be skipped from a selectBox
     // Note : With IE the next element is kept in document.activeElement and sets the event.relatedTarget to
     $("#vigorous_hours").on("blur", function(event) {
@@ -483,7 +518,7 @@ function adjustLastTimeSheHadPeriod() {
     }
 }
 
-function adjustSmokingOnRegularBasis() {
+/*function adjustSmokingOnRegularBasis() {
 
     enableSelectBox("[for='yearsSmoked']")
 
@@ -494,7 +529,7 @@ function adjustSmokingOnRegularBasis() {
     }
     else
         enableSelectBox("[for='cigarettes_num']")
-}
+}*/
 
 /* Toggle the gender form Male to Female or Female to Male */
 function toggleGender(e) {
@@ -527,6 +562,8 @@ function toggleGender(e) {
             setfemaleAriaTagsForMale()
 
             if ( $("#smokeYes").val() == "0" ) {
+                enableSelectBox($("[for='firstYearSmoke']"))
+                enableRadioButtonGroupQuestion($("#currentlySmokeLabel"))
                 adjustSmokingOnRegularBasis();
             }
 
@@ -902,7 +939,7 @@ function updateQuitSmokingAge(startAge, endAge) {
         elementSelect.text = 'Select'
         optionsData.push(elementSelect)
 
-        for ( var age = startAge; age < endAge; age++ ) {
+        for ( var age = startAge; age <= endAge; age++ ) {
           var ageAsStr = parseInt(age)
 
           var element = {}
