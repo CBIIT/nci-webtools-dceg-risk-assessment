@@ -557,11 +557,14 @@ function toggleGender(e) {
 
             setfemaleAriaTagsForMale()
 
-            if ( $("#smokeYes").val() == "0" ) {
+            if ( $("[name=cigarettes]:checked").val() == "0" ) {
                 enableSelectBox($("[for='firstYearSmoke']"))
                 enableRadioButtonGroupQuestion($("#currentlySmokeLabel"))
                 adjustSmokingOnRegularBasis();
+            } else {
+                disableCigarettesSection()
             }
+
 
 
             break;
@@ -578,10 +581,11 @@ function toggleGender(e) {
 
             setMaleAriaTagsFemale()
 
-            if ( $("#periodNo").val() == "1") {
+            if ( $("[name=period]:checked").val() == "1" ) {
                 enableSelectBox($("[for='last_period']"))
                 adjustLastTimeSheHadPeriod()
-
+            } else {
+                disablePeriodSection()
             }
 
             break;
