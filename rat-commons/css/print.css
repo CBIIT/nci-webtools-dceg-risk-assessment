@@ -285,8 +285,14 @@
         display:none !important;
     }
 
+    /* TODO: When a new version need to go into production change the css declartion to the one below it */
     .rat_speicific_tool_do_now_show {
-        display:  none;
+        display:  none !important;
     }
+
+    .rat_specific_tool_do_not_show {
+        display: none !important;
+    }
+
 
 }
