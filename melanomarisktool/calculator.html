@@ -202,11 +202,11 @@
           <label class="questions no-margin-top" id="raceQuestion">What is the patient's race?</label>
           <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
             <input id="nonHispanicWhiteRace" type="radio" name="race" value="0" required aria-label="race">
-            <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="1">
+            <div class="radio"  tabindex="0" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="1">
               <span></span>Non-His&shy;panic white</div>
           </div>
           <div class="responseOptions">
-            <input id="notNonHispanicWhiteRadioButton" type="radio" name="race" tabindex="0" value="1" required aria-label="race" >
+            <input id="notNonHispanicWhiteRadioButton" type="radio" name="race" value="1" required aria-label="race" >
             <div class="radio" tabindex="-1" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="2">
               <span></span>Other</div>
           </div>
@@ -216,7 +216,7 @@
           <p class="questions_secondary">
             This tool calculates risk for patients between 20 and 70 years of age.</p>
           <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
-            <select id="age" name="age" class="selectContent" required>
+            <select id="age" name="age" class="selectContent" required tabindex="0">
               <option value="">Select age</option>
               <option value="20">20</option>
               <option value="21">21</option>
