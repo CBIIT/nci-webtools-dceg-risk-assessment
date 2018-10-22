@@ -405,7 +405,7 @@ a.btn:disabled {
   line-height: 19px;
 
   background-color: #2D73A5;
-  color: white
+  color: white;
   border: none;
 
 }
@@ -434,7 +434,7 @@ a.btn:disabled {
   line-height: 19px;
 
   background-color: #0E838E;
-  color: white
+  color: white;
   border: none;
 }
 
