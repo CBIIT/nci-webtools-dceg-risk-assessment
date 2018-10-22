@@ -9,6 +9,9 @@ $(function() {
 
 
    $("#raceModal").on("hidden.bs.modal", function(e) {
+
+      enableCRATForm();
+
 	  if(!isMobile())
 	     var nameAttribute = $(e.target).attr("data-caller-name")
 	     var selector = "input[name='" + nameAttribute + "']:checked"
@@ -16,6 +19,9 @@ $(function() {
    })
 
    $("#weightModal, #inchesModal, #feetModal").on("hidden.bs.modal", function(e) {
+
+        enableCRATForm()
+
         var idAttribute = $(e.target).prop("data-caller-name")
         $("#" + idAttribute).focus();
    })
