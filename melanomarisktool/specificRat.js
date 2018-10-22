@@ -651,8 +651,14 @@ function handleKeyDownRadioGroupForFreckle(event){
 	  });
       event.preventDefault();
 	  event.stopPropagation();
+
 	  setRadioButton(next,true,true);
-	  scrollIntoView(event)
+
+	   // When the space bar is pushed the current element is already visible to the user so no scrolling needs to
+	   // be done.  If the scrollIntoView() was called there would be jittering of the screen.
+	   if ( key != KEYCODE.SPACE ) {
+        scrollIntoView(event)
+       }
 	}
   } else if (type === "mousedown") {
 	  var node = event.currentTarget;
