@@ -93,6 +93,10 @@
     page-break-before: always !Important;
   }
 
+  #displayInput.printIEOnly {
+    page-break-before: always !Important;
+  }
+
   #InputParameters {
 	margin-bottom: 0;
 	padding-right: 0;

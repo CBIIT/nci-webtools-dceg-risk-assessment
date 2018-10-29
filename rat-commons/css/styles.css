@@ -671,7 +671,6 @@ div[id^='results_graph'] {
   padding-top: 5px;
 }
 
-
 .no-padding-left {
   padding-left: 0px !important;
 }
@@ -1150,6 +1149,11 @@ input:disabled[type="radio"] + div.radio span
      width:85%;
      margin-left:auto;
      margin-right:auto;
+   }
+
+   .risk_text {
+       padding-top: 15px;
+       padding-bottom: 15px;
    }
 
 }

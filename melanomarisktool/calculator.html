@@ -110,18 +110,20 @@
 
           <!-- Result Box for Five Year Results                               -->
           <div id="results_box" class="row">
-            <p class="results_header">5&#8212;Year Absolute Risk of Developing Melanoma</p>
+            <p class="results_header">Patient's 5-Year Absolute Risk of Developing Melanoma</p>
 
             <div class="row vertical_alignment">
 
               <div class="col-sm-12 col-md-4 results_graph">
                 <div id="results_graph">
+                  <!--
                   <div class="patient_header">Patient Risk</div>
+                  -->
                   <div class="risk_header" id="Risk1"></div>
                   <div id="Pie_chart" class="svg-container"> </div>
                 </div>
               </div>
-              <div class="col-sm-12 col-md-4 rat_specific_tool_do_not_show">
+              <div class="col-sm-12 col-md-5 rat_specific_tool_do_not_show risk_text">
                 <div id="results_text" class="vertical_alignment"></div>
               </div>
             </div>
@@ -344,7 +346,7 @@
         </div>
 
         <div class="male spaceBetweenQuestions" role="radiogroup" aria-labelledby="sunburnQuestion" >
-          <label class="questions" id="sunburnQuestion">Has the patient ever gotten a blistering sunburn?</label>
+          <label class="questions" id="sunburnQuestion">Does the patient have a history of blistering sunburn?</label>
           <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
             <input id="sunburnYes" type="radio" name="sunburn" value="0" aria-label="sunburn">
             <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="1">
@@ -530,7 +532,7 @@
                   <img class="imgsize center-block" src="rat-commons/images/stop.png" alt-icon alt="Stop Picture" role="img" aria-label="Image of a stop sign.">
                 </div>
                 <div class="col-sm-10">
-                  <p>Data on non-whites is sparse. As a result, this tool can only accurately calculate melanoma risk
+                  <p>Data on non-whites are sparse. As a result, this tool can only accurately calculate melanoma risk
                     for non-Hispanic white patients. For information about melanoma in patients of other races/ethnicities, see
                     <a target="_blank" href="https://www.cancer.gov/types/skin/anyone-can-get-skin-cancer">Anyone Can Get Skin Cancer</a>.</p>
                 </div>
