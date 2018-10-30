@@ -38,6 +38,17 @@ $(function() {
         }
     })
 
+    $("#mapModal").on("hidden.bs.modal", function(e) {
+        if(!isMobile()) {
+            $("#state-listing").focus()
+            $("#state-listing").addClass("addOutline")
+            enableMRATForm()
+        }
+     })
+
+
+
+
 	$("[class*='pictureText']").addClass("pictureTextEnabledColor")
 
 	// When tabbing, the element is being hidden by part of the browser, so I want to move it so the user can see it.
@@ -81,6 +92,10 @@ $(function() {
 	    enableMRATForm();
   	})
 
+  	//$("#mapModal button.close").on("click", function() {
+  	//    enableMRATForm()
+  	//})
+
 	$("termAndConditionsPge").removeClass("show")
 
 	// When the image is clicked then delegate the event to the correct "Click to
@@ -118,7 +133,8 @@ $(function() {
 
     // Shows the image when the enter is pressed on a selected answer
 	$("#newSolarDamage .radio, #newFrecklePictures .radio").not(":first").on("keypress", function(event) {
-	    if ( event.which == 13 ) {
+	    var keycode = (event.keyCode ? event.keyCode : event.which);
+	    if ( keycode == 13 ) {
 
 	    	// Going to the URL will be prevented
         	event.preventDefault();
@@ -134,6 +150,16 @@ $(function() {
             $("#pictureModal").attr("data-caller-name", $(this).prev().prop("id"))
             setTimeout( function() { $("#pictureModal").modal("show"); } , 500 )
 	    }
+	})
+
+	$("#state-listing").on("keypress", function(event) {
+	     var keycode = (event.keyCode ? event.keyCode : event.which);
+	     if ( keycode == 13 ) {
+	        event.preventDefault()
+
+	        disableMRATForm()
+	        setTimeout( function() { $("#mapModal").modal("show"); } , 500 )
+	     }
 	})
 
 	// Move the answer abou freckles into view, so the user can see the answer
@@ -340,9 +366,6 @@ function resetForm() {
 
 	 $("[class*='pictureText']").removeClass("pictureTextEnabledColor")
 	 $("[class*='pictureText']").addClass("pictureTextDisabledColor")
-
-
-
  }
 
  /*
