@@ -249,14 +249,7 @@ function toggleGender(e) {
 			$('.small_mole_answer')[2].innerHTML="Seven&shy;teen or more"
 			$('#small_moles').parent().addClass("spaceBetweenQuestions")
 
-			$.each($(".female"), function(index, el) {
-				 disableRadioGroupSection508(el)
-			});
-
-
-			$.each($(".male"), function(index, el) {
-			    enableRadioGroupSection508(el)
-			});
+            configureSection508ForGender()
 
 			$(".female").removeClass('show');
 			$(".male").addClass('show');
@@ -274,13 +267,7 @@ function toggleGender(e) {
 			$('.small_mole_answer')[2].innerHTML="Twelve or more"
             $('#small_moles').parent().removeClass("spaceBetweenQuestions")
 
-			$.each($(".male"), function(index, el) {
-                disableRadioGroupSection508(el)
-			});
-
-			$.each($(".female"), function(index, el) {
-			    enableRadioGroupSection508(el)
-			});
+            configureSection508ForGender();
 
 			$("#mildFreckling").attr("src","rat-commons/images/few-freckling-female.jpg")
 			$("#moderateFreckling").attr("src","rat-commons/images/moderate-freckling-female.jpg")
@@ -299,14 +286,6 @@ function toggleGender(e) {
 			$("#mildFreckling").attr("src","")
 			$("#moderateFreckling").attr("src","")
 			$("#severeFreckling").attr("src","")
-
-            $.each($(".male"), function(index, el) {
-                disableRadioGroupSection508(el)
-            });
-
-            $.each($(".female"), function(index, el) {
-                enableRadioGroupSection508(el)
-            });
 
 			break;
 	}
@@ -379,6 +358,8 @@ function resetForm() {
 	 $("[class*='pictureText']").removeClass("pictureTextDisabledColor")
 
 	 $("img").removeClass("image_disabled")
+
+	 configureSection508ForGender()
  }
 
  /*
@@ -692,7 +673,31 @@ function handleKeyDownRadioGroupForFreckle(event){
       setRadioButton(node,true,true);
 
   }
+}
 
 ///// End Section
+
+
+/*
+ * Configures the form for the currently selected gender
+ */
+function configureSection508ForGender() {
+
+    var selectedGender = ".female"
+    var notSelectedGender = ".male"
+
+	if ( $("input[name='gender']:checked").val() == "Male" ) {
+	    selectedGender=".male"
+	    notSelectedGender=".female"
+	}
+
+    $.each($(notSelectedGender), function(index, el) {
+	    disableRadioGroupSection508(el)
+	});
+
+
+    $.each($(selectedGender), function(index, el) {
+        enableRadioGroupSection508(el)
+	});
 
 }
