@@ -1,6 +1,6 @@
 var app = angular.module("myapp");
 
-app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $location) {
+app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $location, $util) {
   /* These globals are used in multiple ajax calls in different functions */
   var GLOBAL_DATA;
   /* RegEx for numerical field validation */
@@ -340,8 +340,16 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
       /* Round to 2 decimal places and assign results to UI properties */
       /* $scope.myForm['result' + i] = Math.round(data[i] * 100) / 100; */
       $scope.myForm['result' + i] = Math.round(data[i]);
+      $scope.myForm['resultMatrix' + i] = $util.numToMatrix($scope.myForm['result' + i] / 10);
 
       /* GLOBAL_RESULTS['result' + i] = $scope.myForm['result' + i]; */
+    }
+
+    if ($scope.myForm.result0 && $scope.myForm.result1) {
+      $scope.myForm['resultMatrix0_1'] = $util.numToMatrix(($scope.myForm.result0 - $scope.myForm.result1) / 10);
+    }
+    if ($scope.myForm.result2 && $scope.myForm.result3) {
+      $scope.myForm['resultMatrix2_3'] = $util.numToMatrix(($scope.myForm.result2 + $scope.myForm.result3) / 10);
     }
 
     if ($scope.myForm.result0 > $scope.myForm.result2) {

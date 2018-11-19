@@ -548,7 +548,11 @@
         font-size: 10pt;
         padding: 10px 0px;
     }
-    
+
+    .results_legend .legendRow {
+        margin-top: 5px;
+    }
+
     table.grid_table th {
         border: 1px solid #777;
         width: 10px !important;

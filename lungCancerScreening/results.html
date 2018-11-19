@@ -126,6 +126,10 @@
     </div>
     <div style="page-break-after: always"></div>
     <div class="yourresults">
+        <div style="text-align: right; margin-bottom: 5px">
+            <button ng-click="chartType = 'people' " class="btn btn-default"><img src="files/images/people{{ chartType == 'people' ? 10 : 0 }}.png" class="chartIcon"> Bathroom Icon</button>
+            <button ng-click="chartType = 'square' " class="btn btn-default"><img src="files/images/square{{ chartType == 'square' ? 10 : 0 }}.png" class="chartIcon"> Rectangular</button>
+        </div>
         <div ng-show="chart_row1 === true">
             <table class="results_header">
                 <tbody>
@@ -150,32 +154,32 @@
                     </tr>
                     <tr>
                         <td class="results_grid">
-                            <img ng-src="{{base_url}}files/grid_images/chart_rl_{{session.myForm.result0}}.png" alt="chart1" />
+                            <lcs-chart value="session.myForm.resultMatrix0" chart-type="chartType"></lcs-chart>
                         </td>
                         <td class="results_grid">
-                            <img ng-src="{{base_url}}files/grid_images/chart{{session.myForm.result0-session.myForm.result1}}.png" alt="chart2"
-                            />
+                            <lcs-chart value="session.myForm.resultMatrix0_1" chart-type="chartType"></lcs-chart>
                         </td>
                     </tr>
                     <tr>
                         <td class="results_legend">
                             <div>
-                                <span>
-                                    <img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellfill.png" alt="filled cell" />Death from lung cancer<br />
-                            </span>
-                                <span>
-                                    <img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellempty.png" alt="empty cell" />Alive (with or without lung cancer)
-                            </span>
+                                <div class="legendRow">
+                                    <img style="margin-right:5px" ng-src="files/images/{{ chartType }}10.png" alt="filled cell" class="chartIcon">Death from lung cancer<br />
+                                </div>
+                                <div class="legendRow">
+                                    <img style="margin-right:5px" ng-src="files/images/{{ chartType }}0.png" alt="empty cell" class="chartIcon">Alive (with or without lung cancer)
+                                </div>
                             </div>
                         </td>
                         <td class="results_legend">
                             <div>
-                                <span>
-                                    <img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellfill.png" alt="filled cell" />Death from lung cancer<br />
-                            </span>
-                                <span>
-                                    <img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellempty.png" alt="empty cell" />Alive (with or without lung cancer)
-                            </span>
+                                <div class="legendRow">
+                                    <img style="margin-right:5px" ng-src="files/images/{{ chartType }}10.png" alt="filled cell" class="chartIcon">Death from lung cancer<br />
+                                </div>
+                                <div class="legendRow">
+                                    <img style="margin-right:5px" ng-src="files/images/{{ chartType }}0.png" alt="empty cell" class="chartIcon">
+                                    Alive (with or without lung cancer)
+                                </div>
                             </div>
                         </td>
                     </tr>
@@ -228,7 +232,7 @@
                             <div></div>
                         </td>
                         <td class="results_grid">
-                            <img ng-src="{{base_url}}files/grid_images/chart{{session.myForm.result4}}.png" alt="chart3" />
+                            <lcs-chart value="session.myForm.resultMatrix4" chart-type="chartType"></lcs-chart>
                         </td>
                     </tr>
                     <tr>
@@ -237,10 +241,10 @@
                         </td>
                         <td class="results_legend">
                             <div>
-                                <span><img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellfill.png" alt="filled cell" />Had a false alarm (positive screening test but does not actually have lung cancer)<br />
-                            </span>
-                                <span><img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellempty.png" alt="empty cell" />Did NOT have a false alarm
-                            </span>
+                                <div class="legendRow"><img style="margin-right:5px" ng-src="files/images/{{ chartType }}10.png" alt="filled cell" class="chartIcon">Had a false alarm (positive screening test but does not actually have lung cancer)<br />
+                            </div>
+                                <div class="legendRow"><img style="margin-right:5px" ng-src="files/images/{{ chartType }}0.png" alt="empty cell" class="chartIcon">Did NOT have a false alarm
+                            </div>
                             </div>
                         </td>
                     </tr>
@@ -286,32 +290,31 @@
                     </tr>
                     <tr>
                         <td class="results_grid">
-                            <img ng-src="{{base_url}}files/grid_images/chart_rl_{{session.myForm.result2}}.png" alt="chart4" />
+                            <lcs-chart value="session.myForm.resultMatrix2" chart-type="chartType"></lcs-chart>
                         </td>
                         <td class="results_grid">
-                            <img ng-src="{{base_url}}files/grid_images/chart{{session.myForm.result3+session.myForm.result2}}.png" alt="chart5"
-                            />
+                            <lcs-chart value="session.myForm.resultMatrix2_3" chart-type="chartType"></lcs-chart>
                         </td>
                     </tr>
                     <tr>
                         <td class="results_legend">
                             <div>
-                                <span>
-                                            <img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellfill.png" alt="filled cell" />Diagnosed with lung cancer<br />
-                                    </span>
-                                <span>
-                                            <img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellempty.png" alt="empty cell" />NOT diagnosed with lung cancer
-                                    </span>
+                                <div class="legendRow">
+                                    <img style="margin-right:5px" ng-src="files/images/{{ chartType }}10.png" alt="filled cell" class="chartIcon">Diagnosed with lung cancer<br />
+                                </div>
+                                <div class="legendRow">
+                                    <img style="margin-right:5px" ng-src="files/images/{{ chartType }}0.png" alt="empty cell" class="chartIcon">NOT diagnosed with lung cancer
+                                </div>
                             </div>
                         </td>
                         <td class="results_legend">
                             <div>
-                                <span>
-                                            <img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellfill.png" alt="filled cell" />Diagnosed with lung cancer<br />
-                                    </span>
-                                <span>
-                                            <img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellempty.png" alt="empty cell" />NOT diagnosed with lung cancer
-                                    </span>
+                                <div class="legendRow">
+                                    <img style="margin-right:5px" ng-src="files/images/{{ chartType }}10.png" alt="filled cell" class="chartIcon">Diagnosed with lung cancer<br />
+                                </div>
+                                <div class="legendRow">
+                                    <img style="margin-right:5px" ng-src="files/images/{{ chartType }}0.png" alt="empty cell" class="chartIcon">NOT diagnosed with lung cancer
+                                </div>
                             </div>
                         </td>
                     </tr>

@@ -149,6 +149,8 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $sessionStor
     print(createPrintablePage())
   };
 
+  $scope.chartType = 'square';
+
   function createPrintablePage() {
     var html = "";
     var source  = $("#results .ng-hide").remove();
