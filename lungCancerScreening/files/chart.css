@@ -1,0 +1,14 @@
+.chartTable {
+    background-color: white;
+    table-layout: fixed;
+}
+.chartTable .chartLegend,
+.chartTable .chartCell {
+    padding: 3px 3px !important;
+    text-align: right;
+}
+
+.chartIcon {
+     width: 22px;
+    height: 35px;
+}
