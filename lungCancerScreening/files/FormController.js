@@ -350,6 +350,13 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
     }
     if ($scope.myForm.result2 && $scope.myForm.result3) {
       $scope.myForm['resultMatrix2_3'] = $util.numToMatrix(($scope.myForm.result2 + $scope.myForm.result3) / 10);
+      $scope.myForm['resultMatrixCombined2'] = $util.numToMatrix(($scope.myForm.result2 + $scope.myForm.result3) / 10,
+          $scope.myForm.result2 / 10);
+    }
+
+    if ($scope.myForm.result0 && $scope.myForm.result1 && $scope.myForm.result4) {
+        $scope.myForm['resultMatrixCombined1'] = $util.numToMatrix($scope.myForm.result4 / 10, $scope.myForm.result0 / 10,
+            ($scope.myForm.result0 - $scope.myForm.result1) / 10);
     }
 
     if ($scope.myForm.result0 > $scope.myForm.result2) {
