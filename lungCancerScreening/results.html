@@ -127,8 +127,22 @@
     <div style="page-break-after: always"></div>
     <div class="yourresults">
         <div style="text-align: right; margin-bottom: 5px">
-            <button ng-click="chartType = 'people' " class="btn btn-default"><img src="files/images/people{{ chartType == 'people' ? 10 : 0 }}.png" class="chartIcon"> Bathroom Icon</button>
-            <button ng-click="chartType = 'square' " class="btn btn-default"><img src="files/images/square{{ chartType == 'square' ? 10 : 0 }}.png" class="chartIcon"> Rectangular</button>
+            <button ng-click="chartType = 'people' " class="btn btn-default">
+                <div style="display: inline-block;position: relative; width:31px; height: 41px">
+                    <div class="chartBG chartOverlap"></div>
+                    <div ng-if="chartType === 'people'" class="chartBlock chartOverlap" style="width:22px;"></div>
+                    <img src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                </div>
+                <div style="display: inline-block;"><span style="display: table-cell;vertical-align: middle;height: 41px;">Bathroom Icon</span></div>
+            </button>
+
+            <button ng-click="chartType = 'square' " class="btn btn-default">
+                <div style="display: inline-block;position: relative; width:31px; height: 41px">
+                    <div class="chartBG chartOverlap"></div>
+                    <div ng-if="chartType === 'square'" class="chartBlock chartOverlap" style="width:22px;"></div>
+                </div>
+                <div style="display: inline-block;"><span style="display: table-cell;vertical-align: middle;height: 41px;">Rectangular</span></div>
+            </button>
         </div>
         <div ng-show="chart_row1 === true">
             <table class="results_header">
