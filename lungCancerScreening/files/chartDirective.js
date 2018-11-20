@@ -6,6 +6,9 @@ app.directive('lcsChart', function() {
             chartType : '=',
             rows: '=value'
         },
+        controller: function($scope) {
+            $scope.iconWidth = $scope.$parent.chartIconWidth;
+        },
         restrict: 'E',
         templateUrl: '_chart.html'
     }

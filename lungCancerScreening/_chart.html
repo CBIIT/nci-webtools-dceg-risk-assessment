@@ -3,7 +3,7 @@
         <th class="chartLegend">{{ $index * 10 + 10 }}</th>
         <td ng-repeat="cell in row track by $index" class="chartCell">
             <div class="chartBG"></div>
-            <div class="chartBlock chartOverlap" style="width: {{ cell * 0.1 * 22 }}px;"></div>
+            <div class="chartBlock chartOverlap" style="width: {{ cell * 0.1 * iconWidth }}px;"></div>
             <img ng-if="chartType === 'people'" ng-src="files/images/people.png" class="chartIcon chartOverlap">
         </td>
     </tr>

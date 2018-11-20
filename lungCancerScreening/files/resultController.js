@@ -150,6 +150,11 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $sessionStor
   };
 
   $scope.chartType = 'square';
+  $scope.chartIconWidth = 15;
+  $scope.chartIconHeight = 25;
+  $scope.chartIconPadding = 3;
+  $scope.chartCellWidth = $scope.chartIconWidth + 2 * $scope.chartIconPadding;
+  $scope.chartCellHeight = $scope.chartIconHeight + 2 * $scope.chartIconPadding;
 
   function createPrintablePage() {
     var html = "";
