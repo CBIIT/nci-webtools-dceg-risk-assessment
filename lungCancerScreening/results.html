@@ -164,21 +164,36 @@
                         <td class="results_legend">
                             <div>
                                 <div class="legendRow">
-                                    <img style="margin-right:5px" ng-src="files/images/{{ chartType }}10.png" alt="filled cell" class="chartIcon">Death from lung cancer<br />
+                                    <div style="display: inline-block;position: relative; width:31px; height: 41px">
+                                        <div class="chartBlock chartOverlap" style="width:22px;"></div>
+                                        <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                    </div>
+                                    <div style="display: inline-block;"><span style="display: table-cell;vertical-align: middle;height: 41px;">Death from lung cancer</span></div>
                                 </div>
                                 <div class="legendRow">
-                                    <img style="margin-right:5px" ng-src="files/images/{{ chartType }}0.png" alt="empty cell" class="chartIcon">Alive (with or without lung cancer)
+                                    <div style="display: inline-block;position: relative; width:31px; height: 41px">
+                                        <div class="chartBG chartOverlap"></div>
+                                        <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                    </div>
+                                    <div style="display: inline-block;"><span style="display: table-cell;vertical-align: middle;height: 41px;">Alive (with or without lung cancer)</span></div>
                                 </div>
                             </div>
                         </td>
                         <td class="results_legend">
                             <div>
                                 <div class="legendRow">
-                                    <img style="margin-right:5px" ng-src="files/images/{{ chartType }}10.png" alt="filled cell" class="chartIcon">Death from lung cancer<br />
+                                    <div style="display: inline-block;position: relative; width:31px; height: 41px">
+                                        <div class="chartBlock chartOverlap" style="width:22px;"></div>
+                                        <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                    </div>
+                                    <div style="display: inline-block;"><span style="display: table-cell;vertical-align: middle;height: 41px;">Death from lung cancer</span></div>
                                 </div>
                                 <div class="legendRow">
-                                    <img style="margin-right:5px" ng-src="files/images/{{ chartType }}0.png" alt="empty cell" class="chartIcon">
-                                    Alive (with or without lung cancer)
+                                    <div style="display: inline-block;position: relative; width:31px; height: 41px">
+                                        <div class="chartBG chartOverlap"></div>
+                                        <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                    </div>
+                                    <div style="display: inline-block;"><span style="display: table-cell;vertical-align: middle;height: 41px;">Alive (with or without lung cancer)</span></div>
                                 </div>
                             </div>
                         </td>
@@ -241,10 +256,18 @@
                         </td>
                         <td class="results_legend">
                             <div>
-                                <div class="legendRow"><img style="margin-right:5px" ng-src="files/images/{{ chartType }}10.png" alt="filled cell" class="chartIcon">Had a false alarm (positive screening test but does not actually have lung cancer)<br />
+                                <div class="legendRow">
+                                    <div style="display: inline-block;position: relative; width:31px; height: 41px">
+                                        <div class="chartBlock chartOverlap" style="width:22px;"></div>
+                                        <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                    </div>
+                                    <div style="display: inline-block;"><span style="display: table-cell;vertical-align: middle;height: 41px;">Had a false alarm (positive screening test but does not actually have lung cancer)</span></div>
                             </div>
-                                <div class="legendRow"><img style="margin-right:5px" ng-src="files/images/{{ chartType }}0.png" alt="empty cell" class="chartIcon">Did NOT have a false alarm
-                            </div>
+                                <div style="display: inline-block;position: relative; width:31px; height: 41px">
+                                    <div class="chartBG chartOverlap"></div>
+                                    <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                </div>
+                                <div style="display: inline-block;"><span style="display: table-cell;vertical-align: middle;height: 41px;">Did NOT have a false alarm</span></div>
                             </div>
                         </td>
                     </tr>
@@ -300,20 +323,36 @@
                         <td class="results_legend">
                             <div>
                                 <div class="legendRow">
-                                    <img style="margin-right:5px" ng-src="files/images/{{ chartType }}10.png" alt="filled cell" class="chartIcon">Diagnosed with lung cancer<br />
+                                    <div style="display: inline-block;position: relative; width:31px; height: 41px">
+                                        <div class="chartBlock chartOverlap" style="width:22px;"></div>
+                                        <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                    </div>
+                                    <div style="display: inline-block;"><span style="display: table-cell;vertical-align: middle;height: 41px;">Diagnosed with lung cancer</span></div>
                                 </div>
                                 <div class="legendRow">
-                                    <img style="margin-right:5px" ng-src="files/images/{{ chartType }}0.png" alt="empty cell" class="chartIcon">NOT diagnosed with lung cancer
+                                    <div style="display: inline-block;position: relative; width:31px; height: 41px">
+                                        <div class="chartBG chartOverlap"></div>
+                                        <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                    </div>
+                                    <div style="display: inline-block;"><span style="display: table-cell;vertical-align: middle;height: 41px;">NOT diagnosed with lung cancer</span></div>
                                 </div>
                             </div>
                         </td>
                         <td class="results_legend">
                             <div>
                                 <div class="legendRow">
-                                    <img style="margin-right:5px" ng-src="files/images/{{ chartType }}10.png" alt="filled cell" class="chartIcon">Diagnosed with lung cancer<br />
+                                    <div style="display: inline-block;position: relative; width:31px; height: 41px">
+                                        <div class="chartBlock chartOverlap" style="width:22px;"></div>
+                                        <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                    </div>
+                                    <div style="display: inline-block;"><span style="display: table-cell;vertical-align: middle;height: 41px;">Diagnosed with lung cancer</span></div>
                                 </div>
                                 <div class="legendRow">
-                                    <img style="margin-right:5px" ng-src="files/images/{{ chartType }}0.png" alt="empty cell" class="chartIcon">NOT diagnosed with lung cancer
+                                    <div style="display: inline-block;position: relative; width:31px; height: 41px">
+                                        <div class="chartBG chartOverlap"></div>
+                                        <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                    </div>
+                                    <div style="display: inline-block;"><span style="display: table-cell;vertical-align: middle;height: 41px;">NOT diagnosed with lung cancer</span></div>
                                 </div>
                             </div>
                         </td>
