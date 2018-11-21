@@ -158,7 +158,7 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $sessionStor
 
   $scope.changeChartType = function(type) {
     $scope.chartType = type;
-    if (type === 'combined' && $scope.chart_row2 === true) {
+    if ($scope.export === false && type === 'combined' && $scope.chart_row2 === true) {
       $scope.switchToSection(1);
     }
   };
