@@ -156,6 +156,20 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $sessionStor
   $scope.chartCellWidth = $scope.chartIconWidth + 2 * $scope.chartIconPadding;
   $scope.chartCellHeight = $scope.chartIconHeight + 2 * $scope.chartIconPadding;
 
+  $scope.changeChartType = function(type) {
+    $scope.chartType = type;
+    if (type === 'combined' && $scope.chart_row2 === true) {
+      $scope.switchToSection(1);
+    }
+  };
+
+  $scope.switchToSection = function(section) {
+    for (var i = 1; i <= 3; ++i) {
+      $scope['chart_row' + i] = (i === section);
+    }
+    $scope.summary = (section === 3);
+  };
+
   function createPrintablePage() {
     var html = "";
     var source  = $("#results .ng-hide").remove();
