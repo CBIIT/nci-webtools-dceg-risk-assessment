@@ -366,10 +366,10 @@
                     </tr>
                     <tr ng-if="chartType === 'combined'">
                         <td class="chartDescription">
-                            <p>If 100 people answered the questions just like you, {{ (session.myForm.result2 - session.myForm.result3) / 10 }} who did not receive CT lung screening would be diagnosed with lung cancer within the next five years.</p>
-                            <p>If 100 people answered the questions just like you, {{ session.myForm.result2 / 10 }} who did receive CT lung screening would be diagnosed with lung cancer within the next five years.</p>
-                            <p><span class="data2">{{ (session.myForm.result2 - session.myForm.result3) / 10 }}</span> lung cancer diagnoses without screening</p>
-                            <p><span class="data1">{{ (session.myForm.result3) / 10 }} </span>additional lung cancer diagnosis with screening</p>
+                            <p>If 100 people answered the questions just like you, {{ (session.myForm.result2) / 10 }} who did not receive CT lung screening would be diagnosed with lung cancer within the next five years.</p>
+                            <p>If 100 people answered the questions just like you, {{ (session.myForm.result2 + session.myForm.result3) / 10 }} who did receive CT lung screening would be diagnosed with lung cancer within the next five years.</p>
+                            <p><span class="data2">{{ session.myForm.result2 / 10 }}</span> lung cancer diagnoses without screening</p>
+                            <p><span class="data1">{{ session.myForm.result3 / 10 }} </span>additional lung cancer diagnosis with screening</p>
                         </td>
                     </tr>
                     <tr ng-if="chartType === 'combined'">
