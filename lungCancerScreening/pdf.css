@@ -81,7 +81,74 @@ table.results_table td.results_legend {
     padding: 10px 0px;
 }
 
+/*
+    Chart related styles
+ */
 
+.chartTable {
+    background-color: white;
+    table-layout: fixed;
+}
+
+.chartLegend,
+.chartCell {
+    padding: 3px 3px !important;
+    text-align: right;
+}
+
+.chartBG,
+.chartBlock,
+.chartBlock1,
+.chartBlock2,
+.chartBlock3,
+.chartIcon {
+    width: 15px;
+    height: 25px;
+    display: inline-block;
+}
+
+.chartCell {
+    position: relative;
+}
+
+.chartBG {
+    background-color: #A4A4A4;
+}
+
+.chartOverlap {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+}
+
+.chartBlock {
+    background-color: #CB222A;
+}
+
+.data1 {
+    color: #FCBD36;
+}
+.chartBlock1 {
+    background-color: #FCBD36;
+}
+
+.data2 {
+    color: #F8061D;
+}
+.chartBlock2 {
+    background-color: #F8061D;
+}
+
+.data3 {
+    color: #4776C0;
+}
+.chartBlock3 {
+    background-color: #4776C0;
+}
+
+.chartDescription {
+    padding-top: 10px;
+}
 
 
 
