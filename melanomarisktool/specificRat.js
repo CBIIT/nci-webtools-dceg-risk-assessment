@@ -607,18 +607,22 @@ function handleKeyDownRadioGroupForFreckle(event){
   }
 
   var nextRadioButton = function(node) {
+      console.log("Currently in next Radio Button")
 	  return $(node).parent().next('div').next('div').find('[role=radio]');
   }
 
   var previousRadioButton = function(node) {
+      console.log("Currently in next Prev Button")
 	  return $(node).parent().prev('div').prev('div').find('[role=radio]');
   }
 
   var firstRadioButton = function(node) {
+      console.log("Currently in next Prev Button")
 	  return $(node).parent().parent().children('div.responseOptions:first').find('[role=radio]');
   }
 
   var lastRadioButton = function(node) {
+      console.log("Currently in the last Radio Button")
 	  return $(node).parent().parent().children('div:last').find('[role=radio]');
   }
 
@@ -628,7 +632,9 @@ function handleKeyDownRadioGroupForFreckle(event){
     switch (key) {
       case KEYCODE.DOWN:
       case KEYCODE.RIGHT:
+        console.log("The Value of the key for down and right was " + key)
         var next = nextRadioButton(node);
+        console.log("1--The length of next was " + $(next).length)
 		if ($(next).length === 0) {
 		    next = firstRadioButton(node);
 		    event.currentTarget = next;
@@ -637,7 +643,9 @@ function handleKeyDownRadioGroupForFreckle(event){
 
       case KEYCODE.UP:
       case KEYCODE.LEFT:
+        console.log("The Value of the key for up and left was " + key)
         next = previousRadioButton(node);
+        console.log("2--The length of next was " + $(next).length)
         if ($(next).length === 0) {
             next = lastRadioButton(node);
             event.currentTarget = next;
@@ -650,6 +658,7 @@ function handleKeyDownRadioGroupForFreckle(event){
     }
 
     if ($(next).length > 0) {
+      console.log("The input was " + $(next).prev().prop("id"))
 	  $(node).parent().parent().children('div').find('[role=radio]').each(function(){
 		  setRadioButton($(this),false);
 	  });
@@ -700,4 +709,8 @@ function configureSection508ForGender() {
         enableRadioGroupSection508(el)
 	});
 
+}
+
+function specificRatFooterInitialization() {
+   $("#contactLink").prop("href", "https://mrisktool-dev.cancer.gov/")
 }
