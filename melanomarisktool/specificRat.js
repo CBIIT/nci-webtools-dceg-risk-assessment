@@ -712,5 +712,5 @@ function configureSection508ForGender() {
 }
 
 function specificRatFooterInitialization() {
-   $("#contactLink").prop("href", "https://mrisktool-dev.cancer.gov/")
+   $("#contactLink").prop("href", "https://www.cancer.gov/melanomarisktool/")
 }
