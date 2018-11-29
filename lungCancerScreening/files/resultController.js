@@ -158,9 +158,48 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $sessionStor
 
   $scope.changeChartType = function(type) {
     $scope.chartType = type;
-    if ($scope.export === false && type === 'combined' && $scope.chart_row2 === true) {
+    if (type === 'bar') {
+      $scope.displayBarChart();
+    }
+
+    if ($scope.export === false && type === 'combined' && $scope.chart_row3 === true) {
       $scope.switchToSection(1);
     }
+
+    if ($scope.export === false && type === 'bar' && ($scope.chart_row2 === true || $scope.chart_row3 === true) ) {
+        $scope.switchToSection(1);
+    }
+  };
+
+  $scope.displayBarChart = function() {
+      var ctx = document.getElementById("barChart").getContext('2d');
+      var myChart = new Chart(ctx, {
+          type: 'horizontalBar',
+          data: {
+              labels: ["Death with screening", "Death without screening", "Diagnose false alarm", "Diagnose without screening", "Diagnose with screening"],
+              datasets: [{
+                  data: $scope.session.myForm.allResults,
+                  backgroundColor: ['#e31c3d', '#981b1e', '#fdb81e', '#046b99', '#02bfe7'],
+              }]
+          },
+          options: {
+              scales: {
+                  xAxes: [{
+                      ticks: {
+                          beginAtZero: true,
+                          maxTicksLimit: 20,
+                          min: 0,
+                          max: 100,
+                          stepSize: 10
+                      }
+                  }]
+              },
+              legend: {
+                  display: false
+              },
+              responsive: false
+          }
+      });
   };
 
   $scope.switchToSection = function(section) {

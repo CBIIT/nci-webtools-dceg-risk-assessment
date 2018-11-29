@@ -25,7 +25,7 @@
 }
 
 .chartBG {
-    background-color: #A4A4A4;
+    background-color: #aeb0b5;
 }
 
 .chartOverlap {
@@ -34,29 +34,26 @@
     left: 3px;
 }
 
-.chartBlock {
-    background-color: #CB222A;
-}
-
 .data1 {
-    color: #FCBD36;
+    color: #fdb81e;
 }
 .chartBlock1 {
-    background-color: #FCBD36;
+    background-color: #fdb81e;
 }
 
 .data2 {
-    color: #F8061D;
+    color: #e31c3d;
 }
 .chartBlock2 {
-    background-color: #F8061D;
+    background-color: #e31c3d;
 }
 
 .data3 {
-    color: #4776C0;
+    color: #0071bc;
 }
+.chartBlock,
 .chartBlock3 {
-    background-color: #4776C0;
+    background-color: #0071bc;
 }
 
 .chartDescription {

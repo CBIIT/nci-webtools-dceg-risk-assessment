@@ -345,22 +345,30 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
       /* GLOBAL_RESULTS['result' + i] = $scope.myForm['result' + i]; */
     }
 
+    $scope.myForm.allResults = [];
+
     if ($scope.myForm.result0 && $scope.myForm.result1) {
-      $scope.myForm['resultMatrix0_1'] = $util.numToMatrix(($scope.myForm.result0 - $scope.myForm.result1) / 10);
+      var result0_1 = ($scope.myForm.result0 - $scope.myForm.result1) / 10;
+      $scope.myForm['resultMatrix0_1'] = $util.numToMatrix(result0_1);
+      $scope.myForm.allResults.push(result0_1);
+      $scope.myForm.allResults.push($scope.myForm.result0 / 10);
+      if ($scope.myForm.result4) {
+          $scope.myForm['resultMatrixCombined1'] = $util.numToMatrix($scope.myForm.result4 / 10, $scope.myForm.result0 / 10,
+              result0_1);
+          $scope.myForm.allResults.push($scope.myForm.result4 / 10);
+      }
     }
     if ($scope.myForm.result2 && $scope.myForm.result3) {
-      $scope.myForm['resultMatrix2_3'] = $util.numToMatrix(($scope.myForm.result2 + $scope.myForm.result3) / 10);
-      $scope.myForm['resultMatrixCombined2'] = $util.numToMatrix(($scope.myForm.result2 + $scope.myForm.result3) / 10, 0,
-          $scope.myForm.result2 / 10);
-    }
-
-    if ($scope.myForm.result0 && $scope.myForm.result1 && $scope.myForm.result4) {
-        $scope.myForm['resultMatrixCombined1'] = $util.numToMatrix($scope.myForm.result4 / 10, $scope.myForm.result0 / 10,
-            ($scope.myForm.result0 - $scope.myForm.result1) / 10);
+      var result2_3 = ($scope.myForm.result2 + $scope.myForm.result3) / 10;
+      $scope.myForm['resultMatrix2_3'] = $util.numToMatrix(result2_3);
+      $scope.myForm['resultMatrixCombined2'] = $util.numToMatrix(result2_3, 0, $scope.myForm.result2 / 10);
+        $scope.myForm.allResults.push($scope.myForm.result2 / 10);
+      $scope.myForm.allResults.push(result2_3);
     }
 
     if ($scope.myForm.result0 > $scope.myForm.result2) {
       $scope.myForm.result2 = $scope.myForm.result0;
+      $scope.myForm.resultMatrix2 = $scope.myForm.resultMatrix0;
       $scope.myForm.unstableRisk = true;
     }
   };

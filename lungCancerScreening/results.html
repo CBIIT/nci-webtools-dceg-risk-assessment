@@ -127,6 +127,14 @@
     <div style="page-break-after: always"></div>
     <div class="yourresults">
         <div style="text-align: right; margin-bottom: 5px">
+            <button ng-click="changeChartType('square')" class="btn btn-default">
+                <div style="display: inline-block;position: relative; width:{{ chartCellWidth }}px; height: {{ chartCellHeight}}px">
+                    <div class="chartBG chartOverlap"></div>
+                    <div ng-if="chartType === 'square'" class="chartBlock chartOverlap" style="width:{{ chartIconWidth }}px;"></div>
+                </div>
+                <div style="display: inline-block;"><span style="display: table-cell;vertical-align: middle;height: {{ chartCellHeight }}px;">Rectangular</span></div>
+            </button>
+
             <button ng-click="changeChartType('people')" class="btn btn-default">
                 <div style="display: inline-block;position: relative; width:{{ chartCellWidth }}px; height: {{ chartCellHeight}}px">
                     <div class="chartBG chartOverlap"></div>
@@ -136,13 +144,6 @@
                 <div style="display: inline-block;"><span style="display: table-cell;vertical-align: middle;height: {{ chartCellHeight }}px;">Bathroom Icon</span></div>
             </button>
 
-            <button ng-click="changeChartType('square')" class="btn btn-default">
-                <div style="display: inline-block;position: relative; width:{{ chartCellWidth }}px; height: {{ chartCellHeight}}px">
-                    <div class="chartBG chartOverlap"></div>
-                    <div ng-if="chartType === 'square'" class="chartBlock chartOverlap" style="width:{{ chartIconWidth }}px;"></div>
-                </div>
-                <div style="display: inline-block;"><span style="display: table-cell;vertical-align: middle;height: {{ chartCellHeight }}px;">Rectangular</span></div>
-            </button>
             <button ng-click="changeChartType('combined')" class="btn btn-default">
                 <div style="display: inline-block;position: relative; width:{{ chartCellWidth }}px; height: {{ chartCellHeight}}px">
                     <div class="chartBG chartOverlap"></div>
@@ -151,23 +152,30 @@
                 </div>
                 <div style="display: inline-block;"><span style="display: table-cell;vertical-align: middle;height: {{ chartCellHeight }}px;">Combined</span></div>
             </button>
+
+            <button ng-click="changeChartType('bar')" class="btn btn-default">
+                <div style="display: inline-block;position: relative; width:{{ chartCellWidth }}px; height: {{ chartCellHeight}}px">
+                    <div class="chartBG chartOverlap"></div>
+                </div>
+                <div style="display: inline-block;"><span style="display: table-cell;vertical-align: middle;height: {{ chartCellHeight }}px;">Bar Chart</span></div>
+            </button>
         </div>
         <div ng-show="chart_row1 === true">
             <table class="results_header">
                 <tbody>
                     <tr>
-                        <th ng-if="chartType !== 'combined'">Benefits of Lung Cancer Screening</th>
-                        <th ng-if="chartType === 'combined'">Benefits and harms of Lung Cancer Screening</th>
+                        <th ng-if="chartType === 'people' || chartType === 'square'">Benefits of Lung Cancer Screening</th>
+                        <th ng-if="chartType === 'combined' || chartType === 'bar'">Benefits and harms of Lung Cancer Screening</th>
                     </tr>
                 </tbody>
             </table>
             <table class="results_table">
                 <tbody>
-                    <tr ng-if="chartType !== 'combined'">
+                    <tr ng-if="chartType === 'people' || chartType === 'square'">
                         <th class="results_title">IF YOU DO NOT GET CT LUNG SCREENING</th>
                         <th class="results_title">IF YOU DO GET CT LUNG SCREENING</th>
                     </tr>
-                    <tr ng-if="chartType !== 'combined'">
+                    <tr ng-if="chartType === 'people' || chartType === 'square'">
                         <td class="results_desc" valign="top">
                             <p class="description line1">Your chances of dying from lung cancer within 5 years are {{getResult("result0", 1)/10}}%.</p>
                         </td>
@@ -175,16 +183,22 @@
                             <p class="description line1">Your chances of dying from lung cancer within 5 years are {{(session.myForm.result0-session.myForm.result1)/10}}%.</p>
                         </td>
                     </tr>
-                    <tr ng-if="chartType === 'combined'">
+                    <tr ng-if="chartType === 'combined' || chartType === 'bar'">
                         <td class="chartDescription">
                             <p>If 100 people answered the questions just like you, {{ (session.myForm.result0 - session.myForm.result1)/10 }} out of 100 people who get screened would die from lung cancer in the next five years.</p>
                             <p>If 100 people answered the questions just like you but did not get screened, {{ session.myForm.result0 / 10 }} out of 100 would die from lung cancer in the next five years.</p>
-                            <p><span class="data3">{{ (session.myForm.result0 - session.myForm.result1) / 10 }}</span> deaths from lung cancer with screening</p>
-                            <p><span class="data2">{{ session.myForm.result1 / 10 }}</span> deaths from lung cancer avoided with screening</p>
-                            <p><span class="data1">{{ session.myForm.result4 / 10 }}</span> people would receive a false alarm in the next 3 years if they received yearly CT lung screening.</p>
+                            <p ng-if="chartType === 'bar'" class="description line1">If you receive yearly CT lung screening for 3 years, your chances of receiving at least one "false alarm" (a false positive result) are {{session.myForm.result4 / 10}} out of 100 people.</p>
+
+
+                            <p ng-if="chartType === 'combined'"><span class="data3">{{ (session.myForm.result0 - session.myForm.result1) / 10 }}</span> deaths from lung cancer with screening</pn>
+                            <p ng-if="chartType === 'combined'"><span class="data2">{{ session.myForm.result1 / 10 }}</span> deaths from lung cancer avoided with screening</p>
+                            <p ng-if="chartType === 'combined'"><span class="data1">{{ session.myForm.result4 / 10 }}</span> people would receive a false alarm in the next 3 years if they received yearly CT lung screening.</p>
+
+                            <p ng-if="chartType === 'bar'">If 100 people answered the questions just like you, {{ (session.myForm.result2) / 10 }} who did not receive CT lung screening would be diagnosed with lung cancer within the next five years.</p>
+                            <p ng-if="chartType === 'bar'">If 100 people answered the questions just like you, {{ (session.myForm.result2 + session.myForm.result3) / 10 }} who did receive CT lung screening would be diagnosed with lung cancer within the next five years.</p>
                         </td>
                     </tr>
-                    <tr ng-if="chartType !== 'combined'">
+                    <tr ng-if="chartType === 'people' || chartType === 'square'">
                         <td class="results_grid">
                             <lcs-chart value="session.myForm.resultMatrix0" chart-type="chartType"></lcs-chart>
                         </td>
@@ -197,12 +211,17 @@
                             <lcs-chart value="session.myForm.resultMatrixCombined1" chart-type="chartType"></lcs-chart>
                         </td>
                     </tr>
+                    <tr ng-show="chartType === 'bar'">
+                        <td class="results_grid">
+                            <canvas id="barChart" width="800" height="400"></canvas>
+                        </td>
+                    </tr>
                     <tr ng-if="chartType === 'combined'">
                         <td class="results_legend" valign="top">
-                            <p ng-show="export === false"><button ng-click="switchToSection(3)">Next</button></p>
+                            <p ng-show="export === false"><button ng-click="switchToSection(2)">Next</button></p>
                         </td>
                     </tr>
-                    <tr ng-if="chartType !== 'combined'">
+                    <tr ng-if="chartType === 'people' || chartType === 'square'">
                         <td class="results_legend">
                             <div>
                                 <div class="legendRow">
@@ -240,7 +259,7 @@
                             </div>
                         </td>
                     </tr>
-                    <tr ng-if="chartType !== 'combined'">
+                    <tr ng-if="chartType === 'people' || chartType === 'square'">
                         <td class="results_legend" valign="top">
                             <p class="ng-binding">This means that if 1000 people answer the questions just like you, {{session.myForm.result0}}
                                 of them would die from lung cancer in the next 5 years if they did not receive CT lung screening.</p>
@@ -263,7 +282,120 @@
     </div>
     <div style="page-break-after: always"></div>
     <div class="yourresults">
-        <div ng-if="chartType !== 'combined'" ng-show="chart_row2 === true">
+        <div ng-show="chart_row2 === true">
+            <table class="results_header">
+                <tbody>
+                <tr>
+                    <th>Other Information about Lung Cancer Screening</th>
+                </tr>
+                </tbody>
+            </table>
+            <table class="results_table">
+                <tbody>
+                <tr ng-if="chartType !== 'combined'">
+                    <th class="results_title">IF YOU DO NOT GET CT LUNG SCREENING</th>
+                    <th class="results_title">IF YOU DO GET CT LUNG SCREENING</th>
+                </tr>
+                <tr ng-if="chartType !== 'combined'">
+                    <td class="results_desc" valign="top">
+                        <p class="description line1">Your chances of being diagnosed with lung cancer within 5 years are {{getResult("result2", 1)/10}}%.
+                        </p>
+                    </td>
+                    <td class="results_desc" valign="top">
+                        <p class="description line1">Your chances of being diagnosed with lung cancer within 5 years are {{(session.myForm.result3+session.myForm.result2)/10}}%.
+                    </td>
+                </tr>
+                <tr ng-if="chartType !== 'combined'">
+                    <td class="results_grid">
+                        <lcs-chart value="session.myForm.resultMatrix2" chart-type="chartType"></lcs-chart>
+                    </td>
+                    <td class="results_grid">
+                        <lcs-chart value="session.myForm.resultMatrix2_3" chart-type="chartType"></lcs-chart>
+                    </td>
+                </tr>
+                <tr ng-if="chartType === 'combined'">
+                    <td class="chartDescription">
+                        <p>If 100 people answered the questions just like you, {{ (session.myForm.result2) / 10 }} who did not receive CT lung screening would be diagnosed with lung cancer within the next five years.</p>
+                        <p>If 100 people answered the questions just like you, {{ (session.myForm.result2 + session.myForm.result3) / 10 }} who did receive CT lung screening would be diagnosed with lung cancer within the next five years.</p>
+                        <p><span class="data2">{{ session.myForm.result2 / 10 }}</span> lung cancer diagnoses without screening</p>
+                        <p><span class="data1">{{ session.myForm.result3 / 10 }} </span>additional lung cancer diagnosis with screening</p>
+                    </td>
+                </tr>
+                <tr ng-if="chartType === 'combined'">
+                    <td class="results_grid">
+                        <lcs-chart value="session.myForm.resultMatrixCombined2" chart-type="chartType"></lcs-chart>
+                    </td>
+                </tr>
+                <tr ng-if="chartType !== 'combined'">
+                    <td class="results_legend">
+                        <div>
+                            <div class="legendRow">
+                                <div style="display: inline-block;position: relative; width:{{ chartCellWidth }}px; height: {{ chartCellHeight }}px">
+                                    <div class="chartBlock chartOverlap" style="width:{{ chartIconWidth }}px;"></div>
+                                    <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                </div>
+                                <div style="display: inline-block;"><span style="display: table-cell;vertical-align: middle;height: {{ chartCellHeight }}px;">Diagnosed with lung cancer</span></div>
+                            </div>
+                            <div class="legendRow">
+                                <div style="display: inline-block;position: relative; width:{{ chartCellWidth }}px; height: {{ chartCellHeight }}px">
+                                    <div class="chartBG chartOverlap"></div>
+                                    <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                </div>
+                                <div style="display: inline-block;"><span style="display: table-cell;vertical-align: middle;height: {{ chartCellHeight }}px;">NOT diagnosed with lung cancer</span></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="results_legend">
+                        <div>
+                            <div class="legendRow">
+                                <div style="display: inline-block;position: relative; width:{{ chartCellWidth }}px; height: {{ chartCellHeight }}px">
+                                    <div class="chartBlock chartOverlap" style="width:{{ chartIconWidth }}px;"></div>
+                                    <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                </div>
+                                <div style="display: inline-block;"><span style="display: table-cell;vertical-align: middle;height: {{ chartCellHeight }}px;">Diagnosed with lung cancer</span></div>
+                            </div>
+                            <div class="legendRow">
+                                <div style="display: inline-block;position: relative; width:{{ chartCellWidth }}px; height: {{ chartCellHeight }}px">
+                                    <div class="chartBG chartOverlap"></div>
+                                    <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                </div>
+                                <div style="display: inline-block;"><span style="display: table-cell;vertical-align: middle;height: {{ chartCellHeight }}px;">NOT diagnosed with lung cancer</span></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr ng-if="chartType !== 'combined'">
+                    <td class="results_legend" valign="top">
+                        <p class="ng-binding">This means that if 1000 people answer the questions just like you, {{session.myForm.result2}} {{getPeopleOrPerson(session.myForm.result2)}}
+                            would be diagnosed with lung cancer in the next 5 years if they did not receive CT lung screening.</p>
+
+                    </td>
+                    <td class="results_legend" valign="top">
+                        <p class="ng-binding">This means that if 1000 people answer the questions just like you,
+                            {{session.myForm.result2+session.myForm.result3}}
+                            instead of {{session.myForm.result2}} {{getPeopleOrPerson(session.myForm.result2)}}
+                            would be diagnosed with lung cancer
+                            if they receive yearly CT lung screening: an
+                            increase of {{session.myForm.result3}} out of 1000 people.</p>
+
+                        <p class="ng-binding">Your chances of being diagnosed with lung cancer within 5 years will be
+                            increased by {{session.myForm.result3/10 }}%.</p>
+                        <p ng-show="export === false"><button ng-click="switchToSection(1)">Back</button>
+                            <button ng-click="switchToSection(3)">Next</button></p>
+                    </td>
+                </tr>
+                <tr ng-if="chartType === 'combined'">
+                    <td class="results_legend" valign="top">
+                        <p ng-show="export === false"><button ng-click="switchToSection(1)">Back</button></p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div style="page-break-after: always"></div>
+    <div class="yourresults">
+        <div ng-if="chartType === 'people' || chartType === 'square'" ng-show="chart_row3 === true">
             <table class="results_header">
                 <tbody>
                     <tr>
@@ -322,7 +454,7 @@
                             <p class="ng-binding">This means that if 1000 people answer the questions just like you, {{session.myForm.result4}}
                                 {{getPeopleOrPerson(session.myForm.result4)}} would receive a false alarm in the next 3 years
                                 if they received yearly CT lung screening.</p>
-                            <p ng-show="export === false"> <button ng-click="switchToSection(1)">Back</button> <button ng-click="switchToSection(3)">Next</button></p>
+                            <p ng-show="export === false"> <button ng-click="switchToSection(2)">Back</button>
 
                         </td>
                     </tr>
@@ -330,119 +462,6 @@
             </table>
         </div>
     </div>
-    <div style="page-break-after: always"></div>
-    <div class="yourresults">
-        <div ng-show="chart_row3 === true">
-            <table class="results_header">
-                <tbody>
-                    <tr>
-                        <th>Other Information about Lung Cancer Screening</th>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="results_table">
-                <tbody>
-                    <tr ng-if="chartType !== 'combined'">
-                        <th class="results_title">IF YOU DO NOT GET CT LUNG SCREENING</th>
-                        <th class="results_title">IF YOU DO GET CT LUNG SCREENING</th>
-                    </tr>
-                    <tr ng-if="chartType !== 'combined'">
-                        <td class="results_desc" valign="top">
-                            <p class="description line1">Your chances of being diagnosed with lung cancer within 5 years are {{getResult("result2", 1)/10}}%.
-                            </p>
-                        </td>
-                        <td class="results_desc" valign="top">
-                            <p class="description line1">Your chances of being diagnosed with lung cancer within 5 years are {{(session.myForm.result3+session.myForm.result2)/10}}%.
-                        </td>
-                    </tr>
-                    <tr ng-if="chartType !== 'combined'">
-                        <td class="results_grid">
-                            <lcs-chart value="session.myForm.resultMatrix2" chart-type="chartType"></lcs-chart>
-                        </td>
-                        <td class="results_grid">
-                            <lcs-chart value="session.myForm.resultMatrix2_3" chart-type="chartType"></lcs-chart>
-                        </td>
-                    </tr>
-                    <tr ng-if="chartType === 'combined'">
-                        <td class="chartDescription">
-                            <p>If 100 people answered the questions just like you, {{ (session.myForm.result2) / 10 }} who did not receive CT lung screening would be diagnosed with lung cancer within the next five years.</p>
-                            <p>If 100 people answered the questions just like you, {{ (session.myForm.result2 + session.myForm.result3) / 10 }} who did receive CT lung screening would be diagnosed with lung cancer within the next five years.</p>
-                            <p><span class="data2">{{ session.myForm.result2 / 10 }}</span> lung cancer diagnoses without screening</p>
-                            <p><span class="data1">{{ session.myForm.result3 / 10 }} </span>additional lung cancer diagnosis with screening</p>
-                        </td>
-                    </tr>
-                    <tr ng-if="chartType === 'combined'">
-                        <td class="results_grid">
-                            <lcs-chart value="session.myForm.resultMatrixCombined2" chart-type="chartType"></lcs-chart>
-                        </td>
-                    </tr>
-                    <tr ng-if="chartType !== 'combined'">
-                        <td class="results_legend">
-                            <div>
-                                <div class="legendRow">
-                                    <div style="display: inline-block;position: relative; width:{{ chartCellWidth }}px; height: {{ chartCellHeight }}px">
-                                        <div class="chartBlock chartOverlap" style="width:{{ chartIconWidth }}px;"></div>
-                                        <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
-                                    </div>
-                                    <div style="display: inline-block;"><span style="display: table-cell;vertical-align: middle;height: {{ chartCellHeight }}px;">Diagnosed with lung cancer</span></div>
-                                </div>
-                                <div class="legendRow">
-                                    <div style="display: inline-block;position: relative; width:{{ chartCellWidth }}px; height: {{ chartCellHeight }}px">
-                                        <div class="chartBG chartOverlap"></div>
-                                        <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
-                                    </div>
-                                    <div style="display: inline-block;"><span style="display: table-cell;vertical-align: middle;height: {{ chartCellHeight }}px;">NOT diagnosed with lung cancer</span></div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="results_legend">
-                            <div>
-                                <div class="legendRow">
-                                    <div style="display: inline-block;position: relative; width:{{ chartCellWidth }}px; height: {{ chartCellHeight }}px">
-                                        <div class="chartBlock chartOverlap" style="width:{{ chartIconWidth }}px;"></div>
-                                        <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
-                                    </div>
-                                    <div style="display: inline-block;"><span style="display: table-cell;vertical-align: middle;height: {{ chartCellHeight }}px;">Diagnosed with lung cancer</span></div>
-                                </div>
-                                <div class="legendRow">
-                                    <div style="display: inline-block;position: relative; width:{{ chartCellWidth }}px; height: {{ chartCellHeight }}px">
-                                        <div class="chartBG chartOverlap"></div>
-                                        <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
-                                    </div>
-                                    <div style="display: inline-block;"><span style="display: table-cell;vertical-align: middle;height: {{ chartCellHeight }}px;">NOT diagnosed with lung cancer</span></div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr ng-if="chartType !== 'combined'">
-                        <td class="results_legend" valign="top">
-                            <p class="ng-binding">This means that if 1000 people answer the questions just like you, {{session.myForm.result2}} {{getPeopleOrPerson(session.myForm.result2)}}
-                                would be diagnosed with lung cancer in the next 5 years if they did not receive CT lung screening.</p>
-
-                        </td>
-                        <td class="results_legend" valign="top">
-                            <p class="ng-binding">This means that if 1000 people answer the questions just like you,
-                                {{session.myForm.result2+session.myForm.result3}}
-                                instead of {{session.myForm.result2}} {{getPeopleOrPerson(session.myForm.result2)}}
-                                would be diagnosed with lung cancer
-                                if they receive yearly CT lung screening: an
-                                increase of {{session.myForm.result3}} out of 1000 people.</p>
-
-                                <p class="ng-binding">Your chances of being diagnosed with lung cancer within 5 years will be
-                                    increased by {{session.myForm.result3/10 }}%.</p>
-                                <p ng-show="export === false"><button ng-click="switchToSection(2)">Back</button></p>
-                        </td>
-                    </tr>
-                    <tr ng-if="chartType === 'combined'">
-                        <td class="results_legend" valign="top">
-                            <p ng-show="export === false"><button ng-click="switchToSection(1)">Back</button></p>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
     <div ng-show="summary">
         <p>
             <b>The best way</b> to lower your risk of lung cancer, and all smoking-related diseases, is to quit smoking. Learn more by visiting <a href="https://smokefree.gov/" target="smokefree">smokefree.gov</a>, the CDC <a href="https://www.cdc.gov/tobacco/quit_smoking/" target="cdcSmokeFree">quitting smoking</a> page, or by calling 1-800-QUIT-NOW.
