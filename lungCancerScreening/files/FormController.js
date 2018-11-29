@@ -353,8 +353,8 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
       $scope.myForm.allResults.push(result0_1);
       $scope.myForm.allResults.push($scope.myForm.result0 / 10);
       if ($scope.myForm.result4) {
-          $scope.myForm['resultMatrixCombined1'] = $util.numToMatrix($scope.myForm.result4 / 10, $scope.myForm.result0 / 10,
-              result0_1);
+          $scope.myForm['resultMatrixCombined1'] = $util.numToMatrix($scope.myForm.result0 / 10, 0, result0_1);
+          $scope.myForm['resultMatrixCombined3'] = $util.numToMatrix(0, 0, $scope.myForm.result4 / 10);
           $scope.myForm.allResults.push($scope.myForm.result4 / 10);
       }
     }

@@ -162,10 +162,6 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $sessionStor
       $scope.displayBarChart();
     }
 
-    if ($scope.export === false && type === 'combined' && $scope.chart_row3 === true) {
-      $scope.switchToSection(1);
-    }
-
     if ($scope.export === false && type === 'bar' && ($scope.chart_row2 === true || $scope.chart_row3 === true) ) {
         $scope.switchToSection(1);
     }
