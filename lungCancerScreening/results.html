@@ -126,7 +126,16 @@
     </div>
     <div style="page-break-after: always"></div>
     <div class="yourresults">
+        <!-- Chart type buttons -->
         <div style="text-align: right; margin-bottom: 5px">
+            <button ng-click="changeChartType('pic')" class="btn btn-default">
+                <div class="legendPart legendSquare">
+                    <div class="chartBG chartOverlap"></div>
+                    <div ng-if="chartType === 'pic'" class="chartBlock chartOverlap"></div>
+                </div>
+                <div class="legendPart"><span class="legendText">Original</span></div>
+            </button>
+
             <button ng-click="changeChartType('square')" class="btn btn-default">
                 <div class="legendPart legendSquare">
                     <div class="chartBG chartOverlap"></div>
@@ -164,18 +173,19 @@
             <table class="results_header">
                 <tbody>
                     <tr>
-                        <th ng-if="chartType === 'people' || chartType === 'square'">Benefits of Lung Cancer Screening</th>
+                        <th ng-if="chartType === 'pic' || chartType === 'people' || chartType === 'square'">Benefits of Lung Cancer Screening</th>
                         <th ng-if="chartType === 'combined' || chartType === 'bar'">Benefits and harms of Lung Cancer Screening</th>
                     </tr>
                 </tbody>
             </table>
             <table class="results_table">
                 <tbody>
-                    <tr ng-if="chartType === 'people' || chartType === 'square'">
+                    <!-- Top description -->
+                    <tr ng-if="chartType === 'pic' || chartType === 'people' || chartType === 'square'">
                         <th class="results_title">IF YOU DO NOT GET CT LUNG SCREENING</th>
                         <th class="results_title">IF YOU DO GET CT LUNG SCREENING</th>
                     </tr>
-                    <tr ng-if="chartType === 'people' || chartType === 'square'">
+                    <tr ng-if="chartType === 'pic' || chartType === 'people' || chartType === 'square'">
                         <td class="results_desc" valign="top">
                             <p class="description line1">Your chances of dying from lung cancer within 5 years are <b>{{getResult("result0", 1)/10}}%</b>.</p>
                         </td>
@@ -183,6 +193,7 @@
                             <p class="description line1">Your chances of dying from lung cancer within 5 years are <b>{{(session.myForm.result0-session.myForm.result1)/10}}%</b>.</p>
                         </td>
                     </tr>
+                    <!-- Bar chart description -->
                     <tr ng-if="chartType === 'bar'">
                         <td class="chartDescription">
                             <p>If 100 people answered the questions just like you, <b>{{ (session.myForm.result0 - session.myForm.result1)/10 }}</b> out of 100 people who get screened would die from lung cancer in the next five years.</p>
@@ -196,6 +207,16 @@
                             <p>If 100 people answered the questions just like you, <b>{{ (session.myForm.result2 + session.myForm.result3) / 10 }}</b> who did receive CT lung screening would be diagnosed with lung cancer within the next five years.</p>
                         </td>
                     </tr>
+                    <!-- Original pictogram chart -->
+                    <tr ng-if="chartType === 'pic'">
+                        <td class="results_grid">
+                            <img ng-src="{{base_url}}files/grid_images/chart_rl_{{session.myForm.result0}}.png" alt="chart1" />
+                        </td>
+                        <td class="results_grid">
+                            <img ng-src="{{base_url}}files/grid_images/chart{{session.myForm.result0-session.myForm.result1}}.png" alt="chart2"
+                        </td>
+                    </tr>
+                    <!-- Bathroom and square chart -->
                     <tr ng-if="chartType === 'people' || chartType === 'square'">
                         <td class="results_grid">
                             <lcs-chart value="session.myForm.resultMatrix0" chart-type="chartType"></lcs-chart>
@@ -204,6 +225,7 @@
                             <lcs-chart value="session.myForm.resultMatrix0_1" chart-type="chartType"></lcs-chart>
                         </td>
                     </tr>
+                    <!-- Combined chart -->
                     <tr ng-if="chartType === 'combined'">
                         <td class="chartDescription">
                             <p>If 100 people answered the questions just like you, <b>{{ (session.myForm.result0 - session.myForm.result1)/10 }}</b> out of 100 people who get screened would die from lung cancer in the next five years.</p>
@@ -237,19 +259,24 @@
                             <lcs-chart value="session.myForm.resultMatrixCombined1" chart-type="chartType"></lcs-chart>
                         </td>
                     </tr>
+                    <!-- Bar chart -->
                     <tr ng-show="chartType === 'bar'">
                         <td class="results_grid">
                             <canvas id="barChart" width="800" height="400"></canvas>
                         </td>
                     </tr>
-                    <tr ng-if="chartType === 'combined'">
-                        <td class="results_legend" valign="top">
-                            <p ng-show="export === false"><button ng-click="switchToSection(2)">Next</button></p>
-                        </td>
-                    </tr>
-                    <tr ng-if="chartType === 'people' || chartType === 'square'">
+                    <!-- Bottom descriptions -->
+                    <tr ng-if="chartType === 'pic' || chartType === 'people' || chartType === 'square'">
                         <td class="results_legend">
-                            <div>
+                            <div ng-if="chartType === 'pic'">
+                                <span>
+                                    <img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellfill.png" alt="filled cell" />Death from lung cancer<br />
+                                </span>
+                                <span>
+                                    <img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellempty.png" alt="empty cell" />Alive (with or without lung cancer)
+                                </span>
+                            </div>
+                            <div ng-if="chartType === 'people' || chartType === 'square'">
                                 <div class="legendRow">
                                     <div class="legendPart legendSquare">
                                         <div class="chartBlock chartOverlap" style="width:{{ chartIconWidth }}px;"></div>
@@ -271,7 +298,15 @@
                             </div>
                         </td>
                         <td class="results_legend">
-                            <div>
+                            <div ng-if="chartType === 'pic'">
+                                <span>
+                                    <img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellfill.png" alt="filled cell" />Death from lung cancer<br />
+                                </span>
+                                <span>
+                                    <img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellempty.png" alt="empty cell" />Alive (with or without lung cancer)
+                                </span>
+                            </div>
+                            <div ng-if="chartType === 'people' || chartType === 'square'">
                                 <div class="legendRow">
                                     <div class="legendPart legendSquare">
                                         <div class="chartBlock chartOverlap"></div>
@@ -293,11 +328,10 @@
                             </div>
                         </td>
                     </tr>
-                    <tr ng-if="chartType === 'people' || chartType === 'square'">
+                    <tr ng-if="chartType === 'pic' || chartType === 'people' || chartType === 'square'">
                         <td class="results_legend" valign="top">
                             <p class="ng-binding">This means that if 1000 people answer the questions just like you, <b>{{session.myForm.result0}}</b>
                                 of them would die from lung cancer in the next 5 years if they did not receive CT lung screening.</p>
-                            <!--<p ng-show="chart1 && !next2"><button ng-click="chart2=true; next2=true">Next</button></p>-->
                         </td>
                         <td class="results_legend" valign="top">
                             <p class="ng-binding">This means that if 1000 people answer the questions just like you, <b>{{session.myForm.result0-session.myForm.result1}}</b>
@@ -306,7 +340,12 @@
                                 decrease of <b>{{getResult("result1", 1)}}</b> out of 1000 people. </p>
                             <p class="ng-binding">Your chances of dying from lung cancer within 5 years will be
                                 reduced by <b>{{getResult("result1", 1) / 10}}%</b>.</p>
-
+                        </td>
+                    </tr>
+                    <!-- Navigation buttons -->
+                    <tr ng-if="chartType !== 'bar'">
+                        <td ng-if="chartType !== 'combined'"></td>
+                        <td class="results_legend" valign="top">
                             <p ng-show="export === false"><button ng-click="switchToSection(2)">Next</button></p>
                         </td>
                     </tr>
@@ -326,6 +365,7 @@
             </table>
             <table class="results_table">
                 <tbody>
+                <!-- Top description -->
                 <tr ng-if="chartType !== 'combined'">
                     <th class="results_title">IF YOU DO NOT GET CT LUNG SCREENING</th>
                     <th class="results_title">IF YOU DO GET CT LUNG SCREENING</th>
@@ -339,7 +379,17 @@
                         <p class="description line1">Your chances of being diagnosed with lung cancer within 5 years are <b>{{(session.myForm.result3+session.myForm.result2)/10}}%</b>.
                     </td>
                 </tr>
-                <tr ng-if="chartType !== 'combined'">
+                <!-- Original pictogram -->
+                <tr ng-if="chartType === 'pic'">
+                    <td class="results_grid">
+                        <img ng-src="{{base_url}}files/grid_images/chart_rl_{{session.myForm.result2}}.png" alt="chart4" />
+                    </td>
+                    <td class="results_grid">
+                        <img ng-src="{{base_url}}files/grid_images/chart{{session.myForm.result3+session.myForm.result2}}.png" alt="chart5">
+                    </td>
+                </tr>
+                <!-- Bathroom and square charts -->
+                <tr ng-if="chartType === 'people' || chartType === 'square'">
                     <td class="results_grid">
                         <lcs-chart value="session.myForm.resultMatrix2" chart-type="chartType"></lcs-chart>
                     </td>
@@ -347,6 +397,7 @@
                         <lcs-chart value="session.myForm.resultMatrix2_3" chart-type="chartType"></lcs-chart>
                     </td>
                 </tr>
+                <!-- Combined chart -->
                 <tr ng-if="chartType === 'combined'">
                     <td class="chartDescription">
                         <p>If 100 people answered the questions just like you, <b>{{ (session.myForm.result2) / 10 }}</b> who did not receive CT lung screening would be diagnosed with lung cancer within the next five years.</p>
@@ -379,9 +430,18 @@
                         <lcs-chart value="session.myForm.resultMatrixCombined2" chart-type="chartType"></lcs-chart>
                     </td>
                 </tr>
+                <!-- Bottom description -->
                 <tr ng-if="chartType !== 'combined'">
                     <td class="results_legend">
-                        <div>
+                        <div ng-if="chartType === 'pic'">
+                            <span>
+                                <img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellfill.png" alt="filled cell" />Diagnosed with lung cancer<br />
+                            </span>
+                            <span>
+                                <img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellempty.png" alt="empty cell" />NOT diagnosed with lung cancer
+                            </span>
+                        </div>
+                        <div ng-if="chartType !== 'pic'">
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
                                     <div class="chartBlock chartOverlap" style="width:{{ chartIconWidth }}px;"></div>
@@ -403,7 +463,15 @@
                         </div>
                     </td>
                     <td class="results_legend">
-                        <div>
+                        <div ng-if="chartType === 'pic'">
+                            <span>
+                                <img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellfill.png" alt="filled cell" />Diagnosed with lung cancer<br />
+                            </span>
+                            <span>
+                                <img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellempty.png" alt="empty cell" />NOT diagnosed with lung cancer
+                            </span>
+                        </div>
+                        <div ng-if="chartType === 'people' || chartType === 'square'">
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
                                     <div class="chartBlock chartOverlap" style="width:{{ chartIconWidth }}px;"></div>
@@ -467,6 +535,7 @@
             </table>
             <table class="results_table">
                 <tbody>
+                    <!-- Top description -->
                     <tr>
                         <td class="results_title"></td>
                         <th class="results_title">IF YOU DO GET CT LUNG SCREENING</th>
@@ -478,9 +547,13 @@
                                 one "false alarm" (a false positive result) are <b>{{session.myForm.result4}}</b> out of 1000 people.</p>
                         </td>
                     </tr>
+                    <!-- Charts -->
                     <tr>
                         <td class="results_grid">
                             <div></div>
+                        </td>
+                        <td ng-if="chartType === 'pic'">
+                            <img ng-src="{{base_url}}files/grid_images/chart{{session.myForm.result4}}.png" alt="chart3" />
                         </td>
                         <td ng-if="chartType === 'square' || chartType === 'people'" class="results_grid">
                             <lcs-chart value="session.myForm.resultMatrix4" chart-type="chartType"></lcs-chart>
@@ -489,12 +562,18 @@
                             <lcs-chart value="session.myForm.resultMatrixCombined3" chart-type="chartType"></lcs-chart>
                         </td>
                     </tr>
+                    <!-- Bottom description -->
                     <tr>
                         <td class="results_legend">
-
                         </td>
                         <td class="results_legend">
-                            <div>
+                            <div ng-if="chartType === 'pic'">
+                                <span><img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellfill.png" alt="filled cell" />Had a false alarm (positive screening test but does not actually have lung cancer)<br />
+                            </span>
+                                <span><img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellempty.png" alt="empty cell" />Did NOT have a false alarm
+                            </span>
+                            </div>
+                            <div ng-if="chartType !== 'pic'">
                                 <div class="legendRow">
                                     <div class="legendPart legendSquare">
                                         <div class="chartBlock chartOverlap" style="width:{{ chartIconWidth }}px;"></div>
