@@ -59,3 +59,26 @@
 .chartDescription {
     padding-top: 10px;
 }
+
+.results_legend .legendRow {
+    margin-top: 5px;
+}
+
+.legendPart {
+    display: inline-block;
+    position: relative;
+}
+
+.legendText {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.legendPart,
+.legendText {
+    height: 31px;
+}
+
+.legendSquare {
+    width: 21px;
+}
