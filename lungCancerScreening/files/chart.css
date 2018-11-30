@@ -11,13 +11,6 @@
 
 .chartBG,
 .chartBlock,
-.chartBlock1,
-.chartBlock2,
-.chartBlock3,
-.chartBlock4,
-.chartBlock5,
-.chartBlock6,
-.chartBlock7,
 .chartIcon {
      width: 15px;
     height: 25px;
@@ -55,7 +48,6 @@
 .data3 {
     color: #0071bc;
 }
-.chartBlock,
 .chartBlock3 {
     background-color: #0071bc;
 }

@@ -138,7 +138,7 @@
             <button ng-click="changeChartType('square')" class="btn btn-default">
                 <div class="legendPart legendSquare">
                     <div class="chartBG chartOverlap"></div>
-                    <div ng-if="chartType === 'square'" class="chartBlock chartOverlap"></div>
+                    <div ng-if="chartType === 'square'" class="chartBlock chartBlock3 chartOverlap"></div>
                 </div>
                 <div class="legendPart"><span class="legendText">Rectangular</span></div>
             </button>
@@ -146,7 +146,7 @@
             <button ng-click="changeChartType('people')" class="btn btn-default">
                 <div class="legendPart legendSquare">
                     <div class="chartBG chartOverlap"></div>
-                    <div ng-if="chartType === 'people'" class="chartBlock chartOverlap"></div>
+                    <div ng-if="chartType === 'people'" class="chartBlock chartBlock3 chartOverlap"></div>
                     <img src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
                 </div>
                 <div class="legendPart"><span class="legendText">Bathroom Icon</span></div>
@@ -155,8 +155,8 @@
             <button ng-click="changeChartType('combined')" class="btn btn-default">
                 <div class="legendPart legendSquare">
                     <div class="chartBG chartOverlap"></div>
-                    <div  class="chartBlock1 chartOverlap" style="width:10px;{{ chartType !== 'combined' ? 'background-color:#808080' : '' }}"></div>
-                    <div  class="chartBlock3 chartOverlap" style="width:5px;{{ chartType !== 'combined' ? 'background-color:#606060' : '' }}"></div>
+                    <div  class="chartBlock chartBlock1 chartOverlap" style="width:10px;{{ chartType !== 'combined' ? 'background-color:#808080' : '' }}"></div>
+                    <div  class="chartBlock chartBlock3 chartOverlap" style="width:5px;{{ chartType !== 'combined' ? 'background-color:#606060' : '' }}"></div>
                 </div>
                 <div class="legendPart"><span class="legendText">Combined</span></div>
             </button>
@@ -197,7 +197,7 @@
                         <td class="chartDescription">
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
-                                    <div class="chartBlock4 chartOverlap"></div>
+                                    <div class="chartBlock chartBlock4 chartOverlap"></div>
                                 </div>
                                 <div class="legendPart">
                                     <span class="legendText">
@@ -208,7 +208,7 @@
 
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
-                                    <div class="chartBlock5 chartOverlap"></div>
+                                    <div class="chartBlock chartBlock5 chartOverlap"></div>
                                 </div>
                                 <div class="legendPart">
                                     <span class="legendText">
@@ -219,7 +219,7 @@
 
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
-                                    <div class="chartBlock1 chartOverlap"></div>
+                                    <div class="chartBlock chartBlock1 chartOverlap"></div>
                                 </div>
                                 <div class="legendPart">
                                     <span class="legendText">
@@ -230,7 +230,7 @@
 
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
-                                    <div class="chartBlock6 chartOverlap"></div>
+                                    <div class="chartBlock chartBlock6 chartOverlap"></div>
                                 </div>
                                 <div class="legendPart">
                                     <span class="legendText">
@@ -241,7 +241,7 @@
 
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
-                                    <div class="chartBlock7 chartOverlap"></div>
+                                    <div class="chartBlock chartBlock7 chartOverlap"></div>
                                 </div>
                                 <div class="legendPart">
                                     <span class="legendText">
@@ -278,7 +278,7 @@
 
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
-                                    <div class="chartBlock3 chartOverlap"></div>
+                                    <div class="chartBlock chartBlock3 chartOverlap"></div>
                                 </div>
                                 <div class="legendPart">
                                     <span class="legendText">
@@ -289,7 +289,7 @@
                             </div>
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
-                                    <div class="chartBlock1 chartOverlap"></div>
+                                    <div class="chartBlock chartBlock1 chartOverlap"></div>
                                 </div>
                                 <div class="legendPart">
                                     <span class="legendText">
@@ -323,7 +323,7 @@
                             <div ng-if="chartType === 'people' || chartType === 'square'">
                                 <div class="legendRow">
                                     <div class="legendPart legendSquare">
-                                        <div class="chartBlock chartOverlap" style="width:{{ chartIconWidth }}px;"></div>
+                                        <div class="chartBlock chartBlock3 chartOverlap" style="width:{{ chartIconWidth }}px;"></div>
                                         <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
                                     </div>
                                     <div class="legendPart">
@@ -353,7 +353,7 @@
                             <div ng-if="chartType === 'people' || chartType === 'square'">
                                 <div class="legendRow">
                                     <div class="legendPart legendSquare">
-                                        <div class="chartBlock chartOverlap"></div>
+                                        <div class="chartBlock chartBlock3 chartOverlap"></div>
                                         <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
                                     </div>
                                     <div class="legendPart">
@@ -449,7 +449,7 @@
 
                         <div class="legendRow">
                             <div class="legendPart legendSquare">
-                                <div class="chartBlock3 chartOverlap"></div>
+                                <div class="chartBlock chartBlock3 chartOverlap"></div>
                             </div>
                             <div class="legendPart">
                                 <span class="legendText">
@@ -460,7 +460,7 @@
                         </div>
                         <div class="legendRow">
                             <div class="legendPart legendSquare">
-                                <div class="chartBlock1 chartOverlap"></div>
+                                <div class="chartBlock chartBlock1 chartOverlap"></div>
                             </div>
                             <div class="legendPart">
                                 <span class="legendText">
@@ -488,7 +488,7 @@
                         <div ng-if="chartType !== 'pic'">
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
-                                    <div class="chartBlock chartOverlap" style="width:{{ chartIconWidth }}px;"></div>
+                                    <div class="chartBlock chartBlock3 chartOverlap" style="width:{{ chartIconWidth }}px;"></div>
                                     <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
                                 </div>
                                 <div class="legendPart">
@@ -518,7 +518,7 @@
                         <div ng-if="chartType === 'people' || chartType === 'square'">
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
-                                    <div class="chartBlock chartOverlap" style="width:{{ chartIconWidth }}px;"></div>
+                                    <div class="chartBlock chartBlock3 chartOverlap" style="width:{{ chartIconWidth }}px;"></div>
                                     <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
                                 </div>
                                 <div class="legendPart">
@@ -620,7 +620,7 @@
                             <div ng-if="chartType !== 'pic'">
                                 <div class="legendRow">
                                     <div class="legendPart legendSquare">
-                                        <div class="chartBlock chartOverlap" style="width:{{ chartIconWidth }}px;"></div>
+                                        <div class="chartBlock chartBlock3 chartOverlap" style="width:{{ chartIconWidth }}px;"></div>
                                         <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
                                     </div>
                                     <div class="legendPart">

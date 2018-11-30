@@ -3,10 +3,10 @@
         <th class="chartLegend">{{ $index * 10 + 10 }}</th>
         <td ng-repeat="cell in row track by $index" class="chartCell">
             <div class="chartBG"></div>
-            <div ng-if="chartType !== 'combined'" class="chartBlock chartOverlap" style="width: {{ cell.val1 * 0.1 * iconWidth }}px;"></div>
-            <div ng-if="chartType === 'combined'" class="chartBlock1 chartOverlap" style="width: {{ cell.val1 * 0.1 * iconWidth }}px;"></div>
-            <div ng-if="chartType === 'combined'" class="chartBlock2 chartOverlap" style="width: {{ cell.val2 * 0.1 * iconWidth }}px;"></div>
-            <div ng-if="chartType === 'combined'" class="chartBlock3 chartOverlap" style="width: {{ cell.val3 * 0.1 * iconWidth }}px;"></div>
+            <div ng-if="chartType !== 'combined'" class="chartBlock chartBlock3 chartOverlap" style="width: {{ cell.val1 * 0.1 * iconWidth }}px;"></div>
+            <div ng-if="chartType === 'combined'" class="chartBlock chartBlock1 chartOverlap" style="width: {{ cell.val1 * 0.1 * iconWidth }}px;"></div>
+            <div ng-if="chartType === 'combined'" class="chartBlock chartBlock2 chartOverlap" style="width: {{ cell.val2 * 0.1 * iconWidth }}px;"></div>
+            <div ng-if="chartType === 'combined'" class="chartBlock chartBlock3 chartOverlap" style="width: {{ cell.val3 * 0.1 * iconWidth }}px;"></div>
             <img ng-if="chartType === 'people'" ng-src="files/images/people.png" class="chartIcon chartOverlap">
         </td>
     </tr>
