@@ -14,6 +14,10 @@
 .chartBlock1,
 .chartBlock2,
 .chartBlock3,
+.chartBlock4,
+.chartBlock5,
+.chartBlock6,
+.chartBlock7,
 .chartIcon {
      width: 15px;
     height: 25px;
@@ -54,6 +58,22 @@
 .chartBlock,
 .chartBlock3 {
     background-color: #0071bc;
+}
+
+.chartBlock4 {
+    background-color: #e31c3d;
+}
+
+.chartBlock5 {
+    background-color: #981b1e;
+}
+
+.chartBlock6 {
+    background-color: #046b99;
+}
+
+.chartBlock7 {
+    background-color: #02bfe7;
 }
 
 .chartDescription {

@@ -195,15 +195,60 @@
                     <!-- Bar chart description -->
                     <tr ng-if="chartType === 'bar'">
                         <td class="chartDescription">
-                            <p>If 100 people answered the questions just like you, <b>{{ (session.myForm.result0 - session.myForm.result1)/10 }}</b> out of 100 people who get screened would die from lung cancer in the next five years.</p>
+                            <div class="legendRow">
+                                <div class="legendPart legendSquare">
+                                    <div class="chartBlock4 chartOverlap"></div>
+                                </div>
+                                <div class="legendPart">
+                                    <span class="legendText">
+                                        If 100 people answered the questions just like you, <b>{{ (session.myForm.result0 - session.myForm.result1)/10 }}</b> out of 100 people who get screened would die from lung cancer in the next five years.
+                                    </span>
+                                </div>
+                            </div>
 
-                            <p>If 100 people answered the questions just like you but did not get screened, <b>{{ session.myForm.result0 / 10 }}</b> out of 100 would die from lung cancer in the next five years.</p>
+                            <div class="legendRow">
+                                <div class="legendPart legendSquare">
+                                    <div class="chartBlock5 chartOverlap"></div>
+                                </div>
+                                <div class="legendPart">
+                                    <span class="legendText">
+                                        If 100 people answered the questions just like you but did not get screened, <b>{{ session.myForm.result0 / 10 }}</b> out of 100 would die from lung cancer in the next five years.
+                                    </span>
+                                </div>
+                            </div>
 
-                            <p class="description line1">If you receive yearly CT lung screening for 3 years, your chances of receiving at least one "false alarm" (a false positive result) are <b>{{session.myForm.result4 / 10}}</b> out of 100 people.</p>
+                            <div class="legendRow">
+                                <div class="legendPart legendSquare">
+                                    <div class="chartBlock1 chartOverlap"></div>
+                                </div>
+                                <div class="legendPart">
+                                    <span class="legendText">
+                                        If you receive yearly CT lung screening for 3 years, your chances of receiving at least one "false alarm" (a false positive result) are <b>{{session.myForm.result4 / 10}}</b> out of 100 people.
+                                    </span>
+                                </div>
+                            </div>
 
-                            <p>If 100 people answered the questions just like you, <b>{{ (session.myForm.result2) / 10 }}</b> who did not receive CT lung screening would be diagnosed with lung cancer within the next five years.</p>
+                            <div class="legendRow">
+                                <div class="legendPart legendSquare">
+                                    <div class="chartBlock6 chartOverlap"></div>
+                                </div>
+                                <div class="legendPart">
+                                    <span class="legendText">
+                                        If 100 people answered the questions just like you, <b>{{ (session.myForm.result2) / 10 }}</b> who did not receive CT lung screening would be diagnosed with lung cancer within the next five years.
+                                    </span>
+                                </div>
+                            </div>
 
-                            <p>If 100 people answered the questions just like you, <b>{{ (session.myForm.result2 + session.myForm.result3) / 10 }}</b> who did receive CT lung screening would be diagnosed with lung cancer within the next five years.</p>
+                            <div class="legendRow">
+                                <div class="legendPart legendSquare">
+                                    <div class="chartBlock7 chartOverlap"></div>
+                                </div>
+                                <div class="legendPart">
+                                    <span class="legendText">
+                                        If 100 people answered the questions just like you, <b>{{ (session.myForm.result2 + session.myForm.result3) / 10 }}</b> who did receive CT lung screening would be diagnosed with lung cancer within the next five years.
+                                    </span>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                     <!-- Original pictogram chart -->
