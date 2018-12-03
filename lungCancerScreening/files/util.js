@@ -14,18 +14,18 @@ angular.module('myapp')
         /*
             Convert a number to a matrix, numbers in the matrix are file name suffixes of icons
         */
-        var numToMatrix = function (num1, num2=0, num3=0) {
+        var numToMatrix = function (num, nRow=10, nCol=10) {
             var m = [];
-            for (var i = 0; i < 10; ++i) {
+            for (var i = 0; i < nRow; ++i) {
                 var row = [];
-                for(var j = 0; j < 10; ++j) {
-                    var lowerBound = i * 10 + j;
+                for(var j = 0; j < nCol; ++j) {
+                    var lowerBound = i * nRow + j;
                     var upperBound = lowerBound + 1;
-                    row.push({
-                        val1: getCellValue(num1, lowerBound, upperBound),
-                        val2: getCellValue(num2, lowerBound, upperBound),
-                        val3: getCellValue(num3, lowerBound, upperBound)
-                    });
+                    var data = {};
+                    for (var k = 0; k < num.length; ++k) {
+                        data['val' + (k + 1)] = getCellValue(num[k], lowerBound, upperBound);
+                    }
+                    row.push(data);
                 }
                 m.push(row);
             }

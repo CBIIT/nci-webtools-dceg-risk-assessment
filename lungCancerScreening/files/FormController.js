@@ -340,7 +340,7 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
       /* Round to 2 decimal places and assign results to UI properties */
       /* $scope.myForm['result' + i] = Math.round(data[i] * 100) / 100; */
       $scope.myForm['result' + i] = Math.round(data[i]);
-      $scope.myForm['resultMatrix' + i] = $util.numToMatrix($scope.myForm['result' + i] / 10);
+      $scope.myForm['resultMatrix' + i] = $util.numToMatrix([$scope.myForm['result' + i] / 10]);
 
       /* GLOBAL_RESULTS['result' + i] = $scope.myForm['result' + i]; */
     }
@@ -349,18 +349,18 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
 
     if ($scope.myForm.result0 && $scope.myForm.result1) {
       var result0_1 = ($scope.myForm.result0 - $scope.myForm.result1) / 10;
-      $scope.myForm['resultMatrix0_1'] = $util.numToMatrix(result0_1);
+      $scope.myForm['resultMatrix0_1'] = $util.numToMatrix([result0_1]);
       $scope.myForm.allResults.push(result0_1);
       $scope.myForm.allResults.push($scope.myForm.result0 / 10);
       if ($scope.myForm.result4) {
-          $scope.myForm['resultMatrixCombined1'] = $util.numToMatrix($scope.myForm.result0 / 10, 0, result0_1);
-          $scope.myForm['resultMatrixCombined3'] = $util.numToMatrix(0, 0, $scope.myForm.result4 / 10);
+          $scope.myForm['resultMatrixCombined1'] = $util.numToMatrix([$scope.myForm.result0 / 10, result0_1]);
+          $scope.myForm['resultMatrixCombined3'] = $util.numToMatrix([0, $scope.myForm.result4 / 10]);
       }
     }
     if ($scope.myForm.result2 && $scope.myForm.result3) {
       var result2_3 = ($scope.myForm.result2 + $scope.myForm.result3) / 10;
-      $scope.myForm['resultMatrix2_3'] = $util.numToMatrix(result2_3);
-      $scope.myForm['resultMatrixCombined2'] = $util.numToMatrix(result2_3, 0, $scope.myForm.result2 / 10);
+      $scope.myForm['resultMatrix2_3'] = $util.numToMatrix([result2_3]);
+      $scope.myForm['resultMatrixCombined2'] = $util.numToMatrix([result2_3,  $scope.myForm.result2 / 10]);
         $scope.myForm.allResults.push($scope.myForm.result2 / 10);
       $scope.myForm.allResults.push(result2_3);
     }
