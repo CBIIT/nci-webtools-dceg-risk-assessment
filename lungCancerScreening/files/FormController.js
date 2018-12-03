@@ -355,7 +355,6 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
       if ($scope.myForm.result4) {
           $scope.myForm['resultMatrixCombined1'] = $util.numToMatrix($scope.myForm.result0 / 10, 0, result0_1);
           $scope.myForm['resultMatrixCombined3'] = $util.numToMatrix(0, 0, $scope.myForm.result4 / 10);
-          $scope.myForm.allResults.push($scope.myForm.result4 / 10);
       }
     }
     if ($scope.myForm.result2 && $scope.myForm.result3) {
@@ -364,6 +363,9 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
       $scope.myForm['resultMatrixCombined2'] = $util.numToMatrix(result2_3, 0, $scope.myForm.result2 / 10);
         $scope.myForm.allResults.push($scope.myForm.result2 / 10);
       $scope.myForm.allResults.push(result2_3);
+    }
+    if ($scope.myForm.result4) {
+      $scope.myForm.allResults.push($scope.myForm.result4 / 10);
     }
 
     if ($scope.myForm.result0 > $scope.myForm.result2) {

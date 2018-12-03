@@ -170,7 +170,7 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $sessionStor
               labels: ["Death with screening", "Death without screening", "Diagnose false alarm", "Diagnose without screening", "Diagnose with screening"],
               datasets: [{
                   data: $scope.session.myForm.allResults,
-                  backgroundColor: ['#e31c3d', '#981b1e', '#fdb81e', '#046b99', '#02bfe7'],
+                  backgroundColor: ['#e31c3d', '#981b1e', '#046b99', '#02bfe7', '#fdb81e'],
               }]
           },
           options: {

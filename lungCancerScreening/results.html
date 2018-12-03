@@ -219,17 +219,6 @@
 
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
-                                    <div class="chartBlock chartBlock1 chartOverlap"></div>
-                                </div>
-                                <div class="legendPart">
-                                    <span class="legendText">
-                                        If you receive yearly CT lung screening for 3 years, your chances of receiving at least one "false alarm" (a false positive result) are <b>{{session.myForm.result4 / 10}}</b> out of 100 people.
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="legendRow">
-                                <div class="legendPart legendSquare">
                                     <div class="chartBlock chartBlock6 chartOverlap"></div>
                                 </div>
                                 <div class="legendPart">
@@ -246,6 +235,17 @@
                                 <div class="legendPart">
                                     <span class="legendText">
                                         If 100 people answered the questions just like you, <b>{{ (session.myForm.result2 + session.myForm.result3) / 10 }}</b> who did receive CT lung screening would be diagnosed with lung cancer within the next five years.
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="legendRow">
+                                <div class="legendPart legendSquare">
+                                    <div class="chartBlock chartBlock1 chartOverlap"></div>
+                                </div>
+                                <div class="legendPart">
+                                    <span class="legendText">
+                                        If you receive yearly CT lung screening for 3 years, your chances of receiving at least one "false alarm" (a false positive result) are <b>{{session.myForm.result4 / 10}}</b> out of 100 people.
                                     </span>
                                 </div>
                             </div>
