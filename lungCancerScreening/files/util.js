@@ -19,7 +19,7 @@ angular.module('myapp')
             for (var i = 0; i < nRow; ++i) {
                 var row = [];
                 for(var j = 0; j < nCol; ++j) {
-                    var lowerBound = i * nRow + j;
+                    var lowerBound = i * nCol + j;
                     var upperBound = lowerBound + 1;
                     var data = {};
                     for (var k = 0; k < num.length; ++k) {
