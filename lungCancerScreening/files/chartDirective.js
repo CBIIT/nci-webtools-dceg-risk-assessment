@@ -13,3 +13,17 @@ app.directive('lcsChart', function() {
         templateUrl: '_chart.html'
     }
 });
+
+app.directive('lcsChart2', function() {
+    return {
+        scope: {
+            chartType : '=',
+            rows: '=value'
+        },
+        controller: function($scope) {
+            $scope.iconWidth = 9;
+        },
+        restrict: 'E',
+        templateUrl: '_chart2.html'
+    }
+});

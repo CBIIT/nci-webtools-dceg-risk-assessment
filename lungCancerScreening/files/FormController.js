@@ -355,13 +355,20 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
       if ($scope.myForm.result4) {
           $scope.myForm['resultMatrixCombined1'] = $util.numToMatrix([$scope.myForm.result0 / 10, result0_1]);
           $scope.myForm['resultMatrixCombined3'] = $util.numToMatrix([0, $scope.myForm.result4 / 10]);
+          $scope.myForm['resultMatrixCombined3b'] = $util.numToMatrix([$scope.myForm.result4], 25, 40);
+
+          $scope.myForm['resultMatrixCombined1b'] = $util.numToMatrix([$scope.myForm.result0 - $scope.myForm.result1, 0], 25, 40);
+          $util.combineMatrices($scope.myForm['resultMatrixCombined1b'], $util.numToMatrix([0, $scope.myForm.result0], 25, 40));
       }
+
     }
     if ($scope.myForm.result2 && $scope.myForm.result3) {
       var result2_3 = ($scope.myForm.result2 + $scope.myForm.result3) / 10;
       $scope.myForm['resultMatrix2_3'] = $util.numToMatrix([result2_3]);
       $scope.myForm['resultMatrixCombined2'] = $util.numToMatrix([result2_3,  $scope.myForm.result2 / 10]);
-        $scope.myForm.allResults.push($scope.myForm.result2 / 10);
+      $scope.myForm['resultMatrixCombined2b'] = $util.numToMatrix([$scope.myForm.result2, 0], 25, 40);
+      $util.combineMatrices($scope.myForm['resultMatrixCombined2b'], $util.numToMatrix([0, $scope.myForm.result2 + $scope.myForm.result3], 25, 40));
+      $scope.myForm.allResults.push($scope.myForm.result2 / 10);
       $scope.myForm.allResults.push(result2_3);
     }
     if ($scope.myForm.result4) {
