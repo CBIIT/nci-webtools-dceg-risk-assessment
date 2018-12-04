@@ -704,7 +704,7 @@
                                 <div class="legendRow">
                                     <div class="legendPart legendSquare">
                                         <div class="chartBlock chartBlock2 chartOverlap" style="width:{{ chartIconWidth }}px;"></div>
-                                        <img src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                        <img ng-if="chartType === 'people' || chartType === 'combined2'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
                                     </div>
                                     <div class="legendPart">
                                         <span class="legendText">Had a false alarm (positive screening test but does not actually have lung cancer)</span>
@@ -713,7 +713,7 @@
                                 <div class="legendRow">
                                     <div class="legendPart legendSquare">
                                         <div class="chartBG chartOverlap"></div>
-                                        <img src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                        <img ng-if="chartType === 'people' || chartType === 'combined2'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
                                     </div>
                                     <div class="legendPart">
                                         <span class="legendText">Did NOT have a false alarm</span>
