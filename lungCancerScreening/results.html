@@ -140,7 +140,7 @@
                     <div class="chartBG chartOverlap"></div>
                     <div ng-if="chartType === 'square'" class="chartBlock chartBlock2 chartOverlap"></div>
                 </div>
-                <div class="legendPart"><span class="legendText">Rectangular</span></div>
+                <div class="legendPart"><span class="legendText">Condition 1</span></div>
             </button>
 
             <button ng-click="changeChartType('people')" class="btn btn-default">
@@ -149,7 +149,7 @@
                     <div ng-if="chartType === 'people'" class="chartBlock chartBlock2 chartOverlap"></div>
                     <img src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
                 </div>
-                <div class="legendPart"><span class="legendText">Bathroom Icon</span></div>
+                <div class="legendPart"><span class="legendText">Condition 2</span></div>
             </button>
 
             <button ng-click="changeChartType('combined')" class="btn btn-default">
@@ -158,7 +158,7 @@
                     <div  class="chartBlock chartBlock1 chartOverlap" style="width:10px;{{ chartType !== 'combined' ? 'background-color:#808080' : '' }}"></div>
                     <div  class="chartBlock chartBlock2 chartOverlap" style="width:5px;{{ chartType !== 'combined' ? 'background-color:#606060' : '' }}"></div>
                 </div>
-                <div class="legendPart"><span class="legendText">Combined</span></div>
+                <div class="legendPart"><span class="legendText">Condition 3</span></div>
             </button>
 
             <button ng-click="changeChartType('combined2')" class="btn btn-default">
@@ -167,14 +167,14 @@
                     <div  class="chartBlock chartBlock1 chartOverlap" style="width:10px;{{ chartType !== 'combined2' ? 'background-color:#808080' : '' }}"></div>
                     <div  class="chartBlock chartBlock2 chartOverlap" style="width:5px;{{ chartType !== 'combined2' ? 'background-color:#606060' : '' }}"></div>
                 </div>
-                <div class="legendPart"><span class="legendText">Combined2</span></div>
+                <div class="legendPart"><span class="legendText">Condition 4</span></div>
             </button>
 
             <button ng-click="changeChartType('bar')" class="btn btn-default">
                 <div class="legendPart legendSquare">
                     <div class="chartBG chartOverlap"><img src="files/images/barchart{{ chartType === 'bar' ? '' : '-bw' }}.png" width="15" height="25"></div>
                 </div>
-                <div class="legendPart"><span class="legendText">Bar Chart</span></div>
+                <div class="legendPart"><span class="legendText">Condition 5</span></div>
             </button>
         </div>
         <div ng-show="chart_row1 === true">
