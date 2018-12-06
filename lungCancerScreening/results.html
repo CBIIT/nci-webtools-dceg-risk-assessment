@@ -163,9 +163,10 @@
 
             <button ng-click="changeChartType('combined2')" class="btn btn-default">
                 <div class="legendPart legendSquare">
-                    <div class="chartBG chartOverlap"></div>
-                    <div  class="chartBlock chartBlock1 chartOverlap" style="width:10px;{{ chartType !== 'combined2' ? 'background-color:#808080' : '' }}"></div>
-                    <div  class="chartBlock chartBlock2 chartOverlap" style="width:5px;{{ chartType !== 'combined2' ? 'background-color:#606060' : '' }}"></div>
+                    <div class="legendPart legendSquare">
+                        <img ng-if="chartType === 'combined2'" src="files/images/2people.png" class="chartIcon chartOverlap">
+                        <img ng-if="chartType !== 'combined2'" src="files/images/2people-bw.png" class="chartIcon chartOverlap">
+                    </div>
                 </div>
                 <div class="legendPart"><span class="legendText">Condition 4</span></div>
             </button>
