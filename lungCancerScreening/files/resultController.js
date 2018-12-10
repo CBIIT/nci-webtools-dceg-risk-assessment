@@ -167,7 +167,7 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $sessionStor
       var myChart = new Chart(ctx, {
           type: 'horizontalBar',
           data: {
-              labels: ["Death with screening", "Death without screening", "Diagnose false alarm", "Diagnose without screening", "Diagnose with screening"],
+              labels: ["Death with screening", "Death without screening", "Diagnose without screening", "Diagnose with screening", "Diagnose false alarm"],
               datasets: [{
                   data: $scope.session.myForm.allResults,
                   backgroundColor: ['#e31c3d', '#981b1e', '#046b99', '#02bfe7', '#fdb81e'],
