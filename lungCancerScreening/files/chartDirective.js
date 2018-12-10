@@ -21,7 +21,7 @@ app.directive('lcsChart2', function() {
             rows: '=value'
         },
         controller: function($scope) {
-            $scope.iconWidth = 9;
+            $scope.iconWidth = 12;
         },
         restrict: 'E',
         templateUrl: '_chart2.html'
