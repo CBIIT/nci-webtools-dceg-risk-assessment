@@ -177,12 +177,19 @@
                 </div>
                 <div class="legendPart"><span class="legendText">Condition 5</span></div>
             </button>
+
+            <button ng-click="changeChartType('pie')" class="btn btn-default {{ chartType === 'pie' ? 'buttonActive' : '' }}">
+                <div class="legendPart legendSquare">
+                    <div class="chartBG chartOverlap"><img src="files/images/barchart{{ chartType === 'pie' ? '' : '-bw' }}.png" width="15" height="25"></div>
+                </div>
+                <div class="legendPart"><span class="legendText">Pie chart</span></div>
+            </button>
         </div>
         <div ng-show="chart_row1 === true">
             <table class="results_header">
                 <tbody>
                     <tr>
-                        <th ng-if="chartType === 'pic' || chartType === 'people' || chartType === 'square'">Benefits of Lung Cancer Screening</th>
+                        <th ng-if="chartType === 'pic' || chartType === 'people' || chartType === 'square' || chartType === 'pie'">Benefits of Lung Cancer Screening</th>
                         <th ng-if="chartType === 'combined' || chartType === 'combined2' || chartType === 'bar'">Benefits and harms of Lung Cancer Screening</th>
                     </tr>
                 </tbody>
@@ -190,11 +197,11 @@
             <table class="results_table">
                 <tbody>
                     <!-- Top description -->
-                    <tr ng-if="chartType === 'pic' || chartType === 'people' || chartType === 'square'">
+                    <tr ng-if="chartType === 'pic' || chartType === 'people' || chartType === 'square' || chartType === 'pie'">
                         <th class="results_title">IF YOU DO NOT GET CT LUNG SCREENING</th>
                         <th class="results_title">IF YOU DO GET CT LUNG SCREENING</th>
                     </tr>
-                    <tr ng-if="chartType === 'pic' || chartType === 'people' || chartType === 'square'">
+                    <tr ng-if="chartType === 'pic' || chartType === 'people' || chartType === 'square' || chartType === 'pie'">
                         <td class="results_desc" valign="top">
                             <p class="description line1">Your chances of dying from lung cancer within 5 years are <b>{{getResult("result0", 1)/10}}%</b>.</p>
                         </td>
@@ -355,8 +362,17 @@
                             <canvas id="barChart" width="800" height="400"></canvas>
                         </td>
                     </tr>
+                    <!-- Pie chart -->
+                    <tr ng-show="chartType === 'pie'">
+                        <td class="results_grid">
+                            <canvas class="lcs-chart3" width="400" height="400" chart-data="pieData1"></canvas>
+                        </td>
+                        <td class="results_grid">
+                            <canvas class="lcs-chart3" width="400" height="400" chart-data="pieData2"></canvas>
+                        </td>
+                    </tr>
                     <!-- Bottom descriptions -->
-                    <tr ng-if="chartType === 'pic' || chartType === 'people' || chartType === 'square'">
+                    <tr ng-if="chartType === 'pic' || chartType === 'people' || chartType === 'square' || chartType === 'pie'">
                         <td class="results_legend">
                             <div ng-if="chartType === 'pic'">
                                 <span>
@@ -418,7 +434,7 @@
                             </div>
                         </td>
                     </tr>
-                    <tr ng-if="chartType === 'pic' || chartType === 'people' || chartType === 'square'">
+                    <tr ng-if="chartType === 'pic' || chartType === 'people' || chartType === 'square' || chartType === 'pie'">
                         <td class="results_legend" valign="top">
                             <p class="ng-binding">This means that if 1000 people answer the questions just like you, <b>{{session.myForm.result0}}</b>
                                 of them would die from lung cancer in the next 5 years if they did not receive CT lung screening.</p>
@@ -555,6 +571,15 @@
                         <lcs-chart2 value="session.myForm.resultMatrixCombined2b" chart-type="chartType"></lcs-chart2>
                     </td>
                 </tr>
+                <!-- Pie chart -->
+                <tr ng-show="chartType === 'pie'">
+                    <td class="results_grid">
+                        <canvas class="lcs-chart3" width="400" height="400" chart-data="pieData3"></canvas>
+                    </td>
+                    <td class="results_grid">
+                        <canvas class="lcs-chart3" width="400" height="400" chart-data="pieData4"></canvas>
+                    </td>
+                </tr>
                 <!-- Bottom description -->
                 <tr ng-if="chartType !== 'combined' && chartType !== 'combined2'">
                     <td class="results_legend">
@@ -566,7 +591,7 @@
                                 <img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellempty.png" alt="empty cell" />NOT diagnosed with lung cancer
                             </span>
                         </div>
-                        <div ng-if="chartType !== 'pic'">
+                        <div ng-if="chartType !== 'pic' && chartType !== 'pie'">
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
                                     <div class="chartBlock chartBlock2 chartOverlap" style="width:{{ chartIconWidth }}px;"></div>
@@ -618,7 +643,7 @@
                         </div>
                     </td>
                 </tr>
-                <tr ng-if="chartType === 'pic' || chartType === 'square' || chartType === 'people'">
+                <tr ng-if="chartType === 'pic' || chartType === 'square' || chartType === 'people' || chartType === 'pie'">
                     <td class="results_legend" valign="top">
                         <p class="ng-binding">This means that if 1000 people answer the questions just like you, <b>{{session.myForm.result2}}</b> {{getPeopleOrPerson(session.myForm.result2)}}
                             would be diagnosed with lung cancer in the next 5 years if they did not receive CT lung screening.</p>
@@ -689,6 +714,9 @@
                         <td ng-if="chartType === 'combined2'" class="results_grid">
                             <lcs-chart2 value="session.myForm.resultMatrixCombined3b" chart-type="chartType"></lcs-chart2>
                         </td>
+                        <td ng-if="chartType === 'pie'" class="results_grid">
+                            <canvas class="lcs-chart3" width="400" height="400" chart-data="pieData5"></canvas>
+                        </td>
                     </tr>
                     <!-- Bottom description -->
                     <tr>
@@ -701,7 +729,7 @@
                                 <span><img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellempty.png" alt="empty cell" />Did NOT have a false alarm
                             </span>
                             </div>
-                            <div ng-if="chartType !== 'pic'">
+                            <div ng-if="chartType !== 'pic' && chartType !== 'pie'">
                                 <div class="legendRow">
                                     <div class="legendPart legendSquare">
                                         <div class="chartBlock chartBlock2 chartOverlap" style="width:{{ chartIconWidth }}px;"></div>
