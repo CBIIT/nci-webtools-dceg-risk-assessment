@@ -149,7 +149,7 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $sessionStor
     print(createPrintablePage())
   };
 
-  $scope.chartType = 'square';
+  $scope.chartType = 'pic';
 
   $scope.changeChartType = function(type) {
     $scope.chartType = type;
