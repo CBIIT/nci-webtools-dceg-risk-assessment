@@ -30,7 +30,7 @@ app.directive('lcsChart2', function() {
 
 app.directive('lcsChart3', function() {
     return {
-        restrict: 'EC',
+        restrict: 'CA',
         scope: {
             data : '=chartData'
         },
