@@ -3,7 +3,7 @@ var app = angular.module("myapp");
 app.controller("ResultCtrl", function($scope, $window, $sce, $http, $sessionStorage, $location) {
   /* These globals are used in multiple ajax calls in different functions */
   $scope.session = $sessionStorage;
-  $scope.base_url = window.location.origin + window.location.pathname
+  $scope.base_url = window.location.origin + window.location.pathname;
 
   $scope.gender = {
     0: 'Male',
