@@ -178,10 +178,6 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $sessionStor
 
   $scope.changeChartType = function(type) {
     $scope.chartType = type;
-    if (type === 'bar') {
-      $scope.displayBarChart();
-    }
-
     if ($scope.export === false && type === 'bar' && ($scope.chart_row2 === true || $scope.chart_row3 === true) ) {
         $scope.switchToSection(1);
     }
@@ -227,41 +223,13 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $sessionStor
         }]
     };
 
-  $scope.displayBarChart = function() {
-      var ctx = document.getElementById("barChart").getContext('2d');
-      var myChart = new Chart(ctx, {
-          type: 'horizontalBar',
-          data: {
-              labels: ["Death with screening", "Death without screening", "Diagnose without screening", "Diagnose with screening", "Diagnose false alarm"],
-              datasets: [{
-                  data: $scope.session.myForm.allResults,
-                  backgroundColor: ['#e31c3d', '#981b1e', '#046b99', '#02bfe7', '#fdb81e'],
-              }]
-          },
-          options: {
-              scales: {
-                  xAxes: [{
-                      ticks: {
-                          beginAtZero: true,
-                          maxTicksLimit: 20,
-                          min: 0,
-                          max: 100,
-                          stepSize: 10
-                      }
-                  }],
-                  yAxes: [{
-                      ticks: {
-                          fontStyle: 'bold'
-                      }
-                  }]
-              },
-              legend: {
-                  display: false
-              },
-              responsive: false
-          }
-      });
-  };
+    $scope.barData = {
+        labels: ["Death with screening", "Death without screening", "Diagnose without screening", "Diagnose with screening", "Diagnose false alarm"],
+        datasets: [{
+            data: $scope.session.myForm.allResults,
+            backgroundColor: ['#e31c3d', '#981b1e', '#046b99', '#02bfe7', '#fdb81e'],
+        }]
+    };
 
   $scope.switchToSection = function(section) {
     for (var i = 1; i <= 3; ++i) {
