@@ -183,6 +183,11 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $sessionStor
                           max: 100,
                           stepSize: 10
                       }
+                  }],
+                  yAxes: [{
+                      ticks: {
+                          fontStyle: 'bold'
+                      }
                   }]
               },
               legend: {
