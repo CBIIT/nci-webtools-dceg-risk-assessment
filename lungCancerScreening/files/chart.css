@@ -110,6 +110,11 @@
     vertical-align: middle;
 }
 
+.buttonActive {
+    background-color: lightyellow;
+    font-weight: 900;
+}
+
 .legendPart,
 .legendText {
     height: 31px;
