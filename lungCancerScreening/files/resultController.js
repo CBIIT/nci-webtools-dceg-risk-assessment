@@ -10,6 +10,33 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $sessionStor
     1: 'Female'
   };
 
+  switch ($location.search().chartType) {
+      case '0':
+          $scope.chartType = 'pic';
+          break;
+      case '1':
+          $scope.chartType = 'square';
+          break;
+      case '2':
+          $scope.chartType = 'people';
+          break;
+      case '3':
+          $scope.chartType = 'combined';
+          break;
+      case '4':
+          $scope.chartType = 'combined2';
+          break;
+      case '5':
+          $scope.chartType = 'bar';
+          break;
+      case '6':
+          $scope.chartType = 'pie';
+          break;
+      default:
+          $scope.chartType = 'pic';
+          break;
+  }
+
   // parse pack years to readable number //
   $scope.parsePackYears = function() {
     return parseFloat($scope.session.myForm.packYears).toFixed(2);
@@ -148,8 +175,6 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $sessionStor
   $scope.print = function() {
     print(createPrintablePage())
   };
-
-  $scope.chartType = 'pic';
 
   $scope.changeChartType = function(type) {
     $scope.chartType = type;
