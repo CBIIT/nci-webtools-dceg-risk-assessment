@@ -28,30 +28,6 @@ app.directive('lcsChart2', function() {
     }
 });
 
-app.directive('lcsChart3', function() {
-    return {
-        restrict: 'CA',
-        scope: {
-            data : '=chartData'
-        },
-        link: function(scope, element, attrs) {
-            var ctx = element[0].getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'pie',
-                data: scope.data,
-                options: {
-                    responsive: false,
-                    legend: {
-                        labels: {
-                            fontStyle: 'bold'
-                        }
-                    }
-                }
-            });
-        },
-    }
-});
-
 app.directive('lcsChart4', function() {
     return {
         restrict: 'CA',
