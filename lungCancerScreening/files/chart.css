@@ -23,7 +23,7 @@
 .chartBlock,
 .chartIcon {
      width: 15px;
-    height: 40px;
+    height: 25px;
     display: inline-block;
 }
 
@@ -31,7 +31,7 @@
 .chartBlock-2,
 .chartIcon-2 {
     width: 12px;
-    height: 33px;
+    height: 22px;
     display: inline-block;
 }
 
@@ -117,7 +117,7 @@
 
 .legendPart,
 .legendText {
-    height: 44px;
+    height: 31px;
 }
 
 .legendSquare {
