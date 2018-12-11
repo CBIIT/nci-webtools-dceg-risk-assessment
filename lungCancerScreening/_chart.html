@@ -1,6 +1,5 @@
 <table class="chartTable">
     <tr ng-repeat="row in rows track by $index">
-        <th class="chartLegend">{{ $index * row.length +1 }}</th>
         <td ng-repeat="cell in row track by $index" class="chartCell">
             <div class="chartBG"></div>
             <div ng-if="chartType !== 'combined'" class="chartBlock chartBlock2 chartOverlap" style="width: {{ cell.val1 * 0.1 * iconWidth }}px;"></div>
