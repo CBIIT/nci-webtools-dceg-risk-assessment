@@ -19,17 +19,13 @@
     font-size: 12px;
 }
 
-.chartBG,
-.chartBlock,
-.chartIcon {
+.chartBlock {
      width: 15px;
     height: 25px;
     display: inline-block;
 }
 
-.chartBG-2,
-.chartBlock-2,
-.chartIcon-2 {
+.chartBlock-2 {
     width: 12px;
     height: 22px;
     display: inline-block;
@@ -39,8 +35,7 @@
     position: relative;
 }
 
-.chartBG-2,
-.chartBG {
+.chartBGColor {
     background-color: #aeb0b5;
 }
 

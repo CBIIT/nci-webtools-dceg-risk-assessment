@@ -14,6 +14,19 @@ app.directive('lcsChart', function() {
     }
 });
 
+app.directive('bathroomChart', function() {
+    return {
+        scope: {
+            rows: '=value'
+        },
+        controller: function($scope) {
+            $scope.iconWidth = 15;
+        },
+        restrict: 'E',
+        templateUrl: '_bathroomChart.html'
+    }
+});
+
 app.directive('lcsChart2', function() {
     return {
         scope: {

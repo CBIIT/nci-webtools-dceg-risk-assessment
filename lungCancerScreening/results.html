@@ -130,14 +130,14 @@
         <div style="text-align: right; margin-bottom: 5px">
             <button ng-click="changeChartType('pic')" class="btn btn-default {{ chartType === 'pic' ? 'buttonActive' : '' }}">
                 <div class="legendPart legendSquare">
-                    <div class="chartBG chartOverlap"><img src="files/images/gridchart{{ chartType === 'pic' ? '' : '-bw' }}.png" width="15" height="25"></div>
+                    <div class="chartBlock chartBGColor chartOverlap"><img src="files/images/gridchart{{ chartType === 'pic' ? '' : '-bw' }}.png" width="15" height="25"></div>
                 </div>
                 <div class="legendPart"><span class="legendText">Original</span></div>
             </button>
 
             <button ng-click="changeChartType('square')" class="btn btn-default {{ chartType === 'square' ? 'buttonActive' : '' }}">
                 <div class="legendPart legendSquare">
-                    <div class="chartBG chartOverlap"></div>
+                    <div class="chartBlock chartBGColor chartOverlap"></div>
                     <div ng-if="chartType === 'square'" class="chartBlock chartBlock2 chartOverlap"></div>
                 </div>
                 <div class="legendPart"><span class="legendText">Condition 1</span></div>
@@ -145,16 +145,16 @@
 
             <button ng-click="changeChartType('people')" class="btn btn-default {{ chartType === 'people' ? 'buttonActive' : '' }}">
                 <div class="legendPart legendSquare">
-                    <div class="chartBG chartOverlap"></div>
+                    <div class="chartBlock chartBGColor chartOverlap"></div>
                     <div ng-if="chartType === 'people'" class="chartBlock chartBlock2 chartOverlap"></div>
-                    <img src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                    <img src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                 </div>
                 <div class="legendPart"><span class="legendText">Condition 2</span></div>
             </button>
 
             <button ng-click="changeChartType('combined')" class="btn btn-default {{ chartType === 'combined' ? 'buttonActive' : '' }}">
                 <div class="legendPart legendSquare">
-                    <div class="chartBG chartOverlap"></div>
+                    <div class="chartBlock chartBGColor chartOverlap"></div>
                     <div  class="chartBlock chartBlock1 chartOverlap" style="width:10px;{{ chartType !== 'combined' ? 'background-color:#808080' : '' }}"></div>
                     <div  class="chartBlock chartBlock2 chartOverlap" style="width:5px;{{ chartType !== 'combined' ? 'background-color:#606060' : '' }}"></div>
                 </div>
@@ -164,8 +164,8 @@
             <button ng-click="changeChartType('combined2')" class="btn btn-default {{ chartType === 'combined2' ? 'buttonActive' : '' }}">
                 <div class="legendPart legendSquare">
                     <div class="legendPart legendSquare">
-                        <img ng-if="chartType === 'combined2'" src="files/images/2people.png" class="chartIcon chartOverlap">
-                        <img ng-if="chartType !== 'combined2'" src="files/images/2people-bw.png" class="chartIcon chartOverlap">
+                        <img ng-if="chartType === 'combined2'" src="files/images/2people.png" class="chartBlock chartOverlap">
+                        <img ng-if="chartType !== 'combined2'" src="files/images/2people-bw.png" class="chartBlock chartOverlap">
                     </div>
                 </div>
                 <div class="legendPart"><span class="legendText">Condition 4</span></div>
@@ -173,7 +173,7 @@
 
             <button ng-click="changeChartType('bar')" class="btn btn-default {{ chartType === 'bar' ? 'buttonActive' : '' }}">
                 <div class="legendPart legendSquare">
-                    <div class="chartBG chartOverlap"><img src="files/images/barchart{{ chartType === 'bar' ? '' : '-bw' }}.png" width="15" height="25"></div>
+                    <div class="chartBlock chartBGColor chartOverlap"><img src="files/images/barchart{{ chartType === 'bar' ? '' : '-bw' }}.png" width="15" height="25"></div>
                 </div>
                 <div class="legendPart"><span class="legendText">Bar chart</span></div>
             </button>
@@ -270,13 +270,22 @@
                             <img ng-src="{{base_url}}files/grid_images/chart{{session.myForm.result0-session.myForm.result1}}.png" alt="chart2"
                         </td>
                     </tr>
-                    <!-- Bathroom and square chart -->
-                    <tr ng-if="chartType === 'people' || chartType === 'square'">
+                    <!-- Square chart -->
+                    <tr ng-if="chartType === 'square'">
                         <td class="results_grid">
                             <lcs-chart value="session.myForm.resultMatrix0" chart-type="chartType"></lcs-chart>
                         </td>
                         <td class="results_grid">
                             <lcs-chart value="session.myForm.resultMatrix0_1" chart-type="chartType"></lcs-chart>
+                        </td>
+                    </tr>
+                    <!-- Bathroom chart -->
+                    <tr ng-if="chartType === 'people'">
+                        <td class="results_grid">
+                            <bathroom-chart value="session.myForm.resultMatrix0" chart-type="chartType"></bathroom-chart>
+                        </td>
+                        <td class="results_grid">
+                            <bathroom-chart value="session.myForm.resultMatrix0_1" chart-type="chartType">bathroom-chartrt>
                         </td>
                     </tr>
                     <!-- Combined chart -->
@@ -323,7 +332,7 @@
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
                                     <div class="chartBlock chartBlock2 chartOverlap"></div>
-                                    <img src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                    <img src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                                 </div>
                                 <div class="legendPart">
                                     <span class="legendText">
@@ -335,7 +344,7 @@
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
                                     <div class="chartBlock chartBlock1 chartOverlap"></div>
-                                    <img src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                    <img src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                                 </div>
                                 <div class="legendPart">
                                     <span class="legendText">
@@ -369,8 +378,8 @@
                             <div ng-if="chartType === 'people' || chartType === 'square'">
                                 <div class="legendRow">
                                     <div class="legendPart legendSquare">
-                                        <div class="chartBlock chartBlock2 chartOverlap" style="width:{{ chartIconWidth }}px;"></div>
-                                        <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                        <div class="chartBlock chartBlock2 chartOverlap" style="width:{{ chartBlockWidth }}px;"></div>
+                                        <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                                     </div>
                                     <div class="legendPart">
                                         <span class="legendText">Death from lung cancer</span>
@@ -378,8 +387,8 @@
                                 </div>
                                 <div class="legendRow">
                                     <div class="legendPart legendSquare">
-                                        <div class="chartBG chartOverlap"></div>
-                                        <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                        <div class="chartBlock chartBGColor chartOverlap"></div>
+                                        <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                                     </div>
                                     <div class="legendPart">
                                         <span class="legendText">Alive (with or without lung cancer)</span>
@@ -400,7 +409,7 @@
                                 <div class="legendRow">
                                     <div class="legendPart legendSquare">
                                         <div class="chartBlock chartBlock2 chartOverlap"></div>
-                                        <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                        <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                                     </div>
                                     <div class="legendPart">
                                         <span class="legendText">Death from lung cancer</span>
@@ -408,8 +417,8 @@
                                 </div>
                                 <div class="legendRow">
                                     <div class="legendPart legendSquare">
-                                        <div class="chartBG chartOverlap"></div>
-                                        <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                        <div class="chartBlock chartBGColor chartOverlap"></div>
+                                        <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                                     </div>
                                     <div class="legendPart">
                                         <span class="legendText">Alive (with or without lung cancer)</span>
@@ -479,12 +488,21 @@
                     </td>
                 </tr>
                 <!-- Bathroom and square charts -->
-                <tr ng-if="chartType === 'people' || chartType === 'square'">
+                <tr ng-if="chartType === 'square'">
                     <td class="results_grid">
                         <lcs-chart value="session.myForm.resultMatrix2" chart-type="chartType"></lcs-chart>
                     </td>
                     <td class="results_grid">
                         <lcs-chart value="session.myForm.resultMatrix2_3" chart-type="chartType"></lcs-chart>
+                    </td>
+                </tr>
+                <!-- Bathroom and square charts -->
+                <tr ng-if="chartType === 'people'">
+                    <td class="results_grid">
+                        <bathroom-chart value="session.myForm.resultMatrix2" chart-type="chartType"></bathroom-chart>
+                    </td>
+                    <td class="results_grid">
+                        <bathroom-chart value="session.myForm.resultMatrix2_3" chart-type="chartType"></bathroom-chart>
                     </td>
                 </tr>
                 <!-- Combined chart -->
@@ -529,7 +547,7 @@
                         <div class="legendRow">
                             <div class="legendPart legendSquare">
                                 <div class="chartBlock chartBlock2 chartOverlap"></div>
-                                <img src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                <img src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                             </div>
                             <div class="legendPart">
                                 <span class="legendText">
@@ -541,7 +559,7 @@
                         <div class="legendRow">
                             <div class="legendPart legendSquare">
                                 <div class="chartBlock chartBlock1 chartOverlap"></div>
-                                <img src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                <img src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                             </div>
                             <div class="legendPart">
                                 <span class="legendText">
@@ -569,8 +587,8 @@
                         <div ng-if="chartType !== 'pic'">
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
-                                    <div class="chartBlock chartBlock2 chartOverlap" style="width:{{ chartIconWidth }}px;"></div>
-                                    <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                    <div class="chartBlock chartBlock2 chartOverlap" style="width:{{ chartBlockWidth }}px;"></div>
+                                    <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                                 </div>
                                 <div class="legendPart">
                                     <span class="legendText">Diagnosed with lung cancer</span>
@@ -578,8 +596,8 @@
                             </div>
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
-                                    <div class="chartBG chartOverlap"></div>
-                                    <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                    <div class="chartBlock chartBGColor chartOverlap"></div>
+                                    <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                                 </div>
                                 <div class="legendPart">
                                     <span class="legendText">NOT diagnosed with lung cancer</span>
@@ -599,8 +617,8 @@
                         <div ng-if="chartType === 'people' || chartType === 'square'">
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
-                                    <div class="chartBlock chartBlock2 chartOverlap" style="width:{{ chartIconWidth }}px;"></div>
-                                    <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                    <div class="chartBlock chartBlock2 chartOverlap" style="width:{{ chartBlockWidth }}px;"></div>
+                                    <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                                 </div>
                                 <div class="legendPart">
                                     <span class="legendText">Diagnosed with lung cancer</span>
@@ -608,8 +626,8 @@
                             </div>
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
-                                    <div class="chartBG chartOverlap"></div>
-                                    <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                    <div class="chartBlock chartBGColor chartOverlap"></div>
+                                    <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                                 </div>
                                 <div class="legendPart">
                                     <span class="legendText">NOT diagnosed with lung cancer</span>
@@ -680,8 +698,11 @@
                         <td ng-if="chartType === 'pic'">
                             <img ng-src="{{base_url}}files/grid_images/chart{{session.myForm.result4}}.png" alt="chart3" />
                         </td>
-                        <td ng-if="chartType === 'square' || chartType === 'people'" class="results_grid">
+                        <td ng-if="chartType === 'square'" class="results_grid">
                             <lcs-chart value="session.myForm.resultMatrix4" chart-type="chartType"></lcs-chart>
+                        </td>
+                        <td ng-if="chartType === 'people'" class="results_grid">
+                            <bathroom-chart value="session.myForm.resultMatrix4" chart-type="chartType"></bathroom-chart>
                         </td>
                         <td ng-if="chartType === 'combined'" class="results_grid">
                             <lcs-chart value="session.myForm.resultMatrixCombined3" chart-type="chartType"></lcs-chart>
@@ -704,8 +725,8 @@
                             <div ng-if="chartType !== 'pic'">
                                 <div class="legendRow">
                                     <div class="legendPart legendSquare">
-                                        <div class="chartBlock chartBlock2 chartOverlap" style="width:{{ chartIconWidth }}px;"></div>
-                                        <img ng-if="chartType === 'people' || chartType === 'combined2'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                        <div class="chartBlock chartBlock2 chartOverlap" style="width:{{ chartBlockWidth }}px;"></div>
+                                        <img ng-if="chartType === 'people' || chartType === 'combined2'" src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                                     </div>
                                     <div class="legendPart">
                                         <span class="legendText">Had a false alarm (positive screening test but does not actually have lung cancer)</span>
@@ -713,8 +734,8 @@
                                 </div>
                                 <div class="legendRow">
                                     <div class="legendPart legendSquare">
-                                        <div class="chartBG chartOverlap"></div>
-                                        <img ng-if="chartType === 'people' || chartType === 'combined2'" src="files/images/people.png" class="chartIcon chartOverlap" alt="bathroom icon">
+                                        <div class="chartBlock chartBGColor chartOverlap"></div>
+                                        <img ng-if="chartType === 'people' || chartType === 'combined2'" src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                                     </div>
                                     <div class="legendPart">
                                         <span class="legendText">Did NOT have a false alarm</span>
