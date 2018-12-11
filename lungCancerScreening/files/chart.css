@@ -5,7 +5,7 @@
 
 .chartLegend,
 .chartCell {
-    padding: 3px 3px !important;
+    padding: 3px 5px 3px 8px !important;
     text-align: right;
 }
 .chartCell-2 {
@@ -47,7 +47,7 @@
 .chartOverlap {
     position: absolute;
     top: 3px;
-    left: 3px;
+    left: 8px;
 }
 .chartOverlap-2 {
     position: absolute;
