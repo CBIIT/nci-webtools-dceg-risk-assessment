@@ -2,7 +2,7 @@
     <tr ng-repeat="row in rows track by $index">
         <td ng-repeat="cell in row track by $index" class="chartCell chartOverlapContainer">
             <div class="chartBlock chartBGColor"></div>
-            <div class="chartBlock chartBlock2 chartOverlap" style="width: {{ cell.val1 * 0.1 * iconWidth }}px;"></div>
+            <div class="chartBlock chartBGColor2 chartOverlap" style="width: {{ cell.val1 * 0.1 * iconWidth }}px;"></div>
             <img ng-src="files/images/people.png" class="chartBlock chartOverlap">
         </td>
         <th class="chartLegend">{{ $index * row.length + row.length }}</th>

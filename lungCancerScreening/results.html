@@ -138,7 +138,7 @@
             <button ng-click="changeChartType('square')" class="btn btn-default {{ chartType === 'square' ? 'buttonActive' : '' }}">
                 <div class="legendPart legendSquare">
                     <div class="chartBlock chartBGColor chartOverlap"></div>
-                    <div ng-if="chartType === 'square'" class="chartBlock chartBlock2 chartOverlap"></div>
+                    <div ng-if="chartType === 'square'" class="chartBlock chartBGColor2 chartOverlap"></div>
                 </div>
                 <div class="legendPart"><span class="legendText">Condition 1</span></div>
             </button>
@@ -146,7 +146,7 @@
             <button ng-click="changeChartType('people')" class="btn btn-default {{ chartType === 'people' ? 'buttonActive' : '' }}">
                 <div class="legendPart legendSquare">
                     <div class="chartBlock chartBGColor chartOverlap"></div>
-                    <div ng-if="chartType === 'people'" class="chartBlock chartBlock2 chartOverlap"></div>
+                    <div ng-if="chartType === 'people'" class="chartBlock chartBGColor2 chartOverlap"></div>
                     <img src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                 </div>
                 <div class="legendPart"><span class="legendText">Condition 2</span></div>
@@ -155,8 +155,8 @@
             <button ng-click="changeChartType('combined')" class="btn btn-default {{ chartType === 'combined' ? 'buttonActive' : '' }}">
                 <div class="legendPart legendSquare">
                     <div class="chartBlock chartBGColor chartOverlap"></div>
-                    <div  class="chartBlock chartBlock1 chartOverlap" style="width:10px;{{ chartType !== 'combined' ? 'background-color:#808080' : '' }}"></div>
-                    <div  class="chartBlock chartBlock2 chartOverlap" style="width:5px;{{ chartType !== 'combined' ? 'background-color:#606060' : '' }}"></div>
+                    <div  class="chartBlock chartBGColor1 chartOverlap" style="width:10px;{{ chartType !== 'combined' ? 'background-color:#808080' : '' }}"></div>
+                    <div  class="chartBlock chartBGColor2 chartOverlap" style="width:5px;{{ chartType !== 'combined' ? 'background-color:#606060' : '' }}"></div>
                 </div>
                 <div class="legendPart"><span class="legendText">Condition 3</span></div>
             </button>
@@ -207,7 +207,7 @@
                         <td class="chartDescription">
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
-                                    <div class="chartBlock chartBlock4 chartOverlap"></div>
+                                    <div class="chartBlock chartBGColor4 chartOverlap"></div>
                                 </div>
                                 <div class="legendPart">
                                     <span class="legendText">
@@ -218,7 +218,7 @@
 
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
-                                    <div class="chartBlock chartBlock5 chartOverlap"></div>
+                                    <div class="chartBlock chartBGColor5 chartOverlap"></div>
                                 </div>
                                 <div class="legendPart">
                                     <span class="legendText">
@@ -229,7 +229,7 @@
 
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
-                                    <div class="chartBlock chartBlock6 chartOverlap"></div>
+                                    <div class="chartBlock chartBGColor6 chartOverlap"></div>
                                 </div>
                                 <div class="legendPart">
                                     <span class="legendText">
@@ -240,7 +240,7 @@
 
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
-                                    <div class="chartBlock chartBlock7 chartOverlap"></div>
+                                    <div class="chartBlock chartBGColor7 chartOverlap"></div>
                                 </div>
                                 <div class="legendPart">
                                     <span class="legendText">
@@ -251,7 +251,7 @@
 
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
-                                    <div class="chartBlock chartBlock1 chartOverlap"></div>
+                                    <div class="chartBlock chartBGColor1 chartOverlap"></div>
                                 </div>
                                 <div class="legendPart">
                                     <span class="legendText">
@@ -297,22 +297,22 @@
 
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
-                                    <div class="chartBlock chartBlock2 chartOverlap"></div>
+                                    <div class="chartBlock chartBGColor2 chartOverlap"></div>
                                 </div>
                                 <div class="legendPart">
                                     <span class="legendText">
-                                        <span class="data2">{{ (session.myForm.result0 - session.myForm.result1) / 10 }}</span>
+                                        <span class="dataColor2">{{ (session.myForm.result0 - session.myForm.result1) / 10 }}</span>
                                         deaths from lung cancer with screening
                                     </span>
                                 </div>
                             </div>
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
-                                    <div class="chartBlock chartBlock1 chartOverlap"></div>
+                                    <div class="chartBlock chartBGColor1 chartOverlap"></div>
                                 </div>
                                 <div class="legendPart">
                                     <span class="legendText">
-                                        <span class="data1">{{ session.myForm.result0 / 10 }}</span>
+                                        <span class="dataColor1">{{ session.myForm.result0 / 10 }}</span>
                                         deaths from lung cancer without screening
                                     </span>
                                 </div>
@@ -331,24 +331,24 @@
 
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
-                                    <div class="chartBlock chartBlock2 chartOverlap"></div>
+                                    <div class="chartBlock chartBGColor2 chartOverlap"></div>
                                     <img src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                                 </div>
                                 <div class="legendPart">
                                     <span class="legendText">
-                                        <span class="data2">{{ (session.myForm.result0 - session.myForm.result1) }}</span>
+                                        <span class="dataColor2">{{ (session.myForm.result0 - session.myForm.result1) }}</span>
                                         deaths from lung cancer with screening
                                     </span>
                                 </div>
                             </div>
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
-                                    <div class="chartBlock chartBlock1 chartOverlap"></div>
+                                    <div class="chartBlock chartBGColor1 chartOverlap"></div>
                                     <img src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                                 </div>
                                 <div class="legendPart">
                                     <span class="legendText">
-                                        <span class="data1">{{ session.myForm.result0 }}</span>
+                                        <span class="dataColor1">{{ session.myForm.result0 }}</span>
                                         deaths from lung cancer without screening
                                     </span>
                                 </div>
@@ -378,7 +378,7 @@
                             <div ng-if="chartType === 'people' || chartType === 'square'">
                                 <div class="legendRow">
                                     <div class="legendPart legendSquare">
-                                        <div class="chartBlock chartBlock2 chartOverlap" style="width:{{ chartBlockWidth }}px;"></div>
+                                        <div class="chartBlock chartBGColor2 chartOverlap" style="width:{{ chartBlockWidth }}px;"></div>
                                         <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                                     </div>
                                     <div class="legendPart">
@@ -408,7 +408,7 @@
                             <div ng-if="chartType === 'people' || chartType === 'square'">
                                 <div class="legendRow">
                                     <div class="legendPart legendSquare">
-                                        <div class="chartBlock chartBlock2 chartOverlap"></div>
+                                        <div class="chartBlock chartBGColor2 chartOverlap"></div>
                                         <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                                     </div>
                                     <div class="legendPart">
@@ -513,22 +513,22 @@
 
                         <div class="legendRow">
                             <div class="legendPart legendSquare">
-                                <div class="chartBlock chartBlock2 chartOverlap"></div>
+                                <div class="chartBlock chartBGColor2 chartOverlap"></div>
                             </div>
                             <div class="legendPart">
                                 <span class="legendText">
-                                    <span class="data2">{{ session.myForm.result2 / 10 }}</span>
+                                    <span class="dataColor2">{{ session.myForm.result2 / 10 }}</span>
                                     lung cancer diagnoses without screening
                                 </span>
                             </div>
                         </div>
                         <div class="legendRow">
                             <div class="legendPart legendSquare">
-                                <div class="chartBlock chartBlock1 chartOverlap"></div>
+                                <div class="chartBlock chartBGColor1 chartOverlap"></div>
                             </div>
                             <div class="legendPart">
                                 <span class="legendText">
-                                    <span class="data1">{{ session.myForm.result3 / 10 }}</span>
+                                    <span class="dataColor1">{{ session.myForm.result3 / 10 }}</span>
                                     additional lung cancer diagnosis with screening
                                 </span>
                             </div>
@@ -546,24 +546,24 @@
 
                         <div class="legendRow">
                             <div class="legendPart legendSquare">
-                                <div class="chartBlock chartBlock2 chartOverlap"></div>
+                                <div class="chartBlock chartBGColor2 chartOverlap"></div>
                                 <img src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                             </div>
                             <div class="legendPart">
                                 <span class="legendText">
-                                    <span class="data2">{{ session.myForm.result2 }}</span>
+                                    <span class="dataColor2">{{ session.myForm.result2 }}</span>
                                     lung cancer diagnoses without screening
                                 </span>
                             </div>
                         </div>
                         <div class="legendRow">
                             <div class="legendPart legendSquare">
-                                <div class="chartBlock chartBlock1 chartOverlap"></div>
+                                <div class="chartBlock chartBGColor1 chartOverlap"></div>
                                 <img src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                             </div>
                             <div class="legendPart">
                                 <span class="legendText">
-                                    <span class="data1">{{ session.myForm.result3 }}</span>
+                                    <span class="dataColor1">{{ session.myForm.result3 }}</span>
                                     additional lung cancer diagnosis with screening
                                 </span>
                             </div>
@@ -587,7 +587,7 @@
                         <div ng-if="chartType !== 'pic'">
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
-                                    <div class="chartBlock chartBlock2 chartOverlap" style="width:{{ chartBlockWidth }}px;"></div>
+                                    <div class="chartBlock chartBGColor2 chartOverlap" style="width:{{ chartBlockWidth }}px;"></div>
                                     <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                                 </div>
                                 <div class="legendPart">
@@ -617,7 +617,7 @@
                         <div ng-if="chartType === 'people' || chartType === 'square'">
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
-                                    <div class="chartBlock chartBlock2 chartOverlap" style="width:{{ chartBlockWidth }}px;"></div>
+                                    <div class="chartBlock chartBGColor2 chartOverlap" style="width:{{ chartBlockWidth }}px;"></div>
                                     <img ng-if="chartType === 'people'" src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                                 </div>
                                 <div class="legendPart">
@@ -725,7 +725,7 @@
                             <div ng-if="chartType !== 'pic'">
                                 <div class="legendRow">
                                     <div class="legendPart legendSquare">
-                                        <div class="chartBlock chartBlock2 chartOverlap" style="width:{{ chartBlockWidth }}px;"></div>
+                                        <div class="chartBlock chartBGColor2 chartOverlap" style="width:{{ chartBlockWidth }}px;"></div>
                                         <img ng-if="chartType === 'people' || chartType === 'combined2'" src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                                     </div>
                                     <div class="legendPart">
