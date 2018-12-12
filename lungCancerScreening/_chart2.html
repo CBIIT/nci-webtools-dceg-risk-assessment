@@ -1,6 +1,6 @@
 <table class="chartTable">
     <tr ng-repeat="row in rows track by $index">
-        <td ng-repeat="cell in row track by $index" class="chartCell-2">
+        <td ng-repeat="cell in row track by $index" class="chartCell-2 chartOverlapContainer">
             <div class="chartBlock-2 chartBGColor"></div>
             <div class="chartBlock-2 chartBlock2 chartOverlap-2" style="width: {{ cell.val1 * 0.1 * iconWidth }}px;"></div>
             <div ng-if="cell.val2 >= 0" class="chartBlock-2 chartBlock1 chartOverlap-2" style="width: {{ cell.val2 * 0.1 * iconWidth }}px;"></div>
