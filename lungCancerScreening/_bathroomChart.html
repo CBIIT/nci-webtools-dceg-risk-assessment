@@ -3,7 +3,9 @@
         <th class="chartLegend">{{ $index * row.length + row.length }}</th>
         <td ng-repeat="cell in row track by $index" class="chartCellBathroom chartOverlapContainer">
             <div class="chartBlockBathroom chartBGColor"></div>
-            <div class="chartBlockBathroom chartBGColor2 chartOverlapBathroom" style="width: {{ cell.val1 * 0.1 * iconWidth }}px;"></div>
+            <div class="chartBlockBathroom chartBGColor1 chartOverlapBathroom" style="width: {{ cell.val1 * 0.1 * iconWidth }}px;"></div>
+            <div ng-if="cell.val2 > 0" class="chartBlockBathroom chartBGColor2 chartOverlapBathroom" style="width: {{ cell.val2 * 0.1 * iconWidth }}px;"></div>
+            <div ng-if="cell.val3 > 0" class="chartBlockBathroom chartBGColor3 chartOverlapBathroom" style="width: {{ cell.val3 * 0.1 * iconWidth }}px;"></div>
             <img ng-src="files/images/people.png" class="chartBlockBathroom chartOverlapBathroom">
         </td>
     </tr>

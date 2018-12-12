@@ -209,19 +209,19 @@
                     <!-- Square chart -->
                     <tr ng-if="chartType === 'square'">
                         <td class="results_grid">
-                            <lcs-chart value="session.myForm.resultMatrix0" chart-type="chartType"></lcs-chart>
+                            <lcs-chart values="[0, session.myForm.result0]"></lcs-chart>
                         </td>
                         <td class="results_grid">
-                            <lcs-chart value="session.myForm.resultMatrix0_1" chart-type="chartType"></lcs-chart>
+                            <lcs-chart values="[0, session.myForm.result0 - session.myForm.result1]"></lcs-chart>
                         </td>
                     </tr>
                     <!-- Bathroom chart -->
                     <tr ng-if="chartType === 'people'">
                         <td class="results_grid">
-                            <bathroom-chart value="session.myForm.resultMatrix0" chart-type="chartType"></bathroom-chart>
+                            <bathroom-chart values="[0, session.myForm.result0]"></bathroom-chart>
                         </td>
                         <td class="results_grid">
-                            <bathroom-chart value="session.myForm.resultMatrix0_1" chart-type="chartType">bathroom-chartrt>
+                            <bathroom-chart values="[0, session.myForm.result0 - session.myForm.result1]">bathroom-chartrt>
                         </td>
                     </tr>
                     <!-- Combined chart -->
@@ -255,7 +255,7 @@
                             </div>
                         </td>
                         <td class="results_grid" style="padding-top:20px">
-                            <lcs-chart value="session.myForm.resultMatrixCombined1" chart-type="chartType"></lcs-chart>
+                            <lcs-chart values="[session.myForm.result0, session.myForm.result0 - session.myForm.result1]"></lcs-chart>
                         </td>
                     </tr>
                     <!-- Combined2 chart -->
@@ -291,7 +291,7 @@
                             </div>
                         </td>
                         <td class="results_grid" style="padding-top:20px">
-                            <lcs-chart2 value="session.myForm.resultMatrixCombined1b" chart-type="chartType"></lcs-chart2>
+                            <lcs-chart2 values="[session.myForm.result0, session.myForm.result0 - session.myForm.result1]"></lcs-chart2>
                         </td>
                     </tr>
                     <!-- Bottom descriptions -->
@@ -457,19 +457,19 @@
                 <!-- Bathroom and square charts -->
                 <tr ng-if="chartType === 'square'">
                     <td class="results_grid">
-                        <lcs-chart value="session.myForm.resultMatrix2" chart-type="chartType"></lcs-chart>
+                        <lcs-chart values="[0, session.myForm.result2]"></lcs-chart>
                     </td>
                     <td class="results_grid">
-                        <lcs-chart value="session.myForm.resultMatrix2_3" chart-type="chartType"></lcs-chart>
+                        <lcs-chart values="[0, session.myForm.result2 + session.myForm.result3]"></lcs-chart>
                     </td>
                 </tr>
                 <!-- Bathroom and square charts -->
                 <tr ng-if="chartType === 'people'">
                     <td class="results_grid">
-                        <bathroom-chart value="session.myForm.resultMatrix2" chart-type="chartType"></bathroom-chart>
+                        <bathroom-chart values="[0, session.myForm.result2]"></bathroom-chart>
                     </td>
                     <td class="results_grid">
-                        <bathroom-chart value="session.myForm.resultMatrix2_3" chart-type="chartType"></bathroom-chart>
+                        <bathroom-chart values="[0, session.myForm.result2 + session.myForm.result3]"></bathroom-chart>
                     </td>
                 </tr>
                 <!-- Combined chart -->
@@ -502,7 +502,7 @@
                         </div>
                     </td>
                     <td class="results_grid" style="padding-top: 20px;">
-                        <lcs-chart value="session.myForm.resultMatrixCombined2" chart-type="chartType"></lcs-chart>
+                        <lcs-chart values="[session.myForm.result2 + session.myForm.result3, session.myForm.result2]"></lcs-chart>
                     </td>
                 </tr>
                 <!-- Combined2 chart -->
@@ -537,7 +537,7 @@
                         </div>
                     </td>
                     <td class="results_grid" style="padding-top: 20px;">
-                        <lcs-chart2 value="session.myForm.resultMatrixCombined2b" chart-type="chartType"></lcs-chart2>
+                        <lcs-chart2 values="[session.myForm.result2 + session.myForm.result3, session.myForm.result2]"></lcs-chart2>
                     </td>
                 </tr>
                 <!-- Bottom description -->
@@ -705,16 +705,16 @@
                             <img ng-src="{{base_url}}files/grid_images/chart{{session.myForm.result4}}.png" alt="chart3" />
                         </td>
                         <td ng-if="chartType === 'square'" class="results_grid">
-                            <lcs-chart value="session.myForm.resultMatrix4" chart-type="chartType"></lcs-chart>
+                            <lcs-chart values="[session.myForm.result4]"></lcs-chart>
                         </td>
                         <td ng-if="chartType === 'people'" class="results_grid">
-                            <bathroom-chart value="session.myForm.resultMatrix4" chart-type="chartType"></bathroom-chart>
+                            <bathroom-chart values="[session.myForm.result4]"></bathroom-chart>
                         </td>
                         <td ng-if="chartType === 'combined'" class="results_grid">
-                            <lcs-chart value="session.myForm.resultMatrixCombined3" chart-type="chartType"></lcs-chart>
+                            <lcs-chart values="[session.myForm.result4]"></lcs-chart>
                         </td>
                         <td ng-if="chartType === 'combined2'" class="results_grid">
-                            <lcs-chart2 value="session.myForm.resultMatrixCombined3b" chart-type="chartType"></lcs-chart2>
+                            <lcs-chart2 values="[session.myForm.result4]"></lcs-chart2>
                         </td>
                     </tr>
                     <!-- Bottom description -->
@@ -731,7 +731,7 @@
                             <div ng-if="chartType === 'combined' || chartType === 'combined2'">
                                 <div class="legendRow">
                                     <div class="legendPart legendSquare">
-                                        <div class="chartBlock chartBGColor2 chartOverlap" style="width:{{ chartBlockWidth }}px;"></div>
+                                        <div class="chartBlock chartBGColor1 chartOverlap" style="width:{{ chartBlockWidth }}px;"></div>
                                         <img ng-if="chartType === 'people' || chartType === 'combined2'" src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                                     </div>
                                     <div class="legendPart">
@@ -752,7 +752,7 @@
                             <div ng-if="chartType === 'square'">
                                 <div class="legendRow">
                                     <div class="legendPart legendSquare">
-                                        <div class="chartBlock chartBGColor2 chartOverlap" style="width:{{ chartBlockWidth }}px;"></div>
+                                        <div class="chartBlock chartBGColor1 chartOverlap" style="width:{{ chartBlockWidth }}px;"></div>
                                     </div>
                                     <div class="legendPart">
                                         <span class="legendText">Had a false alarm (positive screening test but does not actually have lung cancer)</span>
@@ -770,7 +770,7 @@
                             <div ng-if="chartType === 'people'">
                                 <div class="legendRow">
                                     <div class="legendPartBathroom legendSquare">
-                                        <div class="chartBlockBathroom chartBGColor2 chartOverlap" style="width:{{ chartBlockWidth }}px;"></div>
+                                        <div class="chartBlockBathroom chartBGColor1 chartOverlap" style="width:{{ chartBlockWidth }}px;"></div>
                                         <img src="files/images/people.png" class="chartBlockBathroom chartOverlap" alt="bathroom icon">
                                     </div>
                                     <div class="legendPartBathroom">
