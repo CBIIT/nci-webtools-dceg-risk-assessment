@@ -183,46 +183,6 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $sessionStor
     }
   };
 
-  $scope.pieData1 = {
-        labels: ["Death without screening", 'Survive'],
-        datasets: [{
-            data: [$scope.session.myForm.result0 / 10, 100 - $scope.session.myForm.result0 / 10],
-            backgroundColor: ['#0071bc', '#aeb0b5'],
-        }]
-    };
-
-  $scope.pieData2 = {
-        labels: ["Death with screening", 'Survive'],
-        datasets: [{
-            data: [($scope.session.myForm.result0 - $scope.session.myForm.result1) / 10, 100 - ($scope.session.myForm.result0 - $scope.session.myForm.result1) / 10],
-            backgroundColor: ['#0071bc', '#aeb0b5'],
-        }]
-    };
-
-    $scope.pieData3 = {
-        labels: ["Diagnose without screening", 'No Diagnoses'],
-        datasets: [{
-            data: [$scope.session.myForm.result2 / 10, 100 - $scope.session.myForm.result2 / 10],
-            backgroundColor: ['#0071bc', '#aeb0b5'],
-        }]
-    };
-
-    $scope.pieData4 = {
-        labels: ["Diagnose with screening", 'No Diagnoses'],
-        datasets: [{
-            data: [($scope.session.myForm.result2 + $scope.session.myForm.result3) / 10, 100 - ($scope.session.myForm.result2 + $scope.session.myForm.result3) / 10],
-            backgroundColor: ['#0071bc', '#aeb0b5'],
-        }]
-    };
-
-    $scope.pieData5 = {
-        labels: ["Diagnose false alarm", 'No false alarm'],
-        datasets: [{
-            data: [$scope.session.myForm.result4 / 10, 100 - $scope.session.myForm.result4 / 10],
-            backgroundColor: ['#0071bc', '#aeb0b5'],
-        }]
-    };
-
     $scope.barData = {
         labels: ["Death with screening", "Death without screening", "Diagnose without screening", "Diagnose with screening", "Diagnose false alarm"],
         datasets: [{
