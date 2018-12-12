@@ -393,7 +393,7 @@
                             </div>
                         </td>
                     </tr>
-                    <tr ng-if="chartType === 'pic' || chartType === 'people' || chartType === 'square'">
+                    <tr ng-if="chartType === 'pic'">
                         <td class="results_legend" valign="top">
                             <p class="ng-binding">This means that if 1000 people answer the questions just like you, <b>{{session.myForm.result0}}</b>
                                 of them would die from lung cancer in the next 5 years if they did not receive CT lung screening.</p>
@@ -405,6 +405,20 @@
                                 decrease of <b>{{getResult("result1", 1)}}</b> out of 1000 people. </p>
                             <p class="ng-binding">Your chances of dying from lung cancer within 5 years will be
                                 reduced by <b>{{getResult("result1", 1) / 10}}%</b>.</p>
+                        </td>
+                    </tr>
+                    <tr ng-if="chartType === 'people' || chartType === 'square'">
+                        <td class="results_legend" valign="top">
+                            <p class="ng-binding">This means that if 100 people answer the questions just like you, <b>{{session.myForm.result0 / 10}}</b>
+                                of them would die from lung cancer in the next 5 years if they did not receive CT lung screening.</p>
+                        </td>
+                        <td class="results_legend" valign="top">
+                            <p class="ng-binding">This means that if 100 people answer the questions just like you, <b>{{(session.myForm.result0 - session.myForm.result1) / 10}}</b>
+                                instead of <b>{{session.myForm.result0 / 10}}</b> {{getPeopleOrPerson(session.myForm.result0 / 10)}} would
+                                die from lung cancer if they receive yearly CT lung screening: a
+                                decrease of <b>{{session.myForm.result1 / 10}}</b> out of 100 people. </p>
+                            <p class="ng-binding">Your chances of dying from lung cancer within 5 years will be
+                                reduced by <b>{{session.myForm.result1 / 10}}%</b>.</p>
                         </td>
                     </tr>
                     <!-- Navigation buttons -->
@@ -641,7 +655,7 @@
                         </div>
                     </td>
                 </tr>
-                <tr ng-if="chartType === 'pic' || chartType === 'square' || chartType === 'people'">
+                <tr ng-if="chartType === 'pic'">
                     <td class="results_legend" valign="top">
                         <p class="ng-binding">This means that if 1000 people answer the questions just like you, <b>{{session.myForm.result2}}</b> {{getPeopleOrPerson(session.myForm.result2)}}
                             would be diagnosed with lung cancer in the next 5 years if they did not receive CT lung screening.</p>
@@ -657,6 +671,26 @@
 
                         <p class="ng-binding">Your chances of being diagnosed with lung cancer within 5 years will be
                             increased by <b>{{session.myForm.result3/10 }}%</b>.</p>
+                        <p ng-show="export === false"><button ng-click="switchToSection(1)">Back</button>
+                            <button ng-click="switchToSection(3)">Next</button></p>
+                    </td>
+                </tr>
+                <tr ng-if="chartType === 'square' || chartType === 'people'">
+                    <td class="results_legend" valign="top">
+                        <p class="ng-binding">This means that if 100 people answer the questions just like you, <b>{{ session.myForm.result2 / 10}}</b> {{getPeopleOrPerson(session.myForm.result2 / 10)}}
+                            would be diagnosed with lung cancer in the next 5 years if they did not receive CT lung screening.</p>
+
+                    </td>
+                    <td class="results_legend" valign="top">
+                        <p class="ng-binding">This means that if 100 people answer the questions just like you,
+                            <b>{{ (session.myForm.result2 + session.myForm.result3) / 10 }}</b>
+                            instead of <b>{{ session.myForm.result2 / 10 }}</b> {{ getPeopleOrPerson(session.myForm.result2 / 10) }}
+                            would be diagnosed with lung cancer
+                            if they receive yearly CT lung screening: an
+                            increase of <b>{{ session.myForm.result3 / 10 }}</b> out of 100 people.</p>
+
+                        <p class="ng-binding">Your chances of being diagnosed with lung cancer within 5 years will be
+                            increased by <b>{{ session.myForm.result3 / 10 }}%</b>.</p>
                         <p ng-show="export === false"><button ng-click="switchToSection(1)">Back</button>
                             <button ng-click="switchToSection(3)">Next</button></p>
                     </td>
@@ -689,11 +723,18 @@
                         <td class="results_title"></td>
                         <th class="results_title">IF YOU DO GET CT LUNG SCREENING</th>
                     </tr>
-                    <tr>
+                    <tr ng-if="chartType === 'pic' || chartType === 'combined2'">
                         <td class="results_desc"></td>
                         <td class="results_desc" valign="top">
                             <p class="description line1">If you receive yearly CT lung screening for 3 years, your chances of receiving at least
                                 one "false alarm" (a false positive result) are <b>{{session.myForm.result4}}</b> out of 1000 people.</p>
+                        </td>
+                    </tr>
+                    <tr ng-if="chartType !== 'pic' && chartType !== 'combined2'">
+                        <td class="results_desc"></td>
+                        <td class="results_desc" valign="top">
+                            <p class="description line1">If you receive yearly CT lung screening for 3 years, your chances of receiving at least
+                                one "false alarm" (a false positive result) are <b>{{session.myForm.result4 / 10}}</b> out of 100 people.</p>
                         </td>
                     </tr>
                     <!-- Charts -->
@@ -792,9 +833,16 @@
                     <tr>
                         <td class="results_legend" valign="top">
                         </td>
-                        <td class="results_legend" valign="top">
+                        <td ng-if="chartType === 'pic' || chartType === 'combined2'" class="results_legend" valign="top">
                             <p class="ng-binding">This means that if 1000 people answer the questions just like you, <b>{{session.myForm.result4}}</b>
                                 {{getPeopleOrPerson(session.myForm.result4)}} would receive a false alarm in the next 3 years
+                                if they received yearly CT lung screening.</p>
+                            <p ng-show="export === false"> <button ng-click="switchToSection(2)">Back</button>
+
+                        </td>
+                        <td ng-if="chartType !== 'pic' && chartType !== 'combined2'" class="results_legend" valign="top">
+                            <p class="ng-binding">This means that if 100 people answer the questions just like you, <b>{{session.myForm.result4 / 10}}</b>
+                                {{getPeopleOrPerson(session.myForm.result4 / 10)}} would receive a false alarm in the next 3 years
                                 if they received yearly CT lung screening.</p>
                             <p ng-show="export === false"> <button ng-click="switchToSection(2)">Back</button>
 
