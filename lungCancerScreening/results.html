@@ -171,12 +171,6 @@
                 <div class="legendPart"><span class="legendText">Condition 4</span></div>
             </button>
 
-            <button ng-click="changeChartType('bar')" class="btn btn-default {{ chartType === 'bar' ? 'buttonActive' : '' }}">
-                <div class="legendPart legendSquare">
-                    <div class="chartBlock chartBGColor chartOverlap"><img src="files/images/barchart{{ chartType === 'bar' ? '' : '-bw' }}.png" width="15" height="25"></div>
-                </div>
-                <div class="legendPart"><span class="legendText">Bar chart</span></div>
-            </button>
         </div>
         <!-- Page 1 -->
         <div ng-show="chart_row1 === true">
@@ -184,7 +178,7 @@
                 <tbody>
                     <tr>
                         <th ng-if="chartType === 'pic' || chartType === 'people' || chartType === 'square'">Benefits of Lung Cancer Screening</th>
-                        <th ng-if="chartType === 'combined' || chartType === 'combined2' || chartType === 'bar'">Benefits and harms of Lung Cancer Screening</th>
+                        <th ng-if="chartType === 'combined' || chartType === 'combined2'">Benefits and harms of Lung Cancer Screening</th>
                     </tr>
                 </tbody>
             </table>
@@ -201,65 +195,6 @@
                         </td>
                         <td class="results_desc" valign="top">
                             <p class="description line1">Your chances of dying from lung cancer within 5 years are <b>{{(session.myForm.result0-session.myForm.result1)/10}}%</b>.</p>
-                        </td>
-                    </tr>
-                    <!-- Bar chart description -->
-                    <tr ng-if="chartType === 'bar'">
-                        <td class="chartDescription">
-                            <div class="legendRow">
-                                <div class="legendPart legendSquare">
-                                    <div class="chartBlock chartBGColor4 chartOverlap"></div>
-                                </div>
-                                <div class="legendPart">
-                                    <span class="legendText">
-                                        If 100 people answered the questions just like you, <b>{{ (session.myForm.result0 - session.myForm.result1)/10 }}</b> out of 100 people who get screened would die from lung cancer in the next five years.
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="legendRow">
-                                <div class="legendPart legendSquare">
-                                    <div class="chartBlock chartBGColor5 chartOverlap"></div>
-                                </div>
-                                <div class="legendPart">
-                                    <span class="legendText">
-                                        If 100 people answered the questions just like you but did not get screened, <b>{{ session.myForm.result0 / 10 }}</b> out of 100 would die from lung cancer in the next five years.
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="legendRow">
-                                <div class="legendPart legendSquare">
-                                    <div class="chartBlock chartBGColor6 chartOverlap"></div>
-                                </div>
-                                <div class="legendPart">
-                                    <span class="legendText">
-                                        If 100 people answered the questions just like you, <b>{{ (session.myForm.result2) / 10 }}</b> who did not receive CT lung screening would be diagnosed with lung cancer within the next five years.
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="legendRow">
-                                <div class="legendPart legendSquare">
-                                    <div class="chartBlock chartBGColor7 chartOverlap"></div>
-                                </div>
-                                <div class="legendPart">
-                                    <span class="legendText">
-                                        If 100 people answered the questions just like you, <b>{{ (session.myForm.result2 + session.myForm.result3) / 10 }}</b> who did receive CT lung screening would be diagnosed with lung cancer within the next five years.
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="legendRow">
-                                <div class="legendPart legendSquare">
-                                    <div class="chartBlock chartBGColor1 chartOverlap"></div>
-                                </div>
-                                <div class="legendPart">
-                                    <span class="legendText">
-                                        If you receive yearly CT lung screening for 3 years, your chances of receiving at least one "false alarm" (a false positive result) are <b>{{session.myForm.result4 / 10}}</b> out of 100 people.
-                                    </span>
-                                </div>
-                            </div>
                         </td>
                     </tr>
                     <!-- Original pictogram chart -->
@@ -357,12 +292,6 @@
                         </td>
                         <td class="results_grid" style="padding-top:20px">
                             <lcs-chart2 value="session.myForm.resultMatrixCombined1b" chart-type="chartType"></lcs-chart2>
-                        </td>
-                    </tr>
-                    <!-- Bar chart -->
-                    <tr ng-show="chartType === 'bar'">
-                        <td class="results_grid">
-                            <canvas class="lcs-chart4" width="800" height="400" chart-data="barData"></canvas>
                         </td>
                     </tr>
                     <!-- Bottom descriptions -->
@@ -479,7 +408,7 @@
                         </td>
                     </tr>
                     <!-- Navigation buttons -->
-                    <tr ng-if="chartType !== 'bar'">
+                    <tr>
                         <td ng-if="chartType !== 'combined' && chartType !== 'combined2'"></td>
                         <td class="results_legend" valign="top">
                             <p ng-show="export === false"><button ng-click="switchToSection(2)">Next</button></p>
@@ -745,7 +674,7 @@
     <!-- Page 3 -->
     <div style="page-break-after: always"></div>
     <div class="yourresults">
-        <div ng-if="chartType !== 'bar' " ng-show="chart_row3 === true">
+        <div ng-show="chart_row3 === true">
             <table class="results_header">
                 <tbody>
                     <tr>

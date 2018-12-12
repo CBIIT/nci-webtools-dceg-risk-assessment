@@ -183,14 +183,6 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $sessionStor
     }
   };
 
-    $scope.barData = {
-        labels: ["Death with screening", "Death without screening", "Diagnose without screening", "Diagnose with screening", "Diagnose false alarm"],
-        datasets: [{
-            data: $scope.session.myForm.allResults,
-            backgroundColor: ['#e31c3d', '#981b1e', '#046b99', '#02bfe7', '#fdb81e'],
-        }]
-    };
-
   $scope.switchToSection = function(section) {
     for (var i = 1; i <= 3; ++i) {
       $scope['chart_row' + i] = (i === section);
