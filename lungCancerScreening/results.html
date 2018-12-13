@@ -128,14 +128,14 @@
     <div class="yourresults">
         <!-- Chart type buttons -->
         <div style="text-align: right; margin-bottom: 5px">
-            <button ng-click="changeChartType('pic')" class="btn btn-default {{ chartType === 'pic' ? 'buttonActive' : '' }}">
+            <button ng-if="availableChartTypes.indexOf('pic') !== -1" ng-click="changeChartType('pic')" class="btn btn-default {{ chartType === 'pic' ? 'buttonActive' : '' }}">
                 <div class="legendPart legendSquare">
                     <div class="chartBlock chartBGColor chartOverlap"><img src="files/images/gridchart{{ chartType === 'pic' ? '' : '-bw' }}.png" width="15" height="25"></div>
                 </div>
                 <div class="legendPart"><span class="legendText">Original</span></div>
             </button>
 
-            <button ng-click="changeChartType('square')" class="btn btn-default {{ chartType === 'square' ? 'buttonActive' : '' }}">
+            <button ng-if="availableChartTypes.indexOf('square') !== -1" ng-click="changeChartType('square')" class="btn btn-default {{ chartType === 'square' ? 'buttonActive' : '' }}">
                 <div class="legendPart legendSquare">
                     <div class="chartBlock chartBGColor chartOverlap"></div>
                     <div ng-if="chartType === 'square'" class="chartBlock chartBGColor2 chartOverlap"></div>
@@ -143,7 +143,7 @@
                 <div class="legendPart"><span class="legendText">Condition 1</span></div>
             </button>
 
-            <button ng-click="changeChartType('people')" class="btn btn-default {{ chartType === 'people' ? 'buttonActive' : '' }}">
+            <button ng-if="availableChartTypes.indexOf('people') !== -1" ng-click="changeChartType('people')" class="btn btn-default {{ chartType === 'people' ? 'buttonActive' : '' }}">
                 <div class="legendPart legendSquare">
                     <div class="chartButtonBathroom chartBGColor chartOverlap"></div>
                     <div ng-if="chartType === 'people'" class="chartButtonBathroom chartBGColor2 chartOverlap"></div>
@@ -152,7 +152,7 @@
                 <div class="legendPart"><span class="legendText">Condition 2</span></div>
             </button>
 
-            <button ng-click="changeChartType('combined')" class="btn btn-default {{ chartType === 'combined' ? 'buttonActive' : '' }}">
+            <button ng-if="availableChartTypes.indexOf('combined') !== -1" ng-click="changeChartType('combined')" class="btn btn-default {{ chartType === 'combined' ? 'buttonActive' : '' }}">
                 <div class="legendPart legendSquare">
                     <div class="chartBlock chartBGColor chartOverlap"></div>
                     <div  class="chartBlock chartBGColor1 chartOverlap" style="width:10px;{{ chartType !== 'combined' ? 'background-color:#808080' : '' }}"></div>
@@ -161,7 +161,7 @@
                 <div class="legendPart"><span class="legendText">Condition 3</span></div>
             </button>
 
-            <button ng-click="changeChartType('combined2')" class="btn btn-default {{ chartType === 'combined2' ? 'buttonActive' : '' }}">
+            <button ng-if="availableChartTypes.indexOf('combined2') !== -1" ng-click="changeChartType('combined2')" class="btn btn-default {{ chartType === 'combined2' ? 'buttonActive' : '' }}">
                 <div class="legendPart legendSquare">
                     <div class="legendPart legendSquare">
                         <img ng-if="chartType === 'combined2'" src="files/images/2people.png" class="chartBlock chartOverlap">

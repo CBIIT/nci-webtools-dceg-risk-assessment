@@ -26,16 +26,11 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $sessionStor
       case '4':
           $scope.chartType = 'combined2';
           break;
-      case '5':
-          $scope.chartType = 'bar';
-          break;
-      case '6':
-          $scope.chartType = 'pie';
-          break;
       default:
-          $scope.chartType = 'pic';
+          $scope.chartType = 'square';
           break;
   }
+  $scope.availableChartTypes = [$scope.chartType, 'combined2'];
 
   // parse pack years to readable number //
   $scope.parsePackYears = function() {
