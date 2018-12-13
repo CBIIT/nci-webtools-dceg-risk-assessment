@@ -485,7 +485,7 @@
                 <!-- Combined chart -->
                 <tr ng-if="chartType === 'combined'">
                     <td class="chartDescription">
-                        <p>If 100 people answered the questions just like you and received CT lung screening, <b>{{ (session.myForm.result2 + session.myForm.result3) / 10 }}</b> instead of <b>{{ (session.myForm.result2) / 10 }}</b> {{ getPeopleOrPerson(session.myForm.result2 / 10) }} would be diagnosed with lung cancer: an increase of <b>{{ session.myForm.result3 / 10 }}</b> out of 100 {{ getPeopleOrPerson(session.myForm.result3 / 10) }}.</p>
+                        <p>If 100 people answered the questions just like you and received CT lung screening, <b>{{ (session.myForm.result2 + session.myForm.result3) / 10 }}</b> instead of <b>{{ (session.myForm.result2) / 10 }}</b> {{ getPeopleOrPerson(session.myForm.result2 / 10) }} would be diagnosed with lung cancer: an increase of <b>{{ session.myForm.result3 / 10 }}</b> out of 100 people.</p>
                         <div class="legendRow">
                             <div class="legendPart legendSquare">
                                 <div class="chartBlock chartBGColor2 chartOverlap"></div>
@@ -516,7 +516,7 @@
                 <!-- Combined2 chart -->
                 <tr ng-if="chartType === 'combined2'">
                     <td class="chartDescription">
-                        <p>If 1000 people answered the questions just like you and received CT lung screening, <b>{{ session.myForm.result2 + session.myForm.result3 }}</b> instead of <b>{{ session.myForm.result2 }}</b> people would be diagnosed with lung cancer: an increase of <b>{{ session.myForm.result3 }}</b> out of 1000 people.</p>
+                        <p>If 1000 people answered the questions just like you and received CT lung screening, <b>{{ session.myForm.result2 + session.myForm.result3 }}</b> instead of <b>{{ session.myForm.result2 }}</b> {{ getPeopleOrPerson( session.myForm.result2 ) }} would be diagnosed with lung cancer: an increase of <b>{{ session.myForm.result3 }}</b> out of 1000 people.</p>
 
                         <div class="legendRow">
                             <div class="legendPart legendSquare">
