@@ -287,7 +287,7 @@
                             </div>
                         </td>
                         <td class="results_grid" style="padding-top:20px">
-                            <lcs-chart2 values="[session.myForm.result0, session.myForm.result0 - session.myForm.result1]"></lcs-chart2>
+                            <canvas class="lcs-chart2 " values="[session.myForm.result0, session.myForm.result0 - session.myForm.result1]"></canvas>
                         </td>
                     </tr>
                     <!-- Bottom descriptions -->
@@ -544,7 +544,7 @@
                         </div>
                     </td>
                     <td class="results_grid" style="padding-top: 20px;">
-                        <lcs-chart2 values="[session.myForm.result2 + session.myForm.result3, session.myForm.result2]"></lcs-chart2>
+                        <canvas class="lcs-chart2 " values="[session.myForm.result2 + session.myForm.result3, session.myForm.result2]"></canvas>
                     </td>
                 </tr>
                 <!-- Bottom description -->
@@ -748,7 +748,7 @@
                             <lcs-chart values="[session.myForm.result4]"></lcs-chart>
                         </td>
                         <td ng-if="chartType === 'combined2'" class="results_grid">
-                            <lcs-chart2 values="[session.myForm.result4]"></lcs-chart2>
+                            <canvas class="lcs-chart2 " values="[session.myForm.result4]"></canvas>
                         </td>
                     </tr>
                     <!-- Bottom description -->
