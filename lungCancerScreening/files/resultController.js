@@ -3,12 +3,34 @@ var app = angular.module("myapp");
 app.controller("ResultCtrl", function($scope, $window, $sce, $http, $sessionStorage, $location) {
   /* These globals are used in multiple ajax calls in different functions */
   $scope.session = $sessionStorage;
-  $scope.base_url = window.location.origin + window.location.pathname
+  $scope.base_url = window.location.origin + window.location.pathname;
 
   $scope.gender = {
     0: 'Male',
     1: 'Female'
   };
+
+  switch ($location.search().chartType) {
+      case '0':
+          $scope.chartType = 'pic';
+          break;
+      case '1':
+          $scope.chartType = 'square';
+          break;
+      case '2':
+          $scope.chartType = 'people';
+          break;
+      case '3':
+          $scope.chartType = 'combined';
+          break;
+      case '4':
+          $scope.chartType = 'combined2';
+          break;
+      default:
+          $scope.chartType = 'square';
+          break;
+  }
+  $scope.availableChartTypes = [$scope.chartType, 'combined2'];
 
   // parse pack years to readable number //
   $scope.parsePackYears = function() {
@@ -147,6 +169,20 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $sessionStor
 
   $scope.print = function() {
     print(createPrintablePage())
+  };
+
+  $scope.changeChartType = function(type) {
+    $scope.chartType = type;
+    if ($scope.export === false && type === 'bar' && ($scope.chart_row2 === true || $scope.chart_row3 === true) ) {
+        $scope.switchToSection(1);
+    }
+  };
+
+  $scope.switchToSection = function(section) {
+    for (var i = 1; i <= 3; ++i) {
+      $scope['chart_row' + i] = (i === section);
+    }
+    $scope.summary = (section === 3);
   };
 
   function createPrintablePage() {

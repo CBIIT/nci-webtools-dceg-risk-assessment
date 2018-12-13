@@ -1,6 +1,6 @@
 var app = angular.module("myapp");
 
-app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $location) {
+app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $location, $util) {
   /* These globals are used in multiple ajax calls in different functions */
   var GLOBAL_DATA;
   /* RegEx for numerical field validation */
@@ -116,8 +116,6 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
 
   $scope.$watchCollection('[myForm.cigsCriteria, myForm.ageCriteria]', function (newValues) {
     $scope.myForm.eligibility = !newValues[0] && !newValues[1] && !newValues[2];
-
-    console.log('eligibility is: ', $scope.myForm.eligibility);
   });
 
   $scope.$watch('myForm.age', function () {
@@ -138,13 +136,11 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
     $scope.myForm.cigsNumericCriteria = false;
 
     if ($scope.myForm.type === 'current') {
-      console.log('selected current')
       $scope.myForm.cigsPerDayAriaLabel = 'On a typical day, how many cigarettes do you smoke?'
 
       $('#cigs').attr('aria-label', 'On a typical day, how many cigarettes do you smoke?');
     }
     if ($scope.myForm.type === 'former') {
-      console.log('selected former')
       $scope.myForm.cigsPerDayAriaLabel = 'On a typical day, how many cigarettes did you smoke before you quit for good?'
       $('#cigs').attr('aria-label', 'On a typical day, how many cigarettes did you smoke before you quit for good?');
     }
@@ -346,6 +342,7 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
 
     if ($scope.myForm.result0 > $scope.myForm.result2) {
       $scope.myForm.result2 = $scope.myForm.result0;
+      $scope.myForm.resultMatrix2 = $scope.myForm.resultMatrix0;
       $scope.myForm.unstableRisk = true;
     }
   };
@@ -442,7 +439,6 @@ app.controller("FormCtrl", function ($scope, $sce, $http, $sessionStorage, $loca
           $scope.myForm.resultsFileLink = data.pop();
           $scope.myForm.setResultValues(data);
           $scope.myForm.summary = $scope.myForm.createSummary(params.bmi);
-          console.log(data, params)
         }
       })
       .error(function (data, status, headers, config) {
