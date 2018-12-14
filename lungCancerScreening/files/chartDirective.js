@@ -9,9 +9,14 @@ app.directive('lcsChart', ['$util', function($util) {
         controller: function($scope) {
             $scope.nRow = 10;
             $scope.nCol = 10;
+            $scope.resolution = 100;
+            $scope.nRowSmall = 10;
+            $scope.nColSmall = 100;
             $scope.iconWidth = 15;
             $scope.iconHeight = 25;
-            $scope.textWidth = 35;
+            $scope.smallIconWidth = 4;
+            $scope.smallIconHeight = 10;
+            $scope.textWidth = 30;
             $scope.textHeight = 15;
             $scope.gap = {
                 x: 6,
@@ -23,19 +28,55 @@ app.directive('lcsChart', ['$util', function($util) {
             $scope.color2 = '#0071bc';
             $scope.color3 = '#e31c3d';
 
-            $scope.getPosition = function(row, col, x, y, width, height, gap) {
+            function getPositionY(row, y, height, gap) {
+                return y + row * (height + gap.y)
+            }
+
+            function getPositionX(col, x, width, gap) {
+                return x + col * (width + gap.x);
+            }
+
+            function getPosition(row, col, x, y, width, height, gap) {
                 return {
-                    x: x + col * (width + gap.x),
-                    y: y + row * (height + gap.y)
+                    x: getPositionX(col, x, width, gap),
+                    y: getPositionY(row, y, height, gap)
 
                 };
-            };
+            }
+
             $scope.calculateCanvasWidth = function() {
-                return $scope.textWidth + ($scope.iconWidth + $scope.gap.x) * ($scope.nCol + 1) + $scope.gap.x * 2;
+                return $scope.textWidth + ($scope.iconWidth + $scope.gap.x) * $scope.nCol + $scope.gap.x * 3;
             };
             $scope.calculateCanvasHeight = function() {
                 return ($scope.iconHeight + $scope.gap.y) * $scope.nRow + $scope.gap.y;
             };
+
+            function drawFigure(data, pos, width, height) {
+                $scope.ctx.fillStyle = $scope.color0;
+                $scope.ctx.fillRect(pos.x, pos.y, width, height);
+                if (data.val1 > 0) {
+                    $scope.ctx.fillStyle = $scope.color1;
+                    $scope.ctx.fillRect(pos.x, pos.y, width * data.val1 / 10, height);
+                }
+                if (data.val2 > 0) {
+                    $scope.ctx.fillStyle = $scope.color2;
+                    $scope.ctx.fillRect(pos.x, pos.y, width * data.val2 / 10, height);
+                }
+                if (data.val3 > 0) {
+                    $scope.ctx.fillStyle = $scope.color3;
+                    $scope.ctx.fillRect(pos.x, pos.y, width * data.val3 / 10, height);
+                }
+                if ($scope.drawImage) {
+                    $scope.ctx.drawImage($scope.img, pos.x, pos.y, width, height);
+                }
+            }
+
+            function drawRow(row, x, y, width, height) {
+                for (var j = 0; j < row.length; ++j) {
+                    var pos = getPosition(0, j, x, y, width, height, $scope.gap);
+                    drawFigure(row[j], pos, width, height);
+                }
+            }
 
             $scope.drawChart = function() {
                 $scope.rows = $util.numToMatrix($scope.values, $scope.nRow, $scope.nCol);
@@ -43,31 +84,61 @@ app.directive('lcsChart', ['$util', function($util) {
 
                 for (var i = 0; i < $scope.rows.length; ++i) {
                     var row = $scope.rows[i];
-                    var pos = $scope.getPosition(i, 0, $scope.gap.x + $scope.textWidth, $scope.gap.y + ($scope.iconHeight + $scope.textHeight) / 2, $scope.textWidth, $scope.iconHeight, $scope.gap);
+                    var pos = getPosition(i, 0, $scope.gap.x + $scope.textWidth, $scope.gap.y + ($scope.iconHeight + $scope.textHeight) / 2, $scope.textWidth, $scope.iconHeight, $scope.gap);
                     $scope.ctx.fillStyle = $scope.textColor;
                     $scope.ctx.fillText(i * $scope.nCol + $scope.nCol, pos.x, pos.y);
-                    for (var j = 0; j < row.length; ++j) {
-                        pos = $scope.getPosition(i, j, $scope.gap.x * 2 + $scope.textWidth, $scope.gap.y, $scope.iconWidth, $scope.iconHeight, $scope.gap);
-                        $scope.ctx.fillStyle = $scope.color0;
-                        $scope.ctx.fillRect(pos.x, pos.y, $scope.iconWidth, $scope.iconHeight);
-                        if (row[j].val1 > 0) {
-                            $scope.ctx.fillStyle = $scope.color1;
-                            $scope.ctx.fillRect(pos.x, pos.y, $scope.iconWidth * row[j].val1 / 10, $scope.iconHeight);
-                        }
-                        if (row[j].val2 > 0) {
-                            $scope.ctx.fillStyle = $scope.color2;
-                            $scope.ctx.fillRect(pos.x, pos.y, $scope.iconWidth * row[j].val2 / 10, $scope.iconHeight);
-                        }
-                        if (row[j].val3 > 0) {
-                            $scope.ctx.fillStyle = $scope.color3;
-                            $scope.ctx.fillRect(pos.x, pos.y, $scope.iconWidth * row[j].val3 / 10, $scope.iconHeight);
-                        }
-                        if ($scope.drawImage) {
-                            $scope.ctx.drawImage($scope.img, pos.x, pos.y, $scope.iconWidth, $scope.iconHeight);
+                    drawRow(row, $scope.gap.x * 2 + $scope.textWidth, getPositionY(i, $scope.gap.y, $scope.iconHeight, $scope.gap), $scope.iconWidth, $scope.iconHeight, $scope.gap);
+                }
+                $scope.ctx.fillStyle = savedColor;
+            };
+
+            function getLayeredData(data, value) {
+                return {
+                    val1: data[0] >= value ? 10 : 0,
+                    val2: data[1] >= value ? 10 : 0,
+                    val3: data[2] >= value ? 10 : 0
+                };
+            }
+
+            function drawLargeFigures(x, y, width, height) {
+                var savedColor = $scope.ctx.fillStyle;
+                for (var i = 0; i < $scope.nRow; ++i) {
+                    var pos = getPosition(i, 0, x + $scope.textWidth, y + ($scope.iconHeight + $scope.textHeight) / 2, $scope.textWidth, $scope.iconHeight, $scope.gap);
+                    $scope.ctx.fillStyle = $scope.textColor;
+                    $scope.ctx.fillText(i * $scope.nCol + $scope.nCol, pos.x, pos.y);
+                    for (var j = 0; j < $scope.nCol; ++j) {
+                        var cellValue = i * $scope.nCol + j + 1;
+                        console.log(cellValue);
+                        pos = getPosition(i, j, x + $scope.gap.x * 2 + $scope.textWidth, y, width, height, $scope.gap);
+                        if ($scope.values[0] >= cellValue || $scope.values[1] >= cellValue || $scope.values[2] >= cellValue) {
+                            drawFigure(getLayeredData($scope.values, cellValue), pos, width, height);
+                        } else {
+                            return pos.y + height + $scope.gap.y;
                         }
                     }
                 }
+
                 $scope.ctx.fillStyle = savedColor;
+            }
+
+            function drawSmallFigures(num, x, y, width, height) {
+                var count = 0;
+                for (var i = 0; i < $scope.nRowSmall; ++i) {
+                    for (var j = 0; j < $scope.nColSmall; ++j) {
+                        var pos = getPosition(i, j, x, y, width, height, $scope.gap);
+                        drawFigure({val1: 0, val2: 0, val3: 0}, pos, width, height);
+                        count += 1;
+                        if (count >= num) {
+                            return;
+                        }
+                    }
+                }
+
+            }
+
+            $scope.drawVarSizeChart = function() {
+                var y = drawLargeFigures($scope.gap.x, $scope.gap.y, $scope.iconWidth, $scope.iconHeight);
+                drawSmallFigures($scope.resolution - Math.max(...$scope.values), $scope.gap.x, y, $scope.smallIconWidth, $scope.smallIconHeight);
             };
         },
         link: function($scope, element, attrs) {
@@ -86,6 +157,15 @@ app.directive('lcsChart', ['$util', function($util) {
             if (attrs.iconHeight) {
                 $scope.iconHeight = parseInt(attrs.iconHeight);
             }
+            if (attrs.smallIconWidth) {
+                $scope.smallIconWidth = parseInt(attrs.smallIconWidth);
+            }
+            if (attrs.smallIconHeight) {
+                $scope.smallIconHeight = parseInt(attrs.smallIconHeight);
+            }
+            if (attrs.resolution) {
+                $scope.resolution = parseInt(attrs.resolution);
+            }
             if (attrs.gapX) {
                 $scope.gap.x = parseInt(attrs.gapX);
             }
@@ -102,7 +182,11 @@ app.directive('lcsChart', ['$util', function($util) {
                 var img = new Image();
                 img.onload = function() {
                     $scope.img = img;
-                    $scope.drawChart();
+                    if (attrs.varSize) {
+                        $scope.drawVarSizeChart();
+                    } else {
+                        $scope.drawChart();
+                    }
                 };
                 img.src = 'files/images/people.png';
             } else {

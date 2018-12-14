@@ -287,7 +287,7 @@
                             </div>
                         </td>
                         <td class="results_grid" style="padding-top:20px">
-                            <canvas class="lcs-chart " values="[session.myForm.result0, session.myForm.result0 - session.myForm.result1]" draw-image="true" n-row="25" n-col="40" icon-width="10" icon-height="30" gap-x="2" gap-y="1"></canvas>
+                            <canvas class="lcs-chart" var-size="true" resolution="1000" values="[session.myForm.result0, session.myForm.result0 - session.myForm.result1]" draw-image="true" n-row="25" n-col="40" icon-width="10" icon-height="30" gap-x="2" gap-y="1"></canvas>
                         </td>
                     </tr>
                     <!-- Bottom descriptions -->
@@ -544,7 +544,7 @@
                         </div>
                     </td>
                     <td class="results_grid" style="padding-top: 20px;">
-                        <canvas class="lcs-chart " values="[session.myForm.result2 + session.myForm.result3, session.myForm.result2]" draw-image="true" n-row="25" n-col="40" icon-width="10" icon-height="30" gap-x="2" gap-y="1"></canvas>
+                        <canvas class="lcs-chart" resolution="1000" var-size="true" values="[session.myForm.result2 + session.myForm.result3, session.myForm.result2]" draw-image="true" n-row="25" n-col="40" icon-width="10" icon-height="30" gap-x="2" gap-y="1"></canvas>
                     </td>
                 </tr>
                 <!-- Bottom description -->
@@ -748,7 +748,7 @@
                             <canvas class="lcs-chart " values="[session.myForm.result4 / 10]"></canvas>
                         </td>
                         <td ng-if="chartType === 'combined2'" class="results_grid">
-                            <canvas class="lcs-chart " values="[session.myForm.result4]" draw-image="true" n-row="25" n-col="40" icon-width="10" icon-height="30" gap-x="2" gap-y="1"></canvas>
+                            <canvas class="lcs-chart" var-size="true" resolution="1000" values="[session.myForm.result4]" draw-image="true" n-row="25" n-col="40" icon-width="10" icon-height="30" gap-x="2" gap-y="1"></canvas>
                         </td>
                     </tr>
                     <!-- Bottom description -->
