@@ -1,6 +1,6 @@
 'use strict';
 
-app.directive('lcsChart2', ['$util', function($util) {
+app.directive('lcsChart', ['$util', function($util) {
     return {
         restrict: 'AC',
         scope: {
