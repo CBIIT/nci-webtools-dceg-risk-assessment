@@ -473,7 +473,7 @@ a.btn:disabled {
   cursor: pointer;
 
   background-color: white;
-  border : none; 
+  border : none;
 }
 
 #printTop {
@@ -1794,6 +1794,11 @@ section > fieldset > legend.questions {
 
 .makeSpaceForPrintIcon {
     width: 85%;
+}
+
+/* For any links in the subseciton on the about page use this class for styling */
+.reference {
+    text-decoration: underline;
 }
 
 
