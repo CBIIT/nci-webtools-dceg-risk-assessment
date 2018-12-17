@@ -262,24 +262,24 @@
                             <p>If 1000 people answered the questions just like you but did not get screened, <b>{{ session.myForm.result0 }}</b> instead of <b>{{ session.myForm.result0 - session.myForm.result1 }}</b> {{ getPeopleOrPerson(session.myForm.result0 - session.myForm.result1) }} would die from lung cancer if they did NOT receive annual CT lung screening: an increase of <b>{{ session.myForm.result1 }}</b> out of 1000 {{ getPeopleOrPerson(session.myForm.result1) }}</p>
 
                             <div class="legendRow">
-                                <div class="legendPart legendSquare">
-                                    <div class="chartBlock chartBGColor2 chartOverlap"></div>
-                                    <img src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
+                                <div class="legendPartBathroom legendSquare">
+                                    <div class="chartBlockBathroom chartBGColor2 chartOverlap"></div>
+                                    <img src="files/images/people.png" class="chartBlockBathroom chartOverlap" alt="bathroom icon">
                                 </div>
-                                <div class="legendPart">
-                                    <span class="legendText">
+                                <div class="legendPartBathroom">
+                                    <span class="legendTextBathroom">
                                         <span class="dataColor2">{{ (session.myForm.result0 - session.myForm.result1) }}</span>
                                         deaths from lung cancer with screening
                                     </span>
                                 </div>
                             </div>
                             <div class="legendRow">
-                                <div class="legendPart legendSquare">
-                                    <div class="chartBlock chartBGColor1 chartOverlap"></div>
-                                    <img src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
+                                <div class="legendPartBathroom legendSquare">
+                                    <div class="chartBlockBathroom chartBGColor1 chartOverlap"></div>
+                                    <img src="files/images/people.png" class="chartBlockBathroom chartOverlap" alt="bathroom icon">
                                 </div>
-                                <div class="legendPart">
-                                    <span class="legendText">
+                                <div class="legendPartBathroom">
+                                    <span class="legendTextBathroom">
                                         <span class="dataColor1">{{ session.myForm.result1 }}</span>
                                         additional deaths from lung cancer without screening
                                     </span>
@@ -519,24 +519,24 @@
                         <p>If 1000 people answered the questions just like you and received CT lung screening, <b>{{ session.myForm.result2 + session.myForm.result3 }}</b> instead of <b>{{ session.myForm.result2 }}</b> {{ getPeopleOrPerson( session.myForm.result2 ) }} would be diagnosed with lung cancer: an increase of <b>{{ session.myForm.result3 }}</b> out of 1000 people.</p>
 
                         <div class="legendRow">
-                            <div class="legendPart legendSquare">
-                                <div class="chartBlock chartBGColor2 chartOverlap"></div>
-                                <img src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
+                            <div class="legendPartBathroom legendSquare">
+                                <div class="chartBlockBathroom chartBGColor2 chartOverlap"></div>
+                                <img src="files/images/people.png" class="chartBlockBathroom chartOverlap" alt="bathroom icon">
                             </div>
-                            <div class="legendPart">
-                                <span class="legendText">
+                            <div class="legendPartBathroom">
+                                <span class="legendTextBathroom">
                                     <span class="dataColor2">{{ session.myForm.result2 }}</span>
                                     lung cancer diagnoses without screening
                                 </span>
                             </div>
                         </div>
                         <div class="legendRow">
-                            <div class="legendPart legendSquare">
-                                <div class="chartBlock chartBGColor1 chartOverlap"></div>
-                                <img src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
+                            <div class="legendPartBathroom legendSquare">
+                                <div class="chartBlockBathroom chartBGColor1 chartOverlap"></div>
+                                <img src="files/images/people.png" class="chartBlockBathroom chartOverlap" alt="bathroom icon">
                             </div>
-                            <div class="legendPart">
-                                <span class="legendText">
+                            <div class="legendPartBathroom">
+                                <span class="legendTextBathroom">
                                     <span class="dataColor1">{{ session.myForm.result3 }}</span>
                                     additional lung cancer diagnosis with screening
                                 </span>
@@ -762,11 +762,10 @@
                                 <span><img style="width:10px;height:10px;border:1px solid #777;margin-right:5px" ng-src="{{base_url}}files/cellempty.png" alt="empty cell" />Did NOT have a false alarm
                             </span>
                             </div>
-                            <div ng-if="chartType === 'combined' || chartType === 'combined2'">
+                            <div ng-if="chartType === 'combined'">
                                 <div class="legendRow">
                                     <div class="legendPart legendSquare">
                                         <div class="chartBlock chartBGColor1 chartOverlap" style="width:{{ chartBlockWidth }}px;"></div>
-                                        <img ng-if="chartType === 'people' || chartType === 'combined2'" src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                                     </div>
                                     <div class="legendPart">
                                         <span class="legendText">Had a false alarm (positive screening test but does not actually have lung cancer)</span>
@@ -775,10 +774,29 @@
                                 <div class="legendRow">
                                     <div class="legendPart legendSquare">
                                         <div class="chartBlock chartBGColor chartOverlap"></div>
-                                        <img ng-if="chartType === 'people' || chartType === 'combined2'" src="files/images/people.png" class="chartBlock chartOverlap" alt="bathroom icon">
                                     </div>
                                     <div class="legendPart">
                                         <span class="legendText">Did NOT have a false alarm</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-if="chartType === 'combined2'">
+                                <div class="legendRow">
+                                    <div class="legendPartBathroom legendSquare">
+                                        <div class="chartBlockBathroom chartBGColor1 chartOverlap" style="width:{{ chartBlockWidth }}px;"></div>
+                                        <img ng-if="chartType === 'combined2'" src="files/images/people.png" class="chartBlockBathroom chartOverlap" alt="bathroom icon">
+                                    </div>
+                                    <div class="legendPartBathroom">
+                                        <span class="legendTextBathroom">Had a false alarm (positive screening test but does not actually have lung cancer)</span>
+                                    </div>
+                                </div>
+                                <div class="legendRow">
+                                    <div class="legendPartBathroom legendSquare">
+                                        <div class="chartBlockBathroom chartBGColor chartOverlap"></div>
+                                        <img ng-if="chartType === 'combined2'" src="files/images/people.png" class="chartBlockBathroom chartOverlap" alt="bathroom icon">
+                                    </div>
+                                    <div class="legendPartBathroom">
+                                        <span class="legendTextBathroom">Did NOT have a false alarm</span>
                                     </div>
                                 </div>
                             </div>
