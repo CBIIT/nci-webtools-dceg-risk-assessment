@@ -124,7 +124,6 @@ app.directive('lcsChart', ['$util', function($util) {
                     $scope.ctx.fillText(i * $scope.nCol + $scope.nCol, pos.x, pos.y);
                     for (var j = 0; j < $scope.nCol; ++j) {
                         var cellValue = i * $scope.nCol + j + 1;
-                        console.log(cellValue);
                         pos = getPosition(i, j, x + $scope.gap.x * 2 + $scope.textWidth, y, width, height, $scope.gap);
                         if ($scope.values[0] >= cellValue || $scope.values[1] >= cellValue || $scope.values[2] >= cellValue) {
                             drawFigure(getLayeredData($scope.values, cellValue), pos, width, height);
