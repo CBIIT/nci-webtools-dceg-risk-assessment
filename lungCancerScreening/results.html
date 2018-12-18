@@ -128,13 +128,6 @@
     <div class="yourresults">
         <!-- Chart type buttons -->
         <div style="text-align: right; margin-bottom: 5px">
-            <button ng-if="availableChartTypes.indexOf('pic') !== -1" ng-click="changeChartType('pic')" class="btn btn-default {{ chartType === 'pic' ? 'buttonActive' : '' }}">
-                <div class="legendPart legendSquare">
-                    <div class="chartBlock chartBGColor chartOverlap"><img ng-src="files/images/gridchart{{ chartType === 'pic' ? '' : '-bw' }}.png" width="15" height="25"></div>
-                </div>
-                <div class="legendPart"><span class="legendText">Original</span></div>
-            </button>
-
             <button ng-if="availableChartTypes.indexOf('square') !== -1" ng-click="changeChartType('square')" class="btn btn-default {{ chartType === 'square' ? 'buttonActive' : '' }}">
                 <div class="legendPart legendSquare">
                     <div class="chartBlock chartBGColor chartOverlap"></div>
@@ -161,7 +154,7 @@
                 <div class="legendPart"><span class="legendText">Condition 3</span></div>
             </button>
 
-            <button ng-if="availableChartTypes.indexOf('combined2') !== -1" ng-click="changeChartType('combined2')" class="btn btn-default {{ chartType === 'combined2' ? 'buttonActive' : '' }}">
+            <button ng-if="availableChartTypes.indexOf('combined2') !== -1 && chartType !== 'pic'" ng-click="changeChartType('combined2')" class="btn btn-default {{ chartType === 'combined2' ? 'buttonActive' : '' }}">
                 <div class="legendPart legendSquare">
                     <div class="legendPart legendSquare">
                         <img ng-if="chartType === 'combined2'" src="files/images/2people.png" class="chartBlock chartOverlap">
