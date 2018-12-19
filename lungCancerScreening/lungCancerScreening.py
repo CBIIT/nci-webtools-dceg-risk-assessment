@@ -22,7 +22,10 @@ with open ('LCWrapper.R') as fh:
         wrapper = SignatureTranslatedAnonymousPackage(rcode,"wrapper")
 
 # Initialize the Flask application
-app = Flask(__name__)
+if __name__ == '__main__':
+    app = Flask(__name__, static_folder='', static_url_path='', template_folder='.')
+else:
+    app = Flask(__name__)
 
 @app.route('/')
 def index():
