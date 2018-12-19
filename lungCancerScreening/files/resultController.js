@@ -27,7 +27,7 @@ app.controller("ResultCtrl", function($scope, $window, $sce, $http, $sessionStor
           $scope.chartType = 'combined2';
           break;
       default:
-          $scope.chartType = 'square';
+          $scope.chartType = 'pic';
           break;
   }
   $scope.availableChartTypes = [$scope.chartType, 'combined2'];
