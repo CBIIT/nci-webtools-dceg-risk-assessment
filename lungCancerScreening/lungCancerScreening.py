@@ -16,6 +16,7 @@ import tempfile, os
 import random
 import os, base64
 import uuid
+from util import *
 
 with open ('LCWrapper.R') as fh:
         rcode = os.linesep.join(fh.readlines())
@@ -29,8 +30,11 @@ else:
 
 @app.route('/')
 def index():
-    # Render template
-    return render_template('index.html')
+    return send_file('index.html')
+
+@app.route('/configuration/', methods=['GET'])
+def getConfig():
+    return jsonify(admin_email=ADMIN_EMAIL, support_email=SUPPORT_EMAIL)
 
 # This route will return a list in JSON format
 @app.route('/lungCancerRest/', methods=['POST'])
