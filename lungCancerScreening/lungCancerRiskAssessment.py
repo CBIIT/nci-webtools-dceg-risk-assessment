@@ -30,7 +30,6 @@ else:
 
 @app.route('/')
 def index():
-    # Render template
     return send_file('index.html')
 
 @app.route('/configuration/', methods=['GET'])
@@ -111,7 +110,7 @@ def exportPDF():
         f.close()
         os.remove(f.name)
         response = make_response(data)
-        response.headers["Content-Disposition"] = "attachment; filename=LungCancerRiskAssementResults.pdf"
+        response.headers["Content-Disposition"] = "attachment; filename=LungCancerRiskAssessmentResults.pdf"
         response.headers["Content-type"] = "application/pdf"
     else:
         token_id=uuid.uuid4()
