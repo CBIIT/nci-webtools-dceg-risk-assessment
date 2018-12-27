@@ -1,3 +1,5 @@
+
+
 /* A function calculates and stores the position of each header and so that
  * when a navigation button or link is clicked or the user scrolls to a position
  * on the screen , the correct navigation buttion and link will be selected and
@@ -28,9 +30,7 @@ function calcSizesOfSections()
 	var heightOfHeader    = $("header").outerHeight(true);
 	var height = heightOfFormSteps
 
-	//alert("The height is " + height + " and the value of is isMobile is " + isMobile() )
-	//alert("The Height is " + height)
-
+	
 	$.each($("#riskForm section"), function(index, element) {
 
 		// Accumulates the Height of the header and section, so the form will scrolled to
@@ -90,8 +90,9 @@ function processSubmission(form){
 		$("#systemError").modal("show");
 	})
 	.always(function() {
-		//resultsDisplay();
 		$('html,body').scrollTop(0);
+		$('body').attr('tabindex','-1');
+		$('body').focus();
 	});
 }
 
@@ -117,6 +118,15 @@ function goback_tocalc(){
 
 	handleScrollEvent();
 	$('html,body').scrollTop(0);
+
+	// Problem : When hispanic is selected textual information is added to the
+	// Question/Answer.  However, the user can click on the Edit Response and
+	// if Hipsanic is still the answer the information will be attached twice.
+	// This code will remove the information when the user goes back to the
+	// calculate page.
+	$("[data-dynamicallyAdded='true']").each( function(index,element) {
+		element.parentNode.removeChild(element)
+	});
 }
 
 /*****************************************************************************/
@@ -148,17 +158,23 @@ function go_toresult() {
 		$("#results_home").css("padding-top", "6px")
 	}
 
+	// This is needed for the calculate button on the input entry form, so
+	// set this to false when you go the resutls page
+    var validator = $("#riskForm").data("validator");
+    $(validator).data("mouseEventSubmitForm", false);
+    $(window).data('mouseEvent', false)
+
 }
 
-/*********************************************************************************/
-/* Create a pie chart                                                            */
-/*                                                                               */
-/* Parameters:                                                                   */
-/*   percent		       	The change that the victim will get cancer       	 */
-/*   divContainerForChart  	The HTML Container that will cotnain the chart   	 */
-/*   color1 			The color for the chance of getting cancer       		 */
-/*   color2  			The color for the chance of not getting cancer   		 */
-/*********************************************************************************/
+/******************************************************************************/
+/* Create a pie chart                                                         */
+/*                                                                            */
+/* Parameters:                                                                */
+/*   percent		       	The change that the victim will get cancer        */
+/*   divContainerForChart  	The HTML Container that will cotnain the chart    */
+/*   color1 			The color for the chance of getting cancer            */
+/*   color2  			The color for the chance of not getting cancer        */
+/******************************************************************************/
 function make_pie_chart(percent, divContainerForChart, color1, color2){
 
 	// Remoeves the pie charts created so tehy are not displayed next time.  This
@@ -283,6 +299,9 @@ function gotoSection(event) {
 	var sectionName = undefined
 	var scrollFor = undefined
 
+    //if ( $(event.target).parent().hasClass("active") )
+    //    return;
+
 	if ( ignoreIfOneSectionIsVisible() ) {
 
 		// The purpose of this code is to handle the situation where there is only a signle section being dispalyed.  An exmaple
@@ -301,7 +320,7 @@ function gotoSection(event) {
 		event.preventDefault()
 
 	} else {
-		// The purose of this code is to handle the situation where there are multiple section being displayed.
+		// The purpose of this code is to handle the situation where there are multiple section being displayed.
 		indexOfSection = $(this).attr('data-riskFormSection')
 
 		// Remove the active style from the previous link and apply it to the
@@ -332,6 +351,18 @@ function gotoSection(event) {
 	var possibleNewValue = scrollTo - heightOfFormSteps
 	scrollTo = ( possibleNewValue <= 0 ) ? 0 : possibleNewValue
 	$("html, body").animate({scrollTop: scrollTo  }, scrollFor )
+}
+
+/* Makes a Section of the Forms Active ( Bubble and Text )                    */
+/*                                                                            */
+/* Input : An index starting at 1 ( index of list item to make active         */
+/*                                                                            */
+function makeFormStepsSectionActive(index) {
+
+   $("#form-steps ol li").removeClass("active")
+
+   var stringSelector = $("#form-steps ol li:nth-child(" + index + ")")
+   $(stringSelector).addClass("active")
 }
 
 /* Determine if either male or female has been selected                       */
@@ -487,35 +518,36 @@ function handleHeaderNavigationRedraw() {
 
 	fixedToTop(top_div);
 	formScrollSpy();
-	if ( existFormSteps() == true ) adjustNavigationBarLine()
+	if ( existFormSteps() == true ){
+		var midPointX = adjustNavigationBarLine()
+		//adjustLinks(midPointX)
+	}
 }
-
-/******************************************************************************/
-/* Handles the resizing of window.  For the navigation component a line is    */
-/* create manual to connect the navigation buttons. Since the line is         */
-/* caclculated manually                                                       */
-/******************************************************************************/
-// $(window).resize(function() {
-// 	//if(window.location.pathname=="/melanomarisktool/calculator.html"){
-// 	//	adjustNavigationBarLine();
-// 	// }
-// 	console.log("Calling resize 1  with all adjust")
-// 	var top_div = ( $(window).width() > 630 ) ? "main-nav" : "toolTitle";
-
-// 	fixedToTop(top_div);
-// 	formScrollSpy();
-// 	adjustNavigationBarLine()
-// });
 
 /******************************************************************************/
 /* Adjusts the line connections the navigation bar circles                   **/
 /******************************************************************************/
 function adjustNavigationBarLine() {
 	adjust_line_width()
+
+	var midPointX = undefined
 	if( isMobile() )
-		adjust_line_height_mobile();
+		midPointX = adjust_line_height_mobile();
 	else
-		adjust_line_height_dekstop()
+		midPointX = adjust_line_height_dekstop()
+
+	return midPointX
+}
+
+function adjustLinks(midPointX) {
+	$("#form-steps ol > li:visible > a:nth-child(2)").each(function() {
+		var heightOfCircle = $(this).css("height")
+		var topPointOfCircle = parseInt(midPointX) - (parseInt(heightOfCircle)/2)
+		if ( topPointOfCircle < 100 ) {
+			var startingPointOfCircle = midPointX - topPointOfCircle
+			$(this).css("top", startingPointOfCircle + "px")
+		}
+	})
 }
 
 /******************************************************************************/
@@ -523,8 +555,8 @@ function adjustNavigationBarLine() {
 /* navigation circles so that all are connected                               */
 /******************************************************************************/
 function adjust_line_width(ind){
-	var firstBubble = $("#form-steps > ol > li > a:nth-child(2)").first();
-	var lastBubble  = $("#form-steps > ol > li:visible:last > a:last-child")
+	var firstBubble = $("#form-steps > ol > li > a.step-node").first();
+	var lastBubble  = $("#form-steps > ol > li:visible:last > a.step-node").first();
 
 	var startingPoint = $(firstBubble).offset().left + $(firstBubble).width();
 	var endingPoint = $(lastBubble).offset().left - startingPoint;
@@ -542,9 +574,12 @@ function adjust_line_width(ind){
 /* active                                                                     */
 /******************************************************************************/
 function adjust_line_height_dekstop(){
+
   var firstBubble = $("#form-steps ol li").not(".active").children().filter("a:nth-child(2)").first()
   var startPoint = $(firstBubble).position().top + $(firstBubble).height()/2;
   $("#line").find("hr").css("top", startPoint);
+
+	return startPoint
 }
 
 /******************************************************************************/
@@ -563,6 +598,8 @@ function adjust_line_height_mobile() {
 	var height = $("#form-steps > ol > li > a:nth-child(2)").first().height();
 	var startPoint = firstBubbleTopPosition + ( height /2 );
 	$("#line").find("hr").css("top", startPoint);
+
+	return startPoint
 }
 
 /******************************************************************************/
@@ -611,8 +648,7 @@ function calculatePositionToScrollTo(target) {
 /* all browsers/mobile devices, I create one algorithm for the desktop and    */
 /* one algorithm for the mobile.                                              */
 /******************************************************************************/
-function toggle_menu(){
-
+function toggle_menu(e){
 	  var top
 		if ( isMobile() == false )
 		{
@@ -628,18 +664,20 @@ function toggle_menu(){
 		$("#side_nav").css("top", top)
 
 
-    if($("#side_nav").width()>0){ $("#side_nav").animate({ width: "0%" });
+    if($("#side_nav").width()>0){
+        $("#side_nav").show().animate({ width: "0%" },{ duration: 300, complete: function() {
+            $('#side_nav .glyphicon-menu-hamburger').css('display', 'none');
+            $("#form-steps").css("z-index","1");
+            }
+        });
 
-			setTimeout(function() { $('#side_nav .glyphicon-menu-hamburger').css('display', 'none'); }, 250);
-    	setTimeout(function(){ $("#form-steps").css("z-index","1"); }, 500);
     } else {
-			$("header").css("z-index","200")
-			$("#side_nav").animate({
-				width: "70%"
-			});
-
-			// $("#side_nav").css("width","70%")
-			setTimeout(function() { $('#side_nav .glyphicon-menu-hamburger').css('display', 'inline-block'); }, 250);
+		$("header").css("z-index","200")
+		$("#side_nav").stop(true,true).show().animate({width: "70%"},{ complete: function() {
+		  $('#side_nav .glyphicon-menu-hamburger').css('display', 'inline-block');
+		    }
+		    }
+		);
     }
 }
 
@@ -659,24 +697,6 @@ $(function() {
 		if ( $(window).width() >= 992 )  $('#side_nav').css('display', 'none');
 	})
 })
-
-/*****************************************************************************/
-/* Enables the Calculate Button                                              */
-/* Todo: Change the name to enableCalculateButton                            */
-/*****************************************************************************/
-function enablebutton(){
-	$("#calculate").attr('disabled', false);
-	$("#calculate").removeClass("#calculate:disabled")
-}
-
-/******************************************************************************/
-/* Disables the Calculate Button                                              */
-/* TODO : Change the name to disableCalculateButton                           */
-/******************************************************************************/
-function disablebutton(){
-	$("#calculate").attr('disabled', true);
-	$("#caclulate").addClass("#calculate:disabled")
-}
 
 /******************************************************************************/
 /* Is the device a mobile tablet.  See isMobile for comments                  */
@@ -764,9 +784,14 @@ function mouseDownBorderToggle(event) {
 // whether it was a mouse event or the user tabbed into it.
 function focusBorderToggle(event) {
 	var $this = $(this);
-    var mouseDown = $this.data('mouseEvent');
+	var validator = $("#riskForm").data("validator");
+
+    var mouseDown = $this.data('mouseEvent') || $(validator).data('mouseEventSubmitForm');
 
     $this.removeData('mouseEvent');
+    $(validator).removeData('mouseEventSubmitForm');
+
+
 
 	if ( mouseDown ) {
         removeOutline(event)
@@ -774,6 +799,7 @@ function focusBorderToggle(event) {
         $("*").removeClass("addOutline")
 		$(event.target).removeClass("removeOutline");
 		$(event.target).addClass("addOutline")
+
 	}
 }
 
@@ -782,60 +808,6 @@ function focusBorderToggle(event) {
 function removeOutline(event) {
 	$(event.target).addClass("removeOutline");
 	$(event.target).removeClass("addOutline");
-}
-
-///////////////////////////////////////////////////////////////////////////////
-// Enable the Caluclate Button if all non disabled inputs have a value
-//////////////////////////////////////////////////////////////////////////////
-function enableCalculateButton() {
-
-	 var inputs = $("form#riskForm input:enabled, form#riskForm select:enabled");
-	 valid=true
-
-	 inputs.each(function(index) {
-			 var input = $(this);
-			 if(input[0].required==true){
-				 name=input[0].name
-				 if( ($('input[name='  +  name +']').is('input[type="number"]')  && $('input[name=' + name + ']').val().length == 0 ) ||
-					 ($('input[name='  +  name +']').is('input[type="radio"]')  && $('input[name=' + name + ']:checked').length==0) ||
-			 		 ($('select[name=' +  name +']').is('select') && input[0].selectedIndex==0)){
-						disablebutton()
-						valid=false
-					 }
-			 }
-	 });
-
-	 if(valid==true) enablebutton();
-
-	 $("select").on("select", redrawHTMLObject);
-	 $("select").on("change", redrawHTMLObject);
-
-
-}
-
-
-//////////////////////////////////////////////////////////////////////////////
-// Determine if the calculation button should be enabled.  If all the input  //
-// fields that are enabled have a value then enable the calculate button     //
-///////////////////////////////////////////////////////////////////////////////
-function enableButtonIfAllFieldHaveInput()
-{
-	 var inputs = $("form#riskForm input:enabled, form#riskForm select:enabled");
-	 valid=true
-
-	 inputs.each(function(index) {
-		var input = $(this);
-		if(input[0].required==true){
-			 name=input[0].name
-			 if(($('input[name=' + name +']').is('input') && $('input[name=' + name + ']:checked').length==0) || ($('select[name=' + name +']').is('select') && input[0].selectedIndex==0)){
-				disablebutton()
-			 	valid=false
-		 	 }
-		 }
-	});
-
-	if(valid==true) enablebutton();
-
 }
 
 /******************************************************************************/
@@ -890,7 +862,8 @@ function displayHelpWindow() {
 
 /******************************************************************************/
 /* Does the Form Steps HTML Object Exist and are they visible.  If they are   */
-/* then they technically do not exist since the user cannot see them.         */
+/* not visible then they technically do not exist since the user cannot see   */
+/* them.                                                                      */
 /******************************************************************************/
 function existFormSteps() {
 	return ( $("#form-steps:visible").length > 0 );
@@ -899,12 +872,12 @@ function existFormSteps() {
 // Two functions to disable and enable  the section headers ( Currently a
 // seciton header is text embedded in a h2 tag
 function disableSectionHeaders() {
-	$(".sectionTitle").attr("disabled","disabled")
+	$(".sectionTitle").attr("disabled","disabled").attr("aria-disabled",true);
 	$(".sectionTitle").addClass("disableSectionTitle")
 }
 
 function enableSectionHeaders() {
-	$(".sectionTitle").removeAttr("disabled")
+	$(".sectionTitle").removeAttr("disabled").attr("aria-disabled",false);
 	$(".sectionTitle").removeClass("disableSectionTitle")
 }
 
@@ -915,9 +888,10 @@ function enableSectionHeaders() {
 ///////////////////////////////////////////////////////////////////////////////
 function disableForm() {
 	$("form :input").not("#reset").prop('disabled', true);
-	$("form a").prop('disbled', true)
-	$("form label.radio").css("color","#C0C0C0")
-	$("[class*='questions']").css("color","#c0c0c0");
+	$("form a").addClass("disabled")
+	$("form [role=radio]").css("color","#C0C0C0");
+	$("form [role=radio]").attr("tabindex","-1").attr("aria-disabled",true);
+	$("[class*='questions']").css("color","#c0c0c0").attr("aria-disabled",true);
 	disableSectionHeaders();
 }
 
@@ -928,10 +902,17 @@ function disableForm() {
 ////////////////////////////////////////////////////////////////////////////////
 function enableForm() {
 	$("form :input").not("#reset").attr('disabled', false);
-	$("form label.radio").css("color","#2E2E2E")
-	$("[class*='questions']").css("color","#2E2E2E")
+	$("form a").removeClass("disabled")
+	$("form [role=radio]").css("color","#606060").attr("aria-disabled",false);
+	$("[class*='questions']").css("color","#2E2E2E").attr("aria-disabled",false);
+	$("form [role=radiogroup]").each(function() {
+		if( $(this).find("[role=radio][aria-checked=true]").length > 0 ) {
+		  $(this).find("[role=radio][aria-checked=true]").attr("tabindex","0");
+		} else {
+		  $(this).find("[role=radio]:first").attr("tabindex","0");	
+		}
+	});
 	enableSectionHeaders();
-	//$("#riskForm").trigger("change")
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1055,6 +1036,7 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 		//  would go between there would be a secondary question.  Use a paragraph tag instead of a div tag
 		//
 		function extractAnswerDispalyedOnGui(inputElement) {
+
 			var inputText = ""
 			if ( inputElement.is(":radio"))	{
 				// Get the name attribute which the radio button use for the variable name of the Data
@@ -1164,7 +1146,7 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 
 			// The Div is 50% width of the flx box and the paragraph tags take up the full width of the div that is a child of the flex box so each paragraph is on a certain line.
 			// use $('<p></p>') since .append("<p>" + questionText + "</p>") could have javascript injected into it
-			var questionTextBlock = ( extraInformation === null ) ? $("<p></p>").text(questionText) : $("<div></div>").append($('<p class="questionHasExtraInformation"></p>').text(questionText)).append(extraInformation)
+			var questionTextBlock = ( extraInformation === null ) ? $("<p></p>").append(questionText) : $("<div></div>").append($('<p class="questionHasExtraInformation"></p>').append(questionText)).append(extraInformation)
 			var questionDiv = container.append(lineNumber).append(questionTextBlock);
 
 		 	if ( indexData.isSubQuestion == "Level 1" ) {
@@ -1186,11 +1168,11 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 		// So, the user will be able to get the answer from the infromation.  However, if the answer
 		// is different ( ex. 3 text boxes for the height/width/lbs ) then the algorithm will call
 		// a routine from the specfic rat to handle the situation
-		var inputElement = $($(element).nextUntil("label","div")[0]).children('input, select')
+		var inputElement = $($(element).nextUntil("label","div")[0]).find('input, select')
 		if ( $(inputElement.length) == 0 ) inputElement = element
 
    	var inputAnswerText = extractAnswerDispalyedOnGui(inputElement)
-   	var question = createQuestionCell(index, $(element).text(), inputElement)
+   	var question = createQuestionCell(index, $(element).html(), inputElement)
    	var answer = $("<td></td>").text(inputAnswerText).addClass("answers")
    	var tableRow = $("<tr></tr>").append(question).append(answer)
 
@@ -1229,13 +1211,18 @@ function filterInputParameters(index, element) {
 // Handles the generic reset for all the risk analysis tools
 ////////////////////////////////////////////////////////////////////////////////
 function genericResetForm() {
-	$('form').trigger('reset')
-
+	$('form').trigger('reset');
+	$("form [role=radio]").attr("tabindex","-1");
+	$("form [role=radio]").attr("aria-checked","false");
 	scrollTo(0,0);
+	enableForm();
+}
 
-	$("form :input").attr('disabled', false);
-	$("[class*='questions']").css("color","#2e2e2e")
-	$("#calculate").attr("disabled", "disabled")
+function genericResetValidator() {
+
+  var validator = $('form').data('validator');
+  validator && validator.resetForm();
+  $(".borderError").removeClass("borderError");
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1336,13 +1323,171 @@ function htmlObjectCloseToBottomOfScreen(htmlObject, threshold) {
 //        click No then enable form                                          //
 ///////////////////////////////////////////////////////////////////////////////
 function enableQuestionAndAnswers(divId) {
-  $("#" + divId + " > label").css("color","#2E2E2E")
-  $("#" + divId + " input").attr("disabled", false)
-  $("#" + divId + " input").css("color", "#606060")
-  $("#" + divId + " label").css("color", "#2E2E2E")
-  $("#" + divId + " div").css("tabindex","0")
+  $("#" + divId + " > label").css("color","#2E2E2E");
+  $("#" + divId + " input").attr("disabled", false);
+  $("#" + divId + " input").css("color", "#606060");
+  $("#" + divId + " label").css("color", "#2E2E2E");
+  $("#" + divId + " div").css("color", "#606060");
+  $("#" + divId).find('[role=radio][aria-checked=true]:first').attr("tabindex","0");
 }
 
+////////////////////////////////////////////////////////////////////////////////
+// Removes the error the message from Input that changed                      //
+//		Input: Information about the event.                                   //
+//                                                                            //
+// Problem with prevUntil : If the element that matches the selector is the   //
+// element directly above then nothing will returned and prev must be used    //
+////////////////////////////////////////////////////////////////////////////////
+function removeErrorMessage(event) {
+
+	var getParent = $(event.target).parent()
+	var question = $(getParent).prevUntil("label.questions").prev()
+	if ( question.length == 0 ) question = $(getParent).prev()
+
+    $(event.target).removeClass("error")
+    $(event.target).removeAttr("aria-describedBy")
+
+	var objectWithBorder = $(question).parent() 
+	if ( objectWithBorder ) {
+	    $(objectWithBorder).removeClass("borderError");
+	    $(objectWithBorder).find("[role='alert']").remove()
+	}
+
+}
+
+function registerCustomRadioAccess() {
+	$("[role=radio]").each(function(){
+		$(this).on('keydown',handleKeyDownRadioGroup);
+		$(this).on('mousedown',handleKeyDownRadioGroup);
+		$(this).on('focus',handleFocusRadioGroup);
+	});
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// (T)rue if an apple product
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function isAppleProduct() {
+    var hardware = ( navigator.platform === 'MacIntel' || navigator.platform === 'iPad' || navigator.platform === 'iPhone') ? true: false
+    var isSafari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/)
+    return hardware && isSafari
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// (T) if internet explorer 11
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function isIe11() {
+    var isIE11 = ( !!navigator.userAgent.match(/Trident\/7\./)) ? true : false
+    return isIE11
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// (T) if an iphone
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function isApplePhone() {
+    var isPhone = ( navigator.platform === 'iPhone' ) ? true : false
+    return isPhone
+}
+
+var KEYCODE = {
+    DOWN: 40,
+    LEFT: 37,
+    RIGHT: 39,
+    SPACE: 32,
+    UP: 38,
+	TAB: 9
+}
+
+function handleFocusRadioGroup(event) {
+    var mouseEvent = $(this).data("radioMouseEvent");
+    $(this).removeData("radioMouseEvent");
+	if(isMobile() || mouseEvent || $(event.currentTarget).parent().parent().isInViewport() ) return;
+
+	var element = $(event.currentTarget);
+	var radioGroup = $(element).parent().parent();
+	var radioGroupSize = $(radioGroup).height()/2;
+	var heightPos = Math.max(		
+	  (radioGroup.offset().top - $('#form-steps').outerHeight())-radioGroupSize,0);
+	$('html, body').scrollTop(heightPos);
+}
+
+function handleKeyDownRadioGroup(event){
+  var type = event.type;
+  var next = false;
+  
+  var isDisabled = $(event.currentTarget).prev('input:radio').prop('disabled');
+  
+  if(isDisabled) {
+    return true;	   
+  }
+  
+  var setRadioButton = function(node,state,focus) {
+	  
+	  if (state) {
+		$(node).attr('aria-checked', 'true'); 
+		$(node).attr('tabIndex','0');
+		$(node).prev('input:radio').trigger('click');
+		if(focus) $(node).focus();
+	  }
+	  else {
+		$(node).attr('aria-checked', 'false'); 
+		$(node).attr('tabIndex','-1');
+	  }
+  }
+
+  var nextRadioButton = function(node) {
+	  return $(node).parent().next('div').find('[role=radio]');
+  }
+  
+  var previousRadioButton = function(node) {
+	  return $(node).parent().prev('div').find('[role=radio]');
+  }
+  
+  var firstRadioButton = function(node) {
+	  return $(node).parent().parent().children('div.responseOptions:first').find('[role=radio]');
+  }
+  
+  var lastRadioButton = function(node) {
+	  return $(node).parent().parent().children('div:last').find('[role=radio]');
+  }
+  
+  if(type === "keydown") {
+    var node = event.currentTarget;
+    var key = event.which || event.keyCode || 0;
+    switch (key) {
+      case KEYCODE.DOWN:
+      case KEYCODE.RIGHT:
+        var next = nextRadioButton(node);
+		if ($(next).length === 0) next = firstRadioButton(node);
+		break;
+
+      case KEYCODE.UP:
+      case KEYCODE.LEFT: 
+        next = previousRadioButton(node);
+        if ($(next).length === 0) next = lastRadioButton(node);
+        break;
+
+      case KEYCODE.SPACE:
+        next = node;
+        break;
+    }
+
+    if ($(next).length > 0) {
+	  $(node).parent().parent().children('div').find('[role=radio]').each(function(){
+		  setRadioButton($(this),false);
+	  });
+      event.preventDefault();
+	  event.stopPropagation();
+	  setRadioButton(next,true,true);
+	}
+  } else if (type === "mousedown") {
+	  var node = event.currentTarget;
+	  $(node).parent().parent().children('div').find('[role=radio]').each(function(){
+		  setRadioButton($(this),false);
+	  });
+	  $(this).data("radioMouseEvent",true);
+      setRadioButton(node,true,true);
+  }
+}
 ////////////////////////////////////////////////////////////////////////////////
 // Startup Code
 ////////////////////////////////////////////////////////////////////////////////
@@ -1395,10 +1540,27 @@ $(document).ready(function() {
 	$("#AssessPatientRisk").on('focusin', 		function(event)  { focusBorderToggle(event);	});
 	$("#AssessPatientRisk").on('focusout',      function(event)  { removeOutline(event); 		});
 
-	// Rule: When the Start Over Button/Edit Repsonses gains the focus from the
+	// Rule: When the Start Over Button/Edit Repsonses or the print icon gains the focus from the
 	// Tab Key.  It sould be highlighted and blurred then have the outline removed
 	$("#startOverButton, #returnToCalculateButton").on('focusin',  function(event)  { focusBorderToggle(event);	});
-	$("#startOverButton, #returnToCalculateButton").on('focusout', function(event)  { removeOutline(event); 		});
+	$("#startOverButton, #returnToCalculateButton").on('focusout', function(event)  { removeOutline(event);     });
+
+	$("#printBottom").on('focusin', function(event) { focusBorderToggle(event); });
+	$("#printBottom").on('mousedown', function(event) { mouseDownBorderToggle(event); });
+
+    $("#printTop").on('focusin', function(event) { focusBorderToggle(event); });
+    $("#printTop").on('mousedown', function(event) { mouseDownBorderToggle(event); });
+
+    // The Side Menu at the top of the screen should be highlighted when it is tabbed into
+    $("#toolTitle > button > div").on('focusin', function(event) {
+        focusBorderToggle(event);
+    });
+
+    $("#toolTitle > button > div").on('focusout', function(event) {
+        removeOutline(event);
+    });
+
+
 
 
 	// Rule : When tabbing the user could make the "Skip to Content" appear. which could
@@ -1424,19 +1586,93 @@ $(document).ready(function() {
 
 	$("#riskForm").validate({
 		ignore: ".skipValidate",
+		onkeyup: false,
+		onfocusout: false,
 		submitHandler: processSubmission,
+		errorElement: 'div',
+		errorPlacement: function(error,element) {
+		  error.appendTo($(element).parent().prevAll('label.questions:first'));
+		  $(error).attr("role","alert");
+		},
+		invalidHandler: function(form,validator) {
+		  var errors = validator.numberOfInvalids();
+		  if (errors) {
+		    var element = validator.errorList[0].element;
+		    var targetScroll = $(element).parent().prevAll('label.questions:first');
+            
+		    if ($(element).is(':radio')) {
+		      $(element).next('[role=radio]').focus();
+		    } else {
+		      $(element).focus();
+		    }
+			
+			$('html, body').scrollTop(targetScroll.parent().offset().top - $('#form-steps').outerHeight() - 15);
+			
+		  }
+		 },
+		 showErrors: function(errorMap,errorList) {
+		   if (errorList.length) {
+                var error = errorList.shift();
+                var newErrorList = [];
+                newErrorList.push(error);
+                this.errorList = newErrorList;
+
+                $(".borderError").removeClass("borderError")
+				$(error.element).parent().prevAll('label.questions:first').parent().addClass("borderError");
+		   }
+		   this.defaultShowErrors(); 
+		 },
+
+	    onclick: function(element, event) {
+			 if ( $(event.currentTarget).is("select")) {
+				 return false;
+			 } else {
+			    setTimeout( function() {
+				    $(element).parent().prevAll('label.questions:first').parent().removeClass("borderError");
+				    $(element).parent().prevAll('label.questions:first').find('.error').remove();
+				    },100);
+			 }
+		} 
+
+
 	});
+
+	$("select").change(removeErrorMessage)
+
+    jQuery.extend(jQuery.validator.messages, {
+        required: "&nbsp;* This is required"
+     });
 
 	// When the user is on the results page, this event will send the user back
 	// to the goto_calculatePage
-	$("#returnToCalculateButton").on("click", goback_tocalc)
+	$("#returnToCalculateButton").on("click", goback_tocalc);
 
+    $(document).keydown(function(e) {
+		if (e.which == 32 && $(e.target).is('[role=radio]') ) {
+          e.preventDefault();
+		}
+    });
 
 
 });
 
+
 $(window).load(function(e) {
 
+	// For the printing the Apple needs something a little different css
+	if ( isAppleProduct() == true ) {
+	    $("#displayInput").addClass("printAppleOnly")
+	}
+
+	if ( isApplePhone() ) {
+		$("#InputParameters").addClass("printIphoneOnly")
+	}
+
+	if ( isIe11() ) {
+		$("#displayInput").addClass("printIEOnly")
+	}
+
+   registerCustomRadioAccess();
   // Callsbacks to handle the Navigation Bar when user scrolls or uses an
   // touch event
 	$(window).on("scroll", handleScrollEvent);
@@ -1448,40 +1684,7 @@ $(window).load(function(e) {
 	}
 
 	if( isMobile() ) $(".toggleTool").on("click keypress", toggleFormDisplay);
-
-	$(".responseOptions > label.radio,.responseOptionsWithoutIndent > label.radio").on('click keypress', function(e) {
-		// This code was the orignal code for clicking on an image and
-		// expecting it to act like a radio button
-		// if ($(e.target).hasClass('radio')) {
-		// 	$(e.target).prev().trigger('click');
-		// }
-		// else if ($(e.target).parents('.radio')) {
-		// 	$(e.target).parents('.radio').prev().trigger('click');
-		// }
-		// else {
-		// 	if(e.type == "keypress") {
-		// 		if ((e.keyCode == 13) || (e.keyCode == 32)){
-		// 			$(e.target).children(".radio").prev().trigger('click');
-		// 		}
-		// 	}
-		// 	if(e.type == "click") {$("#form-steps > ol > li > a")
-		// 		$(e.target).children('.radio').prev().trigger('click');
-		// 	}
-		// }
-
-		// The code will force an image to act likie an input
-		if ( e.type == "click") {
-			if ($(e.target).hasClass('radio'))
-				$(e.target).prev().trigger('click');
-			else if ($(e.target).parents('.radio'))
-				$(e.target).parents('.radio').prev().trigger('click');
-		} else {
-			if(e.type == "keypress")
-				if ((e.keyCode == 13) || (e.keyCode == 32))
-					$(e.target).children(".radio").prev().trigger('click');
-		}
-
-	});
+    
 	$("button.select").on('click keypress', function(e) {
 		if(e.type == "keypress") {
 			if ((e.keyCode == 13) || (e.keyCode == 32)) {
@@ -1523,6 +1726,7 @@ $(window).load(function(e) {
 
 			adjustNavigationBarLine();
 
+
 			// Sets the Form Steps as the same height as the Header so when
 			// the mobile application is scrolled the Form Steps will cover
 			// the Header fully.  When Scrolled, and not at the top, only
@@ -1546,6 +1750,10 @@ $(window).load(function(e) {
 	var cssClass = ( isMobile() )  ? "spacerBetweenQuestionsAndButtonsMobile" : "spacerBetweenQuestionsAndButtonsDesktop";
 	if ( $("#calculate").length > 0 ) $("#calculate").addClass(cssClass);
 
+    $("#calculate").on("click",function(e) {
+      var validator = $("#riskForm").data("validator");
+      $(validator).data("mouseEventSubmitForm",true);
+    });
 	// For the page with the Assess Patient Link Button set the click to calculate.html
 	if ( $("#AssessPatientRisk").length > 0 )	$("#AssessPatientRisk").on("click", goto_calculatePage);
 
@@ -1555,9 +1763,12 @@ $(window).load(function(e) {
 	// Prints the Reuslts page
 	$("[id^='print']").on("click", printCurrentPage );
 
-	// The Print Button on the Results Pages should not be shown when the device
-	// is mobile
-	if ( isMobile() ) { $("[id^='print']").hide() }
+	$("[id^='print']").on("keyup", function(event) {
+        event.preventDefault();
+        if ( event.keyCode == 13 ) {
+            printCurrentPage();
+        }
+    })
 
 	// The problem is HTML cannot handle about.html#OtherToolsSection ( It will only just to the page and not the section )
 	// When the link is clicked http will split this into a url and section ( stored in hash ).  The div with the id will
@@ -1566,10 +1777,29 @@ $(window).load(function(e) {
 
 	// Due to the way this was written, when we click on a link to jump to a      //
 	// a section then the section goes past the viewable area and some of it is   //
-	// cut off.  The Plan is to scroll each secit0on to where the Main Title      //
-	// origanally was placed and scrool to there
+	// cut off.  The Plan is to scroll each seciton to where the Main Title      //
+	// origanally was placed and scrooll to there
 	if ( $("#mainAboutTitle").length == 1 && isMobile() == true ) {
 		$("#jumpTitle").attr('data-x-coord-to-jump-to', $("#mainAboutTitle").offset().top)
 		$("#jumpTitle").on("click", "a", function(event) { jumpToSection(event); })
 	}
+
+	$.fn.isInViewport = function() {
+	    var fixedOffset = $('#form-steps').outerHeight();
+        var elementTop = $(this).offset().top;
+        var elementBottom = elementTop + $(this).outerHeight();
+        var viewportTop = $(window).scrollTop() + fixedOffset;
+        var viewportBottom = viewportTop + $(window).height();
+        return elementTop > viewportTop && elementBottom < viewportBottom;
+    };
+
+    //polyfill for now
+	if (!String.prototype.startsWith) {
+	  String.prototype.startsWith = function(searchString, position) {
+		position = position || 0;
+		return this.indexOf(searchString, position) === position;
+	};
+}
 });
+
+

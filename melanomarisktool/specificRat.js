@@ -7,12 +7,47 @@ frecklingValue["3"]									= "mildFreckling"
 frecklingValue["4"]									= "moderateFreckling"
 frecklingValue["5"]									= "severeFreckling"
 frecklingValue[""]									= "1"
-frecklingValue["Absent"]						    = "2"
-frecklingValue["mildFreckling"]			            = "3"
-frecklingValue["moderateFreckling"]	                = "4"
-frecklingValue["severeFreckling"]		            = "5"
+frecklingValue["Absent"]							= "2"
+frecklingValue["mildFreckling"]						= "3"
+frecklingValue["moderateFreckling"]					= "4"
+frecklingValue["severeFreckling"]					= "5"
 
 $(function() {
+
+	//disableFormStepLinksSection508()
+
+
+   $("#raceModal").on("hidden.bs.modal", function(e) {
+	  if(!isMobile())
+	     var nameAttribute = $(e.target).attr("data-caller-name")
+	     var selector = "input[name='" + nameAttribute + "']:checked"
+         $(selector).next('[role=radio][aria-checked=true]').focus();
+   })
+
+    $('#pictureModal').on('hidden.bs.modal', function (e) {
+        enableMRATForm()
+
+        var nameAttribute = $(e.target).attr("data-caller-name")
+
+        if ( isMobile() || nameAttribute === undefined) {
+            return;
+        } else {
+            var selector = "#" + nameAttribute
+            $(selector).next("div").focus();
+            $(selector).next("div").addClass("addOutline")
+        }
+    })
+
+    $("#mapModal").on("hidden.bs.modal", function(e) {
+        if(!isMobile()) {
+            $("#state-listing").focus()
+            $("#state-listing").addClass("addOutline")
+            enableMRATForm()
+        }
+     })
+
+
+
 
 	$("[class*='pictureText']").addClass("pictureTextEnabledColor")
 
@@ -20,57 +55,48 @@ $(function() {
 	$("#melanomaRisk").on("focusin", function() { moveElementIfCloseToBottom("#melanomaRisk") })
 	$("#preventMelanoma").on("focusin", function() { moveElementIfCloseToBottom("#preventMelanoma") })
 
-
+    $("input[name='gender']").on("change", formStepsSection508)
+    $("input[name='gender']").on("change", enableSkinSection);
+    $("input[name='gender']").on("change", enablePhysicalSection);
 	$("input[name='gender']").on("change", toggleGender);
 	$("input[name='gender']").on("change", calcSizesOfSections);
 
-	// If the person is not Non-Hispanic White then dispaly a dilog and sets
-	// the value to Non-Hispanic White
-	$("input[id='notNonHispanicWhiteRadioButton']").on("change", function() {
-			disableMRATForm()
-			$("#raceModal").modal("show");
-	});
+	$("input[name='race']").on("click", function(event) {
+	    if ( this.value == 1 ) {
+	        genericResetValidator();
+	        $("#raceModal").attr("data-caller-name", $(this).prop("name"))
+	        disableMRATForm()
+
+	        event.stopPropagation();
+
+            // When the dialog box appeared the Other Checkbox from the
+            // "What is the patient's race" the checkbox state changed
+            // from checked to not checked.  This line fixed the problem,
+            // but I am unsure why this is happening.
+	        $("#notNonHispanicWhiteRadioButton").prop("checked", true)
+	        setTimeout( function() { $("#raceModal").modal("show"); } , 500 )
+	    } else {
+            $("#riskForm").trigger("change")
+            enableMRATForm()
+	    }
+	})
 
 	$("input[id='nonHispanicWhiteRace']").on("click", enableMRATForm )
 
 	// Initialize the button that will reset the form
 	$("#reset").on("click", resetForm)
 
-	// When the male or female has been selected then the calculate button can be
-	// enabled, but only if all the fields that should be selected have been
-	$("#maleGender").on("change", allowCalculate);
-	$("#femaleGender").on("change", allowCalculate);
-
 	$('#riskForm').trigger('change');
 
-	// Enables the First Question only and disable the Command Button.
-	//
-	// Since the enableCalculateButton() does not check for the case where the
-	// number of enabled inputs is 0.  If the number of enabled input are 0 then
-	// all the questions have been answered, so the Calculate Button would be
-	// green. I decided to fix it here since I do not want to change rat.js
-	// this late in the task unless I need to.
-	//
 	$("#okButtonRace").on("click", function() {
-    enableQuestionAndAnswers($("#questionAndAnswers1").attr("id"))
-  })
+	    enableMRATForm();
+  	})
 
-	$("#okButtonRace").on("click", function() {
-		disablebutton()
-  })
+  	//$("#mapModal button.close").on("click", function() {
+  	//    enableMRATForm()
+  	//})
 
 	$("termAndConditionsPge").removeClass("show")
-
-	// for the image for the "How extensive is the freckling on the patient's
-	// back and shoulders?" when clicked the border should be visible to show
-	// that it was selected and the select box should be set to the correct
-	// option.
-	$("[id^=freckleClick]").on("click",
-		function(event) {
-			var index = frecklingValue[ $(event.target).parent().siblings("img").first().attr("id") ]
-			borderAroundPicture($("#freckling").parent().next().find("img"), index )
-			selectionBasedOnImageSelect("freckling",  index )
-	})
 
 	// When the image is clicked then delegate the event to the correct "Click to
 	// Select Button"
@@ -82,12 +108,11 @@ $(function() {
 	// back and shoulders?".  When clicked the correct image should be selected
 	$("#freckling").on("change", function() {
 		var index = $(this).prop('selectedIndex') + 1
-		console.log("index = " + index)
 	  borderAroundPicture($("#freckling").parent().next().find("img"), index)
 	});
 
 	// Handles the "Click to Enlarge Link");
-  $("#freckling").parent().next().find("a:contains('Click to Enlarge')").on("click", function(event) {
+  $("a:contains('Enlarge')").on("click", function(event) {
 
 		// Going to the URL will be prevented
 		event.preventDefault();
@@ -102,14 +127,57 @@ $(function() {
 		disableMRATForm()
 		$("#pictureModal img").removeClass("image_disabled")
 		$("#pictureModal #text").removeClass("pictureTextDisabledColor")
-		$("#pictureModal").modal("show");
+        setTimeout( function() { $("#pictureModal").modal("show"); } , 500 )
+
 	});
 
-	// When the dialog box showing the image is selected this function will
-	// enable the form.
-  $("#okButtonPic").on("click", function() {
-		enableMRATForm()
-	});
+    // Shows the image when the enter is pressed on a selected answer
+	$("#newSolarDamage .radio, #newFrecklePictures .radio").not(":first").on("keypress", function(event) {
+	    var keycode = (event.keyCode ? event.keyCode : event.which);
+	    if ( keycode == 13 ) {
+
+	    	// Going to the URL will be prevented
+        	event.preventDefault();
+
+        	//Display the dialog
+        	var picture = $(this).parent().prev().children("img")
+        	$("#pictureModal #image").prop("src", $(picture).prop("src"))
+        	$("#pictureModal #text").text($(picture).attr("data-name"))
+
+            disableMRATForm()
+            $("#pictureModal img").removeClass("image_disabled")
+            $("#pictureModal #text").removeClass("pictureTextDisabledColor")
+            $("#pictureModal").attr("data-caller-name", $(this).prev().prop("id"))
+            setTimeout( function() { $("#pictureModal").modal("show"); } , 500 )
+	    }
+	})
+
+	$("#state-listing").on("keypress", function(event) {
+	     var keycode = (event.keyCode ? event.keyCode : event.which);
+	     if ( keycode == 13 ) {
+	        event.preventDefault()
+
+	        disableMRATForm()
+	        setTimeout( function() { $("#mapModal").modal("show"); } , 500 )
+	     }
+	})
+
+	// Move the answer abou freckles into view, so the user can see the answer
+	//$("#newFrecklePictures .radio").on("focus", function(event) {
+	//    handleFocusRadioGroupForFreckle(event)
+	//})
+
+
+	// The starting state for all the controls in the Skin and Physical Section
+	// should be disabled since they are not seen when the application first
+	// appears
+	$("#skin-section").each(function(index,el) {
+	    disableRadioGroupSection508(el)
+	})
+
+	$("#physical-section").each(function(index,el) {
+	    disableRadioGroupSection508(el)
+	})
 
 });
 
@@ -145,18 +213,7 @@ function go_toTermsAndConditions() {
 function go_toAboutPage() {
 	$("#mainAboutPage").addClass("show")
 	$("#termAndConditionsPage").removeClass("show")
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// Rules : When the user has not selected a male or female then the calculate
-// button should always be disabled, but when the user has selected male or
-// female then the calculate should follow the normal rat rules ( all inputs
-// question must have an answer unless they are disabled).
-////////////////////////////////////////////////////////////////////////////////
-function allowCalculate() {
-	  if ( $("input[name='gender']:checked").val() !== undefined ) {
-			$("#riskForm").on("change", enableCalculateButton);
-		}
+	$("[href='javascript:go_toTermsAndConditions()']").focus()
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -165,13 +222,13 @@ function allowCalculate() {
 function resultsDisplay(response, textStatus, xhr) {
 	var results=JSON.parse(response.message)
 
-	var gender = ( $("input[name='gender']").val() == "male" ) ? "men" : "women"
-	var message= "Based on the information provided, the patient's estimated risk for developing melanoma over the next 5 years is "+results.risk+"%.  A risk of " + results.risk + "% means that out of 1,000 white " + gender + " with these characteristics living in the " + results.regionKey + " region, " + results.ratio + " will be expected to develop melanoma in the next 5 years."
+	var gender = ( $("input[name='gender']:checked").val() == "Male" ) ? "men" : "women"
+	var message= "Based on the information provided, the patient's estimated risk for developing melanoma over the next 5 years is "+results.risk+"%.  A risk of " + results.risk + "% means that out of 1,000 white " + gender+ " with these characteristics living in the " + results.regionKey + " region, " + results.ratio + " will be expected to develop melanoma in the next 5 years."
 	go_toresult();
 
 	$("#results_text").html(message);
 	$("#Risk1").text(results.risk+"%");
-	make_pie_chart(results.risk, "#Pie_chart", "#2DC799", "#EFEFEF");
+	make_pie_chart(results.risk, "#Pie_chart", "#BB0E3D", "#EFEFEF");
 
 }
 
@@ -184,38 +241,33 @@ function toggleGender(e) {
 	$("#skin").removeClass("no_display")
 	$("#physical-section").removeClass("no_display")
 	$("#physical").removeClass("no_display")
+
 	switch (value) {
 		case "Male":
-			$('.small_mole_answer')[0].innerHTML="Less than seven"
-			$('.small_mole_answer')[1].innerHTML="Seven to sixteen"
-			$('.small_mole_answer')[2].innerHTML="Seventeen or more"
-			$.each($(".female").find("input, select"), function(index, el) {
-				$(el).prop("required", false);
-				$("#riskForm").validate().element(el);
-			});
+			$('.small_mole_answer')[0].innerHTML="Few&shy;er than sev&shy;en"
+			$('.small_mole_answer')[1].innerHTML="Se&shy;ven to six&shy;teen"
+			$('.small_mole_answer')[2].innerHTML="Seven&shy;teen or more"
+			$('#small_moles').parent().addClass("spaceBetweenQuestions")
 
-			$.each($(".male").find("input, select"), function(index, el) {
-				$(el).prop("required", true);
-			});
+            configureSection508ForGender()
+
 			$(".female").removeClass('show');
 			$(".male").addClass('show');
 
-			$("#mildFreckling").attr("src","rat-commons/images/mratMildLrg.jpg")
-			$("#moderateFreckling").attr("src","rat-commons/images/mratModLrg.jpg")
-			$("#severeFreckling").attr("src","rat-commons/images/mratSevereLrg.jpg")
+			$("#mildFreckling").attr("src","rat-commons/images/mild-freckling-enlarge.jpg")
+			$("#moderateFreckling").attr("src","rat-commons/images/moderate-freckling-enlarge.jpg")
+			$("#severeFreckling").attr("src","rat-commons/images/severe-freckling-enlarge.jpg")
+
+			registerFreckleCustomRadioAccess()
+
 			break;
 		case "Female":
-			$('.small_mole_answer')[0].innerHTML="Less than five"
-			$('.small_mole_answer')[1].innerHTML="Five to eleven"
+			$('.small_mole_answer')[0].innerHTML="Few&shy;er than five"
+			$('.small_mole_answer')[1].innerHTML="Five to el&shy;even"
 			$('.small_mole_answer')[2].innerHTML="Twelve or more"
-			$.each($(".male").find("input, select"), function(index, el) {
-				$(el).prop("required", false);
-				$("#riskForm").validate().element(el);
-			});
+            $('#small_moles').parent().removeClass("spaceBetweenQuestions")
 
-			$.each($(".female").find("input, select"), function(index, el) {
-				$(el).prop("required", true);
-			});
+            configureSection508ForGender();
 
 			$("#mildFreckling").attr("src","rat-commons/images/few-freckling-female.jpg")
 			$("#moderateFreckling").attr("src","rat-commons/images/moderate-freckling-female.jpg")
@@ -223,6 +275,8 @@ function toggleGender(e) {
 
 			$(".male").removeClass('show');
 			$(".female").addClass('show');
+
+			registerFreckleCustomRadioAccess()
 			break;
 		default:
 			$.each($(".male, .female").find("input, select"), function(index, el) {
@@ -236,94 +290,6 @@ function toggleGender(e) {
 			break;
 	}
 }
-
-var validationMessages = {
-	region: {
-		required: "The region in which the patient resides must be selected."
-	},
-	gender: {
-		required: "The patient's gender must be selected."
-	},
-	race: {
-		required: "The patient's race must be selected."
-	},
-	age: {
-		required: "The patient's age must be selected."
-	},
-	sunburn: {
-		required: "Whether the patient has ever received a sunburn must be recorded."
-	},
-	complexion: {
-		required: "The patient's complexion must be selected."
-	},
-	"big-moles": {
-		required: "The number of moles greater than 5mm in diameter on the patient's back must be selected."
-	},
-	"small-moles": {
-		required: "The number of moles less than or equal to 5mm in diameter on the patient's back must be selected."
-	},
-	"tan": {
-		required: "The level to which the patient presents a tan must be selected."
-	},
-	freckling: {
-		required: "The extent of the freckling on the patient's back must be selected."
-	},
-	damage: {
-		required: "Whether the patient has severe solar damage on their next and shoulders must be selected."
-	}
-};
-
-var validationRules = {
-	region: {
-		required: true
-	},
-	gender: {
-		required: true
-	},
-	race: {
-		required: true
-	},
-	age: {
-		required: true
-	},
-	sunburn: {
-		required: {
-			depends: function(el) {
-				return  $('[name="gender"]').val() == "Male";
-			}
-		}
-	},
-	complexion: {
-		required: true
-	},
-	"big-moles": {
-		required: {
-			depends: function(el) {
-				return $('[name="gender"]').val() == "Male";
-			}
-		}
-	},
-	"small-moles": {
-		required: true
-	},
-	"tan": {
-		required: {
-			depends: function(el) {
-				return $('[name="gender"]').val() == "Female";
-			}
-		}
-	},
-	freckling: {
-		required: true
-	},
-	"damage": {
-		required: {
-			depends: function(el) {
-				return $('[name="gender"]').val() == "Male";
-			}
-		}
-	}
-};
 
 // Removes the capability for the user to interact with the map
 function disableMap() {
@@ -339,20 +305,19 @@ function enableMap() {
 
 /* Resets the form back to default look and values that it contains           */
 function resetForm() {
-  genericResetForm()
+	genericResetForm()
 	enableMap();
-  enableSectionHeaders();
-
-	// Remove the capability for the application to make the calculate button
-	// enabled.  The calculate button can never be enabled until male or female
-	// has been selected`
-	$("#riskForm").unbind("change", enableCalculateButton);
+	enableSectionHeaders();
+	disableFormStepLinksSection508()
 
 	// Make the section skin, exam section invisible.
 	$("#skin-section").addClass("no_display")
 	$("#skin").addClass("no_display")
 	$("#physical-section").addClass("no_display")
 	$("#physical").addClass("no_display")
+
+	// Set the form steps so section is the active one.
+    makeFormStepsSectionActive(1)
 
 }
 
@@ -361,8 +326,8 @@ function resetForm() {
  */
  function disableMRATForm() {
 
-     // Which pictures should be excluded from being
-     // Returns (t) -- The element should be execluded
+     // Which pictures should be excluded from being disabled.
+     // Returns (t) -- The element should be excluded
      function exclusions(element) {
 
         var resultPicInDialog = ($(element).parents("[role='dialog']").length == 0);
@@ -380,9 +345,6 @@ function resetForm() {
 
 	 $("[class*='pictureText']").removeClass("pictureTextEnabledColor")
 	 $("[class*='pictureText']").addClass("pictureTextDisabledColor")
-
-
-
  }
 
  /*
@@ -391,12 +353,13 @@ function resetForm() {
  function enableMRATForm() {
 	 enableForm();
 	 enableMap();
-	 enableCalculateButton();
 
 	 $("[class*='pictureText']").addClass("pictureTextEnabledColor")
 	 $("[class*='pictureText']").removeClass("pictureTextDisabledColor")
 
 	 $("img").removeClass("image_disabled")
+
+	 configureSection508ForGender()
  }
 
  /*
@@ -424,12 +387,12 @@ function resetForm() {
 
 	// Get the CSS Styles and determine whether it contians male or female ( remember female.include(male) == true )
 	// Cannot use the includes function since Internet Explorer does not support it.
-
-	var cssStyles = $(element).parent().attr("class").toLowerCase()
-	var containsFemaleGender    = ( cssStyles.indexOf(femaleGender) > -1 ) ? true : false
-	var containsMaleGender      = ( containsFemaleGender ) ? false :  ( cssStyles.indexOf(maleGender)  > -1 ) ? true : false
-
-	var isSelectedGenderFemale 	= ( selectedGender == femaleGender )
+    if ( $(element).parent().attr("class") ) {
+	    var cssStyles = $(element).parent().attr("class").toLowerCase()
+	    var containsFemaleGender    = ( cssStyles.indexOf(femaleGender) > -1 ) ? true : false
+	    var containsMaleGender      = ( containsFemaleGender ) ? false :  ( cssStyles.indexOf(maleGender)  > -1 ) ? true : false
+	    var isSelectedGenderFemale 	= ( selectedGender == femaleGender )
+	}
 
 	var resultSelectedGender = false
 	if ( isSelectedGenderFemale == true && containsFemaleGender == true )
@@ -442,3 +405,312 @@ function resetForm() {
 
 	return result;
  }
+
+ /*
+  * Retreives the Answer for the sunburn damage
+	*/
+	function ratSpecificAnswer(element) {
+		return $("[name='damage']:checked").next().text()
+	}
+
+	/*
+	 * A set of functions for setting the enable and disable of the HTML Elements
+	 */
+	function disableRadioGroupSection508(startingDiv) {
+	    $(startingDiv).find("input").prop("disabled", true)
+        $(startingDiv).find("input").removeProp("required")
+
+	    $(startingDiv).find("[role=radio]").attr("tabindex","-1")
+
+        $(startingDiv).find(".questions").attr("aria-disabled", true)
+        $(startingDiv).find("input").attr("aria-disabled", true)
+        $(startingDiv).find(".questions_secondary").attr("aria-disabled", true)
+        $(startingDiv).find("[role='radio']").attr("aria-disabled",true);
+	}
+
+	function enableRadioGroupSection508(startingDiv) {
+        $(startingDiv).find("input").prop("disabled", false)
+        $(startingDiv).find("input").prop("required", true)
+
+        if ( $(startingDiv).find("[role=radio][aria-checked=true]").length > 0) {
+            $(startingDiv).find("[role=radio][aria-checked=true]").attr("tabindex","0");
+        } else {
+            $(startingDiv).find("[role='radio']:first").attr("tabindex","0");
+        }
+
+        $(startingDiv).find(".questions").attr("aria-disabled", false)
+        $(startingDiv).find("input").attr("aria-disabled", false)
+        $(startingDiv).find(".questions_secondary").attr("aria-disabled", false)
+        $(startingDiv).find("[role='radio']").attr("aria-disabled", false);
+   	}
+
+    function enableSelectBoxSection508(element) {
+        $(startingDiv).find("select").prop("disabled", false)
+        $(startingDiv).find("select").prop("required", true)
+
+        $(startingDiv).find(".questions").attr("aria-disabled", false)
+        $(startingDiv).find(".questions_secondary").attr("aria-disabled",false);
+        $(startingDiv).find("select").attr("aria-disabled", false);
+    }
+
+    function disableSelectBoxSection508(element) {
+        $(startingDiv).find("select").prop("disabled", true)
+        $(startingDiv).find("select").prop("required", false)
+
+        $(startingDiv).find(".questions").attr("aria-disabled", true)
+        $(startingDiv).find(".questions_secondary").attr("aria-disabled",true);
+        $(startingDiv).find("select").attr("aria-disabled", true);
+
+    }
+
+    function disableFormStepLinksSection508() {
+         //var formStepLinks = $("#form-steps ol li").not(":first").children("a")
+
+         $("#step2_name").attr("disabled")
+         $("#step2_name").attr("aria-disabled", true)
+         $("#step2_number").attr("disabled")
+         $("#step2_number").attr("aria-disabled", true)
+
+         $("#step3_name").attr("disabled")
+         $("#step3_name").attr("aria-disabled", true)
+         $("#step3_number").attr("disabled", true)
+         $("#step3_number").attr("aria-disabled", true)
+    }
+
+    function enableFormStepLinksSection508() {
+        //var formStepLinks = $("#form-steps ol li ").not(":first").children("a")
+        $("#step2_name").removeAttr("disabled")
+        $("#step2_name").attr("aria-disabled", false)
+        $("#step2_number").removeAttr("disabled")
+        $("#step2_number").attr("aria-disabled", false)
+
+        $("#step3_name").removeAttr("disabled")
+        $("#step3_name").attr("aria-disabled", false)
+        $("#step3_number").removeAttr("disabled")
+        $("#step3_number").attr("aria-disabled", false)
+    }
+
+    // Problem from we got the following issue : The skip-link target should exist and be focusable
+    // This was caused by using #references
+    // Solution : include the # references only when male or female has been selected.
+    function formStepsSection508() {
+        $("#form-steps ol li:nth(1) a").prop("href", "#skin-section")
+        $("#form-steps ol li:nth(2) a").prop("href", "#physical-section")
+
+        enableFormStepLinksSection508()
+    }
+
+   /*******/
+
+  function enableSkinSection() {
+    enableSection("#skin-section")
+  }
+
+  function enablePhysicalSection() {
+    enableSection("#physical-section")
+  }
+
+   // Enables all the Radio Groups for the Skin and Physical Section
+   function enableSection(sectionName) {
+        $(sectionName).children().not(".male, .female").each(function(index,el) {
+            enableRadioGroupSection508(el)
+        })
+   }
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+// handleKeyDown originally came from rat.js however, the algorithm is not working for the    //
+// freckling section ("Question : How extensive is the freckling on the patient's back and    //
+// shoulders?")                                                                               //
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+var KEYCODE = {
+    DOWN: 40,
+    LEFT: 37,
+    RIGHT: 39,
+    SPACE: 32,
+    UP: 38,
+	TAB: 9
+}
+
+
+
+function registerFreckleCustomRadioAccess() {
+	$("#newFrecklePictures [role=radio]").each(function(){
+
+		$(this).unbind('keydown',      handleKeyDownRadioGroup)
+		$(this).unbind('mousedown',    handleKeyDownRadioGroup)
+		$(this).unbind('focus',        handleFocusRadioGroup)
+
+	    $(this).on('keydown',   handleKeyDownRadioGroupForFreckle);
+        $(this).on('mousedown', handleKeyDownRadioGroupForFreckle);
+        //$(this).on('focus',     handleFocusRadioGroupForFreckle);
+	});
+
+    // A fix for internet exploer.  When tabbging to absent (freckle question)
+    // from the question below the absent answer would be under the form steps
+    // component.
+    $("#absentFrecklingAnswer").next().on("focus", function(event) {
+
+        if ( $(this).isInViewport() == false ) {
+            scrollIntoView(event)
+        }
+    })
+}
+
+function scrollIntoView(event) {
+  	var element = $(event.currentTarget);
+  	var radioGroup = $(element).parent().prev()
+  	var radioGroupSize = $(radioGroup).height()/2;
+  	var heightPos = Math.max(
+  	  (radioGroup.offset().top - $('#form-steps').outerHeight())-radioGroupSize,0);
+  	$('html, body').scrollTop(heightPos);
+  }
+
+function handleFocusRadioGroupForFreckle(event) {
+    var mouseEvent = $(this).data("radioMouseEvent");
+    $(this).removeData("radioMouseEvent");
+	if(isMobile() || mouseEvent || $(event.currentTarget).parent().parent().isInViewport() ) return;
+
+	var element = $(event.currentTarget);
+	var radioGroup = $(element).parent().parent();
+	var radioGroupSize = $(radioGroup).height()/2;
+	var heightPos = Math.max(
+	  (radioGroup.offset().top - $('#form-steps').outerHeight())-radioGroupSize,0);
+	$('html, body').scrollTop(heightPos);
+
+}
+
+
+
+function handleKeyDownRadioGroupForFreckle(event){
+  var type = event.type;
+  var next = false;
+
+  var isDisabled = $(event.currentTarget).prev('input:radio').prop('disabled');
+
+  if(isDisabled) {
+    return true;
+  }
+
+  var setRadioButton = function(node,state,focus) {
+
+	  if (state) {
+		$(node).attr('aria-checked', 'true');
+		$(node).attr('tabIndex','0');
+		$(node).prev('input:radio').trigger('click');
+		if(focus) $(node).focus();
+	  }
+	  else {
+		$(node).attr('aria-checked', 'false');
+		$(node).attr('tabIndex','-1');
+	  }
+  }
+
+  var nextRadioButton = function(node) {
+      console.log("Currently in next Radio Button")
+	  return $(node).parent().next('div').next('div').find('[role=radio]');
+  }
+
+  var previousRadioButton = function(node) {
+      console.log("Currently in next Prev Button")
+	  return $(node).parent().prev('div').prev('div').find('[role=radio]');
+  }
+
+  var firstRadioButton = function(node) {
+      console.log("Currently in next Prev Button")
+	  return $(node).parent().parent().children('div.responseOptions:first').find('[role=radio]');
+  }
+
+  var lastRadioButton = function(node) {
+      console.log("Currently in the last Radio Button")
+	  return $(node).parent().parent().children('div:last').find('[role=radio]');
+  }
+
+  if(type === "keydown") {
+    var node = event.currentTarget;
+    var key = event.which || event.keyCode || 0;
+    switch (key) {
+      case KEYCODE.DOWN:
+      case KEYCODE.RIGHT:
+        console.log("The Value of the key for down and right was " + key)
+        var next = nextRadioButton(node);
+        console.log("1--The length of next was " + $(next).length)
+		if ($(next).length === 0) {
+		    next = firstRadioButton(node);
+		    event.currentTarget = next;
+		}
+		break;
+
+      case KEYCODE.UP:
+      case KEYCODE.LEFT:
+        console.log("The Value of the key for up and left was " + key)
+        next = previousRadioButton(node);
+        console.log("2--The length of next was " + $(next).length)
+        if ($(next).length === 0) {
+            next = lastRadioButton(node);
+            event.currentTarget = next;
+        }
+        break;
+
+      case KEYCODE.SPACE:
+        next = node;
+        break;
+    }
+
+    if ($(next).length > 0) {
+      console.log("The input was " + $(next).prev().prop("id"))
+	  $(node).parent().parent().children('div').find('[role=radio]').each(function(){
+		  setRadioButton($(this),false);
+	  });
+      event.preventDefault();
+	  event.stopPropagation();
+
+	  setRadioButton(next,true,true);
+
+	   // When the space bar is pushed the current element is already visible to the user so no scrolling needs to
+	   // be done.  If the scrollIntoView() was called there would be jittering of the screen.
+	   if ( key != KEYCODE.SPACE ) {
+        scrollIntoView(event)
+       }
+	}
+  } else if (type === "mousedown") {
+	  var node = event.currentTarget;
+	  $(node).parent().parent().children('div').find('[role=radio]').each(function(){
+		  setRadioButton($(this),false);
+	  });
+	  $(this).data("radioMouseEvent",true);
+      setRadioButton(node,true,true);
+
+  }
+}
+
+///// End Section
+
+
+/*
+ * Configures the form for the currently selected gender
+ */
+function configureSection508ForGender() {
+
+    var selectedGender = ".female"
+    var notSelectedGender = ".male"
+
+	if ( $("input[name='gender']:checked").val() == "Male" ) {
+	    selectedGender=".male"
+	    notSelectedGender=".female"
+	}
+
+    $.each($(notSelectedGender), function(index, el) {
+	    disableRadioGroupSection508(el)
+	});
+
+
+    $.each($(selectedGender), function(index, el) {
+        enableRadioGroupSection508(el)
+	});
+
+}
+
+function specificRatFooterInitialization() {
+   $("#contactLink").prop("href", "https://www.cancer.gov/melanomarisktool/")
+}

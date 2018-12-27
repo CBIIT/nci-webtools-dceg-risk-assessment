@@ -1,36 +1,31 @@
 /* Purpose : To style page when sent to the printer */
 @media print {
 
-  /* Section that make all components invisible that will not be one the      */
-  /* printed page                                                             */
-  #skipContentCalculate,
-  #toolTitle,
-  button,
-  #printTop,
-  #printBottom,
-  #tool_title,
-  #side_nav,
-  .result_page_anchor,
-  #buttonsArea,
-  #footer
-  {
-    display:none;
+  @page {
+    margin: 2cm;
   }
+
+  #container-fluid {
+	width: 100%;
+	margin: 0;
+	float: none;
+  }
+
+  .makeSpaceForPrintIcon {
+    width: 100%;
+  }
+
+
 
   /* In order to get the style to work.  !Important is needed since bootstrap */
   /* Also, I had to use the id to apply the rule due to the specitivity rules */
   /* of css                                                                   */
-  #main-nav {
-    display:none     !important;
+  #main-nav, #returnToCalculateButton, #startOverButton {
+    display:none !important;
   }
 
-  /* Section that will set a page break after every graph                     */
-  div[id^='results_box'] {
-    page-break-before: always;
-  }
-
-  #displayInput {
-    page-break-before: always;
+  .showOnlyForPrint {
+    display: block;
   }
 
   /* Centers the logo                                                         */
@@ -53,6 +48,255 @@
   /* Problem One Logo is not centering                                        */
   .ie_center_logo {
     text-align:center;
+   }
+
+  h1, h2 {
+	   margin-bottom: 0.05cm;
+	   margin-top: 0.01cm;
+	   margin-left: 0;
+	   margin-right: 0;
+	   padding: 0;
+   }
+
+   p {
+    margin: 0;
+   }
+
+  #results {
+	padding: 0;
   }
+
+  #results_home {
+	margin-bottom: 0;
+  }
+
+  #results_home > div {
+	margin-top:0;
+	margin-bottom:0;
+	margin-left: auto;
+	margin-right: auto;
+  }
+
+  #results_home > div > div {
+	padding-top: 0;
+	padding-bottom: 0;
+	padding-right: 0.07cm;
+	padding-left: 0.07cm;
+  }
+
+  #displayInput {
+    page-break-inside: avoid !important;
+    page-break-before: avoid;
+  }
+
+  #displayInput.printAppleOnly {
+    page-break-before: always !Important;
+  }
+
+  #displayInput.printIEOnly {
+    page-break-before: always !Important;
+  }
+
+  #InputParameters {
+	margin-bottom: 0;
+	padding-right: 0;
+	padding-left: 0;
+	width: 96%;
+  }
+
+  #InputParameters th, #InputParameters td {
+    border-bottom: 0.005cm solid #dddddd;
+	padding-top:0;
+	padding-bottom: 0;
+    height: 0.4cm;
+  }
+
+  #InputParameters .answers {
+      overflow-wrap: break-word;
+      word-break: break-word;
+      padding-left: 0.5em;
+      padding-right: 1em;
+  }
+
+  #InputParameters.printIphoneOnly .answers {
+    vertical-align: bottom;
+  }
+
+
+   div[id^='pieChart'],
+   .results_text {
+	   display: none;
+   }
+
+   .results_graph {
+      width: 32%;
+      margin-bottom: 0;
+	  margin-top:0;
+	  margin-left:auto;
+	  margin-right:auto;
+   }
+
+   div[id^='results_graph'] {
+	   margin-bottom: 0;
+	   margin-top:0;
+	   margin-left:auto;
+	   margin-right:auto;
+   }
+
+   div[id^='results_box'] {
+	   margin-bottom: 0 !important;
+	   margin-top:0.1cm !important;
+	   margin-left:auto;
+	   margin-right:auto;
+	   padding: 0;
+	   border: 0.005cm #6150a3 solid;
+	   width: 65%;
+	   page-break-inside: avoid;
+   }
+
+   div[id^='results_box'] > div {
+	   display: flex;
+   }
+
+   .results_header {
+	   margin-bottom: 0;
+	   line-height: 22px;
+	   font-size: 18px;
+   }
+
+   .patient_header, .risk_header {
+       font-size: 16px;
+   }
+
+   .avoidPageBreak {
+        page-break-before: avoid;
+        page-break-inside: avoid;
+   }
+
+   /* Style for flattening a list */
+   .flattenList_ul {
+        list-style-type: none;
+        margin-bottom: 0cm;
+        padding: 0;
+        display: block;
+   }
+
+   .flattenList_li {
+        display: inline;
+   }
+
+   .flattenList_li-addCommaAfterWord:after {
+        content: ",\000a"
+   }
+
+    /* Section for talbe to display 5, 10, lifetime results */
+
+    .tableForPrint {
+        padding-left: .2cm;
+        page-break-before: avoid;
+    }
+
+    .tableForPrint_title {
+        text-decoration: underline;
+    }
+
+    .tableForPrint_header {
+        text-align: center;
+    }
+
+    .tableForPrint_cells-border {
+        border: 1px solid black;
+    }
+
+    .tableForPrint_namedCells {
+        text-align: right;
+        width: 2.5cm;
+        padding-right: .1cm;
+    }
+
+    .tableForPrint_numericCells {
+        text-align: center;
+        width: 4.0cm;
+    }
+
+    .tableForPrint_numericCells:after {
+        content: "%";
+    }
+
+    div[id^='pieChart'],
+    div[id^='Pie_chart'],
+    .results_text,
+     #results_text {
+        display: none;
+    }
+
+    .results_graph {
+        width: 32%;
+        margin-bottom: 0;
+        margin-top:0;
+    	margin-left:auto;
+    	margin-right:auto;
+    }
+
+    div[id^='results_graph'] {
+        margin-bottom: 0;
+    	margin-top:0;
+    	margin-left:auto;
+    	margin-right:auto;
+    }
+
+    div[id^='results_box'] {
+    	margin-bottom: 0 !important;
+    	margin-top:0.1cm !important;
+    	margin-left:auto;
+    	margin-right:auto;
+    	padding: 0;
+    	border: 0.005cm #6150a3 solid;
+    	width: 65%;
+    	page-break-inside: avoid;
+    }
+
+    div[id^='results_box'] > div {
+    	display: flex;
+    }
+
+    .results_header {
+    	margin-bottom: 0;
+    	line-height: 22px;
+    	font-size: 18px;
+    }
+
+    .patient_header, .risk_header {
+        font-size: 16px;
+        text-align: center;
+    }
+
+
+    /* Section that make all components invisible that will not be one the      */
+    /* printed page                                                             */
+    #skipContentCalculate,
+    #toolTitle,
+    button,
+    #printTop,
+    #printBottom,
+    #tool_title,
+    #side_nav,
+    .result_page_anchor,
+    #buttonsArea,
+    #footer,
+    .center-block
+    {
+        display:none !important;
+    }
+
+    /* TODO: When a new version need to go into production change the css declartion to the one below it */
+    .rat_speicific_tool_do_now_show {
+        display:  none !important;
+    }
+
+    .rat_specific_tool_do_not_show {
+        display: none !important;
+    }
+
 
 }

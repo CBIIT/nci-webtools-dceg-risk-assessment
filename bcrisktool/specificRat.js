@@ -14,19 +14,28 @@ $(function() {
   // specifcRat code would excecute before the generic ratCode.  The incorrect
   // assumption was the generic code would execute before the specific code
   // would execute
-  $("#riskForm").on("change", enableCalculateButton);
 
   $("#BreastCancerHealth").on("focusin", function() { moveElementIfCloseToBottom("#BreastCancerHealth") })
+
+   $("#womanWithCancerDialog").on("hidden.bs.modal", function(e) {
+	  if(!isMobile()) 
+         $("input[name='cancerAndRadiationHistory']:checked").next('[role=radio][aria-checked=true]').focus();
+   });
+
+   $("#hasBRCAMutation").on("hidden.bs.modal", function() {
+	  if(!isMobile())  
+        $("input[name='geneticMakeup']:checked").next('[role=radio][aria-checked=true]').focus();
+   });
 
    // Disables the form if the woman previously had cancer or enable the form
    // if the woman does not have cancer.
    $("input[name='cancerAndRadiationHistory']").on("click", function(event) {
         if(this.value == 0){
-            $("#womanWithCancerDialog").modal("show");
+            genericResetValidator();
             disableForm();
-	  	} else {
+            setTimeout(function() {$("#womanWithCancerDialog").modal("show");},500);
+        } else {
 	  	    enableBRATForm()
-	  	    $("#riskForm").trigger("change")
       }
   });
 
@@ -34,8 +43,9 @@ $(function() {
   // from to check if the calcualte button can be enabled
   $("input[name='geneticMakeup']").on("click", function(event) {
 	   if(this.value == 0 ) {
-	        $("#hasBRCAMutation").modal("show");
-            disableForm();
+          genericResetValidator();
+	      disableForm();
+	      setTimeout(function() {$("#hasBRCAMutation").modal("show");},500);
 	   } else {
 	        enableBRATForm();
       		$("#riskForm").trigger("change")
@@ -45,7 +55,7 @@ $(function() {
   // For the patient Eligibility Seciton : enables the first question when user clicks ok.
   // Note that the 1st Questions will have the Answer Yes selected.
   $("#okButtonCancerHistory").on("click", function() { enableQuestionAndAnswers($("#questionAndAnswers1").attr("id")); })
-  $("#okButtonCancerHistory").on("click", function() {$("#cancerAndRadiationHistoryYes").prop("checked","true"); })
+  $("#okButtonCancerHistory").on("click", function() {$("#cancerAndRadiationHistoryYes").prop("checked",true); })
 
   $("#okButtonMutationBRCA").on("click", function() { enableQuestionAndAnswers($("#questionAndAnswers2").attr("id")) });
   $("#okButtonMutationBRCA").on("click", function() { $("#geneticMakeupYes").prop("checked", true )} )
@@ -84,17 +94,16 @@ $(function() {
  	// If the question about a women every having a biopsy is answered disable the questions associated with it.
   womanHadBiopsy();
 
-  	// Display the help window
-  	$(".definition").on("click", displayHelpWindow);
+  // Display the help window
+  $(".definition").on("click", displayHelpWindow);
 
-  	// Initialize the button that will reset the form
-  	$("#reset").on("click", resetForm)
+  // Initialize the button that will reset the form
+  $("#reset").on("click", resetForm)
 
-  	// Add specifc test for the Breast Cancer Rat ( All Patient Eligibility)
-  	// that make the caculate button disabled if all the question are not answered
-  	// with No
-  	$("#riskForm").on("change", disableIfPatientIsNotEligible);
-  	$('#riskForm').trigger('change');
+  // Add specifc test for the Breast Cancer Rat ( All Patient Eligibility)
+  // that make the caculate button disabled if all the question are not answered
+  // with No
+  $('#riskForm').trigger('change');
 });
 
 // A function that will be called as a CallBack when the footer is loaded.  This function will be the same name
@@ -123,7 +132,7 @@ function attachSubraceItems() {
         "Chinese"     : "Chinese",
         "Filipino"    : "Filipino",
         "Hawaiian"    : "Hawaiian",
-        "Islander"    : "Islander",
+        "Islander"    : "Pacific Islander",
         "Japanese"    : "Japanese",
         "Asian"       : "Other Asian"
       })
@@ -140,7 +149,8 @@ function attachSubraceItems() {
 function adjustSubRaceMenuIfNecessary() {
   if( this.value == "White" ||
       this.value == "Black" ||
-      this.value == "Other" ) {
+      this.value == "Other" ||
+      this.value == "") {
       disableSubRaceMenu()
   } else if ( this.value == 'Asian' ||
               this.value == 'Hispanic') {
@@ -157,15 +167,6 @@ function attachOptionsToAnHTMLObject(optionsValuesAndText) {
   });
 }
 
-// If Any question is "Yes" in the Patient Eligibility is selected then
-// disable the calculate button
-function disableIfPatientIsNotEligible() {
-  var totalButtonsSelected = $("#patient-eligibility-section input:checked").length
-  var totalButtonsWithYes = $("#patient-eligibility-section input[id$='Yes']:checked").length
-  if ( (totalButtonsSelected != 2) || (totalButtonsWithYes > 0) )
-    disablebutton()
-}
-
 /* A specialized version of the enableForm function where we determine if  */
 /* certain fields should be enabled.                                       */
 function enableBRATForm() {
@@ -174,17 +175,13 @@ function enableBRATForm() {
   changeSubraceMenu();
 
   if ( $("[name='biopsy']:checked").val() == 1 ) enableQuestionAndAnswers();
-
-  enableButtonIfAllFieldHaveInput();
-  //disablebutton();
-  disableIfPatientIsNotEligible()
-}
+  }
 
 // Function : Determine if the woman every had a biopsy and disable certain
 // questions if the answer was no
 function womanHadBiopsy() {
   var biopsyValue = $("input:radio[name='biopsy']:checked").val();
-  if ( biopsyValue == 0 || biopsyValue == 99 ) {
+  if ( biopsyValue == 0 || biopsyValue == 99 || !biopsyValue) {
     		disableQuestionAndAnswers();
   }
 }
@@ -194,14 +191,16 @@ function womanHadBiopsy() {
 function disableQuestionAndAnswers(event) {
   $("input[name='biopsy_result']").attr("disabled", true)
   $("input[id^='breastBiopsiesCount']").next().css("color", "#C0C0C0")
-  $("label[for^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("color", "#C0C0C0")
-  $("label[for^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("tabindex","-1")
-
+  $("input[id^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("color", "#C0C0C0").attr("aria-disabled",true);
+  
   $("input[name='biopsy_ah']").attr("disabled", true)
   $("input[id^='hadAh']").next().css("color", "#C0C0C0");
-  $("label[for^='hadAh']").parent().prev("[class*='questions']").css("color", "#C0C0C0")
-  $("label[for^='hadAh']").parent().prev("[class*='questions']").css("tabindex","-1")
-
+  $("input[id^='hadAh']").parent().prev("[class*='questions']").css("color", "#C0C0C0").attr("aria-disabled",true);
+  removeErrorMessage({target: $("#breastBiopsiesCount1")});
+  removeErrorMessage({target: $("#hadAhYes")});
+  
+  $("[aria-labelledby=biopsy_resultLabel]").find("[role=radio]").attr("tabindex","-1").attr("aria-disabled",true);
+  $("[aria-labelledby=biopsy_ahLabel]").find("[role=radio]").attr("tabindex","-1").attr("aria-disabled",true);
 }
 
 // Enable Questions and Answers that are associated with a women having a
@@ -210,13 +209,27 @@ function enableBiopsyQuestionAndAnswers(event) {
 
   $("input[name='biopsy_result']").attr("disabled", false)
   $("input[id^='breastBiopsiesCount']").next().css("color", "#606060")
-  $("label[for^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("color", "#2E2E2E")
-  $("label[for^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("tabindex","0")
-
+  $("input[id^='breastBiopsiesCount']").parent().prev("[class*='questions']").css("color", "#2E2E2E").attr("aria-disabled",false);
+  
   $("input[name='biopsy_ah']").attr("disabled", false)
   $("input[id^='hadAh']").next().css("color", "#606060");
-  $("label[for^='hadAh']").parent().prev("[class*='questions']").css("color", "#2E2E2E")
-  $("label[for^='hadAh']").parent().prev("[class*='questions']").css("tabindex","0")
+  $("input[id^='hadAh']").parent().prev("[class*='questions']").css("color", "#2E2E2E").attr("aria-disabled",false);
+
+  $("[aria-labelledby=biopsy_resultLabel]").find("[role=radio]").attr("aria-disabled",false);
+  $("[aria-labelledby=biopsy_ahLabel]").find("[role=radio]").attr("aria-disabled",false);
+  
+  if ($("[aria-labelledby=biopsy_resultLabel]").find("[role=radio][aria-checked=true]").length > 0) {
+    $("[aria-labelledby=biopsy_resultLabel]").find("[role=radio][aria-checked=true]").attr("tabindex","0");
+  } else {
+    $("[aria-labelledby=biopsy_resultLabel]").find("[role=radio]:first").attr("tabindex","0");
+  }
+
+  if ($("[aria-labelledby=biopsy_ahLabel]").find("[role=radio][aria-checked=true]").length > 0) {
+    $("[aria-labelledby=biopsy_ahLabel]").find("[role=radio][aria-checked=true]").attr("tabindex","0");
+  } else {
+    $("[aria-labelledby=biopsy_ahLabel]").find("[role=radio]:first").attr("tabindex","0");
+  }
+
 
   adjust_line_width();
 }
@@ -253,6 +266,7 @@ function disableSubRaceMenu() {
   $("[for='sub_race']").css("color","#c0c0c0");
   $("#sub_race").prop("disabled", true)
   $("#sub_race option:eq(0)").prop("selected","selected");
+  removeErrorMessage({ target: $("#sub_race")});
 
 }
 
@@ -260,10 +274,14 @@ function disableSubRaceMenu() {
 function resultsDisplay(response, textStatus, xhr) {
   var result = JSON.parse(response.message)
 	go_toresult();
+  addInformationToResultPageIntroductionText()
 
 
 	var fiveYearPatientRiskColor = ( result.risk > result.averageFiveRisk) ? "#BB0E3D" : "#2DC799";
 	var lifetimePateientRiskColor = ( result.lifetime_patient_risk > result.lifetime_average_risk) ? "#BB0E3D" : "#2DC799";
+
+    fiveYearPatientRiskColor = ( result.risk == result.averageFiveRisk ) ? "#40A5C1": fiveYearPatientRiskColor;
+    lifetimePateientRiskColor = ( result.lifetime_patient_risk == result.lifetime_average_risk ) ? "#40A5C1": lifetimePateientRiskColor;
 
 	$("#results_text1").html(result.message);
 	$("#results_text2").html(result.lifetime_message);
@@ -279,9 +297,11 @@ function resultsDisplay(response, textStatus, xhr) {
 
 /* The code that resets the form */
 function resetForm() {
-  genericResetForm()
+  genericResetForm();
+  genericResetValidator();
   enableQuestionAndAnswers();
   disableSubRaceMenu();
+  disableQuestionAndAnswers();
   resetsDropDowns();
   enableSectionHeaders();
 }
@@ -295,27 +315,52 @@ function resetForm() {
 function addInformationToTheQuestions(element) {
 
   var returnHTML = null;
+  var startTag = '<p class="secondary_information">'
+  var endTag = '</p>'
+
   if ( $(element).attr("id") == $("#race").attr("id") ) {
 
     var currentRaceSelected = $("#race option:selected").text();
 
     var returnString = ""
-    if ( currentRaceSelected == 'Hispana/Latina') {
-      returnString = "Assessments for Hispanic women are subject to greater uncertainty than those for white and African American women."
+    if ( currentRaceSelected.startsWith("His")) {
+      returnHTML =
+        startTag + "Assessments for Hispanas/Latinas are subject to greater uncertainty than those for white and African American/black women." + endTag +
+        startTag + "Researchers are conducting additional studies, including studies with minority populations, to gather more data and to increase the accuracy of the tool for women in these populations. " + endTag
     }
     else if ( currentRaceSelected == 'American Indian or Alaskan Native') {
-      returnString = "Assessments for American Indian or Alaskan Native women are uncertain and based on data for white women."
+      returnHTML =
+        startTag + "Risk estimates for American Indian/Alaska Native women are based on data for white women; further studies are needed to refine and validate this tool." + endTag
     }
     else if ( currentRaceSelected == 'Unknown') {
-      returnString = "The risk assessment was based on data for white females."
+      returnHTML = startTag + "Risk estimates for Unknown race/ethnicity are based on data for white women." + endTag
     } else {
-      returnString = undefined
-    }
-
-    if ( returnString !== undefined ) {
-      returnHTML = '<p class="secondary_information">' + returnString + '</p>'
+      returnHTML = ""
     }
   }
 
   return returnHTML;
+}
+
+function addInformationToResultPageIntroductionText() {
+  var returnHTML = null;
+  var startTag = '<li data-dynamicallyAdded="true">'
+  var endTag = '</li>'
+
+  var currentRaceSelected = $("#race option:selected").text();
+
+  var returnString = ""
+  if ( currentRaceSelected.startsWith("His")) {
+    returnHTML =
+          startTag + "Assessments for Hispanas/Latinas are subject to greater uncertainty than those for white and African "     +
+                     "American/black women. Researchers are conducting additional studies, including studies with minority "           +
+                     "populations, to gather more data and to increase the accuracy of the tool for women in these populations." + endTag
+  }
+  else if ( currentRaceSelected == 'American Indian or Alaskan Native') {
+      returnHTML =
+          startTag +  "Risk estimates for American Indian/Alaska Native women are based on data for white women; " +
+                      "further studies " + " are needed to refine and validate this tool." + endTag
+  }
+
+  $("#results_home ul.content.resultsPageContent").append(returnHTML)
 }

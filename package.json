@@ -1,0 +1,32 @@
+{
+  "name": "risk-analysis-tools-test",
+  "version": "1.0.0",
+  "description": "Environment for testing risk analysis tools",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/end-to-end/scripts/ --reporter xunit --reporter-options output=test/end-to-end/scripts/e2e_results.xml"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CBIIT/nci-webtools-dceg-risk-assessment.git"
+  },
+  "keywords": [
+    "risk",
+    "analysis",
+    "tools",
+    "test",
+    "ccrat",
+    "bcrat",
+    "mrat"
+  ],
+  "author": "Charles Stockman",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/CBIIT/nci-webtools-dceg-risk-assessment/issues"
+  },
+  "homepage": "https://github.com/CBIIT/nci-webtools-dceg-risk-assessment#readme",
+  "devDependencies": {
+    "mocha": "^3.5.0",
+    "selenium-webdriver": "^3.5.0"
+  }
+}

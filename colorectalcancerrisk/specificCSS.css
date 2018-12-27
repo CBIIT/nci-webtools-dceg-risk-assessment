@@ -1,8 +1,4 @@
 @media (min-width: 1201px) {
-  #AssessPatientRisk {
-    margin: 40px 0;
-    /* transform: translate(0, 120%); */
-  }
 
   .text-center-lt-lg {
     text-align: left;
@@ -21,11 +17,6 @@
   .text-center-lt-lg {
     text-align: center;
   }
-
-  #AssessPatientRisk {
-    margin: 0 0 10px;
-    /* transform: translate(0, 120%); */
-  }
 }
 
 @media(max-width: 992px) {
@@ -38,11 +29,21 @@
     margin-right: 0px;
   }
 
-  #AssessPatientRisk {
-    /* margin-top: 1em;
-    margin-bottom: 1em; */
-    margin: 0 0 10px;
-    /* transform: none; */
+}
+
+@media(min-width: 769px ) {
+
+  .numberEntryMarginRight {
+    margin-right: 20%;
+  }
+
+  .numberEntryNoTextWrap {
+    white-space: no-wrap;
+  }
+
+  .separateField {
+    display: block-inline;
+    margin-right: 20%;
   }
 
 }
@@ -52,21 +53,68 @@
         min-width: 2%;
     }
 
-    #AssessPatientRisk {
-      margin-bottom: 1em;
-    }
-
     /* The first paragraph under both the Assess Button and the Box       */
     /* Originally the Box and the text would be very very close;          */
     /* This code will attempt to put some Vertical Distance between them  */
     #main_home > div > div:nth-child(4) > div > p:nth-child(1) {
       margin-top: 1em;
     }
+
+    /*
+    .numberEntryMarginRight {
+      margin-right: 100%;
+    }
+    */
+
+    .separateField {
+        display: block;
+    }
+
+    input[name='height_ft'],
+    input[name='height_in'] {
+      margin-bottom: 10px;
+    }
 }
 
 @media (max-width: 540px ) {
     #form-steps ol span.spacer {
         min-width: 2%;
+    }
+
+    #veg_servings.error {
+      width: 250px;
+    }
+
+    #veg_amount.error {
+       width: 250px;
+    }
+
+    #moderate_hours.error {
+      width: 250px;
+    }
+
+    #vigorous_hours.error {
+      width: 250px;
+    }
+
+    #last_period.error {
+      width: 250px;
+    }
+
+    #firstYearSmoke.error {
+      width: 250px;
+    }
+
+    #smoke_quit.error {
+      width: 250px;
+    }
+
+    #cigarettes_num.error {
+      width: 250px;
+    }
+
+    #yearsSmoked {
+      width: 250px;
     }
 }
 
@@ -75,9 +123,6 @@
         min-width: 1%;
     }
 
-    #form-steps.fixed {
-       /* width: 97%; */
-    }
 
     header #toolTitle {
         padding-right: 16px;
@@ -98,7 +143,7 @@
 }
 
 #vigorous_hours {
-  width: 260px;
+  width: 285px;
 }
 
 #last_period {
@@ -106,11 +151,11 @@
 }
 
 #firstYearSmoke {
-  width: 350px;
+  width: 300px;
 }
 
 #smoke_quit {
-  width: 350px;
+  width: 300px;
 }
 
 #cigarettes_num {
@@ -120,6 +165,11 @@
 #last_period {
   width: 250px;
 }
+
+#yearsSmoked {
+  width: 265px;
+}
+
 
 /* #race is used in another Race, so we override in the specific Rat */
 #race {
@@ -132,3 +182,40 @@
 #includesVegatables {
     margin-bottom: 0px;
 }
+
+/* Problem : The Accesss Button was showing the incorrect outline.  In order to have  */
+/* it show us the outline that we want I had to crate an event more specific CSS Rule */
+#AssessPatientRisk.addOutline {
+  outline: 1px solid #4D90FE;
+}
+
+#AssessPatientRisk.removeOutline {
+  outline: none;
+}
+
+.okButton:focus {
+    color:white;
+    background-color: #286794;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.forAsprinListItem {
+    font-weight: normal;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+#AssessPatientRisk {
+    margin-bottom: 1em;
+}
+
+.spaceBetweenQuestionsSmaller {
+    margin-top: 30px;
+}
+
+

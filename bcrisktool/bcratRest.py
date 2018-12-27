@@ -9,6 +9,8 @@ from BcratRunFunction import RiskCalculation
 
 app = Flask(__name__, static_folder="", static_url_path="")
 
+print("Hello : we are running the new code + 4")
+
 class BreastRiskAssessmentTool:
   @staticmethod
   def buildFailure(message):
@@ -107,14 +109,32 @@ class BreastRiskAssessmentTool:
       lifetime_average_risk = RiskCalculation("Average", race, age, 90, 0, 0, 0, 0, 1)
       lifetime_average_risk = round( lifetime_average_risk * 100, 1)
 
+      patientColorPresented5Year = ""
+      if ( risk > averageFiveYearRisk ):
+          patientColorPresented5Year = "presented in red since hers is higher than"
+      elif ( risk < averageFiveYearRisk ):
+        patientColorPresented5Year = "presented in green since hers is lower than"
+      else:
+        patientColorPresented5Year = "presented in blue since hers is equal to"
+
+      patientColorPresentedLifetime = ""
+      if ( lifetime_patient_risk > lifetime_average_risk ):
+            patientColorPresentedLifetime = "presented in red since hers is higher than"
+      elif ( lifetime_patient_risk < lifetime_average_risk):
+        patientColorPresentedLifetime = "presented in green since hers is lower than"
+      else:
+        patientColorPresentedLifetime = "presented in blue since hers is equal to"
+
+
       results={}
       results['risk']= risk
       results['averageFiveRisk'] = averageFiveYearRisk
-      results['message'] = "Based on the information provided, the woman's estimated risk for developing invasive breast cancer over the next 5 years is {0:g}%, compared to the average risk of {1:g}% for women of the same age and race/ethnicity in the general U.S. population".format(risk,averageFiveYearRisk)
+      results['message'] = "Based on the information provided, the patient's estimated risk for developing invasive breast cancer over the next 5 years is {0:g}%, ".format(risk) + patientColorPresented5Year + " the average risk of {0:g}% (presented in blue) for women of the same age and race/ethnicity in the general U.S. population.".format(averageFiveYearRisk)
       results['lifetime_patient_risk']=lifetime_patient_risk
       results['lifetime_average_risk']=lifetime_average_risk
-      results['lifetime_message'] = "Based on the information provided, the woman's estimated risk for developing invasive breast cancer over her lifetime (to age 90) is {0:g}%, compared to the average risk of {1:g}% for women of the same age and race/ethnicity in the general U.S. population.".format(lifetime_patient_risk,lifetime_average_risk)
-
+      results['lifetime_message'] = "Based on the information provided, the woman's estimated risk for developing invasive breast cancer over her lifetime (to age 90) is {0:g}%, ".format(lifetime_patient_risk) + patientColorPresentedLifetime + " the average risk of {0:g}% (presented in blue) for women of the same age and race/ethnicity in the general U.S. population.".format(lifetime_average_risk)
+      results['patientColorPresented5Year'] = patientColorPresented5Year
+      results['patientColorPresentedLifetime'] = patientColorPresentedLifetime
       json_data = json.dumps(results)
       return BreastRiskAssessmentTool.buildSuccess(json_data)
     except Exception as e:
