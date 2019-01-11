@@ -220,7 +220,7 @@
                     <!-- Combined chart -->
                     <tr ng-if="chartType === 'combined'">
                         <td class="chartDescription">
-                            <p>If 100 people answered the questions just like you but did not get screened, <b>{{ session.myForm.result0 / 10 }}</b> instead of <b>{{ (session.myForm.result0 - session.myForm.result1) / 10 }}</b> {{ getPeopleOrPerson( (session.myForm.result0 - session.myForm.result1) / 10 ) }} would die from lung cancer if they did NOT receive annual CT lung screening: an increase of <b>{{ session.myForm.result1 / 10 }}</b> out of 100 {{ getPeopleOrPerson( session.myForm.result1 / 10 ) }}</p>
+                            <p>If 100 people answered the questions just like you but did NOT get screened, <b>{{ session.myForm.result0 / 10 }}</b> instead of <b>{{ (session.myForm.result0 - session.myForm.result1) / 10 }}</b> {{ getPeopleOrPerson( (session.myForm.result0 - session.myForm.result1) / 10 ) }} would die from lung cancer: an increase of <b>{{ session.myForm.result1 / 10 }}</b> out of 100 {{ getPeopleOrPerson( session.myForm.result1 / 10 ) }}</p>
 
                             <div class="legendRow">
                                 <div class="legendPart legendSquare">
@@ -252,7 +252,7 @@
                     <!-- Combined2 chart -->
                     <tr ng-if="chartType === 'combined2'">
                         <td class="chartDescription">
-                            <p>If 1000 people answered the questions just like you but did not get screened, <b>{{ session.myForm.result0 }}</b> instead of <b>{{ session.myForm.result0 - session.myForm.result1 }}</b> {{ getPeopleOrPerson(session.myForm.result0 - session.myForm.result1) }} would die from lung cancer if they did NOT receive annual CT lung screening: an increase of <b>{{ session.myForm.result1 }}</b> out of 1000 {{ getPeopleOrPerson(session.myForm.result1) }}</p>
+                            <p>If 1000 people answered the questions just like you but did NOT get screened, <b>{{ session.myForm.result0 }}</b> instead of <b>{{ session.myForm.result0 - session.myForm.result1 }}</b> {{ getPeopleOrPerson(session.myForm.result0 - session.myForm.result1) }} would die from lung cancer: an increase of <b>{{ session.myForm.result1 }}</b> out of 1000 {{ getPeopleOrPerson(session.myForm.result1) }}</p>
 
                             <div class="legendRow">
                                 <div class="legendPartBathroom legendSquare">
@@ -280,7 +280,7 @@
                             </div>
                         </td>
                         <td class="results_grid" style="padding-top:20px">
-                            <canvas class="lcs-chart" var-size="true" resolution="1000" values="[session.myForm.result0, session.myForm.result0 - session.myForm.result1]" draw-image="true" n-row="25" n-col="40" icon-width="10" icon-height="30" gap-x="2" gap-y="1"></canvas>
+                            <canvas class="lcs-chart" var-size="true" resolution="1000" values="[session.myForm.result0, session.myForm.result0 - session.myForm.result1]" draw-image="true" n-row="20" n-col="50" icon-width="10" icon-height="30" gap-x="2" gap-y="1"></canvas>
                         </td>
                     </tr>
                     <!-- Bottom descriptions -->
@@ -537,7 +537,7 @@
                         </div>
                     </td>
                     <td class="results_grid" style="padding-top: 20px;">
-                        <canvas class="lcs-chart" resolution="1000" var-size="true" values="[session.myForm.result2 + session.myForm.result3, session.myForm.result2]" draw-image="true" n-row="25" n-col="40" icon-width="10" icon-height="30" gap-x="2" gap-y="1"></canvas>
+                        <canvas class="lcs-chart" resolution="1000" var-size="true" values="[session.myForm.result2 + session.myForm.result3, session.myForm.result2]" draw-image="true" n-row="20" n-col="50" icon-width="10" icon-height="30" gap-x="2" gap-y="1"></canvas>
                     </td>
                 </tr>
                 <!-- Bottom description -->
@@ -741,7 +741,7 @@
                             <canvas class="lcs-chart " values="[session.myForm.result4 / 10]"></canvas>
                         </td>
                         <td ng-if="chartType === 'combined2'" class="results_grid">
-                            <canvas class="lcs-chart" var-size="true" resolution="1000" values="[session.myForm.result4]" draw-image="true" n-row="25" n-col="40" icon-width="10" icon-height="30" gap-x="2" gap-y="1"></canvas>
+                            <canvas class="lcs-chart" var-size="true" resolution="1000" values="[session.myForm.result4]" draw-image="true" n-row="20" n-col="50" icon-width="10" icon-height="30" gap-x="2" gap-y="1"></canvas>
                         </td>
                     </tr>
                     <!-- Bottom description -->

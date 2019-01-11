@@ -13,7 +13,7 @@ app.directive('lcsChart', ['$util', function($util) {
             $scope.nCol = 10;
             $scope.resolution = 100;
             $scope.nRowSmall = 13;
-            $scope.nColSmall = 80;
+            $scope.nColSmall = 100;
             $scope.iconWidth = 15;
             $scope.iconHeight = 25;
             $scope.smallIconWidth = 4;
