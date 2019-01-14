@@ -1,7 +1,7 @@
 import math
 import os
 import sys
-import json 
+import json
 import logging
 
 from flask import Flask, Response, request, jsonify, send_from_directory
@@ -59,7 +59,7 @@ class ColorectalRiskAssessmentTool:
         parameters[field] = parameters[field][0]
       errorObject = {'missing':[],'nonnumeric':[],'message':[]}
       requiredParameters = ['age','height_ft','height_in','weight','veg_servings','exam','aspirin','non_aspirin','vigorous_months','family_cancer']
-      
+
       # The valid values of race are White, African Amierican or Asian
       # Whether you are hispanic or not is determined by another variable.
       if ( ('race' not in parameters) and ('hispanic' not in parameters) ):
@@ -92,8 +92,8 @@ class ColorectalRiskAssessmentTool:
             errorObject['nonnumeric'].append(required)
       if 'age' not in errorObject['missing'] and 'age' not in errorObject['nonnumeric']:
         age = int(parameters['age'])
-        if (age < 50 or age > 89):
-          errorObject['message'] += ["This tool cannot be used to assess risk for those under the age of 50 or over the age of 89."]
+        if (age < 40 or age > 89):
+          errorObject['message'] += ["This tool cannot be used to assess risk for those under the age of 40 or over the age of 89."]
       if sex == 0:
         if 'cigarettes' not in errorObject['missing'] and parameters['cigarettes'] == '0':
 
@@ -205,7 +205,7 @@ class ColorectalRiskAssessmentTool:
       # End Calculation if there are any errors
       if len(errorObject['missing']) > 0 or len(errorObject['nonnumeric']) > 0 or len(errorObject['message']) > 0:
         return ColorectalRiskAssessmentTool.buildFailure(errorObject);
-      
+
       # For this section 0 = "Yes", 1 = "No" and 2 or greater = "Unknown"
       screening = int(parameters['exam'])
       polyp = int(parameters['polyp']) if ('polyp' in parameters ) else "-1"
