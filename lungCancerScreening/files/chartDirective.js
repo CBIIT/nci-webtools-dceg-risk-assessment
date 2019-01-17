@@ -48,13 +48,15 @@ app.directive('lcsChart', ['$util', function($util) {
             }
 
             $scope.calculateCanvasWidth = function() {
-                var widthLarge = $scope.textWidth + ($scope.iconWidth + $scope.gap.x) * $scope.nCol + $scope.gap.x * 2;
-                var widthSmall = 0;
                 if ($scope.varSize) {
-                    widthSmall = $scope.textWidth + ($scope.smallIconWidth + $scope.gap.x) * $scope.nColSmall + $scope.gap.x * 3;
+                    var widthSmall = ($scope.smallIconWidth + $scope.gap.x) * $scope.nColSmall + $scope.gap.x;
+                    var widthLarge = ($scope.iconWidth + $scope.gap.x) * $scope.nCol + $scope.gap.x;
+                    return Math.max(widthLarge, widthSmall);
+                } else {
+                    return $scope.textWidth + ($scope.iconWidth + $scope.gap.x) * $scope.nCol + $scope.gap.x * 2;
                 }
-                return Math.max(widthLarge, widthSmall);
             };
+
             $scope.calculateCanvasHeight = function() {
                 if ($scope.varSize) {
                     var maxValue = Math.max(...$scope.values);
@@ -120,12 +122,9 @@ app.directive('lcsChart', ['$util', function($util) {
 
             function drawLargeFigures(x, y, width, height) {
                 for (var i = 0; i < $scope.nRow; ++i) {
-                    var pos = getPosition(i, 0, x + $scope.textWidth, y + ($scope.iconHeight + $scope.textHeight) / 2, $scope.textWidth, $scope.iconHeight, $scope.gap);
-                    $scope.ctx.fillStyle = $scope.textColor;
-                    $scope.ctx.fillText(i * $scope.nCol + $scope.nCol, pos.x, pos.y);
                     for (var j = 0; j < $scope.nCol; ++j) {
                         var cellValue = i * $scope.nCol + j + 1;
-                        pos = getPosition(i, j, x + $scope.gap.x * 2 + $scope.textWidth, y, width, height, $scope.gap);
+                        var pos = getPosition(i, j, x, y, width, height, $scope.gap);
                         if ($scope.values[0] >= cellValue || $scope.values[1] >= cellValue || $scope.values[2] >= cellValue) {
                             drawFigure(getLayeredData($scope.values, cellValue), pos, width, height);
                         } else {
@@ -136,8 +135,6 @@ app.directive('lcsChart', ['$util', function($util) {
             }
 
             function drawSmallFigures(num, x, y, width, height) {
-                $scope.ctx.fillStyle = $scope.textColor;
-                $scope.ctx.fillText($scope.resolution, $scope.gap.x * 2 + $scope.textWidth, $scope.calculateCanvasHeight() - $scope.gap.y * 2);
                 var count = 0;
                 for (var i = 0; i < $scope.nRowSmall; ++i) {
                     for (var j = 0; j < $scope.nColSmall; ++j) {
@@ -154,7 +151,7 @@ app.directive('lcsChart', ['$util', function($util) {
 
             $scope.drawVarSizeChart = function() {
                 var y = drawLargeFigures($scope.gap.x, $scope.gap.y, $scope.iconWidth, $scope.iconHeight);
-                drawSmallFigures($scope.resolution - Math.max(...$scope.values), $scope.gap.x * 3 + $scope.textWidth, y + $scope.sectionGap, $scope.smallIconWidth, $scope.smallIconHeight);
+                drawSmallFigures($scope.resolution - Math.max(...$scope.values), $scope.gap.x, y + $scope.sectionGap, $scope.smallIconWidth, $scope.smallIconHeight);
             };
         },
         link: function($scope, element, attrs) {
