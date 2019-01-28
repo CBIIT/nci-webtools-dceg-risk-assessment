@@ -280,7 +280,7 @@
                             </div>
                         </td>
                         <td class="results_grid" style="padding-top:20px">
-                            <canvas class="lcs-chart" var-size="true" resolution="1000" values="[session.myForm.result0, session.myForm.result0 - session.myForm.result1]" draw-image="true" n-row="20" n-col="50" icon-width="10" icon-height="30" gap-x="2" gap-y="1"></canvas>
+                            <canvas class="lcs-chart" var-size="true" resolution="1000" values="[session.myForm.result1, session.myForm.result0 - session.myForm.result1]" draw-image="true" n-row="20" n-col="50" icon-width="10" icon-height="30" gap-x="2" gap-y="1"></canvas>
                         </td>
                     </tr>
                     <!-- Bottom descriptions -->
@@ -537,7 +537,7 @@
                         </div>
                     </td>
                     <td class="results_grid" style="padding-top: 20px;">
-                        <canvas class="lcs-chart" resolution="1000" var-size="true" values="[session.myForm.result2 + session.myForm.result3, session.myForm.result2]" draw-image="true" n-row="20" n-col="50" icon-width="10" icon-height="30" gap-x="2" gap-y="1"></canvas>
+                        <canvas class="lcs-chart" resolution="1000" var-size="true" values="[session.myForm.result3, session.myForm.result2]" draw-image="true" n-row="20" n-col="50" icon-width="10" icon-height="30" gap-x="2" gap-y="1"></canvas>
                     </td>
                 </tr>
                 <!-- Bottom description -->
@@ -780,7 +780,7 @@
                                         <img ng-if="chartType === 'combined2'" src="files/images/people.png" class="chartBlockBathroom chartOverlap" alt="bathroom icon">
                                     </div>
                                     <div class="legendPartBathroom">
-                                        <span class="legendTextBathroom">Had a false alarm (positive screening test but does not actually have lung cancer)</span>
+                                        <span class="legendTextBathroom"><span class="dataColor1">{{ session.myForm.result4 }}</span> Had a false alarm (positive screening test but does not actually have lung cancer)</span>
                                     </div>
                                 </div>
                                 <div class="legendRow">
@@ -789,7 +789,7 @@
                                         <img ng-if="chartType === 'combined2'" src="files/images/people.png" class="chartBlockBathroom chartOverlap" alt="bathroom icon">
                                     </div>
                                     <div class="legendPartBathroom">
-                                        <span class="legendTextBathroom">Did NOT have a false alarm</span>
+                                        <span class="legendTextBathroom"><span class="dataColor4">{{ 1000 - session.myForm.result4 }}</span> Did NOT have a false alarm</span>
                                     </div>
                                 </div>
                             </div>

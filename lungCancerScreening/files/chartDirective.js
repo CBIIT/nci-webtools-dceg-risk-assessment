@@ -60,7 +60,7 @@ app.directive('lcsChart', ['$util', function($util) {
             $scope.calculateCanvasHeight = function() {
                 if ($scope.varSize) {
                     var maxValue = Math.max(...$scope.values);
-                    var largeRows = Math.ceil(maxValue / $scope.nCol);
+                    var largeRows = $scope.values.reduce((acc, curr) => { return Math.ceil(curr / $scope.nCol) + acc }, 0) ;
                     var heightLarge = ($scope.iconHeight + $scope.gap.y) * largeRows + $scope.gap.y;
                     var blanks = $scope.resolution - maxValue;
                     var smallRows = Math.ceil(blanks / $scope.nColSmall);
@@ -120,15 +120,17 @@ app.directive('lcsChart', ['$util', function($util) {
                 };
             }
 
-            function drawLargeFigures(x, y, width, height) {
+            function drawLargeFigures(values, x, y, width, height) {
+                var lowerBoundary = y;
                 for (var i = 0; i < $scope.nRow; ++i) {
                     for (var j = 0; j < $scope.nCol; ++j) {
                         var cellValue = i * $scope.nCol + j + 1;
                         var pos = getPosition(i, j, x, y, width, height, $scope.gap);
-                        if ($scope.values[0] >= cellValue || $scope.values[1] >= cellValue || $scope.values[2] >= cellValue) {
-                            drawFigure(getLayeredData($scope.values, cellValue), pos, width, height);
+                        if (Math.max(...values) >= cellValue) {
+                            drawFigure(getLayeredData(values, cellValue), pos, width, height);
+                            lowerBoundary = pos.y + height + $scope.gap.y;
                         } else {
-                            return pos.y + height + $scope.gap.y;
+                            return lowerBoundary;
                         }
                     }
                 }
@@ -150,7 +152,8 @@ app.directive('lcsChart', ['$util', function($util) {
             }
 
             $scope.drawVarSizeChart = function() {
-                var y = drawLargeFigures($scope.gap.x, $scope.gap.y, $scope.iconWidth, $scope.iconHeight);
+                var y = drawLargeFigures([0, $scope.values[1]], $scope.gap.x, $scope.gap.y, $scope.iconWidth, $scope.iconHeight);
+                y = drawLargeFigures([$scope.values[0], 0], $scope.gap.x, y, $scope.iconWidth, $scope.iconHeight);
                 drawSmallFigures($scope.resolution - Math.max(...$scope.values), $scope.gap.x, y + $scope.sectionGap, $scope.smallIconWidth, $scope.smallIconHeight);
             };
         },
