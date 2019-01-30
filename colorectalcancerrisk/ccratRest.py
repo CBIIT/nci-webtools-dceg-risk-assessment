@@ -92,8 +92,8 @@ class ColorectalRiskAssessmentTool:
             errorObject['nonnumeric'].append(required)
       if 'age' not in errorObject['missing'] and 'age' not in errorObject['nonnumeric']:
         age = int(parameters['age'])
-        if (age < 40 or age > 89):
-          errorObject['message'] += ["This tool cannot be used to assess risk for those under the age of 40 or over the age of 89."]
+        if (age < 45 or age > 89):
+          errorObject['message'] += ["This tool cannot be used to assess risk for those under the age of 45 or over the age of 89."]
       if sex == 0:
         if 'cigarettes' not in errorObject['missing'] and parameters['cigarettes'] == '0':
 
