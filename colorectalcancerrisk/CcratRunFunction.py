@@ -24,7 +24,7 @@ def AbsRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
   absRisk = 0
   survivalRate = 1
   for currentAge in range(startAge,upperBoundAge):
-    ageInterval = int(math.floor((currentAge-50)/5))
+    ageInterval = int(math.floor((currentAge-45)/5))
     yearlyHazards = rectal_covariates  *genderRaceRisk["rectal"]  [ageInterval] + \
                     proximal_covariates*genderRaceRisk["proximal"][ageInterval]
     if gender == "Female" and currentAge >= 65:
@@ -59,7 +59,7 @@ def AvgRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
   absRisk = 0
   survivalRate = 1
   for currentAge in range(startAge,upperBoundAge):
-    ageInterval = int(math.floor((currentAge-50)/5))
+    ageInterval = int(math.floor((currentAge-45)/5))
     yearlyHazards = rectal_covariates  *genderRaceRisk["rectal"]  [ageInterval] + \
                     proximal_covariates*genderRaceRisk["proximal"][ageInterval]
     if gender == "Female" and currentAge >= 65:
