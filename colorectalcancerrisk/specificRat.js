@@ -31,6 +31,7 @@ $(function() {
 
     // For the forms-step make sure that the last text link is right justified
     // since we do not know the gender yet.
+    // since we do not know the gender yet.
     if ( existFormSteps() ) toggleGender();
 
     // A bug in the number field report see the CSS for comments for the numberField Border
@@ -72,7 +73,7 @@ $(function() {
     })
 
     $("#age").change(removeErrorMessage)
- 
+
 
     $("[name='race']").not("[value='White']").on("click", function(event) {
 
