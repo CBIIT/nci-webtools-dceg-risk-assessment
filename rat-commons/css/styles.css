@@ -1809,5 +1809,10 @@ section > fieldset > legend.questions {
     text-decoration: underline;
 }
 
+/* For bolding a word or collection of words */
+.bold {
+    font-weight: bold;
+}
+
 
 
