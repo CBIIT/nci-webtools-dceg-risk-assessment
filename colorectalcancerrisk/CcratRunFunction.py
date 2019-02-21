@@ -110,7 +110,8 @@ def covariteBreakdown(gender, race, startAge, upperBoundAge, screening, yearsSmo
     #                  [1] 3-4
     #                  [2] 1-2
     #                  [3]   0
-    averageExercise,
+    # need to reverse the polarity for Exercise (Men_CRC_RAM_agerange4090, L478)
+    3 - averageExercise,
     1 if averageExercise==3 else 0,
     1 if averageExercise==2 else 0,
     1 if averageExercise==1 else 0,
