@@ -7,6 +7,9 @@ def AbsRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
   genderAttributeRisks = CcratConstants.ATTRIBUTE_RISKS  [gender]
   genderCovariates     = CcratConstants.COVARIATES       [gender]
 
+  # need to reverse the polarity for Exercise (Men_CRC_RAM_agerange4090, L478)
+  averageExercise = 3 - averageExercise
+
   if gender == "Male" and yearsSmoking == 0 and cigarettesPerDay > 0:
     cigarettesPerDay = 0
     yearsSmoking = 0
@@ -110,8 +113,7 @@ def covariteBreakdown(gender, race, startAge, upperBoundAge, screening, yearsSmo
     #                  [1] 3-4
     #                  [2] 1-2
     #                  [3]   0
-    # need to reverse the polarity for Exercise (Men_CRC_RAM_agerange4090, L478)
-    3 - averageExercise,
+    averageExercise,
     1 if averageExercise==3 else 0,
     1 if averageExercise==2 else 0,
     1 if averageExercise==1 else 0,
@@ -128,8 +130,6 @@ def covariteBreakdown(gender, race, startAge, upperBoundAge, screening, yearsSmo
     #bmi*hormoneUsage  [1] BMI >= 30 and no hormones used
     #                  [0] All other conditions
     bmiTrend*(1-hormoneUsage)
-  ];
+  ]
 
   return covariate_breakdown
-
-
