@@ -203,8 +203,16 @@ def calculate():
 
   # if the patient is a smoker, or a former smoker
   if gender == 'Male' and form.get('cigarettes', None) == 0:
-    years_smoked = form.get('smoke_quit', max_age) \
-                 - form.get('smoke_age')
+    raw_years_smoked = form.get('smoke_quit', max_age) \
+                     - form.get('smoke_age')
+    # determine category for years_smoked
+    if raw_years_smoked >= 21:
+      years_smoked = 3
+    elif raw_years_smoked >= 11:
+      years_smoked = 2
+    elif raw_years_smoked >= 1:
+      years_smoked = 1
+
 
   patient_5_year_risk = AbsRisk(
     gender,
