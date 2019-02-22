@@ -60,7 +60,7 @@ def calculate():
   gender = form['gender']
 
   # determine race
-  race = 'Hispanic' if form.get('hispanic', None) == 0 else form['race']
+  race = 'Hispanic' if form.get('hispanic') == 0 else form['race']
 
   # get age
   age = int(form['age'])
@@ -159,9 +159,9 @@ def calculate():
   if gender == 'Female':
     # the following indicate estrogen usage
     no_estrogen = 0 if (
-      form.get('hormones', None)    == 0 or # used hormones
-      form.get('period', None)      == 0 or # still has periods
-      form.get('last_period', None) in [0, 1] # period within last 2 years
+      form.get('hormones') == 0 or # used hormones
+      form.get('period') == 0 or # still has periods
+      form.get('last_period') in [0, 1] # period within last 2 years
     ) else 1
 
   # determine if under 5 servings of vegetables are consumed per week (0: false, 1: true)
