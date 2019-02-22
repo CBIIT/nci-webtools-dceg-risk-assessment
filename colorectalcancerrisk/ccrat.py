@@ -67,8 +67,8 @@ def calculate():
   max_age = 90
 
   # determine bmi_group
-  height_inches = 12 * form['height_ft'] + form['height_in']
-  weight_pounds = form['weight']
+  height_inches = 12 * form.get('height_ft', 0) + form.get('height_in', 0)
+  weight_pounds = form.get('weight', 0)
   bmi = calculate_bmi(height_inches, weight_pounds)
   bmi_group = 0
 
@@ -98,7 +98,7 @@ def calculate():
   # invert exercise_group for calculation
   exercise_group = 3 - exercise_group
 
-  # determine crc screening_status
+  # determine colorecal cancer (crc) screening_status
   # 0: colonscopy done, no polyps
   # 1: no colonoscopy
   # 2: colonoscopy done, polyps present
@@ -142,9 +142,9 @@ def calculate():
   no_aspirin = form['aspirin']
   no_nsaids = form['non_aspirin']
 
-  # because aspirin is an nsaid, if we use aspirin, we must set no_nsaids to false (0)
-#  if no_aspirin == 0:
-#    no_nsaids = 0
+# because aspirin is an nsaid, if we use aspirin, we must set no_nsaids to false (0)
+# if no_aspirin == 0:
+#   no_nsaids = 0
 
 
   # determine if estrogen was NOT used in the past two years
@@ -164,9 +164,11 @@ def calculate():
       form.get('last_period') in [0, 1] # period within last 2 years
     ) else 1
 
+
   # determine if under 5 servings of vegetables are consumed per week (0: false, 1: true)
   weekly_veg_servings  = 0.5 * form.get('veg_amount', 0) * form.get('veg_servings', 0)
   under_5_weekly_veg_servings = 1 if weekly_veg_servings < 5 else 0
+
 
   # determine number of relatives with crc
   # 0: 0 relatives with crc, or don't know if relatives have crc
@@ -325,8 +327,28 @@ def calculate():
     'averageLifetimeRisk': average_lifetime_risk,
   }
 
+  # print parameters supplied
+  pprint({
+    'gender': gender,
+    'race': race,
+    'age': age,
+    'max_age': max_age,
+    'screening_status': screening_status,
+    'years_smoked': years_smoked,
+    'cigarettes_per_day': cigarettes_per_day,
+    'no_nsaids': no_nsaids,
+    'no_aspirin': no_aspirin,
+    'num_relatives_with_crc': num_relatives_with_crc,
+    'exercise_group': exercise_group,
+    'under_5_weekly_veg_servings': under_5_weekly_veg_servings,
+    'bmi_group': bmi_group,
+    'no_estrogen': no_estrogen
+  })
+
+  # print calculated rates
   pprint(output)
 
+  # convert rates to percentages and round to the nearest 10th
   for key, value in output.iteritems():
     output[key] = round(value * 100, 1)
 
@@ -336,7 +358,7 @@ def calculate():
   )
 
 
-
+# the below should only be used during local development
 if __name__ == '__main__':
   from argparse import ArgumentParser
   parser = ArgumentParser()
