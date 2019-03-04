@@ -7,9 +7,6 @@ def AbsRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
   genderAttributeRisks = CcratConstants.ATTRIBUTE_RISKS  [gender]
   genderCovariates     = CcratConstants.COVARIATES       [gender]
 
-  # need to reverse the polarity for Exercise (Men_CRC_RAM_agerange4090, L478)
-  averageExercise = 3 - averageExercise
-
   if gender == "Male" and yearsSmoking == 0 and cigarettesPerDay > 0:
     cigarettesPerDay = 0
     yearsSmoking = 0
