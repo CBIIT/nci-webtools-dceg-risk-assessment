@@ -324,40 +324,6 @@ def calculate():
     no_estrogen
   )
 
-  patient_10_year_risk = AbsRisk(
-    gender,
-    race,
-    age,
-    min(age + 10, max_age),
-    sigmoid_polyps,
-    cigarette_years,
-    cigarettes_per_day,
-    no_nsaids,
-    no_ibuprofen,
-    family_history_crc,
-    vigorous_exercise,
-    weekly_veg_servings_lt5,
-    bmi_trend,
-    no_estrogen
-  )
-
-  average_10_year_risk = AvgRisk(
-    gender,
-    race,
-    age,
-    min(age + 10, max_age),
-    sigmoid_polyps,
-    cigarette_years,
-    cigarettes_per_day,
-    no_nsaids,
-    no_ibuprofen,
-    family_history_crc,
-    vigorous_exercise,
-    weekly_veg_servings_lt5,
-    bmi_trend,
-    no_estrogen
-  )
-
   patient_lifetime_risk = AbsRisk(
     gender,
     race,
@@ -395,8 +361,6 @@ def calculate():
   output = {
     'risk': patient_5_year_risk,
     'average5YearRisk': average_5_year_risk,
-    'patient10YearRisk': patient_10_year_risk,
-    'average10YearRisk': average_10_year_risk,
     'patientLifetimeRisk': patient_lifetime_risk,
     'averageLifetimeRisk': average_lifetime_risk,
   }
@@ -433,5 +397,8 @@ def calculate():
 
 
 # used during local development
+# ensure rat-commons is in the current directory
+# start with: python ccrat.py
+# http://localhost:8134/index.html
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=8134, debug=True)
