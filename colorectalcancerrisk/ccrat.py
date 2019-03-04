@@ -1,4 +1,5 @@
 import json
+from pprint import pformat
 from traceback import format_exc
 from flask import Flask, request, jsonify
 from CcratRunFunction import AbsRisk, AvgRisk
@@ -40,18 +41,18 @@ def calculate():
   form = numeric_dict(request.form)
 
   # Log form values
-  app.logger.info(form)
+  app.logger.info('Form Parameters: \n' + pformat(form))
 
   # Get gender
-  gender = form['gender']
+  gender = form.get('gender')
 
   # Determine race
-  race = form['race']
+  race = form.get('race')
   if form.get('hispanic') == 0:
     race = 'Hispanic'
 
   # Get age
-  age = int(form['age'])
+  age = int(form.get('age'))
   max_age = 90
 
   # Determine bmi_trend
@@ -125,27 +126,29 @@ def calculate():
   # (1) no
   # (2) don't know
   sigmoid_polyps = 3
+  exam = form.get('exam')
+  polyp = form.get('polyp')
 
   # colonoscopy/sigmoidoscopy done
-  if form['exam'] == 0:
+  if exam == 0:
     # screening done, polyps present
-    if form['polyp'] == 0:
+    if polyp == 0:
       sigmoid_polyps = 2
 
     # screening done, no polyps
-    elif form['polyp'] == 1:
+    elif polyp == 1:
       sigmoid_polyps = 0
 
     # screening done, unknown polyp history
-    elif form['polyp'] == 2:
+    elif polyp == 2:
       sigmoid_polyps = 3
 
   # no colonoscopy/sigmoidoscopy
-  elif form['exam'] == 1:
+  elif exam == 1:
       sigmoid_polyps = 1
 
   # unknown history
-  elif form['exam'] == 2:
+  elif exam == 2:
     sigmoid_polyps = 3
 
   # Determine if no_ibuprofen or no_nsaids have been used
@@ -238,7 +241,8 @@ def calculate():
   # family_count (how many relatives had crc?)
   # (0) 1 member/unknown
   # (1) 2 or more = 1
-  family_history_crc = form['family_cancer'] + form.get('family_count', 0)
+  family_history_crc = form.get('family_cancer') \
+                     + form.get('family_count', 0)
 
 
   # Determine categories for number of years smoked and number of cigarettes smoked per day
@@ -366,7 +370,7 @@ def calculate():
   }
 
   # print parameters supplied
-  app.logger.info({
+  app.logger.info('Calculation Parameters: \n' + pformat({
     'gender': gender,
     'race': race,
     'age': age,
@@ -381,10 +385,10 @@ def calculate():
     'weekly_veg_servings_lt5': weekly_veg_servings_lt5,
     'bmi_trend': bmi_trend,
     'no_estrogen': no_estrogen
-  })
+  }))
 
   # print calculated rates
-  app.logger.info(output)
+  app.logger.info('Calculated Rates: \n' + pformat(output))
 
   # convert rates to percentages and round to the nearest 10th
   for key, value in output.iteritems():
