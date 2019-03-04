@@ -338,42 +338,6 @@ class ColorectalRiskAssessmentTool:
       average5YearRisk = round(average5YearRisk*100,1)
 
       #************************************************************************************************************
-      #* 10 Year Patient and Average Risk                                                                         *
-      #************************************************************************************************************
-      patient10YearRisk = AbsRisk(gender,
-        race,
-        age,
-        min(age+10,90),
-        screening,
-        yearsSmoking,
-        cigarettesPerDay,
-        nsaidRegime,
-        aspirinOnly,
-        family_cancer,
-        exercise,
-        veggies,
-        bmi,
-        hormoneUsage)
-      patient10YearRisk = round(patient10YearRisk*100,1)
-
-      average10YearRisk = AvgRisk(gender,
-        race,
-        age,
-        min(age+10,90),
-        screening,
-        yearsSmoking,
-        cigarettesPerDay,
-        nsaidRegime,
-        aspirinOnly,
-        family_cancer,
-        exercise,
-        veggies,
-        bmi,
-        hormoneUsage)
-
-      average10YearRisk = round(average10YearRisk*100,1)
-
-      #************************************************************************************************************
       #* Lifetime Patient and Average Risk                                                                        *
       #************************************************************************************************************
       patientLifetimeRisk = AbsRisk(gender,
@@ -415,8 +379,6 @@ class ColorectalRiskAssessmentTool:
       results = {}
       results['risk']                 = patient5YearRisk
       results['average5YearRisk']     = average5YearRisk
-      results['patient10YearRisk']    = patient10YearRisk
-      results['average10YearRisk']    = average10YearRisk
       results['patientLifetimeRisk']  = patientLifetimeRisk
       results['averageLifetimeRisk']  = averageLifetimekRisk
 

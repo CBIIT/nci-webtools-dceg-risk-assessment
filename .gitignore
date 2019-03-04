@@ -6,3 +6,4 @@ ColorectalCancerRiskAssessment/commands.txt
 */src/node_modules/
 test*.html
 localserver.py
+.vscode

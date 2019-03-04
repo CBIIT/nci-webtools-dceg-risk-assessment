@@ -4,3 +4,4 @@ test.py
 test*.py
 src/node_modules/
 rat-commons
+.vscode/
