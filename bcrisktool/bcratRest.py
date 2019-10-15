@@ -14,7 +14,7 @@ print("Hello : we are running the new code + 4")
 class BreastRiskAssessmentTool:
   @staticmethod
   def buildFailure(message):
-    if (isinstance(message,str)):
+    if (isinstance(message, str)):
       response = jsonify(message=message, errorType="message", success=False)
     else:
       message['success'] = False
@@ -26,7 +26,7 @@ class BreastRiskAssessmentTool:
 
   @staticmethod
   def buildSuccess(message):
-    if (isinstance(message,str)):
+    if (isinstance(message, str)):
       response = jsonify(message=message, success=True)
     else:
       message['success'] = True
@@ -43,7 +43,7 @@ class BreastRiskAssessmentTool:
       for field in parameters:
         parameters[field] = parameters[field][0]
       errorObject = {'missing':[],'nonnumeric':[],'message':[]}
-      requiredParameters = ['age','age_period','childbirth_age','biopsy']
+      requiredParameters = ['age', 'age_period', 'childbirth_age', 'biopsy']
       if 'race' not in parameters or parameters['race'] == "":
         errorObject['missing'] += ['race']
       elif parameters['race'] == "Asian" or parameters['race'] == 'Hispanic':
@@ -97,10 +97,10 @@ class BreastRiskAssessmentTool:
       if parameters['race'] == "Asian" and firstDegRelatives > 0:
         firstDegRelatives = 1
 
-      risk = RiskCalculation("Absolute",race, age, min(age+5,90), menarcheAge, numberOfBiopsies, firstLiveBirthAge, firstDegRelatives, rhyp)
-      risk = round(risk*100,1)
+      risk = RiskCalculation("Absolute", race, age, min(age+5, 90), menarcheAge, numberOfBiopsies, firstLiveBirthAge, firstDegRelatives, rhyp)
+      risk = round(risk*100, 1)
 
-      averageFiveYearRisk = RiskCalculation("Average", race, age, min(age+5,90), 0, 0, 0, 0, 1)
+      averageFiveYearRisk = RiskCalculation("Average", race, age, min(age+5, 90), 0, 0, 0, 0, 1)
       averageFiveYearRisk = round ( averageFiveYearRisk * 100, 1)
 
       lifetime_patient_risk = RiskCalculation("Absolute", race, age, 90, menarcheAge, numberOfBiopsies, firstLiveBirthAge, firstDegRelatives, rhyp)
@@ -141,10 +141,10 @@ class BreastRiskAssessmentTool:
       exc_type, exc_obj, exc_tb = sys.exc_info()
       fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
       print(e)
-      print("EXCEPTION------------------------------", exc_type, fname, exc_tb.tb_lineno)
+      print(("EXCEPTION------------------------------", exc_type, fname, exc_tb.tb_lineno))
       return BreastRiskAssessmentTool.buildFailure(str(e))
 
-  def __init__(self,port,debug):
+  def __init__(self, port, debug):
     app.run(host='0.0.0.0', port=port, debug=True)
 
 if __name__ == '__main__':

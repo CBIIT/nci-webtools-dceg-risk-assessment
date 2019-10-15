@@ -58,7 +58,7 @@ def RiskCalculation(riskType, race, currentAge, projectionAge, menarcheAge, numb
   logging.debug("\trhyp                     = " + str(rhyp))
   if projectionAge <= currentAge:
     raise RuntimeError("projectionAge must be greater than the current age")
-  if (race in ['Foreign Hispanic','US Hispanic']):
+  if (race in ['Foreign Hispanic', 'US Hispanic']):
     if (numberOfBiopsy > 1):
         numberOfBiopsy = 1
     if (firstLiveBirthAge != 98 and firstLiveBirthAge > 1):
@@ -71,7 +71,7 @@ def RiskCalculation(riskType, race, currentAge, projectionAge, menarcheAge, numb
     firstLiveBirthAge = 0
     if (menarcheAge > 1):
         menarcheAge = 1
-  if (race in ['Foreign Hispanic','US Hispanic',"Chinese", "Japanese", "Filipino", "Hawaiian", "Islander", "Asian"] and firstDegRelatives > 1):
+  if (race in ['Foreign Hispanic', 'US Hispanic', "Chinese", "Japanese", "Filipino", "Hawaiian", "Islander", "Asian"] and firstDegRelatives > 1):
     firstDegRelatives = 1
   covariateBreakdown = [
     # age of menarchy                   0=[14, 39] U 99 (unknown)
@@ -102,8 +102,8 @@ def RiskCalculation(riskType, race, currentAge, projectionAge, menarcheAge, numb
   raceHazards   =  BcratConstants.COMPETING_HAZARDS[riskType][race]
   raceIncidence =  BcratConstants.CANCER_INCIDENCE [riskType][race]
   raceAttribute =  BcratConstants.ATTRIBUTE_RISK   [riskType][race]
-  covariateSummary       = math.exp(sum([x*y for x,y in zip(raceCovariants,covariateBreakdown)]) + math.log(rhyp))
-  over50CovariateSummary = math.exp(sum([x*y for x,y in zip(raceCovariants,covariateBreakdown[:4]+[numberOfBiopsy]+covariateBreakdown[5:])]) + math.log(rhyp))
+  covariateSummary       = math.exp(sum([x*y for x, y in zip(raceCovariants, covariateBreakdown)]) + math.log(rhyp))
+  over50CovariateSummary = math.exp(sum([x*y for x, y in zip(raceCovariants, covariateBreakdown[:4]+[numberOfBiopsy]+covariateBreakdown[5:])]) + math.log(rhyp))
   absRisk = 1.0
   currentCancerRisk = raceIncidence[currentAgeInterval] * raceAttribute[currentAgeInterval] * covariateSummary
   currentDeathRisk = currentCancerRisk + raceHazards[currentAgeInterval]

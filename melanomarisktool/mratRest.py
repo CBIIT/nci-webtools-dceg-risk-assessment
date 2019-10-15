@@ -82,7 +82,7 @@ class MelanomaRiskAssessmentTool:
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            print("EXCEPTION------------------------------", e, exc_type, fname, exc_tb.tb_lineno)
+            print(("EXCEPTION------------------------------", e, exc_type, fname, exc_tb.tb_lineno))
             return e
 
     @staticmethod
@@ -121,7 +121,7 @@ class MelanomaRiskAssessmentTool:
             logging.debug("The calculated risk is " + str(risk))
             ratio = round((risk * 0.01) * 1000)
             regionKey = ""
-            for key, value in MratConstants.RegionIndex.items():
+            for key, value in list(MratConstants.RegionIndex.items()):
                 if value is region:
                     regionKey = key
                     if value is not 1:
@@ -136,12 +136,12 @@ class MelanomaRiskAssessmentTool:
             results['regionKey']=regionKey
             results['ratio']=int(ratio)
             json_data=json.dumps(results)
-            print "\n{0}".format(result)
+            print("\n{0}".format(result))
             return json_data
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            print("EXCEPTION------------------------------", e, exc_type, fname, exc_tb.tb_lineno)
+            print(("EXCEPTION------------------------------", e, exc_type, fname, exc_tb.tb_lineno))
             return e
 
     @app.route('/calculate', methods=['POST'] )
@@ -156,15 +156,15 @@ class MelanomaRiskAssessmentTool:
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            print("EXCEPTION------------------------------", exc_type, fname, exc_tb.tb_lineno)
+            print(("EXCEPTION------------------------------", exc_type, fname, exc_tb.tb_lineno))
             return MelanomaRiskAssessmentTool.buildFailure(str(e))
         except KeyError as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            print("EXCEPTION------------------------------", exc_type, fname, exc_tb.tb_lineno)
+            print(("EXCEPTION------------------------------", exc_type, fname, exc_tb.tb_lineno))
             return MelanomaRiskAssessmentTool.buildFailure(e)
 
-    def __init__(self,port,debug):
+    def __init__(self, port, debug):
         app.run(host='0.0.0.0', port=port, debug=True)
 
 if __name__ == '__main__':

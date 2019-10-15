@@ -17,14 +17,14 @@ def AbsRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
 
   #screening risk
   covariate_breakdown = covariteBreakdown(gender, race, startAge, upperBoundAge, screening, yearsSmoking, cigarettesPerDay, nsaidRegimine, aspirinOnly, familyHistory, averageExercise, servingsPerDay, bmiTrend, hormoneUsage)
-  rectal_covariates   = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["rectal"  ])]))*genderAttributeRisks["rectal"  ]
-  proximal_covariates = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["proximal"])]))*genderAttributeRisks["proximal"]
-  distal_covariates   = math.exp(sum([x*y for x,y in zip(covariate_breakdown,genderCovariates["distal"  ])]))
+  rectal_covariates   = math.exp(sum([x*y for x, y in zip(covariate_breakdown, genderCovariates["rectal"  ])]))*genderAttributeRisks["rectal"  ]
+  proximal_covariates = math.exp(sum([x*y for x, y in zip(covariate_breakdown, genderCovariates["proximal"])]))*genderAttributeRisks["proximal"]
+  distal_covariates   = math.exp(sum([x*y for x, y in zip(covariate_breakdown, genderCovariates["distal"  ])]))
   #relational risk factors become less relavent for distal cancer as the age goes up
   absRisk = 0
   survivalRate = 1
-  for currentAge in range(startAge,upperBoundAge):
-    ageInterval = int(math.floor((currentAge-45)/5))
+  for currentAge in range(startAge, upperBoundAge):
+    ageInterval = int(math.floor((currentAge-45)//5))
     yearlyHazards = rectal_covariates  *genderRaceRisk["rectal"]  [ageInterval] + \
                     proximal_covariates*genderRaceRisk["proximal"][ageInterval]
     if gender == "Female" and currentAge >= 65:
@@ -58,8 +58,8 @@ def AvgRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, ciga
   #relational risk factors become less relavent for distal cancer as the age goes up
   absRisk = 0
   survivalRate = 1
-  for currentAge in range(startAge,upperBoundAge):
-    ageInterval = int(math.floor((currentAge-45)/5))
+  for currentAge in range(startAge, upperBoundAge):
+    ageInterval = int(math.floor((currentAge-45)//5))
     yearlyHazards = rectal_covariates  *genderRaceRisk["rectal"]  [ageInterval] + \
                     proximal_covariates*genderRaceRisk["proximal"][ageInterval]
     if gender == "Female" and currentAge >= 65:
