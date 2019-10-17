@@ -39,10 +39,9 @@ class MelanomaRiskAssessmentTool:
             logging.debug("parameters from the view tier are: " + str(parameters))
 
             for field in parameters:
-                parameters[field] = parameters[field][0]
+                parameters[field] = parameters[field]
             requiredParameters = ['race', 'age']
             errorObject = {'missing':[], 'nonnumeric': []}
-
             region = None
             if parameters['region'] == '':
                 errorObject['missing'] += ['region']
