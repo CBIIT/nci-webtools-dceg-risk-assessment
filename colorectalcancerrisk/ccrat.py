@@ -403,6 +403,6 @@ def calculate():
 # used during local development
 # ensure rat-commons is in the current directory
 # start with: python ccrat.py
-# http://localhost:8134/index.html
+# http://localhost:8170/index.html
 if __name__ == '__main__':
-  app.run(host='0.0.0.0', port=8134, debug=True)
+  app.run(host='0.0.0.0', port=8170, debug=True)
