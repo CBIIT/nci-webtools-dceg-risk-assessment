@@ -13,7 +13,7 @@ app = Flask(__name__, static_folder='', static_url_path='')
 class ColorectalRiskAssessmentTool:
   @staticmethod
   def buildFailure(message):
-    if (isinstance(message,str)):
+    if (isinstance(message, str)):
       response = jsonify(message=message, errorType="message", success=False)
     else:
       message['success'] = False
@@ -24,7 +24,7 @@ class ColorectalRiskAssessmentTool:
 
   @staticmethod
   def buildSuccess(message):
-    if (isinstance(message,str)):
+    if (isinstance(message, str)):
       response = jsonify(message=message, success=True)
     else:
       message['success'] = True
@@ -56,9 +56,9 @@ class ColorectalRiskAssessmentTool:
     try:
       parameters = dict(request.form)
       for field in parameters:
-        parameters[field] = parameters[field][0]
+        parameters[field] = parameters[field]
       errorObject = {'missing':[],'nonnumeric':[],'message':[]}
-      requiredParameters = ['age','height_ft','height_in','weight','veg_servings','exam','aspirin','non_aspirin','vigorous_months','family_cancer']
+      requiredParameters = ['age', 'height_ft', 'height_in', 'weight', 'veg_servings', 'exam', 'aspirin', 'non_aspirin', 'vigorous_months', 'family_cancer']
 
       # The valid values of race are White, African Amierican or Asian
       # Whether you are hispanic or not is determined by another variable.
@@ -263,41 +263,41 @@ class ColorectalRiskAssessmentTool:
       gender = "Male" if sex == 0 else "Female"
 
       print("&&&&&&&&&&&&&&&&&&&&&& Parameters &&&&&&&&&&&&&&&&&&&&&&&&&")
-      print("The race                 = "   + str(race))
-      print("The age                  = "   + str(age))
-      print("Gender                   = "   + str(gender))
-      print("Feet                     = "   + str(parameters['height_ft']))
-      print("Inches                   = "   + str(parameters['height_in']))
-      print("Weight                   = "   + str(parameters['weight']))
-      print("RAW BMI = " + str(bmi))
-      print("bmi                      = "   + str(bmi))
+      print(("The race                 = "   + str(race)))
+      print(("The age                  = "   + str(age)))
+      print(("Gender                   = "   + str(gender)))
+      print(("Feet                     = "   + str(parameters['height_ft'])))
+      print(("Inches                   = "   + str(parameters['height_in'])))
+      print(("Weight                   = "   + str(parameters['weight'])))
+      print(("RAW BMI = " + str(bmi)))
+      print(("bmi                      = "   + str(bmi)))
       print ("--- Exercise ")
-      print("Exercise : Vigorous Months = " + str(parameters['vigorous_months']) + "")
+      print(("Exercise : Vigorous Months = " + str(parameters['vigorous_months']) + ""))
       if 'vigorous_hours' not in parameters or parameters['vigorous_hours'] == '':
         print("Exercise : Vigorous Hours = Not Used")
       else:
-        print("Exercise: VigorousHours = " + str(parameters['vigorous_hours']))
-      print("Exercise : Hourse Per Week = " + str(hoursPerWeek))
+        print(("Exercise: VigorousHours = " + str(parameters['vigorous_hours'])))
+      print(("Exercise : Hourse Per Week = " + str(hoursPerWeek)))
       print("--- End Exercise")
-      print "--- Vegatable Intake "
-      print("Servings Per Day : Veg Servings = " + str(parameters['veg_servings']))
+      print("--- Vegatable Intake ")
+      print(("Servings Per Day : Veg Servings = " + str(parameters['veg_servings'])))
       if 'veg_amount' not in parameters or parameters['veg_amount'] == "":
         print("Servings Per Day : Veg Servings is not used")
       else:
-        print("Servings Per Day : Veg Servings = " + str(parameters['veg_amount']))
-      print("Servings Per Day : " + str(servingsPerDay))
+        print(("Servings Per Day : Veg Servings = " + str(parameters['veg_amount'])))
+      print(("Servings Per Day : " + str(servingsPerDay)))
       print("--- End Vegatable Intake")
-      print("veggies  (ok verified)   = "   + str(veggies))
-      print("exercise                 = "   + str(exercise))
-      print("Values for screening = " + str(screening) + "," + "polyp  = " + str(polyp))
-      print("The screening            = "   + str(screening))
-      print("Original Values of Aspirin, nonAspirin = " + str(aspirin) + "," + str(nonAspirin))
-      print("Asprin                   = "   + str(aspirinOnly))
-      print("nsaidRegime              = "   + str(nsaidRegime))
-      print("family_cancer            = "   + str(family_cancer))
-      print("Male Years Smoking       = "   + str(yearsSmoking))
-      print("Male Cigs per Day        = "   + str(cigarettesPerDay))
-      print("Female hormoneUsage      = "   + str(hormoneUsage))
+      print(("veggies  (ok verified)   = "   + str(veggies)))
+      print(("exercise                 = "   + str(exercise)))
+      print(("Values for screening = " + str(screening) + "," + "polyp  = " + str(polyp)))
+      print(("The screening            = "   + str(screening)))
+      print(("Original Values of Aspirin, nonAspirin = " + str(aspirin) + "," + str(nonAspirin)))
+      print(("Asprin                   = "   + str(aspirinOnly)))
+      print(("nsaidRegime              = "   + str(nsaidRegime)))
+      print(("family_cancer            = "   + str(family_cancer)))
+      print(("Male Years Smoking       = "   + str(yearsSmoking)))
+      print(("Male Cigs per Day        = "   + str(cigarettesPerDay)))
+      print(("Female hormoneUsage      = "   + str(hormoneUsage)))
 
 
 
@@ -307,7 +307,7 @@ class ColorectalRiskAssessmentTool:
       patient5YearRisk = AbsRisk(gender,
         race,
         age,
-        min(age+5,90),
+        min(age+5, 90),
         screening,
         yearsSmoking,
         cigarettesPerDay,
@@ -318,12 +318,12 @@ class ColorectalRiskAssessmentTool:
         veggies,
         bmi,
         hormoneUsage)
-      patient5YearRisk = round(patient5YearRisk*100,1)
+      patient5YearRisk = round(patient5YearRisk*100, 1)
 
       average5YearRisk = AvgRisk(gender,
         race,
         age,
-        min(age+5,90),
+        min(age+5, 90),
         screening,
         yearsSmoking,
         cigarettesPerDay,
@@ -335,7 +335,7 @@ class ColorectalRiskAssessmentTool:
         bmi,
         hormoneUsage)
 
-      average5YearRisk = round(average5YearRisk*100,1)
+      average5YearRisk = round(average5YearRisk*100, 1)
 
       #************************************************************************************************************
       #* Lifetime Patient and Average Risk                                                                        *
@@ -354,7 +354,7 @@ class ColorectalRiskAssessmentTool:
         veggies,
         bmi,
         hormoneUsage)
-      patientLifetimeRisk = round(patientLifetimeRisk*100,1)
+      patientLifetimeRisk = round(patientLifetimeRisk*100, 1)
 
       averageLifetimeRisk = AvgRisk(gender,
         race,
@@ -371,7 +371,7 @@ class ColorectalRiskAssessmentTool:
         bmi,
         hormoneUsage)
 
-      averageLifetimekRisk = round(averageLifetimeRisk*100,1)
+      averageLifetimekRisk = round(averageLifetimeRisk*100, 1)
 
       #************************************************************************************************
       #* Combine all the values into one struture to be sent to another tier                          *
@@ -383,17 +383,17 @@ class ColorectalRiskAssessmentTool:
       results['averageLifetimeRisk']  = averageLifetimekRisk
 
       json_data = json.dumps(results)
-      print("The JSON Data is " + json_data)
+      print(("The JSON Data is " + json_data))
       return ColorectalRiskAssessmentTool.buildSuccess(json_data)
     except Exception as e:
       exc_type, exc_obj, exc_tb = sys.exc_info()
       fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-      print("EXCEPTION------------------------------", exc_type, fname, exc_tb.tb_lineno)
+      print(("EXCEPTION------------------------------", exc_type, fname, exc_tb.tb_lineno))
       print("Exception------------------------------")
-      print(str(e))
+      print((str(e)))
       return ColorectalRiskAssessmentTool.buildFailure(str(e))
 
-  def __init__(self,port,debug):
+  def __init__(self, port, debug):
     app.run(host='0.0.0.0', port=port, debug=True)
 
 if __name__ == '__main__':

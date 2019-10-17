@@ -9,7 +9,7 @@ app = Flask(__name__, static_folder='', static_url_path='')
 def numeric_dict(dictionary):
   """ Creates a copy of a dict where numeric strings are converted to floats """
   obj = {}
-  for key, value in dictionary.iteritems():
+  for key, value in dictionary.items():
     if value.replace('.', '').isdigit():
       value = float(value)
     obj[key] = value
@@ -391,7 +391,7 @@ def calculate():
   app.logger.info('Calculated Rates: \n' + pformat(output))
 
   # convert rates to percentages and round to the nearest 10th
-  for key, value in output.iteritems():
+  for key, value in output.items():
     output[key] = round(value * 100, 1)
 
   return jsonify(
@@ -403,6 +403,6 @@ def calculate():
 # used during local development
 # ensure rat-commons is in the current directory
 # start with: python ccrat.py
-# http://localhost:8134/index.html
+# http://localhost:8170/index.html
 if __name__ == '__main__':
-  app.run(host='0.0.0.0', port=8134, debug=True)
+  app.run(host='0.0.0.0', port=8170, debug=True)
