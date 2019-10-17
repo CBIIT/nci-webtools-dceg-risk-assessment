@@ -56,7 +56,7 @@ class ColorectalRiskAssessmentTool:
     try:
       parameters = dict(request.form)
       for field in parameters:
-        parameters[field] = parameters[field][0]
+        parameters[field] = parameters[field]
       errorObject = {'missing':[],'nonnumeric':[],'message':[]}
       requiredParameters = ['age', 'height_ft', 'height_in', 'weight', 'veg_servings', 'exam', 'aspirin', 'non_aspirin', 'vigorous_months', 'family_cancer']
 
