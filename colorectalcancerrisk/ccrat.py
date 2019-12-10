@@ -223,7 +223,7 @@ def calculate():
   # veg_amount (how much does the patient eat in each serving of vegetables, in cups?)
   #
   # Note: 0.5 cups is 1 serving
-  weekly_veg_servings  = 0.5 * form.get('veg_amount', 0) * form.get('veg_servings', 0)
+  weekly_veg_servings  = 2.0 * form.get('veg_amount', 0) * form.get('veg_servings', 0)
   weekly_veg_servings_lt5 = 1 if weekly_veg_servings < 5 else 0
 
 
@@ -286,9 +286,9 @@ def calculate():
     raw_years_smoked = form.get('smoke_quit', max_age) \
                      - form.get('smoke_age')
     # determine category for years_smoked
-    if raw_years_smoked > 20:
+    if raw_years_smoked > 35:
       cigarette_years = 3
-    elif raw_years_smoked > 10:
+    elif raw_years_smoked > 15:
       cigarette_years = 2
     elif raw_years_smoked > 0:
       cigarette_years = 1
