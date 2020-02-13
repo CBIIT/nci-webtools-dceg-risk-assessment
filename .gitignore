@@ -7,3 +7,4 @@ ColorectalCancerRiskAssessment/commands.txt
 test*.html
 localserver.py
 .vscode
+.DS_Store
