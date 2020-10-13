@@ -8,3 +8,6 @@ test*.html
 localserver.py
 .vscode
 .DS_Store
+bcrisktool/rat-commons
+colorectalcancerrisk/rat-commons
+melanomarisktool/rat-commons
