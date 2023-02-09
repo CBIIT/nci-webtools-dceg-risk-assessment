@@ -1,7 +1,7 @@
 import json
 from pprint import pformat
 from traceback import format_exc
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, redirect
 from CcratRunFunction import AbsRisk, AvgRisk
 
 app = Flask(__name__, static_folder='', static_url_path='')
@@ -31,6 +31,16 @@ def error_handler(e):
 def ping():
     """ Healthcheck endpoint """
     return jsonify(True)
+
+
+@app.route('/', strict_slashes=False)
+def root():
+    return app.send_static_file('index.html')
+
+
+@app.route('/index.html', strict_slashes=False)
+def index():
+    return redirect('/')
 
 
 @app.route('/calculate', methods=['POST'], strict_slashes=False)
