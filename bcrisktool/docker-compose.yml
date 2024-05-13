@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  bcrisktool:
+    build:
+      context: .
+      dockerfile: docker/dockerfile
+    ports:
+      - "8080:80"
+    volumes:
+      - ./bcratRest.py:/usr/src/app/bcratRest.py
+    environment:
+      - APP_NAME=bcrisktool
