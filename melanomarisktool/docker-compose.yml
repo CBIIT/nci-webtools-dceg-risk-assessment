@@ -1,13 +1,13 @@
 version: "3"
 
 services:
-  ccrisktool:
+  mrisktool:
     build:
       context: .
       dockerfile: dockerfile
     ports:
-      - "8170:8170"
+      - "8030:8030"
     volumes:
-      - ./ccrat.py:/usr/src/app/ccrat.py
+      - ./mratRest.py:/usr/src/app/mratRest.py
     environment:
-      - APP_NAME=ccrisktool
+      - APP_NAME=mrisktool
