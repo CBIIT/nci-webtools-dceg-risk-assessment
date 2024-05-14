@@ -4,7 +4,7 @@ services:
   bcrisktool:
     build:
       context: .
-      dockerfile: docker/dockerfile
+      dockerfile: dockerfile
     ports:
       - "8080:80"
     volumes:
