@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  bcrisktool:
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "8170:8170"
+    volumes:
+      - ./ccrat.py:/usr/src/app/ccrat.py
+    environment:
+      - APP_NAME=ccrisktool
