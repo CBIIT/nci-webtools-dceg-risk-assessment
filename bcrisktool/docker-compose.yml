@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: dockerfile
     ports:
-      - "8080:80"
+      - "8120:8120"
     volumes:
       - ./bcratRest.py:/usr/src/app/bcratRest.py
     environment:
