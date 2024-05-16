@@ -3,7 +3,7 @@ import os
 import sys
 import json
 import logging
-from flask import Flask, Response, request, jsonify
+from flask import Flask, Response, request, jsonify, redirect
 from MratConstants import MratConstants
 
 app = Flask(__name__, static_folder='', static_url_path='')
@@ -142,6 +142,15 @@ class MelanomaRiskAssessmentTool:
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(("EXCEPTION------------------------------", e, exc_type, fname, exc_tb.tb_lineno))
             return e
+
+    @app.route('/', strict_slashes=False)
+    def root():
+        return app.send_static_file('index.html')
+
+
+    @app.route('/index.html', strict_slashes=False)
+    def index():
+        return redirect('/')
 
     @app.route('/calculate', methods=['POST'] )
     def mratRisk():
