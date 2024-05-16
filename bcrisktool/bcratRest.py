@@ -4,7 +4,7 @@ import sys
 import logging
 import json
 
-from flask import Flask, Response, request, jsonify, send_from_directory
+from flask import Flask, Response, request, jsonify, send_from_directory, redirect
 from BcratRunFunction import RiskCalculation
 
 app = Flask(__name__, static_folder="", static_url_path="")
@@ -144,6 +144,16 @@ class BreastRiskAssessmentTool:
       print(e)
       print(("EXCEPTION------------------------------", exc_type, fname, exc_tb.tb_lineno))
       return BreastRiskAssessmentTool.buildFailure(str(e))
+
+  
+  @app.route('/', strict_slashes=False)
+  def root():
+    return app.send_static_file('index.html')
+
+
+  @app.route('/index.html', strict_slashes=False)
+  def index():
+      return redirect('/')
 
   def __init__(self, port, debug):
     app.run(host='0.0.0.0', port=port, debug=True)
