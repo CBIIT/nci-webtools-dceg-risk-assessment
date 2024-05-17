@@ -4,7 +4,7 @@ services:
   ccrisktool:
     build:
       context: .
-      dockerfile: dockerfile
+      dockerfile: docker/frontend.dockerfile
     ports:
       - "8170:8170"
     volumes:
