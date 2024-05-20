@@ -4,7 +4,7 @@ services:
   bcrisktool:
     build:
       context: .
-      dockerfile: docker/frontend.dockerfile
+      dockerfile: docker/backend.dockerfile
     ports:
       - "8120:8120"
     volumes:
