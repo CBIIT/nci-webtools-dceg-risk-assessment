@@ -34,7 +34,7 @@ RUN groupadd -g 4004 -o ncianalysis \
 
 ## building locally - need to provide aws credentials to use queue 
 
-CMD mod_wsgi-express start-server /app/server/jpsurv.wsgi \
+CMD mod_wsgi-express start-server /app/server/colorectalcancerrisk.wsgi \
     --user ncianalysis \
     --group ncianalysis \
     --compress-responses \
@@ -47,7 +47,7 @@ CMD mod_wsgi-express start-server /app/server/jpsurv.wsgi \
     --document-root /app/server \
     --working-directory /app/server \
     --directory-index index.html \
-    --mount-point /bcrisktool \
+    --mount-point /colorectalcancerrisk \
     --log-directory /app/logs \
     --rotate-logs \
     --error-log-name apache.log \
