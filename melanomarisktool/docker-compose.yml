@@ -4,7 +4,7 @@ services:
   mrisktool:
     build:
       context: .
-      dockerfile: docker/frontend.dockerfile
+      dockerfile: docker/backend.dockerfile
     ports:
       - "8030:8030"
     volumes:
