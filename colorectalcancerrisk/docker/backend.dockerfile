@@ -12,7 +12,8 @@ RUN dnf -y update \
     python3-pip \
     python3-setuptools \
     python3-wheel \
- && dnf clean all
+    glibc-langpack-en \
+    && dnf clean all
 
 RUN mkdir -p /app/server /app/logs /app/wsgi
 

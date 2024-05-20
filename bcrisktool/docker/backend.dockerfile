@@ -46,7 +46,7 @@ CMD mod_wsgi-express start-server /app/server/jpsurv.wsgi \
     --document-root /app/server \
     --working-directory /app/server \
     --directory-index index.html \
-    --mount-point /bcrisktool \
+    --mount-point /colorectalcancerrisk \
     --log-directory /app/logs \
     --rotate-logs \
     --error-log-name apache.log \
