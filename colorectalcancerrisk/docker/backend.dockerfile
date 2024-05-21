@@ -42,7 +42,7 @@ CMD mod_wsgi-express start-server /app/server/colorectalcancerrisk.wsgi \
     --access-log \
     --access-log-format "%h %{X-Forwarded-For}i %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined \
     --access-log-name access.log \
-    --port 80 \
+    --port 8170 \
     --server-root /app/wsgi \
     --document-root /app/server \
     --working-directory /app/server \
