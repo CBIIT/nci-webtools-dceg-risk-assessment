@@ -16,9 +16,7 @@ RUN dnf -y update \
 
 RUN mkdir -p /app/server /app/logs /app/wsgi
 
-WORKDIR /app/server
-
-COPY ../requirements.txt /app/server/requirements.txt
+COPY requirements.txt /app/server/requirements.txt
 RUN pip3 install -r /app/server/requirements.txt
 
 # copy server
@@ -26,7 +24,7 @@ COPY . /app/server/
 COPY . /app/server/bcrisktool
 
 # copy additional wsgi config
-COPY additional-configuration.conf /app/wsgi/additional-configuration.conf
+COPY docker/additional-configuration.conf /app/wsgi/additional-configuration.conf
 
 # create ncianalysis user
 RUN groupadd -g 4004 -o ncianalysis \
