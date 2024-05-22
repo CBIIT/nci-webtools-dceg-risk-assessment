@@ -23,6 +23,7 @@ RUN pip3 install -r /app/server/requirements.txt
 
 # copy server
 COPY . /app/server/
+COPY . /app/server/bcrisktool
 
 # copy additional wsgi config
 COPY docker/additional-configuration.conf /app/wsgi/additional-configuration.conf
