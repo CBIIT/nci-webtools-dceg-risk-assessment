@@ -20,15 +20,22 @@ WORKDIR /app/server
 
 # copy server
 COPY . /app/server/
-COPY . /app/server/bcrisktool
+
+# Ensure the requirements.txt exists before running pip install
+RUN if [ -f /app/server/requirements.txt ]; then \
+        echo "requirements.txt found"; \
+    else \
+        echo "requirements.txt not found"; \
+        exit 1; \
+    fi
 
 # Copy requirements.txt and install Python dependencies
-COPY ./requirements.txt /app/server/requirements.txt
+#COPY ./requirements.txt /app/server/requirements.txt
 RUN pip3 install -r /app/server/requirements.txt
 
 
 # copy additional wsgi config
-COPY ./docker/additional-configuration.conf /app/wsgi/additional-configuration.conf
+COPY docker/additional-configuration.conf /app/wsgi/additional-configuration.conf
 
 # create ncianalysis user
 RUN groupadd -g 4004 -o ncianalysis \
