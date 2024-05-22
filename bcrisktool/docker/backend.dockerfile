@@ -21,6 +21,9 @@ WORKDIR /app/server
 # copy server
 COPY . /app/server/
 
+# List the contents of /app/server to debug
+RUN ls -la /app/server
+
 # Ensure the requirements.txt exists before running pip install
 RUN if [ -f /app/server/requirements.txt ]; then \
         echo "requirements.txt found"; \
