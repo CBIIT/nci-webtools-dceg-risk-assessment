@@ -23,7 +23,7 @@ COPY . /app/server/
 COPY . /app/server/bcrisktool
 
 # Copy requirements.txt and install Python dependencies
-# COPY requirements.txt /app/server/requirements.txt
+COPY ./requirements.txt /app/server/requirements.txt
 RUN pip3 install -r /app/server/requirements.txt
 
 
