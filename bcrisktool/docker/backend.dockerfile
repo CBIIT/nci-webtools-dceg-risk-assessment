@@ -22,7 +22,7 @@ COPY requirements.txt /app/server/requirements.txt
 RUN pip3 install -r /app/server/requirements.txt
 
 # copy server
-COPY . .
+COPY . /app/server/
 
 # copy additional wsgi config
 COPY docker/additional-configuration.conf /app/wsgi/additional-configuration.conf
