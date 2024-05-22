@@ -16,6 +16,8 @@ RUN dnf -y update \
 
 RUN mkdir -p /app/server /app/logs /app/wsgi
 
+WORKDIR /app/server
+
 COPY requirements.txt /app/server/requirements.txt
 RUN pip3 install -r /app/server/requirements.txt
 
