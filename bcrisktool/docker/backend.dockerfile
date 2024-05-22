@@ -38,7 +38,7 @@ RUN pip3 install -r /app/server/requirements.txt
 
 
 # copy additional wsgi config
-COPY docker/additional-configuration.conf /app/wsgi/additional-configuration.conf
+COPY bcrisktool/docker/additional-configuration.conf /app/wsgi/additional-configuration.conf
 
 # create ncianalysis user
 RUN groupadd -g 4004 -o ncianalysis \
