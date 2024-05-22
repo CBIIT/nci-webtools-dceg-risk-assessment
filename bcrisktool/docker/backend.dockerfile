@@ -19,7 +19,7 @@ RUN mkdir -p /app/server /app/logs /app/wsgi
 WORKDIR /app/server
 
 # copy server
-COPY . /app/server/
+COPY bcrisktool /app/server/
 
 # List the contents of /app/server to debug
 RUN ls -la /app/server
