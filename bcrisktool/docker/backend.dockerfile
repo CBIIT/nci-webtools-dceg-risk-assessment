@@ -17,9 +17,11 @@ RUN dnf -y update \
 
 RUN mkdir -p /app/server /app/client
 
-COPY bcrisktool/server /app/server
+COPY bcrisktool/server/requirements.txt /app/server/requirements.txt
 
 RUN pip3 install -r /app/server/requirements.txt
+
+COPY bcrisktool/server /app/server
 
 COPY bcrisktool/client /app/client
 
@@ -30,6 +32,7 @@ RUN chown -R apache:apache /app
 CMD mod_wsgi-express start-server /app/server/bcrisktool.wsgi \
     --user apache \
     --group apache \
+    --port 80 \
     --compress-responses \
     --log-to-terminal \
     --access-log \
