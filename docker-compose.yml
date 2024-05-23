@@ -1,0 +1,8 @@
+services:
+  # docker compose up bcrisktool
+  bcrisktool:
+    build:
+      context: .
+      dockerfile: bcrisktool/docker/backend.dockerfile
+    ports:
+      - "8120:80"
