@@ -3,10 +3,10 @@ import os
 import sys
 import json
 import logging
-from flask import Flask, Response, request, jsonify, redirect
+from flask import Flask, Response, request, jsonify, send_from_directory, redirect
 from MratConstants import MratConstants
 
-app = Flask(__name__, static_folder='', static_url_path='')
+app = Flask(__name__)
 logging.basicConfig(level=logging.DEBUG)
 
 class MelanomaRiskAssessmentTool:
@@ -143,14 +143,6 @@ class MelanomaRiskAssessmentTool:
             print(("EXCEPTION------------------------------", e, exc_type, fname, exc_tb.tb_lineno))
             return e
 
-    @app.route('/', strict_slashes=False)
-    def root():
-        return app.send_static_file('index.html')
-
-
-    @app.route('/index.html', strict_slashes=False)
-    def index():
-        return redirect('/')
 
     @app.route('/calculate', methods=['POST'] )
     def mratRisk():
@@ -178,9 +170,16 @@ class MelanomaRiskAssessmentTool:
 if __name__ == '__main__':
   import argparse
   parser = argparse.ArgumentParser()
-  parser.add_argument("-p", dest="port_number", default="8030", help="Sets the Port")
-  parser.add_argument("--debug", action="store_true")
-
+  parser.add_argument("-p", dest="port_number", default="8030", help="Sets the Port", type=int)
+  parser.add_argument("--debug", dest="debug", action="store_true")
   args = parser.parse_args()
+
+  #port_num = int(args.port_number);
+  #MelanomaRiskAssessmentTool(port_num, args.debug)
+  
+  app.add_url_rule('/', 'root', lambda: redirect('/index.html'))
+  app.add_url_rule('/<path:path>', 'client', lambda path: send_from_directory("../client", path))
+  app.add_url_rule('/rat-commons/<path:path>', 'rat-commons', lambda path: send_from_directory("../../rat-commons", path))
+  #app.run(host='0.0.0.0', port=args.port, debug=args.debug)
   port_num = int(args.port_number);
   MelanomaRiskAssessmentTool(port_num, args.debug)

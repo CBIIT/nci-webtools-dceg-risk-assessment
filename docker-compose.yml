@@ -14,3 +14,11 @@ services:
       dockerfile: colorectalcancerrisk/docker/backend.dockerfile
     ports:
       - "8170:80"
+
+  #docker compose up mrisktool
+  mrisktool:
+    build:
+      context: .
+      dockerfile: melanomarisktool/docker/backend.dockerfile
+    ports:
+      - "8030:80"
