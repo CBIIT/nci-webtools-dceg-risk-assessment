@@ -133,4 +133,5 @@ if __name__ == '__main__':
 
   app.add_url_rule('/', 'root', lambda: redirect('/index.html'))
   app.add_url_rule('/<path:path>', 'client', lambda path: send_from_directory("../client", path))
+  app.add_url_rule('/rat-commons/<path:path>', 'rat-commons', lambda path: send_from_directory("../../rat-commons", path))
   app.run(host='0.0.0.0', port=args.port, debug=args.debug)
