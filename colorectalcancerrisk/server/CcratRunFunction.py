@@ -1,4 +1,4 @@
-from CcratConstants import CcratConstants
+from colorectalcancerrisk.server.CcratConstants import CcratConstants
 import math
 
 def AbsRisk(gender, race, startAge, upperBoundAge, screening, yearsSmoking, cigarettesPerDay, nsaidRegimine, aspirinOnly, familyHistory, averageExercise, servingsPerDay, bmiTrend, hormoneUsage):

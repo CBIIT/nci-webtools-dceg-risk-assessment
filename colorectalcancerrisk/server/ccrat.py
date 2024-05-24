@@ -2,7 +2,7 @@ import json
 from pprint import pformat
 from traceback import format_exc
 from flask import Flask, request, jsonify, redirect
-from CcratRunFunction import AbsRisk, AvgRisk
+from colorectalcancerrisk.server.CcratRunFunction import AbsRisk, AvgRisk
 
 app = Flask(__name__, static_folder='', static_url_path='')
 

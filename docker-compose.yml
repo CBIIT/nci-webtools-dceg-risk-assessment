@@ -6,3 +6,11 @@ services:
       dockerfile: bcrisktool/docker/backend.dockerfile
     ports:
       - "8120:80"
+
+  #docker compose up ccrisktool
+  ccrisktool:
+    build:
+      context: .
+      dockerfile: colorectalcancerrisk/docker/backend.dockerfile
+    ports:
+      - "8170:80"
