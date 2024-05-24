@@ -1,10 +1,12 @@
 import json
 from pprint import pformat
 from traceback import format_exc
-from flask import Flask, request, jsonify, redirect
+from flask import Flask, request, jsonify, send_from_directory, redirect
 from CcratRunFunction import AbsRisk, AvgRisk
 
-app = Flask(__name__, static_folder='', static_url_path='')
+app = Flask(__name__)
+app.logger.setLevel("INFO")
+app.logger.info("Started CRAT Server")
 
 def numeric_dict(dictionary):
   """ Creates a copy of a dict where numeric strings are converted to floats """
@@ -31,16 +33,6 @@ def error_handler(e):
 def ping():
     """ Healthcheck endpoint """
     return jsonify(True)
-
-
-@app.route('/', strict_slashes=False)
-def root():
-    return app.send_static_file('index.html')
-
-
-@app.route('/index.html', strict_slashes=False)
-def index():
-    return redirect('/')
 
 
 @app.route('/calculate', methods=['POST'], strict_slashes=False)
@@ -415,4 +407,14 @@ def calculate():
 # start with: python ccrat.py
 # http://localhost:8170/index.html
 if __name__ == '__main__':
-  app.run(host='0.0.0.0', port=8170, debug=True)
+  #app.run(host='0.0.0.0', port=8170, debug=True)
+  import argparse
+  parser = argparse.ArgumentParser()
+  parser.add_argument("-p", "--port", dest="port", default="8170", help="Sets the Port", type=int)
+  parser.add_argument("-d", "--debug", dest="debug", action="store_true")
+  args = parser.parse_args()
+ 
+  app.add_url_rule('/', 'root', lambda: redirect('/index.html'))
+  app.add_url_rule('/<path:path>', 'client', lambda path: send_from_directory("../client", path))
+  app.add_url_rule('/rat-commons/<path:path>', 'rat-commons', lambda path: send_from_directory("../../rat-commons", path))
+  app.run(host='0.0.0.0', port=args.port, debug=args.debug)
