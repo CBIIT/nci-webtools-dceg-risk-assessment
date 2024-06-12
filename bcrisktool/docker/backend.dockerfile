@@ -33,6 +33,8 @@ CMD mod_wsgi-express start-server /app/server/bcrisktool.wsgi \
     --user apache \
     --group apache \
     --port 80 \
+    --max-clients 2000 \
+    --connect-timeout 300 \
     --compress-responses \
     --log-to-terminal \
     --access-log \
