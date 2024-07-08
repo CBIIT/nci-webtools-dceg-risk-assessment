@@ -143,6 +143,9 @@ class MelanomaRiskAssessmentTool:
             print(("EXCEPTION------------------------------", e, exc_type, fname, exc_tb.tb_lineno))
             return e
 
+    @app.route('/api/ping', methods=['GET'], strict_slashes=False)
+    def ping():
+        return "true"
 
     @app.route('/calculate', methods=['POST'] )
     def mratRisk():

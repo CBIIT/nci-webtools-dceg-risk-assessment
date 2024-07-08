@@ -28,11 +28,9 @@ def error_handler(e):
       success=False
     ), 500
 
-
-@app.route('/ping', strict_slashes=False)
+@app.route('/api/ping', methods=['GET'], strict_slashes=False)
 def ping():
-    """ Healthcheck endpoint """
-    return jsonify(True)
+  return "true"
 
 
 @app.route('/calculate', methods=['POST'], strict_slashes=False)
