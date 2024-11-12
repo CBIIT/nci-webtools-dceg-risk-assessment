@@ -31,9 +31,11 @@
     <script src="rat-commons/lib/jquery-validation@1.19.5/additional-methods.min.js"></script>
     <script src="rat-commons/lib/bootstrap@3.4.1/bootstrap.min.js"></script>
     <script src="rat-commons/js/rat.js"></script>
+    <script src="rat-commons/js/lastUpdate.js"></script>
     <script src="specificRat.js"></script>
     <script src="https://cbiit.github.io/nci-softwaresolutions-elements/components/include-html.js"></script>
     <script src="https://assets.adobedtm.com/6a4249cd0a2c/785de09de161/launch-70d67a6a40a8.min.js" async></script> 
+
   </head>
   <body>
     <header role="banner">
@@ -132,6 +134,12 @@
                       <a id="contactLink" target="_blank" href="mailto:NCIWebAdmin@mail.nih.gov">
                         Contact Us
                       </a>
+                    </li>
+                    <li class="usa-footer__secondary-link">
+                      Last Updated: <span id="lastUpdatedDate"></span>
+                    </li>
+                    <li class="usa-footer__secondary-link">
+                      Version: <span id="releaseVersionNumber"></span>
                     </li>
                   </ul>
                 </div>

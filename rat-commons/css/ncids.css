@@ -1583,11 +1583,12 @@ font-weight:600;
       .footer .resource-list li {
         list-style: none;      /* Remove bullets from list items */
         padding-left: 0;       /* Ensure no padding on list items */
+        text-align: left;  
       }
       
       .footer .about-list li a,
       .footer .resource-list li a {
-        text-align: left;      /* Ensure link text is left-aligned */
+            /* Ensure link text is left-aligned */
         display: block;        /* Make the link a block element */
         color: inherit;        /* Inherit color from parent (use footer's color) */
         text-decoration: none; /* Remove underline */

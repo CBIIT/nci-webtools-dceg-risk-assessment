@@ -1,7 +1,8 @@
 import json
 from traceback import format_exc
-from flask import Flask, request, send_from_directory, redirect
+from flask import Flask, request, send_from_directory, redirect, jsonify
 from BcratRunFunction import RiskCalculation
+import os
 
 app = Flask(__name__)
 app.logger.setLevel("INFO")
@@ -10,6 +11,13 @@ app.logger.info("Started BCRAT Server")
 @app.route('/api/ping', methods=['GET'], strict_slashes=False)
 def ping():
   return "true"
+
+@app.route('/api/version-info', methods=['GET'])
+def version_info():
+    return jsonify({
+        "lastUpdated": os.getenv("LAST_UPDATED", "N/A"),
+        "version": os.getenv("RELEASE_VERSION", "N/A")
+    })
 
 @app.route('/calculate', methods=['POST'], strict_slashes=False)
 def bcratRisk():
