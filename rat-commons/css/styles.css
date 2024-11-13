@@ -1354,12 +1354,12 @@ input:disabled[type="radio"] + div.radio span
     max-width: 60%;
     margin: 0.3em 0;
   }
-  .footer ul li:nth-child(even) {
+  /* .footer ul li:nth-child(even) {
     display: none;
     margin: 0;
     padding: 0;
     max-width: 0;
-  }
+  } */
   #side_nav.sidenav {
     width: 0;
     position: fixed;

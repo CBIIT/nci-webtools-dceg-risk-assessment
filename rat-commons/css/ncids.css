@@ -1600,22 +1600,12 @@ font-weight:600;
       .footer .resource-list li a:hover {
         text-decoration: underline; /* Optional: Add underline only on hover */
       }
-      
-      @media (max-width: 479px) {
-        .footer .grid-footer-container,
-        .footer .grid-row,
-        .footer .usa-footer__primary-content {
-          padding: 0 !important; /* Remove padding */
-          margin: 0 !important;  /* Remove margin if there's any */
-        }
-      
-        .footer .mobile-lg\:grid-col-6,
-        .footer .desktop\:grid-col-4 {
-          padding: 0.5rem !important; /* Add smaller padding for mobile */
-        }
-      }
-      
 
+      .last-update{
+        padding-top:4rem !important;
+      }
+         
+ 
       .usa-footer__return-to-top {
         position: fixed;
         bottom: 0;
@@ -1670,7 +1660,11 @@ font-weight:600;
         font-size: 1rem;
         line-height: 1;
     }
-    
+    @media (max-width: 991px) {
+        .last-update{
+            padding-top:1.5rem !important;
+          }
+    }
     /* Media query for mobile screens */
     @media (max-width: 768px) {
         .back-to-top-text {
