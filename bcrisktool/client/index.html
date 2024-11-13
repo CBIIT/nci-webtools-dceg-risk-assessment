@@ -26,12 +26,14 @@
     <link href="rat-commons/css/styles.css" rel="stylesheet" type="text/css">
     <link href="rat-commons/css/ncids.css" rel="stylesheet" type="text/css">
     <link href="rat-commons/css/form-steps.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="rat-commons/lib/jquery@3.7.0/jquery.min.js"></script>
     <script src="rat-commons/lib/jquery-validation@1.19.5/jquery.validate.min.js"></script>
     <script src="rat-commons/lib/jquery-validation@1.19.5/additional-methods.min.js"></script>
     <script src="rat-commons/lib/bootstrap@3.4.1/bootstrap.min.js"></script>
     <script src="rat-commons/js/rat.js"></script>
     <script src="rat-commons/js/lastUpdate.js"></script>
+    <script src="rat-commons/js/backToTop.js"></script>
     <script src="specificRat.js"></script>
     <script src="https://cbiit.github.io/nci-softwaresolutions-elements/components/include-html.js"></script>
     <script src="https://assets.adobedtm.com/6a4249cd0a2c/785de09de161/launch-70d67a6a40a8.min.js" async></script> 
@@ -46,7 +48,8 @@
         <button class="navbar-toggle collapsed" type="button" aria-controls="main-nav"
                 aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()">
           <span class="sr-only" tabindex="-1">Toggle navigation</span>
-          <div class="glyphicon glyphicon-menu-hamburger addOutlineSpaceBetween" tabindex="0"></div>
+          <!-- <div class="glyphicon glyphicon-menu-hamburger addOutlineSpaceBetween" tabindex="0"></div> -->
+          <i class="fa fa-bars addOutlineSpaceBetween" tabindex="0"></i>
         </button>
       </div>
       <nav class="navbar-collapse collapse" id="main-nav" aria-expanded="false">
@@ -60,7 +63,8 @@
           <span>Menu</span>
           <button class="navbar-toggle collapsed navbar-toggle_innermenu" type="button" aria-controls="main-nav" aria-expanded="false" data-toggle="collapse" onclick="toggle_menu()">
             <span class="sr-only">Toggle navigation</span>
-            <div class="glyphicon glyphicon-menu-hamburger addOutlineSpaceBetween" tabindex="0"></div>
+            <!-- <div class="glyphicon glyphicon-menu-hamburger addOutlineSpaceBetween" tabindex="0"></div> -->
+            <i class="fa fa-bars addOutlineSpaceBetween" tabindex="0"></i>
           </button>
         </div>
 
@@ -178,7 +182,14 @@
       </div>
       <div id="footer" role="contentinfo"></div>
     </div>
-    
+    <div class="usa-footer__return-to-top">
+      <a href="#" aria-label="Back To Top" id="backToTop">
+        <span class="back-to-top-text">Back To Top</span>
+        <span class="back-to-top-icon" aria-hidden="true">
+          <i class="fa fa-arrow-up"></i>
+        </span>
+      </a>
+    </div>  
     
     
     <script language="JavaScript" type="text/javaScript" src="//static.cancer.gov/webanalytics/WA_RAT_PageLoad.js"></script>
