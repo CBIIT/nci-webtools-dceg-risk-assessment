@@ -1647,12 +1647,19 @@ font-weight:600;
         padding: 5px;
         padding-left: 30px;
         padding-top: 25px;
-        outline: none; /* Remove default outline */
+        outline: none; 
     }
     
     .usa-footer__return-to-top a:visited {
         color: #ffffff;
     }
+
+    .usa-footer__return-to-top a:hover {
+        color: #ffffff;
+        text-decoration: underline;
+        
+    }
+    
     
     .back-to-top-text {
         display: inline; /* Show text by default */
