@@ -3,7 +3,7 @@ import os
 import sys
 import json
 import logging
-from flask import Flask, Response, request, jsonify, send_from_directory, redirect
+from flask import Flask, Response, request, jsonify, send_from_directory, redirect, jsonify
 from MratConstants import MratConstants
 
 app = Flask(__name__)
@@ -146,6 +146,13 @@ class MelanomaRiskAssessmentTool:
     @app.route('/api/ping', methods=['GET'], strict_slashes=False)
     def ping():
         return "true"
+    
+    @app.route('/api/version-info', methods=['GET'])
+    def version_info():
+        return jsonify({
+            "lastUpdated": os.getenv("LAST_UPDATED", "N/A"),
+            "version": os.getenv("RELEASE_VERSION", "N/A")
+        })
 
     @app.route('/calculate', methods=['POST'] )
     def mratRisk():
