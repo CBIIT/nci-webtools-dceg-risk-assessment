@@ -56,13 +56,13 @@
         <div class="glyphicon glyphicon-menu-hamburger addOutlineSpaceBetween" tabindex="0"></div>
       </button>
     </div>
-    <nav class="navbar-collapse collapse" id="main-nav" aria-expanded="false">
-      <ul class="nav nav-tabs">
-        <li class="active" role="presentation">
-          <a href="calculator.html">Risk Calculator</a>
+    <nav class="navbar-collapse collapse" id="main-nav" aria-expanded="false" role="navigation" aria-label="Main navigation">
+      <ul class="nav nav-tabs" role="menubar">
+        <li class="active" role="none">
+          <a href="calculator.html" role="menuitem">Risk Calculator</a>
         </li>
-        <li role="presentation">
-          <a href="about.html">About the Calculator</a>
+        <li role="none">
+          <a href="about.html" role="menuitem">About the Calculator</a>
         </li>
       </ul>
     </nav>
@@ -76,14 +76,16 @@
           <div class="glyphicon glyphicon-menu-hamburger addOutlineSpaceBetween removeOutline" tabindex="0"></div>
         </button>
       </div>
-      <ul class="nav nav-tabs">
-        <li class="active calc_list_item" role="presentation" id="Risk">
-          <a href="calculator.html">Risk Calculator</a>
-        </li>
-        <li class="about_list_item" role="presentation" id="About">
-          <a href="about.html">About the Calculator</a>
-        </li>
-      </ul>
+      <nav role="navigation" aria-label="Mobile navigation">
+        <ul class="nav nav-tabs" role="menubar">
+          <li class="active calc_list_item" id="Risk" role="none">
+            <a href="calculator.html" role="menuitem">Risk Calculator</a>
+          </li>
+          <li class="about_list_item" id="About" role="none">
+            <a href="about.html" role="menuitem">About the Calculator</a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </header>
 
@@ -273,26 +275,26 @@
           <a class="hidden-xs" href="#demo-section">Demographics</a>
           <a class="step-node" href="#demo-section">1</a>
           <span class="hidden-xs" aria-hidden="true" >&nbsp;</span>
+          <span class="spacer" aria-hidden="true"></span>
         </li>
-        <span class="spacer"></span>
         <li>
           <span class="hidden-xs"  aria-hidden="true">&nbsp;</span>
           <a class="step-node" href="#activity-section">2</a>
           <a class="hidden-xs" href="#activity-section">Diet &amp; Physical Activity</a>
+          <span class="spacer" aria-hidden="true"></span>
         </li>
-        <span class="spacer"></span>
         <li>
           <a class="hidden-xs" href="#medical-section">Medical History</a>
           <a class="step-node" href="#medical-section">3</a>
           <span class="hidden-xs" aria-hidden="true">&nbsp;</span>
+          <span class="spacer" aria-hidden="true"></span>
         </li>
-        <span class="spacer"></span>
         <li>
           <span class="hidden-xs" aria-hidden="true">&nbsp;</span>
           <a class="step-node" href="#family-section">4</a>
           <a class="hidden-xs" href="#family-section">Family History</a>
+          <span class="spacer" aria-hidden="true"></span>
         </li>
-        <span class="spacer"></span>
         <li id="different" class="maleOnlyStep">
           <a class="hidden-xs" href="#cigarette-section">Cigarette Usage</a>
           <a class="step-node" href="#cigarette-section">5</a>

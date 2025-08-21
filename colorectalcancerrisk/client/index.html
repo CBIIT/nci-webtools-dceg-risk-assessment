@@ -52,10 +52,10 @@
         <div class="glyphicon glyphicon-menu-hamburger addOutlineSpaceBetween" tabindex="0"></div>
       </button>
     </div>
-    <nav class="navbar-collapse collapse" id="main-nav" aria-expanded="false">
-      <ul class="nav nav-tabs">
-        <li role="presentation"><a href="calculator.html">Risk Calculator</a></li>
-        <li role="presentation"><a href="about.html">About the Calculator</a></li>
+    <nav class="navbar-collapse collapse" id="main-nav" aria-expanded="false" role="navigation" aria-label="Main navigation">
+      <ul class="nav nav-tabs" role="menubar">
+        <li role="none"><a href="calculator.html" role="menuitem">Risk Calculator</a></li>
+        <li role="none"><a href="about.html" role="menuitem">About the Calculator</a></li>
       </ul>
     </nav>
     <div class="sidenav" id="side_nav">
@@ -66,11 +66,12 @@
           <div class="glyphicon glyphicon-menu-hamburger addOutlineSpaceBetween removeOutline" tabindex="0"></div>
         </button>
       </div>
-
-      <ul class="nav nav-tabs">
-        <li class="calc_list_item" role="presentation" id="Risk"><a href="calculator.html">Risk Calculator</a></li>
-        <li class="about_list_item" role="presentation" id="About"><a href="about.html">About the Calculator</a></li>
-      </ul>
+      <nav role="navigation" aria-label="Mobile navigation">
+        <ul class="nav nav-tabs" role="menubar">
+          <li class="calc_list_item" role="none" id="Risk"><a href="calculator.html" role="menuitem">Risk Calculator</a></li>
+          <li class="about_list_item" role="none" id="About"><a href="about.html" role="menuitem">About the Calculator</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
   <div id="main_home" role="main">
