@@ -119,13 +119,17 @@ function attachSubraceItems() {
   var properPhraseForQuestion = "Select"
 
   if ( this.value == "Hispanic") {
+    // Update the label text for Hispanic selection
+    $("[for='sub_race']").text("Where was the patient born?");
     attachOptionsToAnHTMLObject(
       {
         ""                 : properPhraseForQuestion,
-        "Foreign Hispanic" : "Born outside the US",
-        "US Hispanic"      : "US born"
+        "Foreign Hispanic" : "Outside the US",
+        "US Hispanic"      : "In the US"
       })
   } else if ( this.value == 'Asian') {
+    // Update the label text for Asian American selection
+    $("[for='sub_race']").text("Select ancestry/ethnic background");
     attachOptionsToAnHTMLObject(
       {
         ""            : properPhraseForQuestion,
@@ -137,6 +141,8 @@ function attachSubraceItems() {
         "Asian"       : "Other Asian"
       })
   } else {
+    // Reset to default label text for other races
+    $("[for='sub_race']").text("What is the sub race/ethnicity or place of birth?");
     attachOptionsToAnHTMLObject(
       {
         ""            : properPhraseForQuestion
