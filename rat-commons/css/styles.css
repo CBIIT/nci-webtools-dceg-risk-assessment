@@ -635,10 +635,22 @@ a.btn:disabled {
   padding-left : 1em;
   max-height: 295px;
 }
-div[id^='results_box']{
+
+#results_box {
   font-size: 18px;
   border: 7px #6150a3 solid;
   background: #7163ad;
+  padding: 1em;
+  color: #fff;
+  margin-bottom: 2%;
+  margin-top: 2%;
+  text-align: left;
+}
+
+#results_box2 {
+  font-size: 18px;
+  border: 7px #6150a3 solid;
+  background: #39107b; 
   padding: 1em;
   color: #fff;
   margin-bottom: 2%;
@@ -680,6 +692,51 @@ div[id^='results_graph'] {
 .no-padding-left {
   padding-left: 0px !important;
 }
+
+/* Side-by-side risk chart layout */
+.risk-charts-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.risk-chart-section {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.risk-chart-section #results_box,
+.risk-chart-section #results_box2 {
+  margin-bottom: 30px;
+}
+
+.risk-chart-section .vertical_alignment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.risk-chart-section .results_graph {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 20px;
+}
+
+.risk-chart-section .results_text {
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+  .risk-chart-section {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+}
+
 .no-margin {
   margin: 0;
 }
