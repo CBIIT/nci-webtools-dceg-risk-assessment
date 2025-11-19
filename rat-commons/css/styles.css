@@ -486,6 +486,7 @@ a.btn:disabled {
   float: right;
   margin-top: 18px;
   cursor: pointer;
+  margin-bottom: 12px; 
 }
 
 
