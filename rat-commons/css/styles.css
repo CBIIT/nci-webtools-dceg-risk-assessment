@@ -689,6 +689,18 @@ div[id^='results_graph'] {
   padding-top: 5px;
 }
 
+.learn-more-header {
+  text-align: left;
+  margin-bottom: 2%;
+  font-family: Montserrat;
+  font-weight: bold;
+  color: #584B92;
+}
+
+.learn-more-box .resource-list a {
+  color: #584B92;
+}
+
 .no-padding-left {
   padding-left: 0px !important;
 }
@@ -1875,6 +1887,22 @@ section > fieldset > legend.questions {
 /* For bolding a word or collection of words */
 .bold {
     font-weight: bold;
+}
+
+/* Learn More box alignment and style */
+.learn-more-section {
+  text-align: left;
+}
+.learn-more-box {
+  padding: 0 10px;
+}
+.learn-more-box .resource-list {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+.learn-more-box .resource-list li {
+  margin-bottom: 10px;
 }
 
 
