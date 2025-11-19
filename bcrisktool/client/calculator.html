@@ -229,7 +229,7 @@
     </div>
     <ol>
       <li class="active">
-        <a class="hidden-xs" href="#patient-eligibility-section">Patient Eligibility</a>
+        <a class="hidden-xs" href="#patient-eligibility-section">Patient Eligibility Reminder</a>
         <a class="step-node" href="#patient-eligibility-section">1</a>
         <span class="hidden-xs" aria-hidden="true">&nbsp;</span>
       </li>
@@ -252,11 +252,10 @@
   <div class="container-fluid" id="main">
     <div id="errors"></div>
     <form id="riskForm" name="riskForm" method="POST" action="calculate" autocomplete="off">
-      <h2 id="PatientEligibilitySectionTitle" class="sectionTitle">Patient Eligibility</h2>
+      <h2 id="PatientEligibilitySectionTitle" class="sectionTitle">Patient Eligibility Reminder</h2>
       <section id="patient-eligibility-section">
         <div id="questionAndAnswers1" role="radiogroup" aria-labelledby="cancerAndRadiationHistoryLabel">
-          <label id="cancerAndRadiationHistoryLabel" class="questions no-margin-top">Does the woman have a medical history of any breast cancer or of ductal carcinoma in situ (DCIS) or lobular carcinoma
-            in situ (LCIS) or has she received previous radiation therapy to the chest for treatment of Hodgkin lymphoma?</label>
+          <label id="cancerAndRadiationHistoryLabel" class="questions no-margin-top">Does the patient have a medical history of breast cancer or of ductal carcinoma in situ (DCIS) or lobular carcinoma in situ (LCIS) or has she received previous radiation therapy to the chest for treatment of Hodgkin lymphoma?</label>
           <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
             <input id="cancerAndRadiationHistoryYes" type="radio" name="cancerAndRadiationHistory" value="0" required aria-label="cancerAndRadiationHistory" >
             <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="1">
@@ -270,8 +269,7 @@
         </div>
         <div id="questionAndAnswers2" class="spaceBetweenQuestions" role="radiogroup" aria-labelledby="geneticMakeupLabel">
           <label id="geneticMakeupLabel" class="questions">
-            Does the woman have a mutation in either the <span class="textItalicized removeOutline">BRCA1</span> or <span class="textItalicized removeOutline">BRCA2</span> gene, or a diagnosis of a genetic syndrome that may be associated
-            with elevated risk of breast cancer?
+            Does the patient have a mutation in either the <span class="textItalicized removeOutline">BRCA1</span> or <span class="textItalicized removeOutline">BRCA2</span> gene, or a diagnosis of a genetic syndrome that may be associated with elevated risk of breast cancer?
           </label>
           <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
             <input id="geneticMakeupYes" type="radio" name="geneticMakeup" value="0" required aria-label="geneticMakeup">
@@ -355,14 +353,14 @@
         </div>
 
         <div class="spaceBetweenQuestions spaceBetweenQuestionAnswerAndBorder raceDivWidth">
-          <label class="questions " for="race">What is the patient&#8217;s race/ethnicity?</label>
+          <label class="questions " for="race">Select the race and ethnicity that the patient identifies with</label>
           <div class="responseOptions spaceBetweenFirstQuestionAndResponse ">
             <select id="race" class="selectContent" name="race" required>
               <option class="selectContent" value="">Select race</option>
               <option class="selectContent" value="White">White</option>
-              <option class="selectContent" value="Black">African American</option>
-              <option class="selectContent" value="Hispanic">Hispana/&#8203;Latina</option>
-              <option class="selectContent" value="Asian">Asian American</option>
+              <option class="selectContent" value="Black">Black/African American</option>
+              <option class="selectContent" value="Hispanic">Hispanic</option>
+              <option class="selectContent" value="Asian">Asian American (includes Native Hawaiian)</option>
               <option class="selectContent" value="Other">American Indian or Alaskan Native</option>
               <option class="selectContent" value="Other">Unknown</option>
             </select>
