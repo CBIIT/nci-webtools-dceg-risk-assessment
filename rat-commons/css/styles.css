@@ -1905,5 +1905,17 @@ section > fieldset > legend.questions {
   margin-bottom: 10px;
 }
 
+.notes-caveats-section {
+  border: 2px solid #584B92;
+  border-radius: 0px;
+  padding: 18px 20px;
+  margin-bottom: 24px;
+  background: #f8f7fc;
+}
+.notes-caveats-list {
+  list-style: disc;
+  margin-left: 20px;
+}
+
 
 
