@@ -468,12 +468,18 @@ a.btn:disabled {
 }
 
 .printButton {
-  height: 31px;
-  width: 42px;
+  height: 40px;
+  width: 58px;
   cursor: pointer;
 
   background-color: white;
   border : none;
+}
+
+.printButton img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 #printTop {
