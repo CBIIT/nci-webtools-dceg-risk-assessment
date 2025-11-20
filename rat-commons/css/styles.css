@@ -1924,5 +1924,8 @@ section > fieldset > legend.questions {
   max-width: 100%;
 }
 
-
-
+.h4-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
