@@ -1,3 +1,20 @@
+// Show/hide sub race/ethnicity question based on race selection
+document.addEventListener('DOMContentLoaded', function() {
+  var raceSelect = document.getElementById('race');
+  var subRaceContainer = document.getElementById('subRaceContainer');
+  if (raceSelect && subRaceContainer) {
+    function updateSubRaceVisibility() {
+      var value = raceSelect.value;
+      if (value === 'Hispanic' || value === 'Asian') {
+        subRaceContainer.classList.remove('hidden');
+      } else {
+        subRaceContainer.classList.add('hidden');
+      }
+    }
+    raceSelect.addEventListener('change', updateSubRaceVisibility);
+    updateSubRaceVisibility();
+  }
+});
 // A collection of term/definitions
 var terms = {
   "invasive breast cancer" : {
