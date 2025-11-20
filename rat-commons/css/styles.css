@@ -1918,5 +1918,11 @@ section > fieldset > legend.questions {
   margin-left: 20px;
 }
 
+#race.selectContent {
+  min-width: 370px;
+  width: auto;
+  max-width: 100%;
+}
+
 
 
