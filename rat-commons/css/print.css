@@ -284,6 +284,7 @@
     .result_page_anchor,
     #buttonsArea,
     #footer,
+    .footer,
     .center-block
     {
         display:none !important;
