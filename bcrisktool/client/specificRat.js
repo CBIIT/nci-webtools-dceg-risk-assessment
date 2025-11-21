@@ -387,3 +387,24 @@ function addInformationToResultPageIntroductionText() {
 
   $("#results_home ul.content.resultsPageContent").append(returnHTML)
 }
+
+/******************************************************************************/
+/* Filter questions displayed in the results table                            */
+/* This function is called by the generic rat.js code when building results  */
+/* Input: HTML label element from the form                                    */
+/* Output: Boolean (true means show in results, false means hide)            */
+/******************************************************************************/
+function filterForInputParametersDisplay(element) {
+  // Check if this is the sub race/ethnicity question
+  var isSubRaceQuestion = $(element).attr('for') === 'sub_race' || 
+                          $(element).attr('data-subquestion') === 'true';
+  
+  if (isSubRaceQuestion) {
+    // Only show sub race if Hispanic or Asian is selected
+    var selectedRace = $("#race").val();
+    return (selectedRace === 'Hispanic' || selectedRace === 'Asian');
+  }
+  
+  // Show all other questions
+  return true;
+}
