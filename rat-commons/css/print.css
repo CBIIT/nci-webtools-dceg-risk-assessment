@@ -123,7 +123,6 @@
   }
 
 
-   div[id^='pieChart'],
    .results_text {
 	   display: none;
    }
@@ -223,8 +222,6 @@
         content: "%";
     }
 
-    div[id^='pieChart'],
-    div[id^='Pie_chart'],
     .results_text,
      #results_text {
         display: none;
