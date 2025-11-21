@@ -140,9 +140,9 @@ function attachSubraceItems() {
     $("[for='sub_race']").text("Where was the patient born?");
     attachOptionsToAnHTMLObject(
       {
-        ""                 : properPhraseForQuestion,
-        "Foreign Hispanic" : "Outside the US",
-        "US Hispanic"      : "In the US"
+        ""                 : properPhraseForQuestion,        
+        "US Hispanic"      : "In the US",
+        "Foreign Hispanic" : "Outside the US"
       })
   } else if ( this.value == 'Asian') {
     // Update the label text for Asian American selection
