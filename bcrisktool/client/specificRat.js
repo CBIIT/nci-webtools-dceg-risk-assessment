@@ -348,15 +348,15 @@ function addInformationToTheQuestions(element) {
     var returnString = ""
     if ( currentRaceSelected.startsWith("His")) {
       returnHTML =
-        startTag + "Assessments for Hispanas/Latinas are subject to greater uncertainty than those for white and African American/black women." + endTag +
+        startTag + "Assessments for Hispanics are subject to greater uncertainty than those for White and Black/African American women." + endTag +
         startTag + "Researchers are conducting additional studies, including studies with minority populations, to gather more data and to increase the accuracy of the tool for women in these populations. " + endTag
     }
     else if ( currentRaceSelected == 'American Indian or Alaskan Native') {
       returnHTML =
-        startTag + "Risk estimates for American Indian/Alaska Native women are based on data for white women; further studies are needed to refine and validate this tool." + endTag
+        startTag + "Risk estimates for American Indian/Alaska Native women are based on data for White women; further studies are needed to refine and validate this tool." + endTag
     }
     else if ( currentRaceSelected == 'Unknown') {
-      returnHTML = startTag + "Risk estimates for Unknown race/ethnicity are based on data for white women." + endTag
+      returnHTML = startTag + "Risk estimates for Unknown race/ethnicity are based on data for White women." + endTag
     } else {
       returnHTML = ""
     }
