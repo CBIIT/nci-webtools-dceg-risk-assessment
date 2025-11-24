@@ -2,7 +2,7 @@
 @media print {
 
   @page {
-    margin: 2cm;
+    margin: 1.5cm;
   }
 
   #container-fluid {
@@ -32,8 +32,8 @@
   #logo {
     margin: 0px;
     padding: 0px;
-    height: 82px;
-    width:600px;
+    height: 60px;
+    width: 500px;
     display: inline-block;
     text-align: center;
   }
@@ -64,10 +64,12 @@
 
   #results {
 	padding: 0;
+	page-break-before: avoid !important;
   }
 
   #results_home {
 	margin-bottom: 0;
+	page-break-before: avoid !important;
   }
 
   #results_home > div {
@@ -86,15 +88,15 @@
 
   #displayInput {
     page-break-inside: avoid !important;
-    page-break-before: avoid;
+    page-break-before: avoid !important;
   }
 
   #displayInput.printAppleOnly {
-    page-break-before: always !Important;
+    page-break-before: avoid !Important;
   }
 
   #displayInput.printIEOnly {
-    page-break-before: always !Important;
+    page-break-before: avoid !Important;
   }
 
   #InputParameters {
@@ -142,15 +144,36 @@
 	   margin-right:auto;
    }
 
-   div[id^='results_box'] {
-	   margin-bottom: 0 !important;
-	   margin-top:0.1cm !important;
-	   margin-left:auto;
-	   margin-right:auto;
-	   padding: 0;
-	   border: 0.005cm #6150a3 solid;
-	   width: 65%;
-	   page-break-inside: avoid;
+   /* Reduce pie chart size for print to prevent overlap */
+   .svg-container {
+       max-width: 150px !important;
+       max-height: 150px !important;
+       width: 100% !important;
+       padding-top: 100% !important;
+       margin: 0.2cm auto !important;
+   }
+
+   .svg-container > svg {
+       width: 100% !important;
+       height: 100% !important;
+   }
+
+   /* Make risk charts display side by side */
+   .risk-charts-container {
+       display: flex !important;
+       flex-direction: row !important;
+       justify-content: space-between !important;
+       align-items: flex-start !important;
+       page-break-inside: avoid !important;
+       page-break-before: avoid !important;
+   }
+
+   .risk-chart-section {
+       width: 49% !important;
+       flex: 0 0 49% !important;
+       padding: 0 !important;
+       margin: 0 !important;
+       page-break-inside: avoid !important;
    }
 
    div[id^='results_box'] > div {
@@ -236,20 +259,20 @@
     }
 
     div[id^='results_graph'] {
-        margin-bottom: 0;
+      margin-bottom: 0;
     	margin-top:0;
     	margin-left:auto;
     	margin-right:auto;
     }
 
     div[id^='results_box'] {
-    	margin-bottom: 0 !important;
+    	margin-bottom: 1cm !important;
     	margin-top:0.1cm !important;
     	margin-left:auto;
     	margin-right:auto;
     	padding: 0;
     	border: 0.005cm #6150a3 solid;
-    	width: 65%;
+    	width: 72%;
     	page-break-inside: avoid;
     }
 
