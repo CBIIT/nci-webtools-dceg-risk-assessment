@@ -637,7 +637,8 @@ a.btn:disabled {
   max-height: 295px;
 }
 
-#results_box {
+/* Generic styling for all results boxes */
+div[id^='results_box'] {
   font-size: 18px;
   border: 7px #6150a3 solid;
   background: #7163ad;
@@ -648,15 +649,14 @@ a.btn:disabled {
   text-align: left;
 }
 
+/* Specific styling for breast cancer risk tool 5-year box */
+#results_box {
+  background: #7163ad;
+}
+
+/* Specific styling for breast cancer risk tool lifetime box */
 #results_box2 {
-  font-size: 18px;
-  border: 7px #6150a3 solid;
   background: #39107b; 
-  padding: 1em;
-  color: #fff;
-  margin-bottom: 2%;
-  margin-top: 2%;
-  text-align: left;
 }
 
 div[id^='results_graph'] {
