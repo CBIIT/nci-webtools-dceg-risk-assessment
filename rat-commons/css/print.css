@@ -142,16 +142,7 @@
 	   margin-top:0;
 	   margin-left:auto;
 	   margin-right:auto;
-   }
-
-   /* Reduce pie chart size for print to prevent overlap */
-   .svg-container {
-       max-width: 180px !important;
-       max-height: 180px !important;
-       width: 100% !important;
-       padding-top: 100% !important;
-       margin: 0.2cm auto !important;
-   }
+   } 
 
    .svg-container > svg {
        width: 100% !important;
@@ -278,15 +269,19 @@
 
     /* Background color for 5-year risk box */
     #results_box {
-	    background: #7163ad !important;
+	    background-color: #7163ad !important;
 	    color: #fff !important;
+	    -webkit-print-color-adjust: exact !important;
+	    print-color-adjust: exact !important;
     }
 
     /* Darker background and border color for lifetime risk box */
     #results_box2 {
-	    background: #2a0a5e !important;
+	    background-color: #2a0a5e !important;
 	    border-color: #4a3d7a !important;
 	    color: #fff !important;
+	    -webkit-print-color-adjust: exact !important;
+	    print-color-adjust: exact !important;
     }
 
     div[id^='results_box'] > div {
@@ -297,6 +292,7 @@
     	margin-bottom: 0;
     	line-height: 16px;
     	font-size: 14px;
+    	color: #fff !important;
     }
 
     .patient_header, .risk_header {
@@ -304,14 +300,15 @@
         text-align: center;
         line-height: 14px;
         margin-bottom: 0.1cm;
+        color: #fff !important;
     }
 
    /* Reduce pie chart size for print */
    .svg-container {
-       max-width: 140px !important;
-       max-height: 140px !important;
+       max-width: 170px !important;
+       max-height: 170px !important;
        width: 100% !important;
-       padding-top: 100% !important;
+       padding-top: 80% !important;
        margin: 0.1cm auto !important;
    }
 
