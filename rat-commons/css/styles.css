@@ -189,6 +189,10 @@ a:hover,
 a:focus {
   color: #2b7bba;
 }
+
+a.underlined-link {
+  text-decoration: underline;
+}
 .sectionTitle {
   color: #fff;
   padding: 13px;
