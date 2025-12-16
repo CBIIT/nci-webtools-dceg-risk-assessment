@@ -146,7 +146,7 @@ function attachSubraceItems() {
       })
   } else if ( this.value == 'Asian') {
     // Update the label text for Asian American selection
-    $("[for='sub_race']").text("Select ancestry/ethnic background");
+    $("[for='sub_race']").text("What is the ancestry/ethnic background");
     attachOptionsToAnHTMLObject(
       {
         ""            : properPhraseForQuestion,
