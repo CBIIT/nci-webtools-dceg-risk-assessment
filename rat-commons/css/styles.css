@@ -656,12 +656,12 @@ div[id^='results_box'] {
 
 /* Specific styling for breast cancer risk tool 5-year box */
 #results_box {
-  background: #7163ad;
+  background: #39107b;
 }
 
 /* Specific styling for breast cancer risk tool lifetime box */
 #results_box2 {
-  background: #39107b; 
+  background: #5f5391; 
 }
 
 div[id^='results_graph'] {
