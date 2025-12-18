@@ -32,12 +32,16 @@
   <link href="rat-commons/css/form-steps.css" rel="stylesheet" type="text/css">
   <link href="rat-commons/css/print.css" rel="stylesheet" type="text/css">
   <link href="specificCSS.css" rel="stylesheet" type="text/css">
+  <link href="rat-commons/css/ncids.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="rat-commons/lib/jquery@3.7.0/jquery.min.js"></script>
   <script src="rat-commons/lib/jquery-validation@1.19.5/jquery.validate.min.js"></script>
   <script src="rat-commons/lib/jquery-validation@1.19.5/additional-methods.min.js"></script>
   <script src="rat-commons/lib/bootstrap@3.4.1/bootstrap.min.js"></script>
   <script src="rat-commons/lib/d3@4.13.0/d3.min.js"></script>
   <script src="rat-commons/js/rat.js" type="text/javascript"></script>
+  <script src="rat-commons/js/lastUpdate.js"></script>
+  <script src="rat-commons/js/backToTop.js"></script>
   <script src="specificRat.js" type="text/javascript"></script>
 </head>
 
@@ -89,7 +93,7 @@
     </div>
   </header>
 
-  <div role="main">
+  <div>
     <h1 class="sr-only">Colorectal Cancer Risk Assessment Calculator - NCI</h1>
     <div  id="results" class="container-fluid">
       <div id="results_home">
@@ -302,7 +306,7 @@
         </li>
       </ol>
     </div>
-    <div class="container-fluid" id="main">
+    <div class="container-fluid" id="main" role="main">
       <form id="riskForm" name="riskForm" method="POST" action="calculate" autocomplete="off">
 
         <!-- ##############################################################  -->
@@ -926,7 +930,7 @@
     </div>
   </div>
 
-  <div id="footer" class="footer" role="contentinfo"></div>
+  <div id="footer" class="footer"></div>
 
   <!-- ###################################################### -->
   <!-- Modal Dialogs                                          -->
