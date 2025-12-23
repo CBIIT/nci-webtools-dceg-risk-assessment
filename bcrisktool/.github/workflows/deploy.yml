@@ -1,0 +1,229 @@
+name: Build and Deploy BCRiskTool
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - stage
+  pull_request:
+    branches:
+      - main
+      - develop
+      - stage
+  workflow_dispatch:
+    inputs:
+      tier:
+        description: 'Deployment tier (dev/stage/prod)'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - stage
+          - prod
+      rebuild_backend_image:
+        description: 'Rebuild backend image'
+        required: false
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+      no_cache:
+        description: 'Build without cache'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+env:
+  AWS_REGION: us-east-1
+  APP: bcrisktool
+
+jobs:
+  build-and-deploy:
+    name: Build, Push, and Deploy
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for tags
+
+      - name: Set deployment tier
+        id: set-tier
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "tier=${{ github.event.inputs.tier }}" >> $GITHUB_OUTPUT
+          elif [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            echo "tier=prod" >> $GITHUB_OUTPUT
+          elif [ "${{ github.ref }}" = "refs/heads/stage" ]; then
+            echo "tier=stage" >> $GITHUB_OUTPUT
+          else
+            echo "tier=dev" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Get git tag and set variables
+        id: vars
+        run: |
+          # Get the latest git tag or use default
+          GIT_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "1.0.0")
+          RELEASE_VERSION=$(echo $GIT_TAG | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' || echo "1.0.0")
+          LAST_UPDATED=$(date -u +"%Y-%m-%d")
+          DATETIME=$(date -u +"%Y%m%d%H%M%S")
+          TIER=${{ steps.set-tier.outputs.tier }}
+          
+          # Determine image tier (release for prod/stage, development for dev)
+          if [ "$TIER" = "prod" ] || [ "$TIER" = "stage" ]; then
+            IMAGE_TIER="release"
+          else
+            IMAGE_TIER="development"
+          fi
+          
+          echo "git_tag=$GIT_TAG" >> $GITHUB_OUTPUT
+          echo "release_version=$RELEASE_VERSION" >> $GITHUB_OUTPUT
+          echo "last_updated=$LAST_UPDATED" >> $GITHUB_OUTPUT
+          echo "datetime=$DATETIME" >> $GITHUB_OUTPUT
+          echo "image_tier=$IMAGE_TIER" >> $GITHUB_OUTPUT
+          echo "tier=$TIER" >> $GITHUB_OUTPUT
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        working-directory: ./bcrisktool/server
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-cov
+
+      - name: Run tests
+        working-directory: ./bcrisktool
+        run: |
+          pytest tests/ -v
+        continue-on-error: true
+
+      - name: Configure AWS credentials
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Retrieve AWS account and parameters
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        id: aws-config
+        run: |
+          # Get AWS account ID
+          AWS_ACCOUNT=$(aws sts get-caller-identity --query "Account" --output text)
+          echo "aws_account=$AWS_ACCOUNT" >> $GITHUB_OUTPUT
+          
+          # Set parameter path
+          TIER=${{ steps.vars.outputs.tier }}
+          PARAMETER_PATH="/analysistools/$TIER/${{ env.APP }}"
+          
+          # Retrieve SSM parameters
+          PARAMS=$(aws ssm get-parameters-by-path --path $PARAMETER_PATH --output json)
+          
+          # Extract values using jq
+          ECS_CLUSTER=$(echo $PARAMS | jq -r '.Parameters[] | select(.Name | endswith("/ecs_cluster")) | .Value')
+          ECS_WEB_TASK=$(echo $PARAMS | jq -r '.Parameters[] | select(.Name | endswith("/ecs_web_task")) | .Value')
+          ECS_WEB_SERVICE=$(echo $PARAMS | jq -r '.Parameters[] | select(.Name | endswith("/ecs_web_service")) | .Value')
+          ROLE_ARN=$(echo $PARAMS | jq -r '.Parameters[] | select(.Name | endswith("/role_arn")) | .Value')
+          
+          echo "ecs_cluster=$ECS_CLUSTER" >> $GITHUB_OUTPUT
+          echo "ecs_web_task=$ECS_WEB_TASK" >> $GITHUB_OUTPUT
+          echo "ecs_web_service=$ECS_WEB_SERVICE" >> $GITHUB_OUTPUT
+          echo "role_arn=$ROLE_ARN" >> $GITHUB_OUTPUT
+          echo "docker_registry=$AWS_ACCOUNT.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com" >> $GITHUB_OUTPUT
+
+      - name: Login to Amazon ECR
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Set image tags
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        id: image-tags
+        run: |
+          REGISTRY=${{ steps.aws-config.outputs.docker_registry }}
+          IMAGE_TIER=${{ steps.vars.outputs.image_tier }}
+          GIT_TAG=${{ steps.vars.outputs.git_tag }}
+          DATETIME=${{ steps.vars.outputs.datetime }}
+          
+          BACKEND_IMAGE="$REGISTRY/${{ env.APP }}:${IMAGE_TIER}-backend-${GIT_TAG}-${DATETIME}"
+          BACKEND_IMAGE_LATEST="$REGISTRY/${{ env.APP }}:${IMAGE_TIER}-backend-latest"
+          
+          echo "backend_image=$BACKEND_IMAGE" >> $GITHUB_OUTPUT
+          echo "backend_image_latest=$BACKEND_IMAGE_LATEST" >> $GITHUB_OUTPUT
+
+      - name: Build and push backend Docker image
+        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && (github.event.inputs.rebuild_backend_image != 'false')
+        env:
+          BACKEND_IMAGE: ${{ steps.image-tags.outputs.backend_image }}
+          BACKEND_IMAGE_LATEST: ${{ steps.image-tags.outputs.backend_image_latest }}
+          LAST_UPDATED: ${{ steps.vars.outputs.last_updated }}
+          RELEASE_VERSION: ${{ steps.vars.outputs.release_version }}
+          NO_CACHE: ${{ github.event.inputs.no_cache || 'false' }}
+        run: |
+          # Set Docker Buildkit
+          if [ "$NO_CACHE" = "true" ]; then
+            export DOCKER_BUILDKIT=0
+            CACHE_ARGS="--no-cache"
+          else
+            export DOCKER_BUILDKIT=1
+            CACHE_ARGS="--cache-from $BACKEND_IMAGE_LATEST"
+          fi
+          
+          # Build image
+          docker build \
+            --pull \
+            -t $BACKEND_IMAGE \
+            -t $BACKEND_IMAGE_LATEST \
+            --build-arg BUILDKIT_INLINE_CACHE=1 \
+            --build-arg LAST_UPDATED="$LAST_UPDATED" \
+            --build-arg RELEASE_VERSION="$RELEASE_VERSION" \
+            $CACHE_ARGS \
+            -f bcrisktool/docker/backend.dockerfile \
+            .
+          
+          # Push images
+          docker push $BACKEND_IMAGE
+          docker push $BACKEND_IMAGE_LATEST
+
+      - name: Create task definition directory
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        run: |
+          mkdir -p ${{ github.workspace }}/ecs
+
+      - name: Render task definition from template
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        run: |
+          # This assumes you have a template file at deployment/build-deploy/ecs-task-definitions/bcrisktool/web.yml
+          # For now, we'll register the task definition directly
+          echo "Task definition template rendering would go here"
+          echo "You'll need to add your web.yml template to the repository"
+
+      - name: Register task definition
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        run: |
+          # If you have a web.yml template, uncomment this:
+          # aws ecs register-task-definition --cli-input-yaml file://${{ github.workspace }}/ecs/web.yml
+          echo "Skipping task definition registration - add web.yml template if needed"
+
+      - name: Update ECS service
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        run: |
+          aws ecs update-service \
+            --cluster ${{ steps.aws-config.outputs.ecs_cluster }} \
+            --service ${{ steps.aws-config.outputs.ecs_web_service }} \
+            --task-definition ${{ steps.aws-config.outputs.ecs_web_task }} \
+            --desired-count 1 \
+            --force-new-deployment
