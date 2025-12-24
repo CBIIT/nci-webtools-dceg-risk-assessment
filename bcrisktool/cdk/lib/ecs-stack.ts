@@ -177,16 +177,14 @@ export class EcsStack extends cdk.Stack {
     });
     */
 
-    // Optional: ALB Integration
-    // If you have an existing ALB, uncomment and configure:
-    /*
+    // ALB Integration
     if (props.albListenerArn) {
-      const listener = elbv2.ApplicationListener.fromApplicationListenerAttributes(
+      // Import existing listener - no need to import security group
+      const listener = elbv2.ApplicationListener.fromLookup(
         this,
         'Listener',
         {
           listenerArn: props.albListenerArn,
-          securityGroup: serviceSecurityGroup,
         }
       );
 
@@ -201,15 +199,27 @@ export class EcsStack extends cdk.Stack {
           unhealthyThresholdCount: 3,
           interval: cdk.Duration.seconds(30),
         },
+        deregistrationDelay: cdk.Duration.seconds(30),
       });
 
       this.webService.attachToApplicationTargetGroup(targetGroup);
 
-      listener.addTargetGroups('AddTargetGroup', {
-        targetGroups: [targetGroup],
+      // Add a listener rule with path pattern
+      new elbv2.ApplicationListenerRule(this, 'ListenerRule', {
+        listener,
+        priority: 100, // Adjust priority as needed
+        conditions: [
+          elbv2.ListenerCondition.pathPatterns([`/${appName}/*`, `/${appName}`]),
+        ],
+        action: elbv2.ListenerAction.forward([targetGroup]),
+      });
+
+      // Output the target group ARN
+      new cdk.CfnOutput(this, 'TargetGroupArn', {
+        value: targetGroup.targetGroupArn,
+        description: 'Target Group ARN',
       });
     }
-    */
 
     // Add tags
     cdk.Tags.of(this.cluster).add('Name', `${stackName}-cluster`);

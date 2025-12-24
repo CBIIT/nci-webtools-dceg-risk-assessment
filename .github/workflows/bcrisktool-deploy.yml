@@ -46,6 +46,7 @@ jobs:
     environment: ${{ inputs.tier }}
     env:
       TIER: ${{ inputs.tier }}
+      IMAGE_TIER: ${{ contains(fromJson('["dev","qa"]'), inputs.tier) && 'development' || 'release' }}
       AWS_REGION: us-east-1
       AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
     
@@ -110,27 +111,6 @@ jobs:
           role-session-name: ${{ env.TIER }}-bcrisktool-deploy-${{ github.ref_name }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Install Node.js for CDK
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install AWS CDK
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-        run: |
-          npm install -g aws-cdk
-          cdk --version
-
-      - name: Install CDK dependencies
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-        working-directory: ./bcrisktool/cdk
-        run: |
-          npm install
-          npm run build
-          # Acknowledge CDK telemetry notice
-          cdk acknowledge 34892
-
       - name: Set dynamic environment variables
         run: |
           TIMESTAMP=$(date +"%Y%m%d%H%M%S")
@@ -141,18 +121,13 @@ jobs:
           RELEASE_VERSION=$(echo $GIT_TAG | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' || echo "1.0.0")
           LAST_UPDATED=$(date -u +"%Y-%m-%d")
           
-          # Determine image tier
-          IMAGE_TIER="development"
-          if [[ "${{ env.TIER }}" == "prod" ]] || [[ "${{ env.TIER }}" == "stage" ]]; then
-            IMAGE_TIER="release"
-          fi
-          
-          echo "IMAGE_TIER=$IMAGE_TIER" >> $GITHUB_ENV
           echo "IMAGE_REPOSITORY=$REPO" >> $GITHUB_ENV
-          echo "BACKEND_IMAGE=$REPO:$IMAGE_TIER-backend-$GIT_TAG-$TIMESTAMP" >> $GITHUB_ENV
-          echo "BACKEND_IMAGE_LATEST=$REPO:$IMAGE_TIER-backend-latest" >> $GITHUB_ENV
+          echo "BACKEND_IMAGE=$REPO:${{ env.IMAGE_TIER }}-backend-$GIT_TAG-$TIMESTAMP" >> $GITHUB_ENV
+          echo "BACKEND_IMAGE_LATEST=$REPO:${{ env.IMAGE_TIER }}-backend-latest" >> $GITHUB_ENV
           echo "RELEASE_VERSION=$RELEASE_VERSION" >> $GITHUB_ENV
           echo "LAST_UPDATED=$LAST_UPDATED" >> $GITHUB_ENV
+          echo "PARAMETER_PATH=/analysistools/${{ env.TIER }}/${{ env.APP }}" >> $GITHUB_ENV
+          echo "BACKEND_CONTAINER_PORT=80" >> $GITHUB_ENV
 
       - name: Login to Amazon ECR
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
@@ -182,71 +157,60 @@ jobs:
           cache-from: type=registry,ref=${{ env.IMAGE_REPOSITORY }}:backend-cache
           cache-to: type=registry,ref=${{ env.IMAGE_REPOSITORY }}:backend-cache,image-manifest=true,oci-mediatypes=true,mode=max
 
-      - name: Create task definition directory
+      - name: Get ECS configuration from SSM Parameter Store
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-        run: |
-          mkdir -p ${{ github.workspace }}/ecs
+        uses: dkershner6/aws-ssm-getparameters-action@v2
+        with:
+          parameterPairs: |
+            ${{ env.PARAMETER_PATH }}/ecs_cluster = ECS_CLUSTER,
+            ${{ env.PARAMETER_PATH }}/ecs_web_task = ECS_WEB_TASK,
+            ${{ env.PARAMETER_PATH }}/ecs_web_service = ECS_WEB_SERVICE,
+            ${{ env.PARAMETER_PATH }}/role_arn = ROLE_ARN
+          withDecryption: "true"
 
-      - name: Deploy CDK stacks with new container image
+      - name: Install envsubst
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-        working-directory: ./bcrisktool/cdk
-        env:
-          CDK_DEFAULT_ACCOUNT: ${{ secrets.AWS_ACCOUNT_ID }}
-          CDK_DEFAULT_REGION: ${{ env.AWS_REGION }}
+        run: sudo apt-get update && sudo apt-get install -y gettext-base
+
+      - name: Substitute task definition variables
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         run: |
-          # Get VPC ID for the environment
-          VPC_ID=$(aws ec2 describe-vpcs \
-            --filters "Name=tag:analysistools:Network,Values=true" \
-            --query "Vpcs[0].VpcId" \
-            --output text)
-          
-          if [ "$VPC_ID" == "None" ] || [ -z "$VPC_ID" ]; then
-            echo "No VPC found with tag analysistools:Network=true, using first available VPC"
-            VPC_ID=$(aws ec2 describe-vpcs \
-              --filters "Name=isDefault,Values=false" \
-              --query "Vpcs[0].VpcId" \
-              --output text)
-          fi
-          
-          echo "Using VPC: $VPC_ID"
-          
-          # Bootstrap CDK if not already done (idempotent operation)
-          echo "Ensuring CDK bootstrap for environment..."
-          cdk bootstrap aws://${{ secrets.AWS_ACCOUNT_ID }}/${{ env.AWS_REGION }} \
-            --context env=${{ env.TIER }}
-          
-          # Deploy CDK stacks with the newly built container image
-          cdk deploy --all \
-            --context env=${{ env.TIER }} \
-            --context vpc_id="$VPC_ID" \
-            --context container_image="${{ env.BACKEND_IMAGE }}" \
-            --context release_version="${{ env.RELEASE_VERSION }}" \
-            --context last_updated="${{ env.LAST_UPDATED }}" \
-            --require-approval never \
-            --outputs-file cdk-outputs.json
-          
-          echo "CDK deployment completed with image: ${{ env.BACKEND_IMAGE }}"
-          
-          # Parse CDK outputs and set environment variables
-          if [ -f cdk-outputs.json ]; then
-            echo "Stack outputs:"
-            cat cdk-outputs.json
-            
-            # Extract values from CDK outputs (search all stacks for the outputs)
-            ECS_CLUSTER=$(jq -r '.[] | select(.ClusterName != null) | .ClusterName' cdk-outputs.json)
-            ECS_WEB_SERVICE=$(jq -r '.[] | select(.ServiceName != null) | .ServiceName' cdk-outputs.json)
-            
-            if [ -z "$ECS_CLUSTER" ] || [ -z "$ECS_WEB_SERVICE" ]; then
-              echo "ERROR: Failed to extract ECS cluster or service name from CDK outputs"
-              exit 1
-            fi
-            
-            echo "ECS_CLUSTER=$ECS_CLUSTER" >> $GITHUB_ENV
-            echo "ECS_WEB_SERVICE=$ECS_WEB_SERVICE" >> $GITHUB_ENV
-            
-            echo "Using ECS Cluster: $ECS_CLUSTER"
-            echo "Using ECS Service: $ECS_WEB_SERVICE"
-          fi
+          echo "Substituting task definition variables"
+          envsubst < bcrisktool/aws/web.yml > web.yml
+        env:
+          ECS_WEB_TASK: ${{ env.ECS_WEB_TASK }}
+          ECS_CPU_UNITS: "256"
+          ECS_MEMORY_UNITS: "512"
+          ROLE_ARN: ${{ env.ROLE_ARN }}
+          TIER: ${{ env.TIER }}
+          APP: ${{ env.APP }}
+          BACKEND_IMAGE_LATEST: ${{ env.BACKEND_IMAGE }}
+          BACKEND_CONTAINER_PORT: ${{ env.BACKEND_CONTAINER_PORT }}
+          AWS_REGION: ${{ env.AWS_REGION }}
+
+      - name: Print rendered task definition
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        run: |
+          echo "Rendered Task Definition:"
+          cat web.yml
+
+      - name: Register task definition
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        run: |
+          arn=$(aws ecs register-task-definition --cli-input-yaml file://web.yml --query "taskDefinition.taskDefinitionArn" --output text)
+          echo "WEB_TASK_DEF_ARN=$arn" >> $GITHUB_ENV
+          echo "Registered task definition: $arn"
+
+      - name: Update web service
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        run: |
+          aws ecs update-service \
+            --cluster ${{ env.ECS_CLUSTER }} \
+            --service ${{ env.ECS_WEB_SERVICE }} \
+            --task-definition $WEB_TASK_DEF_ARN \
+            --desired-count 1 \
+            --propagateTags TASK_DEFINITION \
+            --force-new-deployment
 
       - name: Wait for service stability
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
@@ -257,3 +221,10 @@ jobs:
             --services ${{ env.ECS_WEB_SERVICE }}
           
           echo "Service is stable and deployment complete!"
+
+      - name: Remove old task definitions
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        run: |
+          echo "Pruning old revisions for family: $ECS_WEB_TASK"
+          aws ecs list-task-definitions --family-prefix "$ECS_WEB_TASK" --sort DESC --query 'taskDefinitionArns[3:]' --output text \
+            | xargs -n1 -r aws ecs deregister-task-definition --task-definition
