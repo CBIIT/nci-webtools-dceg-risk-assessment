@@ -31,6 +31,10 @@ on:
           - 'true'
           - 'false'
 
+permissions:
+  id-token: write
+  contents: read
+
 env:
   AWS_REGION: us-east-1
   APP: bcrisktool
@@ -39,6 +43,11 @@ jobs:
   build-and-deploy:
     name: Build, Push, and Deploy
     runs-on: ubuntu-latest
+    environment: ${{ inputs.tier }}
+    env:
+      TIER: ${{ inputs.tier }}
+      AWS_REGION: us-east-1
+      AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
     
     steps:
       - name: Checkout code
@@ -49,15 +58,8 @@ jobs:
       - name: Set deployment tier
         id: set-tier
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "tier=${{ github.event.inputs.tier }}" >> $GITHUB_OUTPUT
-          elif [ "${{ github.ref }}" = "refs/heads/main" ]; then
-            echo "tier=prod" >> $GITHUB_OUTPUT
-          elif [ "${{ github.ref }}" = "refs/heads/stage" ]; then
-            echo "tier=stage" >> $GITHUB_OUTPUT
-          else
-            echo "tier=dev" >> $GITHUB_OUTPUT
-          fi
+          # Tier is from workflow input
+          echo "tier=${{ inputs.tier }}" >> $GITHUB_OUTPUT
 
       - name: Get git tag and set variables
         id: vars
@@ -103,10 +105,10 @@ jobs:
 
       - name: Configure AWS credentials
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v5.1.0
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: ${{ secrets.CICD_ROLE_ARN }}
+          role-session-name: ${{ env.TIER }}-bcrisktool-${{ github.ref_name }}
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Install Node.js for CDK
@@ -128,86 +130,67 @@ jobs:
           npm install
           npm run build
 
-      - name: Retrieve AWS account and parameters
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-        id: aws-config
+      - name: Set dynamic environment variables
         run: |
-          # Get AWS account ID
-          AWS_ACCOUNT=$(aws sts get-caller-identity --query "Account" --output text)
-          echo "aws_account=$AWS_ACCOUNT" >> $GITHUB_OUTPUT
+          TIMESTAMP=$(date +"%Y%m%d%H%M%S")
+          REPO=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/${{ env.APP }}
           
-          # Set parameter path
-          TIER=${{ steps.vars.outputs.tier }}
-          PARAMETER_PATH="/analysistools/$TIER/${{ env.APP }}"
+          # Get latest git tag
+          GIT_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "1.0.0")
+          RELEASE_VERSION=$(echo $GIT_TAG | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' || echo "1.0.0")
+          LAST_UPDATED=$(date -u +"%Y-%m-%d")
           
-          # Retrieve SSM parameters
-          PARAMS=$(aws ssm get-parameters-by-path --path $PARAMETER_PATH --output json)
+          # Determine image tier
+          IMAGE_TIER="development"
+          if [[ "${{ env.TIER }}" == "prod" ]] || [[ "${{ env.TIER }}" == "stage" ]]; then
+            IMAGE_TIER="release"
+          fi
           
-          # Extract values using jq
-          ECS_CLUSTER=$(echo $PARAMS | jq -r '.Parameters[] | select(.Name | endswith("/ecs_cluster")) | .Value')
-          ECS_WEB_TASK=$(echo $PARAMS | jq -r '.Parameters[] | select(.Name | endswith("/ecs_web_task")) | .Value')
-          ECS_WEB_SERVICE=$(echo $PARAMS | jq -r '.Parameters[] | select(.Name | endswith("/ecs_web_service")) | .Value')
-          ROLE_ARN=$(echo $PARAMS | jq -r '.Parameters[] | select(.Name | endswith("/role_arn")) | .Value')
-          
-          echo "ecs_cluster=$ECS_CLUSTER" >> $GITHUB_OUTPUT
-          echo "ecs_web_task=$ECS_WEB_TASK" >> $GITHUB_OUTPUT
-          echo "ecs_web_service=$ECS_WEB_SERVICE" >> $GITHUB_OUTPUT
-          echo "role_arn=$ROLE_ARN" >> $GITHUB_OUTPUT
-          echo "docker_registry=$AWS_ACCOUNT.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com" >> $GITHUB_OUTPUT
+          echo "IMAGE_TIER=$IMAGE_TIER" >> $GITHUB_ENV
+          echo "IMAGE_REPOSITORY=$REPO" >> $GITHUB_ENV
+          echo "BACKEND_IMAGE=$REPO:$IMAGE_TIER-backend-$GIT_TAG-$TIMESTAMP" >> $GITHUB_ENV
+          echo "BACKEND_IMAGE_LATEST=$REPO:$IMAGE_TIER-backend-latest" >> $GITHUB_ENV
+          echo "RELEASE_VERSION=$RELEASE_VERSION" >> $GITHUB_ENV
+          echo "LAST_UPDATED=$LAST_UPDATED" >> $GITHUB_ENV
+          echo "PARAMETER_PATH=/analysistools/${{ env.TIER }}/${{ env.APP }}" >> $GITHUB_ENV
+
+      - name: Get SSM Parameters
+        uses: dkershner6/aws-ssm-getparameters-action@v2
+        with:
+          parameterPairs: |
+            ${{ env.PARAMETER_PATH }}/ecs_cluster = ECS_CLUSTER,
+            ${{ env.PARAMETER_PATH }}/ecs_web_task = ECS_WEB_TASK,
+            ${{ env.PARAMETER_PATH }}/ecs_web_service = ECS_WEB_SERVICE,
+            ${{ env.PARAMETER_PATH }}/role_arn = ROLE_ARN
+          withDecryption: "true"
 
       - name: Login to Amazon ECR
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
+        with:
+          mask-password: true
 
-      - name: Set image tags
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-        id: image-tags
-        run: |
-          REGISTRY=${{ steps.aws-config.outputs.docker_registry }}
-          IMAGE_TIER=${{ steps.vars.outputs.image_tier }}
-          GIT_TAG=${{ steps.vars.outputs.git_tag }}
-          DATETIME=${{ steps.vars.outputs.datetime }}
-          
-          BACKEND_IMAGE="$REGISTRY/${{ env.APP }}:${IMAGE_TIER}-backend-${GIT_TAG}-${DATETIME}"
-          BACKEND_IMAGE_LATEST="$REGISTRY/${{ env.APP }}:${IMAGE_TIER}-backend-latest"
-          
-          echo "backend_image=$BACKEND_IMAGE" >> $GITHUB_OUTPUT
-          echo "backend_image_latest=$BACKEND_IMAGE_LATEST" >> $GITHUB_OUTPUT
+      - name: Set up Docker Buildx
+        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && (github.event.inputs.rebuild_backend_image != 'false')
+        uses: docker/setup-buildx-action@v3
 
       - name: Build and push backend Docker image
         if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && (github.event.inputs.rebuild_backend_image != 'false')
-        env:
-          BACKEND_IMAGE: ${{ steps.image-tags.outputs.backend_image }}
-          BACKEND_IMAGE_LATEST: ${{ steps.image-tags.outputs.backend_image_latest }}
-          LAST_UPDATED: ${{ steps.vars.outputs.last_updated }}
-          RELEASE_VERSION: ${{ steps.vars.outputs.release_version }}
-          NO_CACHE: ${{ github.event.inputs.no_cache || 'false' }}
-        run: |
-          # Set Docker Buildkit
-          if [ "$NO_CACHE" = "true" ]; then
-            export DOCKER_BUILDKIT=0
-            CACHE_ARGS="--no-cache"
-          else
-            export DOCKER_BUILDKIT=1
-            CACHE_ARGS="--cache-from $BACKEND_IMAGE_LATEST"
-          fi
-          
-          # Build image
-          docker build \
-            --pull \
-            -t $BACKEND_IMAGE \
-            -t $BACKEND_IMAGE_LATEST \
-            --build-arg BUILDKIT_INLINE_CACHE=1 \
-            --build-arg LAST_UPDATED="$LAST_UPDATED" \
-            --build-arg RELEASE_VERSION="$RELEASE_VERSION" \
-            $CACHE_ARGS \
-            -f bcrisktool/docker/backend.dockerfile \
-            .
-          
-          # Push images
-          docker push $BACKEND_IMAGE
-          docker push $BACKEND_IMAGE_LATEST
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: bcrisktool/docker/backend.dockerfile
+          pull: true
+          push: true
+          tags: |
+            ${{ env.BACKEND_IMAGE }}
+            ${{ env.BACKEND_IMAGE_LATEST }}
+          build-args: |
+            LAST_UPDATED=${{ env.LAST_UPDATED }}
+            RELEASE_VERSION=${{ env.RELEASE_VERSION }}
+          cache-from: type=registry,ref=${{ env.IMAGE_REPOSITORY }}:backend-cache
+          cache-to: type=registry,ref=${{ env.IMAGE_REPOSITORY }}:backend-cache,image-manifest=true,oci-mediatypes=true,mode=max
 
       - name: Create task definition directory
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
@@ -218,23 +201,19 @@ jobs:
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         working-directory: ./bcrisktool/cdk
         env:
-          TIER: ${{ steps.vars.outputs.tier }}
-          CDK_DEFAULT_ACCOUNT: ${{ steps.aws-config.outputs.aws_account }}
+          CDK_DEFAULT_ACCOUNT: ${{ secrets.AWS_ACCOUNT_ID }}
           CDK_DEFAULT_REGION: ${{ env.AWS_REGION }}
-          BACKEND_IMAGE: ${{ steps.image-tags.outputs.backend_image }}
-          RELEASE_VERSION: ${{ steps.vars.outputs.release_version }}
-          LAST_UPDATED: ${{ steps.vars.outputs.last_updated }}
         run: |
           # Deploy CDK stacks with the newly built container image
           cdk deploy --all \
-            --context env=$TIER \
-            --context container_image="$BACKEND_IMAGE" \
-            --context release_version="$RELEASE_VERSION" \
-            --context last_updated="$LAST_UPDATED" \
+            --context env=${{ env.TIER }} \
+            --context container_image="${{ env.BACKEND_IMAGE }}" \
+            --context release_version="${{ env.RELEASE_VERSION }}" \
+            --context last_updated="${{ env.LAST_UPDATED }}" \
             --require-approval never \
             --outputs-file cdk-outputs.json
           
-          echo "CDK deployment completed with image: $BACKEND_IMAGE"
+          echo "CDK deployment completed with image: ${{ env.BACKEND_IMAGE }}"
           
           # Show outputs
           if [ -f cdk-outputs.json ]; then
@@ -247,7 +226,7 @@ jobs:
         run: |
           echo "Waiting for ECS service to stabilize..."
           aws ecs wait services-stable \
-            --cluster ${{ steps.aws-config.outputs.ecs_cluster }} \
-            --services ${{ steps.aws-config.outputs.ecs_web_service }}
+            --cluster ${{ env.ECS_CLUSTER }} \
+            --services ${{ env.ECS_WEB_SERVICE }}
           
           echo "Service is stable and deployment complete!"
