@@ -47,10 +47,10 @@ export class EcsStack extends cdk.Stack {
     // Determine the container image to use
     const imageUri = containerImage || 'public.ecr.aws/amazonlinux/amazonlinux:latest';
 
-    // Import or create VPC
+    // Import or create VPC - use default VPC if vpcId not specified
     const vpc = vpcId
       ? ec2.Vpc.fromLookup(this, 'VPC', { vpcId })
-      : ec2.Vpc.fromLookup(this, 'VPC', { isDefault: false });
+      : ec2.Vpc.fromLookup(this, 'VPC', { isDefault: true });
 
     // Create ECS Cluster
     this.cluster = new ecs.Cluster(this, 'Cluster', {
