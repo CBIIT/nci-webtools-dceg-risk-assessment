@@ -1,27 +1,19 @@
 name: Build and Deploy BCRiskTool
 
 on:
-  push:
-    branches:
-      - main
-      - develop
-      - stage
-  pull_request:
-    branches:
-      - main
-      - develop
-      - stage
   workflow_dispatch:
     inputs:
       tier:
-        description: 'Deployment tier (dev/stage/prod)'
+        description: "Environment to deploy to"
         required: true
-        default: 'dev'
+        default: "dev"
         type: choice
         options:
           - dev
+          - qa
           - stage
           - prod
+          
       rebuild_backend_image:
         description: 'Rebuild backend image'
         required: false
@@ -117,6 +109,31 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
+      - name: Install Node.js for CDK
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install AWS CDK
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        run: |
+          npm install -g aws-cdk
+          cdk --version
+
+      - name: Install CDK dependencies
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        working-directory: ./bcrisktool/cdk
+        run: |
+          npm install
+          npm run build
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
       - name: Retrieve AWS account and parameters
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         id: aws-config
@@ -203,27 +220,40 @@ jobs:
         run: |
           mkdir -p ${{ github.workspace }}/ecs
 
-      - name: Render task definition from template
+      - name: Deploy CDK stacks with new container image
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        working-directory: ./bcrisktool/cdk
+        env:
+          TIER: ${{ steps.vars.outputs.tier }}
+          CDK_DEFAULT_ACCOUNT: ${{ steps.aws-config.outputs.aws_account }}
+          CDK_DEFAULT_REGION: ${{ env.AWS_REGION }}
+          BACKEND_IMAGE: ${{ steps.image-tags.outputs.backend_image }}
+          RELEASE_VERSION: ${{ steps.vars.outputs.release_version }}
+          LAST_UPDATED: ${{ steps.vars.outputs.last_updated }}
         run: |
-          # This assumes you have a template file at deployment/build-deploy/ecs-task-definitions/bcrisktool/web.yml
-          # For now, we'll register the task definition directly
-          echo "Task definition template rendering would go here"
-          echo "You'll need to add your web.yml template to the repository"
+          # Deploy CDK stacks with the newly built container image
+          cdk deploy --all \
+            --context env=$TIER \
+            --context container_image="$BACKEND_IMAGE" \
+            --context release_version="$RELEASE_VERSION" \
+            --context last_updated="$LAST_UPDATED" \
+            --require-approval never \
+            --outputs-file cdk-outputs.json
+          
+          echo "CDK deployment completed with image: $BACKEND_IMAGE"
+          
+          # Show outputs
+          if [ -f cdk-outputs.json ]; then
+            echo "Stack outputs:"
+            cat cdk-outputs.json
+          fi
 
-      - name: Register task definition
+      - name: Wait for service stability
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         run: |
-          # If you have a web.yml template, uncomment this:
-          # aws ecs register-task-definition --cli-input-yaml file://${{ github.workspace }}/ecs/web.yml
-          echo "Skipping task definition registration - add web.yml template if needed"
-
-      - name: Update ECS service
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-        run: |
-          aws ecs update-service \
+          echo "Waiting for ECS service to stabilize..."
+          aws ecs wait services-stable \
             --cluster ${{ steps.aws-config.outputs.ecs_cluster }} \
-            --service ${{ steps.aws-config.outputs.ecs_web_service }} \
-            --task-definition ${{ steps.aws-config.outputs.ecs_web_task }} \
-            --desired-count 1 \
-            --force-new-deployment
+            --services ${{ steps.aws-config.outputs.ecs_web_service }}
+          
+          echo "Service is stable and deployment complete!"
