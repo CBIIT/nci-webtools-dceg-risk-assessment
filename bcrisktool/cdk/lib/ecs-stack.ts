@@ -135,7 +135,10 @@ export class EcsStack extends cdk.Stack {
       securityGroups: [serviceSecurityGroup],
       enableExecuteCommand: true,
       circuitBreaker: { rollback: true },
-      assignPublicIp: true, // Set to false if using private subnets with NAT
+      assignPublicIp: false, // Using private subnets with NAT
+      vpcSubnets: {
+        subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
+      },
     });
 
     // Setup Auto Scaling
