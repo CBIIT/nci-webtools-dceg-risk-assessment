@@ -12,8 +12,9 @@ const createEcr = app.node.tryGetContext('create_ecr') || false;
 const containerImage = app.node.tryGetContext('container_image');
 const releaseVersion = app.node.tryGetContext('release_version');
 const lastUpdated = app.node.tryGetContext('last_updated');
-const awsAccount = process.env.CDK_DEFAULT_ACCOUNT;
-const awsRegion = process.env.CDK_DEFAULT_REGION || 'us-east-1';
+const vpcId = app.node.tryGetContext('vpc_id');
+const awsAccount = process.env.AWS_ACCOUNT_ID || process.env.CDK_DEFAULT_ACCOUNT;
+const awsRegion = process.env.AWS_REGION || process.env.CDK_DEFAULT_REGION || 'us-east-1';
 
 const env = {
   account: awsAccount,
@@ -50,10 +51,10 @@ const ecsStack = new EcsStack(app, `${stackName}-ecs`, {
   containerImage,
   releaseVersion,
   lastUpdated,
+  vpcId,
   env,
   tags: commonTags,
-  // Optional: Configure VPC, subnets, ALB
-  // vpcId: 'vpc-xxxxx',
+  // Optional: Configure subnets, ALB
   // subnetIds: ['subnet-xxxxx', 'subnet-yyyyy'],
   // albListenerArn: 'arn:aws:elasticloadbalancing:...',
   // healthCheckPath: '/',

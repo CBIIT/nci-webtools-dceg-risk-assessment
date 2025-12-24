@@ -107,7 +107,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v5.1.0
         with:
           role-to-assume: ${{ secrets.CICD_ROLE_ARN }}
-          role-session-name: ${{ env.TIER }}-bcrisktool-${{ github.ref_name }}
+          role-session-name: ${{ env.TIER }}-bcrisktool-deploy-${{ github.ref_name }}
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Install Node.js for CDK
@@ -205,6 +205,22 @@ jobs:
           CDK_DEFAULT_ACCOUNT: ${{ secrets.AWS_ACCOUNT_ID }}
           CDK_DEFAULT_REGION: ${{ env.AWS_REGION }}
         run: |
+          # Get VPC ID for the environment
+          VPC_ID=$(aws ec2 describe-vpcs \
+            --filters "Name=tag:analysistools:Network,Values=true" \
+            --query "Vpcs[0].VpcId" \
+            --output text)
+          
+          if [ "$VPC_ID" == "None" ] || [ -z "$VPC_ID" ]; then
+            echo "No VPC found with tag analysistools:Network=true, using first available VPC"
+            VPC_ID=$(aws ec2 describe-vpcs \
+              --filters "Name=isDefault,Values=false" \
+              --query "Vpcs[0].VpcId" \
+              --output text)
+          fi
+          
+          echo "Using VPC: $VPC_ID"
+          
           # Bootstrap CDK if not already done (idempotent operation)
           echo "Ensuring CDK bootstrap for environment..."
           cdk bootstrap aws://${{ secrets.AWS_ACCOUNT_ID }}/${{ env.AWS_REGION }} \
@@ -213,6 +229,7 @@ jobs:
           # Deploy CDK stacks with the newly built container image
           cdk deploy --all \
             --context env=${{ env.TIER }} \
+            --context vpc_id="$VPC_ID" \
             --context container_image="${{ env.BACKEND_IMAGE }}" \
             --context release_version="${{ env.RELEASE_VERSION }}" \
             --context last_updated="${{ env.LAST_UPDATED }}" \
