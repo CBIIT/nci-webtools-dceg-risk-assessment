@@ -232,10 +232,14 @@ jobs:
             echo "Stack outputs:"
             cat cdk-outputs.json
             
-            # Extract values from CDK outputs
-            STACK_NAME="analysistools-${{ env.TIER }}-bcrisktool-ecs"
-            ECS_CLUSTER=$(jq -r ".\"$STACK_NAME\".ClusterName // empty" cdk-outputs.json)
-            ECS_WEB_SERVICE=$(jq -r ".\"$STACK_NAME\".ServiceName // empty" cdk-outputs.json)
+            # Extract values from CDK outputs (search all stacks for the outputs)
+            ECS_CLUSTER=$(jq -r '.[] | select(.ClusterName != null) | .ClusterName' cdk-outputs.json)
+            ECS_WEB_SERVICE=$(jq -r '.[] | select(.ServiceName != null) | .ServiceName' cdk-outputs.json)
+            
+            if [ -z "$ECS_CLUSTER" ] || [ -z "$ECS_WEB_SERVICE" ]; then
+              echo "ERROR: Failed to extract ECS cluster or service name from CDK outputs"
+              exit 1
+            fi
             
             echo "ECS_CLUSTER=$ECS_CLUSTER" >> $GITHUB_ENV
             echo "ECS_WEB_SERVICE=$ECS_WEB_SERVICE" >> $GITHUB_ENV
