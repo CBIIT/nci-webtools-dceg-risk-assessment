@@ -6,3 +6,8 @@ node_modules
 test*.html
 **/client/rat-commons
 archived
+.secrets
+*.pem
+*.key
+.env
+.env.local
