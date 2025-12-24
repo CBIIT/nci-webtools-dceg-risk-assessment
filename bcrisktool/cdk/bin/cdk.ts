@@ -60,7 +60,9 @@ const ecsStack = new EcsStack(app, `${stackName}-ecs`, {
   // healthCheckPath: '/',
 });
 
-// Parameters Stack
+// Parameters Stack (optional - only create if needed for external tools)
+// Commenting out since we're using CDK outputs directly in GitHub Actions
+/*
 const parametersStack = new ParametersStack(app, `${stackName}-parameters`, {
   appName,
   envName,
@@ -73,5 +75,6 @@ const parametersStack = new ParametersStack(app, `${stackName}-parameters`, {
 });
 
 parametersStack.addDependency(ecsStack);
+*/
 
 app.synth();

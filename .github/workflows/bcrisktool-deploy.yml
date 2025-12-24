@@ -153,17 +153,6 @@ jobs:
           echo "BACKEND_IMAGE_LATEST=$REPO:$IMAGE_TIER-backend-latest" >> $GITHUB_ENV
           echo "RELEASE_VERSION=$RELEASE_VERSION" >> $GITHUB_ENV
           echo "LAST_UPDATED=$LAST_UPDATED" >> $GITHUB_ENV
-          echo "PARAMETER_PATH=/analysistools/${{ env.TIER }}/${{ env.APP }}" >> $GITHUB_ENV
-
-      - name: Get SSM Parameters
-        uses: dkershner6/aws-ssm-getparameters-action@v2
-        with:
-          parameterPairs: |
-            ${{ env.PARAMETER_PATH }}/ecs_cluster = ECS_CLUSTER,
-            ${{ env.PARAMETER_PATH }}/ecs_web_task = ECS_WEB_TASK,
-            ${{ env.PARAMETER_PATH }}/ecs_web_service = ECS_WEB_SERVICE,
-            ${{ env.PARAMETER_PATH }}/role_arn = ROLE_ARN
-          withDecryption: "true"
 
       - name: Login to Amazon ECR
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
@@ -238,10 +227,21 @@ jobs:
           
           echo "CDK deployment completed with image: ${{ env.BACKEND_IMAGE }}"
           
-          # Show outputs
+          # Parse CDK outputs and set environment variables
           if [ -f cdk-outputs.json ]; then
             echo "Stack outputs:"
             cat cdk-outputs.json
+            
+            # Extract values from CDK outputs
+            STACK_NAME="analysistools-${{ env.TIER }}-bcrisktool-ecs"
+            ECS_CLUSTER=$(jq -r ".\"$STACK_NAME\".ClusterName // empty" cdk-outputs.json)
+            ECS_WEB_SERVICE=$(jq -r ".\"$STACK_NAME\".ServiceName // empty" cdk-outputs.json)
+            
+            echo "ECS_CLUSTER=$ECS_CLUSTER" >> $GITHUB_ENV
+            echo "ECS_WEB_SERVICE=$ECS_WEB_SERVICE" >> $GITHUB_ENV
+            
+            echo "Using ECS Cluster: $ECS_CLUSTER"
+            echo "Using ECS Service: $ECS_WEB_SERVICE"
           fi
 
       - name: Wait for service stability
