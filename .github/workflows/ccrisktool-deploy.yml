@@ -69,8 +69,8 @@ jobs:
       - name: Get git tag and set variables
         id: vars
         run: |
-          # Get the latest git tag or use default
-          GIT_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "1.0.0")
+          # Get the latest git tag for this specific tool or use default
+          GIT_TAG=$(git tag -l "ccrisktool_*" --sort=-v:refname | head -n 1 || echo "ccrisktool_1.0.0_19700101")
           RELEASE_VERSION=$(echo $GIT_TAG | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' || echo "1.0.0")
           LAST_UPDATED=$(date -u +"%Y-%m-%d")
           DATETIME=$(date -u +"%Y%m%d%H%M%S")
@@ -126,8 +126,8 @@ jobs:
           TIMESTAMP=$(date +"%Y%m%d%H%M%S")
           REPO=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/${{ env.APP }}
           
-          # Get latest git tag
-          GIT_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "1.0.0")
+          # Get latest git tag for this specific tool
+          GIT_TAG=$(git tag -l "ccrisktool_*" --sort=-v:refname | head -n 1 || echo "ccrisktool_1.0.0_19700101")
           RELEASE_VERSION=$(echo $GIT_TAG | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' || echo "1.0.0")
           LAST_UPDATED=$(date -u +"%Y-%m-%d")
           
