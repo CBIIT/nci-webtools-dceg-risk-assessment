@@ -95,6 +95,11 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Install system dependencies for mod_wsgi
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y apache2-dev
+
       - name: Install dependencies
         working-directory: ./melanomarisktool/server
         run: |
