@@ -38,17 +38,11 @@ Deployments support four tiers with different configurations:
 All workflows use manual dispatch (`workflow_dispatch`) with the following inputs:
 
 - **tier**: Target environment (dev/qa/stage/prod)
-- **rebuild_backend_image**: Whether to rebuild the Docker image (default: true)
-- **no_cache**: Build without Docker cache (default: false)
 
 #### 2. Build Steps
 
 1. **Setup**
    - Checkout code with full git history
-   - Set up Python 3.11
-   - Install system dependencies (apache2-dev for mod_wsgi)
-   - Install Python dependencies
-   - Run pytest tests
 
 2. **Docker Build**
    - Configure AWS credentials using OIDC
@@ -63,14 +57,6 @@ All workflows use manual dispatch (`workflow_dispatch`) with the following input
    - Register new task definition
    - Update ECS service with new task
    - Wait for service stability
-
-#### 3. System Dependencies
-
-Tools requiring `mod_wsgi` need Apache development headers:
-
-- **ccrisktool**: Requires apache2-dev
-- **mrisktool**: Requires apache2-dev
-- **bcrisktool**: No apache2-dev needed (uses requirements-test.txt)
 
 ### AWS Resources
 

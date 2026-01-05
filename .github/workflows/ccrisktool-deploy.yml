@@ -13,23 +13,6 @@ on:
           - qa
           - stage
           - prod
-          
-      rebuild_backend_image:
-        description: 'Rebuild backend image'
-        required: false
-        default: 'true'
-        type: choice
-        options:
-          - 'true'
-          - 'false'
-      no_cache:
-        description: 'Build without cache'
-        required: false
-        default: 'false'
-        type: choice
-        options:
-          - 'true'
-          - 'false'
 
 permissions:
   id-token: write
@@ -90,29 +73,6 @@ jobs:
           echo "image_tier=$IMAGE_TIER" >> $GITHUB_OUTPUT
           echo "tier=$TIER" >> $GITHUB_OUTPUT
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install system dependencies for mod_wsgi
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y apache2-dev
-
-      - name: Install dependencies
-        working-directory: ./colorectalcancerrisk/server
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install pytest
-
-      - name: Run tests
-        working-directory: ./colorectalcancerrisk
-        run: |
-          pytest tests/ -v || echo "No tests found or tests failed"
-        continue-on-error: true
-
       - name: Configure AWS credentials
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         uses: aws-actions/configure-aws-credentials@v5.1.0
@@ -153,16 +113,16 @@ jobs:
           mask-password: true
 
       - name: Set up Docker Buildx
-        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && (github.event.inputs.rebuild_backend_image != 'false')
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         uses: docker/setup-buildx-action@v3
 
       - name: Create and use a new builder instance
-        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && (github.event.inputs.rebuild_backend_image != 'false')
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         run: |
           docker buildx create --name mybuilder --use
 
       - name: Build and push backend Docker image
-        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && (github.event.inputs.rebuild_backend_image != 'false')
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         uses: docker/build-push-action@v6
         with:
           context: .
