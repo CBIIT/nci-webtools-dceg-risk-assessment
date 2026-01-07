@@ -34,6 +34,8 @@
   <link href="rat-commons/css/ncids.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="specificCSS.css" rel="stylesheet" type="text/css">
+  <link href="rat-commons/css/ncids.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="rat-commons/lib/jquery@3.7.0/jquery.min.js"></script>
   <script src="rat-commons/lib/jquery-validation@1.19.5/jquery.validate.min.js"></script>
   <script src="rat-commons/lib/jquery-validation@1.19.5/additional-methods.min.js"></script>
@@ -93,7 +95,7 @@
     </div>
   </header>
 
-  <div role="main">
+  <div>
     <h1 class="sr-only">Colorectal Cancer Risk Assessment Calculator - NCI</h1>
     <div  id="results" class="container-fluid">
       <div id="results_home">
@@ -306,7 +308,7 @@
         </li>
       </ol>
     </div>
-    <div class="container-fluid" id="main">
+    <div class="container-fluid" id="main" role="main">
       <form id="riskForm" name="riskForm" method="POST" action="calculate" autocomplete="off">
 
         <!-- ##############################################################  -->
@@ -941,8 +943,8 @@
                 <span class="usa-footer__primary-link usa-footer__nci-list-header">About</span>
                 <ul class="about-list">
                   <li class="usa-footer__secondary-link">
-                    <a id="aboutLink" target="_blank" href="https://mrisktool.cancer.gov/about.html">
-                      About Melanoma Risk Assessment Tool
+                    <a id="aboutLink" target="_blank" href="https://ccrisktool.cancer.gov/about.html">
+                      About Colorectal Cancer Risk Assessment Tool
                     </a>
                   </li>                               
                   <li class="usa-footer__secondary-link last-update">
@@ -961,8 +963,8 @@
                 <span class="usa-footer__primary-link usa-footer__nci-list-header">Resources</span>
                 <ul class="resource-list">
                   <li class="usa-footer__secondary-link">
-                    <a id="aboutLink" target="_blank" href="https://mrisktool.cancer.gov/">
-                      Melanoma Risk Assessment Tool
+                    <a id="aboutLink" target="_blank" href="https://ccrisktool.cancer.gov/">
+                      Colorectal Cancer Risk Assessment Tool
                     </a>
                   </li>                          
                 </ul>
