@@ -74,7 +74,7 @@ jobs:
           echo "tier=$TIER" >> $GITHUB_OUTPUT
 
       - name: Configure AWS credentials
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch'
         uses: aws-actions/configure-aws-credentials@v5.1.0
         with:
           role-to-assume: ${{ env.CICD_ROLE_ARN }}
@@ -106,23 +106,23 @@ jobs:
           fi
 
       - name: Login to Amazon ECR
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch'
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
         with:
           mask-password: true
 
       - name: Set up Docker Buildx
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch'
         uses: docker/setup-buildx-action@v3
 
       - name: Create and use a new builder instance
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch'
         run: |
           docker buildx create --name mybuilder --use
 
       - name: Build and push backend Docker image
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch'
         uses: docker/build-push-action@v6
         with:
           context: .
@@ -139,7 +139,7 @@ jobs:
           cache-to: type=registry,ref=${{ env.IMAGE_REPOSITORY }}:backend-cache,image-manifest=true,oci-mediatypes=true,mode=max
 
       - name: Get ECS configuration from SSM Parameter Store
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch'
         uses: dkershner6/aws-ssm-getparameters-action@v2
         with:
           parameterPairs: |
@@ -150,11 +150,11 @@ jobs:
           withDecryption: "true"
 
       - name: Install envsubst
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch'
         run: sudo apt-get update && sudo apt-get install -y gettext-base
 
       - name: Substitute task definition variables
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch'
         run: |
           echo "Substituting task definition variables"
           envsubst < colorectalcancerrisk/aws/web.yml > web.yml
@@ -170,20 +170,20 @@ jobs:
           AWS_REGION: ${{ env.AWS_REGION }}
 
       - name: Print rendered task definition
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch'
         run: |
           echo "Rendered Task Definition:"
           cat web.yml
 
       - name: Register task definition
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch'
         run: |
           arn=$(aws ecs register-task-definition --cli-input-yaml file://web.yml --query "taskDefinition.taskDefinitionArn" --output text)
           echo "WEB_TASK_DEF_ARN=$arn" >> $GITHUB_ENV
           echo "Registered task definition: $arn"
 
       - name: Update web service
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch'
         run: |
           aws ecs update-service \
             --cluster ${{ env.ECS_CLUSTER }} \
@@ -194,7 +194,7 @@ jobs:
             --force-new-deployment
 
       - name: Wait for service stability
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch'
         run: |
           echo "Waiting for ECS service to stabilize..."
           aws ecs wait services-stable \
@@ -204,7 +204,7 @@ jobs:
           echo "Service is stable and deployment complete!"
 
       - name: Remove old task definitions
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch'
         run: |
           echo "Pruning old revisions for family: $ECS_WEB_TASK"
           aws ecs list-task-definitions --family-prefix "$ECS_WEB_TASK" --sort DESC --query 'taskDefinitionArns[3:]' --output text \
