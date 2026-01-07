@@ -315,7 +315,7 @@
 
     /* Background color for 5-year risk box */
     #results_box {
-	    background-color: #7163ad !important;
+	    background-color: #39107b !important;
 	    color: #fff !important;
 	    -webkit-print-color-adjust: exact !important;
 	    print-color-adjust: exact !important;
@@ -323,8 +323,8 @@
 
     /* Darker background and border color for lifetime risk box */
     #results_box2 {
-	    background-color: #2a0a5e !important;
-	    border-color: #4a3d7a !important;
+	    background-color: #5f5391 !important;
+	    border-color: #5f5391 !important;
 	    color: #fff !important;
 	    -webkit-print-color-adjust: exact !important;
 	    print-color-adjust: exact !important;
