@@ -178,7 +178,7 @@
        display: flex !important;
        flex-direction: row !important;
        justify-content: space-between !important;
-       align-items: flex-start !important;
+       align-items: stretch !important;
        page-break-inside: avoid !important;
        page-break-before: avoid !important;
    }
@@ -319,6 +319,7 @@
 	    color: #fff !important;
 	    -webkit-print-color-adjust: exact !important;
 	    print-color-adjust: exact !important;
+      padding-bottom: 0.5cm !important;
     }
 
     /* Darker background and border color for lifetime risk box */
