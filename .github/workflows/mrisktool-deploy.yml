@@ -139,6 +139,7 @@ jobs:
           cache-to: type=registry,ref=${{ env.IMAGE_REPOSITORY }}:backend-cache,image-manifest=true,oci-mediatypes=true,mode=max
 
       - name: Get ECS configuration from SSM Parameter Store
+        if: github.event_name == 'workflow_dispatch'
         run: |
           PARAMETER_PATH="/analysistools/${TIER}/${APP}"
 
@@ -147,13 +148,7 @@ jobs:
             ["ecs_cluster"]="ECS_CLUSTER"
             ["ecs_web_task"]="ECS_WEB_TASK"
             ["ecs_web_service"]="ECS_WEB_SERVICE"
-            ["ecs_worker_task"]="ECS_WORKER_TASK"
-            ["ecs_refitting_worker_task"]="ECS_REFITTING_WORKER_TASK"
-            ["ecs_cpu_units"]="ECS_CPU_UNITS"
-            ["ecs_memory_units"]="ECS_MEMORY_UNITS"
             ["role_arn"]="ROLE_ARN"
-            ["efs_filesystem_id"]="EFS_FILESYSTEM_ID"
-            ["efs_access_point_id"]="EFS_ACCESS_POINT_ID"
           )
 
           # Retrieve each parameter and export to environment
