@@ -13,23 +13,6 @@ on:
           - qa
           - stage
           - prod
-          
-      rebuild_backend_image:
-        description: 'Rebuild backend image'
-        required: false
-        default: 'true'
-        type: choice
-        options:
-          - 'true'
-          - 'false'
-      no_cache:
-        description: 'Build without cache'
-        required: false
-        default: 'false'
-        type: choice
-        options:
-          - 'true'
-          - 'false'
 
 permissions:
   id-token: write
@@ -69,8 +52,8 @@ jobs:
       - name: Get git tag and set variables
         id: vars
         run: |
-          # Get the latest git tag or use default
-          GIT_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "1.0.0")
+          # Get the latest git tag for this specific tool or use default
+          GIT_TAG=$(git tag -l "mrisktool_*" --sort=-v:refname | head -n 1 || echo "mrisktool_1.0.0_19700101")
           RELEASE_VERSION=$(echo $GIT_TAG | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' || echo "1.0.0")
           LAST_UPDATED=$(date -u +"%Y-%m-%d")
           DATETIME=$(date -u +"%Y%m%d%H%M%S")
@@ -90,26 +73,8 @@ jobs:
           echo "image_tier=$IMAGE_TIER" >> $GITHUB_OUTPUT
           echo "tier=$TIER" >> $GITHUB_OUTPUT
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install dependencies
-        working-directory: ./melanomarisktool/server
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install pytest
-
-      - name: Run tests
-        working-directory: ./melanomarisktool
-        run: |
-          pytest tests/ -v || echo "No tests found or tests failed"
-        continue-on-error: true
-
       - name: Configure AWS credentials
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch'
         uses: aws-actions/configure-aws-credentials@v5.1.0
         with:
           role-to-assume: ${{ env.CICD_ROLE_ARN }}
@@ -121,8 +86,8 @@ jobs:
           TIMESTAMP=$(date +"%Y%m%d%H%M%S")
           REPO=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/${{ env.APP }}
           
-          # Get latest git tag
-          GIT_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "1.0.0")
+          # Get latest git tag for this specific tool
+          GIT_TAG=$(git tag -l "mrisktool_*" --sort=-v:refname | head -n 1 || echo "mrisktool_1.0.0_19700101")
           RELEASE_VERSION=$(echo $GIT_TAG | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' || echo "1.0.0")
           LAST_UPDATED=$(date -u +"%Y-%m-%d")
           
@@ -141,23 +106,23 @@ jobs:
           fi
 
       - name: Login to Amazon ECR
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch'
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
         with:
           mask-password: true
 
       - name: Set up Docker Buildx
-        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && (github.event.inputs.rebuild_backend_image != 'false')
+        if: github.event_name == 'workflow_dispatch'
         uses: docker/setup-buildx-action@v3
 
       - name: Create and use a new builder instance
-        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && (github.event.inputs.rebuild_backend_image != 'false')
+        if: github.event_name == 'workflow_dispatch'
         run: |
           docker buildx create --name mybuilder --use
 
       - name: Build and push backend Docker image
-        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && (github.event.inputs.rebuild_backend_image != 'false')
+        if: github.event_name == 'workflow_dispatch'
         uses: docker/build-push-action@v6
         with:
           context: .
@@ -174,25 +139,39 @@ jobs:
           cache-to: type=registry,ref=${{ env.IMAGE_REPOSITORY }}:backend-cache,image-manifest=true,oci-mediatypes=true,mode=max
 
       - name: Get ECS configuration from SSM Parameter Store
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-        uses: dkershner6/aws-ssm-getparameters-action@v2
-        with:
-          parameterPairs: |
-            ${{ env.PARAMETER_PATH }}/ecs_cluster = ECS_CLUSTER,
-            ${{ env.PARAMETER_PATH }}/ecs_web_task = ECS_WEB_TASK,
-            ${{ env.PARAMETER_PATH }}/ecs_web_service = ECS_WEB_SERVICE,
-            ${{ env.PARAMETER_PATH }}/role_arn = ROLE_ARN
-          withDecryption: "true"
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          PARAMETER_PATH="/analysistools/${TIER}/${APP}"
+
+          # Define parameters to retrieve (SSM name = ENV_VAR_NAME)
+          declare -A PARAMS=(
+            ["ecs_cluster"]="ECS_CLUSTER"
+            ["ecs_web_task"]="ECS_WEB_TASK"
+            ["ecs_web_service"]="ECS_WEB_SERVICE"
+            ["role_arn"]="ROLE_ARN"
+          )
+
+          # Retrieve each parameter and export to environment
+          for ssm_name in "${!PARAMS[@]}"; do
+            env_var="${PARAMS[$ssm_name]}"
+            value=$(aws ssm get-parameter \
+              --name "${PARAMETER_PATH}/${ssm_name}" \
+              --with-decryption \
+              --query "Parameter.Value" \
+              --output text)
+            echo "${env_var}=${value}" >> $GITHUB_ENV
+            echo "Retrieved ${ssm_name} -> ${env_var}"
+          done
 
       - name: Install envsubst
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch'
         run: sudo apt-get update && sudo apt-get install -y gettext-base
 
       - name: Substitute task definition variables
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch'
         run: |
           echo "Substituting task definition variables"
-          envsubst < melanomarisktool/aws/web.yml > web.yml
+          envsubst < .github/aws/mrisktool-web.yml > web.yml
         env:
           ECS_WEB_TASK: ${{ env.ECS_WEB_TASK }}
           ECS_CPU_UNITS: ${{ env.ECS_CPU_UNITS }}
@@ -205,20 +184,20 @@ jobs:
           AWS_REGION: ${{ env.AWS_REGION }}
 
       - name: Print rendered task definition
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch'
         run: |
           echo "Rendered Task Definition:"
           cat web.yml
 
       - name: Register task definition
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch'
         run: |
           arn=$(aws ecs register-task-definition --cli-input-yaml file://web.yml --query "taskDefinition.taskDefinitionArn" --output text)
           echo "WEB_TASK_DEF_ARN=$arn" >> $GITHUB_ENV
           echo "Registered task definition: $arn"
 
       - name: Update web service
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch'
         run: |
           aws ecs update-service \
             --cluster ${{ env.ECS_CLUSTER }} \
@@ -229,7 +208,7 @@ jobs:
             --force-new-deployment
 
       - name: Wait for service stability
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch'
         run: |
           echo "Waiting for ECS service to stabilize..."
           aws ecs wait services-stable \
@@ -239,7 +218,7 @@ jobs:
           echo "Service is stable and deployment complete!"
 
       - name: Remove old task definitions
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch'
         run: |
           echo "Pruning old revisions for family: $ECS_WEB_TASK"
           aws ecs list-task-definitions --family-prefix "$ECS_WEB_TASK" --sort DESC --query 'taskDefinitionArns[3:]' --output text \
