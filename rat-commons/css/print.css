@@ -319,7 +319,7 @@
 	    color: #fff !important;
 	    -webkit-print-color-adjust: exact !important;
 	    print-color-adjust: exact !important;
-      padding-bottom: 0.5cm !important;
+      /* padding-bottom: 0.5cm !important; */
     }
 
     /* Darker background and border color for lifetime risk box */
