@@ -171,7 +171,7 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         run: |
           echo "Substituting task definition variables"
-          envsubst < bcrisktool/aws/web.yml > web.yml
+          envsubst < .github/aws/bcrisktool-web.yml > web.yml
         env:
           ECS_WEB_TASK: ${{ env.ECS_WEB_TASK }}
           ECS_CPU_UNITS: ${{ env.ECS_CPU_UNITS }}
