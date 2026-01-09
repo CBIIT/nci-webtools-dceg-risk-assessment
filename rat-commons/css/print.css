@@ -110,9 +110,26 @@
     padding: 0 !important;
   }
 
+  .resultsPageContent ul,
+  .resultsPageContent li,
+  .content ul,
+  .content li {
+    font-size: 9px !important;
+  }
+
   #displayInput {
     page-break-inside: avoid !important;
     page-break-before: avoid !important;
+    font-size: 9px !important;
+  }
+
+  #displayInput h2 {
+    font-size: 14px !important;
+  }
+
+  #displayInput p,
+  #displayInput .selectContent {
+    font-size: 9px !important;
   }
 
   #displayInput.printAppleOnly {
@@ -128,6 +145,7 @@
 	padding-right: 0;
 	padding-left: 0;
 	width: 96%;
+	font-size: 9px !important;
   }
 
   #InputParameters th, #InputParameters td {
@@ -135,6 +153,7 @@
 	padding-top:0;
 	padding-bottom: 0;
     height: 0.4cm;
+	font-size: 9px !important;
   }
 
   #InputParameters .answers {
