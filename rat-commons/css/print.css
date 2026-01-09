@@ -98,7 +98,7 @@
   /* Reduce spacing for result page content */
   .resultsPageContent,
   .content {
-    font-size: 9px !important;
+    font-size: 11px !important;
     line-height: 1.2 !important;
     margin-top: 0 !important;
     margin-bottom: 0.1cm !important;
@@ -114,13 +114,13 @@
   .resultsPageContent li,
   .content ul,
   .content li {
-    font-size: 9px !important;
+    font-size: 11px !important;
   }
 
   #displayInput {
     page-break-inside: avoid !important;
     page-break-before: avoid !important;
-    font-size: 9px !important;
+    font-size: 11px !important;
   }
 
   #displayInput h2 {
@@ -129,7 +129,7 @@
 
   #displayInput p,
   #displayInput .selectContent {
-    font-size: 9px !important;
+    font-size: 11px !important;
   }
 
   #displayInput.printAppleOnly {
@@ -145,7 +145,7 @@
 	padding-right: 0;
 	padding-left: 0;
 	width: 96%;
-	font-size: 9px !important;
+	font-size: 11px !important;
   }
 
   #InputParameters th {
@@ -153,7 +153,7 @@
 	  padding-top:0;
 	  padding-bottom: 0;
     height: 0.4cm;
-	  font-size: 11px !important;
+	  font-size: 14px !important;
 	  font-weight: bold !important;
   }
 
@@ -162,7 +162,7 @@
 	padding-top:0;
 	padding-bottom: 0;
     height: 0.4cm;
-	font-size: 9px !important;
+	font-size: 11px !important;
   }
 
   #InputParameters .answers {
