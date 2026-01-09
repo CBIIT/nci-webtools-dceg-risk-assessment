@@ -148,7 +148,16 @@
 	font-size: 9px !important;
   }
 
-  #InputParameters th, #InputParameters td {
+  #InputParameters th {
+    border-bottom: 0.005cm solid #dddddd;
+	  padding-top:0;
+	  padding-bottom: 0;
+    height: 0.4cm;
+	  font-size: 11px !important;
+	  font-weight: bold !important;
+  }
+
+  #InputParameters td {
     border-bottom: 0.005cm solid #dddddd;
 	padding-top:0;
 	padding-bottom: 0;
