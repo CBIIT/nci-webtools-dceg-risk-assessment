@@ -2,7 +2,7 @@
 @media print {
 
   @page {
-    margin: 2cm;
+    margin: 1.5cm;
   }
 
   #container-fluid {
@@ -32,8 +32,8 @@
   #logo {
     margin: 0px;
     padding: 0px;
-    height: 82px;
-    width:600px;
+    height: 60px;
+    width: 500px;
     display: inline-block;
     text-align: center;
   }
@@ -51,23 +51,34 @@
    }
 
   h1, h2 {
-	   margin-bottom: 0.05cm;
-	   margin-top: 0.01cm;
+	   margin-bottom: 0.02cm;
+	   margin-top: 0;
 	   margin-left: 0;
 	   margin-right: 0;
 	   padding: 0;
+	   font-size: 14px;
+	   line-height: 1.2;
    }
 
    p {
     margin: 0;
+    padding: 0;
    }
 
   #results {
 	padding: 0;
+	page-break-before: avoid !important;
   }
 
   #results_home {
 	margin-bottom: 0;
+	page-break-before: avoid !important;
+  }
+
+  /* Container for result boxes - make them equal height */
+  #results_home > .row {
+    display: flex !important;
+    align-items: stretch !important;
   }
 
   #results_home > div {
@@ -80,21 +91,53 @@
   #results_home > div > div {
 	padding-top: 0;
 	padding-bottom: 0;
-	padding-right: 0.07cm;
-	padding-left: 0.07cm;
+	padding-right: 0.05cm;
+	padding-left: 0.05cm;
+  }
+
+  /* Reduce spacing for result page content */
+  .resultsPageContent,
+  .content {
+    font-size: 11px !important;
+    line-height: 1.2 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0.1cm !important;
+  }
+
+  .resultsPageContent li,
+  .content li {
+    margin-bottom: 0.05cm !important;
+    padding: 0 !important;
+  }
+
+  .resultsPageContent ul,
+  .resultsPageContent li,
+  .content ul,
+  .content li {
+    font-size: 11px !important;
   }
 
   #displayInput {
     page-break-inside: avoid !important;
-    page-break-before: avoid;
+    page-break-before: avoid !important;
+    font-size: 11px !important;
+  }
+
+  #displayInput h2 {
+    font-size: 14px !important;
+  }
+
+  #displayInput p,
+  #displayInput .selectContent {
+    font-size: 11px !important;
   }
 
   #displayInput.printAppleOnly {
-    page-break-before: always !Important;
+    page-break-before: avoid !Important;
   }
 
   #displayInput.printIEOnly {
-    page-break-before: always !Important;
+    page-break-before: avoid !Important;
   }
 
   #InputParameters {
@@ -102,13 +145,24 @@
 	padding-right: 0;
 	padding-left: 0;
 	width: 96%;
+	font-size: 11px !important;
   }
 
-  #InputParameters th, #InputParameters td {
+  #InputParameters th {
+    border-bottom: 0.005cm solid #dddddd;
+	  padding-top:0;
+	  padding-bottom: 0;
+    height: 0.4cm;
+	  font-size: 14px !important;
+	  font-weight: bold !important;
+  }
+
+  #InputParameters td {
     border-bottom: 0.005cm solid #dddddd;
 	padding-top:0;
 	padding-bottom: 0;
     height: 0.4cm;
+	font-size: 11px !important;
   }
 
   #InputParameters .answers {
@@ -123,10 +177,9 @@
   }
 
 
-   div[id^='pieChart'],
-   .results_text {
+   /* .results_text {
 	   display: none;
-   }
+   } */
 
    .results_graph {
       width: 32%;
@@ -141,17 +194,29 @@
 	   margin-top:0;
 	   margin-left:auto;
 	   margin-right:auto;
+   } 
+
+   .svg-container > svg {
+       width: 100% !important;
+       height: 100% !important;
    }
 
-   div[id^='results_box'] {
-	   margin-bottom: 0 !important;
-	   margin-top:0.1cm !important;
-	   margin-left:auto;
-	   margin-right:auto;
-	   padding: 0;
-	   border: 0.005cm #6150a3 solid;
-	   width: 65%;
-	   page-break-inside: avoid;
+   /* Make risk charts display side by side */
+   .risk-charts-container {
+       display: flex !important;
+       flex-direction: row !important;
+       justify-content: space-between !important;
+       align-items: stretch !important;
+       page-break-inside: avoid !important;
+       page-break-before: avoid !important;
+   }
+
+   .risk-chart-section {
+       width: 49% !important;
+       flex: 0 0 49% !important;
+       padding: 0 !important;
+       margin: 0 !important;
+       page-break-inside: avoid !important;
    }
 
    div[id^='results_box'] > div {
@@ -223,53 +288,109 @@
         content: "%";
     }
 
-    div[id^='pieChart'],
-    div[id^='Pie_chart'],
     .results_text,
      #results_text {
-        display: none;
+        display: block !important;
+        color: #ffffff !important;
+        font-size: 12px !important;
+        line-height: 1.3 !important;
+        padding: 0.03cm !important;
+        margin-top: 0 !important;
+        text-align: left !important;
+        max-height: none !important;
+        overflow: visible !important;
+        align-self: flex-start !important;
+    }
+
+    .results_text *,
+    #results_text *,
+    #results_text1,
+    #results_text2,
+    #results_text1 *,
+    #results_text2 * {
+        color: #ffffff !important;
     }
 
     .results_graph {
-        width: 32%;
+        width: 30%;
         margin-bottom: 0;
-        margin-top:0;
-    	margin-left:auto;
-    	margin-right:auto;
+        margin-top: 0;
+    	margin-left: auto;
+    	margin-right: auto;
     }
 
     div[id^='results_graph'] {
-        margin-bottom: 0;
+      margin-bottom: 0;
     	margin-top:0;
     	margin-left:auto;
     	margin-right:auto;
     }
 
     div[id^='results_box'] {
-    	margin-bottom: 0 !important;
-    	margin-top:0.1cm !important;
+    	margin-bottom: 0.05cm !important;
+    	margin-top: 0.02cm !important;
     	margin-left:auto;
     	margin-right:auto;
-    	padding: 0;
+    	padding: 0.05cm !important;
     	border: 0.005cm #6150a3 solid;
-    	width: 65%;
+    	width: 100%;
     	page-break-inside: avoid;
+    	flex: 1 !important;
+    	box-sizing: border-box !important;
+    	display: flex !important;
+    	flex-direction: column !important;
+    }
+
+    /* Background color for 5-year risk box */
+    #results_box {
+	    background-color: #39107b !important;
+	    color: #fff !important;
+	    -webkit-print-color-adjust: exact !important;
+	    print-color-adjust: exact !important;
+      /* padding-bottom: 0.5cm !important; */
+    }
+
+    /* Darker background and border color for lifetime risk box */
+    #results_box2 {
+	    background-color: #5f5391 !important;
+	    border-color: #5f5391 !important;
+	    color: #fff !important;
+	    -webkit-print-color-adjust: exact !important;
+	    print-color-adjust: exact !important;
     }
 
     div[id^='results_box'] > div {
     	display: flex;
+    	align-items: flex-start !important;
     }
 
     .results_header {
     	margin-bottom: 0;
-    	line-height: 22px;
-    	font-size: 18px;
+    	line-height: 1.0;
+    	font-size: 24px;
+    	font-weight: bold;
+    	color: #fff !important;
+    	padding: 0.02cm 0;
     }
 
     .patient_header, .risk_header {
-        font-size: 16px;
+        font-size: 14px;
         text-align: center;
+        line-height: 1.0;
+        margin-bottom: 0;
+        margin-top: 0;
+        padding-bottom: 0;
+        color: #fff !important;
     }
+
+   /* Reduce pie chart size for print */
+   .svg-container {
+       max-width: 140px !important;
+       max-height: 140px !important;
+       width: 100% !important;
+       padding-top: 65% !important;
+       margin: 0 auto !important;
+   }
 
 
     /* Section that make all components invisible that will not be one the      */
@@ -284,6 +405,7 @@
     .result_page_anchor,
     #buttonsArea,
     #footer,
+    .footer,
     .center-block
     {
         display:none !important;

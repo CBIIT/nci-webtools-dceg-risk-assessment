@@ -58,12 +58,12 @@
     </div>
     <nav class="navbar-collapse collapse" id="main-nav" aria-expanded="false">
       <ul class="nav nav-tabs">
-        <li class="active" role="presentation">
-          <a href="calculator.html">Risk Calculator</a>
-        </li>
-        <li role="presentation">
-          <a href="about.html">About the Calculator</a>
-        </li>
+          <li class="active">
+            <a href="calculator.html">Risk Calculator</a>
+          </li>
+          <li>
+            <a href="about.html">About the Calculator</a>
+          </li>
       </ul>
     </nav>
 
@@ -103,18 +103,107 @@
         </button>
         <div class="row">
           <div class="col-xs-12 col-md-12">
-            <ul class="content resultsPageContent">
+            
+              
+              
+          
+          </div>
+        </div>
+
+        <!-- Result Boxes for Five Year and Lifetime Results -->
+        <div class="row risk-charts-container">
+          <div class="col-xs-12 col-md-10">
+            <h2 class="text-center">Risk of Developing Breast Cancer</h2>
+          </div>
+        </div>
+        <div class="row risk-charts-container">          
+          <!-- Five Year Results -->
+          <div class="col-xs-12 col-md-5 risk-chart-section">
+            <div id="results_box">
+              <p class="results_header">5&#8212;Year Risk</p>
+
+              <div class="vertical_alignment">
+                <div class="results_graph">
+                  <div id="results_graph_1">
+                    <div class="patient_header">Patient Risk</div>
+                    <div class="risk_header" id="Risk1"></div>
+                    <div id="pieChart1" class="svg-container"> </div>
+                  </div>
+                </div>
+                <div class="results_graph">
+                  <div id="results_graph_2">
+                    <div class="patient_header">Average Risk</div>
+                    <div class="risk_header" id="Risk2"></div>
+                    <div id="pieChart2" class="svg-container"> </div>
+                  </div>
+                </div>
+                <div class="results_text">
+                  <div id="results_text1" class="vertical_alignment"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lifetime Results -->
+          <div class="col-xs-12 col-md-5 risk-chart-section">
+            <div id="results_box2">
+              <p class="results_header">Lifetime Risk</p>
+
+              <div class="vertical_alignment">
+                <div class="results_graph">
+                  <div id="results_graph_3">
+                    <div class="patient_header">Patient Risk</div>
+                    <div class="risk_header" id="Risk3"></div>
+                    <div id="pieChart3" class="svg-container"> </div>
+                  </div>
+                </div>
+                <div class="results_graph">
+                  <div id="results_graph_4">
+                    <div class="patient_header">Average Risk</div>
+                    <div class="risk_header" id="Risk4"></div>
+                    <div id="pieChart4" class="svg-container"> </div>
+                  </div>
+                </div>
+                <div class="results_text">
+                  <div id="results_text2" class="vertical_alignment"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Learn More Section as third column -->
+          <div class="col-xs-12 col-md-2 learn-more-section">
+            <div class="learn-more-box">
+              <p class="learn-more-header">Learn More: </p>
+              <ul class="resource-list">
+                <li class="usa-footer__secondary-link">
+                  <a href="https://www.cancer.gov/types/breast/patient/breast-prevention-pdq" target="_blank">Breast Cancer Prevention</a>
+                </li>
+                <li class="usa-footer__secondary-link">
+                  <a href="https://www.cancer.gov/types/breast/patient/breast-screening-pdq" target="_blank">Breast Cancer Screening</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notes and Caveats Section -->
+        <div class="row">
+          <div class="col-xs-12 col-md-12 notes-caveats-section">
+            <h2>Notes and Caveats</h2>
+            <ul class="notes-caveats-list content resultsPageContent">
               <li>This tool cannot accurately calculate risk for women with a medical history of breast cancer, DCIS or LCIS.
                 Other tools may be more appropriate for women with known mutations in either the <span class="textItalicized">BRCA1</span>
                 or <span class="textItalicized">BRCA2</span> gene, or
                 other hereditary syndromes associated with higher risks of breast cancer. See
                 <a href="about.html#OtherRiskAssessmentTools"
                   target="_blank">Other Risk Assessment Tools</a> for more information. </li>
-              <li>Although a patient&apos;s risk may be accurately estimated, these predictions do not allow one to say precisely
+                  <li>Although a patient&apos;s risk may be accurately estimated, these predictions do not allow one to say precisely
                 which woman will develop breast cancer. </li>
               <li>Some women who do not develop breast cancer have higher risk estimates than those who do develop the disease.</li>
               <li>This tool was designed for use by health professionals. If you are not a health professional, you are encouraged
-                to print these results and discuss them with your provider.</li>
+                to print these results and discuss them with your provider. Health-related decisions, for example, when to begin screening for breast cancer, or the interval or modality of screening, should be made after consultation with a health care professional.</li>
+              <li>The results from this tool should not serve as the sole basis of health care decisions.</li>
               <li>The answers provided were used to estimate absolute risk of developing invasive breast cancer during the next
                 5-year period and up to age 90 (lifetime risk). </li>
               <li class="remove_bullet">
@@ -122,70 +211,17 @@
                   <li>Factors included: patient&apos;s personal medical and reproductive history and the history of breast cancer
                     among her first-degree relatives (mother, sisters, daughters).</li>
                   <li>For comparison, the tool also presents 5-year and lifetime risk estimates for a woman of the same age and
-                    race/ethnicity who is at average risk for developing breast cancer.</li>
+                    race and ethnicity who is at average risk for developing breast cancer.</li>
                 </ul>
               </li>
             </ul>
           </div>
         </div>
 
-        <!-- Result Box for Five Year Results                               -->
-        <div id="results_box" class="row">
-          <p class="results_header">5&#8212;Year Risk of Developing Breast Cancer</p>
-
-          <div class="row vertical_alignment">
-
-            <div class="col-sm-12 col-md-4 results_graph">
-              <div id="results_graph_1">
-                <div class="patient_header">Patient Risk</div>
-                <div class="risk_header" id="Risk1"></div>
-                <div id="pieChart1" class="svg-container"> </div>
-              </div>
-            </div>
-            <div class="col-sm-12 col-md-4 results_graph">
-              <div id="results_graph_2">
-                <div class="patient_header">Average Risk</div>
-                <div class="risk_header" id="Risk2"></div>
-                <div id="pieChart2" class="svg-container"> </div>
-              </div>
-            </div>
-
-            <div class="col-sm-12 col-md-4 results_text">
-              <div id="results_text1" class="vertical_alignment"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Result Box for Lifetime Results                                 -->
-        <div id="results_box2" class="row">
-          <p class="results_header">Lifetime Risk of Developing Breast Cancer</p>
-
-          <div class="row vertical_alignment">
-
-            <div class="col-sm-12 col-md-4 results_graph">
-              <div id="results_graph_3">
-                <div class="patient_header">Patient Risk</div>
-                <div class="risk_header" id="Risk3"></div>
-                <div id="pieChart3" class="svg-container"> </div>
-              </div>
-            </div>
-            <div class="col-sm-12 col-md-4 results_graph">
-              <div id="results_graph_4">
-                <div class="patient_header">Average Risk</div>
-                <div class="risk_header" id="Risk4"></div>
-                <div id="pieChart4" class="svg-container"> </div>
-              </div>
-            </div>
-            <div class="col-sm-12 col-md-4 results_text">
-              <div id="results_text2" class="vertical_alignment"></div>
-            </div>
-          </div>
-        </div>
-
         <!-- Show the input parameters -->
         <div id="displayInput">
-          <h2>Your Answers</h2>
-          <p class="selectContent">These results are based upon how you answered the following questions:</p>
+          <h2>Answers Provided</h2>
+          <p class="selectContent">These results are based on the answers provided to the following questions:</p>
           <table id="InputParameters">
             <tbody>
               <tr>
@@ -229,7 +265,7 @@
     </div>
     <ol>
       <li class="active">
-        <a class="hidden-xs" href="#patient-eligibility-section">Patient Eligibility</a>
+        <a class="hidden-xs" href="#patient-eligibility-section">Patient Eligibility Reminder</a>
         <a class="step-node" href="#patient-eligibility-section">1</a>
         <span class="hidden-xs" aria-hidden="true">&nbsp;</span>
       </li>
@@ -252,11 +288,10 @@
   <div class="container-fluid" id="main">
     <div id="errors"></div>
     <form id="riskForm" name="riskForm" method="POST" action="calculate" autocomplete="off">
-      <h2 id="PatientEligibilitySectionTitle" class="sectionTitle">Patient Eligibility</h2>
+      <h2 id="PatientEligibilitySectionTitle" class="sectionTitle">Patient Eligibility Reminder</h2>
       <section id="patient-eligibility-section">
         <div id="questionAndAnswers1" role="radiogroup" aria-labelledby="cancerAndRadiationHistoryLabel">
-          <label id="cancerAndRadiationHistoryLabel" class="questions no-margin-top">Does the woman have a medical history of any breast cancer or of ductal carcinoma in situ (DCIS) or lobular carcinoma
-            in situ (LCIS) or has she received previous radiation therapy to the chest for treatment of Hodgkin lymphoma?</label>
+          <label id="cancerAndRadiationHistoryLabel" class="questions no-margin-top">Does the patient have a medical history of breast cancer or of ductal carcinoma in situ (DCIS) or lobular carcinoma in situ (LCIS) or has she received previous radiation therapy to the chest for treatment of Hodgkin lymphoma?</label>
           <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
             <input id="cancerAndRadiationHistoryYes" type="radio" name="cancerAndRadiationHistory" value="0" required aria-label="cancerAndRadiationHistory" >
             <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="2" aria-posinset="1">
@@ -270,8 +305,7 @@
         </div>
         <div id="questionAndAnswers2" class="spaceBetweenQuestions" role="radiogroup" aria-labelledby="geneticMakeupLabel">
           <label id="geneticMakeupLabel" class="questions">
-            Does the woman have a mutation in either the <span class="textItalicized removeOutline">BRCA1</span> or <span class="textItalicized removeOutline">BRCA2</span> gene, or a diagnosis of a genetic syndrome that may be associated
-            with elevated risk of breast cancer?
+            Does the patient have a mutation in either the <span class="textItalicized removeOutline">BRCA1</span> or <span class="textItalicized removeOutline">BRCA2</span> gene, or a diagnosis of a genetic syndrome that may be associated with elevated risk of breast cancer?
           </label>
           <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
             <input id="geneticMakeupYes" type="radio" name="geneticMakeup" value="0" required aria-label="geneticMakeup">
@@ -355,20 +389,20 @@
         </div>
 
         <div class="spaceBetweenQuestions spaceBetweenQuestionAnswerAndBorder raceDivWidth">
-          <label class="questions " for="race">What is the patient&#8217;s race/ethnicity?</label>
+          <label class="questions " for="race">What is the race and ethnicity that the patient identifies with</label>
           <div class="responseOptions spaceBetweenFirstQuestionAndResponse ">
             <select id="race" class="selectContent" name="race" required>
               <option class="selectContent" value="">Select race</option>
               <option class="selectContent" value="White">White</option>
-              <option class="selectContent" value="Black">African American</option>
-              <option class="selectContent" value="Hispanic">Hispana/&#8203;Latina</option>
-              <option class="selectContent" value="Asian">Asian American</option>
+              <option class="selectContent" value="Black">Black/African American</option>
+              <option class="selectContent" value="Hispanic">Hispanic</option>
+              <option class="selectContent" value="Asian">Asian American (includes Native Hawaiian)</option>
               <option class="selectContent" value="Other">American Indian or Alaskan Native</option>
               <option class="selectContent" value="Other">Unknown</option>
             </select>
           </div>
         </div>
-        <div class="spaceBetweenQuestions spaceBetweenQuestionAnswerAndBorder">
+        <div id="subRaceContainer" class="spaceBetweenQuestions spaceBetweenQuestionAnswerAndBorder hidden">
           <label class="col-sm-offset-1 questions" for="sub_race" data-subquestion="true">What is the sub race/ethnicity or place of birth?</label>
           <div class="col-sm-offset-1 responseOptionsWithoutIndent pl-3">
             <select id="sub_race" class="selectContent" name="sub_race" required>
@@ -432,7 +466,7 @@
         </div>
 
         <div class="spaceBetweenQuestions" role="radiogroup" aria-labelledby="age_periodLabel">
-          <label id="age_periodLabel" class="questions  ">What was the woman&#8217;s age at the time of her first menstrual period?</label>
+          <label id="age_periodLabel" class="questions  ">What was the patient&#8217;s age at the time of her first menstrual period?</label>
           <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
             <input id="age7To11" type="radio" name="age_period" value="2" required aria-label="age_period">
             <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="3" aria-posinset="1">
@@ -452,7 +486,7 @@
         </div>
 
         <div class="spaceBetweenQuestions spaceBetweenQuestionAnswerAndBorder">
-          <label class="questions" for="childbirth_age">What was the woman&#8217;s age when she gave birth to her first child? </label>
+          <label class="questions" for="childbirth_age">What was the patient&#8217;s age at first live birth? </label>
           <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
             <select id="childbirth_age" name="childbirth_age" class="selectContent" required>
               <option class="selectContent" value="">Select</option>
@@ -467,7 +501,7 @@
         </div>
 
         <div class="spaceBetweenQuestions" role="radiogroup" aria-labelledby="relativesLabel">
-          <label id="relativesLabel" class="questions ">How many of the woman&#8217;s first-degree relatives (mother, sisters, daughters) have had breast cancer?</label>
+          <label id="relativesLabel" class="questions ">How many of the patient&#8217;s first-degree relatives (mother, sisters, daughters) have had breast cancer?</label>
           <div class="responseOptions spaceBetweenFirstQuestionAndResponse">
             <input id="relativesNone" type="radio" name="relatives" value="0" required aria-label="relatives">
             <div class="radio" tabindex="0" role="radio" aria-checked="false" aria-setsize="4" aria-posinset="1">

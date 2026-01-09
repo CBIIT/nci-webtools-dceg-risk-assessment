@@ -48,8 +48,8 @@
       </div>
       <nav class="navbar-collapse collapse" id="main-nav" aria-expanded="false">
         <ul class="nav nav-tabs">
-          <li role="presentation"><a href="calculator.html">Risk Calculator</a></li>
-          <li class="active" role="presentation"><a href="about.html">About the Calculator</a></li>
+          <li ><a href="calculator.html">Risk Calculator</a></li>
+          <li class="active"><a href="about.html">About the Calculator</a></li>
         </ul>
       </nav>
       <div class="sidenav" id="side_nav">
@@ -60,8 +60,8 @@
           </button>
         </div>
         <ul class="nav nav-tabs">
-          <li class="calc_list_item"  role="presentation" id="Risk"><a href="calculator.html">Risk Calculator</a></li>
-          <li class="about_list_item" role="presentation" id="About"><a href="about.html">About the Calculator</a></li>
+          <li class="calc_list_item"  id="Risk"><a href="calculator.html">Risk Calculator</a></li>
+          <li class="about_list_item" id="About"><a href="about.html">About the Calculator</a></li>
         </ul>
       </div>
     </header>
@@ -71,7 +71,7 @@
             <div class="col-xs-12 col-md-12">
 	      <span class="spacerBetweenHeaderContentForAboutPage">&nbsp;</span>
               <h1>About the Breast Cancer Risk Assessment Calculator (The Gail Model)</h1>
-              <h4>ON THIS PAGE</h4>
+              <h2 class="h4-title">ON THIS PAGE</h2>
               <ul id="jumpTitle" class="noBottomMargin">
                 <li><a class="about_page_link_separator" href="#mainAboutTitle">The Gail Model</a></li>
                 <li><a class="about_page_link_separator" href="#TestingTheModel">Testing the Model</a></li>
@@ -80,8 +80,7 @@
               </ul>
               <h2 id="mainAboutTitle">The Gail Model</h2>
               <p class="content">
-                The Breast Cancer Risk Assessment Tool (BCRAT) is based on a statistical model known as the Gail Model, named after <a href="https://dceg.cancer.gov/about/staff-directory/biographies/K-N/gail-mitchell" target="_blank">Dr. Mitchell Gail</a>, Senior Investigator
-                in the Biostatistics Branch of the <a href="http://www.dceg.cancer.gov/NCI" target="blank">NCI Division of Cancer Epidemiology and Genetics</a>
+                The Breast Cancer Risk Assessment Tool (BCRAT) is based on a statistical model known as the Gail Model, named after <a href="https://dceg.cancer.gov/about/staff-directory/biographies/K-N/gail-mitchell" target="_blank">Dr. Mitchell Gail</a>, Scientist Emeritus in the Biostatistics Branch of the <a href="http://www.dceg.cancer.gov/NCI" target="blank">NCI Division of Cancer Epidemiology and Genetics.</a>
               </p>
               <p class="content">
                 The tool uses a woman&#8217;s own personal information to estimate risk of developing invasive breast cancer over specific periods of time, including:
@@ -90,13 +89,13 @@
                 <li>Age</li>
                 <li>Age at the start of menstruation</li>
                 <li>Age at first live birth of a child</li>
-                <li>Number of first-degree relative (mother, sisters, daughters) with breast cancer</li>
+                <li>Number of first-degree relatives (mother, sisters, daughters) with breast cancer</li>
                 <li>Number of previous breast biopsies (whether positive or negative)</li>
                 <li>Presence of atypical hyperplasia in a biopsy</li>
               </ul>
               <p class="content">
                 Data from the Breast Cancer Detection Demonstration Project (BCDDP), a joint NCI and American Cancer Society breast cancer screening study that involved 280,000 White women aged 35 to 74 years,
-                and from the NCI Surveillance, Epidemiology, and End Results (SEER) Program, were used in developing the model.
+                and from the <a href=" https://seer.cancer.gov/" target="_blank">NCI Surveillance, Epidemiology, and End Results (SEER) Program</a>, were used in developing the model.
               </p>
               <p class="content">
                 Estimates for Black/African American women were based on data from the Women&#8217;s Contraceptive and Reproductive Experiences (CARE) Study and from SEER data.  CARE participants included 1,607 women with invasive breast cancer and 1,637 without.
@@ -108,9 +107,12 @@
                 Estimates for Hispanic women were based on the San Francisco Bay Area Breast Cancer Study (SFBCS) and the California Cancer Registry and
                 SEER Program.  SFBCS participants included 1,086 women with invasive breast cancer and 1,411 women without breast cancer.
               </p>
+              <p class="content">
+                Race and ethnicity are used in the models because incidence of breast cancer and some risk factor associations differ by race and ethnicity within the U.S. population. Including these differences in the model provides the most accurate predictions for women based on current scientific knowledge.
+              </p>
               <h2 id="TestingTheModel" class="spacerBetweenSections">Testing the Model</h2>
               <p class="content">
-                The Gail Model has been tested in large populations of White women and has been shown to provide accurate estimates of breast cancer risk. The
+                The Gail Model has been tested in large populations of non-Hispanic White women and has been shown to provide accurate estimates of breast cancer risk. The
                 model was tested for Asian and Pacific Islander women, Black/African American, and Hispanic women using data from the Women&#8217;s Health Initiative. It performed
                 well but may underestimate risk in Black/African American women with previous biopsies and Hispanic women born outside the United States.  The model needs further
                 validation for Hispanic women and other subgroups. Researchers are conducting additional studies to gather more data to test and improve the model.
@@ -122,10 +124,10 @@
 
                 <p class="content boldedBodyText">Breast Cancer or Lobular Carcinoma in Situ (LCIS) or Ductal Carcinoma in Situ (DCIS)</p>
                 <ul>
-                  <li class="content">Women with a history of breast cancer have risks of recurrence that depend on the type of breast cancer, its stage at diagnosis, and treatment.  A cancer doctor can provide guidance
+                  <li class="content">Women with a history of breast cancer have risks of recurrence that depend on the type of breast cancer, its stage at diagnosis, and treatment.  An oncologist can provide guidance
                   on future risks for breast cancer survivors.</li>
-                  <li class="content">Women with a history of DCIS have risk of invasive breast cancer that depends on type of treatment for DCIS; a cancer doctor can provide information on this risk.</li>
-                  <li class="content">Women with a history of LCIS can use the <a href="http://www.ems-trials.org/riskevaluator/" target="_blank">IBIS Breast Cancer Risk Evaluation Tool</a> to estimate the risk of invasive breast cancer or DCIS.  A cancer doctor
+                  <li class="content">Women with a history of DCIS have risk of invasive breast cancer that depends on type of treatment for DCIS; an oncologist can provide information on this risk.</li>
+                  <li class="content">Women with a history of LCIS can use the <a href="http://www.ems-trials.org/riskevaluator/" target="_blank">IBIS Breast Cancer Risk Evaluation Tool</a> to estimate the risk of invasive breast cancer or DCIS.  An oncologist
                   can also provide information on the risk.</li>
                 </ul>
                 <br>
@@ -139,7 +141,7 @@
 
                 <p class="boldedBodyText">A Known Mutation in Either the <span class="textItalicized">BRCA1</span> or <span class="textItalicized">BRCA2</span> Gene</p>
                 <ul>
-                  <li class="content">Women with a known mutation in either the <span class="textItalicized">BRCA1</span> or <span class="textItalicized">BRCA2</span> gene can use the <a href="https://www.canrisk.org/" target="_blank">BOADICEA model</a> to estimate their breast cancer risk.</li>
+                  <li class="content">Women with a known mutation in either the <span class="textItalicized">BRCA1</span> or <span class="textItalicized">BRCA2</span> gene can use the <a href="https://www.canrisk.org/" target="_blank">CanRisk</a> to estimate their breast cancer risk.</li>
                 </ul>
                 <br>
 
@@ -154,7 +156,7 @@
                 version is 4.1. Source code in SAS and R may be obtained from the
                 <a href="https://dceg.cancer.gov/tools/risk-assessment/bcra" target="_blank">DCEG website</a>.
               </p>
-              <h4 id="reference_section">References</h4>
+              <h3 class="h4-title" id="reference_section">References</h3>
               <p>
                 <ol class="content">
                   <li>Gail MH, Brinton LA, Byar DP, Corle DK, Green SB, Shairer C, Mulvihill JJ:&nbsp;<a class="reference" href="https://www.ncbi.nlm.nih.gov/pubmed/2593165?dopt=Abstract"
@@ -183,6 +185,12 @@
                        target="_blank" >Projecting Individualized Absolute Invasive Breast Cancer Risk in US
                     Hispanic Women</a>.&nbsp;
                     <span class="textItalicized">J Natl Cancer Inst</span> 109(2), 2017. doi: 10.1093/jnci/djw215.&nbsp;&nbsp;<br><br></li>
+                    <li>
+                      Gail MH, Pfeiffer RM.&nbsp;<a class="reference" href="https://pubmed.ncbi.nlm.nih.gov/29490057/" target="_blank">Breast Cancer Risk Model Requirements for Counseling, Prevention, and Screening</a>.&nbsp;<span class="textItalicized">J Natl Cancer Inst</span> Sep 1;110(9) 2018. doi: 10.1093/jnci/djy013.&nbsp;&nbsp;<br><br>
+                    </li>
+                    <li>
+                      Roberti S. et al.&nbsp;<a class="reference" href="https://pubmed.ncbi.nlm.nih.gov/39485483/" target="_blank">Prediction of breast cancer risk for adolescents and young adults with Hodgkin lymphoma</a>.&nbsp;<span class="textItalicized">JNCI.</span> 2025.
+                    </li>
                 </ol>
               </p>
             </div>
