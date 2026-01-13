@@ -1,3 +1,20 @@
+// Show/hide sub race/ethnicity question based on race selection
+document.addEventListener('DOMContentLoaded', function() {
+  var raceSelect = document.getElementById('race');
+  var subRaceContainer = document.getElementById('subRaceContainer');
+  if (raceSelect && subRaceContainer) {
+    function updateSubRaceVisibility() {
+      var value = raceSelect.value;
+      if (value === 'Hispanic' || value === 'Asian') {
+        subRaceContainer.classList.remove('hidden');
+      } else {
+        subRaceContainer.classList.add('hidden');
+      }
+    }
+    raceSelect.addEventListener('change', updateSubRaceVisibility);
+    updateSubRaceVisibility();
+  }
+});
 // A collection of term/definitions
 var terms = {
   "invasive breast cancer" : {
@@ -119,13 +136,17 @@ function attachSubraceItems() {
   var properPhraseForQuestion = "Select"
 
   if ( this.value == "Hispanic") {
+    // Update the label text for Hispanic selection
+    $("[for='sub_race']").text("Where was the patient born?");
     attachOptionsToAnHTMLObject(
       {
-        ""                 : properPhraseForQuestion,
-        "Foreign Hispanic" : "Born outside the US",
-        "US Hispanic"      : "US born"
+        ""                 : properPhraseForQuestion,        
+        "US Hispanic"      : "In the US",
+        "Foreign Hispanic" : "Outside the US"
       })
   } else if ( this.value == 'Asian') {
+    // Update the label text for Asian American selection
+    $("[for='sub_race']").text("What is the ancestry/ethnic background");
     attachOptionsToAnHTMLObject(
       {
         ""            : properPhraseForQuestion,
@@ -137,6 +158,8 @@ function attachSubraceItems() {
         "Asian"       : "Other Asian"
       })
   } else {
+    // Reset to default label text for other races
+    $("[for='sub_race']").text("What is the sub race/ethnicity or place of birth?");
     attachOptionsToAnHTMLObject(
       {
         ""            : properPhraseForQuestion
@@ -325,15 +348,15 @@ function addInformationToTheQuestions(element) {
     var returnString = ""
     if ( currentRaceSelected.startsWith("His")) {
       returnHTML =
-        startTag + "Assessments for Hispanas/Latinas are subject to greater uncertainty than those for white and African American/black women." + endTag +
+        startTag + "Assessments for Hispanics are subject to greater uncertainty than those for White and Black/African American women." + endTag +
         startTag + "Researchers are conducting additional studies, including studies with minority populations, to gather more data and to increase the accuracy of the tool for women in these populations. " + endTag
     }
     else if ( currentRaceSelected == 'American Indian or Alaskan Native') {
       returnHTML =
-        startTag + "Risk estimates for American Indian/Alaska Native women are based on data for white women; further studies are needed to refine and validate this tool." + endTag
+        startTag + "Risk estimates for American Indian/Alaska Native women are based on data for White women; further studies are needed to refine and validate this tool." + endTag
     }
     else if ( currentRaceSelected == 'Unknown') {
-      returnHTML = startTag + "Risk estimates for Unknown race/ethnicity are based on data for white women." + endTag
+      returnHTML = startTag + "Risk estimates for Unknown race/ethnicity are based on data for White women." + endTag
     } else {
       returnHTML = ""
     }
@@ -363,4 +386,25 @@ function addInformationToResultPageIntroductionText() {
   }
 
   $("#results_home ul.content.resultsPageContent").append(returnHTML)
+}
+
+/******************************************************************************/
+/* Filter questions displayed in the results table                            */
+/* This function is called by the generic rat.js code when building results  */
+/* Input: HTML label element from the form                                    */
+/* Output: Boolean (true means show in results, false means hide)            */
+/******************************************************************************/
+function filterForInputParametersDisplay(element) {
+  // Check if this is the sub race/ethnicity question
+  var isSubRaceQuestion = $(element).attr('for') === 'sub_race' || 
+                          $(element).attr('data-subquestion') === 'true';
+  
+  if (isSubRaceQuestion) {
+    // Only show sub race if Hispanic or Asian is selected
+    var selectedRace = $("#race").val();
+    return (selectedRace === 'Hispanic' || selectedRace === 'Asian');
+  }
+  
+  // Show all other questions
+  return true;
 }
