@@ -4,30 +4,39 @@ services:
     build:
       context: .
       dockerfile: bcrisktool/docker/backend.dockerfile
+      args:
+        LAST_UPDATED: ${LAST_UPDATED}
+        RELEASE_VERSION: ${RELEASE_VERSION}
     ports:
       - "8120:80"
     environment:
-      - LAST_UPDATED=2024-11-12  # Example date
-      - RELEASE_VERSION=1.0.0    # Example version
+      - LAST_UPDATED=${LAST_UPDATED}
+      - RELEASE_VERSION=${RELEASE_VERSION}
 
   #docker compose up ccrisktool
   ccrisktool:
     build:
       context: .
       dockerfile: colorectalcancerrisk/docker/backend.dockerfile
+      args:
+        LAST_UPDATED: ${LAST_UPDATED}
+        RELEASE_VERSION: ${RELEASE_VERSION}
     ports:
       - "8170:80"
     environment:
-      - LAST_UPDATED=2024-11-12  # Example date
-      - RELEASE_VERSION=1.0.0    # Example version
+      - LAST_UPDATED=${LAST_UPDATED}
+      - RELEASE_VERSION=${RELEASE_VERSION}
 
   #docker compose up mrisktool
   mrisktool:
     build:
       context: .
       dockerfile: melanomarisktool/docker/backend.dockerfile
+      args:
+        LAST_UPDATED: ${LAST_UPDATED}
+        RELEASE_VERSION: ${RELEASE_VERSION}
     ports:
       - "8030:80"
     environment:
-      - LAST_UPDATED=2024-11-12  # Example date
-      - RELEASE_VERSION=1.0.0    # Example version
+      - LAST_UPDATED=${LAST_UPDATED}
+      - RELEASE_VERSION=${RELEASE_VERSION}
