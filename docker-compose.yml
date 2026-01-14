@@ -5,13 +5,13 @@ services:
       context: .
       dockerfile: bcrisktool/docker/backend.dockerfile
       args:
-        LAST_UPDATED: ${LAST_UPDATED}
-        RELEASE_VERSION: ${RELEASE_VERSION}
+        LAST_UPDATED: ${BCRISKTOOL_LAST_UPDATED:-${LAST_UPDATED}}
+        RELEASE_VERSION: ${BCRISKTOOL_RELEASE_VERSION:-${RELEASE_VERSION}}
     ports:
       - "8120:80"
     environment:
-      - LAST_UPDATED=${LAST_UPDATED}
-      - RELEASE_VERSION=${RELEASE_VERSION}
+      - LAST_UPDATED=${BCRISKTOOL_LAST_UPDATED:-${LAST_UPDATED}}
+      - RELEASE_VERSION=${BCRISKTOOL_RELEASE_VERSION:-${RELEASE_VERSION}}
 
   #docker compose up ccrisktool
   ccrisktool:
@@ -19,13 +19,13 @@ services:
       context: .
       dockerfile: colorectalcancerrisk/docker/backend.dockerfile
       args:
-        LAST_UPDATED: ${LAST_UPDATED}
-        RELEASE_VERSION: ${RELEASE_VERSION}
+        LAST_UPDATED: ${CCRISKTOOL_LAST_UPDATED:-${LAST_UPDATED}}
+        RELEASE_VERSION: ${CCRISKTOOL_RELEASE_VERSION:-${RELEASE_VERSION}}
     ports:
       - "8170:80"
     environment:
-      - LAST_UPDATED=${LAST_UPDATED}
-      - RELEASE_VERSION=${RELEASE_VERSION}
+      - LAST_UPDATED=${CCRISKTOOL_LAST_UPDATED:-${LAST_UPDATED}}
+      - RELEASE_VERSION=${CCRISKTOOL_RELEASE_VERSION:-${RELEASE_VERSION}}
 
   #docker compose up mrisktool
   mrisktool:
@@ -33,10 +33,10 @@ services:
       context: .
       dockerfile: melanomarisktool/docker/backend.dockerfile
       args:
-        LAST_UPDATED: ${LAST_UPDATED}
-        RELEASE_VERSION: ${RELEASE_VERSION}
+        LAST_UPDATED: ${MRISKTOOL_LAST_UPDATED:-${LAST_UPDATED}}
+        RELEASE_VERSION: ${MRISKTOOL_RELEASE_VERSION:-${RELEASE_VERSION}}
     ports:
       - "8030:80"
     environment:
-      - LAST_UPDATED=${LAST_UPDATED}
-      - RELEASE_VERSION=${RELEASE_VERSION}
+      - LAST_UPDATED=${MRISKTOOL_LAST_UPDATED:-${LAST_UPDATED}}
+      - RELEASE_VERSION=${MRISKTOOL_RELEASE_VERSION:-${RELEASE_VERSION}}
