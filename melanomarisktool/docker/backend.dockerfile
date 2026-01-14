@@ -1,5 +1,13 @@
 FROM public.ecr.aws/amazonlinux/amazonlinux:2023
 
+# Accept build arguments
+ARG LAST_UPDATED
+ARG RELEASE_VERSION
+
+# Set them as environment variables
+ENV LAST_UPDATED=$LAST_UPDATED
+ENV RELEASE_VERSION=$RELEASE_VERSION
+
 RUN dnf -y update \
  && dnf -y install \
     gcc-c++ \
