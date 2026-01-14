@@ -261,7 +261,7 @@ function formScrollSpy() {
 				// in CCRAT the male question/answers have five sections and the female
 				// has four sections.
 				$("#form-steps li").removeClass('active');
-				$("#form-steps li:eq(" + ind + "):visible").addClass('active');
+				$("#form-steps li:not(.spacer):eq(" + ind + "):visible").addClass('active');
 				adjust_line_width(ind);
 			}
 		});
