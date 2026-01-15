@@ -189,6 +189,11 @@ a:hover,
 a:focus {
   color: #2b7bba;
 }
+
+a.underlined-link {
+  text-decoration: underline;
+}
+
 .sectionTitle {
   color: #fff;
   padding: 13px;
@@ -468,18 +473,25 @@ a.btn:disabled {
 }
 
 .printButton {
-  height: 31px;
-  width: 42px;
+  height: 40px;
+  width: 58px;
   cursor: pointer;
 
   background-color: white;
   border : none;
 }
 
+.printButton img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 #printTop {
   float: right;
   margin-top: 18px;
   cursor: pointer;
+  margin-bottom: 12px; 
 }
 
 
@@ -629,7 +641,9 @@ a.btn:disabled {
   padding-left : 1em;
   max-height: 295px;
 }
-div[id^='results_box']{
+
+/* Generic styling for all results boxes */
+div[id^='results_box'] {
   font-size: 18px;
   border: 7px #6150a3 solid;
   background: #7163ad;
@@ -638,6 +652,16 @@ div[id^='results_box']{
   margin-bottom: 2%;
   margin-top: 2%;
   text-align: left;
+}
+
+/* Specific styling for breast cancer risk tool 5-year box */
+#results_box {
+  background: #39107b;
+}
+
+/* Specific styling for breast cancer risk tool lifetime box */
+#results_box2 {
+  background: #5f5391; 
 }
 
 div[id^='results_graph'] {
@@ -671,9 +695,66 @@ div[id^='results_graph'] {
   padding-top: 5px;
 }
 
+.learn-more-header {
+  text-align: left;
+  margin-bottom: 2%;
+  font-family: Montserrat;
+  font-weight: bold;
+  color: #584B92;
+}
+
+.learn-more-box .resource-list a {
+  color: #584B92;
+}
+
 .no-padding-left {
   padding-left: 0px !important;
 }
+
+/* Side-by-side risk chart layout */
+.risk-charts-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.risk-chart-section {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.risk-chart-section #results_box,
+.risk-chart-section #results_box2 {
+  margin-bottom: 30px;
+}
+
+.risk-chart-section .vertical_alignment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.risk-chart-section .results_graph {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 20px;
+}
+
+.risk-chart-section .results_text {
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+  .risk-chart-section {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+}
+
 .no-margin {
   margin: 0;
 }
@@ -1814,5 +1895,42 @@ section > fieldset > legend.questions {
     font-weight: bold;
 }
 
+/* Learn More box alignment and style */
+.learn-more-section {
+  text-align: left;
+}
+.learn-more-box {
+  padding: 0 10px;
+}
+.learn-more-box .resource-list {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+.learn-more-box .resource-list li {
+  margin-bottom: 10px;
+}
 
+.notes-caveats-section {
+  border: 2px solid #584B92;
+  border-radius: 0px;
+  padding: 18px 20px;
+  margin-bottom: 24px;
+  background: #f8f7fc;
+}
+.notes-caveats-list {
+  list-style: disc;
+  margin-left: 20px;
+}
 
+#race.selectContent {
+  min-width: 370px;
+  width: auto;
+  max-width: 100%;
+}
+
+.h4-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
