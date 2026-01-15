@@ -190,11 +190,8 @@ jobs:
           cat web.yml
 
       - name: Register task definition
-        if: github.event_name == 'workflow_dispatch'
         run: |
-          arn=$(aws ecs register-task-definition --cli-input-yaml file://web.yml --query "taskDefinition.taskDefinitionArn" --output text)
-          echo "WEB_TASK_DEF_ARN=$arn" >> $GITHUB_ENV
-          echo "Registered task definition: $arn"
+          aws ecs register-task-definition --cli-input-yaml file://web.yml
 
       - name: Update web service
         if: github.event_name == 'workflow_dispatch'
@@ -202,7 +199,7 @@ jobs:
           aws ecs update-service \
             --cluster ${{ env.ECS_CLUSTER }} \
             --service ${{ env.ECS_WEB_SERVICE }} \
-            --task-definition $WEB_TASK_DEF_ARN \
+            --task-definition ${{ env.ECS_WEB_TASK }} \
             --desired-count 1 \
             --propagate-tags TASK_DEFINITION \
             --force-new-deployment
