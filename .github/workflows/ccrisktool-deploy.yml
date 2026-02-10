@@ -35,7 +35,7 @@ jobs:
       BACKEND_CONTAINER_PORT: 80
       ECS_CPU_UNITS: "256"
       ECS_MEMORY_UNITS: "512"
-      CICD_ROLE_ARN: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-cicd
+      CICD_ROLE_ARN: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/power-user-github-actions-cicd
     
     steps:
       - name: Checkout code
