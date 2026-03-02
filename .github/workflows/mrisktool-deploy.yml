@@ -136,8 +136,8 @@ jobs:
           build-args: |
             LAST_UPDATED=${{ env.LAST_UPDATED }}
             RELEASE_VERSION=${{ env.RELEASE_VERSION }}
-          cache-from: type=registry,ref=${{ env.IMAGE_REPOSITORY }}:backend-cache
-          cache-to: type=registry,ref=${{ env.IMAGE_REPOSITORY }}:backend-cache,image-manifest=true,oci-mediatypes=true,mode=max
+          cache-from: type=registry,ref=${{ env.BACKEND_IMAGE_LATEST }}
+          cache-to: type=inline
 
       - name: Get ECS configuration from SSM Parameter Store
         if: github.event_name == 'workflow_dispatch'
