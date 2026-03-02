@@ -1,4 +1,5 @@
 import json
+import os
 from pprint import pformat
 from traceback import format_exc
 from flask import Flask, request, jsonify, send_from_directory, redirect
@@ -31,6 +32,13 @@ def error_handler(e):
 @app.route('/api/ping', methods=['GET'], strict_slashes=False)
 def ping():
   return "true"
+
+@app.route('/api/version-info', methods=['GET'], strict_slashes=False)
+def version_info():
+  return jsonify({
+      "lastUpdated": os.getenv("LAST_UPDATED", "N/A"),
+      "version": os.getenv("RELEASE_VERSION", "N/A")
+  })
 
 
 @app.route('/calculate', methods=['POST'], strict_slashes=False)
