@@ -95,7 +95,7 @@
     </div>
   </header>
 
-  <div>
+  <main>
     <h1 class="sr-only">Colorectal Cancer Risk Assessment Calculator - NCI</h1>
     <div  id="results" class="container-fluid">
       <div id="results_home">
@@ -281,26 +281,26 @@
           <a class="hidden-xs" href="#demo-section">Demographics</a>
           <a class="step-node" href="#demo-section">1</a>
           <span class="hidden-xs" aria-hidden="true" >&nbsp;</span>
-          <span class="spacer" aria-hidden="true"></span>
         </li>
+        <span class="spacer" aria-hidden="true"></span>
         <li>
           <span class="hidden-xs"  aria-hidden="true">&nbsp;</span>
           <a class="step-node" href="#activity-section">2</a>
           <a class="hidden-xs" href="#activity-section">Diet &amp; Physical Activity</a>
-          <span class="spacer" aria-hidden="true"></span>
         </li>
+        <span class="spacer" aria-hidden="true"></span>
         <li>
           <a class="hidden-xs" href="#medical-section">Medical History</a>
           <a class="step-node" href="#medical-section">3</a>
           <span class="hidden-xs" aria-hidden="true">&nbsp;</span>
-          <span class="spacer" aria-hidden="true"></span>
         </li>
+        <span class="spacer" aria-hidden="true"></span>
         <li>
           <span class="hidden-xs" aria-hidden="true">&nbsp;</span>
           <a class="step-node" href="#family-section">4</a>
           <a class="hidden-xs" href="#family-section">Family History</a>
-          <span class="spacer" aria-hidden="true"></span>
         </li>
+        <span class="spacer" aria-hidden="true"></span>
         <li id="different" class="maleOnlyStep">
           <a class="hidden-xs" href="#cigarette-section">Cigarette Usage</a>
           <a class="step-node" href="#cigarette-section">5</a>
@@ -308,7 +308,7 @@
         </li>
       </ol>
     </div>
-    <div class="container-fluid" id="main" role="main">
+    <div class="container-fluid" id="main">
       <form id="riskForm" name="riskForm" method="POST" action="calculate" autocomplete="off">
 
         <!-- ##############################################################  -->
@@ -930,10 +930,10 @@
         </div>
       </form>
     </div>
-  </div>
+  </main>
 
   <!-- <div id="footer" class="footer" role="contentinfo"></div> -->
-   <div class="footer">
+  <footer class="footer">
     <div class="usa-footer__primary-section">
       <div class="grid-footer-container">
         <div class="row grid-gap">
@@ -988,16 +988,16 @@
         </div>
       </div>
     </div>
-    <div id="footer" role="contentinfo"></div>
-  </div>
-  <div class="usa-footer__return-to-top">
-    <a href="#" aria-label="Back To Top" id="backToTop">
-      <span class="back-to-top-text">Back To Top</span>
-      <span class="back-to-top-icon" aria-hidden="true">
-        <i class="fa fa-arrow-up"></i>
-      </span>
-    </a>
-  </div>  
+    <div id="footer"></div>
+    <div class="usa-footer__return-to-top">
+      <a href="#" aria-label="Back To Top" id="backToTop">
+        <span class="back-to-top-text">Back To Top</span>
+        <span class="back-to-top-icon" aria-hidden="true">
+          <i class="fa fa-arrow-up"></i>
+        </span>
+      </a>
+    </div>
+  </footer>
 
   <!-- ###################################################### -->
   <!-- Modal Dialogs                                          -->

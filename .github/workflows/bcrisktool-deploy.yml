@@ -24,6 +24,7 @@ env:
 
 jobs:
   build-and-deploy:
+    timeout-minutes: 30
     name: Build, Push, and Deploy
     runs-on: ubuntu-latest
     environment: ${{ inputs.tier }}
@@ -35,7 +36,7 @@ jobs:
       BACKEND_CONTAINER_PORT: 80
       ECS_CPU_UNITS: "256"
       ECS_MEMORY_UNITS: "512"
-      CICD_ROLE_ARN: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-cicd
+      CICD_ROLE_ARN: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/power-user-github-actions-cicd
     
     steps:
       - name: Checkout code
@@ -135,8 +136,8 @@ jobs:
           build-args: |
             LAST_UPDATED=${{ env.LAST_UPDATED }}
             RELEASE_VERSION=${{ env.RELEASE_VERSION }}
-          cache-from: type=registry,ref=${{ env.IMAGE_REPOSITORY }}:backend-cache
-          cache-to: type=registry,ref=${{ env.IMAGE_REPOSITORY }}:backend-cache,image-manifest=true,oci-mediatypes=true,mode=max
+          cache-from: type=registry,ref=${{ env.BACKEND_IMAGE_LATEST }}
+          cache-to: type=inline
 
       - name: Get ECS configuration from SSM Parameter Store
         if: github.event_name == 'workflow_dispatch'
@@ -190,11 +191,8 @@ jobs:
           cat web.yml
 
       - name: Register task definition
-        if: github.event_name == 'workflow_dispatch'
         run: |
-          arn=$(aws ecs register-task-definition --cli-input-yaml file://web.yml --query "taskDefinition.taskDefinitionArn" --output text)
-          echo "WEB_TASK_DEF_ARN=$arn" >> $GITHUB_ENV
-          echo "Registered task definition: $arn"
+          aws ecs register-task-definition --cli-input-yaml file://web.yml
 
       - name: Update web service
         if: github.event_name == 'workflow_dispatch'
@@ -202,7 +200,7 @@ jobs:
           aws ecs update-service \
             --cluster ${{ env.ECS_CLUSTER }} \
             --service ${{ env.ECS_WEB_SERVICE }} \
-            --task-definition $WEB_TASK_DEF_ARN \
+            --task-definition ${{ env.ECS_WEB_TASK }} \
             --desired-count 1 \
             --propagate-tags TASK_DEFINITION \
             --force-new-deployment
