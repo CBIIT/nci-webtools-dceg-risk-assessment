@@ -146,7 +146,7 @@ function attachSubraceItems() {
       })
   } else if ( this.value == 'Asian') {
     // Update the label text for Asian American selection
-    $("[for='sub_race']").text("What is the ancestry/ethnic background");
+    $("[for='sub_race']").text("What is the patient's ancestry/ethnic background?");
     attachOptionsToAnHTMLObject(
       {
         ""            : properPhraseForQuestion,
@@ -395,16 +395,18 @@ function addInformationToResultPageIntroductionText() {
 /* Output: Boolean (true means show in results, false means hide)            */
 /******************************************************************************/
 function filterForInputParametersDisplay(element) {
-  // Check if this is the sub race/ethnicity question
-  var isSubRaceQuestion = $(element).attr('for') === 'sub_race' || 
-                          $(element).attr('data-subquestion') === 'true';
-  
-  if (isSubRaceQuestion) {
-    // Only show sub race if Hispanic or Asian is selected
+  // Sub race question: only show when Hispanic or Asian is selected
+  if ($(element).attr('for') === 'sub_race') {
     var selectedRace = $("#race").val();
     return (selectedRace === 'Hispanic' || selectedRace === 'Asian');
   }
-  
+
+  // Biopsy sub-questions: only show when biopsy answer is "Yes"
+  var elementId = $(element).attr('id');
+  if (elementId === 'biopsy_resultLabel' || elementId === 'biopsy_ahLabel') {
+    return $("input[name='biopsy']:checked").val() === '1';
+  }
+
   // Show all other questions
   return true;
 }
