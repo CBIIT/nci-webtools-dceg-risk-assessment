@@ -346,12 +346,12 @@ function createDonutSVG(percent, color) {
   var fontSize = percentText.length > 4 ? 28 : 34;
 
   return '<svg width="200" height="200" viewBox="0 0 220 220">' +
-    '<circle cx="110" cy="110" r="' + radius + '" fill="none" stroke="#ddd" stroke-width="18"></circle>' +
-    '<circle cx="110" cy="110" r="' + radius + '" fill="none" stroke="' + color + '" stroke-width="18" ' +
+    '<circle cx="110" cy="110" r="' + radius + '" fill="none" stroke="#ddd" stroke-width="30"></circle>' +
+    '<circle cx="110" cy="110" r="' + radius + '" fill="none" stroke="' + color + '" stroke-width="30" ' +
       'stroke-dasharray="' + filled + ' ' + gap + '" ' +
       'stroke-linecap="butt" ' +
       'style="transform: rotate(-90deg); transform-origin: 110px 110px;"></circle>' +
-    '<circle cx="110" cy="110" r="56" fill="#fff"></circle>' +
+    '<circle cx="110" cy="110" r="50" fill="#fff"></circle>' +
     '<text x="110" y="114" text-anchor="middle" dominant-baseline="middle" ' +
       'font-family="Arial, Helvetica, sans-serif" font-size="' + fontSize + '" font-weight="700" ' +
       'fill="' + color + '">' + percentText + '</text>' +

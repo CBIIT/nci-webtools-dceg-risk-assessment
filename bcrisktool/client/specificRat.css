@@ -164,9 +164,37 @@
   color: #1b1b1b;
 }
 
+/* --- Learn More --- */
+.learn-more-section {
+  margin: 16px 0;
+}
+
+.learn-more-header {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 6px;
+}
+
+.learn-more-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.learn-more-list li {
+  margin-bottom: 4px;
+}
+
+.learn-more-list a {
+  color: #005ea2;
+  text-decoration: underline;
+  font-size: 16px;
+}
+
 /* --- Footer Note --- */
 .footer-note {
   margin-top: 12px;
+  margin-bottom: 30px;
   font-size: 14px;
   color: #777;
   font-style: italic;
@@ -255,7 +283,7 @@
 
   img#logo {
     display: inline-block !important;
-    height: 60px !important;
+    height: 45px !important;
     width: auto !important;
     max-width: none !important;
     margin: 0 !important;
@@ -278,7 +306,8 @@
   .footer,
   #footer,
   .usa-footer__return-to-top,
-  #backToTop {
+  #backToTop,
+  .learn-more-section {
     display: none !important;
   }
 
@@ -396,7 +425,7 @@
   /* --- Q&A table --- */
   .questions-headline {
     font-size: 13px !important;
-    margin: 8px 0 4px !important;
+    margin: 16px 0 4px !important;
   }
 
   #displayInput {
@@ -420,9 +449,10 @@
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     color: #fff !important;
-    font-size: 11px !important;
-    padding: 4px 8px !important;
+    font-size: 10px !important;
+    padding: 2px 6px !important;
     border: 1px solid #15589f !important;
+    line-height: 1.2 !important;
   }
 
   #InputParameters thead th:first-child {
@@ -434,8 +464,10 @@
   }
 
   #InputParameters tbody td {
-    font-size: 11px !important;
-    padding: 3px 8px !important;
+    font-size: 10px !important;
+    padding: 3px 6px !important;
+    line-height: 1.3 !important;
+    height: auto !important;
   }
 
   /* --- Notes & Caveats on page 2 --- */
