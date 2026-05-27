@@ -293,6 +293,48 @@ function disableSubRaceMenu() {
 
 }
 
+/* Short question text mapping for results Q&A table (NCIATWP-10164)          */
+/* Maps the start of each full question to its shortened version              */
+var SHORT_QUESTIONS = [
+  { match: "Does the patient have a medical history", short: "Medical history of breast cancer" },
+  { match: "Does the patient have a mutation", short: "Genetic risk for breast cancer" },
+  { match: "What is the patient\u2019s age", short: "Patient age" },
+  { match: "What is the patient's age", short: "Patient age" },
+  { match: "What is the race and ethnicity", short: "Race and ethnicity" },
+  { match: "What is the patient\u2019s ancestry", short: "Ancestry/ethnic background" },
+  { match: "What is the patient's ancestry", short: "Ancestry/ethnic background" },
+  { match: "Where was the patient born", short: "Patient origin" },
+  { match: "What is the sub race", short: "Ancestry/ethnic background" },
+  { match: "Has the patient ever had a breast biopsy with a benign", short: "Breast biopsy with benign diagnosis" },
+  { match: "How many breast biopsies", short: "Number of biopsies with benign diagnosis" },
+  { match: "Has the patient ever had a breast biopsy with atypical", short: "Breast biopsy with atypical hyperplasia" },
+  { match: "What was the patient\u2019s age at the time of her first menstrual", short: "Age at first menstrual period" },
+  { match: "What was the patient's age at the time of her first menstrual", short: "Age at first menstrual period" },
+  { match: "What was the patient\u2019s age at first live birth", short: "Age at first live birth" },
+  { match: "What was the patient's age at first live birth", short: "Age at first live birth" },
+  { match: "How many of the patient\u2019s first-degree relatives", short: "First-degree relatives with breast cancer" },
+  { match: "How many of the patient's first-degree relatives", short: "First-degree relatives with breast cancer" }
+];
+
+function applyShortenedQuestions() {
+  $("#InputParameters tbody tr").each(function() {
+    var questionCell = $(this).find("td.questions");
+    if (!questionCell.length) return;
+
+    var questionP = questionCell.find("p").first();
+    if (!questionP.length) return;
+
+    var fullText = questionP.text().trim();
+
+    for (var i = 0; i < SHORT_QUESTIONS.length; i++) {
+      if (fullText.indexOf(SHORT_QUESTIONS[i].match) === 0) {
+        questionP.text(SHORT_QUESTIONS[i].short);
+        break;
+      }
+    }
+  });
+}
+
 /* Creates an SVG donut ring chart                                           */
 /* percent: 0-100, color: stroke color for the filled arc                    */
 function createDonutSVG(percent, color) {
@@ -324,7 +366,7 @@ function resultsDisplay(response, textStatus, xhr) {
 
   var TEAL = "#4aaec0";
   var RED = "#BB0E3D";
-  var BLUE = "#40A5C1";
+  var BLUE = "#1f66c1";
 
   var fiveYearPatientColor = (parseFloat(result.risk) > parseFloat(result.averageFiveRisk)) ? RED : BLUE;
   var lifetimePatientColor = (parseFloat(result.lifetime_patient_risk) > parseFloat(result.lifetime_average_risk)) ? RED : BLUE;
@@ -336,6 +378,8 @@ function resultsDisplay(response, textStatus, xhr) {
   $("#pieChart2").html(createDonutSVG(result.averageFiveRisk, TEAL));
   $("#pieChart3").html(createDonutSVG(result.lifetime_patient_risk, lifetimePatientColor));
   $("#pieChart4").html(createDonutSVG(result.lifetime_average_risk, TEAL));
+
+  applyShortenedQuestions();
 }
 
 /* The code that resets the form */
