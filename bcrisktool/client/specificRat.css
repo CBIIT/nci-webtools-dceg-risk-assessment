@@ -1,0 +1,220 @@
+/* ============================================================
+   BCRAT Results Page Styles (NCIATWP-9967)
+   Overrides shared rat-commons styles for the redesigned
+   results page layout.
+   ============================================================ */
+
+/* --- Page Container --- */
+.results-page {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 20px 32px 18px;
+}
+
+/* --- Headline & Subtitle --- */
+.results-headline {
+  margin: 12px 0 6px;
+  font-size: 48px;
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: #111;
+}
+
+.results-subtitle {
+  margin: 0 0 20px;
+  font-size: 20px;
+  color: #333;
+}
+
+/* --- Section Cards (replaces purple boxes) --- */
+.section-card {
+  border: 1.5px solid #cfcfcf;
+  border-radius: 12px;
+  padding: 18px 20px 16px;
+  margin: 0 0 18px;
+  background: #fff;
+}
+
+/* Override shared purple backgrounds */
+.results-page #results_box,
+.results-page #results_box2 {
+  background: #fff;
+  border: 1.5px solid #cfcfcf;
+  border-radius: 12px;
+  padding: 18px 20px 16px;
+  color: #111;
+}
+
+.section-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0 0 14px;
+  color: #000;
+}
+
+/* --- Risk Row: 3-column grid --- */
+.risk-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.4fr;
+  gap: 20px;
+  align-items: center;
+  min-height: 220px;
+}
+
+/* --- Chart Column --- */
+.chart-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart-label {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #111;
+  font-weight: 400;
+}
+
+.chart-wrap {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- Explanation Text --- */
+.explain {
+  border-left: 1px solid #d8d8d8;
+  padding-left: 20px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #1c1c1c;
+}
+
+/* --- Q&A Table --- */
+.questions-headline {
+  margin: 28px 0 14px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+#InputParameters {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+#InputParameters thead th {
+  background: linear-gradient(180deg, #15589f, #0f5ba9);
+  color: #fff;
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+#InputParameters thead th:first-child {
+  border-right: 1px solid rgba(255,255,255,0.25);
+}
+
+#InputParameters tbody td {
+  border: 1px solid #bdbdbd;
+  padding: 10px 16px;
+  vertical-align: top;
+  line-height: 1.4;
+}
+
+/* Override shared table header styles */
+#InputParameters th.questions,
+#InputParameters th.answers {
+  background: linear-gradient(180deg, #15589f, #0f5ba9);
+  color: #fff;
+  text-transform: none;
+}
+
+/* --- Notes & Caveats --- */
+.results-page .notes-caveats-section {
+  margin-top: 24px;
+  padding: 18px;
+  border: 1px solid #cfcfcf;
+  border-radius: 8px;
+  background: #f8f8f8;
+  color: #1b1b1b;
+}
+
+/* --- Footer Note --- */
+.footer-note {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #777;
+  font-style: italic;
+}
+
+/* --- Override shared results styles --- */
+.results-page .results_header,
+.results-page .patient_header,
+.results-page .risk_header {
+  color: #111;
+}
+
+.results-page .svg-container {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  padding-bottom: 0;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .risk-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .chart-col {
+    margin-bottom: 10px;
+  }
+
+  .explain {
+    border-left: none;
+    border-top: 1px solid #d8d8d8;
+    padding-left: 0;
+    padding-top: 14px;
+  }
+
+  .results-headline {
+    font-size: 32px;
+  }
+
+  .results-subtitle {
+    font-size: 17px;
+  }
+
+  .results-page {
+    padding: 16px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  .risk-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .explain {
+    grid-column: 1 / -1;
+    border-left: none;
+    border-top: 1px solid #d8d8d8;
+    padding-left: 0;
+    padding-top: 14px;
+  }
+
+  .results-headline {
+    font-size: 40px;
+  }
+}
