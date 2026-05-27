@@ -293,29 +293,49 @@ function disableSubRaceMenu() {
 
 }
 
+/* Creates an SVG donut ring chart                                           */
+/* percent: 0-100, color: stroke color for the filled arc                    */
+function createDonutSVG(percent, color) {
+  var radius = 74;
+  var circumference = 2 * Math.PI * radius;
+  var filled = (percent / 100) * circumference;
+  var gap = circumference - filled;
+  var percentText = percent + "%";
+  var fontSize = percentText.length > 4 ? 28 : 34;
+
+  return '<svg width="200" height="200" viewBox="0 0 220 220">' +
+    '<circle cx="110" cy="110" r="' + radius + '" fill="none" stroke="#ddd" stroke-width="18"></circle>' +
+    '<circle cx="110" cy="110" r="' + radius + '" fill="none" stroke="' + color + '" stroke-width="18" ' +
+      'stroke-dasharray="' + filled + ' ' + gap + '" ' +
+      'stroke-linecap="butt" ' +
+      'style="transform: rotate(-90deg); transform-origin: 110px 110px;"></circle>' +
+    '<circle cx="110" cy="110" r="56" fill="#fff"></circle>' +
+    '<text x="110" y="114" text-anchor="middle" dominant-baseline="middle" ' +
+      'font-family="Arial, Helvetica, sans-serif" font-size="' + fontSize + '" font-weight="700" ' +
+      'fill="' + color + '">' + percentText + '</text>' +
+    '</svg>';
+}
+
 /* Produces the results box for the RAT                                      */
 function resultsDisplay(response, textStatus, xhr) {
-  var result = JSON.parse(response.message)
-	go_toresult();
-  addInformationToResultPageIntroductionText()
+  var result = JSON.parse(response.message);
+  go_toresult();
+  addInformationToResultPageIntroductionText();
 
+  var TEAL = "#4aaec0";
+  var RED = "#BB0E3D";
+  var BLUE = "#40A5C1";
 
-	var fiveYearPatientRiskColor = ( result.risk > result.averageFiveRisk) ? "#BB0E3D" : "#2DC799";
-	var lifetimePateientRiskColor = ( result.lifetime_patient_risk > result.lifetime_average_risk) ? "#BB0E3D" : "#2DC799";
+  var fiveYearPatientColor = (result.risk > result.averageFiveRisk) ? RED : BLUE;
+  var lifetimePatientColor = (result.lifetime_patient_risk > result.lifetime_average_risk) ? RED : BLUE;
 
-    fiveYearPatientRiskColor = ( result.risk == result.averageFiveRisk ) ? "#40A5C1": fiveYearPatientRiskColor;
-    lifetimePateientRiskColor = ( result.lifetime_patient_risk == result.lifetime_average_risk ) ? "#40A5C1": lifetimePateientRiskColor;
+  $("#results_text1").html(result.message);
+  $("#results_text2").html(result.lifetime_message);
 
-	$("#results_text1").html(result.message);
-	$("#results_text2").html(result.lifetime_message);
-	$("#Risk1").text(result.risk+"%");
-	$("#Risk2").text(result.averageFiveRisk+"%");
-	$("#Risk3").text(result.lifetime_patient_risk+"%");
-	$("#Risk4").text(result.lifetime_average_risk+"%");
-	make_pie_chart(result.risk,                  "#pieChart1", fiveYearPatientRiskColor,  "#EFEFEF");
-	make_pie_chart(result.averageFiveRisk,       "#pieChart2", "#40A5C1",                 "#EFEFEF");
-	make_pie_chart(result.lifetime_patient_risk, "#pieChart3", lifetimePateientRiskColor, "#EFEFEF");
-	make_pie_chart(result.lifetime_average_risk, "#pieChart4", "#40A5C1",                 "#EFEFEF");
+  $("#pieChart1").html(createDonutSVG(result.risk, fiveYearPatientColor));
+  $("#pieChart2").html(createDonutSVG(result.averageFiveRisk, TEAL));
+  $("#pieChart3").html(createDonutSVG(result.lifetime_patient_risk, lifetimePatientColor));
+  $("#pieChart4").html(createDonutSVG(result.lifetime_average_risk, TEAL));
 }
 
 /* The code that resets the form */
