@@ -364,7 +364,7 @@ function resultsDisplay(response, textStatus, xhr) {
   go_toresult();
   addInformationToResultPageIntroductionText();
 
-  var TEAL = "#4aaec0";
+  var TEAL = "#245861";
   var RED = "#BB0E3D";
   var BLUE = "#1f66c1";
 
