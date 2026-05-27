@@ -40,7 +40,7 @@
 .results-page #results_box,
 .results-page #results_box2 {
   background: #fff;
-  border: 1.5px solid #cfcfcf;
+  border: 2.5px solid #cfcfcf;
   border-radius: 12px;
   padding: 18px 20px 16px;
   color: #111;
@@ -356,7 +356,7 @@
   #results_box2 {
     background: #fff !important;
     background-color: #fff !important;
-    border: 1px solid #cfcfcf !important;
+    border: 2.5px solid #cfcfcf !important;
     border-radius: 8px !important;
     color: #111 !important;
     padding: 8px 10px 6px !important;
@@ -475,7 +475,7 @@
     page-break-before: always !important;
     margin-top: 0 !important;
     padding: 16px 20px !important;
-    border: 1px solid #cfcfcf !important;
+    border: 2.5px solid #cfcfcf !important;
     background: #f8f8f8 !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
