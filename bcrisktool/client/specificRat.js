@@ -326,8 +326,8 @@ function resultsDisplay(response, textStatus, xhr) {
   var RED = "#BB0E3D";
   var BLUE = "#40A5C1";
 
-  var fiveYearPatientColor = (result.risk > result.averageFiveRisk) ? RED : BLUE;
-  var lifetimePatientColor = (result.lifetime_patient_risk > result.lifetime_average_risk) ? RED : BLUE;
+  var fiveYearPatientColor = (parseFloat(result.risk) > parseFloat(result.averageFiveRisk)) ? RED : BLUE;
+  var lifetimePatientColor = (parseFloat(result.lifetime_patient_risk) > parseFloat(result.lifetime_average_risk)) ? RED : BLUE;
 
   $("#results_text1").html(result.message);
   $("#results_text2").html(result.lifetime_message);

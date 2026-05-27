@@ -88,41 +88,60 @@
 /* --- Explanation Text --- */
 .explain {
   border-left: 1px solid #d8d8d8;
+  border-top: none;
   padding-left: 20px;
   font-size: 16px;
   line-height: 1.6;
   color: #1c1c1c;
+  display: flex;
+  align-items: center;
 }
 
 /* --- Q&A Table --- */
+#displayInput {
+  padding: 0;
+}
+
 .questions-headline {
   margin: 28px 0 14px;
   font-size: 20px;
   font-weight: 700;
 }
 
+#displayInput,
 #InputParameters {
   width: 100%;
+}
+
+#InputParameters {
   border-collapse: collapse;
   font-size: 15px;
+  table-layout: fixed;
+  border: 1px solid #bdbdbd;
 }
 
 #InputParameters thead th {
   background: linear-gradient(180deg, #15589f, #0f5ba9);
   color: #fff;
   text-align: left;
-  padding: 12px 16px;
+  padding: 10px 12px;
   font-size: 16px;
   font-weight: 600;
+  border: 1px solid #15589f;
 }
 
 #InputParameters thead th:first-child {
+  width: 57%;
   border-right: 1px solid rgba(255,255,255,0.25);
+}
+
+#InputParameters thead th:last-child {
+  width: 43%;
 }
 
 #InputParameters tbody td {
   border: 1px solid #bdbdbd;
-  padding: 10px 16px;
+  padding: 8px 12px;
   vertical-align: top;
   line-height: 1.4;
 }
@@ -216,5 +235,228 @@
 
   .results-headline {
     font-size: 40px;
+  }
+}
+
+/* ============================================================
+   Print Styles (NCIATWP-9967)
+   Overrides rat-commons/css/print.css for the redesigned
+   results page.
+   ============================================================ */
+@media print {
+
+  /* --- Show NCI header --- */
+  header.ie_center_logo {
+    display: block !important;
+    text-align: left !important;
+    margin-bottom: 4px !important;
+    padding: 0 !important;
+  }
+
+  img#logo {
+    display: inline-block !important;
+    height: 60px !important;
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* --- Hide non-print elements --- */
+  #toolTitle,
+  #main-nav,
+  #side_nav,
+  #form-steps,
+  #main,
+  #skipContentCalculate,
+  .printButton,
+  #printTop,
+  #printBottom,
+  #returnToCalculateButton,
+  #startOverButton,
+  .center-block,
+  .footer,
+  #footer,
+  .usa-footer__return-to-top,
+  #backToTop {
+    display: none !important;
+  }
+
+  /* --- Page layout --- */
+  @page {
+    margin: 1cm 1.2cm;
+  }
+
+  .results-page {
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  #results {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Reset all shared print margins/padding that cause misalignment */
+  #results_home > div {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  #results_home > div > div {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* --- Headline --- */
+  .results-headline {
+    font-size: 28px !important;
+    margin: 4px 0 2px !important;
+  }
+
+  .results-subtitle {
+    font-size: 14px !important;
+    margin-bottom: 8px !important;
+  }
+
+  /* --- Section cards: white bg, override shared purple --- */
+  #results_box,
+  #results_box2 {
+    background: #fff !important;
+    background-color: #fff !important;
+    border: 1px solid #cfcfcf !important;
+    border-radius: 8px !important;
+    color: #111 !important;
+    padding: 8px 10px 6px !important;
+    margin-bottom: 8px !important;
+    page-break-inside: avoid !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    display: block !important;
+    flex: none !important;
+  }
+
+  .section-title {
+    font-size: 16px !important;
+    margin-bottom: 4px !important;
+  }
+
+  /* --- Risk row grid for print --- */
+  .risk-row {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1.6fr !important;
+    gap: 8px !important;
+    align-items: center !important;
+    min-height: auto !important;
+  }
+
+  /* --- Chart sizing for print --- */
+  .chart-wrap {
+    width: 150px !important;
+    height: 150px !important;
+  }
+
+  .chart-wrap svg {
+    width: 150px !important;
+    height: 150px !important;
+  }
+
+  .chart-label {
+    font-size: 11px !important;
+    margin-bottom: 2px !important;
+  }
+
+  /* --- Explanation text --- */
+  .explain {
+    font-size: 11px !important;
+    line-height: 1.35 !important;
+    padding-left: 10px !important;
+    border-left: 1px solid #d8d8d8 !important;
+    border-top: none !important;
+    color: #111 !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .explain div,
+  .explain span,
+  .explain *,
+  #results_text1,
+  #results_text2,
+  #results_text1 *,
+  #results_text2 * {
+    color: #111 !important;
+  }
+
+  /* --- Q&A table --- */
+  .questions-headline {
+    font-size: 13px !important;
+    margin: 8px 0 4px !important;
+  }
+
+  #displayInput {
+    padding: 0 !important;
+    width: 100% !important;
+    page-break-inside: avoid !important;
+  }
+
+  #InputParameters {
+    font-size: 11px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    table-layout: fixed !important;
+    border: 1px solid #bdbdbd !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #InputParameters thead th {
+    background: #15589f !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color: #fff !important;
+    font-size: 11px !important;
+    padding: 4px 8px !important;
+    border: 1px solid #15589f !important;
+  }
+
+  #InputParameters thead th:first-child {
+    width: 57% !important;
+  }
+
+  #InputParameters thead th:last-child {
+    width: 43% !important;
+  }
+
+  #InputParameters tbody td {
+    font-size: 11px !important;
+    padding: 3px 8px !important;
+  }
+
+  /* --- Notes & Caveats on page 2 --- */
+  .results-page .notes-caveats-section {
+    page-break-before: always !important;
+    margin-top: 0 !important;
+    padding: 16px 20px !important;
+    border: 1px solid #cfcfcf !important;
+    background: #f8f8f8 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .results-page .notes-caveats-section h2 {
+    padding-left: 8px !important;
+  }
+
+  /* --- Footer note --- */
+  .footer-note {
+    display: block !important;
+    font-size: 11px !important;
+    margin-top: 6px !important;
   }
 }
