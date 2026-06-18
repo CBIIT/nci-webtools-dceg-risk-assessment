@@ -982,8 +982,12 @@ function convertQuestionAndAnswersToTableRows(formName, tableName) {
 
 	var allTablesRows = undefined;
 
-	// Remove all <TR> nodes from the tree except the header
-	$(tableName + " tbody").find("tr:gt(0)").remove()
+	// Remove all data <TR> nodes, preserving any header row (a <tr> containing <th>).
+	// Structure-agnostic: works whether the header lives in <thead> (BCRAT, empty
+	// <tbody>) or as the first <tbody> row (CCRAT/MRAT). The old `tr:gt(0)` kept the
+	// first row, which left a stale data row behind on rebuild for BCRAT's thead-based
+	// table (NCIATWP-10371: duplicated 1st Q&A row after "Edit Responses").
+	$(tableName + " tbody").find("tr").not(":has(th)").remove()
 
 	// Verify that the parameters are valid
 	if ( form.length != 1 ) {
