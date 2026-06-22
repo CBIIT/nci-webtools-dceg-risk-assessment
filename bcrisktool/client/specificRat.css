@@ -153,6 +153,12 @@
   color: #fff;
   text-transform: none;
 }
+.printButton img {
+  transition: filter 0.15s ease;
+}
+.printButton:hover img {
+  filter: brightness(0.5);
+}
 
 /* NCIATWP-10370 (AC5): match the race/ethnicity help text to the rest of the
    table and single-space it. The shared rule sets an unquoted "NotoSans"
@@ -223,7 +229,7 @@
   margin-top: 12px;
   margin-bottom: 30px;
   font-size: 14px;
-  color: #777;
+  color: #707070;
   font-style: italic;
 }
 
