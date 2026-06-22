@@ -368,16 +368,22 @@ function resultsDisplay(response, textStatus, xhr) {
   var RED = "#BB0E3D";
   var BLUE = "#1f66c1";
 
-  var fiveYearPatientColor = (parseFloat(result.risk) > parseFloat(result.averageFiveRisk)) ? RED : BLUE;
-  var lifetimePatientColor = (parseFloat(result.lifetime_patient_risk) > parseFloat(result.lifetime_average_risk)) ? RED : BLUE;
+  // NCIATWP-10370: swap Average/Patient colors. Patient doughnut is teal when at or
+  // below average (red when higher); Average doughnut is blue.
+  var fiveYearPatientColor = (parseFloat(result.risk) > parseFloat(result.averageFiveRisk)) ? RED : TEAL;
+  var lifetimePatientColor = (parseFloat(result.lifetime_patient_risk) > parseFloat(result.lifetime_average_risk)) ? RED : TEAL;
+
+  // NCIATWP-10370: frame titles include the patient risk percentage.
+  $("#fiveYearTitle").text("5-Year Risk of Developing Breast Cancer: " + result.risk + "%");
+  $("#lifetimeTitle").text("Lifetime Risk of Developing Breast Cancer: " + result.lifetime_patient_risk + "%");
 
   $("#results_text1").html(result.message);
   $("#results_text2").html(result.lifetime_message);
 
   $("#pieChart1").html(createDonutSVG(result.risk, fiveYearPatientColor));
-  $("#pieChart2").html(createDonutSVG(result.averageFiveRisk, TEAL));
+  $("#pieChart2").html(createDonutSVG(result.averageFiveRisk, BLUE));
   $("#pieChart3").html(createDonutSVG(result.lifetime_patient_risk, lifetimePatientColor));
-  $("#pieChart4").html(createDonutSVG(result.lifetime_average_risk, TEAL));
+  $("#pieChart4").html(createDonutSVG(result.lifetime_average_risk, BLUE));
 
   applyShortenedQuestions();
 }
