@@ -154,6 +154,32 @@
   text-transform: none;
 }
 
+/* NCIATWP-10370 (AC5): match the race/ethnicity help text to the rest of the
+   table and single-space it. The shared rule sets an unquoted "NotoSans"
+   family that falls back to a different face on some systems; force the same
+   "Noto Sans" family the question cells use, and tighten the gap between the
+   stacked help paragraphs so they read as single-spaced. */
+#InputParameters .secondary_information {
+  font-family: "Noto Sans", sans-serif;
+  line-height: 1.4;
+  margin: 0 0 4px;
+}
+#InputParameters .secondary_information:last-child {
+  margin-bottom: 0;
+}
+
+/* NCIATWP-10370 (AC9): let the "Start A New Assessment" button scale with the
+   page instead of staying locked to a fixed 207x35 px box, so the label keeps
+   its size relationship and doesn't clip when text/zoom is enlarged. */
+#startOverButton {
+  width: auto;
+  min-width: 207px;
+  height: auto;
+  min-height: 35px;
+  padding: 8px 16px;
+  line-height: 1.3;
+}
+
 /* --- Notes & Caveats --- */
 .results-page .notes-caveats-section {
   margin-top: 24px;
