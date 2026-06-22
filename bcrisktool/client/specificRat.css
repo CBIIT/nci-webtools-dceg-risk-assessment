@@ -161,6 +161,7 @@
    stacked help paragraphs so they read as single-spaced. */
 #InputParameters .secondary_information {
   font-family: "Noto Sans", sans-serif;
+  font-size: 12px;
   line-height: 1.4;
   margin: 0 0 4px;
 }
