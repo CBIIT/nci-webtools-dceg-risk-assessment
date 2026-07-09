@@ -30,7 +30,6 @@ jobs:
     environment: ${{ inputs.tier }}
     env:
       TIER: ${{ inputs.tier }}
-      IMAGE_TIER: ${{ contains(fromJson('["dev","qa"]'), inputs.tier) && 'development' || 'release' }}
       AWS_REGION: us-east-1
       AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
       BACKEND_CONTAINER_PORT: 80
@@ -59,19 +58,11 @@ jobs:
           LAST_UPDATED=$(date -u +"%Y-%m-%d")
           DATETIME=$(date -u +"%Y%m%d%H%M%S")
           TIER=${{ steps.set-tier.outputs.tier }}
-          
-          # Determine image tier (release for prod/stage, development for dev)
-          if [ "$TIER" = "prod" ] || [ "$TIER" = "stage" ]; then
-            IMAGE_TIER="release"
-          else
-            IMAGE_TIER="development"
-          fi
-          
+
           echo "git_tag=$GIT_TAG" >> $GITHUB_OUTPUT
           echo "release_version=$RELEASE_VERSION" >> $GITHUB_OUTPUT
           echo "last_updated=$LAST_UPDATED" >> $GITHUB_OUTPUT
           echo "datetime=$DATETIME" >> $GITHUB_OUTPUT
-          echo "image_tier=$IMAGE_TIER" >> $GITHUB_OUTPUT
           echo "tier=$TIER" >> $GITHUB_OUTPUT
 
       - name: Configure AWS credentials
@@ -93,8 +84,8 @@ jobs:
           LAST_UPDATED=$(date -u +"%Y-%m-%d")
           
           echo "IMAGE_REPOSITORY=$REPO" >> $GITHUB_ENV
-          echo "BACKEND_IMAGE=$REPO:${{ env.IMAGE_TIER }}-backend-$GIT_TAG-$TIMESTAMP" >> $GITHUB_ENV
-          echo "BACKEND_IMAGE_LATEST=$REPO:${{ env.IMAGE_TIER }}-backend-latest" >> $GITHUB_ENV
+          echo "BACKEND_IMAGE=$REPO:backend-${{ github.ref_name }}-$TIMESTAMP" >> $GITHUB_ENV
+          echo "BACKEND_IMAGE_LATEST=$REPO:backend-${{ github.ref_name }}-latest" >> $GITHUB_ENV
           echo "RELEASE_VERSION=$RELEASE_VERSION" >> $GITHUB_ENV
           echo "LAST_UPDATED=$LAST_UPDATED" >> $GITHUB_ENV
           echo "PARAMETER_PATH=/analysistools/${{ env.TIER }}/${{ env.APP }}" >> $GITHUB_ENV
