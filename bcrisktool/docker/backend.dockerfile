@@ -30,7 +30,7 @@ COPY bcrisktool/server/requirements.txt /app/server/requirements.txt
 RUN pip3 install --no-cache-dir --upgrade --ignore-installed pip wheel \
  && pip3 install --no-cache-dir -r /app/server/requirements.txt \
  && python3 -m pip uninstall -y pip \
- && dnf -y remove python3-pip \
+ && dnf -y remove python3-pip python3-wheel \
  && dnf clean all
 
 COPY bcrisktool/server /app/server
