@@ -293,29 +293,99 @@ function disableSubRaceMenu() {
 
 }
 
+/* Short question text mapping for results Q&A table (NCIATWP-10164)          */
+/* Maps the start of each full question to its shortened version              */
+var SHORT_QUESTIONS = [
+  { match: "Does the patient have a medical history", short: "Medical history of breast cancer" },
+  { match: "Does the patient have a mutation", short: "Genetic risk for breast cancer" },
+  { match: "What is the patient\u2019s age", short: "Patient age" },
+  { match: "What is the patient's age", short: "Patient age" },
+  { match: "What is the race and ethnicity", short: "Race and ethnicity" },
+  { match: "What is the patient\u2019s ancestry", short: "Ancestry/ethnic background" },
+  { match: "What is the patient's ancestry", short: "Ancestry/ethnic background" },
+  { match: "Where was the patient born", short: "Patient origin" },
+  { match: "What is the sub race", short: "Ancestry/ethnic background" },
+  { match: "Has the patient ever had a breast biopsy with a benign", short: "Breast biopsy with benign diagnosis" },
+  { match: "How many breast biopsies", short: "Number of biopsies with benign diagnosis" },
+  { match: "Has the patient ever had a breast biopsy with atypical", short: "Breast biopsy with atypical hyperplasia" },
+  { match: "What was the patient\u2019s age at the time of her first menstrual", short: "Age at first menstrual period" },
+  { match: "What was the patient's age at the time of her first menstrual", short: "Age at first menstrual period" },
+  { match: "What was the patient\u2019s age at first live birth", short: "Age at first live birth" },
+  { match: "What was the patient's age at first live birth", short: "Age at first live birth" },
+  { match: "How many of the patient\u2019s first-degree relatives", short: "First-degree relatives with breast cancer" },
+  { match: "How many of the patient's first-degree relatives", short: "First-degree relatives with breast cancer" }
+];
+
+function applyShortenedQuestions() {
+  $("#InputParameters tbody tr").each(function() {
+    var questionCell = $(this).find("td.questions");
+    if (!questionCell.length) return;
+
+    var questionP = questionCell.find("p").first();
+    if (!questionP.length) return;
+
+    var fullText = questionP.text().trim();
+
+    for (var i = 0; i < SHORT_QUESTIONS.length; i++) {
+      if (fullText.indexOf(SHORT_QUESTIONS[i].match) === 0) {
+        questionP.text(SHORT_QUESTIONS[i].short);
+        break;
+      }
+    }
+  });
+}
+
+/* Creates an SVG donut ring chart                                           */
+/* percent: 0-100, color: stroke color for the filled arc                    */
+function createDonutSVG(percent, color) {
+  var radius = 74;
+  var circumference = 2 * Math.PI * radius;
+  var filled = (percent / 100) * circumference;
+  var gap = circumference - filled;
+  var percentText = percent + "%";
+  var fontSize = percentText.length > 4 ? 28 : 34;
+
+  return '<svg width="200" height="200" viewBox="0 0 220 220">' +
+    '<circle cx="110" cy="110" r="' + radius + '" fill="none" stroke="#ddd" stroke-width="30"></circle>' +
+    '<circle cx="110" cy="110" r="' + radius + '" fill="none" stroke="' + color + '" stroke-width="30" ' +
+      'stroke-dasharray="' + filled + ' ' + gap + '" ' +
+      'stroke-linecap="butt" ' +
+      'style="transform: rotate(-90deg); transform-origin: 110px 110px;"></circle>' +
+    '<circle cx="110" cy="110" r="50" fill="#fff"></circle>' +
+    '<text x="110" y="114" text-anchor="middle" dominant-baseline="middle" ' +
+      'font-family="Arial, Helvetica, sans-serif" font-size="' + fontSize + '" font-weight="700" ' +
+      'fill="' + color + '">' + percentText + '</text>' +
+    '</svg>';
+}
+
 /* Produces the results box for the RAT                                      */
 function resultsDisplay(response, textStatus, xhr) {
-  var result = JSON.parse(response.message)
-	go_toresult();
-  addInformationToResultPageIntroductionText()
+  var result = JSON.parse(response.message);
+  go_toresult();
+  addInformationToResultPageIntroductionText();
 
+  var TEAL = "#3b8998";
+  var RED = "#BB0E3D";
+  var BLUE = "#1f66c1";
 
-	var fiveYearPatientRiskColor = ( result.risk > result.averageFiveRisk) ? "#BB0E3D" : "#2DC799";
-	var lifetimePateientRiskColor = ( result.lifetime_patient_risk > result.lifetime_average_risk) ? "#BB0E3D" : "#2DC799";
+  // NCIATWP-10370: swap Average/Patient colors. Patient doughnut is teal when at or
+  // below average (red when higher); Average doughnut is blue.
+  var fiveYearPatientColor = (parseFloat(result.risk) > parseFloat(result.averageFiveRisk)) ? RED : TEAL;
+  var lifetimePatientColor = (parseFloat(result.lifetime_patient_risk) > parseFloat(result.lifetime_average_risk)) ? RED : TEAL;
 
-    fiveYearPatientRiskColor = ( result.risk == result.averageFiveRisk ) ? "#40A5C1": fiveYearPatientRiskColor;
-    lifetimePateientRiskColor = ( result.lifetime_patient_risk == result.lifetime_average_risk ) ? "#40A5C1": lifetimePateientRiskColor;
+  // NCIATWP-10370: frame titles include the patient risk percentage.
+  $("#fiveYearTitle").text("5-Year Risk of Developing Breast Cancer: " + result.risk + "%");
+  $("#lifetimeTitle").text("Lifetime Risk of Developing Breast Cancer: " + result.lifetime_patient_risk + "%");
 
-	$("#results_text1").html(result.message);
-	$("#results_text2").html(result.lifetime_message);
-	$("#Risk1").text(result.risk+"%");
-	$("#Risk2").text(result.averageFiveRisk+"%");
-	$("#Risk3").text(result.lifetime_patient_risk+"%");
-	$("#Risk4").text(result.lifetime_average_risk+"%");
-	make_pie_chart(result.risk,                  "#pieChart1", fiveYearPatientRiskColor,  "#EFEFEF");
-	make_pie_chart(result.averageFiveRisk,       "#pieChart2", "#40A5C1",                 "#EFEFEF");
-	make_pie_chart(result.lifetime_patient_risk, "#pieChart3", lifetimePateientRiskColor, "#EFEFEF");
-	make_pie_chart(result.lifetime_average_risk, "#pieChart4", "#40A5C1",                 "#EFEFEF");
+  $("#results_text1").html(result.message);
+  $("#results_text2").html(result.lifetime_message);
+
+  $("#pieChart1").html(createDonutSVG(result.risk, fiveYearPatientColor));
+  $("#pieChart2").html(createDonutSVG(result.averageFiveRisk, BLUE));
+  $("#pieChart3").html(createDonutSVG(result.lifetime_patient_risk, lifetimePatientColor));
+  $("#pieChart4").html(createDonutSVG(result.lifetime_average_risk, BLUE));
+
+  applyShortenedQuestions();
 }
 
 /* The code that resets the form */
