@@ -126,16 +126,13 @@ class MelanomaRiskAssessmentTool:
                     if value is not 1:
                         regionKey = regionKey + "ern"
 
-            result = "The Five-Year Absolute Risk of Melanoma is {0}%. For every 1,000 {1}s living in the {2} region with these characteristics, on average about {3} will develop melanoma in the next 5 years.".format(
-                risk, str(parameters['gender'] ).lower(), regionKey, int(ratio) )
-
             results={}
             results['risk']=risk
             results['gender']=str(parameters['gender'] ).lower()
             results['regionKey']=regionKey
             results['ratio']=int(ratio)
             json_data=json.dumps(results)
-            print("\n{0}".format(result))
+            logging.debug("Risk calculation completed successfully")
             return json_data
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -175,7 +172,7 @@ class MelanomaRiskAssessmentTool:
             return MelanomaRiskAssessmentTool.buildFailure(e)
 
     def __init__(self, port, debug):
-        app.run(host='0.0.0.0', port=port, debug=True)
+        app.run(host='0.0.0.0', port=port, debug=debug)
 
 if __name__ == '__main__':
   import argparse
