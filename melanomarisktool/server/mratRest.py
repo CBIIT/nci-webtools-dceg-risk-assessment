@@ -82,7 +82,7 @@ class MelanomaRiskAssessmentTool:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(("EXCEPTION------------------------------", e, exc_type, fname, exc_tb.tb_lineno))
-            return e
+            raise
 
     @staticmethod
     def getAbsoluteRisk(parameters, age, sex, region):
@@ -138,7 +138,7 @@ class MelanomaRiskAssessmentTool:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(("EXCEPTION------------------------------", e, exc_type, fname, exc_tb.tb_lineno))
-            return e
+            raise
 
     @app.route('/api/ping', methods=['GET'], strict_slashes=False)
     def ping():
@@ -163,13 +163,13 @@ class MelanomaRiskAssessmentTool:
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            print(("EXCEPTION------------------------------", exc_type, fname, exc_tb.tb_lineno))
-            return MelanomaRiskAssessmentTool.buildFailure(str(e))
+            print(("EXCEPTION------------------------------", e, exc_type, fname, exc_tb.tb_lineno))
+            return MelanomaRiskAssessmentTool.buildFailure("An internal error occurred while calculating risk. Please try again.")
         except KeyError as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            print(("EXCEPTION------------------------------", exc_type, fname, exc_tb.tb_lineno))
-            return MelanomaRiskAssessmentTool.buildFailure(e)
+            print(("EXCEPTION------------------------------", e, exc_type, fname, exc_tb.tb_lineno))
+            return MelanomaRiskAssessmentTool.buildFailure("An internal error occurred while calculating risk. Please try again.")
 
     def __init__(self, port, debug):
         app.run(host='0.0.0.0', port=port, debug=debug)
