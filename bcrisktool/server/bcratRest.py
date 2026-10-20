@@ -124,11 +124,11 @@ def bcratRisk():
       "message": json.dumps(results),
       "success": True,
     }
-  except Exception as e:
+  except Exception:
     app.logger.error(format_exc())
     return {
       "errorType": "message",
-      "message": str(e),
+      "message": "An internal error occurred while calculating risk. Please try again.",
       "success": False,
     }, 500
 

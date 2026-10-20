@@ -24,7 +24,7 @@ def error_handler(e):
     """ Ensure errors are logged and returned as json """
     app.logger.error(format_exc())
     return jsonify(
-      message=str(e),
+      message="An internal error occurred while calculating risk. Please try again.",
       errorType='message',
       success=False
     ), 500
